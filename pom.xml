@@ -24,7 +24,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Taxi Service</name>
-    <description>Java EE, JPA (Hibernate provider)</description>
+    <description>Java EE Provider</description>
 
     <url>http://wildfly.org</url>
     <licenses>
@@ -45,10 +45,6 @@
         <!-- JBoss dependency versions -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
-        <!-- Define the version of the JBoss BOMs we want to import to specify 
-            tested stacks. -->
-        <version.jboss.bom>8.2.1.Final</version.jboss.bom>
-
         <!-- other plugin versions -->
         <version.compiler.plugin>3.1</version.compiler.plugin>
         <version.surefire.plugin>2.16</version.surefire.plugin>
@@ -58,35 +54,6 @@
         <maven.compiler.target>1.7</maven.compiler.target>
         <maven.compiler.source>1.7</maven.compiler.source>
     </properties>
-
-
-    <dependencyManagement>
-        <dependencies>
-            <!-- JBoss distributes a complete set of Java EE 7 APIs including a Bill
-                of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
-                of artifacts. We use this here so that we always get the correct versions 
-                of artifacts. Here we use the jboss-javaee-7.0-with-tools stack (you can
-                read this as the JBoss stack of the Java EE 7 APIs, with some extras tools
-                for your project, such as Arquillian for testing) and the jboss-javaee-7.0-with-hibernate
-                stack you can read this as the JBoss stack of the Java EE 7 APIs, with extras
-                from the Hibernate family of projects) -->
-            <dependency>
-                <groupId>org.wildfly.bom</groupId>
-                <artifactId>jboss-javaee-7.0-with-tools</artifactId>
-                <version>8.2.1.Final</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.bom</groupId>
-                <artifactId>jboss-javaee-7.0-with-hibernate</artifactId>
-                <version>8.2.1.Final</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
 
         <!-- First declare the APIs we depend on and need for compilation. All 
@@ -94,51 +61,25 @@
 
         <!-- Import the Common Annotations API (JSR-250), we use provided scope
             as the API is included in JBoss WildFly -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.annotation</groupId>
-            <artifactId>jboss-annotations-api_1.2_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Import the JPA API, we use provided scope as the API is included in 
-            JBoss WildFly -->
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-
-        <!-- JSR-303 (Bean Validation) Implementation -->
-        <!-- Provides portable constraints such as @Email -->
-        <!-- Hibernate Validator is shipped in JBoss WildFly -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- Now we declare any tools needed -->
-
-        <!-- Annotation processor that raising compilation errors whenever constraint
-            annotations are incorrectly used. -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator-annotation-processor</artifactId>
-            <scope>provided</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.jboss.spec.javax.annotation</groupId>-->
+            <!--<artifactId>jboss-annotations-api_1.2_spec</artifactId>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
 
         <!-- Needed for running tests (you may also use TestNG) -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
+        </dependency>
+
+
+        <!--for Java EE7-->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
         </dependency>
 
     </dependencies>
@@ -178,6 +119,9 @@
             </activation>
             <build>
                 <plugins>
+                    <!--The Surefire Plugin is used during the test phase of the build lifecycle to execute
+                    the unit tests of an application.
+                    It generates reports in two different file formats:-->
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>2.17</version>
@@ -188,29 +132,5 @@
                 </plugins>
             </build>
         </profile>
-
-        <!--<profile>-->
-            <!--&lt;!&ndash; When built in OpenShift the 'openshift' profile will be used when -->
-                <!--invoking mvn. &ndash;&gt;-->
-            <!--&lt;!&ndash; Use this profile for any OpenShift specific customization your app -->
-                <!--will need. &ndash;&gt;-->
-            <!--&lt;!&ndash; By default that is to put the resulting archive into the 'deployments' -->
-                <!--folder. &ndash;&gt;-->
-            <!--&lt;!&ndash; http://maven.apache.org/guides/mini/guide-building-for-different-environments.html &ndash;&gt;-->
-            <!--<id>openshift</id>-->
-            <!--<build>-->
-                <!--<plugins>-->
-                    <!--<plugin>-->
-                        <!--<artifactId>maven-war-plugin</artifactId>-->
-                        <!--<version>${version.war.plugin}</version>-->
-                        <!--<configuration>-->
-                            <!--<outputDirectory>deployments</outputDirectory>-->
-                            <!--<warName>ROOT</warName>-->
-                        <!--</configuration>-->
-                    <!--</plugin>-->
-                <!--</plugins>-->
-            <!--</build>-->
-        <!--</profile>-->
-
     </profiles>
 </project>
