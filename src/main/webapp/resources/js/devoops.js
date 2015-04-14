@@ -2513,7 +2513,7 @@ function TestTable3(){
 			"sLengthMenu": '_MENU_'
 		},
 		"oTableTools": {
-			"sSwfPath": "plugins/datatables/copy_csv_xls_pdf.swf",
+			"sSwfPath": "resources/swf/copy_csv_xls_pdf.swf",
 			"aButtons": [
 				"copy",
 				"print",
