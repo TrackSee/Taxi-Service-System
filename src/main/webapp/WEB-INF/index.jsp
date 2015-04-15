@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Taxi service</title>
+    <title>TrackSee</title>
     <!-- start: Mobile Specific -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- end: Mobile Specific -->
@@ -74,8 +74,8 @@
 
                         <div class="nav-collapse collapse">
                             <ul class="nav">
-                                <li class="active"><a href="index.html">Order</a></li>
-                                <li><a href="orderInformation.html">Order information</a></li>
+                                <li class="active"><a href="">Order</a></li>
+                                <li><a href="order/info">Driver information</a></li>
                                 <li><a href="login.html">Login</a></li>
                                 <li><a href="registration.html">Registration</a></li>
                             </ul>
