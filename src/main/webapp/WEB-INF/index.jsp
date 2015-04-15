@@ -25,17 +25,17 @@
     <!-- end: Facebook Open Graph -->
 
     <!-- start: CSS -->
-    <link href="resources/css/bootstrap.css" rel="stylesheet">
-    <link href="resources/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="resources/css/style.css" rel="stylesheet">
-    <link href="resources/css/corrections/position.css" rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/css/style.css" rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/css/corrections/position.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans:400,700">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Serif">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Boogaloo">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Economica:700,400italic">
     <!-- end: CSS -->
     <%--For slider--%>
-    <link rel="stylesheet" href="resources/css/carousel.css">
+    <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/css/carousel.css">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -56,7 +56,7 @@
             <!--start: Logo -->
             <div class="logo span3">
 
-                <a class="brand" href="#"><img src="resources/img/logo.png" alt="Logo"></a>
+                <a class="brand" href="#"><img src="<%=application.getContextPath()%>/resources/img/logo.png" alt="Logo"></a>
 
             </div>
             <!--end: Logo -->
@@ -218,15 +218,15 @@
 
 <!-- start: Java Script -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="resources/js/jquery-1.8.2.js"></script>
-<script src="resources/js/bootstrap.js"></script>
-<script src="resources/js/flexslider.js"></script>
-<script src="resources/js/jquery.cslider.js"></script>
-<script src="resources/js/slider.js"></script>
-<script defer="defer" src="resources/js/custom.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/jquery-1.8.2.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/bootstrap.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/flexslider.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/jquery.cslider.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/slider.js"></script>
+<script defer="defer" src="<%=application.getContextPath()%>/resources/js/custom.js"></script>
 
 <%--For slider--%>
-<script src="resources/js/bootstrap-carousel.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/bootstrap-carousel.js"></script>
 <!-- end: Java Script -->
 
 </body>
