@@ -18,15 +18,10 @@
     <link rel="stylesheet" href="resources/css/camera.css">
     <link rel="stylesheet" href="resources/css/owl.carousel.css">
     <link rel="stylesheet" href="resources/css/style.css">
-    <%--<script src="/resources/js/jquery.js"></script>--%>
+    <script src="resources/js/jquery.js"></script>
     <script src="resources/js/jquery-migrate-1.2.1.js"></script>
     <script src="resources/js/script.js"></script>
     <script src="resources/js/superfish.js"></script>
-    <%--<script src="resources/js/jquery.ui.totop.js"></script>--%>
-    <%--<script src="resources/js/jquery-ui-1.10.3.custom.min.js"></script>--%>
-    <%--<script src="resources/js/jquery.fancyform.js"></script>--%>
-    <%--<script src="resources/js/jquery.placeholder.js"></script>--%>
-    <%--<script src="resources/js/regula.js"></script>--%>
 
     <script src="resources/js/jquery.equalheights.js"></script>
     <script src="resources/js/jquery.mobilemenu.js"></script>

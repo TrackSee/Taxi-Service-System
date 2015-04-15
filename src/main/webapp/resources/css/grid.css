@@ -28,7 +28,14 @@ body {
 
 /* Grid >> Global
 ----------------------------------------------------------------------------------------------------*/
-
+.grid {
+    display:inline;
+    float: left;
+    position: relative;
+    align-content: center;
+    align-self: center;
+    align-items: center;
+}
 
 .grid_1,
 .grid_2,
