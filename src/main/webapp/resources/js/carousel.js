@@ -42,7 +42,7 @@
 			addPagination	: false,
 			addNav			: ( config != undefined && ( config.prevSlide || config.nextSlide ) ) ? false : true,
 			namespace		: 'carousel',
-			speed			: 300
+			speed			: 10
 		},
 		opt               = $.extend(defaults, config),
 		$slidewrap        = this,
