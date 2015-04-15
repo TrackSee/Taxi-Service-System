@@ -48,6 +48,14 @@ body {
 	margin-left: 15px;
 	margin-right: 15px;
 }
+.grid {
+    display:inline;
+    float: left;
+    position: relative;
+    align-content: center;
+    align-self: center;
+    align-items: center;
+}
 
 
 

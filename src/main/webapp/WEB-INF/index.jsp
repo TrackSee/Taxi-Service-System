@@ -69,11 +69,11 @@
                 <div class="grid_12">
                     <nav class="horizontal-nav full-width horizontalNav-notprocessed">
                         <ul class="sf-menu">
-                            <li class="current"><a href="index.html">Home</a></li>
-                            <li><a href="index-1.html">About</a></li>
-                            <li><a href="index-2.html">Cars</a></li>
-                            <li><a href="index-3.html">Services</a></li>
-                            <li><a href="index-4.html">Contacts</a></li>
+                            <li class="current"><a href="TaxiTemplate1/index.html">Home</a></li>
+                            <li><a href="TaxiTemplate1/index-1.html">About</a></li>
+                            <li><a href="TaxiTemplate1/index-2.html">Cars</a></li>
+                            <li><a href="TaxiTemplate1/index-3.html">Services</a></li>
+                            <li><a href="TaxiTemplate1/index-4.html">Contacts</a></li>
                         </ul>
                     </nav>
                     <div class="clear"></div>
@@ -84,7 +84,7 @@
         <div class="container_12">
             <div class="grid_12">
                 <h1>
-                    <a href="index.html">
+                    <a href="TaxiTemplate1/index.html">
                         <img src="../resources/images/logo.png" alt="Your Happy Family">
                     </a>
                 </h1>
