@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by Vadym Akymov on 15.04.15.
  */
-@WebServlet("order/info")
+@WebServlet("/order/info")
 public class DriverProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
