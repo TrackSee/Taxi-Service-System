@@ -126,14 +126,6 @@
         </dependency>
 
 
-        <!--for Email notifications-->
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>javax.mail-api</artifactId>
-            <version>1.5.2</version>
-        </dependency>
-
-
     </dependencies>
 
     <build>
