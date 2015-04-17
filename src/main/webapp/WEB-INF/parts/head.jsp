@@ -8,4 +8,4 @@
     <title>TrackSee</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/css/bootstrap3/bootstrap.min.css">

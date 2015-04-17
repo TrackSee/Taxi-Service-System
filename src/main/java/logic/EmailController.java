@@ -14,6 +14,7 @@ import static util.EmailUtils.getEmailSession;
 /**
  * @author Ruslan Gunavardana.
  */
+
 public class EmailController {
     private Logger logger = LogManager.getLogger();
 
@@ -36,6 +37,6 @@ public class EmailController {
                 +  "Your email address was used for registration at "
                 + WEBSITE_SHORT
                 + "\nPlease click the confirmation link to complete registration: "
-                + WEBSITE_FULL + "activation?code=" + userCode; //TODO encryption
+                + WEBSITE_FULL + "activation?code=" + userCode;
     }
 }

@@ -18,7 +18,7 @@ import java.sql.SQLException;
 /**
  * @author Ruslan Gunavardana.
  */
-@WebServlet("registration")
+@WebServlet("/registration")
 public class Registration extends HttpServlet {
 
     private Logger logger;

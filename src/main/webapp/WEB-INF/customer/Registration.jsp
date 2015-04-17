@@ -15,15 +15,19 @@
 </head>
 
 <body>
+
+
 <div class="container">
     <form class="form-signin" action="<c:url value="registration"/>" method="post">
         <h2 class="form-signin-heading">Please sign up</h2>
         <label for="email" class="sr-only">Email address</label>
         <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required autofocus>
+
         <label for="password" class="sr-only">Password</label>
         <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
         <label for="repeat-password" class="sr-only">Repeat password</label>
         <input type="password" id="repeat-password" name="repeat-password" class="form-control" placeholder="Repeat password" required>
+
         <label for="phone-number" class="sr-only">Phone number</label>
         <input type="text" id="phone-number" name="phone-number" class="form-control" placeholder="Phone number" required>
 
