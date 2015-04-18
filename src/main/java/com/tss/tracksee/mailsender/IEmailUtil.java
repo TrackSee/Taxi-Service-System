@@ -8,12 +8,11 @@ package com.tss.tracksee.mailsender;
  * To change this template use File | Settings | File Templates.
  */
 
-import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
-public interface ISenderSessionSpecificator {
+public interface IEmailUtil {
 
     /**
      * this method gets session for secure seance via TLS/SSL

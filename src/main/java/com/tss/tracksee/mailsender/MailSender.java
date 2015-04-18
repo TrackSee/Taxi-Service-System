@@ -10,34 +10,37 @@ package com.tss.tracksee.mailsender;
 
 import javax.mail.*;
 import javax.mail.internet.*;
+import static com.tss.tracksee.mailsender.SenderSessionSpecificator.*;
 
 public class MailSender {
-    public static void main(String[] args) {
-        Session session = SenderSessionSpecificator.GMAIL.getSession();
+    private static Session SESSION = GMAIL.getSession();
+    private static InternetAddress FROM_ADDRESS;
 
+    static {
         try {
+            FROM_ADDRESS = GMAIL.getInternetAddress();
+        } catch (AddressException e) {
+            e.printStackTrace();
+        }
+    }
 
-            Message message = new MimeMessage(session);
-            message.setFrom(SenderSessionSpecificator.GMAIL.getInternetAddress());
+
+    public static void sendEmail(String to, String subject, String text) {
+        try {
+            Message message = new MimeMessage(SESSION);
+            message.setFrom(FROM_ADDRESS);
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("idvorskij@mail.ru"));
-            message.setSubject("Testing Subject");
-            message.setText("Dear Mail Crawler,"
-                    + "\n\n No spam to my email, please!");
+                    InternetAddress.parse(to));
+            message.setSubject(subject);
+            message.setText(text);
 
             Transport.send(message);
 
-            System.out.println("Done");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-
     }
 
 
-
-    public static void sendEmail(){
-
-    }
 }

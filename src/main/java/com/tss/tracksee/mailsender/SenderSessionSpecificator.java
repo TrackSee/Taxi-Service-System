@@ -17,10 +17,10 @@ import java.util.Properties;
  * To change this template use File | Settings | File Templates.
  */
 public class SenderSessionSpecificator {
-    public static ISenderSessionSpecificator GMAIL = new GmailSpecificator();
+    public static IEmailUtil GMAIL = new GmailSpecificator();
 
 
-    private static class GmailSpecificator implements ISenderSessionSpecificator {
+    private static class GmailSpecificator implements IEmailUtil {
 
         private Properties properties = null;
         private Session session = null;

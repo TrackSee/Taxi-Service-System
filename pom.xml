@@ -108,7 +108,6 @@
             <version>2.2</version>
         </dependency>
 
-
         <!--for Email notifications-->
         <dependency>
             <groupId>javax.mail</groupId>
