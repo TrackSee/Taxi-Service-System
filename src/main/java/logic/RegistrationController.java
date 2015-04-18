@@ -18,7 +18,6 @@ import static javax.ejb.LockType.WRITE;
  * @author Ruslan Gunavardana.
  */
 @Singleton
-@Local
 public class RegistrationController {
     @EJB
     private EmailController emailController;

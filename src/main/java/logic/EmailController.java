@@ -19,7 +19,6 @@ import static util.EmailUtils.getEmailSession;
  * @author Ruslan Gunavardana.
  */
 @Stateless
-@Local
 public class EmailController {
     private Logger logger;
 

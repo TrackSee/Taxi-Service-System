@@ -6,17 +6,15 @@ import entity.User;
 
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
-import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 /**
  * @author Ruslan Gunavardana.
  */
 @Stateless
-@Local
 @DeclareRoles({"admin"})
 @RolesAllowed({"admin"})
-public class AdministratorController extends User {
+public class AdministratorController {
 
     /**
      * Admin
