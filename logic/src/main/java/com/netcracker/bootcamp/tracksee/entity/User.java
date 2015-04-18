@@ -8,8 +8,16 @@ public class User {
     private Sex sex;
     private String email;
     private String password;
+    private long phone;
+    public long getPhone() {
+		return phone;
+	}
 
-    public Role getRole() {
+	public void setPhone(long phone) {
+		this.phone = phone;
+	}
+
+	public Role getRole() {
         return role;
     }
 
