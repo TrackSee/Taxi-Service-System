@@ -14,7 +14,7 @@ import javax.ejb.Stateless;
 @Stateless
 @DeclareRoles({"admin"})
 @RolesAllowed({"admin"})
-public class AdministratorController {
+public class AdministratorBean {
 
     /**
      * Admin
