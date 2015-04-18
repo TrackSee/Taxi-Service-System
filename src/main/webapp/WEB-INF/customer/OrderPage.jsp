@@ -35,6 +35,7 @@
 
 <!-- start: Java Script -->
 <!-- Placed at the end of the document so the pages load faster -->
+<%@include file="../parts/scripts.jsp" %>
 <script src="<%=application.getContextPath()%>/resources/js/google-maps.js"></script>
 <!-- end: Java Script -->
 
