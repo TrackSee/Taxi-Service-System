@@ -16,7 +16,7 @@ import javax.ejb.Stateless;
 @Local
 @DeclareRoles({"admin"})
 @RolesAllowed({"admin"})
-public class AdministratorController extends User {
+public class AdministratorController {
 
     /**
      * Admin
