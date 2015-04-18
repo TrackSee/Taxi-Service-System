@@ -20,7 +20,7 @@ import static util.EmailUtils.getEmailSession;
  */
 @Stateless
 @Local
-public class EmailController {
+public class EmailBean {
     private Logger logger;
 
     @PostConstruct

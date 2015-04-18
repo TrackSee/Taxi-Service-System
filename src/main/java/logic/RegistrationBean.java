@@ -2,6 +2,7 @@ package logic;
 
 import entity.Role;
 import entity.Sex;
+import entity.UnactivatedUser;
 import entity.User;
 import util.IdGenerator;
 
@@ -9,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.*;
 import javax.mail.MessagingException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,10 +21,10 @@ import static javax.ejb.LockType.WRITE;
  */
 @Singleton
 @Local
-public class RegistrationController {
+public class RegistrationBean {
     @EJB
-    private EmailController emailController;
-    private Map<String, User> unactivatedUsers;
+    private EmailBean emailBean;
+    private Map<String, UnactivatedUser> unactivatedUsers;
 
     @PostConstruct
     private void postConstruct() {
@@ -61,15 +63,16 @@ public class RegistrationController {
 //        }
 
         // adding new user
-        User user = new User();
+        UnactivatedUser user = new UnactivatedUser();
         user.setRole(Role.CUSTOMER_USER);
         user.setEmail(email);
         user.setPassword(password);
         user.setRole(role);
         user.setSex(sex);
+        user.setRegistrationTime(new Timestamp(System.currentTimeMillis()));
         try {
             String userCode = IdGenerator.generateId();
-            emailController.sendRegistrationEmail(user, userCode);
+            emailBean.sendRegistrationEmail(user, userCode);
             unactivatedUsers.put(userCode, user);
         } catch (MessagingException e) {
             throw new RegistrationException("Failed to send registration email.");

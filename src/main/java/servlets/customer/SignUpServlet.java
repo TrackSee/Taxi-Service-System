@@ -3,7 +3,7 @@ package servlets.customer;
 import entity.Role;
 import entity.Sex;
 import logic.RegistrationException;
-import logic.RegistrationController;
+import logic.RegistrationBean;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,7 +24,7 @@ public class SignUpServlet extends HttpServlet {
 
     private Logger logger;
     @EJB
-    private RegistrationController controller;
+    private RegistrationBean controller;
 
     @Override
     public void init() throws ServletException {
