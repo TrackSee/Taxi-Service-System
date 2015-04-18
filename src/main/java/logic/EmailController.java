@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import entity.User;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Asynchronous;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.mail.*;
@@ -31,6 +32,7 @@ public class EmailController {
     private static final String WEBSITE_SHORT = "tracksee.com";
     private static final String WEBSITE_FULL = "http://tracksee.com/";
 
+    @Asynchronous
     public void sendRegistrationEmail(User user, String userCode) throws MessagingException {
         MimeMessage message = new MimeMessage(getEmailSession());
         message.setFrom(new InternetAddress(SERVER_EMAIL));
