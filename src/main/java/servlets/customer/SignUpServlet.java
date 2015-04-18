@@ -7,6 +7,7 @@ import logic.RegistrationController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,11 +19,12 @@ import java.sql.SQLException;
 /**
  * @author Ruslan Gunavardana.
  */
-@WebServlet("/registration")
-public class Registration extends HttpServlet {
+@WebServlet("/signup")
+public class SignUpServlet extends HttpServlet {
 
     private Logger logger;
-    private RegistrationController controller = new RegistrationController();
+    @EJB
+    private RegistrationController controller;
 
     @Override
     public void init() throws ServletException {
@@ -32,14 +34,11 @@ public class Registration extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        req.getRequestDispatcher("/WEB-INF/customer/Registration.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/customer/SignUp.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-
         try {
             String email = req.getParameter("email");
             String password = req.getParameter("password");

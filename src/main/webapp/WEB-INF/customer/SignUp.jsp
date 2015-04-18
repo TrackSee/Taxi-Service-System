@@ -11,15 +11,15 @@
 <html lang="en">
 <head>
     <%@include file="../parts/head.jsp"%>
-    <link href="<%=application.getContextPath()%>/resources/css/signin.css" rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/css/signup.css" rel="stylesheet">
 </head>
 
 <body>
 
 
 <div class="container">
-    <form class="form-signin" action="<c:url value="registration"/>" method="post">
-        <h2 class="form-signin-heading">Please sign up</h2>
+    <form class="form-signup" action="<c:url value="/signup"/>" method="post">
+        <h2 class="form-signup-heading">Please sign up</h2>
         <label for="email" class="sr-only">Email address</label>
         <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required autofocus>
 

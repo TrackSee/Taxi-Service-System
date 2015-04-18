@@ -5,17 +5,31 @@ import entity.Sex;
 import entity.User;
 import util.IdGenerator;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.*;
 import javax.mail.MessagingException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
+
+import static javax.ejb.LockType.WRITE;
 
 /**
  * @author Ruslan Gunavardana.
  */
+@Singleton
+@Local
 public class RegistrationController {
-    EmailController emailController = new EmailController();
-    Map<String, User> unactivatedUsers;
+    @EJB
+    private EmailController emailController;
+    private Map<String, User> unactivatedUsers;
 
+    @PostConstruct
+    private void postConstruct() {
+        unactivatedUsers = new HashMap<>();
+    }
+
+    @Lock(WRITE)
     public boolean activateUser(String userCode) throws SQLException {
         /*
         int userId;
@@ -37,6 +51,7 @@ public class RegistrationController {
         return false;
     }
 
+    @Lock(WRITE)
     public boolean registerUser(String email, String password, Role role, Sex sex)
             throws SQLException, RegistrationException
     {

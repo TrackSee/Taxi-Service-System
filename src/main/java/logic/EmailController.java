@@ -4,6 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import entity.User;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -14,9 +17,15 @@ import static util.EmailUtils.getEmailSession;
 /**
  * @author Ruslan Gunavardana.
  */
-
+@Stateless
+@Local
 public class EmailController {
-    private Logger logger = LogManager.getLogger();
+    private Logger logger;
+
+    @PostConstruct
+    private void postActivate() {
+        logger = LogManager.getLogger();
+    }
 
     // website
     private static final String WEBSITE_SHORT = "tracksee.com";

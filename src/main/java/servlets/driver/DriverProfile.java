@@ -14,7 +14,6 @@ import java.io.IOException;
 public class DriverProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
         req.getRequestDispatcher("/WEB-INF/driver/driverProfile.jsp").forward(req,resp);
     }
 }
