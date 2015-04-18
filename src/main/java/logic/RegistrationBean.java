@@ -3,7 +3,6 @@ package logic;
 import entity.Role;
 import entity.Sex;
 import entity.UnactivatedUser;
-import entity.User;
 import util.IdGenerator;
 
 import javax.annotation.PostConstruct;
@@ -57,7 +56,7 @@ public class RegistrationBean {
     public boolean registerUser(String email, String password, Role role, Sex sex)
             throws SQLException, RegistrationException
     {
-            //TODO check if user registered
+    //TODO check if user registered
 //        if (dao.get(email) != null) {
 //            return false;
 //        }
