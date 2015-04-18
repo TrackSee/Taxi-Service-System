@@ -1,4 +1,4 @@
-package logic;
+package com.netcracker.bootcamp.tracksee.logic;
 
 /**
  * @author Ruslan Gunavardana.

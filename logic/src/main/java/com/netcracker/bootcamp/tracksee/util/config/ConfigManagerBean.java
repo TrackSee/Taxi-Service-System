@@ -1,4 +1,4 @@
-package util.config;
+package com.netcracker.bootcamp.tracksee.util.config;
 
 import javax.ejb.Lock;
 import javax.ejb.LockType;

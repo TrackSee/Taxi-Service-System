@@ -1,4 +1,4 @@
-package util;
+package com.netcracker.bootcamp.tracksee.util;
 
 import static java.util.UUID.randomUUID;
 

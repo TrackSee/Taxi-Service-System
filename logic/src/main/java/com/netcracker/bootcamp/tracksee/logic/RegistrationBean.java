@@ -1,12 +1,15 @@
-package logic;
+package com.netcracker.bootcamp.tracksee.logic;
 
-import entity.Role;
-import entity.Sex;
-import entity.UnactivatedUser;
-import util.IdGenerator;
+import com.netcracker.bootcamp.tracksee.entity.Role;
+import com.netcracker.bootcamp.tracksee.entity.Sex;
+import com.netcracker.bootcamp.tracksee.entity.UnactivatedUser;
+import com.netcracker.bootcamp.tracksee.util.IdGenerator;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.*;
+import javax.ejb.EJB;
+import javax.ejb.Local;
+import javax.ejb.Lock;
+import javax.ejb.Singleton;
 import javax.mail.MessagingException;
 import java.sql.SQLException;
 import java.sql.Timestamp;

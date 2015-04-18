@@ -1,6 +1,6 @@
 package servlets.customer;
 
-import entity.User;
+import com.netcracker.bootcamp.tracksee.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

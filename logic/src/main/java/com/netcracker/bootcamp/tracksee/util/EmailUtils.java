@@ -1,4 +1,4 @@
-package util;
+package com.netcracker.bootcamp.tracksee.util;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;

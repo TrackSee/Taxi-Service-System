@@ -1,4 +1,4 @@
-package logic;
+package com.netcracker.bootcamp.tracksee.logic;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;

@@ -1,8 +1,6 @@
-package logic;
+package com.netcracker.bootcamp.tracksee.logic;
 
-
-import entity.Driver;
-import entity.User;
+import com.netcracker.bootcamp.tracksee.entity.Driver;
 
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;

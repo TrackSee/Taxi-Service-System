@@ -1,4 +1,4 @@
-package entity;
+package com.netcracker.bootcamp.tracksee.entity;
 
 /**
  * @author Ruslan Gunavardana

@@ -1,19 +1,19 @@
-package logic;
+package com.netcracker.bootcamp.tracksee.logic;
 
+import com.netcracker.bootcamp.tracksee.entity.User;
+import com.netcracker.bootcamp.tracksee.util.EmailUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import entity.User;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Asynchronous;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
-import static util.EmailUtils.SERVER_EMAIL;
-import static util.EmailUtils.getEmailSession;
 
 /**
  * @author Ruslan Gunavardana.
@@ -34,8 +34,8 @@ public class EmailBean {
 
     @Asynchronous
     public void sendRegistrationEmail(User user, String userCode) throws MessagingException {
-        MimeMessage message = new MimeMessage(getEmailSession());
-        message.setFrom(new InternetAddress(SERVER_EMAIL));
+        MimeMessage message = new MimeMessage(EmailUtils.getEmailSession());
+        message.setFrom(new InternetAddress(EmailUtils.SERVER_EMAIL));
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
         message.setSubject("Registration at " + WEBSITE_SHORT);
         message.setText(getMessageText(userCode));
@@ -43,7 +43,7 @@ public class EmailBean {
         logger.debug("Sent message successfully to {1}", user.getEmail());
     }
 
-    private static String getMessageText(String userCode) {
+    private String getMessageText(String userCode) {
         return "Dear friend, \n"
                 +  "Your email address was used for registration at "
                 + WEBSITE_SHORT
