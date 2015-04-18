@@ -28,8 +28,8 @@
     <!-- end: Facebook Open Graph -->
 
     <!-- start: CSS -->
-    <link href="<%=application.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
-    <link href="<%=application.getContextPath()%>/resources/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/css/bootstrap2/bootstrap.css" rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/css/bootstrap2/bootstrap-responsive.css" rel="stylesheet">
     <link href="<%=application.getContextPath()%>/resources/css/style.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans:400,700">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Serif">
@@ -202,7 +202,7 @@
 <!-- start: Java Script -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="<%=application.getContextPath()%>/resources/js/jquery-1.8.2.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/bootstrap.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/bootstrap2/bootstrap.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/flexslider.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/carousel.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/jquery.cslider.js"></script>
