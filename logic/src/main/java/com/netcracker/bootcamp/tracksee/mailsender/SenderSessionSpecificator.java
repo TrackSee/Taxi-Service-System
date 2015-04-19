@@ -1,4 +1,4 @@
-package com.tss.tracksee.mailsender;
+package com.netcracker.bootcamp.tracksee.mailsender;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;

@@ -1,6 +1,5 @@
-package util;
+package com.netcracker.bootcamp.tracksee.util;
 
-import com.netcracker.bootcamp.tracksee.util.IdGenerator;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotEquals;

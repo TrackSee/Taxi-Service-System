@@ -1,4 +1,4 @@
-package com.tss.tracksee.mailsender;
+package com.netcracker.bootcamp.tracksee.mailsender;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,7 +10,7 @@ package com.tss.tracksee.mailsender;
 
 import javax.mail.*;
 import javax.mail.internet.*;
-import static com.tss.tracksee.mailsender.SenderSessionSpecificator.*;
+import static com.netcracker.bootcamp.tracksee.mailsender.SenderSessionSpecificator.*;
 
 public class MailSender {
     private static Session SESSION = GMAIL.getSession();
