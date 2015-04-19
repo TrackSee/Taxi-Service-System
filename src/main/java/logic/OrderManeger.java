@@ -16,7 +16,7 @@ import entity.User;
  */
 @Stateless
 @Local
-public class OrderManeger implements OrderManegerLocal {
+public class OrderManeger {
 
     /**
      * Default constructor. 
@@ -24,7 +24,6 @@ public class OrderManeger implements OrderManegerLocal {
     public OrderManeger() {
         // TODO Auto-generated constructor stub
     }
-    @Override
 	public boolean makeOrder(Address destination,Address origin,long phone){
     	if(!checkPhone(phone)){
     	User user = new User();
