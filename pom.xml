@@ -115,6 +115,14 @@
             <version>1.5.2</version>
         </dependency>
 
+        <!--jdbc driver-->
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.1-901.jdbc4</version>
+        </dependency>
+
+
 
     </dependencies>
 
