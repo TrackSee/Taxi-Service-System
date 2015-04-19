@@ -1,4 +1,4 @@
-package util.config;
+package config;
 
 import javax.ejb.Singleton;
 import java.util.ResourceBundle;
