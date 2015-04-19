@@ -28,6 +28,7 @@
 
     <modules>
         <module>logic</module>
+        <module>storage</module>
     </modules>
 
     <url>http://wildfly.org</url>
@@ -118,6 +119,13 @@
             <artifactId>javax.mail-api</artifactId>
             <version>1.5.2</version>
         </dependency>
+        <!--For postgresql jdbc-->
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.1-901-1.jdbc4</version>
+        </dependency>
+
     </dependencies>
 
     <build>

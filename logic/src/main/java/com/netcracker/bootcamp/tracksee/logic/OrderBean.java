@@ -8,7 +8,7 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @Local
-public class OrderController {
+public class OrderBean {
     public void createOrder() {
 
     }

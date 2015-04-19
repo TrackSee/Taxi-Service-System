@@ -9,6 +9,7 @@ import javax.ejb.Local;
  * @author Sasha Avlasov
  * 
  */
+
 @Local
 public interface OrderManagerLocal {
 	public boolean makeOrder(Address destination, Address origin, long phone);
