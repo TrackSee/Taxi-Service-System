@@ -1,7 +1,9 @@
 package logic;
 
+import javax.ejb.Local;
 import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
+import javax.ejb.Stateless;
 
 import entity.Address;
 import entity.Role;
@@ -12,8 +14,8 @@ import entity.User;
  * @author Sasha Avlasov
  * Session Bean implementation class OrderRegistrator
  */
-@Singleton
-@LocalBean
+@Stateless
+@Local
 public class OrderManeger implements OrderManegerLocal {
 
     /**
@@ -32,6 +34,9 @@ public class OrderManeger implements OrderManegerLocal {
     	order.setCostumer(user);
     	order.setOrigin(origin);
     	order.setDestination(destination);
+    	if(checkBlackList(phone)){
+    		order.incruasePrice();
+    	}
     	return true;
     	}
     	else return false;
@@ -40,6 +45,14 @@ public class OrderManeger implements OrderManegerLocal {
     	/**
     	 * check phone in DB if exist 
     	 * return true;
+    	 */
+    	return false;
+    }
+    private static boolean checkBlackList(long phone){
+    	/**
+    	 * Check phone in black list 
+    	 * if find return true;
+    	 * 
     	 */
     	return false;
     }

@@ -50,4 +50,12 @@ public class TaxiOrder {
     public void setOrderTime(Timestamp orderTime) {
         this.orderTime = orderTime;
     }
+    public void incruasePrice(){
+    	/**
+    	 * method thet
+    	 * incruase price for
+    	 * user in black list
+    	 * 
+    	 */
+    }
 }
