@@ -18,32 +18,44 @@ import javax.ejb.Singleton;
 //TODO codereview(akymov vadym): Sasha, you have used ejb 3.0
 //TODO you need to remove interface and write one class with @Stateless and @Local
 //TODO we use ejb 3.2
-public class OrderManager implements OrderManagerLocal {
+@Stateless
+@Local
+public class OrderManeger {
 
     /**
      * Default constructor. 
      */
-    public OrderManager() {
+    public OrderManeger() {
         // TODO Auto-generated constructor stub
     }
-    @Override
 	public boolean makeOrder(Address destination,Address origin,long phone){
     	if(!checkPhone(phone)){
     	User user = new User();
     	TaxiOrder order = new TaxiOrder();
-    	user.setRole(Role.NOT_REGISERED_USER);
+    	user.setRole(Role.NOT_REGISTER_USER);
     	user.setPhone(phone);
     	order.setCostumer(user);
     	order.setOrigin(origin);
     	order.setDestination(destination);
+    	if(checkBlackList(phone)){
+    		order.incruasePrice();
+    	}
     	return true;
     	}
     	else return false;
     }
-    private boolean checkPhone(long phone){
+    private static boolean checkPhone(long phone){
     	/**
     	 * check phone in DB if exist 
     	 * return true;
+    	 */
+    	return false;
+    }
+    private static boolean checkBlackList(long phone){
+    	/**
+    	 * Check phone in black list 
+    	 * if find return true;
+    	 * 
     	 */
     	return false;
     }
