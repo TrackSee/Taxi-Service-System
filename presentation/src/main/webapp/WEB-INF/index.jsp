@@ -78,8 +78,8 @@
                             <ul class="nav">
                                 <li class="active"><a href="">Order</a></li>
                                 <li><a href="order/info">Driver information</a></li>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="registration.html">Registration</a></li>
+                                <li><a href="signin">Login</a></li>
+                                <li><a href="signup">Registration</a></li>
                             </ul>
                         </div>
                     </div>
