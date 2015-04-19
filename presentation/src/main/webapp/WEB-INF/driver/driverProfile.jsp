@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vadym Akymov
@@ -75,8 +76,8 @@
                             <ul class="nav">
                                 <li><a href="<%=application.getContextPath()%>">Order</a></li>
                                 <li class="active"><a href="">Order information</a></li>
-                                <li><a href="signin">Login</a></li>
-                                <li><a href="signup">Registration</a></li>
+                                <li><a href="<c:url value="/signin"/>">Login</a></li>
+                                <li><a href="<c:url value="/signup"/>">Registration</a></li>
                             </ul>
                         </div>
                     </div>
