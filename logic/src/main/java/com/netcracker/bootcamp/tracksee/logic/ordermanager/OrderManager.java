@@ -1,13 +1,15 @@
 package com.netcracker.bootcamp.tracksee.logic.ordermanager;
 
 
+import javax.ejb.Local;
+import javax.ejb.LocalBean;
+import javax.ejb.Singleton;
+import javax.ejb.Stateless;
+
 import com.netcracker.bootcamp.tracksee.entity.Address;
 import com.netcracker.bootcamp.tracksee.entity.Role;
 import com.netcracker.bootcamp.tracksee.entity.TaxiOrder;
 import com.netcracker.bootcamp.tracksee.entity.User;
-
-import javax.ejb.LocalBean;
-import javax.ejb.Singleton;
 
 /**
  * @author Sasha Avlasov
@@ -20,12 +22,12 @@ import javax.ejb.Singleton;
 //TODO we use ejb 3.2
 @Stateless
 @Local
-public class OrderManeger {
+public class OrderManager {
 
     /**
      * Default constructor. 
      */
-    public OrderManeger() {
+    public OrderManager() {
         // TODO Auto-generated constructor stub
     }
 	public boolean makeOrder(Address destination,Address origin,long phone){
