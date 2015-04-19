@@ -23,11 +23,11 @@ public class BlockAccountServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String page = configManager.getString("path.page.block_account");
+        //String page = configManager.getString("path.page.block_account");
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher(page);
+        //RequestDispatcher dispatcher = req.getRequestDispatcher(page);
 
-        dispatcher.forward(req, resp);
+        //dispatcher.forward(req, resp);
 
     }
 

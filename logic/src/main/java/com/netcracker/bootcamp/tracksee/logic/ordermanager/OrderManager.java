@@ -36,7 +36,7 @@ public class OrderManager {
     	TaxiOrder order = new TaxiOrder();
     	user.setRole(Role.NOT_REGISTER_USER);
     	user.setPhone(phone);
-    	order.setCostumer(user);
+    	//TODO order.setCustomer(user);
     	order.setOrigin(origin);
     	order.setDestination(destination);
     	if(checkBlackList(phone)){
@@ -46,14 +46,14 @@ public class OrderManager {
     	}
     	else return false;
     }
-    private static boolean checkPhone(long phone){
+    private boolean checkPhone(long phone){
     	/**
     	 * check phone in DB if exist 
     	 * return true;
     	 */
     	return false;
     }
-    private static boolean checkBlackList(long phone){
+    private boolean checkBlackList(long phone){
     	/**
     	 * Check phone in black list 
     	 * if find return true;
