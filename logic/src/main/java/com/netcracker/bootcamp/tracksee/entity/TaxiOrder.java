@@ -50,4 +50,7 @@ public class TaxiOrder {
     public void setOrderTime(Timestamp orderTime) {
         this.orderTime = orderTime;
     }
+    public void incruasePrice(){
+    	
+    }
 }
