@@ -4,12 +4,14 @@ import com.netcracker.bootcamp.tracksee.entity.Driver;
 
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 /**
  * @author Ruslan Gunavardana.
  */
 @Stateless
+@Local
 @DeclareRoles({"admin"})
 @RolesAllowed({"admin"})
 public class AdministratorBean {
