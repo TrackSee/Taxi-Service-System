@@ -31,7 +31,7 @@ public class OrderManager implements OrderManagerLocal {
     	if(!checkPhone(phone)){
     	User user = new User();
     	TaxiOrder order = new TaxiOrder();
-    	user.setRole(Role.NOT_REGISER_USER);
+    	user.setRole(Role.NOT_REGISERED_USER);
     	user.setPhone(phone);
     	order.setCostumer(user);
     	order.setOrigin(origin);
