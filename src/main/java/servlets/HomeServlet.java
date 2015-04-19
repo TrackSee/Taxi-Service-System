@@ -12,6 +12,7 @@ import java.io.IOException;
  */
 @WebServlet("")
 public class HomeServlet extends HttpServlet {
+    //get hello kitty page
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
