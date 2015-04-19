@@ -1,9 +1,9 @@
 package servlets.customer;
 
-import entity.Role;
-import entity.Sex;
-import logic.RegistrationException;
-import logic.RegistrationController;
+import com.netcracker.bootcamp.tracksee.entity.Role;
+import com.netcracker.bootcamp.tracksee.entity.Sex;
+import com.netcracker.bootcamp.tracksee.logic.RegistrationBean;
+import com.netcracker.bootcamp.tracksee.logic.RegistrationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,7 +24,7 @@ public class SignUpServlet extends HttpServlet {
 
     private Logger logger;
     @EJB
-    private RegistrationController controller;
+    private RegistrationBean controller;
 
     @Override
     public void init() throws ServletException {

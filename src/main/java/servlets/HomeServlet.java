@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by Vadym Akymov  on 14.04.15.
  */
-@WebServlet("")
+@WebServlet(urlPatterns = "")
 public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

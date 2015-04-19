@@ -22,9 +22,13 @@
     <groupId>com.netcracker.bootcamp.tracksee</groupId>
     <artifactId>TaxiService</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
     <name>Taxi Service</name>
     <description>Java EE Provider</description>
+
+    <modules>
+        <module>logic</module>
+    </modules>
 
     <url>http://wildfly.org</url>
     <licenses>
@@ -114,7 +118,6 @@
             <artifactId>javax.mail-api</artifactId>
             <version>1.5.2</version>
         </dependency>
-
 
     </dependencies>
 
