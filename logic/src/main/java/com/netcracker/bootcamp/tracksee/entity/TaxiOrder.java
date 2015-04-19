@@ -10,18 +10,10 @@ public class TaxiOrder {
     private Address destination;
     private Timestamp creationTime;
     private Timestamp orderTime;
-    private User costumer;
+
     public Address getOrigin() {
         return origin;
     }
-
-    public User getCostumer() {
-		return costumer;
-	}
-
-	public void setCostumer(User costumer) {
-		this.costumer = costumer;
-	}
 
 	public void setOrigin(Address origin) {
         this.origin = origin;
@@ -51,6 +43,6 @@ public class TaxiOrder {
         this.orderTime = orderTime;
     }
     public void incruasePrice(){
-    	
+
     }
 }
