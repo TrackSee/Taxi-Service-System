@@ -6,7 +6,7 @@ import javax.ejb.Stateless;
  * @author Ruslan Gunavardana.
  */
 @Stateless
-public class OrderController {
+public class OrderBean {
     public void createOrder() {
 
     }

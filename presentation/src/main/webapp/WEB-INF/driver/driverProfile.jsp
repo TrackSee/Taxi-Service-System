@@ -75,8 +75,8 @@
                             <ul class="nav">
                                 <li><a href="<%=application.getContextPath()%>">Order</a></li>
                                 <li class="active"><a href="">Order information</a></li>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="registration.html">Registration</a></li>
+                                <li><a href="signin">Login</a></li>
+                                <li><a href="signup">Registration</a></li>
                             </ul>
                         </div>
                     </div>

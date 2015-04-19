@@ -15,13 +15,7 @@ import com.netcracker.bootcamp.tracksee.entity.User;
  * @author Sasha Avlasov
  * Session Bean implementation class OrderRegistrator
  */
-@Singleton
-@LocalBean
-//TODO codereview(akymov vadym): Sasha, you have used ejb 3.0
-//TODO you need to remove interface and write one class with @Stateless and @Local
-//TODO we use ejb 3.2
 @Stateless
-@Local
 public class OrderManager {
 
     /**

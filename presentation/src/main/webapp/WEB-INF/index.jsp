@@ -165,74 +165,74 @@
 
 
 <!--start: Wrapper-->
-<div id="wrapper">
+<%--<div id="wrapper">--%>
 
-    <!--start: Container -->
-    <div class="container">
+    <%--<!--start: Container -->--%>
+    <%--<div class="container">--%>
 
-        <!--start: Row -->
-        <div class="row">
+        <%--<!--start: Row -->--%>
+        <%--<div class="row">--%>
 
-            <div class="span8">
+            <%--<div class="span8">--%>
 
-                <!-- start: About Us -->
-                <div id="team">
-                    <div class="title"><h3>Fast Taxi Order</h3></div>
+                <%--<!-- start: About Us -->--%>
+                <%--<div id="team">--%>
+                    <%--<div class="title"><h3>Fast Taxi Order</h3></div>--%>
 
-                    <form method="post">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="phoneNumber" placeholder="Phone number:"
-                                   required>
-                        </div>
-
-
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="email" placeholder="Email"
-                                   data-error="That email is invalid" required>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="addressFrom" placeholder="Address from:"
-                                   data-error="That address is invalid" required>
-
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="addressTo" placeholder="Address to:"
-                                   data-error="That address is invalid" required>
-
-                        </div>
-
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-large">Submit</button>
-                        </div>
-                    </form>
-                </div>
-                </p>
-            </div>
-            <!-- end: About Us -->
-
-            <!-- start: Team -->
-            <div id="team">
-
-                <div class="title"><h3>Additional features </h3></div>
-                <p>
-                <h4>
-                    You can also use the extended order form, where you can choose such options:</h4>
-                </p>
-                <p><a class="btn btn-success btn-large">Extended taxi order&raquo;</a>
-                    <a class="btn btn-info btn-large">Sign in &raquo;</a></p>
-
-                <!-- start: Team -->
+                    <%--<form method="post">--%>
+                        <%--<div class="form-group">--%>
+                            <%--<input type="text" class="form-control" id="phoneNumber" placeholder="Phone number:"--%>
+                                   <%--required>--%>
+                        <%--</div>--%>
 
 
-            </div>
+                        <%--<div class="form-group">--%>
+                            <%--<input type="email" class="form-control" id="email" placeholder="Email"--%>
+                                   <%--data-error="That email is invalid" required>--%>
+                        <%--</div>--%>
 
-        </div>
-        <!-- end: Row -->
-    </div>
-    <!-- end: Team -->
-</div>
+                        <%--<div class="form-group">--%>
+                            <%--<input type="text" class="form-control" id="addressFrom" placeholder="Address from:"--%>
+                                   <%--data-error="That address is invalid" required>--%>
+
+                        <%--</div>--%>
+
+                        <%--<div class="form-group">--%>
+                            <%--<input type="text" class="form-control" id="addressTo" placeholder="Address to:"--%>
+                                   <%--data-error="That address is invalid" required>--%>
+
+                        <%--</div>--%>
+
+                        <%--<div class="form-group">--%>
+                            <%--<button type="submit" class="btn btn-success btn-large">Submit</button>--%>
+                        <%--</div>--%>
+                    <%--</form>--%>
+                <%--</div>--%>
+                <%--</p>--%>
+            <%--</div>--%>
+            <%--<!-- end: About Us -->--%>
+
+            <%--<!-- start: Team -->--%>
+            <%--<div id="team">--%>
+
+                <%--<div class="title"><h3>Additional features </h3></div>--%>
+                <%--<p>--%>
+                <%--<h4>--%>
+                    <%--You can also use the extended order form, where you can choose such options:</h4>--%>
+                <%--</p>--%>
+                <%--<p><a class="btn btn-success btn-large">Extended taxi order&raquo;</a>--%>
+                    <%--<a class="btn btn-info btn-large">Sign in &raquo;</a></p>--%>
+
+                <%--<!-- start: Team -->--%>
+
+
+            <%--</div>--%>
+
+        <%--</div>--%>
+        <%--<!-- end: Row -->--%>
+    <%--</div>--%>
+    <%--<!-- end: Team -->--%>
+<%--</div>--%>
 <!-- start: Copyright -->    <!-- end: Copyright -->
 
 

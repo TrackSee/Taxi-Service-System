@@ -27,7 +27,9 @@
     <description>Java EE Provider</description>
 
     <modules>
+        <module>presentation</module>
         <module>logic</module>
+        <module>storage</module>
     </modules>
 
     <url>http://wildfly.org</url>
