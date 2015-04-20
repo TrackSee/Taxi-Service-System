@@ -6,9 +6,10 @@
         <groupId>com.netcracker.bootcamp.tracksee</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
+    <packaging>ejb</packaging>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>storage</artifactId>
+    <version>${project.parent.version}</version>
 
     <properties>
         <mainClass>org.atteo.moonshine.Main</mainClass>
@@ -32,6 +33,14 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>9.4-1201-jdbc41</version>
+        </dependency>
+
+        <!--for tests-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.9.Final</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
