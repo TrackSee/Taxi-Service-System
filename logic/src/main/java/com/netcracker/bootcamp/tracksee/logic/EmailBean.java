@@ -19,14 +19,8 @@ import javax.mail.internet.MimeMessage;
  * @author Ruslan Gunavardana.
  */
 @Stateless
-@Local
 public class EmailBean {
-    private Logger logger;
-
-    @PostConstruct
-    private void postActivate() {
-        logger = LogManager.getLogger();
-    }
+    private static final Logger logger = LogManager.getLogger();
 
     // website
     private static final String WEBSITE_SHORT = "tracksee.com";
@@ -44,7 +38,7 @@ public class EmailBean {
     }
 
     private String getMessageText(String userCode) {
-        return "Dear friend, \n"
+        return "Hi, \n"
                 +  "Your email address was used for registration at "
                 + WEBSITE_SHORT
                 + "\nPlease click the confirmation link to complete registration: "

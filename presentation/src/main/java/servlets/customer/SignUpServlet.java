@@ -1,9 +1,8 @@
 package servlets.customer;
 
-import com.netcracker.bootcamp.tracksee.entity.Role;
 import com.netcracker.bootcamp.tracksee.entity.Sex;
 import com.netcracker.bootcamp.tracksee.logic.RegistrationBean;
-import com.netcracker.bootcamp.tracksee.logic.RegistrationException;
+import com.netcracker.bootcamp.tracksee.logic.exception.RegistrationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,24 +41,17 @@ public class SignUpServlet extends HttpServlet {
         try {
             String email = req.getParameter("email");
             String password = req.getParameter("password");
-            Sex sex = Sex.valueOf(req.getParameter("sex"));
-            Role role = Role.CUSTOMER_USER;
-            logger.debug("REGISTRATION. User: " + email);
+            Sex sex = Sex.valueOf(req.getParameter("sex")); //TODO sex validation
 
-            //TODO email validation
-
-            boolean emailIsInUse = !controller.registerUser(email, password, role, sex);
-            if (emailIsInUse) {
-                resp.sendRedirect("/registration?error=true");
-            } else {
-                req.getRequestDispatcher("/WEB-INF/customer/CheckEmail.jsp").forward(req, resp);
-            }
+            controller.registerCustomerUser(email, password, sex);
+            logger.debug("Successful sign up. User: " + email);
+            req.getRequestDispatcher("/WEB-INF/customer/CheckEmail.jsp").forward(req, resp);
         } catch (SQLException e) {
             logger.error(e.getMessage());
             resp.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, "Database unavailable.");
         } catch (RegistrationException e) {
             logger.error(e.getMessage());
-            resp.sendRedirect("/registration?error=true&code=email");
+            resp.sendRedirect("/signup?error=true&code=");
         }
     }
 }
