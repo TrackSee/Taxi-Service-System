@@ -22,6 +22,9 @@ public class UserDAOBean implements UserDAO {
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
     private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger();
+
+
+
     /**
      * @author Vadym Akymov
      * @param partNumber - number of data part (from 1 to driver_count/DRIVERS_LIMIT)
