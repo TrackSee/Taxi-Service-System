@@ -1,3 +1,6 @@
+#db configs
+/storage/src/main/resources/META-INF/persistence.xml
+
 # Java compiled code
 *.class
 
