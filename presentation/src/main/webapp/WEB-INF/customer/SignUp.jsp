@@ -14,8 +14,8 @@
 
 
 <div class="container">
-    <form class="form-signup" action="<c:url value="/signup"/>" method="post">
-        <h2 class="form-signup-heading">Please sign up</h2>
+    <form class="form-sign-up" action="<c:url value="/signup"/>" method="post">
+        <h2 class="form-sign-up-heading">Please sign up</h2>
         <label for="email" class="sr-only">Email address</label>
         <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required autofocus>
 

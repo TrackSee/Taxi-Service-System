@@ -14,8 +14,8 @@
 
 
 <div class="container">
-  <form class="form-signin" action="<c:url value="/signin"/>" method="post">
-    <h2 class="form-signin-heading">Please sign in</h2>
+  <form class="form-sign-in" action="<c:url value="/signin"/>" method="post">
+    <h2 class="form-sign-in-heading">Please sign in</h2>
     <label for="email" class="sr-only">Email address</label>
     <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required autofocus>
 
@@ -26,8 +26,9 @@
   </form>
 </div>
 <%@include file="../parts/scripts.jsp" %>
+<script>$('.form-signin').validate();</script>
 <c:if test="${param.error}">
-  <script>$.notify("Sign up failed!", "error");</script>
+  <script>$.notify('Sign up failed!', 'error');</script>
 </c:if>
 </body>
 </html>
