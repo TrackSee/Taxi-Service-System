@@ -27,14 +27,17 @@ public class RegistrationBean {
         return false;
     }
 
-    public boolean registerCustomerUser(String email, String password, Sex sex)
+    public boolean registerCustomerUser(String email, String password, String phoneNumber)
             throws SQLException, RegistrationException
     {
         if (!validatorBean.isValidEmail(email)) {
-            throw new RegistrationException("Invalid email.", "inv-email");
+            throw new RegistrationException("Invalid email.", "bad-email");
         }
         if (!validatorBean.isValidPassword(password)) {
-            throw new RegistrationException("Invalid password.", "inv-password");
+            throw new RegistrationException("Invalid password.", "bad-password");
+        }
+        if (phoneNumber != null && !validatorBean.isValidPhoneNumber(phoneNumber)) {
+            throw new RegistrationException("Invalid phone number.", "bad-phone");
         }
 
     //TODO check if user registered
@@ -47,7 +50,6 @@ public class RegistrationBean {
         user.setRole(Role.CUSTOMER_USER);
         user.setEmail(email);
         user.setPassword(password);
-        user.setSex(sex);
         user.setRegistrationTime(new Timestamp(System.currentTimeMillis()));
         String userCode = IdGenerator.generateId();
 

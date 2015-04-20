@@ -20,16 +20,22 @@ public class ValidatorBean {
     }
 
     /**
-     * (?=.*[0-9]) a digit must occur at least once
-     * (?=.*[a-z]) a lower case letter must occur at least once
-     * (?=.*[A-Z]) an upper case letter must occur at least once
-     * (?=.*[@#$%^&+=]) a special character must occur at least once
-     * (?=\\S+$) no whitespace allowed in the entire string
-     * {6,28} at least 6-28 characters
+     * (?=.*[0-9])         - a digit must occur at least once
+     * (?=.*[a-z])         - a lower case letter must occur at least once
+     * (?=.*[A-Z])         - an upper case letter must occur at least once
+     * (?=.*[@#$%^&+=])    - a special character must occur at least once
+     * (?=\\S+$)           - no whitespace allowed in the entire string
+     * [a-zA-Z0-9@#$%^&+=] - allowed characters
+     * {6,28}              - at least 6-28 characters
      */
-    private String PASSWORD_REGEXP = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,28}$";
+    private String PASSWORD_REGEXP = "^(?=.*[0-9@#$%^&+=])(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9@#$%^&+=]{6,28}$";
 
     public boolean isValidPassword(String password) {
         return password.matches(PASSWORD_REGEXP);
+    }
+
+    public boolean isValidPhoneNumber(String phoneNumber) {
+
+        return false;
     }
 }
