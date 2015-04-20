@@ -1,6 +1,5 @@
 package ua.com.tracksee.servlets.customer;
 
-import ua.com.tracksee.entity.Sex;
 import ua.com.tracksee.logic.RegistrationBean;
 import ua.com.tracksee.logic.exception.RegistrationException;
 import org.apache.logging.log4j.LogManager;
@@ -16,7 +15,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * @author Ruslan Gunavardana.
+ * @author Ruslan Gunavardana
  */
 @WebServlet("/signup")
 public class SignUpServlet extends HttpServlet {

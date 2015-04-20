@@ -6,12 +6,12 @@ import javax.ejb.Local;
 import java.util.List;
 
 /**
- * @author Ruslan Gunavardana.
+ * @author Vadym Akymov
+ * @author Ruslan Gunavardana
  */
 @Local
 public interface UserDAO {
     /**
-     * @author Vadym Akymov
      * @param partNumber - number of data part
      * @return list with part of drivers(default size of list if 10)
      */

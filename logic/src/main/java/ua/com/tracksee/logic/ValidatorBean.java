@@ -5,7 +5,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import javax.ejb.Stateless;
 
 /**
- * @author Ruslan Gunavardana.
+ * @author Ruslan Gunavardana
  */
 @Stateless
 public class ValidatorBean {

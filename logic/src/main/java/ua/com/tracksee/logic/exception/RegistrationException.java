@@ -1,7 +1,7 @@
 package ua.com.tracksee.logic.exception;
 
 /**
- * @author Ruslan Gunavardana.
+ * @author Ruslan Gunavardana
  */
 public class RegistrationException extends Exception {
     private String errorCode;

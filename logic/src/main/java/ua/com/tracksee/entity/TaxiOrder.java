@@ -3,7 +3,7 @@ package ua.com.tracksee.entity;
 import java.sql.Timestamp;
 
 /**
- * @author Ruslan Gunavardana.
+ * @author Ruslan Gunavardana
  */
 public class TaxiOrder {
     private Address origin;

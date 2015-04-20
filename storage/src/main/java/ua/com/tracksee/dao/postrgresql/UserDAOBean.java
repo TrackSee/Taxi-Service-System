@@ -1,6 +1,7 @@
 package ua.com.tracksee.dao.postrgresql;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
@@ -12,21 +13,22 @@ import javax.persistence.Query;
 import java.util.List;
 
 /**
- * @author Ruslan Gunavardana.
+ * @author Vadym Akymov
+ * @author Ruslan Gunavardana
  */
 @Local(UserDAO.class)
 @Stateless
 public class UserDAOBean implements UserDAO {
+    private static final Logger logger = LogManager.getLogger();
     //10 drivers per query by default
     public static final int DRIVERS_LIMIT = 10;
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
-    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger();
 
 
 
     /**
-     * @author Vadym Akymov
+     * @author
      * @param partNumber - number of data part (from 1 to driver_count/DRIVERS_LIMIT)
      * @return list with part of drivers(default size of list if 10)
      */
