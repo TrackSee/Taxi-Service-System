@@ -1,18 +1,18 @@
 package com.netcracker.bootcamp.tracksee.entities;
 
-import org.postgresql.geometric.PGpath;
-
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
- * Created by Vadym_Akymov on 19.04.15.
+ * @author Ruslan Gunavardana.
  */
 @Entity
-@Table(name = "taxi_order", schema = "public", catalog = "taxi")
+@Table(name = "taxi_order", schema = "public", catalog = "tracksee")
 public class TaxiOrderEntity {
-    private int trackingNumber;
+    private Integer trackingNumber;
     private String status;
-    private PGpath path;
+    private Double price;
+    private String service;
     private String carCategory;
     private String wayOfPayment;
     private String driverSex;
@@ -22,16 +22,14 @@ public class TaxiOrderEntity {
     private Boolean smokingDriver;
     private Boolean airConditioner;
     private String comment;
-    private ServiceUserEntity serviceUserByDriver;
-    private ServiceUserEntity serviceUserByUserId;
 
     @Id
     @Column(name = "tracking_number")
-    public int getTrackingNumber() {
+    public Integer getTrackingNumber() {
         return trackingNumber;
     }
 
-    public void setTrackingNumber(int trackingNumber) {
+    public void setTrackingNumber(Integer trackingNumber) {
         this.trackingNumber = trackingNumber;
     }
 
@@ -46,13 +44,23 @@ public class TaxiOrderEntity {
     }
 
     @Basic
-    @Column(name = "path")
-    public PGpath getPath() {
-        return path;
+    @Column(name = "price")
+    public Double getPrice() {
+        return price;
     }
 
-    public void setPath(PGpath path) {
-        this.path = path;
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    @Basic
+    @Column(name = "service")
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
     }
 
     @Basic
@@ -95,9 +103,7 @@ public class TaxiOrderEntity {
         this.musicStyle = musicStyle;
     }
 
-    @Basic
-    @Column(name = "animal_transportation")
-    public Boolean getAnimalTransportation() {
+    public Boolean isAnimalTransportation() {
         return animalTransportation;
     }
 
@@ -105,9 +111,7 @@ public class TaxiOrderEntity {
         this.animalTransportation = animalTransportation;
     }
 
-    @Basic
-    @Column(name = "free_wifi")
-    public Boolean getFreeWifi() {
+    public Boolean isFreeWifi() {
         return freeWifi;
     }
 
@@ -115,9 +119,7 @@ public class TaxiOrderEntity {
         this.freeWifi = freeWifi;
     }
 
-    @Basic
-    @Column(name = "smoking_driver")
-    public Boolean getSmokingDriver() {
+    public Boolean isSmokingDriver() {
         return smokingDriver;
     }
 
@@ -125,9 +127,7 @@ public class TaxiOrderEntity {
         this.smokingDriver = smokingDriver;
     }
 
-    @Basic
-    @Column(name = "air_conditioner")
-    public Boolean getAirConditioner() {
+    public Boolean isAirConditioner() {
         return airConditioner;
     }
 
@@ -149,62 +149,20 @@ public class TaxiOrderEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         TaxiOrderEntity that = (TaxiOrderEntity) o;
-
-        if (trackingNumber != that.trackingNumber) return false;
-        if (airConditioner != null ? !airConditioner.equals(that.airConditioner) : that.airConditioner != null)
-            return false;
-        if (animalTransportation != null ? !animalTransportation.equals(that.animalTransportation) : that.animalTransportation != null)
-            return false;
-        if (carCategory != null ? !carCategory.equals(that.carCategory) : that.carCategory != null) return false;
-        if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
-        if (driverSex != null ? !driverSex.equals(that.driverSex) : that.driverSex != null) return false;
-        if (freeWifi != null ? !freeWifi.equals(that.freeWifi) : that.freeWifi != null) return false;
-        if (musicStyle != null ? !musicStyle.equals(that.musicStyle) : that.musicStyle != null) return false;
-        if (path != null ? !path.equals(that.path) : that.path != null) return false;
-        if (smokingDriver != null ? !smokingDriver.equals(that.smokingDriver) : that.smokingDriver != null)
-            return false;
-        if (status != null ? !status.equals(that.status) : that.status != null) return false;
-        if (wayOfPayment != null ? !wayOfPayment.equals(that.wayOfPayment) : that.wayOfPayment != null) return false;
-
-        return true;
+        return Objects.equals(trackingNumber, that.trackingNumber) &&
+                Objects.equals(status, that.status) &&
+                Objects.equals(price, that.price) &&
+                Objects.equals(service, that.service) &&
+                Objects.equals(carCategory, that.carCategory) &&
+                Objects.equals(wayOfPayment, that.wayOfPayment) &&
+                Objects.equals(driverSex, that.driverSex) &&
+                Objects.equals(musicStyle, that.musicStyle) &&
+                Objects.equals(comment, that.comment);
     }
 
     @Override
     public int hashCode() {
-        int result = trackingNumber;
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (path != null ? path.hashCode() : 0);
-        result = 31 * result + (carCategory != null ? carCategory.hashCode() : 0);
-        result = 31 * result + (wayOfPayment != null ? wayOfPayment.hashCode() : 0);
-        result = 31 * result + (driverSex != null ? driverSex.hashCode() : 0);
-        result = 31 * result + (musicStyle != null ? musicStyle.hashCode() : 0);
-        result = 31 * result + (animalTransportation != null ? animalTransportation.hashCode() : 0);
-        result = 31 * result + (freeWifi != null ? freeWifi.hashCode() : 0);
-        result = 31 * result + (smokingDriver != null ? smokingDriver.hashCode() : 0);
-        result = 31 * result + (airConditioner != null ? airConditioner.hashCode() : 0);
-        result = 31 * result + (comment != null ? comment.hashCode() : 0);
-        return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "driver", referencedColumnName = "user_id")
-    public ServiceUserEntity getServiceUserByDriver() {
-        return serviceUserByDriver;
-    }
-
-    public void setServiceUserByDriver(ServiceUserEntity serviceUserByDriver) {
-        this.serviceUserByDriver = serviceUserByDriver;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    public ServiceUserEntity getServiceUserByUserId() {
-        return serviceUserByUserId;
-    }
-
-    public void setServiceUserByUserId(ServiceUserEntity serviceUserByUserId) {
-        this.serviceUserByUserId = serviceUserByUserId;
+        return Objects.hash(trackingNumber, status, price, service, carCategory, wayOfPayment, driverSex, musicStyle, comment);
     }
 }

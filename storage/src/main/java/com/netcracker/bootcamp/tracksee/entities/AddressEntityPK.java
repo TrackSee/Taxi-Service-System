@@ -3,13 +3,14 @@ package com.netcracker.bootcamp.tracksee.entities;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
- * Created by Vadym_Akymov on 19.04.15.
+ * @author Ruslan Gunavardana.
  */
 public class AddressEntityPK implements Serializable {
     private String name;
-    private int userId;
+    private Integer userId;
 
     @Column(name = "name")
     @Id
@@ -23,11 +24,11 @@ public class AddressEntityPK implements Serializable {
 
     @Column(name = "user_id")
     @Id
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -35,19 +36,13 @@ public class AddressEntityPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         AddressEntityPK that = (AddressEntityPK) o;
-
-        if (userId != that.userId) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-
-        return true;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(userId, that.userId);
     }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + userId;
-        return result;
+        return Objects.hash(name, userId);
     }
 }

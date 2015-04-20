@@ -1,34 +1,36 @@
 package com.netcracker.bootcamp.tracksee.entities;
 
 import javax.persistence.*;
-
+import java.sql.Timestamp;
+import java.util.Objects;
 
 /**
- * Created by Vadym_Akymov on 19.04.15.
+ * @author Ruslan Gunavardana.
  */
 @Entity
-@Table(name = "service_user", schema = "public", catalog = "taxi")
+@Table(name = "service_user", schema = "public", catalog = "tracksee")
 public class ServiceUserEntity {
-    private int userId;
+    private Integer userId;
     private String email;
     private String password;
     private String phone;
     private String sex;
-    private Boolean isdriver;
-    private Boolean isadmin;
+    private Boolean driver;
+    private Boolean admin;
     private String groupName;
     private String driverLicense;
     private Integer ignoredTimes;
     private Boolean activated;
+    private Timestamp registrationDate;
     private CarEntity carByCarNumber;
 
     @Id
-    @Column(name = "user_id", insertable = false, updatable = false)
-    public int getUserId() {
+    @Column(name = "user_id")
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -72,24 +74,20 @@ public class ServiceUserEntity {
         this.sex = sex;
     }
 
-    @Basic
-    @Column(name = "isdriver")
-    public Boolean getIsdriver() {
-        return isdriver;
+    public Boolean isDriver() {
+        return driver;
     }
 
-    public void setIsdriver(Boolean isdriver) {
-        this.isdriver = isdriver;
+    public void setDriver(Boolean driver) {
+        this.driver = driver;
     }
 
-    @Basic
-    @Column(name = "isadmin")
-    public Boolean getIsadmin() {
-        return isadmin;
+    public Boolean isAdmin() {
+        return admin;
     }
 
-    public void setIsadmin(Boolean isadmin) {
-        this.isadmin = isadmin;
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 
     @Basic
@@ -122,9 +120,7 @@ public class ServiceUserEntity {
         this.ignoredTimes = ignoredTimes;
     }
 
-    @Basic
-    @Column(name = "activated")
-    public Boolean getActivated() {
+    public Boolean isActivated() {
         return activated;
     }
 
@@ -132,43 +128,35 @@ public class ServiceUserEntity {
         this.activated = activated;
     }
 
+    @Basic
+    @Column(name = "registration_date")
+    public Timestamp getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Timestamp registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        ServiceUserEntity that = (ServiceUserEntity) o;
-
-        if (userId != that.userId) return false;
-        if (activated != null ? !activated.equals(that.activated) : that.activated != null) return false;
-        if (driverLicense != null ? !driverLicense.equals(that.driverLicense) : that.driverLicense != null)
-            return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (groupName != null ? !groupName.equals(that.groupName) : that.groupName != null) return false;
-        if (ignoredTimes != null ? !ignoredTimes.equals(that.ignoredTimes) : that.ignoredTimes != null) return false;
-        if (isadmin != null ? !isadmin.equals(that.isadmin) : that.isadmin != null) return false;
-        if (isdriver != null ? !isdriver.equals(that.isdriver) : that.isdriver != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
-        if (sex != null ? !sex.equals(that.sex) : that.sex != null) return false;
-
-        return true;
+        ServiceUserEntity entity = (ServiceUserEntity) o;
+        return Objects.equals(userId, entity.userId) &&
+                Objects.equals(email, entity.email) &&
+                Objects.equals(password, entity.password) &&
+                Objects.equals(phone, entity.phone) &&
+                Objects.equals(sex, entity.sex) &&
+                Objects.equals(groupName, entity.groupName) &&
+                Objects.equals(driverLicense, entity.driverLicense) &&
+                Objects.equals(ignoredTimes, entity.ignoredTimes) &&
+                Objects.equals(registrationDate, entity.registrationDate);
     }
 
     @Override
     public int hashCode() {
-        int result = userId;
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (phone != null ? phone.hashCode() : 0);
-        result = 31 * result + (sex != null ? sex.hashCode() : 0);
-        result = 31 * result + (isdriver != null ? isdriver.hashCode() : 0);
-        result = 31 * result + (isadmin != null ? isadmin.hashCode() : 0);
-        result = 31 * result + (groupName != null ? groupName.hashCode() : 0);
-        result = 31 * result + (driverLicense != null ? driverLicense.hashCode() : 0);
-        result = 31 * result + (ignoredTimes != null ? ignoredTimes.hashCode() : 0);
-        result = 31 * result + (activated != null ? activated.hashCode() : 0);
-        return result;
+        return Objects.hash(userId, email, password, phone, sex, groupName, driverLicense, ignoredTimes, registrationDate);
     }
 
     @ManyToOne

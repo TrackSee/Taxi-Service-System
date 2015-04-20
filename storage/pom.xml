@@ -34,13 +34,6 @@
             <version>9.4-1201-jdbc41</version>
         </dependency>
 
-        <!--for ORM-->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.8.Final</version>
-        </dependency>
-
     </dependencies>
 
     <build>

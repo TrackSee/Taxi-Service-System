@@ -1,21 +1,20 @@
 package com.netcracker.bootcamp.tracksee.entities;
 
-import org.postgresql.geometric.PGpath;
-
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 
 /**
- * Created by Vadym_Akymov on 19.04.15.
+ * @author Ruslan Gunavardana.
  */
 @Entity
-@Table(name = "address", schema = "public", catalog = "taxi")
+@Table(name = "address", schema = "public", catalog = "tracksee")
 @IdClass(AddressEntityPK.class)
 public class AddressEntity {
     private String name;
-    private int userId;
+    private Integer userId;
     private String stringRepresentation;
-    private PGpath location;
-    private ServiceUserEntity serviceUserByUserId;
+    private Serializable location;
 
     @Id
     @Column(name = "name")
@@ -29,11 +28,11 @@ public class AddressEntity {
 
     @Id
     @Column(name = "user_id")
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -49,11 +48,11 @@ public class AddressEntity {
 
     @Basic
     @Column(name = "location")
-    public PGpath getLocation() {
+    public Serializable getLocation() {
         return location;
     }
 
-    public void setLocation(PGpath location) {
+    public void setLocation(Serializable location) {
         this.location = location;
     }
 
@@ -61,34 +60,15 @@ public class AddressEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         AddressEntity that = (AddressEntity) o;
-
-        if (userId != that.userId) return false;
-        if (location != null ? !location.equals(that.location) : that.location != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (stringRepresentation != null ? !stringRepresentation.equals(that.stringRepresentation) : that.stringRepresentation != null)
-            return false;
-
-        return true;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(userId, that.userId) &&
+                Objects.equals(stringRepresentation, that.stringRepresentation) &&
+                Objects.equals(location, that.location);
     }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + userId;
-        result = 31 * result + (stringRepresentation != null ? stringRepresentation.hashCode() : 0);
-        result = 31 * result + (location != null ? location.hashCode() : 0);
-        return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
-    public ServiceUserEntity getServiceUserByUserId() {
-        return serviceUserByUserId;
-    }
-
-    public void setServiceUserByUserId(ServiceUserEntity serviceUserByUserId) {
-        this.serviceUserByUserId = serviceUserByUserId;
+        return Objects.hash(name, userId, stringRepresentation, location);
     }
 }
