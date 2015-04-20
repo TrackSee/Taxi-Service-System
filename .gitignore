@@ -1,5 +1,5 @@
-#db configs
-/storage/src/main/resources/META-INF/persistence.xml
+#logs
+**.log
 
 # Java compiled code
 *.class
@@ -25,4 +25,4 @@ hs_err_pid*
 # IntelliJ
 out/
 target/
-/bin/
+bin/
