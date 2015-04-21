@@ -1,5 +1,6 @@
 package ua.com.tracksee.logic;
 
+import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entity.Role;
 import ua.com.tracksee.entity.Sex;
 import ua.com.tracksee.entity.UnactivatedUser;
@@ -18,16 +19,31 @@ import java.sql.Timestamp;
  */
 @Stateless
 public class RegistrationBean {
-    @EJB private EmailBean emailBean;
-    @EJB private ValidatorBean validatorBean;
+    private static final int UNACTIVATED_USERS_MAX_DAYS = 30;
 
-    public boolean activateUser(String userCode) throws SQLException {
-        //TODO add to db
+    @EJB
+    private EmailBean emailBean;
+    @EJB
+    private ValidatorBean validatorBean;
+    @EJB
+    private UserDAO userDAO;
 
-        return false;
+    public void activateCustomerUserAccount(String userCode) throws RegistrationException {
+        Integer userId;
+        try {
+            userId = Integer.parseInt(userCode);
+        } catch (NumberFormatException e) {
+            throw new RegistrationException("Invalid link.", "bad-link");
+        }
+
+        if (userDAO.accountIsActivated(userId)) {
+            throw new RegistrationException("User is already activated.", "is-active");
+        }
+
+        userDAO.activateAccount(userId);
     }
 
-    public boolean registerCustomerUser(String email, String password, String phoneNumber)
+    public void registerCustomerUser(String email, String password, String phoneNumber)
             throws SQLException, RegistrationException
     {
         if (!validatorBean.isValidEmail(email)) {
@@ -41,7 +57,7 @@ public class RegistrationBean {
         }
 
     //TODO check if user registered
-//        if (dao.getUserByEmail(email) != null) {
+//        if (userDAO.getUserByEmail(email) != null) {
 //            return false;
 //        }
 
@@ -52,23 +68,17 @@ public class RegistrationBean {
         user.setPassword(password);
         user.setRegistrationTime(new Timestamp(System.currentTimeMillis()));
         String userCode = IdGenerator.generateId();
+        //TODO userDAO.addUnactivatedUser(user);
 
         try {
             emailBean.sendRegistrationEmail(user, userCode);
         } catch (MessagingException e) {
             throw new RegistrationException("Failed to send registration email.", "send-fail");
         }
-        return true;
     }
 
-    @Schedule(dayOfWeek = "Sun", hour = "4")
+    @Schedule(dayOfMonth = "1", hour = "4")
     public void clearUnactivatedRegistrations() {
-        //TODO redirect code to storage module
-        EntityManager em = null;
-        String sql = "DELETE FROM service_user " +
-                "WHERE activated = FALSE " +
-                "AND CURRENT_TIMESTAMP - registration_date  > '1 month' :: INTERVAL";
-        Query query = em.createNativeQuery(sql);
-        query.executeUpdate();
+        userDAO.clearUnactivatedAccounts(UNACTIVATED_USERS_MAX_DAYS);
     }
 }

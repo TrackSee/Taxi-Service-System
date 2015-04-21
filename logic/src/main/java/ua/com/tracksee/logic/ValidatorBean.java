@@ -4,6 +4,8 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 import javax.ejb.Stateless;
 
+import static java.lang.Character.isDigit;
+
 /**
  * @author Ruslan Gunavardana
  */
@@ -35,7 +37,13 @@ public class ValidatorBean {
     }
 
     public boolean isValidPhoneNumber(String phoneNumber) {
-
-        return false;
+        int digitCount = 0;
+        for (int i = 0; i < phoneNumber.length(); i++) {
+            char c = phoneNumber.charAt(i);
+            if (isDigit(c)) {
+                ++digitCount;
+            }
+        }
+        return digitCount > 4 & digitCount < 16;
     }
 }
