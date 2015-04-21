@@ -37,12 +37,12 @@
         </dependency>
 
         <!--&lt;!&ndash;for ORM&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate</groupId>-->
-            <!--<artifactId>hibernate-entitymanager</artifactId>-->
-            <!--<version>4.3.9.Final</version>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.9.Final</version>
+            <scope>test</scope>
+        </dependency>
 
         <!--For arquillian integration testing-->
         <dependency>
