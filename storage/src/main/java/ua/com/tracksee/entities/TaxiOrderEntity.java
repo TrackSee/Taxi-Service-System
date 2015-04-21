@@ -22,6 +22,7 @@ public class TaxiOrderEntity {
     private Boolean smokingDriver;
     private Boolean airConditioner;
     private String comment;
+    private Integer userId;
 
     @Id
     @Column(name = "tracking_number")
@@ -31,6 +32,17 @@ public class TaxiOrderEntity {
 
     public void setTrackingNumber(Integer trackingNumber) {
         this.trackingNumber = trackingNumber;
+    }
+
+    /* дописано з бд, бо було відсутнє */
+    @Basic
+    @Column(name = "user_id")
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     @Basic
