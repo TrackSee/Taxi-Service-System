@@ -1,7 +1,8 @@
 package ua.com.tracksee.entities;
 
+import org.postgresql.geometric.PGpath;
+
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Table(name = "taxi_order_item", schema = "public", catalog = "tracksee")
 public class TaxiOrderItemEntity {
     private Integer taxiItemId;
-    private Serializable path;
+    private PGpath path;
     private ServiceUserEntity serviceUserByDriverId;
     private TaxiOrderEntity taxiOrderByTrackingNumer;
 
@@ -27,11 +28,11 @@ public class TaxiOrderItemEntity {
 
     @Basic
     @Column(name = "path")
-    public Serializable getPath() {
+    public PGpath getPath() {
         return path;
     }
 
-    public void setPath(Serializable path) {
+    public void setPath(PGpath path) {
         this.path = path;
     }
 
