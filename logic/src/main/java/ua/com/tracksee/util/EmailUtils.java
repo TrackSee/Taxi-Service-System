@@ -6,7 +6,7 @@ import javax.mail.Session;
 import java.util.Properties;
 
 /**
- * @author Ruslan Gunavardana.
+ * @author Ruslan Gunavardana
  */
 public class EmailUtils {
     private static Properties properties;

@@ -4,8 +4,10 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 import javax.ejb.Stateless;
 
+import static java.lang.Character.isDigit;
+
 /**
- * @author Ruslan Gunavardana.
+ * @author Ruslan Gunavardana
  */
 @Stateless
 public class ValidatorBean {
@@ -20,16 +22,28 @@ public class ValidatorBean {
     }
 
     /**
-     * (?=.*[0-9]) a digit must occur at least once
-     * (?=.*[a-z]) a lower case letter must occur at least once
-     * (?=.*[A-Z]) an upper case letter must occur at least once
-     * (?=.*[@#$%^&+=]) a special character must occur at least once
-     * (?=\\S+$) no whitespace allowed in the entire string
-     * {6,28} at least 6-28 characters
+     * (?=.*[0-9])         - a digit must occur at least once
+     * (?=.*[a-z])         - a lower case letter must occur at least once
+     * (?=.*[A-Z])         - an upper case letter must occur at least once
+     * (?=.*[@#$%^&+=])    - a special character must occur at least once
+     * (?=\\S+$)           - no whitespace allowed in the entire string
+     * [a-zA-Z0-9@#$%^&+=] - allowed characters
+     * {6,28}              - at least 6-28 characters
      */
-    private String PASSWORD_REGEXP = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,28}$";
+    private String PASSWORD_REGEXP = "^(?=.*[0-9@#$%^&+=])(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9@#$%^&+=]{6,28}$";
 
     public boolean isValidPassword(String password) {
         return password.matches(PASSWORD_REGEXP);
+    }
+
+    public boolean isValidPhoneNumber(String phoneNumber) {
+        int digitCount = 0;
+        for (int i = 0; i < phoneNumber.length(); i++) {
+            char c = phoneNumber.charAt(i);
+            if (isDigit(c)) {
+                ++digitCount;
+            }
+        }
+        return digitCount > 4 & digitCount < 16;
     }
 }

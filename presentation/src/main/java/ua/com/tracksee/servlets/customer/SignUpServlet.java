@@ -1,6 +1,5 @@
 package ua.com.tracksee.servlets.customer;
 
-import ua.com.tracksee.entity.Sex;
 import ua.com.tracksee.logic.RegistrationBean;
 import ua.com.tracksee.logic.exception.RegistrationException;
 import org.apache.logging.log4j.LogManager;
@@ -16,20 +15,17 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * @author Ruslan Gunavardana.
+ * @author Ruslan Gunavardana
  */
 @WebServlet("/signup")
 public class SignUpServlet extends HttpServlet {
 
-    private Logger logger;
+    private static final Logger logger = LogManager.getLogger();
+    private static final String ERROR_REDIRECT_PATH = "/signup?error=true&code=";
+
     @EJB
     private RegistrationBean controller;
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        logger = LogManager.getLogger();
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,17 +37,20 @@ public class SignUpServlet extends HttpServlet {
         try {
             String email = req.getParameter("email");
             String password = req.getParameter("password");
-            Sex sex = Sex.valueOf(req.getParameter("sex")); //TODO sex validation
+            String phoneNumber = req.getParameter("phone-number");
 
-            controller.registerCustomerUser(email, password, sex);
+            controller.registerCustomerUser(email, password, phoneNumber);
             logger.debug("Successful sign up. User: " + email);
             req.getRequestDispatcher("/WEB-INF/customer/CheckEmail.jsp").forward(req, resp);
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
             resp.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, "Database unavailable.");
         } catch (RegistrationException e) {
-            logger.error(e.getMessage());
-            resp.sendRedirect("/signup?error=true&code=");
+            logger.warn(e.getMessage());
+            resp.sendRedirect(ERROR_REDIRECT_PATH + e.getErrorCode());
+        } catch (IllegalArgumentException e) {
+            logger.warn(e.getMessage());
+            resp.sendRedirect(ERROR_REDIRECT_PATH + "bad-args");
         }
     }
 }

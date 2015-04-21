@@ -1,11 +1,12 @@
 package ua.com.tracksee.entities;
 
+import org.postgresql.geometric.PGpoint;
+
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * @author Ruslan Gunavardana.
+ * @author Ruslan Gunavardana
  */
 @Entity
 @Table(name = "address", schema = "public", catalog = "tracksee")
@@ -14,7 +15,7 @@ public class AddressEntity {
     private String name;
     private Integer userId;
     private String stringRepresentation;
-    private Serializable location;
+    private PGpoint location;
 
     @Id
     @Column(name = "name")
@@ -48,11 +49,11 @@ public class AddressEntity {
 
     @Basic
     @Column(name = "location")
-    public Serializable getLocation() {
+    public PGpoint getLocation() {
         return location;
     }
 
-    public void setLocation(Serializable location) {
+    public void setLocation(PGpoint location) {
         this.location = location;
     }
 

@@ -26,7 +26,7 @@
   </form>
 </div>
 <%@include file="../parts/scripts.jsp" %>
-<script>$('.form-signin').validate();</script>
+<script>$('.form-sign-in').validate();</script>
 <c:if test="${param.error}">
   <script>$.notify('Sign up failed!', 'error');</script>
 </c:if>

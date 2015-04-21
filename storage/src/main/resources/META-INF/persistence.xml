@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
-<persistence-unit name="hibernatePU" transaction-type="JTA">
-    <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+<persistence-unit name="HibernatePU" transaction-type="JTA">
     <class>ua.com.tracksee.entities.AddressEntity</class>
     <class>ua.com.tracksee.entities.CarEntity</class>
     <class>ua.com.tracksee.entities.ConfigEntity</class>
@@ -9,12 +12,8 @@
     <class>ua.com.tracksee.entities.TaxiOrderEntity</class>
     <class>ua.com.tracksee.entities.TaxiOrderItemEntity</class>
     <class>ua.com.tracksee.entities.TaxiPriceEntity</class>
+    <jta-data-source>java:jboss/datasources/trackseeDS</jta-data-source>
     <properties>
-        <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/tracksee"/>
-        <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-        <property name="hibernate.connection.username" value="USER_NAME_HERE"/>
-        <property name="hibernate.connection.password" value="PASSWORD_HERE"/>
-
         <property name="hibernate.archive.autodetection" value="class"/>
         <property name="hibernate.show_sql" value="true"/>
         <property name="hibernate.format_sql" value="true"/>

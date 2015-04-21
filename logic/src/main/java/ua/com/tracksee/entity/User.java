@@ -1,7 +1,7 @@
 package ua.com.tracksee.entity;
 
 /**
- * @author Ruslan Gunavardana.
+ * @author Ruslan Gunavardana
  */
 public class User {
     private Role role;
