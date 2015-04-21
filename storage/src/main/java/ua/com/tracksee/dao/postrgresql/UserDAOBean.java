@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
-import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,7 +15,6 @@ import java.util.List;
  * @author Vadym Akymov
  * @author Ruslan Gunavardana
  */
-@Local(UserDAO.class)
 @Stateless
 public class UserDAOBean implements UserDAO {
     private static final Logger logger = LogManager.getLogger();
