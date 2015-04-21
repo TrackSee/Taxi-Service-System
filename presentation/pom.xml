@@ -12,10 +12,25 @@
     <packaging>war</packaging>
 
     <dependencies>
+
+        <!--for Controller-->
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>logic</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+
+        <!--for View-->
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
     </dependencies>
 </project>
