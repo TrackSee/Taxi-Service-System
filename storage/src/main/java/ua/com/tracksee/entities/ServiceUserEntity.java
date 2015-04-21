@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 /**
- * @author Ruslan Gunavardana.
+ * @author Ruslan Gunavardana
  */
 @Entity
 @Table(name = "service_user", schema = "public", catalog = "tracksee")

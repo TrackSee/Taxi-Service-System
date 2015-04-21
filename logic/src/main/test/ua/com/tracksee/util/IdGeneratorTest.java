@@ -6,7 +6,7 @@ import ua.com.tracksee.util.IdGenerator;
 import static org.junit.Assert.assertNotEquals;
 
 /**
- * @author Ruslan Gunavardana.
+ * @author Ruslan Gunavardana
  */
 public class IdGeneratorTest {
     @Test

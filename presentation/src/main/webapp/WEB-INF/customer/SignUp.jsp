@@ -25,12 +25,13 @@
         <input type="password" id="repeat-password" name="repeat-password" class="form-control" placeholder="Repeat password" required>
 
         <label for="phone-number" class="sr-only">Phone number</label>
-        <input type="text" id="phone-number" name="phone-number" class="form-control" placeholder="Phone number" required>
+        <input type="text" id="phone-number" name="phone-number" class="form-control" placeholder="Phone number">
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
     </form>
 </div>
 <%@include file="../parts/scripts.jsp" %>
+<script src="<%=application.getContextPath()%>/resources/js/custom/sign-up-validation.js"></script>
 <c:if test="${param.error}">
     <script>$.notify("Sign up failed!", "error");</script>
 </c:if>

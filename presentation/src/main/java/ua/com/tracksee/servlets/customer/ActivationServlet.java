@@ -1,5 +1,8 @@
 package ua.com.tracksee.servlets.customer;
 
+import ua.com.tracksee.logic.RegistrationBean;
+
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,10 +13,13 @@ import java.io.IOException;
 /**
  * @author Ruslan Gunavardana
  */
-@WebServlet("/order")
-public class OrderPageServlet extends HttpServlet {
+@WebServlet("/activation")
+public class ActivationServlet extends HttpServlet {
+    @EJB
+    private RegistrationBean registrationBean;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/customer/OrderPage.jsp").forward(req,resp);
+        req.getRequestDispatcher("/WEB-INF/customer/ActivationSuccess.jsp").forward(req,resp);
     }
 }

@@ -1,52 +1,42 @@
 package ua.com.tracksee.dao;
 
 import ua.com.tracksee.entities.ServiceUserEntity;
-import ua.com.tracksee.entities.TaxiOrderEntity;
 
 import javax.ejb.Local;
 import java.util.List;
 
 /**
- * @author Ruslan Gunavardana.
+ * @author Vadym Akymov
+ * @author Ruslan Gunavardana
  */
 @Local
 public interface UserDAO {
     /**
      * @param partNumber - number of data part
-     * @return list with part of drivers(default size of list if 10)
-     * @author Vadym Akymov
+     * @return list, containing the part of drivers(default size of list is 10)
      */
     List<ServiceUserEntity> getDrivers(int partNumber);
 
     /**
-     * @param driver - entity of driver for addition by Administrator
-     * @author Katia Stetsiuk
+     * Method clears any unactivated users that exist more than
+     * unactivatedDays.
+     *
+     * @param unactivatedDays days of unactivated account existence
      */
-    void addDriver(ServiceUserEntity driver);
+    void clearUnactivatedAccounts(int unactivatedDays);
 
     /**
-     * @param driverId - driver's id for deleting by Administrator
-     * @author Katia Stetsiuk
+     * Checks if the user with specified userId is activated.
+     *
+     * @param userId specified user's id
+     * @return if the user is activated.
      */
-    void removeDriver(int driverId);
+    Boolean accountIsActivated(Integer userId);
 
     /**
-     * @param driver - - entity of driver to editing by Administrator
-     * @author Katia Stetsiuk
+     * Activates the account of user with specified userId
+     *
+     * @param userId id of activated user
      */
-
-    void editDriver(ServiceUserEntity driver);
-
-    /**
-     * @param taxiOrder - entity of taxiOrder for editing by User
-     * @author Katia Stetsiuk
-     */
-    void editOrder(TaxiOrderEntity taxiOrder);
-
-    /**
-     * @param taxiOrderId - taxiOrder's id for refusal Order by User
-     * @author Katia Stetsiuk
-     */
-
-    void cancelOrder(int taxiOrderId);
+    void activateAccount(Integer userId);
 }

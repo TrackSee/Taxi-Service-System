@@ -8,7 +8,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 /**
- * @author Ruslan Gunavardana.
+ * @author Ruslan Gunavardana
  */
 @Stateless
 @Local

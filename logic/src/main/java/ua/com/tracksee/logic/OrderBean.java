@@ -3,7 +3,7 @@ package ua.com.tracksee.logic;
 import javax.ejb.Stateless;
 
 /**
- * @author Ruslan Gunavardana.
+ * @author Ruslan Gunavardana
  */
 @Stateless
 public class OrderBean {

@@ -14,7 +14,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /**
- * @author Ruslan Gunavardana.
+ * @author Ruslan Gunavardana
  */
 @Stateless
 public class EmailBean {
