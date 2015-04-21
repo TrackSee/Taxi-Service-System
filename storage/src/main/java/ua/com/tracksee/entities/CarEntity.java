@@ -57,7 +57,9 @@ public class CarEntity {
         this.carCategory = carCategory;
     }
 
-    public Boolean isAnimalTransportationApplicable() {
+    @Basic
+    @Column(name = "animal_transportation_applicable")
+    public Boolean getAnimalTransportationApplicable(){
         return animalTransportationApplicable;
     }
 
@@ -65,7 +67,9 @@ public class CarEntity {
         this.animalTransportationApplicable = animalTransportationApplicable;
     }
 
-    public Boolean isFreeWifi() {
+    @Basic
+    @Column(name = "free_wifi")
+    public Boolean getFreeWifi(){
         return freeWifi;
     }
 
@@ -73,7 +77,9 @@ public class CarEntity {
         this.freeWifi = freeWifi;
     }
 
-    public Boolean isAirConditioner() {
+    @Basic
+    @Column(name = "air_conditioner")
+    public Boolean getAirConditioner(){
         return airConditioner;
     }
 

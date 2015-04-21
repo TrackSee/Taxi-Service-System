@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
-import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +13,6 @@ import java.util.List;
 /**
  * @author Ruslan Gunavardana.
  */
-@Local(UserDAO.class)
 @Stateless
 public class UserDAOBean implements UserDAO {
     //10 drivers per query by default
