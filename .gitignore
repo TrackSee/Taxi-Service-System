@@ -1,6 +1,3 @@
-#logs
-**.log
-
 # Java compiled code
 *.class
 
@@ -25,4 +22,9 @@ hs_err_pid*
 # IntelliJ
 out/
 target/
-bin/
+/bin/
+
+storage/src/main/resources/hibernate.cfg.xml
+storage/src/main/java/HibernateService.java
+storage/src/main/resources/META-INF/persistence.xml
+storage/src/main/resources/META-INF

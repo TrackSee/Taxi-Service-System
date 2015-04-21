@@ -34,10 +34,11 @@ public class UserDAOBean implements UserDAO {
             logger.error("partNumber can't be <= 0");
             throw new IllegalArgumentException("partNumber can't be <= 0");
         }
-        Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
-                "WHERE driver = 'TRUE' LIMIT :limit OFFSET :offset", ServiceUserEntity.class);
-        query.setParameter("limit", DRIVERS_LIMIT);
-        query.setParameter("offset", (partNumber-1)*DRIVERS_LIMIT);
+        Query query = entityManager.createQuery("from ServiceUserEntity");
+//        Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
+//                "WHERE driver = TRUE LIMIT :limit OFFSET :offset", ServiceUserEntity.class);
+//        query.setParameter("limit", DRIVERS_LIMIT);
+//        query.setParameter("offset", (partNumber-1)*DRIVERS_LIMIT);
         return query.getResultList();
     }
 

@@ -145,9 +145,9 @@
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>2.17</version>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
+                        <!--<configuration>-->
+                            <!--<skip>true</skip>-->
+                        <!--</configuration>-->
                     </plugin>
                 </plugins>
             </build>

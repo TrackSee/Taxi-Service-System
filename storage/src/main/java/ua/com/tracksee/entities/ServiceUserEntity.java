@@ -15,7 +15,7 @@ public class ServiceUserEntity {
     private String password;
     private String phone;
     private String sex;
-    private Boolean driver;
+    private Boolean isDriver;
     private Boolean admin;
     private String groupName;
     private String driverLicense;
@@ -25,6 +25,7 @@ public class ServiceUserEntity {
     private CarEntity carByCarNumber;
 
     @Id
+    @GeneratedValue
     @Column(name = "user_id")
     public Integer getUserId() {
         return userId;
@@ -74,15 +75,19 @@ public class ServiceUserEntity {
         this.sex = sex;
     }
 
-    public Boolean isDriver() {
-        return driver;
+    @Basic
+    @Column(name = "driver")
+    public Boolean getIsDriver() {
+        return isDriver;
     }
 
-    public void setDriver(Boolean driver) {
-        this.driver = driver;
+    public void setIsDriver(Boolean driver) {
+        this.isDriver = driver;
     }
 
-    public Boolean isAdmin() {
+    @Basic
+    @Column(name = "admin")
+    public Boolean getAdmin() {
         return admin;
     }
 
@@ -120,7 +125,9 @@ public class ServiceUserEntity {
         this.ignoredTimes = ignoredTimes;
     }
 
-    public Boolean isActivated() {
+    @Basic
+    @Column(name = "activated")
+    public Boolean getActivated() {
         return activated;
     }
 
