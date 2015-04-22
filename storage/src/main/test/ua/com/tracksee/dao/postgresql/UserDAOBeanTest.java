@@ -1,4 +1,4 @@
-package tracksee.dao.postgresql;
+package com.tracksee.dao.postgresql;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
