@@ -1,19 +1,25 @@
-package com.tracksee.dao.postgresql;
+package ua.com.tracksee.dao.postgresql;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.postgresql.geometric.PGpoint;
+import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.postrgresql.UserDAOBean;
+import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import java.io.File;
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Vadym_Akymov
@@ -21,11 +27,20 @@ import java.io.File;
 @RunWith(Arquillian.class)
 public class UserDAOBeanTest {
     @EJB
-    private UserDAOBean userDAO;
+    private UserDAO userDAO;
 
     @Deployment
-    public	static Archive<?> createTestArchive()	{
+    public	static WebArchive createTestArchive(){
+        File[] log4jApi = getLibraryFromMaven("org.apache.logging.log4j","log4j-api","2.2");
+        File[] log4jCore = getLibraryFromMaven("org.apache.logging.log4j", "log4j-core", "2.2");
+        File[] hibernateLib = getLibraryFromMaven("org.hibernate", "hibernate-core", "4.3.9.Final");
         return	ShrinkWrap.create(WebArchive.class)
+                .addAsLibraries(log4jApi)
+                .addAsLibraries(log4jCore)
+                .addAsLibraries(hibernateLib)
+                .addPackage(PGpoint.class.getPackage())
+                .addPackage(PGBinaryObject.class.getPackage())
+                .addPackage(ServiceUserEntity.class.getPackage())
                 .addPackage(UserDAOBean.class.getPackage())
                 .addPackage(UserDAO.class.getPackage())
                 .addAsResource("META-INF/persistence.xml")
@@ -40,25 +55,19 @@ public class UserDAOBeanTest {
                 .withTransitivity().asFile();
     }
 
+
     @Test
-    public void test(){
-        System.out.println("Hello word!");
+    public void testGetDrivers() throws Exception {
+        //get first part of drivers
+        List<ServiceUserEntity> drivers = userDAO.getDrivers(1);
+        assertTrue(drivers.size() == UserDAOBean.DRIVERS_LIMIT);
+        for(int i = 0; i < drivers.size(); i++){
+            assertTrue(drivers.get(i).getIsDriver());
+        }
     }
-//
-//    @Test
-//    public void testGetDrivers() throws Exception {
-//        //get first part of drivers
-//        List<ServiceUserEntity> drivers = userDAO.getDrivers(1);
-//        assertTrue(drivers.size() == UserDAOBean.DRIVERS_LIMIT);
-//        for(int i = 0; i < drivers.size(); i++){
-//            assertTrue(drivers.get(i).isDriver());
-//        }
-//        fail();
-//    }
-//    @Test
-//    public void testGetDriversException() throws Exception{
-//        //negative param
-//        List<ServiceUserEntity> drivers = userDAO.getDrivers(-1);
-//        System.out.println("Lol");
-//    }
+    @Test(expected = EJBException.class)
+    public void testGetDriversException() throws Exception{
+        //negative param
+        List<ServiceUserEntity> drivers = userDAO.getDrivers(-1);
+    }
 }

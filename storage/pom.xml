@@ -36,13 +36,6 @@
             <version>9.4-1201-jdbc41</version>
         </dependency>
 
-        <!--&lt;!&ndash;for ORM&ndash;&gt;-->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.9.Final</version>
-            <scope>test</scope>
-        </dependency>
         <!--For arquillian integration testing-->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
@@ -66,18 +59,6 @@
             <artifactId>arquillian-test-spi</artifactId>
             <version>1.1.8.Final</version>
         </dependency>
-
-        <!--&lt;!&ndash;for logging&ndash;&gt;-->
-        <!--<dependency>-->
-        <!--<groupId>org.apache.logging.log4j</groupId>-->
-        <!--<artifactId>log4j-api</artifactId>-->
-        <!--<version>2.2</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.apache.logging.log4j</groupId>-->
-        <!--<artifactId>log4j-core</artifactId>-->
-        <!--<version>2.2</version>-->
-        <!--</dependency>-->
 
         <!--For maven dependency resolver-->
         <dependency>
@@ -102,12 +83,23 @@
             <version>9.1-901-1.jdbc4</version>
             <scope>test</scope>
         </dependency>
+        <!--Hibernate JPA provider-->
+        <!--<dependency>-->
+            <!--<groupId>org.hibernate</groupId>-->
+            <!--<artifactId>hibernate-core</artifactId>-->
+            <!--<version>4.3.9.Final</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.hibernate</groupId>-->
+            <!--<artifactId>hibernate-entitymanager</artifactId>-->
+            <!--<version>4.3.9.Final</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
+            <artifactId>hibernate-entitymanager</artifactId>
             <version>4.3.9.Final</version>
-            <scope>test</scope>
         </dependency>
+
 
 
         <!--For arquillian integration testing-->
@@ -115,7 +107,7 @@
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
             <version>1.1.8.Final</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
@@ -134,17 +126,17 @@
             <version>1.1.8.Final</version>
         </dependency>
 
-        <!--&lt;!&ndash;for logging&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.logging.log4j</groupId>-->
-            <!--<artifactId>log4j-api</artifactId>-->
-            <!--<version>2.2</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.logging.log4j</groupId>-->
-            <!--<artifactId>log4j-core</artifactId>-->
-            <!--<version>2.2</version>-->
-        <!--</dependency>-->
+        <!--Log4j logging-->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.2</version>
+        </dependency>
 
         <!--For maven dependency resolver-->
         <dependency>
@@ -158,22 +150,15 @@
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
             <version>2.1.1</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.postgresql</groupId>-->
-            <!--<artifactId>postgresql</artifactId>-->
-            <!--<version>9.4-1201-jdbc41</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>9.1-901-1.jdbc4</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>4.3.9.Final</version>
-            <scope>test</scope>
         </dependency>
 
 
