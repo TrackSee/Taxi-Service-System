@@ -23,8 +23,6 @@ hs_err_pid*
 out/
 target/
 /bin/
-
-storage/src/main/resources/hibernate.cfg.xml
-storage/src/main/java/HibernateService.java
-storage/src/main/resources/META-INF/persistence.xml
 storage/src/main/resources/META-INF
+storage/src/main/resources/META-INF/persistance.xml
+.gitignore
