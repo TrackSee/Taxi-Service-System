@@ -108,7 +108,7 @@
 
                     <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
                         porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <a class="btn btn-large btn-primary" href="#">Sign up today</a>
+                    <a class="btn btn-large btn-primary" href="signup">Sign up today</a>
                 </div>
             </div>
         </div>
@@ -249,5 +249,6 @@
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-carousel.js"></script>
 <!-- end: Java Script -->
 
+<jsp:include page="parts/footer.jsp"/>
 </body>
 </html>

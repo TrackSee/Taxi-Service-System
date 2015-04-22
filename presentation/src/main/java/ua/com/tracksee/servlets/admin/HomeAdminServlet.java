@@ -20,6 +20,9 @@ public class HomeAdminServlet extends HttpServlet {
     @EJB
     private UserDAO userDAO;
 
+    /**
+     * Get admin page
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<ServiceUserEntity> list = userDAO.getDrivers(1);
