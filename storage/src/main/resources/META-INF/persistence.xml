@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+
+    <persistence-unit name="HibernatePU">
+        <jta-data-source>java:/jboss/datasources/trackseeDS</jta-data-source>
+        <class>ua.com.tracksee.entities.AddressEntity</class>
+        <class>ua.com.tracksee.entities.CarEntity</class>
+        <class>ua.com.tracksee.entities.ConfigEntity</class>
+        <class>ua.com.tracksee.entities.ServiceUserEntity</class>
+        <class>ua.com.tracksee.entities.TaxiOrderEntity</class>
+        <class>ua.com.tracksee.entities.TaxiOrderItemEntity</class>
+        <class>ua.com.tracksee.entities.TaxiPriceEntity</class>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/tracksee"/>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
+
+            <!--Don't forget to set up hibernate.username and pass here-->
+            <property name="hibernate.connection.username" value=""/>
+            <property name="hibernate.connection.password" value=""/>
+        </properties>
+    </persistence-unit>
+</persistence>
