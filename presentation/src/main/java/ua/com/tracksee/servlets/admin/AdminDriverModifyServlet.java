@@ -13,8 +13,8 @@ import java.io.IOException;
 /**
  * Created by Vadym_Akymov on 21.04.15.
  */
-@WebServlet("/admin")
-public class HomeAdminServlet extends HttpServlet {
+@WebServlet("/admin/drivers")
+public class AdminDriverModifyServlet extends HttpServlet {
     @EJB
     private AdministratorBean administratorBean;
 
@@ -23,6 +23,6 @@ public class HomeAdminServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/admin/admin.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/admin/adminDriverModify.jsp").forward(req, resp);
     }
 }

@@ -14,7 +14,7 @@ import java.io.IOException;
  * Created by byte on 4/18/15.
  */
 
-@WebServlet(urlPatterns = "/blockAccount")
+@WebServlet(urlPatterns = "/block")
 public class BlockAccountServlet extends HttpServlet{
 
     @EJB
