@@ -8,19 +8,21 @@ package ua.com.tracksee.mailsender;
  * To change this template use File | Settings | File Templates.
  */
 
-import javax.mail.*;
-import javax.mail.internet.*;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class MailSender {
-    private static Session SESSION = GMAIL.getSession();
+    private static Session SESSION = SenderSessionSpecificator.GMAIL.getSession();
     private static InternetAddress FROM_ADDRESS;
 
     static {
         try {
-            FROM_ADDRESS = GMAIL.getInternetAddress();
+            FROM_ADDRESS = SenderSessionSpecificator.GMAIL.getInternetAddress();
         } catch (AddressException e) {
             e.printStackTrace();
         }

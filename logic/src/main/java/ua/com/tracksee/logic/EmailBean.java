@@ -5,8 +5,6 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.util.EmailUtils;
 
-import ua.com.tracksee.mailsender.MailSender;
-
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.mail.Message;
@@ -14,7 +12,6 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.lang.String;
 
 
 /**
@@ -47,10 +44,10 @@ public class EmailBean {
                 + WEBSITE_FULL + "activation?code=" + userCode;
     }
 
-    @Asynchronous
-    public void sendBlockingUserEmail(User user){
-        String body = "Hi! Sorry, but our cooperation have become impossible from now. Have a nice day! ";
-        String subject = "Blocking account";
-        MailSender.sendEmail(user.getEmail(), subject, body);
-    }
+//    @Asynchronous
+//    public void sendBlockingUserEmail(User user){
+//        String body = "Hi! Sorry, but our cooperation have become impossible from now. Have a nice day! ";
+//        String subject = "Blocking account";
+//        MailSender.sendEmail(user.getEmail(), subject, body);
+//    }
 }
