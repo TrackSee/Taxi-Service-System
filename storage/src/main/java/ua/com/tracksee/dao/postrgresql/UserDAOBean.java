@@ -79,4 +79,23 @@ public class UserDAOBean implements UserDAO {
         getIdQuery.setParameter(1, user.getEmail());
         return (Integer) getIdQuery.getSingleResult();
     }
+
+    @Override
+    public void updateUser(ServiceUserEntity user) {
+        String sql = "UPDATE service_user SET email = ?, phone = ? " +
+                "WHERE user_id = " + user.getUserId();
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1, user.getEmail());
+        query.setParameter(2, user.getPhone());
+        query.executeUpdate();
+    }
+
+    @Override
+    public void deleteUser(ServiceUserEntity user) {
+        String sql = "DELETE from service_user " +
+                "where user_id = " + user.getUserId();
+        Query query = entityManager.createNativeQuery(sql);
+        query.executeUpdate();
+    }
+
 }

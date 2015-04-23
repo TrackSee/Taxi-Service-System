@@ -46,4 +46,9 @@ public interface UserDAO {
      * @param user
      */
     Integer addUser(ServiceUserEntity user);
+
+    void updateUser(ServiceUserEntity user);
+    void deleteUser(ServiceUserEntity user);
+
+
 }
