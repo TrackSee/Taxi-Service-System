@@ -25,7 +25,7 @@ public class RegistrationBean {
     @EJB
     private ValidatorBean validatorBean;
     @EJB
-    private UserDAO userDAO;
+    private UserDAO  userDAO;
 
     public void activateCustomerUserAccount(String userCode) throws RegistrationException {
         Integer userId;
