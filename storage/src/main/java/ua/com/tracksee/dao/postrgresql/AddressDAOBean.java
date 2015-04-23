@@ -30,7 +30,10 @@ public class AddressDAOBean implements AddressDAO {
         entityManager.remove(address);
     }
 
-
+    @Override
+    public void updateAddress(AddressEntity addressEntity) {
+        entityManager.refresh(addressEntity);
+    }
 
 
     @Override
