@@ -4,12 +4,12 @@
 $().ready(function () {
     $.validator.addMethod('passwordRegex', function(value, element)
     {
-        return this.optional(element) || /^(?=.*[0-9@#$%^&+=])(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9@#$%^&+=]*$/i.test(value);
+        return this.optional(element) || /^(?=.*[0-9@#$%^&+=_])(?=.*[a-z])(?=.*[A-Z])[\w@#$%^&+=]*$/.test(value);
     }, 'Use at least one non-alphabet character, one lowercase letter, and one uppercase letter');
 
     $.validator.addMethod('phoneRegex', function(value, element)
     {
-        return this.optional(element) || /^[0-9 +()-]*$/i.test(value);
+        return this.optional(element) || /^[0-9 +()-]*$/.test(value);
     }, 'Better to use digits, whitespaces or symbols +()-');
 
     // validate signin-form on keyup and submit
