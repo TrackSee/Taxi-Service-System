@@ -1,9 +1,11 @@
 package ua.com.tracksee.logic;
 
-import ua.com.tracksee.entity.User;
-import ua.com.tracksee.util.EmailUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.util.EmailUtils;
+
+import ua.com.tracksee.mailsender.MailSender;
 
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
@@ -12,6 +14,8 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.lang.String;
+
 
 /**
  * @author Ruslan Gunavardana
@@ -25,7 +29,7 @@ public class EmailBean {
     private static final String WEBSITE_FULL = "http://tracksee.com/";
 
     @Asynchronous
-    public void sendRegistrationEmail(User user, String userCode) throws MessagingException {
+    public void sendRegistrationEmail(ServiceUserEntity user, String userCode) throws MessagingException {
         MimeMessage message = new MimeMessage(EmailUtils.getEmailSession());
         message.setFrom(new InternetAddress(EmailUtils.SERVER_EMAIL));
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
@@ -41,5 +45,12 @@ public class EmailBean {
                 + WEBSITE_SHORT
                 + "\nPlease click the confirmation link to complete registration: "
                 + WEBSITE_FULL + "activation?code=" + userCode;
+    }
+
+    @Asynchronous
+    public void sendBlockingUserEmail(User user){
+        String body = "Hi! Sorry, but our cooperation have become impossible from now. Have a nice day! ";
+        String subject = "Blocking account";
+        MailSender.sendEmail(user.getEmail(), subject, body);
     }
 }

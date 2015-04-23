@@ -1,4 +1,4 @@
-package ua.com.tracksee.entity;
+package ua.com.tracksee.enumartion;
 
 /**
  * @author Ruslan Gunavardana
