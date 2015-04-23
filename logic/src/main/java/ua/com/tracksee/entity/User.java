@@ -1,5 +1,8 @@
 package ua.com.tracksee.entity;
 
+import ua.com.tracksee.enumartion.Role;
+import ua.com.tracksee.enumartion.Sex;
+
 /**
  * @author Ruslan Gunavardana
  */

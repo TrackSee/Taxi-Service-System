@@ -38,5 +38,12 @@ public interface UserDAO {
      *
      * @param userId id of activated user
      */
-    void activateAccount(Integer userId);
+    boolean activateAccount(Integer userId);
+
+    /**
+     * Returns false if user is activated.
+     *
+     * @param user
+     */
+    Integer addUser(ServiceUserEntity user);
 }

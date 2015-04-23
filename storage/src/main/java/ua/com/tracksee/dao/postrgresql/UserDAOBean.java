@@ -35,9 +35,9 @@ public class UserDAOBean implements UserDAO {
             throw new IllegalArgumentException("partNumber can't be <= 0");
         }
         Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
-                "WHERE driver = 'TRUE' LIMIT :limit OFFSET :offset", ServiceUserEntity.class);
-        query.setParameter("limit", DRIVERS_LIMIT);
-        query.setParameter("offset", (partNumber-1)*DRIVERS_LIMIT);
+                "WHERE driver = TRUE LIMIT ?1 OFFSET ?2", ServiceUserEntity.class);
+        query.setParameter(1, DRIVERS_LIMIT);
+        query.setParameter(2, (partNumber-1)*DRIVERS_LIMIT);
         return query.getResultList();
     }
 
@@ -58,9 +58,25 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
-    public void activateAccount(Integer userId) {
-        String sql = "";
+    public boolean activateAccount(Integer userId) {
+        String sql = "UPDATE service_user SET activated = TRUE WHERE user_id = " + userId;
         Query query = entityManager.createNamedQuery(sql);
+        return query.executeUpdate() == 0;
+    }
+
+    @Override
+    public Integer addUser(ServiceUserEntity user) {
+        String sql = "INSERT INTO service_user (email, password, phone, registration_date) " +
+                "VALUES (?, ?, ?, ?)" +
+                "WHERE user_id = " + user.getUserId();
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1, user.getEmail());
+        query.setParameter(2, user.getPassword());
+        query.setParameter(3, user.getPhone());
+        query.setParameter(4, user.getActivated());
         query.executeUpdate();
+        Query getIdQuery = entityManager.createNativeQuery("SELECT user_id FROM service_user WHERE email = ?");
+        getIdQuery.setParameter(1, user.getEmail());
+        return (Integer) getIdQuery.getSingleResult();
     }
 }
