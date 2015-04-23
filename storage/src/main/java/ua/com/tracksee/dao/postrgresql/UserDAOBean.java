@@ -88,4 +88,10 @@ public class UserDAOBean implements UserDAO {
         }
         return (Integer) query.getSingleResult();
     }
+
+    @Override
+    public int getDriversCount() {
+        Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user WHERE driver = TRUE");
+        return (int) q.getSingleResult();
+    }
 }

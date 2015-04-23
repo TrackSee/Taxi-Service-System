@@ -46,4 +46,10 @@ public interface UserDAO {
      * @param user
      */
     Integer addUser(ServiceUserEntity user);
+
+    /**
+     * @author Vadym Akymov
+     * @return count of drivers in system
+     */
+    int getDriversCount();
 }
