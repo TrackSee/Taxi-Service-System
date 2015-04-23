@@ -141,20 +141,10 @@
             <div class="span8">
 
                 <!-- start: About Us -->
-                <div id="about" style="padding-left: 25%">
+                <div id="about" style="padding-left: 50%">
                     <div class="title"><h3>Fast Booking Taxi</h3></div>
 
                     <form method="post" action="<c:url value="/order"/>">
-                        <%--<div class="form-group">--%>
-                            <%--<input type="text" name="phoneNumber" class="form-control"  placeholder="Phone number:"--%>
-                                   <%--required>--%>
-                        <%--</div>--%>
-
-
-                        <%--<div class="form-group">--%>
-                            <%--<input type="email"  class="form-control" name="email" placeholder="Email"--%>
-                                   <%--data-error="That email is invalid" required>--%>
-                        <%--</div>--%>
 
                         <div class="form-group">
                             <input type="text" class="form-control"  name="addressFrom" placeholder="Address from:"
@@ -219,13 +209,13 @@
                 <%--<input type="checkbox" name="option5" value="a5">Convey corporation employees</p>--%>
                 <%--...--%>
 
-            <%--</div>--%>
+            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-large">Submit</button>
-                    </div>
-                </form>
-                </p>
+                    <%--<div class="form-group">--%>
+                        <%--<button type="submit" class="btn btn-success btn-large">Submit</button>--%>
+                    <%--</div>--%>
+                <%--</form>--%>
+                <%--</p>--%>
                 <!-- end: Team -->
             <%--</div>--%>
 

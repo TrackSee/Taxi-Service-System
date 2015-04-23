@@ -1,12 +1,14 @@
 package com.netcracker.bootcamp.tracksee.logic;
 
 
-import com.netcracker.bootcamp.tracksee.entity.Address;
-import com.netcracker.bootcamp.tracksee.entity.Role;
-import com.netcracker.bootcamp.tracksee.entity.TaxiOrder;
-import com.netcracker.bootcamp.tracksee.entity.User;
+
+
+import com.netcracker.tracksee.dao.AddressDAO;
 import com.netcracker.tracksee.dao.TaxiOrderDAO;
-import com.netcracker.tracksee.entities.TaxiOrderEntity;
+import com.netcracker.tracksee.dao.UserDAO;
+import com.netcracker.tracksee.entities.Address;
+import com.netcracker.tracksee.entities.TaxiOrder;
+import com.netcracker.tracksee.entities.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -16,7 +18,6 @@ import java.sql.SQLException;
 
 import static javax.ejb.LockType.WRITE;
 
-//import com.netcracker.tracksee.entities.TaxiOrderEntity;
 
 /**
  * @author Sasha Avlasov
@@ -27,6 +28,10 @@ import static javax.ejb.LockType.WRITE;
 public class TaxiOrderBean {
     @EJB
     private TaxiOrderDAO taxiOrderDAO;
+    @EJB
+    private UserDAO userDAO;
+    @EJB
+    private AddressDAO addressDAO;
 
     /**
      * Default constructor.
@@ -35,28 +40,12 @@ public class TaxiOrderBean {
         // TODO Auto-generated constructor stub
     }
     @Lock(WRITE)
-    public boolean makeOrder(long phone,String email,Address origin,Address destination) throws SQLException{
-        System.out.println(email);
-        System.out.println("Logic bean work");
-        if(!checkPhone(phone)){
-            User user = new User();
-            TaxiOrder order = new TaxiOrder();
-            user.setRole(Role.NOT_REGISTER_USER);
-            user.setPhone(phone);
-            //TODO order.setCustomer(user);
-//            order.set(origin);
-//            order.setDestination(destination);
-//            if(checkBlackList(phone)){
-//                order.incruasePrice();
-//            }
+    public void makeOrder(TaxiOrder taxiOrder,User user,Address addressFrom,Address addressTo) throws SQLException{
+           taxiOrderDAO.addTaxiOrder(taxiOrder);
+//            userDAO.addUser(user);
+//            addressDAO.addAddress(addressFrom);
+//            addressDAO.addAddress(addressTo);
 
-            TaxiOrderEntity taxiOrderEntity=new TaxiOrderEntity();
-
-            taxiOrderDAO.addTaxiOrder(taxiOrderEntity);
-
-            return true;
-        }
-        else return false;
     }
     private boolean checkPhone(long phone){
         /**
