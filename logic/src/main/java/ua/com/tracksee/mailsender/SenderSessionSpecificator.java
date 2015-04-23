@@ -16,7 +16,7 @@ import java.util.Properties;
  * Time: 21:48
  * To change this template use File | Settings | File Templates.
  */
-public class SenderSessionSpecificator {
+class SenderSessionSpecificator {
     public static IEmailUtil GMAIL = new GmailSpecificator();
 
 
