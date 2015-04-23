@@ -2,7 +2,13 @@ package servlets.customer;
 
 
 import com.netcracker.bootcamp.tracksee.entity.Address;
+import com.netcracker.bootcamp.tracksee.entity.TaxiOrder;
+import com.netcracker.bootcamp.tracksee.entity.TaxiPrice;
+import com.netcracker.bootcamp.tracksee.entity.User;
 import com.netcracker.bootcamp.tracksee.logic.TaxiOrderBean;
+import com.netcracker.tracksee.entities.AddressEntity;
+import com.netcracker.tracksee.entities.ServiceUserEntity;
+import com.netcracker.tracksee.entities.TaxiOrderEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,13 +43,30 @@ public class OrderCompleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            TaxiOrder taxiOrder=new TaxiOrder();
+            User user=new User();
+            TaxiPrice taxPrice=new TaxiPrice();
+
             long phoneNumber =Long.parseLong(req.getParameter("phoneNumber"));
+            user.setPhone(phoneNumber);
+
             String email = req.getParameter("email");
+            user.setEmail(email);
+
             Address addressFrom =new Address();
             addressFrom.setAddress(req.getParameter("addressFrom"));
             Address addressTo = new Address();
             addressTo.setAddress(req.getParameter("addressTo"));
-            System.out.println("Servlet work");
+
+            taxiOrder.setCarCategory(req.getParameter("carCategory"));
+            taxiOrder.setWayOfPayment(req.getParameter("wayOfPayment"));
+            taxiOrder.setDriverSex(req.getParameter("driverSex"));
+            taxiOrder.setService(req.getParameter("service"));
+            //TODO calculating taxi price
+            taxPrice.setPricePerKm(1.0);
+
+
+
 
             boolean orderState = controller.makeOrder(phoneNumber, email, addressFrom, addressTo);
             if (orderState) {

@@ -44,11 +44,11 @@ public class TaxiOrderBean {
             user.setRole(Role.NOT_REGISTER_USER);
             user.setPhone(phone);
             //TODO order.setCustomer(user);
-            order.setOrigin(origin);
-            order.setDestination(destination);
-            if(checkBlackList(phone)){
-                order.incruasePrice();
-            }
+//            order.set(origin);
+//            order.setDestination(destination);
+//            if(checkBlackList(phone)){
+//                order.incruasePrice();
+//            }
 
             TaxiOrderEntity taxiOrderEntity=new TaxiOrderEntity();
 
