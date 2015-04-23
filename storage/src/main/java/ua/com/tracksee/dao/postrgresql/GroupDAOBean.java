@@ -26,7 +26,7 @@ public class GroupDAOBean implements GroupDAO {
     private EntityManager entityManager;
 
     @Override
-    public List<Object[]> getByName(String groupName, int pageNumber, int pageSize) {
+    public List<Object[]> getGroupByName(String groupName, int pageNumber, int pageSize) {
         Query query = entityManager.createNativeQuery("SELECT g.group_name, COUNT(*) FROM service_user g GROUP BY g.group_name HAVING g.group_name LIKE ? AND g.group_name IS NOT NULL");
         query.setParameter(1,"%" + groupName + "%");
         query.setFirstResult((pageNumber - 1) * pageSize);
@@ -38,8 +38,8 @@ public class GroupDAOBean implements GroupDAO {
 
     @Override
     public List<ServiceUserEntity> getGroupMembers(String groupName, int pageNumber, int pageSize) {
-        Query query = entityManager.createNativeQuery("SELECT * FROM service_user u WHERE u.group_name = ?", ServiceUserEntity.class);
-        query.setParameter(1, groupName);
+        Query query = entityManager.createNativeQuery("SELECT * FROM service_user u WHERE u.group_name LIKE ?", ServiceUserEntity.class);
+        query.setParameter(1, "%" + groupName + "%");
         query.setFirstResult((pageNumber - 1) * pageSize);
         query.setMaxResults(pageSize);
         return query.getResultList();
@@ -84,15 +84,6 @@ public class GroupDAOBean implements GroupDAO {
     }
 
     @Override
-    public List<Object[]> getGroups(int pageNumber, int pageSize){
-        Query query = entityManager.createNativeQuery("SELECT g.group_name, COUNT(*) FROM service_user g GROUP BY g.group_name HAVING group_name IS NOT NULL ");
-        query.setFirstResult((pageNumber - 1) * pageSize);
-        List<Object[]> aList = query.setMaxResults(pageSize).getResultList();
-
-        return aList;
-    }
-
-    @Override
     public BigInteger getGroupsCountByName(String groupName) {
         Query query = entityManager.createNativeQuery("SELECT COUNT (DISTINCT g.group_name) FROM service_user g WHERE g.group_name LIKE ?");
         query.setParameter(1, "%" + groupName + "%");
@@ -106,21 +97,21 @@ public class GroupDAOBean implements GroupDAO {
         return (BigInteger)query.getSingleResult();
     }
 
-    @Override
-    public BigInteger getGroupsCount() {
-        Query query = entityManager.createNativeQuery("SELECT COUNT (DISTINCT g.group_name) FROM service_user g WHERE g.group_name <> ''");
-        return (BigInteger)query.getSingleResult();
-    }
-
-    @Override
-    public BigInteger getUsersCount() {
-        Query query = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user");
-        return (BigInteger)query.getSingleResult();
-    }
+//    @Override
+//    public BigInteger getGroupsCount() {
+//        Query query = entityManager.createNativeQuery("SELECT COUNT (DISTINCT g.group_name) FROM service_user g WHERE g.group_name IS NOT NULL");
+//        return (BigInteger)query.getSingleResult();
+//    }
+//
+//    @Override
+//    public BigInteger getUsersCount() {
+//        Query query = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user");
+//        return (BigInteger)query.getSingleResult();
+//    }
 
     @Override
     public void addUserToGroup(String groupName, BigInteger userId) {
-        Query query = entityManager.createNativeQuery("UPDATE service_user u SET u.group_name = ?1 WHERE u.user_id = ?2");
+        Query query = entityManager.createNativeQuery("UPDATE service_user SET group_name = ?1 WHERE user_id = ?2");
         query.setParameter(1, groupName);
         query.setParameter(2, userId);
         query.executeUpdate();
@@ -128,7 +119,7 @@ public class GroupDAOBean implements GroupDAO {
 
     @Override
     public void removeUser(BigInteger userId) {
-        Query query = entityManager.createNativeQuery("UPDATE service_user u SET u.group_name = DEFAULT WHERE u.user_id = ?");
+        Query query = entityManager.createNativeQuery("UPDATE service_user SET group_name = DEFAULT WHERE user_id = ?");
         query.setParameter(1, userId);
         query.executeUpdate();
     }

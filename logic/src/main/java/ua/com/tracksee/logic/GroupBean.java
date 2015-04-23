@@ -11,7 +11,9 @@ import ua.com.tracksee.dao.GroupDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entity.Group;
 import ua.com.tracksee.entity.Role;
-import ua.com.tracksee.logic.group.GroupAction;
+import ua.com.tracksee.logic.group.GroupSelectAction;
+import ua.com.tracksee.logic.group.GroupSelectCountAction;
+import ua.com.tracksee.logic.group.GroupUpdateAction;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -30,7 +32,7 @@ public class GroupBean {
     @EJB
     private GroupDAO groupDAO;
 
-    public void addGroup(String groupName, Role role, BigInteger[] userIds) throws SQLException{
+    private void addGroup(String groupName, Role role, BigInteger[] userIds) throws SQLException{
         if (!groupDAO.existsGroup(groupName)) {
             for (BigInteger id : userIds) {
                 groupDAO.addUserToGroup(groupName, id);
@@ -41,7 +43,7 @@ public class GroupBean {
         }
     }
 
-    public void removeGroup(String groupName) {
+    private void removeGroup(String groupName) {
         if (groupDAO.existsGroup(groupName)) {
             groupDAO.removeGroup(groupName);
         } else {
@@ -49,7 +51,7 @@ public class GroupBean {
         }
     }
 
-    public List<ServiceUserEntity> getGroupMembers(String groupName, Integer pageNumber, Integer pageSize) {
+    private List<ServiceUserEntity> getGroupMembers(String groupName, Integer pageNumber, Integer pageSize) {
         return groupDAO.getGroupMembers(groupName, pageNumber, pageSize);
     }
 
@@ -57,7 +59,7 @@ public class GroupBean {
         return groupDAO.getGroupMemberIds(groupName);
     }
 
-    public void updateGroup(String groupName, Role role) {
+    private void updateGroup(String groupName, Role role) {
         for (BigInteger userId : getGroupMemberIds(groupName)) {
             groupDAO.setRoleToUser(role.getName(), userId);
         }
@@ -67,32 +69,32 @@ public class GroupBean {
         return Role.fromString(groupDAO.getGroupRole(groupName));
     }
 
-    public void removeUsersFromGroup(BigInteger[] usersId) {
+    private void removeUsersFromGroup(BigInteger[] usersId) {
         for (BigInteger id : usersId) {
             groupDAO.removeUser(id);
         }
     }
 
-    public void addUsersToGroup(String groupName, BigInteger[] userIds) {
+    private void addUsersToGroup(String groupName, BigInteger[] userIds) {
         for (BigInteger id : userIds) {
             groupDAO.addUserToGroup(groupName, id);
         }
     }
 
-    public List<Group> getGroups(int pageNumber, int pageSize){
-        List<Group> res = new ArrayList<>();
-        List<Object[]> aList = groupDAO.getGroups(pageNumber, pageSize);
-        for (Object[] s : aList) {
-            String name = (String) s[0];
-            BigInteger count = (BigInteger) s[1];
-            res.add(new Group(name, count));
-        }
-        return res;
-    }
+//    private List<Group> getGroups(int pageNumber, int pageSize){
+//        List<Group> res = new ArrayList<>();
+//        List<Object[]> aList = groupDAO.getGroups(pageNumber, pageSize);
+//        for (Object[] s : aList) {
+//            String name = (String) s[0];
+//            BigInteger count = (BigInteger) s[1];
+//            res.add(new Group(name, count));
+//        }
+//        return res;
+//    }
 
-    public List<Group> getByName(String name, int pageNumber, int pageSize) {
+    private List<Group> getGroupsByName(String name, int pageNumber, int pageSize) {
         List<Group> res = new ArrayList<>();
-        List<Object[]> aList = groupDAO.getByName(name, pageNumber, pageSize);
+        List<Object[]> aList = groupDAO.getGroupByName(name, pageNumber, pageSize);
         for (Object[] s : aList) {
             String nameGroup = (String) s[0];
             BigInteger count = (BigInteger) s[1];
@@ -101,24 +103,44 @@ public class GroupBean {
         return res;
     }
 
-    public BigInteger getGroupsCount() {
-        return groupDAO.getGroupsCount();
-    }
-
-    public BigInteger getGroupsCountByName(String groupName) {
+    private BigInteger getGroupsCountByName(String groupName) {
         return groupDAO.getGroupsCountByName(groupName);
     }
 
-    public BigInteger getUsersCount() {
-        return groupDAO.getUsersCount();
-    }
-
-    public BigInteger getUsersCountByEmail(String userEmail) {
+    private BigInteger getUsersCountByEmail(String userEmail) {
         return groupDAO.getUsersCountByEmail(userEmail);
     }
 
-    public void execute(GroupAction action) {
+    public void executeUpdate(GroupUpdateAction action, String groupName, BigInteger[] ids, Role role) throws SQLException {
+        if (action == GroupUpdateAction.ADD_GROUP) {
+            addGroup(groupName, role, ids);
+        } else if (action == GroupUpdateAction.ADD_USERS_TO_GROUP) {
+            addUsersToGroup(groupName, ids);
+        } else if (action == GroupUpdateAction.REMOVE_GROUP) {
+            removeGroup(groupName);
+        } else if (action == GroupUpdateAction.REMOVE_USERS_FROM_GROUP) {
+            removeUsersFromGroup(ids);
+        } else if (action == GroupUpdateAction.UPDATE_GROUP) {
+            updateGroup(groupName, role);
+        }
+    }
 
+    public List executeSelect(GroupSelectAction action, String name, Integer pageNumber, Integer pageSize) {
+        if (action == GroupSelectAction.SELECT_GROUPS) {
+            return getGroupsByName(name, pageNumber, pageSize);
+        } else if (action == GroupSelectAction.SELECT_USERS) {
+            return getGroupMembers(name, pageNumber, pageSize);
+        }
+        return null;
+    }
+
+    public BigInteger executeSelectCount(GroupSelectCountAction action, String name) {
+        if (action == GroupSelectCountAction.SELECT_GROUPS_COUNT) {
+            return getGroupsCountByName(name);
+        } else if (action == GroupSelectCountAction.SELECT_USERS_COUNT) {
+            return getUsersCountByEmail(name);
+        }
+        return null;
     }
 
 }

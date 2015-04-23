@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 /**
  * Created by Igor Gula on 19.04.2015.
  */
-public enum GroupAction {
+public enum GroupUpdateAction {
     ADD_GROUP("addGroup"),
     ADD_USERS_TO_GROUP("addUsersToGroup"),
     REMOVE_GROUP("removeGroup"),
@@ -16,16 +16,16 @@ public enum GroupAction {
 
     private final String name;
 
-    private static final Map<String, GroupAction> map =
-            new HashMap<String, GroupAction>();
+    private static final Map<String, GroupUpdateAction> map =
+            new HashMap<String, GroupUpdateAction>();
 
     static {
-        for (GroupAction type : GroupAction.values()) {
+        for (GroupUpdateAction type : GroupUpdateAction.values()) {
             map.put(type.name, type);
         }
     }
 
-    private GroupAction(String name) {
+    private GroupUpdateAction(String name) {
         this.name = name;
     }
 
@@ -33,7 +33,7 @@ public enum GroupAction {
         return name;
     }
 
-    public static GroupAction fromString(String name) {
+    public static GroupUpdateAction fromString(String name) {
         if (map.containsKey(name)) {
             return map.get(name);
         }

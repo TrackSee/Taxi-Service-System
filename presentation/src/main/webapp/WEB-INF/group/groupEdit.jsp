@@ -21,10 +21,6 @@
   <script type="text/javascript"></script>>
 
 
-
-
-
-
   <link href="<%=application.getContextPath()%>/resources/css/bootstrap2/bootstrap.css" rel="stylesheet">
   <link href="<%=application.getContextPath()%>/resources/css/bootstrap2/bootstrap-responsive.css" rel="stylesheet">
   <link href="<%=application.getContextPath()%>/resources/css/style.css" rel="stylesheet">
@@ -48,17 +44,57 @@
 
   <script>
 
+    var UPDATE_CONSTANTS = (function() {
+      var private = {
+        'ADD_GROUP': 'addGroup',
+        'ADD_USERS_TO_GROUP': 'addUsersToGroup',
+        'REMOVE_GROUP': 'removeGroup',
+        'REMOVE_USERS_FROM_GROUP': 'removeUsersFromGroup',
+        'UPDATE_GROUP': 'updateGroup'
+      };
+      return {
+        get: function (name) {
+          return private[name];
+        }
+      };
+    });
+
+    var SELECT_CONSTANTS = (function() {
+      var private = {
+        'SELECT_GROUPS':'selectGroups',
+        'SELECT_USERS': 'selectUsers'
+      };
+      return {
+        get: function (name) {
+          return private[name];
+        }
+      };
+    });
+
+    var SELECT_COUNT_CONSTANTS = (function() {
+      var private = {
+        'SELECT_GROUPS_COUNT': 'selectGroups',
+        'SELECT_USERS_COUNT': 'selectUsers'
+      };
+      return {
+        get: function (name) {
+          return private[name];
+        }
+      };
+    });
+
+    var SERVLET_NAME = "GroupServlet";
     var pageNumber = 1;
     var pageSize = 10;
     var pageMaxNumber = 5;
     var userIds = [];
     var groupIds = [];
 
-    function removeGroup(el) {
-      el = el.parentNode.parentNode.parentNode.parentNode.getElementsByTagName("td")[0].innerHTML;
-      groupIds.push(el);
-      manageGroup(el, "GroupActionServlet", pageSize, pageNumber, "removeGroup");
-    }
+//    function removeGroup(el) {
+//      el = el.parentNode.parentNode.parentNode.parentNode.getElementsByTagName("td")[0].innerHTML;
+//      groupIds.push(el);
+//      manageGroup(el, SERVLET_NAME, pageSize, pageNumber, "removeGroup");
+//    }
 
     function getPageNum(pageSize1, pageMaxNumber1, pageNumber1) {
       if (pageMaxNumber1 <= pageNumber1*pageSize1) {
@@ -72,44 +108,44 @@
       }
     }
 
-    function manageGroup(event, servletName1, pageSize1, pageNumber1, action1) {
-      if ((pageSize > 0) && (pageNumber > 0)) {
-        pageNumber = getPageNum(pageSize, pageMaxNumber, pageNumber);
-        $.post(servletName1, {pageSize: pageSize, pageNumber: 1, groupName : groupIds[0], action : action1}, function (responseJson) {
-          alert("post");
-          if (responseJson !== null) {
-            $("#countrytable").find("tr:gt(0)").remove();
-            var table1 = $("#countrytable");
-            $.each(responseJson, function (key, value) {
-              if (value['name'] != "") {
-                var rowNew = $("<tr><td></td><td></td><td></td><td></td></tr>");
-                rowNew.children().eq(0).text(value['name']);
-                rowNew.children().eq(1).text(value['countUsers']);
-                rowNew.children().eq(2).html('<div class="row"><div class="col-lg-6"><button class="btn btn-default" onclick = "opendialog()" type="button">Edit</button></div><!-- /.col-lg-6 -->');
-                rowNew.children().eq(3).html('<div class="row"><div class="col-lg-6"><button class="btn btn-default" onclick="removeGroup(this)" type="button">Delete</button></div><!-- /.col-lg-6 -->');
-                rowNew.appendTo(table1);
-              } else {
-                pageMaxNumber = value['countUsers'];
-              }
-            });
-          }
-        });
-        $("#tablediv").show();
-      } else {
-        pageNumber = 1;
-      }
-      alert("namege group");
-    }
+//    function manageGroup(event, servletName1, pageSize1, pageNumber1, action1) {
+//      if ((pageSize > 0) && (pageNumber > 0)) {
+//        pageNumber = getPageNum(pageSize, pageMaxNumber, pageNumber);
+//        $.post(servletName1, {pageSize: pageSize, pageNumber: 1, groupName : groupIds[0], action : action1}, function (responseJson) {
+//          alert("post");
+//          if (responseJson !== null) {
+//            $("#countrytable").find("tr:gt(0)").remove();
+//            var table1 = $("#countrytable");
+//            $.each(responseJson, function (key, value) {
+//              if (value['name'] != "") {
+//                var rowNew = $("<tr><td></td><td></td><td></td><td></td></tr>");
+//                rowNew.children().eq(0).text(value['name']);
+//                rowNew.children().eq(1).text(value['countUsers']);
+//                rowNew.children().eq(2).html('<div class="row"><div class="col-lg-6"><button class="btn btn-default" onclick = "opendialog()" type="button">Edit</button></div><!-- /.col-lg-6 -->');
+//                rowNew.children().eq(3).html('<div class="row"><div class="col-lg-6"><button class="btn btn-default" onclick="removeGroup(this)" type="button">Delete</button></div><!-- /.col-lg-6 -->');
+//                rowNew.appendTo(table1);
+//              } else {
+//                if (key === -1) {
+//                  alert("GROUP WITH THIS NAME EXISTS!!!");
+//                } else {
+//                  pageMaxNumber = value['countUsers'];
+//                }
+//              }
+//            });
+//          }
+//        });
+//        $("#tablediv").show();
+//      } else {
+//        pageNumber = 1;
+//      }
+//      alert("namege group");
+//    }
 
-    function loadGroups(event, servletName1, pageSize1, pageNumber1, action1) {
-//      alert(pageNumber1 + "pageNumber1");
-//      alert(pageNumber + "pageNumber");
-//      alert(pageMaxNumber + "pageMaxNumber");
-//      alert(pageMaxNumber/pageSize + "pageMaxNumber/pageSize");
+    function loadGroups(servletName, selectAction, selectCountAction, groupName, pageNumber1) {
       if ((pageSize > 0) && (pageNumber > 0)) {
       pageNumber1 = getPageNum(pageSize, pageMaxNumber, pageNumber);
-//        alert(pageNumber1 + "pageNumber");
-        $.get(servletName1, {pageSize: pageSize1, pageNumber: 1, groupName : $("#input1").val(), action : action1}, function (responseJson) {
+        $.get(servletName, {pageSize: pageSize, pageNumber: 1, name: groupName,
+          selectAction: selectAction, selectCountAction: selectCountAction}, function (responseJson) {
           if (responseJson !== null) {
             $("#countrytable").find("tr:gt(0)").remove();
             var table1 = $("#countrytable");
@@ -147,7 +183,7 @@
 
     $(document).ready(function () {
       $("#tablediv").hide();
-      loadGroups(event, "FindGroupsByNameServlet", pageSize, pageNumber);
+      loadGroups(event, SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'), SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), "");
     });
 
       $(document).ready(function () {
@@ -162,7 +198,7 @@
 <body class="container">
 
 <div class="form-group" id = "search">
-  <input id="input1" type="text" class="form-control" placeholder="Search" oninput='loadGroups(event, "FindGroupsByNameServlet", pageSize, pageNumber)'>
+  <input id="input1" type="text" class="form-control" placeholder="Search" oninput="loadGroups(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'), SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), pageNumber)">
 </div>
 
 <div id="tablediv" class="panel panel-default">
@@ -181,8 +217,8 @@
 
 <nav>
   <ul class="pager">
-    <li><button id = "nextPage" type="submit" class="btn btn-default" onclick='loadGroups(event, "FindGroupsByNameServlet", pageSize, --pageNumber)'>Previous</button></li>
-    <li><button id = "previousPage" type="submit" class="btn btn-default" onclick='loadGroups(event, "FindGroupsByNameServlet", pageSize, ++pageNumber)'>Next</button></li>
+    <li><button id = "nextPage" type="submit" class="btn btn-default" onclick="loadGroups(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'), SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), --pageNumber)">Previous</button></li>
+    <li><button id = "previousPage" type="submit" class="btn btn-default" onclick="loadGroups(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'), SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), ++pageNumber)">Next</button></li>
   </ul>
 </nav>
 
