@@ -19,7 +19,7 @@ import java.sql.SQLException;
  * @author Sharaban Sasha
  */
 @WebServlet("/order")
-public class OrderServlet extends HttpServlet {
+public class OrderCompleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/order.jsp").forward(req,resp);
@@ -37,17 +37,19 @@ public class OrderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            long phoneNumber =Long.parseLong(req.getParameter("phoneNumber"));
+            String email = req.getParameter("email");
             Address addressFrom =new Address();
             addressFrom.setAddress(req.getParameter("addressFrom"));
             Address addressTo = new Address();
             addressTo.setAddress(req.getParameter("addressTo"));
+            System.out.println("Servlet work");
 
-            long orderPrice = controller.calculatePrice(addressFrom, addressTo);
-            req.setAttribute("orderPrice",orderPrice);
-            if (orderPrice==0) {
+            boolean orderState = controller.makeOrder(phoneNumber, email, addressFrom, addressTo);
+            if (orderState) {
                 resp.sendRedirect("/order?error=true");
             } else {
-                req.getRequestDispatcher("/orderComplete").forward(req, resp);
+                req.getRequestDispatcher("/order?error=false").forward(req, resp);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage());

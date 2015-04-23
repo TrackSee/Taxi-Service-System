@@ -2,7 +2,7 @@ package servlets.customer;
 
 
 import com.netcracker.bootcamp.tracksee.entity.Address;
-import com.netcracker.bootcamp.tracksee.logic.OrderBean;
+import com.netcracker.bootcamp.tracksee.logic.TaxiOrderBean;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,7 +22,7 @@ import java.sql.SQLException;
 public class ExtendedOrderServlet extends HttpServlet {
     private Logger logger;
     @EJB
-    private OrderBean controller;
+    private TaxiOrderBean controller;
 
     @Override
     public void init() throws ServletException {

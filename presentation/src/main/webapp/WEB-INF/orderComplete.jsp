@@ -141,7 +141,7 @@
             <div class="span8">
 
                 <!-- start: About Us -->
-                <div id="about" style="padding-left: 25%">
+                <div id="about">
                     <div class="title"><h3>Fast Booking Taxi</h3></div>
 
                     <form method="post" action="<c:url value="/order"/>">

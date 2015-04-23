@@ -1,12 +1,13 @@
-package com.netcracker.bootcamp.tracksee.entities;
+package com.netcracker.tracksee.entities;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
- * Created by Vadym_Akymov on 19.04.15.
+ * @author Ruslan Gunavardana
  */
 @Entity
-@Table(name = "car", schema = "public", catalog = "taxi")
+@Table(name = "car", schema = "public", catalog = "tracksee")
 public class CarEntity {
     private String carNumber;
     private String carModel;
@@ -58,7 +59,7 @@ public class CarEntity {
 
     @Basic
     @Column(name = "animal_transportation_applicable")
-    public Boolean getAnimalTransportationApplicable() {
+    public Boolean getAnimalTransportationApplicable(){
         return animalTransportationApplicable;
     }
 
@@ -68,7 +69,7 @@ public class CarEntity {
 
     @Basic
     @Column(name = "free_wifi")
-    public Boolean getFreeWifi() {
+    public Boolean getFreeWifi(){
         return freeWifi;
     }
 
@@ -78,7 +79,7 @@ public class CarEntity {
 
     @Basic
     @Column(name = "air_conditioner")
-    public Boolean getAirConditioner() {
+    public Boolean getAirConditioner(){
         return airConditioner;
     }
 
@@ -90,32 +91,15 @@ public class CarEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         CarEntity carEntity = (CarEntity) o;
-
-        if (airConditioner != null ? !airConditioner.equals(carEntity.airConditioner) : carEntity.airConditioner != null)
-            return false;
-        if (animalTransportationApplicable != null ? !animalTransportationApplicable.equals(carEntity.animalTransportationApplicable) : carEntity.animalTransportationApplicable != null)
-            return false;
-        if (carCategory != null ? !carCategory.equals(carEntity.carCategory) : carEntity.carCategory != null)
-            return false;
-        if (carModel != null ? !carModel.equals(carEntity.carModel) : carEntity.carModel != null) return false;
-        if (carNumber != null ? !carNumber.equals(carEntity.carNumber) : carEntity.carNumber != null) return false;
-        if (color != null ? !color.equals(carEntity.color) : carEntity.color != null) return false;
-        if (freeWifi != null ? !freeWifi.equals(carEntity.freeWifi) : carEntity.freeWifi != null) return false;
-
-        return true;
+        return Objects.equals(carNumber, carEntity.carNumber) &&
+                Objects.equals(carModel, carEntity.carModel) &&
+                Objects.equals(color, carEntity.color) &&
+                Objects.equals(carCategory, carEntity.carCategory);
     }
 
     @Override
     public int hashCode() {
-        int result = carNumber != null ? carNumber.hashCode() : 0;
-        result = 31 * result + (carModel != null ? carModel.hashCode() : 0);
-        result = 31 * result + (color != null ? color.hashCode() : 0);
-        result = 31 * result + (carCategory != null ? carCategory.hashCode() : 0);
-        result = 31 * result + (animalTransportationApplicable != null ? animalTransportationApplicable.hashCode() : 0);
-        result = 31 * result + (freeWifi != null ? freeWifi.hashCode() : 0);
-        result = 31 * result + (airConditioner != null ? airConditioner.hashCode() : 0);
-        return result;
+        return Objects.hash(carNumber, carModel, color, carCategory);
     }
 }
