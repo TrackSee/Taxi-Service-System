@@ -1,18 +1,17 @@
 package ua.com.tracksee.logic;
 
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entity.Role;
-import ua.com.tracksee.entity.Sex;
-import ua.com.tracksee.entity.UnactivatedUser;
+import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.logic.exception.RegistrationException;
-import ua.com.tracksee.util.IdGenerator;
 
-import javax.ejb.*;
+import javax.ejb.EJB;
+import javax.ejb.Schedule;
+import javax.ejb.Stateless;
 import javax.mail.MessagingException;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+
+import static java.lang.Boolean.FALSE;
 
 /**
  * @author Ruslan Gunavardana
@@ -56,20 +55,20 @@ public class RegistrationBean {
             throw new RegistrationException("Invalid phone number.", "bad-phone");
         }
 
-    //TODO check if user registered
 //        if (userDAO.getUserByEmail(email) != null) {
 //            return false;
 //        }
 
         // adding new user
-        UnactivatedUser user = new UnactivatedUser();
-        user.setRole(Role.CUSTOMER_USER);
+        ServiceUserEntity user = new ServiceUserEntity();
         user.setEmail(email);
         user.setPassword(password);
-        user.setRegistrationTime(new Timestamp(System.currentTimeMillis()));
-        String userCode = IdGenerator.generateId();
-        //TODO userDAO.addUnactivatedUser(user);
+        user.setRegistrationDate(new Timestamp(System.currentTimeMillis()));
+        user.setActivated(FALSE);
+        user.setPhone(phoneNumber);
+        Integer generatedId = userDAO.addUser(user);
 
+        String userCode = generatedId.toString();
         try {
             emailBean.sendRegistrationEmail(user, userCode);
         } catch (MessagingException e) {

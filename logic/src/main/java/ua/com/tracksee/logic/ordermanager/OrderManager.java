@@ -4,7 +4,7 @@ package ua.com.tracksee.logic.ordermanager;
 import javax.ejb.Stateless;
 
 import ua.com.tracksee.entity.Address;
-import ua.com.tracksee.entity.Role;
+import ua.com.tracksee.enumartion.Role;
 import ua.com.tracksee.entity.TaxiOrder;
 import ua.com.tracksee.entity.User;
 

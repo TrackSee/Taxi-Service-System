@@ -1,9 +1,9 @@
 package ua.com.tracksee.logic;
 
-import ua.com.tracksee.entity.User;
-import ua.com.tracksee.util.EmailUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.util.EmailUtils;
 
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
@@ -25,7 +25,7 @@ public class EmailBean {
     private static final String WEBSITE_FULL = "http://tracksee.com/";
 
     @Asynchronous
-    public void sendRegistrationEmail(User user, String userCode) throws MessagingException {
+    public void sendRegistrationEmail(ServiceUserEntity user, String userCode) throws MessagingException {
         MimeMessage message = new MimeMessage(EmailUtils.getEmailSession());
         message.setFrom(new InternetAddress(EmailUtils.SERVER_EMAIL));
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
