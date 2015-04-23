@@ -27,7 +27,9 @@ public class AddressDAOBean implements AddressDAO {
 
     @Override
     public void deleteAddress(AddressEntity address) {
-        entityManager.remove(address);
+        String sql = "DELETE from address where name = " + address.getName();
+        Query query = entityManager.createNativeQuery(sql);
+        query.executeUpdate();
     }
 
     @Override
