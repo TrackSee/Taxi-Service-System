@@ -16,6 +16,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import static  ua.com.tracksee.mailsender.SenderSessionSpecificator.GMAIL;
+
 public class MailSender {
     private static Session SESSION = SenderSessionSpecificator.GMAIL.getSession();
     private static InternetAddress FROM_ADDRESS;
