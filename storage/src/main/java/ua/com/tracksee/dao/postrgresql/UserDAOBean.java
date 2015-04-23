@@ -66,18 +66,33 @@ public class UserDAOBean implements UserDAO {
 
     @Override
     public Integer addUser(ServiceUserEntity user) {
-        String sql = "INSERT INTO service_user (email, password, phone, registration_date) " +
-                "VALUES (?, ?, ?, ?)" +
-                "WHERE user_id = " + user.getUserId();
+        String sql = "INSERT INTO service_user " +
+                "(email, password, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" +
+                "RETURNING user_id";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, user.getEmail());
         query.setParameter(2, user.getPassword());
         query.setParameter(3, user.getPhone());
-        query.setParameter(4, user.getActivated());
-        query.executeUpdate();
-        Query getIdQuery = entityManager.createNativeQuery("SELECT user_id FROM service_user WHERE email = ?");
-        getIdQuery.setParameter(1, user.getEmail());
-        return (Integer) getIdQuery.getSingleResult();
+        query.setParameter(4, user.getSex());
+        query.setParameter(5, user.getDriver());
+        query.setParameter(6, user.getAdmin());
+        query.setParameter(7, user.getGroupName());
+        query.setParameter(8, user.getCar().getCarNumber());
+        query.setParameter(9, user.getDriverLicense());
+        query.setParameter(10, user.getIgnoredTimes());
+        query.setParameter(11, user.getActivated());
+        query.setParameter(12, user.getRegistrationDate());
+        if (query.executeUpdate() == 0) {
+            return null;
+        }
+        return (Integer) query.getSingleResult();
+    }
+
+    @Override
+    public int getDriversCount() {
+        Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user WHERE driver = TRUE");
+        return (int) q.getSingleResult();
     }
 
     @Override

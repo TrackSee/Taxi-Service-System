@@ -47,8 +47,9 @@ public interface UserDAO {
      */
     Integer addUser(ServiceUserEntity user);
 
-    void updateUser(ServiceUserEntity user);
-    void deleteUser(ServiceUserEntity user);
-
-
+    /**
+     * @author Vadym Akymov
+     * @return count of drivers in system
+     */
+    int getDriversCount();
 }

@@ -42,12 +42,9 @@ public class SignUpServlet extends HttpServlet {
             controller.registerCustomerUser(email, password, phoneNumber);
             logger.debug("Successful sign up. User: " + email);
             req.getRequestDispatcher("/WEB-INF/customer/CheckEmail.jsp").forward(req, resp);
-        } catch (SQLException e) {
-            logger.warn(e.getMessage());
-            resp.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, "Database unavailable.");
         } catch (RegistrationException e) {
             logger.warn(e.getMessage());
-            resp.sendRedirect(ERROR_REDIRECT_PATH + e.getErrorCode());
+            resp.sendRedirect(ERROR_REDIRECT_PATH + e.getErrorType());
         } catch (IllegalArgumentException e) {
             logger.warn(e.getMessage());
             resp.sendRedirect(ERROR_REDIRECT_PATH + "bad-args");

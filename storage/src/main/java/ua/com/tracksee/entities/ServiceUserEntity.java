@@ -15,14 +15,14 @@ public class ServiceUserEntity {
     private String password;
     private String phone;
     private String sex;
-    private Boolean isDriver;
+    private Boolean driver;
     private Boolean admin;
     private String groupName;
     private String driverLicense;
     private Integer ignoredTimes;
     private Boolean activated;
     private Timestamp registrationDate;
-    private CarEntity carByCarNumber;
+    private CarEntity car;
 
     @Id
     @GeneratedValue
@@ -77,12 +77,12 @@ public class ServiceUserEntity {
 
     @Basic
     @Column(name = "driver")
-    public Boolean getIsDriver() {
-        return isDriver;
+    public Boolean getDriver() {
+        return driver;
     }
 
-    public void setIsDriver(Boolean driver) {
-        this.isDriver = driver;
+    public void setDriver(Boolean driver) {
+        this.driver = driver;
     }
 
     @Basic
@@ -168,11 +168,11 @@ public class ServiceUserEntity {
 
     @ManyToOne
     @JoinColumn(name = "car_number", referencedColumnName = "car_number")
-    public CarEntity getCarByCarNumber() {
-        return carByCarNumber;
+    public CarEntity getCar() {
+        return car;
     }
 
-    public void setCarByCarNumber(CarEntity carByCarNumber) {
-        this.carByCarNumber = carByCarNumber;
+    public void setCar(CarEntity carByCarNumber) {
+        this.car = carByCarNumber;
     }
 }
