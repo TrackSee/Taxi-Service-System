@@ -14,8 +14,8 @@ import java.sql.Timestamp;
 import static java.lang.Boolean.FALSE;
 
 /**
- * @author Ruslan Gunavardana
- */
+* @author Ruslan Gunavardana
+*/
 @Stateless
 public class RegistrationBean {
     private static final int UNACTIVATED_USERS_MAX_DAYS = 30;
