@@ -1,3 +1,5 @@
+<%@ page import="ua.com.tracksee.entities.ServiceUserEntity" %>
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vadym Akymov
@@ -403,6 +405,9 @@
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         <div class="dataTable_wrapper">
+                            <%
+                                List<ServiceUserEntity> drivers = (List<ServiceUserEntity>) request.getAttribute("drivers");
+                            %>
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
@@ -414,34 +419,40 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <%
+                                    for(int i = 0; i < drivers.size(); i++){
+                                %>
                                 <tr class="odd gradeX">
-                                    <td>Trident</td>
-                                    <td>Internet Explorer 4.0</td>
-                                    <td>Win 95+</td>
-                                    <td class="center">4</td>
-                                    <td class="center">X</td>
-                                </tr>
-                                <tr class="even gradeC">
-                                    <td>Trident</td>
-                                    <td>Internet Explorer 5.0</td>
-                                    <td>Win 95+</td>
-                                    <td class="center">5</td>
-                                    <td class="center">C</td>
-                                </tr>
-                                <tr class="odd gradeA">
-                                    <td>Trident</td>
-                                    <td>Internet Explorer 5.5</td>
-                                    <td>Win 95+</td>
-                                    <td class="center">5.5</td>
+                                    <td><%=drivers.get(i).getEmail()%></td>
+                                    <td>M</td>
+                                    <td><%=drivers.get(i).getPhone()%></td>
                                     <td class="center">A</td>
+                                    <td class="center">2<%=i%10%>.04.2015</td>
                                 </tr>
-                                <tr class="gradeU">
-                                    <td>Other browsers</td>
-                                    <td>All others</td>
-                                    <td>-</td>
-                                    <td class="center">-</td>
-                                    <td class="center">U</td>
-                                </tr>
+                                <%
+                                    }
+                                %>
+                                <%--<tr class="even gradeC">--%>
+                                    <%--<td>Trident</td>--%>
+                                    <%--<td>Internet Explorer 5.0</td>--%>
+                                    <%--<td>Win 95+</td>--%>
+                                    <%--<td class="center">5</td>--%>
+                                    <%--<td class="center">C</td>--%>
+                                <%--</tr>--%>
+                                <%--<tr class="odd gradeA">--%>
+                                    <%--<td>Trident</td>--%>
+                                    <%--<td>Internet Explorer 5.5</td>--%>
+                                    <%--<td>Win 95+</td>--%>
+                                    <%--<td class="center">5.5</td>--%>
+                                    <%--<td class="center">A</td>--%>
+                                <%--</tr>--%>
+                                <%--<tr class="gradeU">--%>
+                                    <%--<td>Other browsers</td>--%>
+                                    <%--<td>All others</td>--%>
+                                    <%--<td>-</td>--%>
+                                    <%--<td class="center">-</td>--%>
+                                    <%--<td class="center">U</td>--%>
+                                <%--</tr>--%>
                                 </tbody>
                             </table>
                         </div>
