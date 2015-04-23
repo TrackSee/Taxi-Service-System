@@ -145,16 +145,15 @@
                     <div class="title"><h3>Fast Booking Taxi</h3></div>
 
                     <form method="post" action="<c:url value="/order"/>">
-                        <%--<div class="form-group">--%>
-                            <%--<input type="text" name="phoneNumber" class="form-control"  placeholder="Phone number:"--%>
-                                   <%--required>--%>
-                        <%--</div>--%>
+                        <div class="form-group">
+                            <input type="text" name="phoneNumber" class="form-control"  placeholder="Phone number:"
+                                   required>
+                        </div>
 
-
-                        <%--<div class="form-group">--%>
-                            <%--<input type="email"  class="form-control" name="email" placeholder="Email"--%>
-                                   <%--data-error="That email is invalid" required>--%>
-                        <%--</div>--%>
+                        <div class="form-group">
+                            <input type="email"  class="form-control" name="email" placeholder="Email"
+                                   data-error="That email is invalid" required>
+                        </div>
 
                         <div class="form-group">
                             <input type="text" class="form-control"  name="addressFrom" placeholder="Address from:"
@@ -166,7 +165,43 @@
                             <input type="text" class="form-control"  name="addressTo" placeholder="Address to:"
                                    data-error="That address is invalid" required>
 
+
+                        <div class="form-group">
+                            <label class="control-label">Car category</label>
+                            <select class="form-control order_priority" name="carCategory">
+                                <option value="ECONOMY_CLASS">Economy class</option>
+                                <option value="BUSINESS_CLASS"> selected>Business class</option>
+                                <option value="VAN">Van</option>
+                            </select>
                         </div>
+
+                            <div class="form-group">
+                                <label class="control-label">Way of payment</label>
+                                <select class="form-control order_priority" name="wayOfPayment">
+                                    <option value="CASH">Cash</option>
+                                    <option value="VISA_CARD">Visa card</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">Way of payment</label>
+                                <select class="form-control order_priority" name="driverSex">
+                                    <option value="MALE">Male</option>
+                                    <option value="FEMALE">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">Service</label>
+                                <select class="form-control order_priority" name="service">
+                                    <option value="DEFAULT">Without service</option>
+                                    <option value="GUEST_DELIVERY">Service "Guest delivery"</option>
+                                    <option value="CARGO_TAXI">Service "Cargo taxi"</option>
+                                    <option value="MEET_MY_GUEST">Service "Meet my guest"</option>
+                                    <option value="CELEBRATION_TAXI">Service "Celebration taxi"</option>
+                                    <option value="FOODSTUFF_DELIVERY">Service "Foodstuff delivery"</option>
+                                </select>
+                            </div>
 
 
                         <div class="form-group">
@@ -221,11 +256,11 @@
 
             <%--</div>--%>
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-large">Submit</button>
-                    </div>
-                </form>
-                </p>
+                    <%--<div class="form-group">--%>
+                        <%--<button type="submit" class="btn btn-success btn-large">Submit</button>--%>
+                    <%--</div>--%>
+                <%--</form>--%>
+                <%--</p>--%>
                 <!-- end: Team -->
             <%--</div>--%>
 

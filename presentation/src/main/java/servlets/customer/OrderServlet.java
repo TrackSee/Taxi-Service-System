@@ -44,7 +44,7 @@ public class OrderServlet extends HttpServlet {
 
             long orderPrice = controller.calculatePrice(addressFrom, addressTo);
             req.setAttribute("orderPrice",orderPrice);
-            if (orderPrice==0) {
+            if (orderPrice!=0) {
                 resp.sendRedirect("/order?error=true");
             } else {
                 req.getRequestDispatcher("/orderComplete").forward(req, resp);
