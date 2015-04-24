@@ -1,6 +1,39 @@
 /**
  * Created by Ruslan Gunavardana
  */
+function sendForm() {
+    var msg = $('#form-sign-up').serialize();
+    $.ajax({
+        type: 'POST',
+        url: 'signup',
+        data: msg,
+        success: function (data) {
+            var notifyMessage;
+
+            if (data == "success") {
+                $(location).attr('href', '/');
+            } else
+
+            if (data == "bad-email") {
+                $.notify("Invalid email!", "error");
+            } else if (data == "bad-password") {
+                $.notify("Invalid password", "error");
+            } else if (data == "bad-phone") {
+                $.notify("Invalid phone number", "error");
+            } else if (data == "send-fail") {
+                $.notify("Email sending failed", "info");
+            } else if (data == "user-exists") {
+                $.notify("You are already registered", "info");
+            } else {
+                $('document').html(data);
+            }
+        },
+        error: function (xhr, str) {
+            $.notify("Server failed", "info");
+        }
+    });
+}
+
 $().ready(function () {
     $.validator.addMethod('passwordRegex', function(value, element)
     {
@@ -13,7 +46,7 @@ $().ready(function () {
     }, 'Better to use digits, whitespaces or symbols +()-');
 
     // validate signin-form on keyup and submit
-    $('.form-sign-up').validate({
+    $('#form-sign-up').validate({
         rules: {
             email : 'required email',
             password: {
