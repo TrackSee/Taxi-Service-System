@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" packages="logger">
+    <Appenders>
+        <File name="ErrorsFile" fileName="logs/error/error-${date:yyyy-MM-dd}.log">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %p %C [%t] in %M: %m %ex%n</Pattern>
+            </PatternLayout>
+        </File>
+        <File name="AllFile" fileName="logs/all/all-${date:yyyy-MM-dd}.log">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %p %C [%t] in %M: %m %ex%n</Pattern>
+            </PatternLayout>
+        </File>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout>
+                <Pattern>%highlight{%d{HH:mm:ss} %p %m%n}{FATAL=red, ERROR=red, WARN=yellow, INFO=black, DEBUG=green, TRACE=blue}</Pattern>
+            </PatternLayout>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="ErrorsFile" level="ERROR"/>
+            <AppenderRef ref="AllFile" level="ALL"/>
+            <AppenderRef ref="STDOUT" level="ALL"/>
+        </Root>
+    </Loggers>
+</Configuration>
