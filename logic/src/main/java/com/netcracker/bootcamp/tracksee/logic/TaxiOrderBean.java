@@ -80,6 +80,7 @@ public class TaxiOrderBean {
         if(!origin.getAddress().equals(destination.getAddress()))  {
             distance=getDistance(origin,destination);
             //TODO Get price for 1km from database and calculate final price
+            //
         }
         return price;
     }
