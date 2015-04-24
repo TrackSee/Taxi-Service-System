@@ -22,16 +22,32 @@ public class AddressDAOBean implements AddressDAO {
 
     @Override
     public void addAddress(AddressEntity address) {
-        entityManager.persist(address);
+        String sql = "INSERT INTO address name, user_id, string representation, location" +
+                " VALUES (?,?,?,?)";
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1, address.getName());
+        query.setParameter(2, address.getUserId());
+        query.setParameter(3, address.getStringRepresentation());
+        query.setParameter(4, address.getLocation());
+        query.executeUpdate();
     }
 
     @Override
     public void deleteAddress(AddressEntity address) {
-        entityManager.remove(address);
+        String sql = "DELETE from address where name = " + address.getName();
+        Query query = entityManager.createNativeQuery(sql);
+        query.executeUpdate();
     }
 
-
-
+    @Override
+    public void updateAddress(AddressEntity addressEntity) {
+        String sql = "UPDATE address Set string_representation = ?, location = ? " +
+                "where name = "+ addressEntity.getName();
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1, addressEntity.getStringRepresentation());
+        query.setParameter(2, addressEntity.getLocation());
+        query.executeUpdate();
+    }
 
     @Override
     public List<AddressEntity> getAddresses(int partNumber) {

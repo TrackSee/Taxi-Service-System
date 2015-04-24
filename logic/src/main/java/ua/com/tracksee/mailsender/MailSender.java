@@ -19,7 +19,7 @@ import javax.mail.internet.MimeMessage;
 import static  ua.com.tracksee.mailsender.SenderSessionSpecificator.GMAIL;
 
 public class MailSender {
-    private static Session SESSION = SenderSessionSpecificator.GMAIL.getSession();
+    private static Session SESSION = GMAIL.getSession();
     private static InternetAddress FROM_ADDRESS;
 
     static {
@@ -49,7 +49,7 @@ public class MailSender {
             Transport.send(message);
 
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -67,8 +67,7 @@ public class MailSender {
 
             for (String to : recipients) {
                 message.addRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(to));
-                System.out.println(to);
+                        InternetAddress.parse(to));;
             }
 
             message.setSubject(subject);
@@ -77,7 +76,7 @@ public class MailSender {
             Transport.send(message);
 
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
