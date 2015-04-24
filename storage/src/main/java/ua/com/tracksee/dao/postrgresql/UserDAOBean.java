@@ -2,6 +2,7 @@ package ua.com.tracksee.dao.postrgresql;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.postgresql.util.PGmoney;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
@@ -68,9 +69,9 @@ public class UserDAOBean implements UserDAO {
     public Integer addUser(ServiceUserEntity user) {
         String sql = "INSERT INTO service_user " +
                 "(email, password, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" +
+                "VALUES (?, ?, ?, CAST(? AS Sex), ?, ?, ?, ?, ?, ?, ?, ?) " +
                 "RETURNING user_id";
-        Query query = entityManager.createNativeQuery(sql);
+        Query query = entityManager.createNativeQuery(sql, Integer.class);
         query.setParameter(1, user.getEmail());
         query.setParameter(2, user.getPassword());
         query.setParameter(3, user.getPhone());
@@ -78,7 +79,7 @@ public class UserDAOBean implements UserDAO {
         query.setParameter(5, user.getDriver());
         query.setParameter(6, user.getAdmin());
         query.setParameter(7, user.getGroupName());
-        query.setParameter(8, user.getCar().getCarNumber());
+        query.setParameter(8, user.getCar() != null? user.getCar().getCarNumber() : null);
         query.setParameter(9, user.getDriverLicense());
         query.setParameter(10, user.getIgnoredTimes());
         query.setParameter(11, user.getActivated());
