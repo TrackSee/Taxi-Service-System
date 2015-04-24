@@ -10,11 +10,14 @@ import com.netcracker.tracksee.dao.postrgresql.UserDAOBean;
 import com.netcracker.tracksee.entities.Address;
 import com.netcracker.tracksee.entities.TaxiOrder;
 import com.netcracker.tracksee.entities.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Lock;
 import javax.ejb.Singleton;
+import javax.mail.MessagingException;
 import java.sql.SQLException;
 
 import static javax.ejb.LockType.WRITE;
@@ -33,24 +36,37 @@ public class TaxiOrderBean {
     private UserDAO userDAO;
     @EJB
     private AddressDAO addressDAO;
+    @EJB
+    private EmailBean mailBean;
+    private Logger logger;
 
     /**
      * Default constructor.
      */
     public TaxiOrderBean() {
-        // TODO Auto-generated constructor stub
+        logger = LogManager.getLogger();
     }
     @Lock(WRITE)
     public void makeOrder(TaxiOrder taxiOrder,User user,Address addressFrom,Address addressTo) throws SQLException{
-           taxiOrderDAO.addTaxiOrder(taxiOrder);
-           System.out.println("Check user :"+user.getEmail());
+
+           logger.info("Check user :" + user.getEmail());
            if(!userDAO.checkEmail(user.getEmail())){
-               System.out.println("User dont exist");
+               logger.info("Create new user: email-"+user.getEmail()+" phone-"+user.getPhone());
+               user.setActivated(false);
+               userDAO.addUser(user);
            }
-        else System.out.println("User exist");
-//        userDAO.addUser(user);
-//            addressDAO.addAddress(addressFrom);
-//            addressDAO.addAddress(addressTo);
+
+          taxiOrderDAO.addTaxiOrder(taxiOrder);
+        //TODO check mail send
+//        user.setUserId(userDAO.getUserIdByEmail());
+//        logger.info("The useeeeer email is :"+user.getEmail());
+//        try {
+//            mailBean.sendOrderConfirmInfo(user);
+//        } catch (MessagingException e) {
+//            e.printStackTrace();
+//        }
+        // addressDAO.addAddress(addressFrom);
+       // addressDAO.addAddress(addressTo);
 
     }
     private boolean checkPhone(long phone){
@@ -58,11 +74,9 @@ public class TaxiOrderBean {
         return false;
     }
     private boolean checkBlackList(long phone){
-        /**
-         * Check phone in black list
-         * if find return true;
-         *
-         */
+
+          //TODO Check phone in black list
+
         return false;
     }
     /**
@@ -84,11 +98,13 @@ public class TaxiOrderBean {
         return price;
     }
     private long getDistance(Address origin,Address destination){
-        /**
-         * calculate distance
-         * return distance;
-         */
+
+         // TODO calculate distance
+
         return 0;
+    }
+    public void sendEmail(User user){
+
     }
 
 }
