@@ -1,6 +1,7 @@
 package ua.com.tracksee.entities;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Objects;
 public class TaxiOrderEntity {
     private Integer trackingNumber;
     private String status;
-    private Double price;
+    private BigDecimal price;
     private String service;
     private String carCategory;
     private String wayOfPayment;
@@ -57,11 +58,11 @@ public class TaxiOrderEntity {
 
     @Basic
     @Column(name = "price")
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

@@ -1,6 +1,7 @@
 package ua.com.tracksee.entities;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -10,29 +11,29 @@ import java.util.Objects;
 @Table(name = "taxi_price", schema = "public", catalog = "tracksee")
 @IdClass(TaxiPriceEntityPK.class)
 public class TaxiPriceEntity {
-    private Double pricePerKm;
-    private Double pricePerMin;
+    private BigDecimal pricePerKm;
+    private BigDecimal pricePerMin;
     private String carCategory;
     private Boolean weekend;
     private Boolean nightTariff;
 
     @Basic
     @Column(name = "price_per_km")
-    public Double getPricePerKm() {
+    public BigDecimal getPricePerKm() {
         return pricePerKm;
     }
 
-    public void setPricePerKm(Double pricePerKm) {
+    public void setPricePerKm(BigDecimal pricePerKm) {
         this.pricePerKm = pricePerKm;
     }
 
     @Basic
     @Column(name = "price_per_min")
-    public Double getPricePerMin() {
+    public BigDecimal getPricePerMin() {
         return pricePerMin;
     }
 
-    public void setPricePerMin(Double pricePerMin) {
+    public void setPricePerMin(BigDecimal pricePerMin) {
         this.pricePerMin = pricePerMin;
     }
 
