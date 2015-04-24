@@ -1,5 +1,7 @@
 package ua.com.tracksee.entities;
 
+import ua.com.tracksee.enumartion.CarCategory;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -13,7 +15,7 @@ import java.util.Objects;
 public class TaxiPriceEntity {
     private BigDecimal pricePerKm;
     private BigDecimal pricePerMin;
-    private String carCategory;
+    private CarCategory carCategory;
     private Boolean weekend;
     private Boolean nightTariff;
 
@@ -39,11 +41,11 @@ public class TaxiPriceEntity {
 
     @Id
     @Column(name = "car_category")
-    public String getCarCategory() {
+    public CarCategory getCarCategory() {
         return carCategory;
     }
 
-    public void setCarCategory(String carCategory) {
+    public void setCarCategory(CarCategory carCategory) {
         this.carCategory = carCategory;
     }
 

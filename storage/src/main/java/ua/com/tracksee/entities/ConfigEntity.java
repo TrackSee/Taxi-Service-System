@@ -9,40 +9,40 @@ import java.util.Objects;
 @Entity
 @Table(name = "config", schema = "public", catalog = "tracksee")
 public class ConfigEntity {
-    private Integer configId;
-    private Float punishmentPersent;
+    private String name;
+    private String value;
 
     @Id
-    @Column(name = "config_id")
-    public Integer getConfigId() {
-        return configId;
+    @Column(name = "name")
+    public String getName() {
+        return name;
     }
 
-    public void setConfigId(Integer configId) {
-        this.configId = configId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
-    @Column(name = "punishment_persent")
-    public Float getPunishmentPersent() {
-        return punishmentPersent;
+    @Column(name = "value")
+    public String getValue() {
+        return value;
     }
 
-    public void setPunishmentPersent(Float punishmentPersent) {
-        this.punishmentPersent = punishmentPersent;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ConfigEntity)) return false;
         ConfigEntity that = (ConfigEntity) o;
-        return Objects.equals(configId, that.configId) &&
-                Objects.equals(punishmentPersent, that.punishmentPersent);
+        return Objects.equals(name, that.name) &&
+                Objects.equals(value, that.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(configId, punishmentPersent);
+        return Objects.hash(name, value);
     }
 }

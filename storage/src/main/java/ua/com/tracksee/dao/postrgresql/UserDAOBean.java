@@ -2,7 +2,6 @@ package ua.com.tracksee.dao.postrgresql;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.postgresql.util.PGmoney;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
