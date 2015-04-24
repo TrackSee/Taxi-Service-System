@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
 
-    <persistence-unit name="hibernatePU">
-        <jta-data-source>java:/PostGreDS</jta-data-source>
-        <class>com.netcracker.bootcamp.tracksee.entities.AddressEntity</class>
-        <class>com.netcracker.bootcamp.tracksee.entities.AddressEntityPK</class>
-        <class>com.netcracker.bootcamp.tracksee.entities.CarEntity</class>
-        <!--<class>com.netcracker.bootcamp.tracksee.entities.ConfigEntity</class>!-->
-        <class>com.netcracker.bootcamp.tracksee.entities.ServiceUserEntity</class>
-        <class>com.netcracker.bootcamp.tracksee.entities.TaxiOrderEntity</class>
-        <!--<class>com.netcracker.bootcamp.tracksee.entities.TaxiOrderItemEntity</class>!-->
-        <class>com.netcracker.bootcamp.tracksee.entities.TaxiPriceEntity</class>
-        <class>com.netcracker.bootcamp.tracksee.entities.TaxiPriceEntityPK</class>
+    <persistence-unit name="HibernatePU">
+        <jta-data-source>java:/jboss/datasources/trackseeDS</jta-data-source>
+        <class>com.netcracker.tracksee.entities.AddressEntity</class>
+        <class>com.netcracker.tracksee.entities.CarEntity</class>
+        <!--<class>com.netcracker.tracksee.entities.ConfigEntity</class>-->
+        <class>com.netcracker.tracksee.entities.ServiceUserEntity</class>
+        <class>com.netcracker.tracksee.entities.TaxiOrderEntity</class>
+        <!--<class>com.netcracker.tracksee.entities.TaxiOrderItemEntity</class>-->
+        <class>com.netcracker.tracksee.entities.TaxiPriceEntity</class>
+        <class>com.netcracker.tracksee.entities.ServiceUserEntity</class>
 
         <properties>
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/tracksee"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
-            <property name="hibernate.connection.username" value="sasha"/>
-            <property name="hibernate.connection.password" value="sasha093"/>
 
+            <!--Don't forget to set up hibernate.username and pass here-->
+            <property name="hibernate.connection.username" value="Alex"/>
+            <property name="hibernate.connection.password" value="password"/>
         </properties>
     </persistence-unit>
 </persistence>

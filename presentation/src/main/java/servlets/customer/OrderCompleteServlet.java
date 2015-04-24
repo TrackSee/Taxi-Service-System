@@ -17,13 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Sharaban Sasha
  */
 @WebServlet("/orderComplete")
 public class OrderCompleteServlet extends HttpServlet {
-    private static final String ORDER_STATUS = "QUEUED";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,42 +42,25 @@ public class OrderCompleteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HashMap<String,Object> inputData=new HashMap<String, Object>();
         try {
-            System.out.println("Servlet");
-            TaxiOrder taxiOrder=new TaxiOrder();
-            User user=new User();
-            TaxiPrice taxPrice=new TaxiPrice();
-
-            long phoneNumber =Long.parseLong(req.getParameter("phoneNumber"));
-            user.setPhone(phoneNumber);
-
-            String email = req.getParameter("email");
-            user.setEmail(email);
-
-            Address addressFrom =new Address();
-            addressFrom.setAddress(req.getParameter("addressFrom"));
-
-            Address addressTo = new Address();
-            addressTo.setAddress(req.getParameter("addressTo"));
-
-            taxiOrder.setStatus(ORDER_STATUS);
-            taxiOrder.setCarCategory(req.getParameter("carCategory"));
-            taxiOrder.setWayOfPayment(req.getParameter("wayOfPayment"));
-            taxiOrder.setDriverSex(req.getParameter("driverSex"));
-            taxiOrder.setService(req.getParameter("service"));
-            taxiOrder.setMusicStyle(req.getParameter("musicStyle"));
-            taxiOrder.setAnimalTransportation(Boolean.parseBoolean(req.getParameter("animalTransportation")));
-            taxiOrder.setFreeWifi(Boolean.parseBoolean(req.getParameter("freeWifi")));
-            taxiOrder.setSmokingDriver(Boolean.parseBoolean(req.getParameter("smokingDriver")));
-            taxiOrder.setAirConditioner(Boolean.parseBoolean(req.getParameter("airConditioner")));
-            taxiOrder.setComment(req.getParameter("comments"));
+            inputData.put("phoneNumber", req.getParameter("phoneNumber"));
+            inputData.put("email",req.getParameter("email"));
+            inputData.put("addressFrom", req.getParameter("addressFrom"));
+            inputData.put("addressTo", req.getParameter("addressTo"));
+            inputData.put("carCategory",req.getParameter("carCategory"));
+            inputData.put("wayOfPayment",req.getParameter("wayOfPayment"));
+            inputData.put("driverSex",req.getParameter("driverSex"));
+            inputData.put("service",req.getParameter("service"));
+            inputData.put("musicStyle",req.getParameter("musicStyle"));
+            inputData.put("animalTransportation",req.getParameter("animalTransportation"));
+            inputData.put("freeWifi",req.getParameter("freeWifi"));
+            inputData.put("smokingDriver",req.getParameter("smokingDriver"));
+            inputData.put("airConditioner",req.getParameter("airConditioner"));
+            inputData.put("airConditioner",req.getParameter("orderPrice"));
 
 
-            //TODO calculating taxi price
-            taxiOrder.setPrice(1.0);
-
-
-            controller.makeOrder(taxiOrder,user,addressFrom,addressTo);
+            controller.makeOrder(inputData);
 
         } catch (SQLException e) {
             logger.error(e.getMessage());
