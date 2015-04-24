@@ -14,7 +14,7 @@
 
 
 <div class="container">
-    <form class="form-sign-up" action="<c:url value="/signup"/>" method="post">
+    <form id="form-sign-up" class="form-sign-up" method="post" action="javascript:void(null);" onsubmit="sendForm()">
         <h2 class="form-sign-up-heading">Please sign up</h2>
         <label for="email" class="sr-only">Email address</label>
         <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required autofocus>
@@ -31,9 +31,6 @@
     </form>
 </div>
 <%@include file="../parts/scripts.jsp" %>
-<script src="<%=application.getContextPath()%>/resources/js/custom/sign-up-validation.js"></script>
-<c:if test="${param.error}">
-    <script>$.notify("Sign up failed!", "error");</script>
-</c:if>
+<script src="<%=application.getContextPath()%>/resources/js/custom/sign-up.js"></script>
 </body>
 </html>

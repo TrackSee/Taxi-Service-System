@@ -19,6 +19,8 @@ import java.util.List;
 @Stateless
 public class UserDAOBean implements UserDAO {
     private static final Logger logger = LogManager.getLogger();
+    //10 drivers per query by default
+    public static final int DRIVERS_LIMIT = 10;
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
 
@@ -65,8 +67,39 @@ public class UserDAOBean implements UserDAO {
 
     @Override
     public Integer addUser(ServiceUserEntity user) {
-        String sql = "INSERT INTO service_user (email, password, phone, registration_date) " +
-                "VALUES (?, ?, ?, ?)" +
+//        String sql = "INSERT INTO service_user " +
+//                "(email, password, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date) " +
+//                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+//                "RETURNING user_id";
+//        Query query = entityManager.createNativeQuery(sql, Integer.class);
+//        query.<String>setParameter(1, user.getEmail());
+//        query.<String>setParameter(2, user.getPassword());
+//        query.<String>setParameter(3, user.getPhone());
+//        query.<Sex>setParameter(4, user.getSex());
+//        query.<Boolean>setParameter(5, user.getDriver());
+//        query.<Boolean>setParameter(6, user.getAdmin());
+//        query.<String>setParameter(7, user.getGroupName());
+//        query.<Integer>setParameter(8, user.getCar() != null? user.getCar().getCarNumber() : null);
+//        query.<String>setParameter(9, user.getDriverLicense());
+//        query.<Integer>setParameter(10, user.getIgnoredTimes());
+//        query.<Boolean>setParameter(11, user.getActivated());
+//        query.<Timestamp>setParameter(12, user.getRegistrationDate());
+//        if (query.executeUpdate() == 0) {
+//            return null;
+//        }
+        entityManager.merge(user);
+        return user.getUserId();
+    }
+
+    @Override
+    public int getDriversCount() {
+        Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user WHERE driver = TRUE");
+        return (int) q.getSingleResult();
+    }
+
+    @Override
+    public void updateUser(ServiceUserEntity user) {
+        String sql = "UPDATE service_user SET email = ?, phone = ? " +
                 "WHERE user_id = " + user.getUserId();
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, user.getEmail());
@@ -85,5 +118,11 @@ public class UserDAOBean implements UserDAO {
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user WHERE driver = TRUE");
         Integer driversCount = ((BigInteger) q.getSingleResult()).intValue();
         return (int) (Math.ceil((double)driversCount / DRIVERS_LIMIT));
+    
+    public void deleteUser(ServiceUserEntity user) {
+        String sql = "DELETE from service_user " +
+                "where user_id = " + user.getUserId();
+        Query query = entityManager.createNativeQuery(sql);
+        query.executeUpdate();
     }
 }

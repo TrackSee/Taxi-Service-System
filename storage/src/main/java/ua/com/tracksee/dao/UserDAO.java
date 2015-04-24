@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * @author Vadym Akymov
  * @author Ruslan Gunavardana
+ * @author KatiaStetsiuk
  */
 @Local
 public interface UserDAO {
@@ -54,4 +55,7 @@ public interface UserDAO {
      * @return count of driver pages in system
      */
     int getDriverPagesCount();
+    
+    void deleteUser(ServiceUserEntity serviceUserEntity);
+    void updateUser(ServiceUserEntity serviceUserEntity);
 }

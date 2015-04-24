@@ -46,9 +46,9 @@ public class UserDAOBeanTest {
                 .addAsResource("META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
-    /*
-    @author Vadym
-    * Method is used for getting all library files from maven repo
+
+    /**
+     *  Method is used for getting all library files from maven repo
      */
     private static File[] getLibraryFromMaven(String groupId, String artifactId, String version){
         return Maven.resolver().resolve(groupId + ":" + artifactId + ":" + version)
@@ -62,7 +62,7 @@ public class UserDAOBeanTest {
         List<ServiceUserEntity> drivers = userDAO.getDrivers(1);
         assertTrue(drivers.size() == UserDAOBean.DRIVERS_LIMIT);
         for(int i = 0; i < drivers.size(); i++){
-            assertTrue(drivers.get(i).getIsDriver());
+            assertTrue(drivers.get(i).getDriver());
         }
     }
     @Test(expected = EJBException.class)

@@ -25,4 +25,3 @@ target/
 /bin/
 storage/src/main/resources/META-INF
 .gitignore
-storage/src/main/resources/META-INF/persistence.xml
