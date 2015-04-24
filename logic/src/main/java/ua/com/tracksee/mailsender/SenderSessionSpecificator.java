@@ -3,7 +3,6 @@ package ua.com.tracksee.mailsender;
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 
-
 import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -17,6 +16,7 @@ import java.util.Properties;
  * To change this template use File | Settings | File Templates.
  */
 class SenderSessionSpecificator {
+    //
     public static IEmailUtil GMAIL = new GmailSpecificator();
 
 
