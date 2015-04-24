@@ -157,19 +157,22 @@
 
                         <div class="form-group">
                             <label>Address from</label>
-                            <input  disabled="disabled" type="text" class="form-control" value="${addressFrom}"  name="addressFrom"
+                            <input  disabled="disabled" type="text"  class="form-control" value="${addressFrom}"
+                                    name="addressFrom"
                                    data-error="That address is invalid" required>
                         </div>
 
                         <div class="form-group">
                             <label>Address to</label>
-                            <input disabled="disabled" type="text" class="form-control" value="${addressTo}" name="addressTo"
+                            <input disabled="disabled" type="text" class="form-control" value="${addressTo}"
+                                   name="addressTo"
                                    data-error="That address is invalid" required>
                           </div>
 
                         <div class="form-group">
                             <label>Order price</label>
-                            <input disabled="disabled" type="text" class="form-control" value="${orderPrice}"  placeholder="Address to:"
+                            <input disabled="disabled" type="text" name="orderPrice" class="form-control"
+                                   value="${orderPrice}"  placeholder="Address to:"
                                    data-error="That address is invalid" required>
                         </div>
 

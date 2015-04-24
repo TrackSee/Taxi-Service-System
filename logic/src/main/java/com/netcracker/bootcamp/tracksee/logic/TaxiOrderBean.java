@@ -16,6 +16,7 @@ import javax.ejb.Local;
 import javax.ejb.Lock;
 import javax.ejb.Singleton;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import static javax.ejb.LockType.WRITE;
 
@@ -41,13 +42,13 @@ public class TaxiOrderBean {
         // TODO Auto-generated constructor stub
     }
     @Lock(WRITE)
-    public void makeOrder(TaxiOrder taxiOrder,User user,Address addressFrom,Address addressTo) throws SQLException{
-           taxiOrderDAO.addTaxiOrder(taxiOrder);
-           System.out.println("Check user :"+user.getEmail());
-           if(!userDAO.checkEmail(user.getEmail())){
-               System.out.println("User dont exist");
-           }
-        else System.out.println("User exist");
+    public void makeOrder(HashMap<String,Object> inputData) throws SQLException{
+//           taxiOrderDAO.addTaxiOrder(taxiOrder);
+//           System.out.println("Check user :"+user.getEmail());
+//           if(!userDAO.checkEmail(user.getEmail())){
+//               System.out.println("User dont exist");
+//           }
+//        else System.out.println("User exist");
 //        userDAO.addUser(user);
 //            addressDAO.addAddress(addressFrom);
 //            addressDAO.addAddress(addressTo);
