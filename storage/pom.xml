@@ -62,6 +62,12 @@
             <version>1.1.8.Final</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.9.Final</version>
+            <scope>test</scope>
+        </dependency>
 
         <!--For maven dependency resolver-->
         <dependency>
@@ -75,14 +81,6 @@
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
             <version>2.1.1</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!--Hibernate JPA provider-->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.9.Final</version>
             <scope>test</scope>
         </dependency>
 
