@@ -36,6 +36,14 @@
             <version>9.4-1201-jdbc41</version>
         </dependency>
 
+        <!--for Hibernate features-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.9.Final</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!--For arquillian integration testing-->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
@@ -60,12 +68,6 @@
             <groupId>org.jboss.arquillian.test</groupId>
             <artifactId>arquillian-test-spi</artifactId>
             <version>1.1.8.Final</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.9.Final</version>
             <scope>test</scope>
         </dependency>
 

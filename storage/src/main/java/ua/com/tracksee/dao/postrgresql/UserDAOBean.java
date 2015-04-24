@@ -66,27 +66,28 @@ public class UserDAOBean implements UserDAO {
 
     @Override
     public Integer addUser(ServiceUserEntity user) {
-        String sql = "INSERT INTO service_user " +
-                "(email, password, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date) " +
-                "VALUES (?, ?, ?, CAST(? AS Sex), ?, ?, ?, ?, ?, ?, ?, ?) " +
-                "RETURNING user_id";
-        Query query = entityManager.createNativeQuery(sql, Integer.class);
-        query.setParameter(1, user.getEmail());
-        query.setParameter(2, user.getPassword());
-        query.setParameter(3, user.getPhone());
-        query.setParameter(4, user.getSex());
-        query.setParameter(5, user.getDriver());
-        query.setParameter(6, user.getAdmin());
-        query.setParameter(7, user.getGroupName());
-        query.setParameter(8, user.getCar() != null? user.getCar().getCarNumber() : null);
-        query.setParameter(9, user.getDriverLicense());
-        query.setParameter(10, user.getIgnoredTimes());
-        query.setParameter(11, user.getActivated());
-        query.setParameter(12, user.getRegistrationDate());
-        if (query.executeUpdate() == 0) {
-            return null;
-        }
-        return (Integer) query.getSingleResult();
+//        String sql = "INSERT INTO service_user " +
+//                "(email, password, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date) " +
+//                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+//                "RETURNING user_id";
+//        Query query = entityManager.createNativeQuery(sql, Integer.class);
+//        query.<String>setParameter(1, user.getEmail());
+//        query.<String>setParameter(2, user.getPassword());
+//        query.<String>setParameter(3, user.getPhone());
+//        query.<Sex>setParameter(4, user.getSex());
+//        query.<Boolean>setParameter(5, user.getDriver());
+//        query.<Boolean>setParameter(6, user.getAdmin());
+//        query.<String>setParameter(7, user.getGroupName());
+//        query.<Integer>setParameter(8, user.getCar() != null? user.getCar().getCarNumber() : null);
+//        query.<String>setParameter(9, user.getDriverLicense());
+//        query.<Integer>setParameter(10, user.getIgnoredTimes());
+//        query.<Boolean>setParameter(11, user.getActivated());
+//        query.<Timestamp>setParameter(12, user.getRegistrationDate());
+//        if (query.executeUpdate() == 0) {
+//            return null;
+//        }
+        entityManager.merge(user);
+        return user.getUserId();
     }
 
     @Override

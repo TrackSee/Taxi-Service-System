@@ -1,5 +1,7 @@
 package ua.com.tracksee.entities;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import ua.com.tracksee.enumartion.Sex;
 
 import javax.persistence.*;
@@ -29,7 +31,7 @@ public class ServiceUserEntity {
     private CarEntity car;
 
     @Id
-    @GeneratedValue
+    @Generated(GenerationTime.INSERT)
     @Column(name = "user_id")
     public Integer getUserId() {
         return userId;
@@ -40,7 +42,7 @@ public class ServiceUserEntity {
     }
 
     @Basic
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     public String getEmail() {
         return email;
     }
@@ -50,7 +52,7 @@ public class ServiceUserEntity {
     }
 
     @Basic
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
