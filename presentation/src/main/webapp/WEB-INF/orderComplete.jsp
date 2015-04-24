@@ -141,10 +141,10 @@
             <div class="span8">
 
                 <!-- start: About Us -->
-                <div id="about">
+                <div id="about" style="padding-left: 50%;">
                     <div class="title"><h3>Fast Booking Taxi</h3></div>
 
-                    <form method="post" action="<c:url value="/order"/>">
+                    <form method="post" action="<c:url value="/orderComplete"/>">
                         <div class="form-group">
                             <input type="text" name="phoneNumber" class="form-control"  placeholder="Phone number:"
                                    required>
@@ -156,15 +156,22 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control"  name="addressFrom" placeholder="Address from:"
+                            <label>Address from</label>
+                            <input  disabled="disabled" type="text" class="form-control" value="${addressFrom}"  name="addressFrom"
                                    data-error="That address is invalid" required>
-
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control"  name="addressTo" placeholder="Address to:"
+                            <label>Address to</label>
+                            <input disabled="disabled" type="text" class="form-control" value="${addressTo}" name="addressTo"
                                    data-error="That address is invalid" required>
+                          </div>
 
+                        <div class="form-group">
+                            <label>Order price</label>
+                            <input disabled="disabled" type="text" class="form-control" value="${orderPrice}"  placeholder="Address to:"
+                                   data-error="That address is invalid" required>
+                        </div>
 
                         <div class="form-group">
                             <label class="control-label">Car category</label>
@@ -194,7 +201,7 @@
                             <div class="form-group">
                                 <label class="control-label">Service</label>
                                 <select class="form-control order_priority" name="service">
-                                    <option value="DEFAULT">Without service</option>
+                                    <option value="SOBER_DRIVER">Service "Sober driver"</option>
                                     <option value="GUEST_DELIVERY">Service "Guest delivery"</option>
                                     <option value="CARGO_TAXI">Service "Cargo taxi"</option>
                                     <option value="MEET_MY_GUEST">Service "Meet my guest"</option>
@@ -203,66 +210,59 @@
                                 </select>
                             </div>
 
+                            <div class="form-group">
+                                <label class="control-label">Music style</label>
+                                <select class="form-control order_priority" name="musicStyle">
+                                    <option value="None">None</option>
+                                    <option value="Blues">Blues</option>
+                                    <option value="ClassicalMusic">Classical music</option>
+                                    <option value="Rock">Rock</option>
+                                    <option value="Jazz">Jazz</option>
+                                    <option value="DanceMusic">Dance music</option>
+                                    <option value="ElectronicMusic">Electronic music</option>
+                                    <option value="HipHop">Hip Hop</option>
+                                </select>
+                            </div>
+
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="animalTransportation"> Animal transportation
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="freeWifi"> Free wi-fi
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="smokingDriver"> Smoking driver
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="airConditioner"> Air conditioner
+                                </label>
+                            </div>
+
+                                Comments:<br />
+                                  <textarea name="comments" >
+
+                                  </textarea><br />
+
+
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-success btn-large">Submit</button>
                         </div>
+
                     </form>
                 </div>
                 </p>
             </div>
             <!-- end: About Us -->
 
-            <!-- start: Team -->
-            <%--<div id="team">--%>
-
-                <%--<div class="title"><h3>Extended Booking Taxi </h3></div>--%>
-                <%--<p>--%>
-                <%--<form method="POST" action="extendedOrder">--%>
-                    <%--<div class="form-group">--%>
-                        <%--<input type="text" name="phoneNumber" class="form-control" id="phoneNumber" placeholder="Phone number:"--%>
-                               <%--required>--%>
-                    <%--</div>--%>
-
-
-                    <%--<div class="form-group">--%>
-                        <%--<input type="email"  class="form-control" id="email" name="email" placeholder="Email"--%>
-                               <%--data-error="That email is invalid" required>--%>
-                    <%--</div>--%>
-
-                    <%--<div class="form-group">--%>
-                        <%--<input type="text" class="form-control" id="addressFrom" name="addressFrom" placeholder="Address from:"--%>
-                               <%--data-error="That address is invalid" required>--%>
-
-                    <%--</div>--%>
-
-                    <%--<div class="form-group">--%>
-                        <%--<input type="text" class="form-control" id="addressTo" name="addressTo" placeholder="Address to:"--%>
-                               <%--data-error="That address is invalid" required>--%>
-
-                    <%--</div>--%>
-
-                <%--<div class="form-group">--%>
-                    <%--<p><b></b></p>--%>
-                    <%--<p><input type="checkbox" name="option1" value="a1" checked>Possibility to transport animals<Br>--%>
-                        <%--<input type="checkbox" name="option2" value="a2">Free wi-fi in taxi<Br>--%>
-                        <%--<input type="checkbox" name="option3" value="a3">Smoking driver<Br>--%>
-                        <%--<input type="checkbox" name="option4" value="a4">Air conditioning<Br>--%>
-                        <%--<input type="checkbox" name="option5" value="a5">Meet at the airport</p>--%>
-                    <%--<input type="checkbox" name="option5" value="a5">"Sober driver" service</p>--%>
-                <%--<input type="checkbox" name="option5" value="a5">Meet at the airport</p>--%>
-                <%--<input type="checkbox" name="option5" value="a5">Convey corporation employees</p>--%>
-                <%--...--%>
-
-            <%--</div>--%>
-
-                    <%--<div class="form-group">--%>
-                        <%--<button type="submit" class="btn btn-success btn-large">Submit</button>--%>
-                    <%--</div>--%>
-                <%--</form>--%>
-                <%--</p>--%>
-                <!-- end: Team -->
-            <%--</div>--%>
 
         </div>
         <!-- end: Row -->

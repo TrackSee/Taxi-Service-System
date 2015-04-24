@@ -1,8 +1,7 @@
 package servlets.customer;
 
-
-import com.netcracker.bootcamp.tracksee.entity.Address;
 import com.netcracker.bootcamp.tracksee.logic.TaxiOrderBean;
+import com.netcracker.tracksee.entities.Address;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -44,10 +43,12 @@ public class OrderServlet extends HttpServlet {
 
             long orderPrice = controller.calculatePrice(addressFrom, addressTo);
             req.setAttribute("orderPrice",orderPrice);
+            req.setAttribute("addressFrom",req.getParameter("addressFrom"));
+            req.setAttribute("addressTo",req.getParameter("addressTo"));
             if (orderPrice!=0) {
                 resp.sendRedirect("/order?error=true");
             } else {
-                req.getRequestDispatcher("/orderComplete").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/orderComplete.jsp").forward(req, resp);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage());

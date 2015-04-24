@@ -1,6 +1,7 @@
 package com.netcracker.tracksee.dao.postrgresql;
 
 import com.netcracker.tracksee.dao.UserDAO;
+import com.netcracker.tracksee.entities.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.netcracker.tracksee.entities.ServiceUserEntity;
@@ -23,6 +24,21 @@ public class UserDAOBean implements UserDAO {
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
 
+    @Override
+    public void addUser(User user) {
+        try {
+            String sql = "INSERT INTO address (email,phone,activated) " +
+                    "VALUES("+"'"+user.getEmail()+"','"+user.getPhone()+"','"+user.isActivated()+")";
+            Query query = entityManager.createNativeQuery(sql);
+//            query.setParameter(1, user.getEmail());
+//            query.setParameter(2, user.getPhone());
+//            query.setParameter(3, user.isActivated());
+            query.executeUpdate();
+         }catch(Exception ex){
+            System.out.println("UserDAO");
+      //  ex.printStackTrace();
+    }
+    }
 
     /**
      * @param partNumber - number of data part (from 1 to driver_count/DRIVERS_LIMIT)

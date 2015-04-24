@@ -1,6 +1,7 @@
 package com.netcracker.tracksee.dao.postrgresql;
 
 import com.netcracker.tracksee.entities.ServiceUserEntity;
+import com.netcracker.tracksee.entities.TaxiOrder;
 import com.netcracker.tracksee.entities.TaxiOrderEntity;
 import com.netcracker.tracksee.dao.TaxiOrderDAO;
 import org.apache.logging.log4j.LogManager;
@@ -8,69 +9,61 @@ import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
 * @author Sharaban Sasha
+ * @author Sasha Avlasov
 */
 @Stateless
 public class TaxiOrderDAOBean implements TaxiOrderDAO {
     private static final Logger logger = LogManager.getLogger();
-    //10 drivers per query by default
-    public static final int DRIVERS_LIMIT = 10;
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
 
-
-//    /**
-//     * @param partNumber - number of data part (from 1 to driver_count/DRIVERS_LIMIT)
-//     * @return list with part of drivers(default size of list if 10)
-//     */
-
-//    public void getDrivers(int partNumber) {
-//        if(partNumber <= 0) {
-//            logger.error("partNumber can't be <= 0");
-//            throw new IllegalArgumentException("partNumber can't be <= 0");
-//        }
-////        Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
-////                "WHERE driver = TRUE LIMIT ?1 OFFSET ?2", ServiceUserEntity.class);
-////        query.setParameter(1, DRIVERS_LIMIT);
-////        query.setParameter(2, (partNumber-1)*DRIVERS_LIMIT);
-////        return query.getResultList();
-//    }
-
     @Override
-    public void addTaxiOrder(TaxiOrderEntity taxiOrderEntity) {
-//        String sql="INSERT INTO taxi_order (tracking_number,status,price,way_of_payment) VALUES()";
+    public void addTaxiOrder(TaxiOrder taxiOrder) {
+        try{
+      String sql="INSERT INTO taxi_order (status,price,service,car_category,way_of_payment,driver_sex," +
+              "music_style,animal_transportation,free_wifi,smoking_driver,air_conditioner,comment) " +
+              "VALUES(" + "'" +taxiOrder.getStatus()+"',"+taxiOrder.getPrice()+",'"+taxiOrder.getService()+"','"
+              + taxiOrder.getCarCategory()+"','"+taxiOrder.getWayOfPayment()+"','"+
+              taxiOrder.getDriverSex()+"','"+taxiOrder.getMusicStyle()+"','"+taxiOrder.getAnimalTransportation()+"','"+
+              taxiOrder.getFreeWifi()+"','"+taxiOrder.getSmokingDriver()+"','"+taxiOrder.getAirConditioner()+"','"+
+              taxiOrder.getComment()+"')";
 
-        if(entityManager==null){
-            System.out.println("IT'S DISASTER!!!!!!  ");
+            //"VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,'"+taxiOrder.getComment()+"')";
+            System.out.println(taxiOrder.getStatus());
+            System.out.println(taxiOrder.getPrice());
+            System.out.println(taxiOrder.getService());
+            System.out.println(taxiOrder.getCarCategory());
+            System.out.println(taxiOrder.getWayOfPayment());
+            System.out.println(taxiOrder.getDriverSex());
+            System.out.println(taxiOrder.getMusicStyle());
+            System.out.println(taxiOrder.getAnimalTransportation());
+            System.out.println(taxiOrder.getFreeWifi());
+            System.out.println(taxiOrder.getSmokingDriver());
+            System.out.println(taxiOrder.getAirConditioner());
+            System.out.println(taxiOrder.getComment());
+            Query query = entityManager.createNativeQuery(sql);
+//            query.setParameter(1, taxiOrder.getTrackingNumber());// TODO autoincrement
+//            query.setParameter(1,taxiOrder.getStatus());
+//            query.setParameter(2, taxiOrder.getPrice());
+//            query.setParameter(3, taxiOrder.getService());
+//            query.setParameter(4, taxiOrder.getCarCategory());
+//            query.setParameter(5, taxiOrder.getWayOfPayment());
+//            query.setParameter(6, taxiOrder.getDriverSex());
+//            query.setParameter(7, taxiOrder.getMusicStyle());
+//            query.setParameter(8, taxiOrder.getAnimalTransportation());
+//            query.setParameter(9, taxiOrder.getFreeWifi());
+//            query.setParameter(10, taxiOrder.getSmokingDriver());
+//            query.setParameter(11, taxiOrder.getAirConditioner());
+//            query.setParameter(12, taxiOrder.getComment());
+            query.executeUpdate();
+        }catch(Exception ex){
+           ex.printStackTrace();
+            System.out.println("TaxiOrderDAO");
         }
-//
-        try {
-//            Query query = entityManager.createNativeQuery("SELECT * FROM service_user", ServiceUserEntity.class);
-
-
-            String sql = "SELECT* FROM taxi_order ";
-            Query query2 = entityManager.createNativeQuery(sql);
-            System.out.println(query2.getParameter(0));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        System.out.println("DAO bean work");
     }
-
-//    @Override
-//    public Boolean accountIsActivated(Integer userId) {
-//        String sql = "SELECT  FROM service_user WHERE user_id = " + userId;
-//        Query query = entityManager.createNativeQuery(sql);
-//        return (Boolean) query.getSingleResult();
-//    }
-//
-//    @Override
-//    public void activateAccount(Integer userId) {
-//        String sql = "";
-//        Query query = entityManager.createNamedQuery(sql);
-//        query.executeUpdate();
-//    }
 }

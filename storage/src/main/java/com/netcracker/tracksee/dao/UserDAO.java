@@ -1,6 +1,8 @@
 package com.netcracker.tracksee.dao;
 
 import com.netcracker.tracksee.entities.ServiceUserEntity;
+import com.netcracker.tracksee.entities.TaxiOrder;
+import com.netcracker.tracksee.entities.User;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -11,6 +13,11 @@ import java.util.List;
  */
 @Local
 public interface UserDAO {
+    /**
+     *
+     */
+    void addUser(User user);
+
     /**
      * @param partNumber - number of data part
      * @return list, containing the part of drivers(default size of list is 10)
