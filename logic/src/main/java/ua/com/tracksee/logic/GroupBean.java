@@ -51,8 +51,8 @@ public class GroupBean {
         }
     }
 
-    private List<ServiceUserEntity> getGroupMembers(String groupName, Integer pageNumber, Integer pageSize) {
-        return groupDAO.getGroupMembers(groupName, pageNumber, pageSize);
+    private List<ServiceUserEntity> getGroupMembers(String groupName, String userEmail, Integer pageNumber, Integer pageSize) {
+        return groupDAO.getGroupMembers(groupName, userEmail, pageNumber, pageSize);
     }
 
     private BigInteger[] getGroupMemberIds(String groupName) {
@@ -125,11 +125,12 @@ public class GroupBean {
         }
     }
 
-    public List executeSelect(GroupSelectAction action, String name, Integer pageNumber, Integer pageSize) {
+    public List executeSelect(GroupSelectAction action, String groupName, String userEmail, Integer pageNumber, Integer pageSize) {
+        String s="";
         if (action == GroupSelectAction.SELECT_GROUPS) {
-            return getGroupsByName(name, pageNumber, pageSize);
+            return getGroupsByName(groupName, pageNumber, pageSize);
         } else if (action == GroupSelectAction.SELECT_USERS) {
-            return getGroupMembers(name, pageNumber, pageSize);
+            return getGroupMembers(groupName, userEmail, pageNumber, pageSize);
         }
         return null;
     }

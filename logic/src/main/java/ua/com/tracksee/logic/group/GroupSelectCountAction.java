@@ -9,8 +9,8 @@ import java.util.NoSuchElementException;
  */
 public enum GroupSelectCountAction {
 
-    SELECT_GROUPS_COUNT("selectGroups"),
-    SELECT_USERS_COUNT("selectUsers");
+    SELECT_GROUPS_COUNT("selectGroupsCount"),
+    SELECT_USERS_COUNT("selectUsersCount");
 
     private final String name;
 

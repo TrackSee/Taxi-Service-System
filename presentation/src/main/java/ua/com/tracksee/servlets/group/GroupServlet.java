@@ -5,6 +5,7 @@ package ua.com.tracksee.servlets.group;
  */
 
 import com.google.gson.Gson;
+import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entity.Group;
 import ua.com.tracksee.entity.Role;
 import ua.com.tracksee.logic.GroupBean;
@@ -35,7 +36,8 @@ public class GroupServlet extends HttpServlet {
     private static final String SELECT_ACTION_ALIAS = "selectAction";
     private static final String UPDATE_ACTION_ALIAS = "updateAction";
     private static final String SELECT_COUNT_ACTION_ALIAS = "selectCountAction";
-    private static final String NAME_ALIAS = "name";
+    private static final String GROUP_NAME_ALIAS = "groupName";
+    private static final String USER_EMAIL_ALIAS = "userEmail";
     private static final String GROUP_ROLE_ALIAS = "groupRole";
     private static final String PAGE_NUMBER_ALIAS = "pageNumber";
     private static final String PAGE_SIZE_ALIAS = "pageSize";
@@ -44,7 +46,7 @@ public class GroupServlet extends HttpServlet {
 
     private String name;
 
-    private String json = "";
+    private List resList;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -52,19 +54,30 @@ public class GroupServlet extends HttpServlet {
         GroupSelectAction selectAction = GroupSelectAction.fromString(request.getParameter(SELECT_ACTION_ALIAS));
         GroupSelectCountAction selectCountAction = GroupSelectCountAction.fromString(request.getParameter(SELECT_COUNT_ACTION_ALIAS));
 
-        String name = request.getParameter(NAME_ALIAS);
-
-        String groupName = request.getParameter(NAME_ALIAS);
+//        String name = request.getParameter(GROUP_NAME_ALIAS);
+        String groupName = request.getParameter(GROUP_NAME_ALIAS);
+        String userEmail = request.getParameter(USER_EMAIL_ALIAS);
         int pageNumber = Integer.parseInt(request.getParameter(PAGE_NUMBER_ALIAS));
         int pageSize = Integer.parseInt(request.getParameter(PAGE_SIZE_ALIAS));
 
-        List res = groupBean.executeSelect(selectAction, groupName, pageNumber, pageSize);
+        resList = groupBean.executeSelect(selectAction, groupName, userEmail, pageNumber, pageSize);
 
-        res.add(new Group("", groupBean.executeSelectCount(selectCountAction, name)));
+        if (request.getParameter(SELECT_ACTION_ALIAS).equals(GroupSelectAction.SELECT_GROUPS.getName())) {
+            resList.add(new Group("", groupBean.executeSelectCount(selectCountAction, name)));
+        } else if (request.getParameter(SELECT_ACTION_ALIAS).equals(GroupSelectAction.SELECT_USERS.getName())) {
+            ServiceUserEntity entity = new ServiceUserEntity();
+            groupBean.executeSelectCount(selectCountAction, name);
+            entity.setUserId(groupBean.executeSelectCount(selectCountAction, name).intValue());
+            entity.setEmail("");
+            resList.add(entity);
+        }
 
-        json += new Gson().toJson(res);
+        String json = new Gson().toJson(resList);
+        System.out.println(json);
         response.setContentType("application/json");
         response.getWriter().print(json);
+
+        resList.clear();
     }
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -80,14 +93,21 @@ public class GroupServlet extends HttpServlet {
 
         GroupUpdateAction updateAction = GroupUpdateAction.fromString(request.getParameter(UPDATE_ACTION_ALIAS));
 
-        String name = request.getParameter(NAME_ALIAS);
+        String name = request.getParameter(GROUP_NAME_ALIAS);
         Role role = Role.fromString(request.getParameter(GROUP_ROLE_ALIAS));
         String[] ids = request.getParameterValues(IDS_ALIAS);
 
         try {
             groupBean.executeUpdate(updateAction, name, stringsToBigIntegers(ids), role);
         } catch (SQLException e) {
-            json += new Gson().toJson(new Group("", new BigInteger(ERROR_MESSAGE_ALIAS.getBytes())));
+            if (request.getParameter(SELECT_ACTION_ALIAS).equals(GroupSelectAction.SELECT_GROUPS)) {
+                resList.add(new Group("", new BigInteger(ERROR_MESSAGE_ALIAS.getBytes())));
+            } else if (request.getParameter(SELECT_ACTION_ALIAS).equals(GroupSelectAction.SELECT_USERS)) {
+                ServiceUserEntity entity = new ServiceUserEntity();
+                entity.setEmail("");
+                entity.setUserId(Integer.parseInt(ERROR_MESSAGE_ALIAS));
+                resList.add(new ServiceUserEntity());
+            }
         }
 
         doGet(request, response);
