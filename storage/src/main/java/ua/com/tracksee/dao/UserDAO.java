@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * @author Vadym Akymov
  * @author Ruslan Gunavardana
+ * @author KatiaStetsiuk
  */
 @Local
 public interface UserDAO {
@@ -52,4 +53,6 @@ public interface UserDAO {
      * @return count of drivers in system
      */
     int getDriversCount();
+    void deleteUser(ServiceUserEntity serviceUserEntity);
+    void updateUser(ServiceUserEntity serviceUserEntity);
 }
