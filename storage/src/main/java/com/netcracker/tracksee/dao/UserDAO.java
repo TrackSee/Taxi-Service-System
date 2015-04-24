@@ -46,4 +46,17 @@ public interface UserDAO {
      * @param userId id of activated user
      */
     void activateAccount(Integer userId);
+
+    /**
+     * @return true if user phone alrady exsist
+     *
+     */
+    boolean checkPhone(long phone);
+
+
+    boolean checkEmail(String email);
+
+
+    boolean insertNewUser(ServiceUserEntity user);
+
 }

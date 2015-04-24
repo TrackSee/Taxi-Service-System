@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.netcracker.tracksee.entities.ServiceUserEntity;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,6 +18,7 @@ import java.util.List;
  * @author Ruslan Gunavardana
  */
 @Stateless
+@Local
 public class UserDAOBean implements UserDAO {
     private static final Logger logger = LogManager.getLogger();
     //10 drivers per query by default
@@ -30,6 +32,9 @@ public class UserDAOBean implements UserDAO {
             String sql = "INSERT INTO address (email,phone,activated) " +
                     "VALUES("+"'"+user.getEmail()+"','"+user.getPhone()+"','"+user.isActivated()+")";
             Query query = entityManager.createNativeQuery(sql);
+            //String sql = "INSERT INTO address (email,phone,activated) " +
+              //      "VALUES("+"'"+user.getEmail()+"','"+user.getPhone()+"','"+user.isActivated()+")";
+            //Query query = entityManager.createNativeQuery(sql);
 //            query.setParameter(1, user.getEmail());
 //            query.setParameter(2, user.getPhone());
 //            query.setParameter(3, user.isActivated());
@@ -53,7 +58,7 @@ public class UserDAOBean implements UserDAO {
         Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
                 "WHERE driver = TRUE LIMIT ?1 OFFSET ?2", ServiceUserEntity.class);
         query.setParameter(1, DRIVERS_LIMIT);
-        query.setParameter(2, (partNumber-1)*DRIVERS_LIMIT);
+        query.setParameter(2, (partNumber - 1) * DRIVERS_LIMIT);
         return query.getResultList();
     }
 
@@ -74,9 +79,37 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
+    public boolean checkPhone(long phone) {
+//        Query query=entityManager.createNativeQuery("SELECT * FROM service_user WHERE phone=?1");
+//        query.setParameter(1,phone);
+//        if(query.getResultList().size()==0)return true;
+        return false;
+    }
+
+
+
+    @Override
+    public boolean checkEmail(String email) {
+        Query query=entityManager.createNativeQuery("SELECT * FROM service_user WHERE email=?1");
+        query.setParameter(1, email);
+        if(query.getResultList().size()==0)return false;
+        return true;
+    }
+
+    @Override
     public void activateAccount(Integer userId) {
         String sql = "";
         Query query = entityManager.createNamedQuery(sql);
         query.executeUpdate();
     }
+
+    @Override
+    public boolean insertNewUser(ServiceUserEntity user) {
+        Query query= entityManager.createNativeQuery("INSERT INTO service_user (email, phone) VALUES (?1,?2)");
+        query.setParameter(1, user.getEmail());
+        query.setParameter(2, user.getPhone());
+        query.executeUpdate();
+        return false;
+    }
+
 }

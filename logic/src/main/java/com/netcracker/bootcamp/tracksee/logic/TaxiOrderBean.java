@@ -6,6 +6,7 @@ package com.netcracker.bootcamp.tracksee.logic;
 import com.netcracker.tracksee.dao.AddressDAO;
 import com.netcracker.tracksee.dao.TaxiOrderDAO;
 import com.netcracker.tracksee.dao.UserDAO;
+import com.netcracker.tracksee.dao.postrgresql.UserDAOBean;
 import com.netcracker.tracksee.entities.Address;
 import com.netcracker.tracksee.entities.TaxiOrder;
 import com.netcracker.tracksee.entities.User;
@@ -42,16 +43,18 @@ public class TaxiOrderBean {
     @Lock(WRITE)
     public void makeOrder(TaxiOrder taxiOrder,User user,Address addressFrom,Address addressTo) throws SQLException{
            taxiOrderDAO.addTaxiOrder(taxiOrder);
-//            userDAO.addUser(user);
+           System.out.println("Check user :"+user.getEmail());
+           if(!userDAO.checkEmail(user.getEmail())){
+               System.out.println("User dont exist");
+           }
+        else System.out.println("User exist");
+//        userDAO.addUser(user);
 //            addressDAO.addAddress(addressFrom);
 //            addressDAO.addAddress(addressTo);
 
     }
     private boolean checkPhone(long phone){
-        /**
-         * check phone in DB if exist
-         * return true;
-         */
+
         return false;
     }
     private boolean checkBlackList(long phone){
