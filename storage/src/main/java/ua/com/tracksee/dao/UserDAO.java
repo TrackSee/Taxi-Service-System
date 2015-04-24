@@ -11,6 +11,8 @@ import java.util.List;
  */
 @Local
 public interface UserDAO {
+    //13 drivers per query by default
+    public static final int DRIVERS_LIMIT = 13;
     /**
      * @param partNumber - number of data part
      * @return list, containing the part of drivers(default size of list is 10)
@@ -49,7 +51,7 @@ public interface UserDAO {
 
     /**
      * @author Vadym Akymov
-     * @return count of drivers in system
+     * @return count of driver pages in system
      */
-    int getDriversCount();
+    int getDriverPagesCount();
 }

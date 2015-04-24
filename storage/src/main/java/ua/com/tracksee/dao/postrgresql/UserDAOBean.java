@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -18,8 +19,6 @@ import java.util.List;
 @Stateless
 public class UserDAOBean implements UserDAO {
     private static final Logger logger = LogManager.getLogger();
-    //10 drivers per query by default
-    public static final int DRIVERS_LIMIT = 10;
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
 
@@ -80,9 +79,11 @@ public class UserDAOBean implements UserDAO {
         return (Integer) getIdQuery.getSingleResult();
     }
 
+    //TODO test this method
     @Override
-    public int getDriversCount() {
+    public int getDriverPagesCount() {
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user WHERE driver = TRUE");
-        return (int) q.getSingleResult();
+        Integer driversCount = ((BigInteger) q.getSingleResult()).intValue();
+        return (int) (Math.ceil((double)driversCount / DRIVERS_LIMIT));
     }
 }
