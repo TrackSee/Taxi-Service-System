@@ -1,6 +1,7 @@
 package ua.com.tracksee.dao;
 
 import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.enumartion.Service;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -56,9 +57,14 @@ public interface UserDAO {
      * @return count of driver pages in system
      */
     int getDriverPagesCount();
-    
+
+    /**
+     * @author KatiaStetsiuk
+     * @param serviceUserEntity
+     */
     void deleteUser(ServiceUserEntity serviceUserEntity);
     void updateUser(ServiceUserEntity serviceUserEntity);
+    void createUser(ServiceUserEntity serviceUserEntity);
 
     /**
      * @author Vadym Akymov

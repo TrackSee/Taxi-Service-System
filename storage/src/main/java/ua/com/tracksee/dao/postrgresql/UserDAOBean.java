@@ -104,6 +104,21 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
+    public void createUser(ServiceUserEntity user) {
+        String sql = "INSERT INTO service_user " +
+                "(email, password, phone, driver) " +
+                "VALUES (?, ?, ?, ?)";
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1, user.getEmail());
+        query.setParameter(2, user.getPassword());
+        query.setParameter(3, user.getPhone());
+        query.setParameter(4, user.getDriver());
+        //  query.setParameter(5, user.getDriver());
+        //query.setParameter(6, user.getAdmin());
+        query.executeUpdate();
+    }
+
+    @Override
     public ServiceUserEntity getDriverByID(int id) {
         if(id <= 0){
             logger.warn("Driver id can't be <= 0!");
