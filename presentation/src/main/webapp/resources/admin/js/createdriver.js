@@ -1,6 +1,45 @@
 /**
  * Created by kstes_000 on 25-Apr-15.
  */
+$(document).ready(function () {
+//    $('#createDriver').validate({ // initialize the plugin
+//        rules: {
+//            email: {
+//                required: true
+//            },
+//            password: {
+//                required: true
+//            },
+//            phone: {
+//                required: true
+//            }
+//        }
+//    });
+//
+
+        $('#createDriver').validate({ // initialize the plugin
+        rules: {
+            email: {
+                required: true,
+                email:true
+            },
+            password: {
+                required: true,
+                minlength:5
+            },
+            confirmpassword: {
+                required: true,
+                minlength:5,
+                equalTo: "#password"
+            },
+            phone: {
+                required: true,
+                minlength:9
+            }
+        }
+    });
+
+
 
 $('#addDriver').bind('click', function () {
     var data = {};
@@ -15,4 +54,5 @@ $('#addDriver').bind('click', function () {
         dataType: 'json',
         data: 'data=' + data
     });
-})
+});
+});
