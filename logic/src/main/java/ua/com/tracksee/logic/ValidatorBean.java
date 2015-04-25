@@ -30,7 +30,7 @@ public class ValidatorBean {
      * [a-zA-Z0-9@#$%^&+=] - allowed characters
      * {6,28}              - at least 6-28 characters
      */
-    private String PASSWORD_REGEXP = "^(?=.*[0-9@#$%^&+=])(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9@#$%^&+=]{6,28}$";
+    private String PASSWORD_REGEXP = "^(?=.*[0-9@#$%^&+=_])(?=.*[a-z])(?=.*[A-Z])[\\w@#$%^&+=]{6,28}$";
 
     public boolean isValidPassword(String password) {
         return password.matches(PASSWORD_REGEXP);

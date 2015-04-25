@@ -4,14 +4,14 @@ package ua.com.tracksee.logic.exception;
  * @author Ruslan Gunavardana
  */
 public class RegistrationException extends Exception {
-    private String errorCode;
+    private RegistrationExceptionType errorType;
 
-    public RegistrationException(String s, String errorCode) {
+    public RegistrationException(String s, RegistrationExceptionType errorType) {
         super(s);
-        this.errorCode = errorCode;
+        this.errorType = errorType;
     }
 
-    public String getErrorCode() {
-        return errorCode;
+    public String getErrorType() {
+        return errorType.getCode();
     }
 }

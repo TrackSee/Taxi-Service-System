@@ -24,5 +24,4 @@ out/
 target/
 /bin/
 storage/src/main/resources/META-INF
-storage/src/main/resources/META-INF/persistance.xml
 .gitignore

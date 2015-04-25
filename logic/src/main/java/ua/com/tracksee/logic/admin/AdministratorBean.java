@@ -23,4 +23,7 @@ public class AdministratorBean {
     public List<ServiceUserEntity> getDrivers(int partNumber){
         return userDAO.getDrivers(partNumber);
     }
+    public Integer addUser(ServiceUserEntity user) {return  userDAO.addUser(user);}
+    public void  updateUser(ServiceUserEntity user) { userDAO.updateUser(user);}
+    public void createUser(ServiceUserEntity user) {userDAO.createUser(user);}
 }

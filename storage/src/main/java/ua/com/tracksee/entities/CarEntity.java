@@ -1,7 +1,11 @@
 package ua.com.tracksee.entities;
 
+import ua.com.tracksee.enumartion.CarCategory;
+
 import javax.persistence.*;
 import java.util.Objects;
+
+import static javax.persistence.EnumType.STRING;
 
 /**
  * @author Ruslan Gunavardana
@@ -12,7 +16,7 @@ public class CarEntity {
     private String carNumber;
     private String carModel;
     private String color;
-    private String carCategory;
+    private CarCategory carCategory;
     private Boolean animalTransportationApplicable;
     private Boolean freeWifi;
     private Boolean airConditioner;
@@ -48,12 +52,13 @@ public class CarEntity {
     }
 
     @Basic
+    @Enumerated(STRING)
     @Column(name = "car_category")
-    public String getCarCategory() {
+    public CarCategory getCarCategory() {
         return carCategory;
     }
 
-    public void setCarCategory(String carCategory) {
+    public void setCarCategory(CarCategory carCategory) {
         this.carCategory = carCategory;
     }
 
