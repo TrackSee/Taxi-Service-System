@@ -20,8 +20,8 @@ public class AdminDriverProfile extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
         Integer id = Integer.parseInt(req.getParameter("id"));
+        req.setAttribute("driver", userDAO.getDriverByID(id));
         req.getRequestDispatcher("/WEB-INF/admin/adminDriverProfile.jsp").forward(req, resp);
     }
 }

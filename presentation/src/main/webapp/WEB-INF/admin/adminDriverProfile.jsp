@@ -82,16 +82,16 @@
                                         <table class="table table-user-information">
                                             <tbody>
                                             <tr>
-                                                <td>Department:</td>
-                                                <td>Programming</td>
+                                                <td>Email</td>
+                                                <td>${driver.email}</td>
                                             </tr>
                                             <tr>
-                                                <td>Hire date:</td>
-                                                <td>06/23/2013</td>
+                                                <td>Sex</td>
+                                                <td>${driver.sex}</td>
                                             </tr>
                                             <tr>
-                                                <td>Date of Birth</td>
-                                                <td>01/24/1988</td>
+                                                <td>Car number</td>
+                                                <td>${driver.car.carNumber != null ? driver.car.carNumber : "No car"}</td>
                                             </tr>
 
                                             <tr>
