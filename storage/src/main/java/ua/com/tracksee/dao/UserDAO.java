@@ -58,4 +58,6 @@ public interface UserDAO {
     
     void deleteUser(ServiceUserEntity serviceUserEntity);
     void updateUser(ServiceUserEntity serviceUserEntity);
+
+    ServiceUserEntity getUserByEmail(String email);
 }
