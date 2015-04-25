@@ -73,7 +73,7 @@ public class UserDAOBean implements UserDAO {
         query.setParameter(1, user.getEmail());
         query.setParameter(2, user.getPassword());
         query.setParameter(3, user.getPhone());
-        query.setParameter(4, user.getActivated());
+        query.setParameter(4, null);
         query.executeUpdate();
         Query getIdQuery = entityManager.createNativeQuery("SELECT user_id FROM service_user WHERE email = ?");
         getIdQuery.setParameter(1, user.getEmail());

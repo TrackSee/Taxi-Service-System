@@ -11,11 +11,10 @@ package ua.com.tracksee.mailsender;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 
 public class MailSender {
-    private static Session SESSION = GMAIL.getSession();
+   /* private static Session SESSION = GMAIL.getSession();
     private static InternetAddress FROM_ADDRESS;
 
     static {
@@ -26,13 +25,14 @@ public class MailSender {
         }
     }
 
-    /**
+*
      * This method sends an email to specified user
      *
      * @param to      - specifies the user email
      * @param subject - specifies the mail subject
      * @param body    - specifies the mail body
-     */
+
+
     public static void sendEmail(String to, String subject, String body) {
         try {
             Message message = new MimeMessage(SESSION);
@@ -49,13 +49,14 @@ public class MailSender {
         }
     }
 
-    /**
+*
      * This method sends an email to specified users
      *
      * @param recipients - specifies the user emails list
      * @param subject    - specifies the mail subject
      * @param body       - specifies the mail body
-     */
+
+
     public static void sendEmailToGroup(java.util.List<String> recipients, String subject, String body) {
         try {
             Message message = new MimeMessage(SESSION);
@@ -75,6 +76,6 @@ public class MailSender {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
 }
