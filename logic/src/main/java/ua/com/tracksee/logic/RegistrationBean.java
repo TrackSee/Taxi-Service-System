@@ -22,7 +22,7 @@ public class RegistrationBean {
     private static final int UNACTIVATED_USERS_MAX_DAYS = 30;
 
     private @EJB EmailBean emailBean;
-    private @EJB ValidatorBean validatorBean;
+    private @EJB ValidationBean validationBean;
     private @EJB UserDAO userDAO;
 
     /**
@@ -57,13 +57,13 @@ public class RegistrationBean {
     public void registerCustomerUser(String email, String password, String phoneNumber)
             throws RegistrationException
     {
-        if (!validatorBean.isValidEmail(email)) {
+        if (!validationBean.isValidEmail(email)) {
             throw new RegistrationException("Invalid email.", BAD_EMAIL);
         }
-        if (!validatorBean.isValidPassword(password)) {
+        if (!validationBean.isValidPassword(password)) {
             throw new RegistrationException("Invalid password.", BAD_PASSWORD);
         }
-        if (phoneNumber != null && !validatorBean.isValidPhoneNumber(phoneNumber)) {
+        if (phoneNumber != null && !validationBean.isValidPhoneNumber(phoneNumber)) {
             throw new RegistrationException("Invalid phone number.", BAD_PHONE);
         }
 

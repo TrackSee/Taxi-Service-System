@@ -7,4 +7,6 @@ import ua.com.tracksee.entities.TaxiOrderEntity;
  */
 public interface TaxiOrderDAO {
     public void addComment(TaxiOrderEntity taxiOrderEntity);
+
+    Integer addOrder(TaxiOrderEntity taxiOrderEntity);
 }

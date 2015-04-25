@@ -11,23 +11,19 @@ import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.postrgresql.UserDAOBean;
 import ua.com.tracksee.entities.ServiceUserEntity;
-import ua.com.tracksee.logic.exception.RegistrationException;
 
 import javax.ejb.EJB;
-
 import java.io.File;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
  * @author Ruslan Gunavardana
  */
-public class RegistrationBeanTest {
+public class ValidationBeanTest {
 
-    private @EJB RegistrationBean registrationBean;
-    private @EJB UserDAO userDAO;
+    private @EJB ValidationBean validationBean;
 
     @Deployment
     public	static WebArchive createTestArchive(){
@@ -41,9 +37,9 @@ public class RegistrationBeanTest {
                 .addPackage(PGpoint.class.getPackage())
                 .addPackage(PGBinaryObject.class.getPackage())
                 .addPackage(ServiceUserEntity.class.getPackage())
+                .addPackage(ValidationBean.class.getPackage())
                 .addPackage(UserDAOBean.class.getPackage())
                 .addPackage(UserDAO.class.getPackage())
-                .addPackage(RegistrationBean.class.getPackage())
                 .addAsResource("META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
@@ -56,43 +52,29 @@ public class RegistrationBeanTest {
                 .withTransitivity().asFile();
     }
 
-    private static final String TEST_EMAIL = "rusan.rus@gmail.com";
-    private static final String TEST_PASSWORD = "very@Secure";
-    private static final String TEST_PHONE = "+380635005050";
+    @Test
+    public void testIsValidPassword() throws Exception {
 
-    @Test(expected = RegistrationException.class)
-    public void testRegisterBadCustomerUser() throws Exception {
-        registrationBean.registerCustomerUser("badmail@", "nonsecurepassword", null);
     }
 
     @Test
-    public void testRegisterGoodCustomerUser() throws Exception {
-        clearUserIfExists(TEST_EMAIL);
-        registrationBean.registerCustomerUser(TEST_EMAIL, TEST_PASSWORD, TEST_PHONE);
-        ServiceUserEntity newUser = userDAO.getUserByEmail(TEST_EMAIL);
-        assertFalse(newUser.getActivated());
-        userDAO.deleteUser(newUser.getUserId());
+    public void testIsValidEmail() throws Exception {
+
     }
 
     @Test
-    public void testRegisterAndActivate() throws Exception {
-        ServiceUserEntity unactivatedUser;
-        ServiceUserEntity activatedUser;
+    public void testValidatePhoneNumber() throws Exception {
+        // good
+        assertTrue(validationBean.isValidPhoneNumber("+380635293333"));
+        assertTrue(validationBean.isValidPhoneNumber("+38 (063) 529 - 33 - 33"));
+        assertTrue(validationBean.isValidPhoneNumber("421 - 08 - 09"));
+        assertTrue(validationBean.isValidPhoneNumber("044-421- 08- 09"));
 
-        clearUserIfExists(TEST_EMAIL);
-        registrationBean.registerCustomerUser(TEST_EMAIL, TEST_PASSWORD, TEST_PHONE);
-        unactivatedUser = userDAO.getUserByEmail(TEST_EMAIL);
-        assertFalse(unactivatedUser.getActivated());
-
-        registrationBean.activateCustomerUserAccount(unactivatedUser.getUserId().toString());
-        activatedUser = userDAO.getUserByEmail(TEST_EMAIL);
-        assertTrue(activatedUser.getActivated());
-    }
-
-    private void clearUserIfExists(String email) {
-        ServiceUserEntity oldUser = userDAO.getUserByEmail(email);
-        if (oldUser != null) {
-            userDAO.deleteUser(oldUser.getUserId());
-        }
+        // bad values
+        assertFalse(validationBean.isValidPhoneNumber("+380635helloWORLD"));
+        assertFalse(validationBean.isValidPhoneNumber("+38063@12312"));
+        assertFalse(validationBean.isValidPhoneNumber("1"));
+        assertFalse(validationBean.isValidPhoneNumber("12"));
+        assertFalse(validationBean.isValidPhoneNumber("+380"));
     }
 }
