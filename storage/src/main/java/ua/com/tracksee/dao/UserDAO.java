@@ -55,4 +55,5 @@ public interface UserDAO {
     int getDriversCount();
     void deleteUser(ServiceUserEntity serviceUserEntity);
     void updateUser(ServiceUserEntity serviceUserEntity);
+    void createUser(ServiceUserEntity serviceUserEntity);
 }
