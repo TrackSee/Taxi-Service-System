@@ -40,20 +40,21 @@ public class GroupDAOBean implements GroupDAO {
     public List<ServiceUserEntity> getGroupMembers(String groupName, String userEmail, int pageNumber, int pageSize) {
         Query query;
         String queryString = "";
-        if (!userEmail.equals("")) {
+        if ((!userEmail.equals("")) && (!groupName.equals(""))) {
             queryString = "SELECT * FROM service_user u WHERE u.group_name = ?1 AND u.email LIKE ?2 " +
                     "UNION ALL SELECT * FROM service_user u " +
                     "WHERE u.email LIKE ?2 AND u.group_name <> ?1";
             query = entityManager.createNativeQuery(queryString, ServiceUserEntity.class);
             query.setParameter(1, groupName);
             query.setParameter(2, "%" + userEmail + "%");
-        } else if (!userEmail.equals("")) {
+        } else if (!groupName.equals("")) {
             queryString = "SELECT * FROM service_user u WHERE u.group_name = ?";
             query = entityManager.createNativeQuery(queryString, ServiceUserEntity.class);
             query.setParameter(1, groupName);
         } else {
-            queryString = "SELECT * FROM service_user";
+            queryString = "SELECT * FROM service_user u WHERE u.email LIKE ?1";
             query = entityManager.createNativeQuery(queryString, ServiceUserEntity.class);
+            query.setParameter(1, "%" + userEmail + "%");
         }
         query.setFirstResult((pageNumber - 1) * pageSize);
         query.setMaxResults(pageSize);

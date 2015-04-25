@@ -18,4 +18,4 @@
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-<script src="<%=application.getContextPath()%>/resources/js/groupEdit.js"/>
+<script src="<%=application.getContextPath()%>/resources/js/groupEdit.js"></script><script/>

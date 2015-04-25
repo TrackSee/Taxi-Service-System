@@ -111,6 +111,10 @@ public class GroupBean {
         return groupDAO.getUsersCountByEmail(userEmail);
     }
 
+//    private BigInteger getAllUsersCount() {
+//
+//    }
+
     public void executeUpdate(GroupUpdateAction action, String groupName, BigInteger[] ids, Role role) throws SQLException {
         if (action == GroupUpdateAction.ADD_GROUP) {
             addGroup(groupName, role, ids);
@@ -126,7 +130,6 @@ public class GroupBean {
     }
 
     public List executeSelect(GroupSelectAction action, String groupName, String userEmail, Integer pageNumber, Integer pageSize) {
-        String s="";
         if (action == GroupSelectAction.SELECT_GROUPS) {
             return getGroupsByName(groupName, pageNumber, pageSize);
         } else if (action == GroupSelectAction.SELECT_USERS) {
@@ -138,8 +141,12 @@ public class GroupBean {
     public BigInteger executeSelectCount(GroupSelectCountAction action, String name) {
         if (action == GroupSelectCountAction.SELECT_GROUPS_COUNT) {
             return getGroupsCountByName(name);
-        } else if (action == GroupSelectCountAction.SELECT_USERS_COUNT) {
+        } else if (action == GroupSelectCountAction.SELECT_ALL_USERS_COUNT) {
             return getUsersCountByEmail(name);
+        } else if (action == GroupSelectCountAction.SELECT_USERS_IN_GROUP_COUNT) {
+
+        } else if (action == GroupSelectCountAction.SELECT_USERS_LIKE_COUNT) {
+            //return getUsersCountByEmail();
         }
         return null;
     }

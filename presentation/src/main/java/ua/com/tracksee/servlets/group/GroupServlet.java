@@ -54,7 +54,6 @@ public class GroupServlet extends HttpServlet {
         GroupSelectAction selectAction = GroupSelectAction.fromString(request.getParameter(SELECT_ACTION_ALIAS));
         GroupSelectCountAction selectCountAction = GroupSelectCountAction.fromString(request.getParameter(SELECT_COUNT_ACTION_ALIAS));
 
-//        String name = request.getParameter(GROUP_NAME_ALIAS);
         String groupName = request.getParameter(GROUP_NAME_ALIAS);
         String userEmail = request.getParameter(USER_EMAIL_ALIAS);
         int pageNumber = Integer.parseInt(request.getParameter(PAGE_NUMBER_ALIAS));
@@ -66,7 +65,7 @@ public class GroupServlet extends HttpServlet {
             resList.add(new Group("", groupBean.executeSelectCount(selectCountAction, name)));
         } else if (request.getParameter(SELECT_ACTION_ALIAS).equals(GroupSelectAction.SELECT_USERS.getName())) {
             ServiceUserEntity entity = new ServiceUserEntity();
-            groupBean.executeSelectCount(selectCountAction, name);
+            //groupBean.executeSelectCount(selectCountAction, name);
             entity.setUserId(groupBean.executeSelectCount(selectCountAction, name).intValue());
             entity.setEmail("");
             resList.add(entity);
