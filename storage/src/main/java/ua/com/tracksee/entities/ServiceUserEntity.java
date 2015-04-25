@@ -8,8 +8,6 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-import static javax.persistence.EnumType.STRING;
-
 /**
  * @author Ruslan Gunavardana
  */
@@ -72,7 +70,7 @@ public class ServiceUserEntity {
     }
 
     @Basic
-    @Enumerated(STRING)
+    @Enumerated(EnumType.STRING)
     @Column(name = "sex")
     public Sex getSex() {
         return sex;

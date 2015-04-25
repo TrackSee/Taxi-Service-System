@@ -15,6 +15,7 @@ public interface UserDAO {
     //13 drivers per query by default
     public static final int DRIVERS_LIMIT = 13;
     /**
+     * @author Vadym Akymov
      * @param partNumber - number of data part
      * @return list, containing the part of drivers(default size of list is 10)
      */
@@ -58,5 +59,9 @@ public interface UserDAO {
     
     void deleteUser(ServiceUserEntity serviceUserEntity);
     void updateUser(ServiceUserEntity serviceUserEntity);
-    void createUser(ServiceUserEntity serviceUserEntity);
+
+    /**
+     * @author Vadym Akymov
+     */
+    ServiceUserEntity getDriverByID(int id);
 }
