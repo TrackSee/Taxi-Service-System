@@ -3,6 +3,7 @@ package ua.com.tracksee.dao.postrgresql;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
+import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Stateless;
@@ -19,14 +20,12 @@ import java.util.List;
 @Stateless
 public class UserDAOBean implements UserDAO {
     private static final Logger logger = LogManager.getLogger();
-    //10 drivers per query by default
-    public static final int DRIVERS_LIMIT = 10;
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
 
 
     /**
-     * @param partNumber - number of data part (from 1 to driver_count/DRIVERS_LIMIT)
+     * @param partNumber - number of data part (from 1 to driver_count/DRIVERS_PAGE_SIZE)
      * @return list with part of drivers(default size of list if 10)
      */
     @Override
@@ -37,8 +36,8 @@ public class UserDAOBean implements UserDAO {
         }
         Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
                 "WHERE driver = TRUE LIMIT ?1 OFFSET ?2", ServiceUserEntity.class);
-        query.setParameter(1, DRIVERS_LIMIT);
-        query.setParameter(2, (partNumber-1)*DRIVERS_LIMIT);
+        query.setParameter(1, DRIVERS_PAGE_SIZE);
+        query.setParameter(2, (partNumber - 1) * DRIVERS_PAGE_SIZE);
         return query.getResultList();
     }
 
@@ -104,6 +103,12 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
+    public ServiceUserEntity getUserByEmail(String email) {
+        String sql = "SELECT * FROM service_user WHERE email = ?";
+        Query query = entityManager.createNativeQuery(sql, ServiceUserEntity.class);
+        return (ServiceUserEntity) query.getSingleResult();
+    }
+
     public void createUser(ServiceUserEntity user) {
         String sql = "INSERT INTO service_user " +
                 "(email, password, phone, driver) " +
@@ -124,7 +129,12 @@ public class UserDAOBean implements UserDAO {
             logger.warn("Driver id can't be <= 0!");
             throw new IllegalArgumentException("Driver id can't be <= 0!");
         }
-        return entityManager.find(ServiceUserEntity.class, id);
+        ServiceUserEntity driver = entityManager.find(ServiceUserEntity.class, id);
+        if(driver == null){
+            logger.warn("There is no driver with such id");
+            throw new ServiceUserNotFoundException("There is no driver with such id");
+        }
+        return driver;
     }
 
     //TODO test this method
@@ -132,13 +142,18 @@ public class UserDAOBean implements UserDAO {
     public int getDriverPagesCount() {
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user WHERE driver = TRUE");
         Integer driversCount = ((BigInteger) q.getSingleResult()).intValue();
-        return (int) (Math.ceil((double) driversCount / DRIVERS_LIMIT));
+        return (int) (Math.ceil((double) driversCount / DRIVERS_PAGE_SIZE));
     }
     
-    public void deleteUser(ServiceUserEntity user) {
+    public void deleteUser(int serviceUserId) {
+        if(serviceUserId <= 0){
+            logger.warn("serviceUserId can't be <= 0");
+            throw new IllegalArgumentException("serviceUserId can't be <= 0");
+        }
         String sql = "DELETE from service_user " +
-                "where user_id = " + user.getUserId();
+                "where user_id = ?1";
         Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1, serviceUserId);
         query.executeUpdate();
     }
 }

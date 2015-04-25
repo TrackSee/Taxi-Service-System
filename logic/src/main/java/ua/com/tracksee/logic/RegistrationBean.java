@@ -70,6 +70,7 @@ public class RegistrationBean {
         // adding new user
         ServiceUserEntity user = new ServiceUserEntity();
         user.setEmail(email);
+
         user.setPassword(password);
         user.setPhone(phoneNumber);
         Integer generatedId = userDAO.addUser(user);
