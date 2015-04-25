@@ -60,7 +60,7 @@ public class UserDAOBeanTest {
     public void testGetDrivers() throws Exception {
         //get first part of drivers
         List<ServiceUserEntity> drivers = userDAO.getDrivers(1);
-        assertTrue(drivers.size() == UserDAOBean.DRIVERS_LIMIT);
+        assertTrue(drivers.size() == UserDAOBean.DRIVERS_PAGE_SIZE);
         for(int i = 0; i < drivers.size(); i++){
             assertTrue(drivers.get(i).getDriver());
         }
