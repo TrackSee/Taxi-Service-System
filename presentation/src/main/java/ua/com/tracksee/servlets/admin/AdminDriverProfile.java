@@ -3,7 +3,6 @@ package ua.com.tracksee.servlets.admin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -34,8 +33,9 @@ public class AdminDriverProfile extends HttpServlet{
      * Delete driver by id
      */
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer id = Integer.parseInt(req.getParameter("id"));
         userDAO.deleteUser(id);
+        resp.setStatus(200);
     }
 }

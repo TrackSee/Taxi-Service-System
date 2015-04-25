@@ -12,8 +12,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
@@ -118,7 +116,8 @@
                                 <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
                         <span class="pull-right">
                             <a href="/" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a hidden="${driver.userId}" data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger removeBtn"><i class="glyphicon glyphicon-remove"></i></a>
+                            <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger removeBtn"><i class="glyphicon glyphicon-remove"></i></a>
+                            <input id="driverId" type="hidden" value="${driver.userId}">
                         </span>
                             </div>
 
@@ -143,6 +142,7 @@
 <%--for pagination--%>
 <script src="<%=application.getContextPath()%>/resources/admin/js/pagination.js"></script>
 <%--For removing drivers--%>
+<script src="<%=application.getContextPath()%>/resources/admin/js/driver-remove.js"></script>
 
 </body>
 </html>

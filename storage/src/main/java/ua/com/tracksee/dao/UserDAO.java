@@ -1,6 +1,5 @@
 package ua.com.tracksee.dao;
 
-import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Local;
