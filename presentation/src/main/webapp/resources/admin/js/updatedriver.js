@@ -17,23 +17,23 @@ $(document).ready(function () {
 //    });
 //
 
-        $('#createDriver').validate({ // initialize the plugin
+    $('#updateItDriver').validate({ // initialize the plugin
         rules: {
             email: {
-                required: true,
+                required: false,
                 email:true
             },
             password: {
-                required: true,
+                required: false,
                 minlength:5
             },
             confirmpassword: {
-                required: true,
+                required: false,
                 minlength:5,
                 equalTo: "#password"
             },
             phone: {
-                required: true,
+                required: false,
                 minlength:9
             }
         }
@@ -41,16 +41,16 @@ $(document).ready(function () {
 
 
 
-$('#addDriver').bind('click', function () {
+    $('#updateDriver').bind('click', function () {
         var data = {};
-        data["email"] = $('input[name = email]', '#createDriver').val();
-        data["password"] = $('input[name = password]', '#createDriver').val();
-        data["phone"] = $('input[name = phone]', '#createDriver').val();
+        data["email"] = $('input[name = email]', '#updateItDriver').val();
+        data["password"] = $('input[name = password]', '#updateItDriver').val();
+        data["phone"] = $('input[name = phone]', '#updateItDriver').val();
 
         data = JSON.stringify(data);
         $.ajax({
             type: 'POST',
-            url: 'createdriver',
+            url: 'updatedriver',
             dataType: 'json',
             data: 'data=' + data
         });

@@ -37,5 +37,6 @@ public class AdminDriverProfile extends HttpServlet{
         Integer id = Integer.parseInt(req.getParameter("id"));
         userDAO.deleteUser(id);
         resp.setStatus(200);
+
     }
 }
