@@ -92,13 +92,12 @@ public class UserDAOBean implements UserDAO {
 
     @Override
     public void updateUser(ServiceUserEntity user) {
-        String sql = "UPDATE service_user SET email = ?, phone = ? " +
+        String sql = "UPDATE service_user SET email = ?, password = ? , phone =?" +
                 "WHERE user_id = " + user.getUserId();
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, user.getEmail());
         query.setParameter(2, user.getPassword());
         query.setParameter(3, user.getPhone());
-        query.setParameter(4, user.getActivated());
         query.executeUpdate();
     }
 

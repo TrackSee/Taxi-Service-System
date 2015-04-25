@@ -1,10 +1,11 @@
 <%--
   Created by IntelliJ IDEA.
   User: kstes_000
-  Date: 24-Apr-15
-  Time: 09:37
+  Date: 25-Apr-15
+  Time: 23:46
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -61,22 +62,22 @@
 </div>
 <div class="container" style=" width : 500px; ">
 
-    <form class="create-driver" id="createDriver" action="<c:url value="/admin/createdriver"/>" method="post">
-        <h2 class="form-sign-up-heading">Please enter drivers data</h2>
-        <label for="email" class="sr-only">Email</label>
-        <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required >
+    <form class="create-driver" id="updateItDriver" action="<c:url value="/admin/updatedriver"/>" method="post">
+        <h2 class="form-sign-up-heading">Update Profile</h2>
+        <label for="email" class="sr-only">Email </label>
+        <input type="email" id="email" name="email" class="form-control" value="${driver.email}" >
 
         <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        <input type="password" id="password" name="password" class="form-control" value="${driver.password}">
 
         <label for="confirmpassword" class="sr-only">Password</label>
-        <input type="password" id="confirmpassword" name="confirmpassword" class="form-control" placeholder="confirm password" required>
+        <input type="password" id="confirmpassword" name="confirmpassword" class="form-control" value="${driver.password}">
 
         <label for="phone" class="sr-only">Phone number</label>
-        <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" required>
+        <input type="text" id="phone" name="phone" class="form-control" value="${driver.phone}">
 
-        <div id="addDriver">
-            <button type="button" class="btn">Create</button>
+        <div id="updateDriver">
+            <button type="button" class="btn">Update</button>
         </div>
     </form>
 </div>
@@ -85,7 +86,7 @@
 <script src="<%=application.getContextPath()%>/resources/admin//bower_components/jquery/dist/jquery.validate.min.js"></script>
 
 
-<script src="<%=application.getContextPath()%>/resources/admin/js/createdriver.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/updatedriver.js"></script>
 
 </body>
 </html>
