@@ -44,10 +44,7 @@ public class SignUpServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/customer/CheckEmail.jsp").forward(req, resp);
         } catch (RegistrationException e) {
             logger.warn(e.getMessage());
-            resp.sendRedirect(ERROR_REDIRECT_PATH + e.getErrorType());
-        } catch (IllegalArgumentException e) {
-            logger.warn(e.getMessage());
-            resp.sendRedirect(ERROR_REDIRECT_PATH + "bad-args");
+            resp.getWriter().append(e.getErrorType());
         }
     }
 }

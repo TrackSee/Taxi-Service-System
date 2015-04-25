@@ -1,8 +1,14 @@
 package ua.com.tracksee.entities;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+import ua.com.tracksee.enumartion.Sex;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
+
+import static javax.persistence.EnumType.STRING;
 
 /**
  * @author Ruslan Gunavardana
@@ -14,7 +20,7 @@ public class ServiceUserEntity {
     private String email;
     private String password;
     private String phone;
-    private String sex;
+    private Sex sex;
     private Boolean driver;
     private Boolean admin;
     private String groupName;
@@ -25,7 +31,7 @@ public class ServiceUserEntity {
     private CarEntity car;
 
     @Id
-    @GeneratedValue
+    @Generated(GenerationTime.INSERT)
     @Column(name = "user_id")
     public Integer getUserId() {
         return userId;
@@ -36,7 +42,7 @@ public class ServiceUserEntity {
     }
 
     @Basic
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     public String getEmail() {
         return email;
     }
@@ -46,7 +52,7 @@ public class ServiceUserEntity {
     }
 
     @Basic
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -66,12 +72,13 @@ public class ServiceUserEntity {
     }
 
     @Basic
+    @Enumerated(STRING)
     @Column(name = "sex")
-    public String getSex() {
+    public Sex getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
 

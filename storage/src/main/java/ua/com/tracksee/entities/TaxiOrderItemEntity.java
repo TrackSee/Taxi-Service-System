@@ -17,6 +17,7 @@ public class TaxiOrderItemEntity {
     private TaxiOrderEntity taxiOrderByTrackingNumer;
 
     @Id
+    @GeneratedValue
     @Column(name = "taxi_item_id")
     public Integer getTaxiItemId() {
         return taxiItemId;
