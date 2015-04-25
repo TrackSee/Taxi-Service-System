@@ -60,7 +60,7 @@
 
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Sheena Kristin A.Eschor</h3>
+                                <h3 class="panel-title">${driver.email}</h3>
                             </div>
                             <div class="panel-body">
                                 <div class="row">
@@ -89,28 +89,22 @@
                                                 <td>Sex</td>
                                                 <td>${driver.sex}</td>
                                             </tr>
+                                                <td>Phone Number</td>
+                                                <td>${driver.phone != null ? driver.phone : "No phone number"} </td>
+                                            </tr>
                                             <tr>
                                                 <td>Car number</td>
                                                 <td>${driver.car.carNumber != null ? driver.car.carNumber : "No car"}</td>
                                             </tr>
 
+                                            <%--<tr>--%>
                                             <tr>
-                                            <tr>
-                                                <td>Gender</td>
-                                                <td>Male</td>
+                                                <td>Group</td>
+                                                <td>${driver.groupName != null ? driver.groupName : "No group"}</td>
                                             </tr>
                                             <tr>
-                                                <td>Home Address</td>
-                                                <td>Metro Manila,Philippines</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Email</td>
-                                                <td><a href="mailto:info@support.com">info@support.com</a></td>
-                                            </tr>
-                                            <td>Phone Number</td>
-                                            <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
-                                            </td>
-
+                                                <td>Registration Date</td>
+                                                <td>${driver.registrationDate}</td>
                                             </tr>
 
                                             </tbody>
@@ -123,8 +117,8 @@
                             <div class="panel-footer">
                                 <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
                         <span class="pull-right">
-                            <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                            <a href="/" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a hidden="${driver.userId}" data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger removeBtn"><i class="glyphicon glyphicon-remove"></i></a>
                         </span>
                             </div>
 
@@ -148,5 +142,7 @@
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
 <%--for pagination--%>
 <script src="<%=application.getContextPath()%>/resources/admin/js/pagination.js"></script>
+<%--For removing drivers--%>
+
 </body>
 </html>
