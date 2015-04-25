@@ -7,7 +7,6 @@ import ua.com.tracksee.logic.exception.RegistrationException;
 
 import javax.ejb.EJB;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -34,7 +33,7 @@ public class RegistrationBeanTest {
         registrationBean.registerCustomerUser(TEST_EMAIL, TEST_PASSWORD, TEST_PHONE);
         ServiceUserEntity newUser = userDAO.getUserByEmail(TEST_EMAIL);
         assertFalse(newUser.getActivated());
-        userDAO.deleteUser(newUser);
+        userDAO.deleteUser(newUser.getUserId());
     }
 
     @Test
@@ -55,7 +54,7 @@ public class RegistrationBeanTest {
     private void clearUserIfExists(String email) {
         ServiceUserEntity oldUser = userDAO.getUserByEmail(email);
         if (oldUser != null) {
-            userDAO.deleteUser(oldUser);
+            userDAO.deleteUser(oldUser.getUserId());
         }
     }
 }
