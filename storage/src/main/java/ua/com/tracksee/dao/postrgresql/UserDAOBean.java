@@ -92,12 +92,6 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
-    public int getDriversCount() {
-        Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user WHERE driver = TRUE");
-        return (int) q.getSingleResult();
-    }
-
-    @Override
     public void updateUser(ServiceUserEntity user) {
         String sql = "UPDATE service_user SET email = ?, phone = ? " +
                 "WHERE user_id = " + user.getUserId();
@@ -107,9 +101,6 @@ public class UserDAOBean implements UserDAO {
         query.setParameter(3, user.getPhone());
         query.setParameter(4, user.getActivated());
         query.executeUpdate();
-        Query getIdQuery = entityManager.createNativeQuery("SELECT user_id FROM service_user WHERE email = ?");
-        getIdQuery.setParameter(1, user.getEmail());
-        return (Integer) getIdQuery.getSingleResult();
     }
 
     //TODO test this method
@@ -117,7 +108,8 @@ public class UserDAOBean implements UserDAO {
     public int getDriverPagesCount() {
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user WHERE driver = TRUE");
         Integer driversCount = ((BigInteger) q.getSingleResult()).intValue();
-        return (int) (Math.ceil((double)driversCount / DRIVERS_LIMIT));
+        return (int) (Math.ceil((double) driversCount / DRIVERS_LIMIT));
+    }
     
     public void deleteUser(ServiceUserEntity user) {
         String sql = "DELETE from service_user " +
