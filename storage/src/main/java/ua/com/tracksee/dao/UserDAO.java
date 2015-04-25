@@ -71,5 +71,5 @@ public interface UserDAO {
      * is no service user with such id
      *
      */
-    ServiceUserEntity getDriverByID(int id) throws ServiceUserNotFoundException;
+    ServiceUserEntity getDriverByID(int id);
 }

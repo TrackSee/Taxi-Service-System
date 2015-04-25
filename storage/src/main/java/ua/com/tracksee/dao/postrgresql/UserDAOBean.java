@@ -120,7 +120,7 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
-    public ServiceUserEntity getDriverByID(int id) throws ServiceUserNotFoundException {
+    public ServiceUserEntity getDriverByID(int id) {
         if(id <= 0){
             logger.warn("Driver id can't be <= 0!");
             throw new IllegalArgumentException("Driver id can't be <= 0!");
