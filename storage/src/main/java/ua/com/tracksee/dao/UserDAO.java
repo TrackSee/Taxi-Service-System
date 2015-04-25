@@ -1,7 +1,7 @@
 package ua.com.tracksee.dao;
 
+import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.ServiceUserEntity;
-import ua.com.tracksee.enumartion.Service;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -60,14 +60,16 @@ public interface UserDAO {
 
     /**
      * @author KatiaStetsiuk
-     * @param serviceUserEntity
      */
-    void deleteUser(ServiceUserEntity serviceUserEntity);
+    void deleteUser(int serviceUserID);
     void updateUser(ServiceUserEntity serviceUserEntity);
     void createUser(ServiceUserEntity serviceUserEntity);
 
     /**
      * @author Vadym Akymov
+     * @throws ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException when there
+     * is no service user with such id
+     *
      */
-    ServiceUserEntity getDriverByID(int id);
+    ServiceUserEntity getDriverByID(int id) throws ServiceUserNotFoundException;
 }

@@ -3,6 +3,7 @@ package ua.com.tracksee.dao.postrgresql;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
+import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Stateless;
@@ -119,12 +120,17 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
-    public ServiceUserEntity getDriverByID(int id) {
+    public ServiceUserEntity getDriverByID(int id) throws ServiceUserNotFoundException {
         if(id <= 0){
             logger.warn("Driver id can't be <= 0!");
             throw new IllegalArgumentException("Driver id can't be <= 0!");
         }
-        return entityManager.find(ServiceUserEntity.class, id);
+        ServiceUserEntity driver = entityManager.find(ServiceUserEntity.class, id);
+        if(driver == null){
+            logger.warn("There is no driver with such id");
+            throw new ServiceUserNotFoundException("There is no driver with such id");
+        }
+        return driver;
     }
 
     //TODO test this method
@@ -135,10 +141,15 @@ public class UserDAOBean implements UserDAO {
         return (int) (Math.ceil((double) driversCount / DRIVERS_LIMIT));
     }
     
-    public void deleteUser(ServiceUserEntity user) {
+    public void deleteUser(int serviceUserId) {
+        if(serviceUserId <= 0){
+            logger.warn("serviceUserId can't be <= 0");
+            throw new IllegalArgumentException("serviceUserId can't be <= 0");
+        }
         String sql = "DELETE from service_user " +
-                "where user_id = " + user.getUserId();
+                "where user_id = ?1";
         Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1, serviceUserId);
         query.executeUpdate();
     }
 }
