@@ -1,5 +1,6 @@
 package ua.com.tracksee.servlets.customer;
 
+import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,7 +40,7 @@ public class SignInServlet extends HttpServlet {
             session.invalidate();
         }
         try {
-            User user = null;
+            ServiceUserEntity user = null;
             //TODO  checkAndGetUser(req.getParameter("email"), req.getParameter("password"));
             if (user == null) {
                 resp.sendRedirect(req.getParameter("redirect_url"));

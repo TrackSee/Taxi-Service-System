@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
     <%@include file="../parts/head.jsp"%>
-    <link href="<%=application.getContextPath()%>/resources/css/signup.css" rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/customer/css/signup.css" rel="stylesheet">
 </head>
 
 <body>
@@ -31,6 +31,6 @@
     </form>
 </div>
 <%@include file="../parts/scripts.jsp" %>
-<script src="<%=application.getContextPath()%>/resources/js/custom/sign-up.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/sign-up.js"></script>
 </body>
 </html>
