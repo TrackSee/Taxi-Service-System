@@ -157,73 +157,72 @@
 
                         <div class="form-group">
                             <label>Address from</label>
-                            <input  disabled="disabled" type="text"  class="form-control" value="${addressFrom}"
-                                    name="addressFrom"
-                                   data-error="That address is invalid" required>
+                            <input  disabled="disabled" type="text"  class="form-control" value="${addressOrigin}"
+                                    name="addressOrigin" data-error="That address is invalid" required>
                         </div>
 
                         <div class="form-group">
                             <label>Address to</label>
-                            <input disabled="disabled" type="text" class="form-control" value="${addressTo}"
-                                   name="addressTo"
-                                   data-error="That address is invalid" required>
+                            <input disabled="disabled" type="text" class="form-control" value="${addressDestination}"
+                                   name="addressDestination" data-error="That address is invalid" required>
                           </div>
 
                         <div class="form-group">
                             <label>Order price</label>
-                            <input disabled="disabled" type="text" name="orderPrice" class="form-control"
-                                   value="${orderPrice}"  placeholder="Address to:"
+                            <input disabled="disabled" type="text" name="price" class="form-control"
+                                   value="${price}"  placeholder="Address to:"
                                    data-error="That address is invalid" required>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label">Car category</label>
                             <select class="form-control order_priority" name="carCategory">
-                                <option value="ECONOMY_CLASS">Economy class</option>
-                                <option value="BUSINESS_CLASS"> selected>Business class</option>
-                                <option value="VAN">Van</option>
+                                <option value="economyClass">Economy class</option>
+                                <option value="businessClass"> selected>Business class</option>
+                                <option value="van">Van</option>
                             </select>
                         </div>
 
                             <div class="form-group">
                                 <label class="control-label">Way of payment</label>
                                 <select class="form-control order_priority" name="wayOfPayment">
-                                    <option value="CASH">Cash</option>
-                                    <option value="VISA_CARD">Visa card</option>
+                                    <option value="cash">Cash</option>
+                                    <option value="visaCard">Visa card</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label">Way of payment</label>
+                                <label class="control-label">Driver sex</label>
                                 <select class="form-control order_priority" name="driverSex">
-                                    <option value="MALE">Male</option>
-                                    <option value="FEMALE">Female</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label">Service</label>
                                 <select class="form-control order_priority" name="service">
-                                    <option value="SOBER_DRIVER">Service "Sober driver"</option>
-                                    <option value="GUEST_DELIVERY">Service "Guest delivery"</option>
-                                    <option value="CARGO_TAXI">Service "Cargo taxi"</option>
-                                    <option value="MEET_MY_GUEST">Service "Meet my guest"</option>
-                                    <option value="CELEBRATION_TAXI">Service "Celebration taxi"</option>
-                                    <option value="FOODSTUFF_DELIVERY">Service "Foodstuff delivery"</option>
+                                    <option value="default">Default</option>
+                                    <option value="soberDriver">Service "Sober driver"</option>
+                                    <option value="guestDelivery">Service "Guest delivery"</option>
+                                    <option value="cargoTaxi">Service "Cargo taxi"</option>
+                                    <option value="meetMyGuest">Service "Meet my guest"</option>
+                                    <option value="celebrationTaxi">Service "Celebration taxi"</option>
+                                    <option value="foodStuffDelivery">Service "Foodstuff delivery"</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label">Music style</label>
                                 <select class="form-control order_priority" name="musicStyle">
-                                    <option value="None">None</option>
-                                    <option value="Blues">Blues</option>
-                                    <option value="ClassicalMusic">Classical music</option>
-                                    <option value="Rock">Rock</option>
-                                    <option value="Jazz">Jazz</option>
-                                    <option value="DanceMusic">Dance music</option>
-                                    <option value="ElectronicMusic">Electronic music</option>
-                                    <option value="HipHop">Hip Hop</option>
+                                    <option value="default">Default</option>
+                                    <option value="blues">Blues</option>
+                                    <option value="classicalMusic">Classical music</option>
+                                    <option value="rock">Rock</option>
+                                    <option value="jazz">Jazz</option>
+                                    <option value="danceMusic">Dance music</option>
+                                    <option value="electronicMusic">Electronic music</option>
+                                    <option value="hipHop">Hip Hop</option>
                                 </select>
                             </div>
 

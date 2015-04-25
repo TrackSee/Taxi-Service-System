@@ -1,5 +1,7 @@
 package com.netcracker.tracksee.entities;
 
+import com.netcracker.tracksee.enumartion.*;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -12,11 +14,11 @@ public class TaxiOrderEntity {
     private Integer trackingNumber;
     private String status;
     private Double price;
-    private String service;
-    private String carCategory;
-    private String wayOfPayment;
-    private String driverSex;
-    private String musicStyle;
+    private Service service;
+    private CarCategory carCategory;
+    private WayOfPayment wayOfPayment;
+    private Sex driverSex;
+    private MusicStyle musicStyle;
     private Boolean animalTransportation;
     private Boolean freeWifi;
     private Boolean smokingDriver;
@@ -67,51 +69,56 @@ public class TaxiOrderEntity {
 
     @Basic
     @Column(name = "service")
-    public String getService() {
+    @Enumerated(EnumType.STRING)
+    public Service getService() {
         return service;
     }
 
-    public void setService(String service) {
+    public void setService(Service service) {
         this.service = service;
     }
 
     @Basic
     @Column(name = "car_category")
-    public String getCarCategory() {
+    @Enumerated(EnumType.STRING)
+    public CarCategory getCarCategory() {
         return carCategory;
     }
 
-    public void setCarCategory(String carCategory) {
+    public void setCarCategory(CarCategory carCategory) {
         this.carCategory = carCategory;
     }
 
     @Basic
     @Column(name = "way_of_payment")
-    public String getWayOfPayment() {
+    @Enumerated(EnumType.STRING)
+    public WayOfPayment  getWayOfPayment() {
         return wayOfPayment;
     }
 
-    public void setWayOfPayment(String wayOfPayment) {
+    public void setWayOfPayment(WayOfPayment wayOfPayment) {
         this.wayOfPayment = wayOfPayment;
     }
 
     @Basic
     @Column(name = "driver_sex")
-    public String getDriverSex() {
+    @Enumerated(EnumType.STRING)
+    public Sex getDriverSex() {
         return driverSex;
     }
 
-    public void setDriverSex(String driverSex) {
+    public void setDriverSex(Sex driverSex) {
         this.driverSex = driverSex;
     }
 
     @Basic
     @Column(name = "music_style")
-    public String getMusicStyle() {
+    @Enumerated(EnumType.STRING)
+    public MusicStyle getMusicStyle() {
         return musicStyle;
     }
 
-    public void setMusicStyle(String musicStyle) {
+    public void setMusicStyle(MusicStyle musicStyle) {
         this.musicStyle = musicStyle;
     }
 

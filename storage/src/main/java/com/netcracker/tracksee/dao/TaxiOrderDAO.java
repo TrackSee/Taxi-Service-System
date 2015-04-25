@@ -15,6 +15,6 @@ public interface TaxiOrderDAO {
      *
      */
 
-    void addTaxiOrder(TaxiOrder taxiOrder);
+    int addTaxiOrder(TaxiOrderEntity taxiOrder);
 
 }

@@ -1,9 +1,8 @@
 package servlets.customer;
 
-import com.netcracker.bootcamp.tracksee.logic.TaxiOrderBean;
-import com.netcracker.tracksee.entities.Address;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.logic.ordermanager.TaxiOrderBean;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -36,19 +35,17 @@ public class OrderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            Address addressFrom =new Address();
-            addressFrom.setAddress(req.getParameter("addressFrom"));
-            Address addressTo = new Address();
-            addressTo.setAddress(req.getParameter("addressTo"));
-
-            long orderPrice = controller.calculatePrice(addressFrom, addressTo);
-            req.setAttribute("orderPrice",orderPrice);
-            req.setAttribute("addressFrom",req.getParameter("addressFrom"));
-            req.setAttribute("addressTo",req.getParameter("addressTo"));
-            if (orderPrice!=0) {
-                resp.sendRedirect("/order?error=true");
-            } else {
+            String addressOrigin=req.getParameter("addressOrigin");
+            String addressDestination=req.getParameter("addressDestination");
+            long price = controller.calculatePrice(addressOrigin, addressDestination);
+            if (price>0) {
+                req.setAttribute("price", price);
+                req.setAttribute("addressOrigin", req.getParameter("addressOrigin"));
+                req.setAttribute("addressDestination", req.getParameter("addressDestination"));
+                System.out.println(req.getParameter("addressOrigin"));
                 req.getRequestDispatcher("/WEB-INF/orderComplete.jsp").forward(req, resp);
+            } else {
+                resp.sendRedirect("/order?error=true");
             }
         } catch (SQLException e) {
             logger.error(e.getMessage());

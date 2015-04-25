@@ -1,13 +1,11 @@
 package servlets.customer;
 
 
-import com.netcracker.bootcamp.tracksee.entity.TaxiPrice;
-import com.netcracker.bootcamp.tracksee.logic.TaxiOrderBean;
-import com.netcracker.tracksee.entities.Address;
-import com.netcracker.tracksee.entities.TaxiOrder;
-import com.netcracker.tracksee.entities.User;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.logic.ordermanager.TaxiOrderBean;
+import ua.com.tracksee.logic.exception.OrderException;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -18,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Sharaban Sasha
@@ -28,7 +25,7 @@ public class OrderCompleteServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/order.jsp").forward(req,resp);
+        req.getRequestDispatcher("/WEB-INF/orderComplete.jsp").forward(req,resp);
     }
     private Logger logger;
     @EJB
@@ -42,13 +39,20 @@ public class OrderCompleteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HashMap<String,Object> inputData=new HashMap<String, Object>();
+        HashMap<String,String> inputData=new HashMap<String, String>();
         try {
             inputData.put("phoneNumber", req.getParameter("phoneNumber"));
             inputData.put("email",req.getParameter("email"));
-            inputData.put("addressFrom", req.getParameter("addressFrom"));
-            inputData.put("addressTo", req.getParameter("addressTo"));
-            inputData.put("carCategory",req.getParameter("carCategory"));
+          // inputData.put("addressOrigin", req.getParameter("addressOrigin"));
+         //  inputData.put("addressDestination", req.getParameter("addressDestination"));
+
+            inputData.put("addressOrigin","ad");
+            inputData.put("addressDestination","ad2");
+
+     //       System.out.println("Servlet" + req.getParameter("addressDestination"));
+     //       System.out.println("Servlet"+req.getParameter("addressOrigin"));
+
+            inputData.put("carCategory", req.getParameter("carCategory"));
             inputData.put("wayOfPayment",req.getParameter("wayOfPayment"));
             inputData.put("driverSex",req.getParameter("driverSex"));
             inputData.put("service",req.getParameter("service"));
@@ -57,7 +61,7 @@ public class OrderCompleteServlet extends HttpServlet {
             inputData.put("freeWifi",req.getParameter("freeWifi"));
             inputData.put("smokingDriver",req.getParameter("smokingDriver"));
             inputData.put("airConditioner",req.getParameter("airConditioner"));
-            inputData.put("airConditioner",req.getParameter("orderPrice"));
+            inputData.put("price",req.getParameter("price"));
 
 
             controller.makeOrder(inputData);
@@ -65,7 +69,7 @@ public class OrderCompleteServlet extends HttpServlet {
         } catch (SQLException e) {
             logger.error(e.getMessage());
             resp.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, "Database unavailable.");
-        } catch (NumberFormatException e) {
+        } catch (OrderException e) {
             logger.error(e.getMessage());
             resp.sendRedirect("/order?error=true");
         }

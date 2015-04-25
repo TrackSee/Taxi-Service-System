@@ -16,7 +16,7 @@ public interface UserDAO {
     /**
      *
      */
-    void addUser(User user);
+    int addUser(ServiceUserEntity user);
 
     /**
      * @param partNumber - number of data part
