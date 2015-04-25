@@ -13,9 +13,6 @@
     body { height: 100%; margin: 0; padding: 0 }
   </style>
 </head>
-<head>
-
-</head>
 <body>
 <form>
   <label>
@@ -26,18 +23,17 @@
     To:
     <input id="destination" type="text">
   </label>
+  <p id="total"></p>
+  <p id="error-label"></p>
   <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="codeAddresses()">Sign up</button>
 </form>
 
-<div id="map-canvas" style="width:100%; height:100%"></div>
-<p id="total"></p>
-<div id="directionsPanel" style="float:right;width:30%;height:100%"></div>
+<div id="map-canvas" style="width:75%; height:75%"></div>
+<div id="directions-panel" style="float:right;width:20%;height:20%"></div>
 
-<!-- start: Java Script -->
-<!-- Placed at the end of the document so the pages load faster -->
+<%-- start: Java Script --%>
 <%@include file="../parts/scripts.jsp" %>
-<script src="<%=application.getContextPath()%>/resources/js/custom/google-maps.js"></script>
-<!-- end: Java Script -->
-
+<script src="<%=application.getContextPath()%>/resources/customer/js/google-maps.js"></script>
+<%-- end: Java Script --%>
 </body>
 </html>

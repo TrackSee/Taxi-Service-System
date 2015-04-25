@@ -8,14 +8,14 @@ import java.util.List;
 /**
  * @author Vadym Akymov
  * @author Ruslan Gunavardana
- * @author KatiaStetsiuk
+ * @author Katia Stetsiuk
  */
 @Local
 public interface UserDAO {
     //13 drivers per query by default
-    public static final int DRIVERS_LIMIT = 13;
+    int DRIVERS_PAGE_SIZE = 13;
+
     /**
-     * @author Vadym Akymov
      * @param partNumber - number of data part
      * @return list, containing the part of drivers(default size of list is 10)
      */
@@ -52,20 +52,20 @@ public interface UserDAO {
     Integer addUser(ServiceUserEntity user);
 
     /**
-     * @author Vadym Akymov
      * @return count of driver pages in system
      */
     int getDriverPagesCount();
 
     /**
-     * @author KatiaStetsiuk
      */
     void deleteUser(int serviceUserID);
     void updateUser(ServiceUserEntity serviceUserEntity);
+
+    ServiceUserEntity getUserByEmail(String email);
+
     void createUser(ServiceUserEntity serviceUserEntity);
 
     /**
-     * @author Vadym Akymov
      * @throws ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException when there
      * is no service user with such id
      *

@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
   <%@include file="../parts/head.jsp"%>
-  <link href="<%=application.getContextPath()%>/resources/css/signin.css" rel="stylesheet">
+  <link href="<%=application.getContextPath()%>/resources/customer/css/signin.css" rel="stylesheet">
 </head>
 
 <body>
