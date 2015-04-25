@@ -61,7 +61,7 @@
                 <tr>
                     <td><a href="driver?id=${driver.userId}">${driver.email}</a></td>
                     <td>${driver.phone != null? driver.phone : "-"}</td>
-                    <td>${driver.sex? driver.sex : "-"}</td>
+                    <td>${driver.sex}</td>
                     <td>${driver.groupName? driver.groupName : "-"}</td>
                 </tr>
             </c:forEach>

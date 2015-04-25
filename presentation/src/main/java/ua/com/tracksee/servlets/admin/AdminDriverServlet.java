@@ -58,8 +58,8 @@ public class AdminDriverServlet extends HttpServlet {
         List<ServiceUserEntity> drivers = administratorBean.getDrivers(pageNumber);
         req.setAttribute("drivers", drivers);
         req.setAttribute("pagesCount", userDAO.getDriverPagesCount());
-        resp.getWriter().write(getJsonFromList(drivers));
         System.out.println("json: " + getJsonFromList(drivers));
+        resp.getWriter().write(getJsonFromList(drivers));
 //        resp.setStatus(200);
     }
 
