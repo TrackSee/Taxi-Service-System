@@ -30,6 +30,9 @@ public class TaxiOrderEntity {
     private Integer userId;
 
     @Id
+    @GeneratedValue(generator = "orderSeq")
+    @SequenceGenerator(name = "orderSeq", sequenceName = "taxi_order_tracking_number_seq",
+            allocationSize = 1, initialValue= 1)
     @Column(name = "tracking_number")
     public Integer getTrackingNumber() {
         return trackingNumber;
