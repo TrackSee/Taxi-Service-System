@@ -2,22 +2,9 @@
  * Created by kstes_000 on 25-Apr-15.
  */
 $(document).ready(function () {
-//    $('#createDriver').validate({ // initialize the plugin
-//        rules: {
-//            email: {
-//                required: true
-//            },
-//            password: {
-//                required: true
-//            },
-//            phone: {
-//                required: true
-//            }
-//        }
-//    });
-//
 
-        $('#createDriver').validate({ // initialize the plugin
+
+        $('#createDriver').validate({
         rules: {
             email: {
                 required: true,
@@ -39,10 +26,16 @@ $(document).ready(function () {
         }
     });
 
+    $(".dropdown-menu").on('click', 'li a', function(){
+        $(".btn-sm:first-child").text($(this).text());
+        $(".btn-sm:first-child").val($(this).text());
+     });
 
 
-$('#addDriver').bind('click', function () {
-        var data = {};
+    var data = {};
+
+    $('#addDriver').click(function(){
+        alert("Ok");
         data["email"] = $('input[name = email]', '#createDriver').val();
         data["password"] = $('input[name = password]', '#createDriver').val();
         data["phone"] = $('input[name = phone]', '#createDriver').val();
@@ -52,7 +45,15 @@ $('#addDriver').bind('click', function () {
             type: 'POST',
             url: 'createdriver',
             dataType: 'json',
-            data: 'data=' + data
+            data: 'data=' + data,
+            success: function(data){
+                alert('Ajax was sent!');
+                window.location.href = 'drivers';
+            }
         });
     });
+//
+//    $('#addDriver').bind('click', function () //noinspection UnterminatedStatementJS
+//{
+//    });
 });

@@ -1,12 +1,15 @@
 package ua.com.tracksee.mailsender;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Igor
- * Date: 17.04.15
- * Time: 19:02
- * To change this template use File | Settings | File Templates.
+ * @author Igor Dvorskij
  */
+
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.TaxiOrderEntity;
+import ua.com.tracksee.entities.TaxiOrderItemEntity;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -16,7 +19,14 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import static  ua.com.tracksee.mailsender.SenderSessionSpecificator.GMAIL;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import static ua.com.tracksee.mailsender.SenderSessionSpecificator.GMAIL;
 
 public class MailSender {
     private static Session SESSION = GMAIL.getSession();
@@ -44,7 +54,7 @@ public class MailSender {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(to));
             message.setSubject(subject);
-            message.setText(body);
+            message.setContent(body, "text/html");
 
             Transport.send(message);
 
@@ -67,7 +77,7 @@ public class MailSender {
 
             for (String to : recipients) {
                 message.addRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(to));;
+                        InternetAddress.parse(to));
             }
 
             message.setSubject(subject);
@@ -78,6 +88,30 @@ public class MailSender {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public static void sendTemplatedEmail(String to, String subject,
+                                          String templatePath, Map<String, Object> data) {
+        try {
+            Template template = loadTemplate(templatePath);
+            Writer out = new StringWriter();
+            template.process(data, out);
+            String body = out.toString();
+            out.flush();
+
+            sendEmail(to, subject, body);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TemplateException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Template loadTemplate(String path) throws IOException {
+        Configuration cfg = new Configuration();
+        return cfg
+                .getTemplate(path);
     }
 
 }

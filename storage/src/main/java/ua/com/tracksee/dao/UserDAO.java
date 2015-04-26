@@ -1,5 +1,6 @@
 package ua.com.tracksee.dao;
 
+import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Local;
@@ -71,4 +72,13 @@ public interface UserDAO {
      *
      */
     ServiceUserEntity getDriverByID(int id);
+
+
+    /**
+     *
+     */
+    ServiceUserEntity getUserById(int id);
+
+
+    List<String> getDriversEmails();
 }
