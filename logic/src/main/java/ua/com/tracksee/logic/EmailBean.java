@@ -36,8 +36,8 @@ public class EmailBean {
     private static final String BLOCKING_ACCOUNT_SUBJECT_TEMP_PROP_NAME = "TrackSee Blocking Account";
     private static final String BLOCKING_ACCOUNT_TEMP_PATH = "logic/src/main/resources/mailtemplates/blockingusertemplate.ftl";
 
-    private static final String CHANGING_TO_FROM_ASSIGNED_TO_UPDATED_TEMP_PATH = "logic/src/main/resources/mailtemplates/changingtofromassignedtoupdatedtemplate.ftl";
-    private static final String CHANGING_TO_FROM_ASSIGNED_TO_UPDATED_SUBJECT_TEMP_PROP_NAME = "TrackSee Blocking Account";
+    private static final String CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_TEMP_PATH = "logic/src/main/resources/mailtemplates/changing_to-from-assigned_to_inprogress_template.ftl";
+    private static final String CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_SUBJECT_TEMP_PROP_NAME = "TrackSee Order in progress";
 
     @Asynchronous
     public void sendRegistrationEmail(ServiceUserEntity user, String userCode) throws MessagingException {
@@ -66,7 +66,7 @@ public class EmailBean {
     }
 
     @Asynchronous
-    public void sendChangingTOFromAssignedToCompleted(TaxiOrderItemEntity order) {
+    public void sendChangingTOFromAssignedToInProgress(TaxiOrderItemEntity order) {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
         data.put("trackingNumber", order.getTaxiOrderByTrackingNumer().getTrackingNumber());
@@ -74,8 +74,8 @@ public class EmailBean {
         data.put("carModel", order.getServiceUserByDriverId().getCar().getCarModel());
         data.put("carNumber", order.getServiceUserByDriverId().getCar().getCarNumber());
         sendTemplatedEmail(order.getServiceUserByDriverId().getEmail(),
-                CHANGING_TO_FROM_ASSIGNED_TO_UPDATED_SUBJECT_TEMP_PROP_NAME,
-                CHANGING_TO_FROM_ASSIGNED_TO_UPDATED_TEMP_PATH, data);
+                CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_SUBJECT_TEMP_PROP_NAME,
+                CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_TEMP_PATH, data);
 
     }
 }
