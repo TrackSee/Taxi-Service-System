@@ -4,6 +4,9 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 import javax.ejb.Stateless;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static java.lang.Character.isDigit;
 
 /**
@@ -69,10 +72,9 @@ public class ValidatorBean {
      * @return phone number validation state
      */
     public boolean isValidOrderPhoneNumber(String phoneNumber) {
-        /**
-         * check phone number
-         * return is valid address
-         */
-        return true;
+        String regex = "^ *\\+?([0-9] ?){6,14}[0-9]( *)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        return  matcher.matches();
     }
 }

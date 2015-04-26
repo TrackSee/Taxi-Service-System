@@ -54,23 +54,24 @@ public class TaxiOrderBean {
     }
 
     @Lock(WRITE)
-    public void makeOrder(HashMap<String, String> inputData) throws SQLException,OrderException {
+    public void makeOrder(HashMap<String, String> inputData) throws SQLException, OrderException {
 
-        ServiceUserEntity serviceUserEntity=validateForUser(inputData);
-        AddressEntity addressOriginEntity=validateForOriginAddress(inputData);
-        AddressEntity addressDestinationEntity=validateForDestinationAddress(inputData);
-        TaxiOrderEntity taxiOrderEntity=validateForTaxiOrder(inputData);
+        ServiceUserEntity serviceUserEntity = validateForUser(inputData);
+        AddressEntity addressOriginEntity = validateForOriginAddress(inputData);
+        AddressEntity addressDestinationEntity = validateForDestinationAddress(inputData);
+
+        TaxiOrderEntity taxiOrderEntity = validateForTaxiOrder(inputData);
+
+        System.out.println("Bean work");
         taxiOrderDAO.addTaxiOrder(taxiOrderEntity);
-//       logger.info("Check user :" + serviceUserEntity.getEmail());
-           if(!userDAO.checkEmail(serviceUserEntity.getEmail())){
-//             logger.info("Create new user: email-" + serviceUserEntity.getEmail() + " phone-" + serviceUserEntity.getPhone());
-              serviceUserEntity.setActivated(false);
-              userDAO.addUser(serviceUserEntity);
-            }
-//       logger.info("User was found");
+        logger.info("Check user :" + serviceUserEntity.getEmail());
+        if (!userDAO.checkEmail(serviceUserEntity.getEmail())) {
+            logger.info("Create new user: email-" + serviceUserEntity.getEmail() + " phone-" + serviceUserEntity.getPhone());
+            serviceUserEntity.setActivated(false);
+            userDAO.addUser(serviceUserEntity);
+        } else logger.info("User was found");
         serviceUserEntity.setUserId(userDAO.getUserIdByEmail(serviceUserEntity.getEmail()));
-        System.out.println(serviceUserEntity.getUserId());
-
+//           taxiOrderDAO.addTaxiOrder(taxiOrderEntity);
         //TODO check mail send
 
 //        logger.info("The useeeeer email is :"+serviceUserEntity.getEmail());
@@ -82,95 +83,98 @@ public class TaxiOrderBean {
 
     }
 
-    private ServiceUserEntity validateForUser(HashMap<String, String> inputData) throws OrderException{
-        ServiceUserEntity serviceUserEntity=new ServiceUserEntity();
+    private ServiceUserEntity validateForUser(HashMap<String, String> inputData) throws OrderException {
+        ServiceUserEntity serviceUserEntity = new ServiceUserEntity();
 
         if (validatorBean.isValidEmail(inputData.get("email"))) {
             serviceUserEntity.setEmail(inputData.get("email"));
-        }else{
+        } else {
             throw new OrderException("Invalid email.", "wrong-email");
         }
         if (validatorBean.isValidOrderPhoneNumber(inputData.get("phoneNumber"))) {
             serviceUserEntity.setPhone(inputData.get("phoneNumber"));
-        }else{
+        } else {
             throw new OrderException("Invalid phone number.", "wrong-phone");
         }
 
         return serviceUserEntity;
     }
-    private AddressEntity validateForOriginAddress(HashMap<String, String> inputData) throws OrderException{
+
+    private AddressEntity validateForOriginAddress(HashMap<String, String> inputData) throws OrderException {
         AddressEntity addressEntityOrigin = new AddressEntity();
         if (validatorBean.isValidAddress(inputData.get("addressOrigin"))) {
             addressEntityOrigin.setStringRepresentation(inputData.get("addressOrigin"));
-        }else{
+        } else {
             throw new OrderException("Invalid origin address.", "wrong-origin");
         }
         return addressEntityOrigin;
     }
-    private AddressEntity validateForDestinationAddress(HashMap<String, String> inputData) throws OrderException{
+
+    private AddressEntity validateForDestinationAddress(HashMap<String, String> inputData) throws OrderException {
         AddressEntity addressEntityDestination = new AddressEntity();
         System.out.println(inputData.get("addressDestination"));
         if (validatorBean.isValidAddress(inputData.get("addressDestination"))) {
             System.out.println("addressDestination before");
             addressEntityDestination.setStringRepresentation(inputData.get("addressDestination"));
             System.out.println("add");
-        }else{
+        } else {
             System.out.println("Invalid destination where exception");
             throw new OrderException("Invalid destination address.", "wrong-destination");
         }
         return addressEntityDestination;
     }
-    private TaxiOrderEntity validateForTaxiOrder(HashMap<String, String> inputData) throws OrderException{
+
+    private TaxiOrderEntity validateForTaxiOrder(HashMap<String, String> inputData) throws OrderException {
         TaxiOrderEntity taxiOrderEntity = new TaxiOrderEntity();
         CarCategory carCategory;
         WayOfPayment wayOfPayment;
         Sex driverSex;
         Service service;
         MusicStyle musicStyle;
-        OrderStatus orderStatus=OrderStatus.QUEUED;
+        OrderStatus orderStatus = OrderStatus.QUEUED;
 
         taxiOrderEntity.setStatus(orderStatus);
 
-        carCategory=setEnumCarCategory(inputData.get("carCategory"));
-        if(carCategory!=null) {
+        carCategory = setEnumCarCategory(inputData.get("carCategory"));
+        if (carCategory != null) {
             taxiOrderEntity.setCarCategory(carCategory);
-        }else{
-            throw new OrderException("Invalid carCategory enum value","invalid-carCategory");
+        } else {
+            throw new OrderException("Invalid carCategory enum value", "invalid-carCategory");
         }
-        wayOfPayment=setEnumWayOfPayment(inputData.get("wayOfPayment"));
-        if(wayOfPayment!=null) {
+        wayOfPayment = setEnumWayOfPayment(inputData.get("wayOfPayment"));
+        if (wayOfPayment != null) {
             taxiOrderEntity.setWayOfPayment(wayOfPayment);
-        }else{
-            throw new OrderException("Invalid wayOfPayment enum value","invalid-wayOfPayment");
+        } else {
+            throw new OrderException("Invalid wayOfPayment enum value", "invalid-wayOfPayment");
         }
-        driverSex=setEnumDriverSex(inputData.get("driverSex"));
-        if(driverSex!=null) {
+        driverSex = setEnumDriverSex(inputData.get("driverSex"));
+        if (driverSex != null) {
             taxiOrderEntity.setDriverSex(driverSex);
-        }else{
-            throw new OrderException("Invalid driverSex enum value","invalid-driverSex");
+        } else {
+            throw new OrderException("Invalid driverSex enum value", "invalid-driverSex");
         }
-        service=setEnumService(inputData.get("service"));
-        if(service!=null) {
+        service = setEnumService(inputData.get("service"));
+        if (service != null) {
             taxiOrderEntity.setService(service);
-        }else{
-            throw new OrderException("Invalid service enum value","invalid-service");
+        } else {
+            throw new OrderException("Invalid service enum value", "invalid-service");
         }
-        musicStyle=setEnumMusicStyle(inputData.get("musicStyle"));
-        if(musicStyle!=null) {
+        musicStyle = setEnumMusicStyle(inputData.get("musicStyle"));
+        if (musicStyle != null) {
             taxiOrderEntity.setMusicStyle(musicStyle);
-        }else{
-            throw new OrderException("Invalid musicStyle enum value","invalid-musicStyle");
+        } else {
+            throw new OrderException("Invalid musicStyle enum value", "invalid-musicStyle");
         }
         taxiOrderEntity.setAnimalTransportation(Boolean.parseBoolean(inputData.get("animalTransportation")));
         taxiOrderEntity.setFreeWifi(Boolean.parseBoolean(inputData.get("freeWifi")));
         taxiOrderEntity.setSmokingDriver(Boolean.parseBoolean(inputData.get("smokingDriver")));
         taxiOrderEntity.setAirConditioner(Boolean.parseBoolean(inputData.get("airConditioner")));
-        System.out.println("Price string"+inputData.get("price"));
-        try{
-            double price=Double.parseDouble(inputData.get("price"));
+        System.out.println("Price string" + inputData.get("price"));
+        try {
+            double price = Double.parseDouble(inputData.get("price"));
             taxiOrderEntity.setPrice(price);
-            System.out.println(price+"--Price");
-        }catch (Exception e){
+            System.out.println(price + "--Price");
+        } catch (Exception e) {
             throw new OrderException("Invalid price address.", "wrong-destination");
         }
         return taxiOrderEntity;
@@ -179,115 +183,117 @@ public class TaxiOrderBean {
     }
 
 
-
-    private CarCategory setEnumCarCategory(String carCategory){
+    private CarCategory setEnumCarCategory(String carCategory) {
         CarCategory enumCarCategory;
-        switch (carCategory){
+        switch (carCategory) {
             case "business":
-                enumCarCategory=CarCategory.BUSINESS_CLASS;
+                enumCarCategory = CarCategory.BUSINESS_CLASS;
                 break;
             case "economyClass":
-                enumCarCategory=CarCategory.ECONOMY_CLASS;
+                enumCarCategory = CarCategory.ECONOMY_CLASS;
                 break;
             case "van":
-                enumCarCategory=CarCategory.VAN;
+                enumCarCategory = CarCategory.VAN;
                 break;
             default:
-                enumCarCategory=null;
+                enumCarCategory = null;
         }
         return enumCarCategory;
     }
-    private WayOfPayment setEnumWayOfPayment(String wayOfPayment){
+
+    private WayOfPayment setEnumWayOfPayment(String wayOfPayment) {
         WayOfPayment enumWayOfPayment;
-        switch (wayOfPayment){
+        switch (wayOfPayment) {
             case "cash":
-                enumWayOfPayment=WayOfPayment.CASH;
+                enumWayOfPayment = WayOfPayment.CASH;
                 break;
             case "visaCard":
-                enumWayOfPayment=WayOfPayment.VISA_CARD;
+                enumWayOfPayment = WayOfPayment.VISA_CARD;
                 break;
             default:
-                enumWayOfPayment=null;
+                enumWayOfPayment = null;
         }
         return enumWayOfPayment;
     }
+
     private Sex setEnumDriverSex(String driverSex) {
         Sex enumDriverSex;
-        switch (driverSex){
+        switch (driverSex) {
             case "male":
-                enumDriverSex=Sex.MALE;
+                enumDriverSex = Sex.MALE;
                 break;
             case "female":
-                enumDriverSex=Sex.FEMALE;
+                enumDriverSex = Sex.FEMALE;
                 break;
             default:
-                enumDriverSex=null;
+                enumDriverSex = null;
         }
         return enumDriverSex;
     }
+
     private Service setEnumService(String service) {
         Service enumService;
-        switch (service){
+        switch (service) {
             case "default":
-                enumService= Service.DEFAULT;
+                enumService = Service.DEFAULT;
                 break;
             case "soberDriver":
-                enumService= Service.SOBER_DRIVER;
+                enumService = Service.SOBER_DRIVER;
                 break;
             case "guestDelivery":
-                enumService= Service.GUEST_DELIVERY;
+                enumService = Service.GUEST_DELIVERY;
                 break;
             case "cargoTaxi":
-                enumService= Service.CARGO_TAXI;
+                enumService = Service.CARGO_TAXI;
                 break;
             case "meetMyGuest":
-                enumService= Service.MEET_MY_GUEST;
+                enumService = Service.MEET_MY_GUEST;
                 break;
             case "celebrationTaxi":
-                enumService= Service.CELEBRATION_TAXI;
+                enumService = Service.CELEBRATION_TAXI;
                 break;
             case "foodStuffDelivery":
-                enumService= Service.FOODSTUFF_DELIVERY;
+                enumService = Service.FOODSTUFF_DELIVERY;
                 break;
             default:
-                enumService=null;
+                enumService = null;
 
         }
         return enumService;
     }
+
     private MusicStyle setEnumMusicStyle(String musicStyle) {
         MusicStyle enumMusicStyle;
-        switch (musicStyle){
+        switch (musicStyle) {
             case "default":
-                enumMusicStyle=MusicStyle.DEFAULT;
+                enumMusicStyle = MusicStyle.DEFAULT;
                 break;
             case "blues":
-                enumMusicStyle=MusicStyle.BLUES;
+                enumMusicStyle = MusicStyle.BLUES;
                 break;
             case "classicalMusic":
-                enumMusicStyle=MusicStyle.CLASSICAL_MUSIC;
+                enumMusicStyle = MusicStyle.CLASSICAL_MUSIC;
                 break;
             case "rock":
-                enumMusicStyle=MusicStyle.ROCK;
+                enumMusicStyle = MusicStyle.ROCK;
                 break;
             case "jazz":
-                enumMusicStyle=MusicStyle.JAZZ;
+                enumMusicStyle = MusicStyle.JAZZ;
                 break;
             case "danceMusic":
-                enumMusicStyle=MusicStyle.DANCE_MUSIC;
+                enumMusicStyle = MusicStyle.DANCE_MUSIC;
                 break;
             case "electronicMusic":
-                enumMusicStyle=MusicStyle.ELECTRONIC_MUSIC;
+                enumMusicStyle = MusicStyle.ELECTRONIC_MUSIC;
                 break;
             case "hipHop":
-                enumMusicStyle=MusicStyle.HIP_HOP;
+                enumMusicStyle = MusicStyle.HIP_HOP;
                 break;
             default:
-                enumMusicStyle=null;
+                enumMusicStyle = null;
         }
         return enumMusicStyle;
     }
-
 
 
     private boolean checkPhone(long phone) {
