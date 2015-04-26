@@ -23,6 +23,8 @@
     <!-- Bootstrap Core CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
           rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"
@@ -64,26 +66,48 @@
     <form class="create-driver" id="createDriver" action="<c:url value="/admin/createdriver"/>" method="post">
         <h2 class="form-sign-up-heading">Please enter drivers data</h2>
         <label for="email" class="sr-only">Email</label>
-        <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required >
+        <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required>
 
         <label for="password" class="sr-only">Password</label>
         <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
 
         <label for="confirmpassword" class="sr-only">Password</label>
-        <input type="password" id="confirmpassword" name="confirmpassword" class="form-control" placeholder="confirm password" required>
+        <input type="password" id="confirmpassword" name="confirmpassword" class="form-control"
+               placeholder="confirm password" required>
 
         <label for="phone" class="sr-only">Phone number</label>
         <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" required>
 
+        <!--  <div class="btn-group" id = "btngr">
+              <button class="btn-sm">Please Select From List</button>
+              <button class="btn dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret">></span>
+              </button>
+              <ul class="dropdown-menu" id="myID" role="menu" aria-labelledby="dropdownMenu">
+                   <li ><a tabindex="-1" href="#">Item II</a></li>
+                  <li><a tabindex="-1" href="#">Item III</a></li>
+              </ul>
+          </div> -->
+
+        <select id="make" name="make">
+            <c:forEach items="${requestScope.cars}" var="car">
+                <option value="${car}">${car.carNumber}</option>
+            </c:forEach>
+        </select>
+
         <div id="addDriver">
             <button type="button" class="btn">Create</button>
         </div>
+
+
     </form>
 </div>
-<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.delegate.js" type="text/javascript"></script>
-<script src="<%=application.getContextPath()%>/resources/admin//bower_components/jquery/dist/jquery.validate.min.js"></script>
 
+<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.delegate.js"
+        type="text/javascript"></script>
+<script src="<%=application.getContextPath()%>/resources/admin//bower_components/jquery/dist/jquery.validate.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <script src="<%=application.getContextPath()%>/resources/admin/js/createdriver.js"></script>
 

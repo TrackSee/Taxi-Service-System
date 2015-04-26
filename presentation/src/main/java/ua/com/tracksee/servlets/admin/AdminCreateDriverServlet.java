@@ -2,6 +2,7 @@ package ua.com.tracksee.servlets.admin;
 
         import org.codehaus.jackson.JsonGenerator;
         import org.codehaus.jackson.map.ObjectMapper;
+        import ua.com.tracksee.entities.CarEntity;
         import ua.com.tracksee.entities.ServiceUserEntity;
         import ua.com.tracksee.logic.admin.AdministratorBean;
 
@@ -15,6 +16,7 @@ package ua.com.tracksee.servlets.admin;
         import java.io.IOException;
         import java.io.InputStreamReader;
         import java.net.URLDecoder;
+        import java.util.List;
 
 /**
  * Created by kstes_000 on 24-Apr-15.
@@ -26,16 +28,23 @@ public class AdminCreateDriverServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/admin/adminCreateDriver.jsp").forward(req, resp);
+
         System.out.println("Hello");
+        List<CarEntity> cars = administratorBean.getCars();
+
+        req.setAttribute("cars", cars);
+        req.getRequestDispatcher("/WEB-INF/admin/adminCreateDriver.jsp").forward(req, resp);
+
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        System.out.println("json" + req.getParameter("data"));
         ObjectMapper mapper = new ObjectMapper();
         ServiceUserEntity user = mapper.readValue(req.getParameter("data"), ServiceUserEntity.class);
+        System.out.println("USER" + user);
         System.out.println("USERMAIL:" + user.getEmail());
         user.setDriver(true);
+
         administratorBean.createUser(user);
 
     }
