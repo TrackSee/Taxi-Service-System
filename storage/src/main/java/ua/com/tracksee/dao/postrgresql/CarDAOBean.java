@@ -1,5 +1,7 @@
 package ua.com.tracksee.dao.postrgresql;
 
+
+
 import ua.com.tracksee.dao.CarDAO;
 import ua.com.tracksee.entities.CarEntity;
 
@@ -7,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -14,8 +17,11 @@ import java.util.List;
  */
 @Stateless
 public class CarDAOBean implements CarDAO {
+    int CARS_PAGE_SIZE =5;
+
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
+
 
     @Override
     public void createCar(CarEntity carEntity) {
@@ -56,5 +62,20 @@ public class CarDAOBean implements CarDAO {
         Query query = entityManager.createNativeQuery("SELECT * FROM car "
                 , CarEntity.class);
         return query.getResultList();
+    }
+
+    public List<CarEntity> getCarsPart(int partNumber) {
+
+        Query query = entityManager.createNativeQuery("SELECT * FROM car " +
+                "LIMIT ?1 OFFSET ?2", CarEntity.class);
+        query.setParameter(1, CARS_PAGE_SIZE);
+        query.setParameter(2, (partNumber - 1) * CARS_PAGE_SIZE);
+        return query.getResultList();
+    }
+
+    public int getCarPagesCount() {
+        Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM car");
+        Integer carsCount = ((BigInteger) q.getSingleResult()).intValue();
+        return (int) (Math.ceil((double) carsCount / CARS_PAGE_SIZE));
     }
 }

@@ -14,4 +14,6 @@ public interface CarDAO {
     void updateCar(CarEntity carEntity);
     void deleteCar(CarEntity carEntity);
     List<CarEntity> getCars();
+    public int getCarPagesCount();
+    List<CarEntity> getCarsPart(int partNumber);
 }
