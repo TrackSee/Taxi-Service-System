@@ -40,10 +40,10 @@ public class ServiceUserDaoBeen extends GenericDao<ServiceUserEntity, Integer> {
     }
 
     public List<ServiceUserEntity> getAll(int start, int count){
-        TypedQuery<ServiceUserEntity> fd = em.createNamedQuery("getAll", getType());
-        fd.setFirstResult(start);
-        fd.setMaxResults(count);
-        return fd.getResultList();
+        TypedQuery<ServiceUserEntity> namedQuery = em.createNamedQuery("getAll", getType());
+        namedQuery.setFirstResult(start);
+        namedQuery.setMaxResults(count);
+        return namedQuery.getResultList();
     }
 
     public List<ServiceUserEntity> getAllById(List<Integer> integers){

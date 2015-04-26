@@ -18,6 +18,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.enumartion.Sex;
 
 
 /**
@@ -62,7 +63,7 @@ public class GenerateRundomUsersBean {
                 userEntity.setAdmin(Math.random() > 0.98);
                 userEntity.setIgnoredTimes((int) ((Math.random() / 2) * 10));
                 userEntity.setRegistrationDate(new Timestamp(System.currentTimeMillis()));
-                userEntity.setSex(((String) userJsonObject.get("gender")).equals("female") ? "F": "M");
+                userEntity.setSex(((String) userJsonObject.get("gender")).equals("female") ? Sex.FEMALE: Sex.MALE);
                 em.persist(userEntity);
             }
         } catch (ParseException | IOException e) {

@@ -1,5 +1,7 @@
 package ua.com.tracksee.entities;
 
+import ua.com.tracksee.enumartion.Sex;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -21,7 +23,7 @@ public class ServiceUserEntity {
     private String email;
     private String password;
     private String phone;
-    private String sex;
+    private Sex sex;
     private Boolean isDriver;
     private Boolean admin;
     private String groupName;
@@ -73,12 +75,13 @@ public class ServiceUserEntity {
     }
 
     @Basic
+    @Enumerated(EnumType.STRING)
     @Column(name = "sex")
-    public String getSex() {
+    public Sex getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
 
@@ -183,3 +186,4 @@ public class ServiceUserEntity {
         this.carByCarNumber = carByCarNumber;
     }
 }
+
