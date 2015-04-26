@@ -1,7 +1,8 @@
-/*
+/**
  * Google maps integration.
  * Loaded using AJAX after document is ready.
- * Created by Ruslan Gunavardana
+ *
+ * @author Ruslan Gunavardana
  */
 
 var directionsDisplay;
@@ -57,11 +58,18 @@ function initializeDirections() {
     directionsService = new google.maps.DirectionsService();
     directionsDisplay.setMap(map);
     google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
-        updateTime(directionsDisplay.getDirections());
+        updateInfoBox(directionsDisplay.getDirections());
     });
 }
 
-function updateTime(result) {
+/**
+ * updateInfoBox
+ * Updates route distance and duration information on the
+ * {google.maps.InfoWindow} instance, that is connected to this route.
+ *
+ * @param result {google.maps.DirectionsResult}
+ */
+function updateInfoBox(result) {
     var route = result.routes[0];
     var data = getRouteData(route);
     var time = data.duration;
@@ -80,8 +88,12 @@ function updateTime(result) {
     }
 }
 
-/* Returns data about route in format {duration, length}.
+/**
+ * getRouteData
+ * Returns data about route in format {duration, length}.
  * Duration in minutes, length in km.
+ *
+ * @param route {google.maps.DirectionsRoute}
  */
 function getRouteData(route) {
     var duration = 0;
@@ -94,6 +106,13 @@ function getRouteData(route) {
         distance : Math.round(distance / 100) / 10};           // to km
 }
 
+/**
+ * getRouteMiddle
+ * Returns one of the middle route points.
+ *
+ * @param route {google.maps.DirectionsRoute}
+ * @returns {google.maps.LatLng}
+ */
 function getRouteMiddle(route) {
     var middleLeg = route.legs[Math.floor(route.legs.length / 2)];
     var middleStep = middleLeg.steps[Math.floor(middleLeg.steps.length / 2)];
@@ -119,7 +138,27 @@ function tryGeolocation() {
     }
 }
 
-/* Sending a request for building new path. */
+/**
+ * updateAddresses
+ * Geocodes entered addreses and changes the route on the map.
+ */
+function updateAddresses() {
+    var address1 = $('#origin').val();
+    var address2 = $('#destination').val();
+
+    if (address1 != "") {
+        origin.location = address1;
+    }
+    if (address2 != "") {
+        destination.location = address2;
+    }
+    calcRoute();
+}
+
+/**
+ * calcRoute
+ * Sends a request for building new path to Google Directions Service.
+ */
 function calcRoute() {
     var request = {
         origin: origin.location,
@@ -132,20 +171,6 @@ function calcRoute() {
             directionsDisplay.setDirections(response);
         }
     });
-}
-
-/* Geocodes addreses and changes the route. */
-function updateAddresses() {
-    var address1 = $('#origin').val();
-    var address2 = $('#destination').val();
-
-    if (address1 != "") {
-        origin.location = address1;
-    }
-    if (address2 != "") {
-        destination.location = address2;
-    }
-    calcRoute();
 }
 
 $(document).ready(loadScript);
