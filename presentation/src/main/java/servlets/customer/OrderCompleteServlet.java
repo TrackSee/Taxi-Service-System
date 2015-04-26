@@ -43,15 +43,8 @@ public class OrderCompleteServlet extends HttpServlet {
         try {
             inputData.put("phoneNumber", req.getParameter("phoneNumber"));
             inputData.put("email",req.getParameter("email"));
-          // inputData.put("addressOrigin", req.getParameter("addressOrigin"));
-         //  inputData.put("addressDestination", req.getParameter("addressDestination"));
-
-            inputData.put("addressOrigin","ad");
-            inputData.put("addressDestination","ad2");
-
-     //       System.out.println("Servlet" + req.getParameter("addressDestination"));
-     //       System.out.println("Servlet"+req.getParameter("addressOrigin"));
-
+           inputData.put("addressOrigin", req.getParameter("addressOrigin"));
+           inputData.put("addressDestination", req.getParameter("addressDestination"));
             inputData.put("carCategory", req.getParameter("carCategory"));
             inputData.put("wayOfPayment",req.getParameter("wayOfPayment"));
             inputData.put("driverSex",req.getParameter("driverSex"));
@@ -62,6 +55,7 @@ public class OrderCompleteServlet extends HttpServlet {
             inputData.put("smokingDriver",req.getParameter("smokingDriver"));
             inputData.put("airConditioner",req.getParameter("airConditioner"));
             inputData.put("price",req.getParameter("price"));
+            System.out.println("Price: "+req.getParameter("price"));
 
 
             controller.makeOrder(inputData);

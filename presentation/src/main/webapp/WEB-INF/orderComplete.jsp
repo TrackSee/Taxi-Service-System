@@ -157,21 +157,21 @@
 
                         <div class="form-group">
                             <label>Address from</label>
-                            <input  disabled="disabled" type="text"  class="form-control" value="${addressOrigin}"
-                                    name="addressOrigin" data-error="That address is invalid" required>
+                            <input   type="text"  class="form-control" value="${addressOrigin}"
+                                    name="addressOrigin" data-error="That address is invalid" readonly>
                         </div>
 
                         <div class="form-group">
                             <label>Address to</label>
-                            <input disabled="disabled" type="text" class="form-control" value="${addressDestination}"
-                                   name="addressDestination" data-error="That address is invalid" required>
+                            <input  type="text" class="form-control" value="${addressDestination}"
+                                   name="addressDestination" data-error="That address is invalid" readonly>
                           </div>
 
                         <div class="form-group">
                             <label>Order price</label>
-                            <input disabled="disabled" type="text" name="price" class="form-control"
+                            <input  type="text" name="price" class="form-control"
                                    value="${price}"  placeholder="Address to:"
-                                   data-error="That address is invalid" required>
+                                   data-error="That address is invalid" readonly>
                         </div>
 
                         <div class="form-group">

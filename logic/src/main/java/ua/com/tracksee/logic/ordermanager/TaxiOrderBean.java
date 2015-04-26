@@ -118,8 +118,11 @@ public class TaxiOrderBean {
         AddressEntity addressEntityDestination = new AddressEntity();
         System.out.println(inputData.get("addressDestination"));
         if (validatorBean.isValidAddress(inputData.get("addressDestination"))) {
+            System.out.println("addressDestination before");
             addressEntityDestination.setStringRepresentation(inputData.get("addressDestination"));
+            System.out.println("add");
         }else{
+            System.out.println("Invalid destination where exception");
             throw new OrderException("Invalid destination address.", "wrong-destination");
         }
         return addressEntityDestination;
@@ -131,6 +134,9 @@ public class TaxiOrderBean {
         Sex driverSex;
         Service service;
         MusicStyle musicStyle;
+        OrderStatus orderStatus=OrderStatus.QUEUED;
+
+        taxiOrderEntity.setStatus(orderStatus);
 
         carCategory=setEnumCarCategory(inputData.get("carCategory"));
         if(carCategory!=null) {
@@ -166,13 +172,17 @@ public class TaxiOrderBean {
         taxiOrderEntity.setFreeWifi(Boolean.parseBoolean(inputData.get("freeWifi")));
         taxiOrderEntity.setSmokingDriver(Boolean.parseBoolean(inputData.get("smokingDriver")));
         taxiOrderEntity.setAirConditioner(Boolean.parseBoolean(inputData.get("airConditioner")));
+        System.out.println("Price string"+inputData.get("price"));
         try{
             double price=Double.parseDouble(inputData.get("price"));
             taxiOrderEntity.setPrice(price);
+            System.out.println(price+"--Price");
         }catch (Exception e){
-            throw new OrderException("Invalid destination address.", "wrong-destination");
+            throw new OrderException("Invalid price address.", "wrong-destination");
         }
         return taxiOrderEntity;
+
+
     }
 
 

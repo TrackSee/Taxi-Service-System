@@ -4,6 +4,7 @@ import com.netcracker.tracksee.entities.ServiceUserEntity;
 import com.netcracker.tracksee.entities.TaxiOrder;
 import com.netcracker.tracksee.entities.TaxiOrderEntity;
 import com.netcracker.tracksee.dao.TaxiOrderDAO;
+import com.netcracker.tracksee.enumartion.OrderStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -55,13 +56,13 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 //            query.setParameter(1,"'QUEUED'");
 //            query.setParameter(2, 1.0);
 //            query.executeUpdate();
-            query.setParameter(1, taxiOrderEntity.getStatus());
+            query.setParameter(1,OrderStatus.QUEUED.toString());
             query.setParameter(2, taxiOrderEntity.getPrice());
-            query.setParameter(3, taxiOrderEntity.getService());
-            query.setParameter(4, taxiOrderEntity.getCarCategory());
-            query.setParameter(5, taxiOrderEntity.getWayOfPayment());
-            query.setParameter(6, taxiOrderEntity.getDriverSex());
-            query.setParameter(7, taxiOrderEntity.getMusicStyle());
+            query.setParameter(3, taxiOrderEntity.getService().toString());
+            query.setParameter(4, taxiOrderEntity.getCarCategory().toString());
+            query.setParameter(5, taxiOrderEntity.getWayOfPayment().toString());
+            query.setParameter(6, taxiOrderEntity.getDriverSex().toString());
+            query.setParameter(7, taxiOrderEntity.getMusicStyle().toString());
             query.setParameter(8, taxiOrderEntity.isAnimalTransportation());
             query.setParameter(9, taxiOrderEntity.isFreeWifi());
             query.setParameter(10, taxiOrderEntity.isSmokingDriver());

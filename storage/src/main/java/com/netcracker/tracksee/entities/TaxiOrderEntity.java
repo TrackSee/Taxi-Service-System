@@ -1,6 +1,8 @@
 package com.netcracker.tracksee.entities;
 
 import com.netcracker.tracksee.enumartion.*;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -12,7 +14,7 @@ import java.util.Objects;
 @Table(name = "taxi_order", schema = "public", catalog = "tracksee")
 public class TaxiOrderEntity {
     private Integer trackingNumber;
-    private String status;
+    private OrderStatus status;
     private Double price;
     private Service service;
     private CarCategory carCategory;
@@ -25,6 +27,11 @@ public class TaxiOrderEntity {
     private Boolean airConditioner;
     private String comment;
     private Integer userId;
+//    @TypeDef(
+//            name = "OrderStatus",
+//            typeClass = OrderStatus.class,
+//           defaultForType = OrderStatus.class;
+//    )
 
     @Id
     @Column(name = "tracking_number")
@@ -48,12 +55,14 @@ public class TaxiOrderEntity {
     }
 
     @Basic
-    @Column(name = "status")
-    public String getStatus() {
+    @Column(name = "status" ,nullable = false)
+    @Enumerated(EnumType.STRING)
+//    @Type(type = "OrderStatus")
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 

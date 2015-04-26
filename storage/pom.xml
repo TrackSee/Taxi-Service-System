@@ -110,6 +110,11 @@
             <version>4.3.9.Final</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>3.5.0-Final</version>
+        </dependency>
 
 
     </dependencies>
