@@ -1,7 +1,6 @@
 package ua.com.tracksee.util;
 
 import org.junit.Test;
-import ua.com.tracksee.util.IdGenerator;
 
 import static org.junit.Assert.assertNotEquals;
 
