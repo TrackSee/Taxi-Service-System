@@ -1,19 +1,6 @@
 package ua.com.tracksee.logic;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
-import org.postgresql.geometric.PGpoint;
-import org.postgresql.util.PGBinaryObject;
-import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.dao.postrgresql.UserDAOBean;
-import ua.com.tracksee.entities.ServiceUserEntity;
-
-import javax.ejb.EJB;
-import java.io.File;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -23,43 +10,51 @@ import static org.junit.Assert.assertTrue;
  */
 public class ValidationBeanTest {
 
-    private @EJB ValidationBean validationBean;
-
-    @Deployment
-    public	static WebArchive createTestArchive(){
-        File[] log4jApi = getLibraryFromMaven("org.apache.logging.log4j","log4j-api","2.2");
-        File[] log4jCore = getLibraryFromMaven("org.apache.logging.log4j", "log4j-core", "2.2");
-        File[] hibernateLib = getLibraryFromMaven("org.hibernate", "hibernate-core", "4.3.9.Final");
-        return	ShrinkWrap.create(WebArchive.class)
-                .addAsLibraries(log4jApi)
-                .addAsLibraries(log4jCore)
-                .addAsLibraries(hibernateLib)
-                .addPackage(PGpoint.class.getPackage())
-                .addPackage(PGBinaryObject.class.getPackage())
-                .addPackage(ServiceUserEntity.class.getPackage())
-                .addPackage(ValidationBean.class.getPackage())
-                .addPackage(UserDAOBean.class.getPackage())
-                .addPackage(UserDAO.class.getPackage())
-                .addAsResource("META-INF/persistence.xml")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-    }
-
-    /**
-     *  Method is used for getting all library files from maven repo
-     */
-    private static File[] getLibraryFromMaven(String groupId, String artifactId, String version){
-        return Maven.resolver().resolve(groupId + ":" + artifactId + ":" + version)
-                .withTransitivity().asFile();
-    }
+    private ValidationBean validationBean = new ValidationBean();
 
     @Test
     public void testIsValidPassword() throws Exception {
+        // good
+        assertTrue(validationBean.isValidPassword("+380635helloWORLD"));
+        assertTrue(validationBean.isValidPassword("+38022222222222222AAAAAAAAAq"));
+        assertTrue(validationBean.isValidPassword("passwordIs2"));
+        assertTrue(validationBean.isValidPassword("IloveTHisSECURITYSYSTEM@"));
 
+        // bad values
+        assertFalse(validationBean.isValidPassword("+380635293333"));
+
+        // too long
+        assertFalse(validationBean.isValidPassword("+38063@1A312qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq"));
+
+        // too short
+        assertFalse(validationBean.isValidPassword("1"));
+
+        // only numbers
+        assertFalse(validationBean.isValidPassword("121111111111111111111111"));
+
+        // no small letters
+        assertFalse(validationBean.isValidPassword("+38022222222222222AAAAAAAAA"));
+
+        // whitespaces
+        assertFalse(validationBean.isValidPassword("+38 (063) 529 - 33 - 33"));
+        assertFalse(validationBean.isValidPassword("password@A A"));
     }
 
     @Test
     public void testIsValidEmail() throws Exception {
+        // good
+        assertTrue(validationBean.isValidEmail("vadimka9992@gmail.com"));
+        assertTrue(validationBean.isValidEmail("rusan.rus@ukr.net"));
+        assertTrue(validationBean.isValidEmail("alexander.the@bigmir.net"));
+        assertTrue(validationBean.isValidEmail("5123123@i.ua"));
 
+        // bad values
+        assertFalse(validationBean.isValidEmail("good@-1"));
+        assertFalse(validationBean.isValidEmail("+38063@12312"));
+        assertFalse(validationBean.isValidEmail("a@a"));
+        assertFalse(validationBean.isValidEmail("@gmail.com"));
+        assertFalse(validationBean.isValidEmail("1@@"));
+        assertFalse(validationBean.isValidEmail("1@ s"));
     }
 
     @Test
