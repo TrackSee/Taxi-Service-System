@@ -1,9 +1,5 @@
 package ua.com.tracksee.entities;
 
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
-import ua.com.tracksee.enumartion.Sex;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -18,18 +14,20 @@ public class ServiceUserEntity {
     private String email;
     private String password;
     private String phone;
-    private Sex sex;
-    private Boolean driver;
-    private Boolean admin;
+    private Boolean driver = false;
+    private Boolean admin = false;
+    private String sex;
     private String groupName;
     private String driverLicense;
-    private Integer ignoredTimes;
-    private Boolean activated;
-    private Timestamp registrationDate;
+    private Integer ignoredTimes = 0;
+    private Boolean activated = false;
+    private Timestamp registrationDate = new Timestamp(System.currentTimeMillis());
     private CarEntity car;
 
     @Id
-    @Generated(GenerationTime.INSERT)
+    @GeneratedValue(generator = "userSeq")
+    @SequenceGenerator(name = "userSeq", sequenceName = "service_user_user_id_seq",
+                       allocationSize = 1, initialValue= 1)
     @Column(name = "user_id")
     public Integer getUserId() {
         return userId;
@@ -40,7 +38,7 @@ public class ServiceUserEntity {
     }
 
     @Basic
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true, length = 254)
     public String getEmail() {
         return email;
     }
@@ -50,7 +48,7 @@ public class ServiceUserEntity {
     }
 
     @Basic
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, length = 28)
     public String getPassword() {
         return password;
     }
@@ -60,7 +58,7 @@ public class ServiceUserEntity {
     }
 
     @Basic
-    @Column(name = "phone")
+    @Column(name = "phone", length = 28)
     public String getPhone() {
         return phone;
     }
@@ -70,18 +68,17 @@ public class ServiceUserEntity {
     }
 
     @Basic
-    @Enumerated(EnumType.STRING)
-    @Column(name = "sex")
-    public Sex getSex() {
+    @Column(name = "sex", nullable = false)
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Sex sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
     @Basic
-    @Column(name = "driver")
+    @Column(name = "driver", nullable = false)
     public Boolean getDriver() {
         return driver;
     }
@@ -91,7 +88,7 @@ public class ServiceUserEntity {
     }
 
     @Basic
-    @Column(name = "admin")
+    @Column(name = "admin", nullable = false)
     public Boolean getAdmin() {
         return admin;
     }
@@ -121,7 +118,7 @@ public class ServiceUserEntity {
     }
 
     @Basic
-    @Column(name = "ignored_times")
+    @Column(name = "ignored_times", nullable = false)
     public Integer getIgnoredTimes() {
         return ignoredTimes;
     }
@@ -131,7 +128,7 @@ public class ServiceUserEntity {
     }
 
     @Basic
-    @Column(name = "activated")
+    @Column(name = "activated", nullable = false)
     public Boolean getActivated() {
         return activated;
     }
@@ -141,7 +138,7 @@ public class ServiceUserEntity {
     }
 
     @Basic
-    @Column(name = "registration_date")
+    @Column(name = "registration_date", nullable = false)
     public Timestamp getRegistrationDate() {
         return registrationDate;
     }

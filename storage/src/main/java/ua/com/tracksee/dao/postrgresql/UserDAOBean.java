@@ -6,12 +6,15 @@ import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.enumartion.Sex;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -67,27 +70,28 @@ public class UserDAOBean implements UserDAO {
 
     @Override
     public Integer addUser(ServiceUserEntity user) {
-//        String sql = "INSERT INTO service_user " +
-//                "(email, password, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date) " +
-//                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
-//                "RETURNING user_id";
-//        Query query = entityManager.createNativeQuery(sql, Integer.class);
-//        query.<String>setParameter(1, user.getEmail());
-//        query.<String>setParameter(2, user.getPassword());
-//        query.<String>setParameter(3, user.getPhone());
-//        query.<Sex>setParameter(4, user.getSex());
-//        query.<Boolean>setParameter(5, user.getDriver());
-//        query.<Boolean>setParameter(6, user.getAdmin());
-//        query.<String>setParameter(7, user.getGroupName());
-//        query.<Integer>setParameter(8, user.getCar() != null? user.getCar().getCarNumber() : null);
-//        query.<String>setParameter(9, user.getDriverLicense());
-//        query.<Integer>setParameter(10, user.getIgnoredTimes());
-//        query.<Boolean>setParameter(11, user.getActivated());
-//        query.<Timestamp>setParameter(12, user.getRegistrationDate());
-//        if (query.executeUpdate() == 0) {
-//            return null;
-//        }
-        entityManager.merge(user);
+        String sql = "INSERT INTO service_user " +
+                "(email, password, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+                "RETURNING user_id";
+        Query query = entityManager.createNativeQuery(sql);
+        query.<String>setParameter(1, user.getEmail());
+        query.<String>setParameter(2, user.getPassword());
+        query.<String>setParameter(3, user.getPhone());
+        query.<String>setParameter(4, user.getSex());
+        query.<Boolean>setParameter(5, user.getDriver());
+        query.<Boolean>setParameter(6, user.getAdmin());
+        query.<String>setParameter(7, user.getGroupName());
+        query.<Integer>setParameter(8, user.getCar() != null? user.getCar().getCarNumber() : null);
+        query.<String>setParameter(9, user.getDriverLicense());
+        query.<Integer>setParameter(10, user.getIgnoredTimes());
+        query.<Boolean>setParameter(11, user.getActivated());
+        query.<Timestamp>setParameter(12, user.getRegistrationDate());
+        try {
+            user.setUserId((Integer)query.getSingleResult());
+        } catch (PersistenceException e) {
+            return null;
+        }
         return user.getUserId();
     }
 

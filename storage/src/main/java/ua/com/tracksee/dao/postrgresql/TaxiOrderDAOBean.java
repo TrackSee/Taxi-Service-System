@@ -21,4 +21,9 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(1, entity.getComment());
         query.executeUpdate();
     }
+
+    @Override
+    public Integer addOrder(TaxiOrderEntity taxiOrderEntity) {
+        return null;
+    }
 }
