@@ -9,12 +9,9 @@ import javax.mail.internet.InternetAddress;
 import java.util.Properties;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Igor
- * Date: 17.04.15
- * Time: 21:48
- * To change this template use File | Settings | File Templates.
+ * @author Igor Dvorskij
  */
+
 class SenderSessionSpecificator {
     //
     public static IEmailUtil GMAIL = new GmailSpecificator();
