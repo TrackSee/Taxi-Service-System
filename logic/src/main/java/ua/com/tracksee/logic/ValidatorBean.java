@@ -17,6 +17,7 @@ public class ValidatorBean {
 
     /**
      * Returns true if email address is valid, false in other case.
+     *
      * @param email validated email address
      */
     public boolean isValidEmail(String email) {
@@ -49,12 +50,13 @@ public class ValidatorBean {
         }
         return digitCount > 4 & digitCount < 16;
     }
+
     /**
      * This method validate address
      *
-     * @author Sharaban Sasha
      * @param address - address that must be validate
      * @return address validation state
+     * @author Sharaban Sasha
      */
     public boolean isValidAddress(String address) {
         /**
@@ -67,14 +69,14 @@ public class ValidatorBean {
     /**
      * This method validate phone number
      *
-     * @author Sharaban Sasha
      * @param phoneNumber - phone number that must be validate
      * @return phone number validation state
+     * @author Sharaban Sasha
      */
     public boolean isValidOrderPhoneNumber(String phoneNumber) {
         String regex = "^ *\\+?([0-9] ?){6,14}[0-9]( *)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(phoneNumber);
-        return  matcher.matches();
+        return matcher.matches();
     }
 }

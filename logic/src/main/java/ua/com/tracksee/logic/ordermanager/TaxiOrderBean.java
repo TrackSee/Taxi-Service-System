@@ -62,8 +62,7 @@ public class TaxiOrderBean {
 
         TaxiOrderEntity taxiOrderEntity = validateForTaxiOrder(inputData);
 
-        System.out.println("Bean work");
-        taxiOrderDAO.addTaxiOrder(taxiOrderEntity);
+       // taxiOrderDAO.addTaxiOrder(taxiOrderEntity);
         logger.info("Check user :" + serviceUserEntity.getEmail());
         if (!userDAO.checkEmail(serviceUserEntity.getEmail())) {
             logger.info("Create new user: email-" + serviceUserEntity.getEmail() + " phone-" + serviceUserEntity.getPhone());
@@ -71,15 +70,12 @@ public class TaxiOrderBean {
             userDAO.addUser(serviceUserEntity);
         } else logger.info("User was found");
         serviceUserEntity.setUserId(userDAO.getUserIdByEmail(serviceUserEntity.getEmail()));
-//           taxiOrderDAO.addTaxiOrder(taxiOrderEntity);
         //TODO check mail send
-
-//        logger.info("The useeeeer email is :"+serviceUserEntity.getEmail());
-//        try {
-//            mailBean.sendOrderConfirmInfo(serviceUserEntity);
-//        } catch (MessagingException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            mailBean.sendOrderConfirmInfo(serviceUserEntity);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
 
     }
 
