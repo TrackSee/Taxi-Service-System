@@ -7,9 +7,9 @@ import java.math.BigInteger;
  */
 public class Group {
     private String name;
-    private BigInteger countUsers;
+    private Integer countUsers;
 
-    public Group(String name,BigInteger countUsers) {
+    public Group(String name,Integer countUsers) {
         this.name = name;
         this.countUsers = countUsers;
     }
@@ -25,11 +25,11 @@ public class Group {
         this.name = name;
     }
 
-    public BigInteger getCountUsers() {
+    public Integer getCountUsers() {
         return countUsers;
     }
 
-    public void setCountUsers(BigInteger countUsers) {
+    public void setCountUsers(Integer countUsers) {
         this.countUsers = countUsers;
     }
 }

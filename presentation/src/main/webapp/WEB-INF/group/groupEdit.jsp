@@ -59,24 +59,28 @@
 
 <button id="addGroup" class="btn btn-primary" data-toggle="modal" data-target="#largeModal" onclick="onClickAddGroup()">ADD GROUP</button>
 
-<button id="removeGroups"  class="btn btn-primary" data-toggle="modal" data-target="#largeModal" >REMOVE</button>
+<button id="removeGroups"  class="btn btn-primary" data-toggle="modal" data-target="#largeModal" onclick="removeGroups()" >REMOVE</button>
 
 <div id="largeModal" class="modal fade bs-example-modal-lg" data-backdrop="static" data-keyboard="false" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
 
-        <%--<h2 id="labelGroupName"></h2>--%>
-        <h3 id="labelGroupName">fdgtrgtrgtr</h3>
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          <%--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>--%>
+          <strong>Warning!</strong> This name is not free!
+        </div>
+
+        <h3 id="labelGroupName"></h3>
 
         <input id="inputEmail" type="text" class="form-control" placeholder="Search" oninput="getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, $('#inputEmail').val(), 1);"/>
 
         <input id="groupNameInput" type="text" class="form-control" placeholder="Name"/>
 
         <select id="groupRole" class="form-control" data-style="btn-success">
-          <option>administrator</option>
-          <option>driver</option>
-          <option>customer</option>
+          <option value="registered_customer">customer</option>
+          <option value="administrator">administrator</option>
+          <option value="driver">driver</option>
         </select>
 
       </div>

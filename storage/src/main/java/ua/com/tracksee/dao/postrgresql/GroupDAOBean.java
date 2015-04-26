@@ -9,6 +9,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.math.BigInteger;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -42,8 +43,9 @@ public class GroupDAOBean implements GroupDAO {
         String queryString = "";
         if ((!userEmail.equals("")) && (!groupName.equals(""))) {
             queryString = "SELECT * FROM service_user u WHERE u.group_name = ?1 AND u.email LIKE ?2 " +
+                    "UNION ALL SELECT * FROM service_user  u WHERE u.group_name IS NULL  AND u.email LIKE ?2 " +
                     "UNION ALL SELECT * FROM service_user u " +
-                    "WHERE u.email LIKE ?2 AND u.group_name <> ?1";
+                    "WHERE u.group_name <> ?1 AND u.email LIKE ?2";
             query = entityManager.createNativeQuery(queryString, ServiceUserEntity.class);
             query.setParameter(1, groupName);
             query.setParameter(2, "%" + userEmail + "%");
@@ -62,21 +64,23 @@ public class GroupDAOBean implements GroupDAO {
     }
 
     @Override
-    public BigInteger[] getGroupMemberIds(String groupName) {
-        BigInteger[] res = null;
+    public Integer[] getGroupMemberIds(String groupName) {
+        Integer[] res = null;
         Query query = entityManager.createNativeQuery("SELECT u.user_id FROM service_user u WHERE u.group_name = ?");
         query.setParameter(1, groupName);
-        List<Object[]> aList = query.getResultList();
-        res = new BigInteger[aList.size()];
+        List<Integer> aList = query.getResultList();
+        res = new Integer[aList.size()];
         int i = 0;
-        for (Object[] o : aList) {
-            res[i++] = (BigInteger) o[0];
+        for (Integer o : aList) {
+            res[i++] = o;
         }
+        Iterator it = aList.iterator();
+
         return res;
     }
 
     @Override
-    public void setRoleToUser(String role, BigInteger userId) {
+    public void setRoleToUser(String role, Integer userId) {
         Query query = null;
         if (role.equals(ROLE_ADMIN)) {
             query = entityManager.createNativeQuery("UPDATE service_user u SET u.isadmin = true WHERE u.user_id = ?");
@@ -100,33 +104,34 @@ public class GroupDAOBean implements GroupDAO {
     }
 
     @Override
-    public BigInteger getGroupsCountByName(String groupName) {
+    public Integer getGroupsCountByName(String groupName) {
         Query query = entityManager.createNativeQuery("SELECT COUNT (DISTINCT g.group_name) FROM service_user g WHERE g.group_name LIKE ?");
         query.setParameter(1, "%" + groupName + "%");
-        return (BigInteger)query.getSingleResult();
+        return ((BigInteger)query.getSingleResult()).intValue();
     }
 
     @Override
-    public BigInteger getUsersCountByEmail(String userEmail) {
-        Query query = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user g WHERE g.email LIKE ?");
+    public Integer getUsersCountByEmail(String userEmail) {
+        Query query = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user g WHERE g.email LIKE ?1 ");
         query.setParameter(1, "%" + userEmail + "%");
-        return (BigInteger)query.getSingleResult();
+        return ((BigInteger)query.getSingleResult()).intValue();
     }
 
-//    @Override
-//    public BigInteger getGroupsCount() {
-//        Query query = entityManager.createNativeQuery("SELECT COUNT (DISTINCT g.group_name) FROM service_user g WHERE g.group_name IS NOT NULL");
-//        return (BigInteger)query.getSingleResult();
-//    }
-//
-//    @Override
-//    public BigInteger getUsersCount() {
-//        Query query = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user");
-//        return (BigInteger)query.getSingleResult();
-//    }
+    @Override
+    public Integer getUsersAllCount() {
+        Query query = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user");
+        return ((BigInteger)query.getSingleResult()).intValue();
+    }
 
     @Override
-    public void addUserToGroup(String groupName, BigInteger userId) {
+    public Integer getUsersInGroupCount(String groupName) {
+        Query query = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user g WHERE g.group_name = ?1");
+        query.setParameter(1, groupName);
+        return ((BigInteger)query.getSingleResult()).intValue();
+    }
+
+    @Override
+    public void addUserToGroup(String groupName, Integer userId) {
         Query query = entityManager.createNativeQuery("UPDATE service_user SET group_name = ?1 WHERE user_id = ?2");
         query.setParameter(1, groupName);
         query.setParameter(2, userId);
@@ -134,7 +139,7 @@ public class GroupDAOBean implements GroupDAO {
     }
 
     @Override
-    public void removeUser(BigInteger userId) {
+    public void removeUser(Integer userId) {
         Query query = entityManager.createNativeQuery("UPDATE service_user SET group_name = DEFAULT WHERE user_id = ?");
         query.setParameter(1, userId);
         query.executeUpdate();
@@ -144,9 +149,9 @@ public class GroupDAOBean implements GroupDAO {
     public boolean existsGroup(String groupName) {
         Query query = entityManager.createNativeQuery("SELECT DISTINCT COUNT(*) FROM service_user u WHERE u.group_name = ?");
         query.setParameter(1, groupName);
-        BigInteger count = (BigInteger) query.getSingleResult();
+        Integer count = ((BigInteger) query.getSingleResult()).intValue();
 
-        return !count.equals(new BigInteger("0".getBytes()));
+        return !count.equals(new Integer(0));
     }
 
     public String getGroupRole(String groupName) {

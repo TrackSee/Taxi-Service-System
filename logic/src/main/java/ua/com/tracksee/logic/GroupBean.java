@@ -23,6 +23,7 @@ import javax.ejb.Stateless;
 import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Local
@@ -32,9 +33,9 @@ public class GroupBean {
     @EJB
     private GroupDAO groupDAO;
 
-    private void addGroup(String groupName, Role role, BigInteger[] userIds) throws SQLException{
+    private void addGroup(String groupName, Role role, Integer[] userIds) throws SQLException{
         if (!groupDAO.existsGroup(groupName)) {
-            for (BigInteger id : userIds) {
+            for (Integer id : userIds) {
                 groupDAO.addUserToGroup(groupName, id);
                 groupDAO.setRoleToUser(role.getName(), id);
             }
@@ -55,13 +56,22 @@ public class GroupBean {
         return groupDAO.getGroupMembers(groupName, userEmail, pageNumber, pageSize);
     }
 
-    private BigInteger[] getGroupMemberIds(String groupName) {
+    private Integer[] getGroupMemberIds(String groupName) {
         return groupDAO.getGroupMemberIds(groupName);
     }
 
-    private void updateGroup(String groupName, Role role) {
-        for (BigInteger userId : getGroupMemberIds(groupName)) {
+    private void updateGroup(String groupName, Role role, Integer[] ids) {
+        Integer[] groupIds = getGroupMemberIds(groupName);
+        List<Integer> groupIdsList = Arrays.asList(groupIds);
+        for (Integer userId : groupIds) {
             groupDAO.setRoleToUser(role.getName(), userId);
+        }
+        for (Integer id : ids) {
+            if (groupIdsList.contains(id)) {
+                groupDAO.removeUser(id);
+            } else {
+                groupDAO.addUserToGroup(groupName, id);
+            }
         }
     }
 
@@ -69,63 +79,52 @@ public class GroupBean {
         return Role.fromString(groupDAO.getGroupRole(groupName));
     }
 
-    private void removeUsersFromGroup(BigInteger[] usersId) {
-        for (BigInteger id : usersId) {
+    private void removeUsersFromGroup(Integer[] usersId) {
+        for (Integer id : usersId) {
             groupDAO.removeUser(id);
         }
     }
 
-    private void addUsersToGroup(String groupName, BigInteger[] userIds) {
-        for (BigInteger id : userIds) {
+    private void addUsersToGroup(String groupName, Integer[] userIds) {
+        for (Integer id : userIds) {
             groupDAO.addUserToGroup(groupName, id);
         }
     }
-
-//    private List<Group> getGroups(int pageNumber, int pageSize){
-//        List<Group> res = new ArrayList<>();
-//        List<Object[]> aList = groupDAO.getGroups(pageNumber, pageSize);
-//        for (Object[] s : aList) {
-//            String name = (String) s[0];
-//            BigInteger count = (BigInteger) s[1];
-//            res.add(new Group(name, count));
-//        }
-//        return res;
-//    }
 
     private List<Group> getGroupsByName(String name, int pageNumber, int pageSize) {
         List<Group> res = new ArrayList<>();
         List<Object[]> aList = groupDAO.getGroupByName(name, pageNumber, pageSize);
         for (Object[] s : aList) {
             String nameGroup = (String) s[0];
-            BigInteger count = (BigInteger) s[1];
+            Integer count = ((BigInteger) s[1]).intValue();
             res.add(new Group(nameGroup, count));
         }
         return res;
     }
 
-    private BigInteger getGroupsCountByName(String groupName) {
+    private Integer getGroupsCountByName(String groupName) {
         return groupDAO.getGroupsCountByName(groupName);
     }
 
-    private BigInteger getUsersCountByEmail(String userEmail) {
+    private Integer getUsersCountByEmail(String userEmail) {
         return groupDAO.getUsersCountByEmail(userEmail);
     }
 
-//    private BigInteger getAllUsersCount() {
-//
-//    }
+    private Integer getUsersAllCount() {
+        return groupDAO.getUsersAllCount();
+    }
 
-    public void executeUpdate(GroupUpdateAction action, String groupName, BigInteger[] ids, Role role) throws SQLException {
+    private Integer getUsersInGroupCount(String groupName) {
+        return groupDAO.getUsersInGroupCount(groupName);
+    }
+
+    public void executeUpdate(GroupUpdateAction action, String groupName, Integer[] ids, Role role) throws SQLException {
         if (action == GroupUpdateAction.ADD_GROUP) {
             addGroup(groupName, role, ids);
-        } else if (action == GroupUpdateAction.ADD_USERS_TO_GROUP) {
-            addUsersToGroup(groupName, ids);
         } else if (action == GroupUpdateAction.REMOVE_GROUP) {
             removeGroup(groupName);
-        } else if (action == GroupUpdateAction.REMOVE_USERS_FROM_GROUP) {
-            removeUsersFromGroup(ids);
         } else if (action == GroupUpdateAction.UPDATE_GROUP) {
-            updateGroup(groupName, role);
+            updateGroup(groupName, role, ids);
         }
     }
 
@@ -138,15 +137,17 @@ public class GroupBean {
         return null;
     }
 
-    public BigInteger executeSelectCount(GroupSelectCountAction action, String name) {
+    public Integer executeSelectCount(GroupSelectCountAction action, String groupName, String userEmail) {
         if (action == GroupSelectCountAction.SELECT_GROUPS_COUNT) {
-            return getGroupsCountByName(name);
-        } else if (action == GroupSelectCountAction.SELECT_ALL_USERS_COUNT) {
-            return getUsersCountByEmail(name);
-        } else if (action == GroupSelectCountAction.SELECT_USERS_IN_GROUP_COUNT) {
-
-        } else if (action == GroupSelectCountAction.SELECT_USERS_LIKE_COUNT) {
-            //return getUsersCountByEmail();
+            return getGroupsCountByName(groupName);
+        } else if (action == GroupSelectCountAction.SELECT_USERS_COUNT) {
+            if (!userEmail.equals("")) {
+                return this.getUsersCountByEmail(userEmail);
+            } else if (!groupName.equals("")) {
+                return this.getUsersInGroupCount(groupName);
+            } else {
+                return this.getUsersAllCount();
+            }
         }
         return null;
     }

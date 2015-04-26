@@ -9,9 +9,9 @@ import java.util.NoSuchElementException;
  */
 public enum GroupUpdateAction {
     ADD_GROUP("addGroup"),
-    ADD_USERS_TO_GROUP("addUsersToGroup"),
+    //ADD_USERS_TO_GROUP("addUsersToGroup"),
     REMOVE_GROUP("removeGroup"),
-    REMOVE_USERS_FROM_GROUP("removeUsersFromGroup"),
+    //REMOVE_USERS_FROM_GROUP("removeUsersFromGroup"),
     UPDATE_GROUP("updateGroup");
 
     private final String name;
