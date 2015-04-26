@@ -29,7 +29,7 @@ public class SignUpServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/customer/SignUp.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/customer/signUp.jsp").forward(req, resp);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class SignUpServlet extends HttpServlet {
 
             controller.registerCustomerUser(email, password, phoneNumber);
             logger.debug("Successful sign up. User: " + email);
-            req.getRequestDispatcher("/WEB-INF/customer/CheckEmail.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/customer/checkEmail.jsp").forward(req, resp);
         } catch (RegistrationException e) {
             logger.warn(e.getMessage());
             resp.getWriter().append(e.getErrorType());

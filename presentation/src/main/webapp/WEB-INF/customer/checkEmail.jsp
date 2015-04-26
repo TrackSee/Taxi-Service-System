@@ -20,7 +20,7 @@
     <%@include file="../parts/footer.jsp" %>
 </div>
 
-<%@include file="../parts/scripts.jsp" %>
+<%@include file="../parts/scripts-sign.jsp" %>
 
 </body>
 </html>
