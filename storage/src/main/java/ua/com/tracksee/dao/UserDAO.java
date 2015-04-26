@@ -71,4 +71,10 @@ public interface UserDAO {
      *
      */
     ServiceUserEntity getDriverByID(int id);
+
+
+    /**
+     *
+     */
+    ServiceUserEntity getUserById(int id);
 }
