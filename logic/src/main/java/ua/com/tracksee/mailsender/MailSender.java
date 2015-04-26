@@ -1,11 +1,7 @@
 package ua.com.tracksee.mailsender;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Igor
- * Date: 17.04.15
- * Time: 19:02
- * To change this template use File | Settings | File Templates.
+ * @author Igor Dvorskij
  */
 
 import freemarker.template.Configuration;

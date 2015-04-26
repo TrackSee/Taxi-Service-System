@@ -75,18 +75,18 @@ public class UserDAOBean implements UserDAO {
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
                 "RETURNING user_id";
         Query query = entityManager.createNativeQuery(sql);
-        query.<String>setParameter(1, user.getEmail());
-        query.<String>setParameter(2, user.getPassword());
-        query.<String>setParameter(3, user.getPhone());
-        query.<String>setParameter(4, user.getSex());
-        query.<Boolean>setParameter(5, user.getDriver());
-        query.<Boolean>setParameter(6, user.getAdmin());
-        query.<String>setParameter(7, user.getGroupName());
-        query.<Integer>setParameter(8, user.getCar() != null? user.getCar().getCarNumber() : null);
-        query.<String>setParameter(9, user.getDriverLicense());
-        query.<Integer>setParameter(10, user.getIgnoredTimes());
-        query.<Boolean>setParameter(11, user.getActivated());
-        query.<Timestamp>setParameter(12, user.getRegistrationDate());
+        query.setParameter(1, user.getEmail());
+        query.setParameter(2, user.getPassword());
+        query.setParameter(3, user.getPhone());
+        query.setParameter(4, user.getSex());
+        query.setParameter(5, user.getDriver());
+        query.setParameter(6, user.getAdmin());
+        query.setParameter(7, user.getGroupName());
+        query.setParameter(8, user.getCar() != null? user.getCar().getCarNumber() : null);
+        query.setParameter(9, user.getDriverLicense());
+        query.setParameter(10, user.getIgnoredTimes());
+        query.setParameter(11, user.getActivated());
+        query.setParameter(12, user.getRegistrationDate());
         try {
             user.setUserId((Integer)query.getSingleResult());
         } catch (PersistenceException e) {
@@ -138,6 +138,20 @@ public class UserDAOBean implements UserDAO {
             throw new ServiceUserNotFoundException("There is no driver with such id");
         }
         return driver;
+    }
+
+    @Override
+    public ServiceUserEntity getUserById(int id) {
+        if(id <= 0){
+            logger.warn("User id can't be <= 0!");
+            throw new IllegalArgumentException("User id can't be <= 0!");
+        }
+        ServiceUserEntity user = entityManager.find(ServiceUserEntity.class, id);
+        if(user == null){
+            logger.warn("There is no User with such id");
+            throw new ServiceUserNotFoundException("There is no User with such id");
+        }
+        return user;
     }
 
     //TODO test this method
