@@ -1,5 +1,5 @@
 /**
- * Created by Vadym_Akymov on 24.04.15.
+ * Created by Vadym Akymov, Ruslan Gunavardana
  */
 
 $(document).ready(function() {
