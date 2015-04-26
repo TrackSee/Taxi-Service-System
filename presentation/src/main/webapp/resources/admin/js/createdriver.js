@@ -34,22 +34,26 @@ $(document).ready(function () {
 
     var data = {};
 
-    $('#addDriver').bind('click', function () //noinspection UnterminatedStatementJS
-{
-
-
+    $('#addDriver').click(function(){
+        alert("Ok");
         data["email"] = $('input[name = email]', '#createDriver').val();
         data["password"] = $('input[name = password]', '#createDriver').val();
         data["phone"] = $('input[name = phone]', '#createDriver').val();
-        data["car"] =$('#make').val();
 
-
- data = JSON.stringify(data);
+        data = JSON.stringify(data);
         $.ajax({
             type: 'POST',
             url: 'createdriver',
             dataType: 'json',
-            data: 'data=' + data
+            data: 'data=' + data,
+            success: function(data){
+                alert('Ajax was sent!');
+                window.location.href = 'drivers';
+            }
         });
     });
+//
+//    $('#addDriver').bind('click', function () //noinspection UnterminatedStatementJS
+//{
+//    });
 });

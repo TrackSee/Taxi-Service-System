@@ -4,9 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
-import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
-import ua.com.tracksee.enumartion.Sex;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,7 +12,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import java.math.BigInteger;
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -122,7 +119,7 @@ public class UserDAOBean implements UserDAO {
         query.setParameter(2, user.getPassword());
         query.setParameter(3, user.getPhone());
         query.setParameter(4, user.getDriver());
-        query.setParameter(5, user.getCar().getCarNumber());
+        query.setParameter(5, user.getCar() != null ? user.getCar().getCarNumber() : null);
         query.executeUpdate();
     }
 

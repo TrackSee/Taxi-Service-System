@@ -30,14 +30,6 @@
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"
           rel="stylesheet">
 
-    <!-- DataTables CSS -->
-    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css"
-          rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/datatables-responsive/css/dataTables.responsive.css"
-          rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/dist/css/sb-admin-2.css" rel="stylesheet">
 
@@ -78,25 +70,27 @@
         <label for="phone" class="sr-only">Phone number</label>
         <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" required>
 
-        <!--  <div class="btn-group" id = "btngr">
-              <button class="btn-sm">Please Select From List</button>
-              <button class="btn dropdown-toggle" data-toggle="dropdown">
-                  <span class="caret">></span>
-              </button>
-              <ul class="dropdown-menu" id="myID" role="menu" aria-labelledby="dropdownMenu">
-                   <li ><a tabindex="-1" href="#">Item II</a></li>
-                  <li><a tabindex="-1" href="#">Item III</a></li>
-              </ul>
-          </div> -->
-
-        <select id="make" name="make">
-            <c:forEach items="${requestScope.cars}" var="car">
-                <option value="${car}">${car.carNumber}</option>
-            </c:forEach>
+        <%--TODO send via ajax!!--%>
+        <div>
+            <label>Sex</label>
+        </div>
+        <select class="sex form-control" name="sex">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
         </select>
 
-        <div id="addDriver">
-            <button type="button" class="btn">Create</button>
+        <%--<div>--%>
+            <%--<label>Choose car for driver</label>--%>
+        <%--</div>--%>
+        <%--<select id="makes" class="make form-control" name="make">--%>
+            <%--<option value=""></option>--%>
+            <%--<c:forEach items="${requestScope.cars}" var="car">--%>
+                <%--<option value="${car.carNumber}"></option>--%>
+            <%--</c:forEach>--%>
+        <%--</select>--%>
+
+        <div>
+            <button  id="addDriver" type="button" class="btn btn-primary">Create</button>
         </div>
 
 
@@ -104,8 +98,8 @@
 </div>
 
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.delegate.js"
-        type="text/javascript"></script>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.delegate.js"--%>
+        <%--type="text/javascript"></script>--%>
 <script src="<%=application.getContextPath()%>/resources/admin//bower_components/jquery/dist/jquery.validate.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
