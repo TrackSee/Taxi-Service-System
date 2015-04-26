@@ -60,7 +60,7 @@ public class AdminDriverServlet extends HttpServlet {
         req.setAttribute("pagesCount", userDAO.getDriverPagesCount());
 //        System.out.println("json: " + getJsonFromList(drivers));
         resp.getWriter().write(getJsonFromList(drivers));
-//        resp.setStatus(200);
+
     }
 
     /**

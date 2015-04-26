@@ -37,19 +37,12 @@
                     <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                    <a href="<%=application.getContextPath()%>/admin/drivers"><i class="fa fa-table fa-fw"></i> Driver Accounts<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="flot.html">Flot Charts</a>
-                        </li>
-                        <li>
-                            <a href="morris.html">Morris.js Charts</a>
+                            <a href="<%=application.getContextPath()%>/admin/createdriver">Create driver account</a>
                         </li>
                     </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-                <li>
-                    <a href="<%=application.getContextPath()%>/admin/drivers"><i class="fa fa-table fa-fw"></i> Driver Accounts</a>
                 </li>
                 <li>
                     <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
