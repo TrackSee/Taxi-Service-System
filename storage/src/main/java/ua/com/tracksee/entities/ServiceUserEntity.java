@@ -1,13 +1,8 @@
 package ua.com.tracksee.entities;
 
-import ua.com.tracksee.enumartion.Sex;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
-
-import static java.lang.Boolean.FALSE;
-import static java.lang.System.currentTimeMillis;
 
 /**
  * @author Ruslan Gunavardana
@@ -19,14 +14,14 @@ public class ServiceUserEntity {
     private String email;
     private String password;
     private String phone;
-    private Sex sex;
-    private Boolean driver = FALSE;
-    private Boolean admin = FALSE;
+    private Boolean driver = false;
+    private Boolean admin = false;
+    private String sex;
     private String groupName;
     private String driverLicense;
     private Integer ignoredTimes = 0;
-    private Boolean activated = FALSE;
-    private Timestamp registrationDate = new Timestamp(currentTimeMillis());
+    private Boolean activated = false;
+    private Timestamp registrationDate = new Timestamp(System.currentTimeMillis());
     private CarEntity car;
 
     @Id
@@ -73,13 +68,12 @@ public class ServiceUserEntity {
     }
 
     @Basic
-    @Enumerated(EnumType.STRING)
     @Column(name = "sex", nullable = false)
-    public Sex getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Sex sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
