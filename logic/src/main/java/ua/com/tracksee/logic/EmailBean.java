@@ -44,6 +44,23 @@ public class EmailBean {
                 + "\nPlease click the confirmation link to complete registration: "
                 + WEBSITE_FULL + "activation?code=" + userCode;
     }
+    @Asynchronous
+    public void sendOrderConfirmInfo(ServiceUserEntity user) throws MessagingException {
+        MimeMessage message = new MimeMessage(EmailUtils.getEmailSession());
+        message.setFrom(new InternetAddress(EmailUtils.SERVER_EMAIL));
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
+        message.setSubject("Order Taxi " + WEBSITE_SHORT);
+        message.setText(getOrderConfirmMessageText(user.getUserId()));
+        Transport.send(message);
+        logger.debug("Sent message successfully to {1}", user.getEmail());
+    }
+    private String getOrderConfirmMessageText(int id) {
+        return "Hello! \n"
+                +  "Order taxi confirm message! "
+                + WEBSITE_SHORT
+                + "\nLink for your dashbord whith orders: "
+                + WEBSITE_FULL + "user_orders?user_id=" + id;
+    }
 
 //    @Asynchronous
 //    public void sendBlockingUserEmail(User user){

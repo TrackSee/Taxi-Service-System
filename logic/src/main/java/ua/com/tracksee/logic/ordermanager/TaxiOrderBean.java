@@ -18,6 +18,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Lock;
 import javax.ejb.Singleton;
+import javax.mail.MessagingException;
 import javax.persistence.criteria.Order;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -58,34 +59,26 @@ public class TaxiOrderBean {
         ServiceUserEntity serviceUserEntity=validateForUser(inputData);
         AddressEntity addressOriginEntity=validateForOriginAddress(inputData);
         AddressEntity addressDestinationEntity=validateForDestinationAddress(inputData);
-
-
         TaxiOrderEntity taxiOrderEntity=validateForTaxiOrder(inputData);
-
-        System.out.println("Bean work");
         taxiOrderDAO.addTaxiOrder(taxiOrderEntity);
+//       logger.info("Check user :" + serviceUserEntity.getEmail());
+           if(!userDAO.checkEmail(serviceUserEntity.getEmail())){
+//             logger.info("Create new user: email-" + serviceUserEntity.getEmail() + " phone-" + serviceUserEntity.getPhone());
+              serviceUserEntity.setActivated(false);
+              userDAO.addUser(serviceUserEntity);
+            }
+//       logger.info("User was found");
+        serviceUserEntity.setUserId(userDAO.getUserIdByEmail(serviceUserEntity.getEmail()));
+        System.out.println(serviceUserEntity.getUserId());
 
-
-
-
-        //   logger.info("Check user :" + user.getEmail());
-        //   if(!userDAO.checkEmail(user.getEmail())){
-        //    logger.info("Create new user: email-"+user.getEmail()+" phone-"+user.getPhone());
-        //      user.setActivated(false);
-        //     userDAO.addUser(user);
-        //    }
-
-        //   taxiOrderDAO.addTaxiOrder(taxiOrder);
         //TODO check mail send
-//        user.setUserId(userDAO.getUserIdByEmail());
-//        logger.info("The useeeeer email is :"+user.getEmail());
+
+//        logger.info("The useeeeer email is :"+serviceUserEntity.getEmail());
 //        try {
-//            mailBean.sendOrderConfirmInfo(user);
+//            mailBean.sendOrderConfirmInfo(serviceUserEntity);
 //        } catch (MessagingException e) {
 //            e.printStackTrace();
 //        }
-        // addressDAO.addAddress(addressFrom);
-        // addressDAO.addAddress(addressTo);
 
     }
 

@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -27,22 +28,16 @@ public class UserDAOBean implements UserDAO {
     private EntityManager entityManager;
 
     @Override
-    public int addUser(ServiceUserEntity user) {
-        try {
-//            String sql = "INSERT INTO address (email,phone,activated) " +
-//                    "VALUES("+"'"+user.getEmail()+"','"+user.getPhone()+"','"+user.isActivated()+")";
-//            Query query = entityManager.createNativeQuery(sql);
-//            //String sql = "INSERT INTO address (email,phone,activated) " +
-//              //      "VALUES("+"'"+user.getEmail()+"','"+user.getPhone()+"','"+user.isActivated()+")";
-//            //Query query = entityManager.createNativeQuery(sql);
-////            query.setParameter(1, user.getEmail());
-////            query.setParameter(2, user.getPhone());
-////            query.setParameter(3, user.isActivated());
-//            query.executeUpdate();
-         }catch(Exception ex){
-            System.out.println("UserDAO");
-      //  ex.printStackTrace();
-    }
+    public int addUser(ServiceUserEntity user) throws SQLException {
+            Query query= entityManager.createNativeQuery("INSERT INTO service_user (email, phone,password,activated) VALUES (?1,?2,?3,?4)");
+            //String sql = "INSERT INTO address (email,phone,activated) " +
+            //      "VALUES("+"'"+user.getEmail()+"','"+user.getPhone()+"','"+user.isActivated()+")";
+            //Query query = entityManager.createNativeQuery(sql);
+            query.setParameter(1, user.getEmail());
+            query.setParameter(2, (user.getPhone()));
+            query.setParameter(3,"NONE");
+            query.setParameter(4, user.getActivated());
+            query.executeUpdate();
         return 0;
     }
 
@@ -113,4 +108,10 @@ public class UserDAOBean implements UserDAO {
         return false;
     }
 
+    @Override
+    public Integer getUserIdByEmail(String email) {
+        Query query=entityManager.createNativeQuery("SELECT user_id FROM service_user WHERE email=?1");
+        query.setParameter(1, email);
+        return (Integer)query.getFirstResult();
+    }
 }

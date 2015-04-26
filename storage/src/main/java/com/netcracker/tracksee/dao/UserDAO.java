@@ -5,6 +5,7 @@ import com.netcracker.tracksee.entities.TaxiOrder;
 import com.netcracker.tracksee.entities.User;
 
 import javax.ejb.Local;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public interface UserDAO {
     /**
      *
      */
-    int addUser(ServiceUserEntity user);
+    int addUser(ServiceUserEntity user) throws SQLException;
 
     /**
      * @param partNumber - number of data part
@@ -59,4 +60,5 @@ public interface UserDAO {
 
     boolean insertNewUser(ServiceUserEntity user);
 
+    Integer getUserIdByEmail(String email);
 }
