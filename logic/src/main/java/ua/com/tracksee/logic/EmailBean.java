@@ -22,8 +22,8 @@ public class EmailBean {
     private static final Logger logger = LogManager.getLogger();
 
     // website
-    private static final String WEBSITE_SHORT = "tracksee.com";
-    private static final String WEBSITE_FULL = "http://tracksee.com/";
+    private static final String WEBSITE_SHORT = "tracksee.team.com/TaxiService";
+    private static final String WEBSITE_FULL = "localhost:8080/TaxiService/";
 
     @Asynchronous
     public void sendRegistrationEmail(ServiceUserEntity user, String userCode) throws MessagingException {

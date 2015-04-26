@@ -9,6 +9,7 @@ import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.mail.MessagingException;
 
+import static java.lang.Long.toHexString;
 import static ua.com.tracksee.logic.exception.RegistrationExceptionType.*;
 
 /**
@@ -38,7 +39,6 @@ public class RegistrationBean {
         } catch (NumberFormatException e) {
             throw new RegistrationException("Invalid link.", BAD_LINK);
         }
-
         if (userDAO.accountIsActivated(userId)) {
             throw new RegistrationException("User is already activated.", USER_IS_ACTIVE);
         }
@@ -66,18 +66,16 @@ public class RegistrationBean {
         if (phoneNumber != null && !validationBean.isValidPhoneNumber(phoneNumber)) {
             throw new RegistrationException("Invalid phone number.", BAD_PHONE);
         }
+        if (userDAO.getUserByEmail(email) == null) {
+            throw new RegistrationException("User already exists.", USER_EXISTS);
+        }
 
         // adding new user
         ServiceUserEntity user = new ServiceUserEntity();
         user.setEmail(email);
-
         user.setPassword(password);
         user.setPhone(phoneNumber);
         Integer generatedId = userDAO.addUser(user);
-        if (generatedId == null) {
-            throw new RegistrationException("User is already exists.", USER_EXISTS);
-        }
-
         String userCode = generatedId.toString();
         try {
             emailBean.sendRegistrationEmail(user, userCode);
