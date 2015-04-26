@@ -19,9 +19,7 @@ import java.sql.SQLException;
  */
 @WebServlet("/signup")
 public class SignUpServlet extends HttpServlet {
-
     private static final Logger logger = LogManager.getLogger();
-    private static final String ERROR_REDIRECT_PATH = "/signup?error=true&code=";
 
     @EJB
     private RegistrationBean controller;
