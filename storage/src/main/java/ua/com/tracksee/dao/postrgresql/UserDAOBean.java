@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
+import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Stateless;
@@ -110,15 +111,14 @@ public class UserDAOBean implements UserDAO {
 
     public void createUser(ServiceUserEntity user) {
         String sql = "INSERT INTO service_user " +
-                "(email, password, phone, driver) " +
-                "VALUES (?, ?, ?, ?)";
+                "(email, password, phone, driver, car_number) " +
+                "VALUES (?, ?, ?, ?, ?)";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, user.getEmail());
         query.setParameter(2, user.getPassword());
         query.setParameter(3, user.getPhone());
         query.setParameter(4, user.getDriver());
-        //  query.setParameter(5, user.getDriver());
-        //query.setParameter(6, user.getAdmin());
+        query.setParameter(5, user.getCar().getCarNumber());
         query.executeUpdate();
     }
 
@@ -155,4 +155,6 @@ public class UserDAOBean implements UserDAO {
         query.setParameter(1, serviceUserId);
         query.executeUpdate();
     }
+
+
 }
