@@ -65,6 +65,7 @@ public class UserDAOBeanTest {
             assertTrue(drivers.get(i).getIsDriver());
         }
     }
+
     @Test(expected = EJBException.class)
     public void testGetDriversException() throws Exception{
         //negative param
