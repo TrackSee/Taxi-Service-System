@@ -78,4 +78,7 @@ public interface UserDAO {
      *
      */
     ServiceUserEntity getUserById(int id);
+
+
+    List<String> getDriversEmails();
 }
