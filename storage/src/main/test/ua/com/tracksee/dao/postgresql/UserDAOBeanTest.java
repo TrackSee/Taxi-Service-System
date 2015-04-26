@@ -12,18 +12,22 @@ import org.postgresql.geometric.PGpoint;
 import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.postrgresql.UserDAOBean;
+import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.enumartion.Sex;
 
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import java.io.File;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
  * @author Vadym_Akymov
  */
+//TODO add data initialization
 @RunWith(Arquillian.class)
 public class UserDAOBeanTest {
     @EJB
@@ -42,6 +46,8 @@ public class UserDAOBeanTest {
                 .addPackage(PGBinaryObject.class.getPackage())
                 .addPackage(ServiceUserEntity.class.getPackage())
                 .addPackage(UserDAOBean.class.getPackage())
+                .addClass(ServiceUserNotFoundException.class)
+                .addPackage(Sex.class.getPackage())
                 .addPackage(UserDAO.class.getPackage())
                 .addAsResource("META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -59,10 +65,10 @@ public class UserDAOBeanTest {
     @Test
     public void testGetDrivers() throws Exception {
         //get first part of drivers
-        List<ServiceUserEntity> drivers = userDAO.getDrivers(1);
-        assertTrue(drivers.size() == UserDAOBean.DRIVERS_PAGE_SIZE);
-        for(int i = 0; i < drivers.size(); i++){
-            assertTrue(drivers.get(i).getDriver());
+        List<ServiceUserEntity> drivers = userDAO.getDrivers(2);
+        assertEquals(drivers.size(), UserDAO.DRIVERS_PAGE_SIZE);
+        for (ServiceUserEntity driver : drivers) {
+            assertTrue(driver.getDriver());
         }
     }
     @Test(expected = EJBException.class)
