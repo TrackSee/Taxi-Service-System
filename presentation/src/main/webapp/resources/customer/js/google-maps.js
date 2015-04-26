@@ -1,6 +1,6 @@
 /*
  * Google maps integration.
- * Loaded via AJAX after document is ready.
+ * Loaded using AJAX after document is ready.
  * Created by Ruslan Gunavardana
  */
 
@@ -8,33 +8,35 @@ var directionsDisplay;
 var directionsService;
 var map;
 var geocoder;
+var infoBox;
 
-/*
- * Addresses in format {location, stopover}
- */
+/* Addresses in format {location, stopover} */
 var origin;
 var waypoints = [];
 var destination;
 
-var defaultLocation;
-var defaultZoom = 12;
+/* Constants */
+var DEFAULT_LOCATION;
+var DEFAULT_ZOOM = 12;
+var SECS_PER_MINUTE = 60;
+var MINUTES_PER_HOUR = 60;
 
 function loadScript() {
     var script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'http://maps.googleapis.com/maps/api/js?v=3.9&key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&sensor=true'
+    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.9&key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&sensor=true'
     + '&signed_in=true&callback=initialize';
     document.body.appendChild(script);
 }
 
 function initialize() {
-    defaultLocation = new google.maps.LatLng(50.449226, 30.542454);
-    origin = {location: defaultLocation};
-    destination = {location: defaultLocation};
+    DEFAULT_LOCATION = new google.maps.LatLng(50.449226, 30.542454);
+    origin = {location: DEFAULT_LOCATION};
+    destination = {location: DEFAULT_LOCATION};
 
     var mapOptions = {
-        zoom: defaultZoom,
-        center: defaultLocation,
+        zoom: DEFAULT_ZOOM,
+        center: DEFAULT_LOCATION,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
@@ -43,6 +45,7 @@ function initialize() {
     initializeDirections();
     calcRoute();
     geocoder = new google.maps.Geocoder();
+    infoBox = new google.maps.InfoWindow();
 }
 
 function initializeDirections() {
@@ -59,15 +62,42 @@ function initializeDirections() {
 }
 
 function updateTime(result) {
-    $('#total').text(getRouteTime(result.routes[0]) + ' s');
+    var route = result.routes[0];
+    var data = getRouteData(route);
+    var time = data.duration;
+
+    var timeText = time % MINUTES_PER_HOUR + ' m';
+    if (time >= MINUTES_PER_HOUR) {
+        timeText = Math.floor(time / MINUTES_PER_HOUR) + ' h ' + timeText;
+    }
+    var text = '<p>' + timeText + '<p>' + data.distance + ' km';
+
+    if (data.distance > 0) {
+        var middle = getRouteMiddle(route);
+        infoBox.setContent(text);
+        infoBox.setPosition(middle);
+        infoBox.open(map);
+    }
 }
 
-function getRouteTime(route) {
-    var total = 0;
+/* Returns data about route in format {duration, length}.
+ * Duration in minutes, length in km.
+ */
+function getRouteData(route) {
+    var duration = 0;
+    var distance = 0;
     for (var i = 0; i < route.legs.length; i++) {
-        total += route.legs[i].duration.value;
+        duration += route.legs[i].duration.value;
+        distance += route.legs[i].distance.value;
     }
-    return total;
+    return {duration : Math.round(duration / SECS_PER_MINUTE), // to minutes
+        distance : Math.round(distance / 100) / 10};           // to km
+}
+
+function getRouteMiddle(route) {
+    var middleLeg = route.legs[Math.floor(route.legs.length / 2)];
+    var middleStep = middleLeg.steps[Math.floor(middleLeg.steps.length / 2)];
+    return middleStep.end_location;
 }
 
 function tryGeolocation() {
@@ -89,9 +119,7 @@ function tryGeolocation() {
     }
 }
 
-/*
- * Sending a request for building new path.
- */
+/* Sending a request for building new path. */
 function calcRoute() {
     var request = {
         origin: origin.location,
@@ -106,26 +134,18 @@ function calcRoute() {
     });
 }
 
-/*
- * Geocoding service
- */
-function codeAddresses() {
+/* Geocodes addreses and changes the route. */
+function updateAddresses() {
     var address1 = $('#origin').val();
     var address2 = $('#destination').val();
-    codeAddress(address1, origin);
-    codeAddress(address2, destination);
-}
 
-function codeAddress(address, resultHolder) {
-    geocoder.geocode( { 'address': address}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            resultHolder.location = results[0].geometry.location;
-            //TODOmap.setCenter();
-            calcRoute();
-        } else {
-            $('#error-label').text('Geocode was not successful for the following reason: ' + status);
-        }
-    });
+    if (address1 != "") {
+        origin.location = address1;
+    }
+    if (address2 != "") {
+        destination.location = address2;
+    }
+    calcRoute();
 }
 
 $(document).ready(loadScript);
