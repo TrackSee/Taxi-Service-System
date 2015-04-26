@@ -104,6 +104,8 @@
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <script src="<%=application.getContextPath()%>/resources/admin/js/createdriver.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/hsps.js"></script>
+
 
 </body>
 </html>

@@ -54,13 +54,13 @@ public class AdminDriverServlet extends HttpServlet {
             pageNumber = 1;
             logger.warn("wrong page was request on /admin/drivers");
         }
-        System.out.println("PageNumber" + pageNumber);
+//        System.out.println("PageNumber" + pageNumber);
         List<ServiceUserEntity> drivers = administratorBean.getDrivers(pageNumber);
         req.setAttribute("drivers", drivers);
         req.setAttribute("pagesCount", userDAO.getDriverPagesCount());
-        System.out.println("json: " + getJsonFromList(drivers));
+//        System.out.println("json: " + getJsonFromList(drivers));
         resp.getWriter().write(getJsonFromList(drivers));
-//        resp.setStatus(200);
+
     }
 
     /**
