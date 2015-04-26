@@ -9,7 +9,6 @@ import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.mail.MessagingException;
 
-import static java.lang.Long.toHexString;
 import static ua.com.tracksee.logic.exception.RegistrationExceptionType.*;
 
 /**

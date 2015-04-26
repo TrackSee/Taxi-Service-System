@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderItemEntity;
-import ua.com.tracksee.util.EmailUtils;
 
 import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
@@ -20,13 +19,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static ua.com.tracksee.mailsender.MailSender.*;
+import static ua.com.tracksee.util.EmailUtils.*;
 
 /**
  * @author Ruslan Gunavardana
  * @author Igor Dvorskij
  */
-
-
 @Stateless
 public class EmailBean {
 
@@ -57,8 +55,8 @@ public class EmailBean {
 
     @Asynchronous
     public void sendRegistrationEmail(ServiceUserEntity user, String userCode) throws MessagingException {
-        MimeMessage message = new MimeMessage(EmailUtils.getEmailSession());
-        message.setFrom(new InternetAddress(EmailUtils.SERVER_EMAIL));
+        MimeMessage message = new MimeMessage(getEmailSession());
+        message.setFrom(new InternetAddress(SERVER_EMAIL));
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
         message.setSubject("Registration at " + WEBSITE_SHORT);
         message.setText(getMessageText(userCode));
@@ -83,7 +81,7 @@ public class EmailBean {
     public void sendBlockingUserEmail(ua.com.tracksee.entities.ServiceUserEntity user) {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
-        sendTemplatedEmail(user.getEmail(), BLOCKING_ACCOUNT_SUBJECT_TEMP_PROP_NAME, BLOCKING_ACCOUNT_TEMP_PATH, data);
+        //sendTemplatedEmail(user.getEmail(), BLOCKING_ACCOUNT_SUBJECT_TEMP_PROP_NAME, BLOCKING_ACCOUNT_TEMP_PATH, data);
     }
 
     /**
@@ -99,9 +97,9 @@ public class EmailBean {
         data.put("color", order.getServiceUserByDriverId().getCar().getColor());
         data.put("carModel", order.getServiceUserByDriverId().getCar().getCarModel());
         data.put("carNumber", order.getServiceUserByDriverId().getCar().getCarNumber());
-        sendTemplatedEmail(userDAO.getUserById(order.getTaxiOrderByTrackingNumer().getUserId()).getEmail(),
-                CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_SUBJECT_TEMP_PROP_NAME,
-                CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_TEMP_PATH, data);
+//        sendTemplatedEmail(userDAO.getUserById(order.getTaxiOrderByTrackingNumer().getUserId()).getEmail(),
+//                CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_SUBJECT_TEMP_PROP_NAME,
+//                CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_TEMP_PATH, data);
     }
 
     /**
