@@ -43,6 +43,14 @@ public class UserDAOBean implements UserDAO {
 }
 
     @Override
+    public List<String> getDriversEmails() {
+
+        Query query = entityManager.createNativeQuery("SELECT email FROM service_user " +
+                "WHERE driver = TRUE ", String.class);
+        return query.getResultList();
+    }
+
+    @Override
     public void clearUnactivatedAccounts(int unactivatedDays) {
         String sql = "DELETE FROM service_user " +
                 "WHERE activated = FALSE " +
