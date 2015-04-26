@@ -64,7 +64,7 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-large">Submit</button>
+                            <button id="order-submit" type="submit" class="btn btn-success btn-large">Submit</button>
                         </div>
 
                     </form>
@@ -137,8 +137,9 @@
 <%@include file="../parts/footer.jsp" %>
 
 <%-- start: Java Script --%>
-<%@include file="../parts/scripts-sign.jsp" %>
+<%@include file="../parts/scripts.jsp" %>
 <script src="<%=application.getContextPath()%>/resources/customer/js/google-maps.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
 <%-- end: Java Script --%>
 </body>
 </html>
