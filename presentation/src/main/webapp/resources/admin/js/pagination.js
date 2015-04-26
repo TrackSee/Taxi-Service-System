@@ -6,7 +6,6 @@ $(document).ready(function() {
     $('.pageLi1').addClass('active');
     var pageButton = $('.pageButton').click(function(event){
         var pageNumber = this.innerHTML;
-        console.log("page number: " + pageNumber);
         $('.active').removeClass('active');
         $('.pageLi' + pageNumber).addClass('active');
         $.ajax({
@@ -42,7 +41,6 @@ $(document).ready(function() {
                         tBody.removeChild(rows[i]);
                     }
                 }
-                console.log(data);
             }
         });
     });
