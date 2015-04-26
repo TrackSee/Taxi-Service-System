@@ -41,7 +41,7 @@ $(document).ready(function () {
         data["email"] = $('input[name = email]', '#createDriver').val();
         data["password"] = $('input[name = password]', '#createDriver').val();
         data["phone"] = $('input[name = phone]', '#createDriver').val();
-       // data["car"] =$('#make').val();
+        data["car"] =$('#make').val();
 
 
  data = JSON.stringify(data);
