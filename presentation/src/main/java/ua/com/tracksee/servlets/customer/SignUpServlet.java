@@ -38,7 +38,7 @@ public class SignUpServlet extends HttpServlet {
             String phoneNumber = req.getParameter("phone-number");
 
             controller.registerCustomerUser(email, password, phoneNumber);
-            logger.debug("Successful sign up. User: " + email);
+            logger.info("Successful sign up. User: {}", email);
             req.getRequestDispatcher("/WEB-INF/customer/checkEmail.jsp").forward(req, resp);
         } catch (RegistrationException e) {
             logger.warn(e.getMessage());

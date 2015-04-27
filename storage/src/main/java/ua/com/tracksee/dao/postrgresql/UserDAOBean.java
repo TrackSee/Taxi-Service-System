@@ -115,6 +115,7 @@ public class UserDAOBean implements UserDAO {
     public ServiceUserEntity getUserByEmail(String email) {
         String sql = "SELECT * FROM service_user WHERE email = ?";
         Query query = entityManager.createNativeQuery(sql, ServiceUserEntity.class);
+        query.<String>setParameter(1, email);
         return (ServiceUserEntity) query.getSingleResult();
     }
 
