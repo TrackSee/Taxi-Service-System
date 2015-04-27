@@ -1,6 +1,8 @@
 package ua.com.tracksee.logic.admin;
 
+import ua.com.tracksee.dao.CarDAO;
 import ua.com.tracksee.dao.UserDAO;
+import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.EJB;
@@ -14,6 +16,10 @@ import java.util.List;
 public class AdministratorBean {
     @EJB
     private UserDAO userDAO;
+    @EJB
+    private CarDAO carDAO;
+
+
 
     /**
      * @author Vadym_Akymov
@@ -26,4 +32,31 @@ public class AdministratorBean {
     public Integer addUser(ServiceUserEntity user) {return  userDAO.addUser(user);}
     public void  updateUser(ServiceUserEntity user) { userDAO.updateUser(user);}
     public void createUser(ServiceUserEntity user) {userDAO.createUser(user);}
+    public List<CarEntity> getCars() {return carDAO.getCars();}
+
+    /**
+     * @author Vadym_Akymov, Katia Stetsiuk
+     */
+    public List<CarEntity> getAllFreeCars(){
+        return carDAO.getAllFreeCars();
+    }
+
+    /**
+     * @author Vadym Akymov, Katia Stetsiuk
+     */
+    public CarEntity getCarByNumber(String carNumber){
+        return carDAO.getCarByNumber(carNumber);
+    }
+    /**
+     * @author Vadym_Akymov
+     */
+    public ServiceUserEntity getDriverByID(int id){
+        return userDAO.getDriverByID(id);
+    }
+    /**
+     * @author Vadym_Akymov
+     */
+    public void deleteUser(int id){
+        userDAO.deleteUser(id);
+    }
 }

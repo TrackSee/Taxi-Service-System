@@ -3,6 +3,7 @@ package ua.com.tracksee.entities;
 import org.postgresql.geometric.PGpath;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -13,8 +14,9 @@ import java.util.Objects;
 public class TaxiOrderItemEntity {
     private Integer taxiItemId;
     private PGpath path;
-    private ServiceUserEntity serviceUserByDriverId;
-    private TaxiOrderEntity taxiOrderByTrackingNumer;
+    private BigDecimal orderedQuantity;
+    private ServiceUserEntity driver;
+    private TaxiOrderEntity taxiOrder;
 
     @Id
     @GeneratedValue
@@ -37,6 +39,16 @@ public class TaxiOrderItemEntity {
         this.path = path;
     }
 
+    @Basic
+    @Column(name = "ordered_quantity")
+    public BigDecimal getOrderedQuantity() {
+        return orderedQuantity;
+    }
+
+    public void setOrderedQuantity(BigDecimal orderedQuantity) {
+        this.orderedQuantity = orderedQuantity;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,21 +65,22 @@ public class TaxiOrderItemEntity {
 
     @ManyToOne
     @JoinColumn(name = "driver_id", referencedColumnName = "user_id")
-    public ServiceUserEntity getServiceUserByDriverId() {
-        return serviceUserByDriverId;
+    public ServiceUserEntity getDriver() {
+        return driver;
     }
 
-    public void setServiceUserByDriverId(ServiceUserEntity serviceUserByDriverId) {
-        this.serviceUserByDriverId = serviceUserByDriverId;
+    public void setDriver(ServiceUserEntity serviceUserByDriverId) {
+        this.driver = serviceUserByDriverId;
     }
 
     @ManyToOne
     @JoinColumn(name = "tracking_numer", referencedColumnName = "tracking_number")
-    public TaxiOrderEntity getTaxiOrderByTrackingNumer() {
-        return taxiOrderByTrackingNumer;
+    public TaxiOrderEntity getTaxiOrder() {
+        return taxiOrder;
     }
 
-    public void setTaxiOrderByTrackingNumer(TaxiOrderEntity taxiOrderByTrackingNumer) {
-        this.taxiOrderByTrackingNumer = taxiOrderByTrackingNumer;
+    public void setTaxiOrder(TaxiOrderEntity taxiOrderByTrackingNumer) {
+        this.taxiOrder = taxiOrderByTrackingNumer;
     }
+
 }

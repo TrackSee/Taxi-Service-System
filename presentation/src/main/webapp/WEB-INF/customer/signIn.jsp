@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%@include file="../parts/head.jsp" %>
+    <%@include file="../parts/meta.jsp" %>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/css/bootstrap3/bootstrap.min.css">

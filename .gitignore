@@ -25,3 +25,4 @@ target/
 /bin/
 storage/src/main/resources/META-INF
 .gitignore
+presentation/src/main/java/ua/com/tracksee/servlets/Test.java

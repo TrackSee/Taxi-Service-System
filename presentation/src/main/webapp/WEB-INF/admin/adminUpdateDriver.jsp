@@ -11,8 +11,6 @@
 <html>
 
 <head>
-
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -62,31 +60,31 @@
 </div>
 <div class="container" style=" width : 500px; ">
 
-    <form class="create-driver" id="updateItDriver" action="<c:url value="/admin/updatedriver"/>" method="post">
+    <form class="create-driver" id="updateItDriver" action="<c:url value="/admin/updatedriver"/>">
         <h2 class="form-sign-up-heading">Update Profile</h2>
         <label for="email" class="sr-only">Email </label>
-        <input type="email" id="email" name="email" class="form-control" value="${driver.email}" >
+        <input type="email" placeholder="email" id="email" name="email" class="form-control" value="${driver.email}" >
 
         <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" name="password" class="form-control" value="${driver.password}">
+        <input type="password" placeholder="password" id="password" name="password" class="form-control" value="${driver.password}">
 
         <label for="confirmpassword" class="sr-only">Password</label>
-        <input type="password" id="confirmpassword" name="confirmpassword" class="form-control" value="${driver.password}">
+        <input type="password" placeholder="confirm password" id="confirmpassword" name="confirmpassword" class="form-control" value="${driver.password}">
 
         <label for="phone" class="sr-only">Phone number</label>
-        <input type="text" id="phone" name="phone" class="form-control" value="${driver.phone}">
+        <input type="text" placeholder="phone number" id="phone" name="phone" class="form-control" value="${driver.phone}">
 
         <div id="updateDriver">
-            <button type="button" class="btn">Update</button>
+            <button type="button" class="btn btn-primary">Update</button>
         </div>
     </form>
 </div>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.delegate.js" type="text/javascript"></script>
 <script src="<%=application.getContextPath()%>/resources/admin//bower_components/jquery/dist/jquery.validate.min.js"></script>
 
 
 <script src="<%=application.getContextPath()%>/resources/admin/js/updatedriver.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/hsps.js"></script>
 
 </body>
 </html>

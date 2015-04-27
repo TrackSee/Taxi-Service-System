@@ -1,19 +1,33 @@
 package ua.com.tracksee.dao.postrgresql;
 
-import ua.com.tracksee.dao.CarDAO;
-import ua.com.tracksee.entities.CarEntity;
 
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.dao.CarDAO;
+import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
+import ua.com.tracksee.entities.CarEntity;
+import ua.com.tracksee.entities.ServiceUserEntity;
+
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.math.BigInteger;
+import java.util.List;
 
 /**
  * @author KatiaStetsiuk
  */
-
+@Stateless
 public class CarDAOBean implements CarDAO {
+
+    private static final Logger logger = LogManager.getLogger();
+    int CARS_PAGE_SIZE =5;
+
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
+
 
     @Override
     public void createCar(CarEntity carEntity) {
@@ -48,4 +62,50 @@ public class CarDAOBean implements CarDAO {
         Query query = entityManager.createNativeQuery(sql);
         query.executeUpdate();
     }
+
+    @Override
+    public List<CarEntity> getCars() {
+        Query query = entityManager.createNativeQuery("SELECT * FROM car "
+                , CarEntity.class);
+        return query.getResultList();
+    }
+
+    public List<CarEntity> getCarsPart(int partNumber) {
+
+        Query query = entityManager.createNativeQuery("SELECT * FROM car " +
+                "LIMIT ?1 OFFSET ?2", CarEntity.class);
+        query.setParameter(1, CARS_PAGE_SIZE);
+        query.setParameter(2, (partNumber - 1) * CARS_PAGE_SIZE);
+        return query.getResultList();
+    }
+
+    public int getCarPagesCount() {
+        Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM car");
+        Integer carsCount = ((BigInteger) q.getSingleResult()).intValue();
+        return (int) (Math.ceil((double) carsCount / CARS_PAGE_SIZE));
+    }
+    @Override
+    public CarEntity getCarByNumber(String carNumber) {
+        if(carNumber == null){
+            logger.warn("carNumber can't be null!");
+            throw new IllegalArgumentException("carNumber can't be null!");
+        }
+        CarEntity car = entityManager.find(CarEntity.class, carNumber);
+        if(car == null){
+            logger.warn("There is no car with such id");
+            //TODO write exception for car!!!!!
+            throw new ServiceUserNotFoundException("There is no car with such id");
+        }
+        return car;
+    }
+
+    //TODO make test for all methods in EJB CarDAOBean
+    @Override
+    public List<CarEntity> getAllFreeCars() {
+        Query q = entityManager.createNativeQuery("SELECT * FROM car where car.car_number NOT IN " +
+                "(SELECT service_user.car_number FROM service_user WHERE service_user.car_number " +
+                "IS NOT NULL)", CarEntity.class);
+        return q.getResultList();
+   }
+
 }
