@@ -13,9 +13,12 @@ import java.util.List;
  */
 @Local
 public interface TaxiOrderDAO {
+
     void addComment(TaxiOrderEntity taxiOrderEntity);
 
     Long addOrder(TaxiOrderEntity taxiOrderEntity);
 
     List<TaxiOrderEntity> getQueuedOrders();
+
+    TaxiOrderEntity getOrder(Long trackingNumber);
 }
