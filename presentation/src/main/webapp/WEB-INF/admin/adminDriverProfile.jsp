@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
@@ -134,7 +135,7 @@
                 </div>
                     <select class="make form-control taxiCar" name="taxiCar">
                         <c:forEach items="${requestScope.cars}" var="car">
-                            <option value="${car.carNumber}"></option>
+                            <option value="${car.carNumber}">${car.carNumber}</option>
                         </c:forEach>
                     </select>
                 <div class="carButtons">

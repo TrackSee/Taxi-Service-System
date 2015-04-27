@@ -1,9 +1,8 @@
 package ua.com.tracksee.servlets.admin;
 
         import org.apache.logging.log4j.LogManager;
-        import org.apache.logging.log4j.Logger;
-        import org.codehaus.jackson.map.ObjectMapper;
-import ua.com.tracksee.entities.CarEntity;
+import org.apache.logging.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.logic.admin.AdministratorBean;
 
@@ -13,9 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-        import java.io.BufferedReader;
-        import java.io.IOException;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.IOException;
 
 /**
  * Created by kstes_000 on 24-Apr-15.
@@ -29,13 +27,7 @@ public class AdminCreateDriverServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        System.out.println("Hello");
-        List<CarEntity> cars = administratorBean.getCars();
-
-        req.setAttribute("cars", cars);
         req.getRequestDispatcher("/WEB-INF/admin/adminCreateDriver.jsp").forward(req, resp);
-
     }
 
     /**

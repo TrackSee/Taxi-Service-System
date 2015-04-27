@@ -33,4 +33,24 @@ public class AdministratorBean {
     public void  updateUser(ServiceUserEntity user) { userDAO.updateUser(user);}
     public void createUser(ServiceUserEntity user) {userDAO.createUser(user);}
     public List<CarEntity> getCars() {return carDAO.getCars();}
+
+    /**
+     * @author Vadym_Akymov, Katia Stetsiuk
+     */
+    public List<CarEntity> getAllFreeCars(){
+        return carDAO.getAllFreeCars();
+    }
+
+    /**
+     * @author Vadym_Akymov
+     */
+    public ServiceUserEntity getDriverByID(int id){
+        return userDAO.getDriverByID(id);
+    }
+    /**
+     * @author Vadym_Akymov
+     */
+    public void deleteUser(int id){
+        userDAO.deleteUser(id);
+    }
 }
