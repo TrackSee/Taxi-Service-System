@@ -40,6 +40,12 @@ public class ValidatorBean {
         return password.matches(PASSWORD_REGEXP);
     }
 
+    /**
+     * This method validate phone number
+     *
+     * @param phoneNumber - phone number that must be validate
+     * @return phone number validation state
+     */
     public boolean isValidPhoneNumber(String phoneNumber) {
         int digitCount = 0;
         for (int i = 0; i < phoneNumber.length(); i++) {
@@ -48,7 +54,11 @@ public class ValidatorBean {
                 ++digitCount;
             }
         }
-        return digitCount > 4 & digitCount < 16;
+        // TODO Ruslan check and choose right method between two methods
+        String regex = "^ *\\+?([0-9] ?){6,14}[0-9]( *)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        return digitCount > 4 & digitCount < 16 & matcher.matches();
     }
 
     /**
@@ -63,19 +73,5 @@ public class ValidatorBean {
          * return is valid address
          */
         return true;
-    }
-
-    /**
-     * This method validate phone number
-     *
-     * @param phoneNumber - phone number that must be validate
-     * @return phone number validation state
-     */
-    public boolean isValidOrderPhoneNumber(String phoneNumber) {
-        // TODO Ruslan check and choose right method between two methods
-        String regex = "^ *\\+?([0-9] ?){6,14}[0-9]( *)$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(phoneNumber);
-        return matcher.matches();
     }
 }

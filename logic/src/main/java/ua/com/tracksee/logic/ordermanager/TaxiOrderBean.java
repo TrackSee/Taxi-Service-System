@@ -93,7 +93,7 @@ public class TaxiOrderBean {
         } else {
             throw new OrderException("Invalid email.", "wrong-email");
         }
-        if (validatorBean.isValidOrderPhoneNumber(inputData.get("phoneNumber"))) {
+        if (validatorBean.isValidPhoneNumber(inputData.get("phoneNumber"))) {
             serviceUserEntity.setPhone(inputData.get("phoneNumber"));
         } else {
             throw new OrderException("Invalid phone number.", "wrong-phone");

@@ -81,7 +81,7 @@
                             <div class="nav-collapse collapse">
                                 <ul class="nav">
                                     <ul class="nav">
-                                        <li><a href="">Home</a></li>
+                                        <li><a href="/">Home</a></li>
                                         <li  class="active"><a href="order">Order</a></li>
                                         <li><a href="orderInfo">Order nformation</a></li>
                                         <li><a href="signin">Login</a></li>

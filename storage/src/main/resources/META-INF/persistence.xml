@@ -13,13 +13,7 @@
         <class>com.netcracker.tracksee.entities.ServiceUserEntity</class>
 
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/tracksee"/>
-            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
-
-            <!--Don't forget to set up hibernate.username and pass here-->
-            <property name="hibernate.connection.username" value="Alex"/>
-            <property name="hibernate.connection.password" value="password"/>
         </properties>
     </persistence-unit>
 </persistence>

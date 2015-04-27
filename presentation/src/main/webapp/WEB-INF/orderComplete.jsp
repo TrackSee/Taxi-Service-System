@@ -15,7 +15,7 @@
     <meta charset="utf-8">
     <title>Taxi service</title>
     <meta name="description" content="GotYa Free Bootstrap Theme"/>
-    <meta name="keywords" content="Template, Theme, web, html5, css3, Bootstrap" />
+    <meta name="keywords" content="TrackSee" />
     <!-- end: Meta -->
 
     <!-- start: Mobile Specific -->
@@ -81,7 +81,7 @@
                             <div class="nav-collapse collapse">
                                 <ul class="nav">
                                     <ul class="nav">
-                                        <li><a href="">Home</a></li>
+                                        <li><a href="/">Home</a></li>
                                         <li  class="active"><a href="order">Order</a></li>
                                         <li><a href="orderInfo">Order nformation</a></li>
                                         <li><a href="signin">Login</a></li>
