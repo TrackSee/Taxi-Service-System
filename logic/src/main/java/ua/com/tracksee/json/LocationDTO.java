@@ -1,6 +1,9 @@
 package ua.com.tracksee.json;
 
 /**
+ * Taxi order data transfer object class.
+ * Objects of this class are used for converting to and from JSON.
+ *
  * @author Ruslan Gunavardana
  */
 public class LocationDTO {

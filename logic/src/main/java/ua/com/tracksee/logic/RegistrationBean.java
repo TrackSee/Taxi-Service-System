@@ -12,8 +12,8 @@ import javax.mail.MessagingException;
 import static ua.com.tracksee.logic.exception.RegistrationExceptionType.*;
 
 /**
- * Bean provides account registration and activation
- * functionality.
+ * Bean provides account registration, authorisation
+ * and activation functionality.
  *
  * @author Ruslan Gunavardana
 */
@@ -24,6 +24,9 @@ public class RegistrationBean {
     private @EJB EmailBean emailBean;
     private @EJB ValidationBean validationBean;
     private @EJB UserDAO userDAO;
+
+    public void getUserByAccountInfo() {
+    }
 
     /**
      * Activates registered user's account.
@@ -56,6 +59,29 @@ public class RegistrationBean {
     public void registerCustomerUser(String email, String password, String phoneNumber)
             throws RegistrationException
     {
+        validateRegistrationData(email, password, phoneNumber);
+
+        // adding new user
+        ServiceUserEntity user = new ServiceUserEntity();
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setPhone(phoneNumber);
+        Integer generatedId = userDAO.addUser(user);
+        if (generatedId == null) {
+            throw new RegistrationException("User already exists.", USER_EXISTS);
+        }
+
+        String userCode = generatedId.toString();
+        try {
+            emailBean.sendRegistrationEmail(user, userCode);
+        } catch (MessagingException e) {
+            throw new RegistrationException("Failed to send registration email.", EMAIL_SENDING_FAIL);
+        }
+    }
+
+    private void validateRegistrationData(String email, String password, String phoneNumber)
+            throws RegistrationException
+    {
         if (!validationBean.isValidEmail(email)) {
             throw new RegistrationException("Invalid email.", BAD_EMAIL);
         }
@@ -64,22 +90,6 @@ public class RegistrationBean {
         }
         if (phoneNumber != null && !validationBean.isValidPhoneNumber(phoneNumber)) {
             throw new RegistrationException("Invalid phone number.", BAD_PHONE);
-        }
-        if (userDAO.getUserByEmail(email) == null) {
-            throw new RegistrationException("User already exists.", USER_EXISTS);
-        }
-
-        // adding new user
-        ServiceUserEntity user = new ServiceUserEntity();
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setPhone(phoneNumber);
-        Integer generatedId = userDAO.addUser(user);
-        String userCode = generatedId.toString();
-        try {
-            emailBean.sendRegistrationEmail(user, userCode);
-        } catch (MessagingException e) {
-            throw new RegistrationException("Failed to send registration email.", EMAIL_SENDING_FAIL);
         }
     }
 
