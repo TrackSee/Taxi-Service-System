@@ -2,8 +2,12 @@ package ua.com.tracksee.dao.postrgresql;
 
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.CarDAO;
+import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.CarEntity;
+import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,6 +21,8 @@ import java.util.List;
  */
 @Stateless
 public class CarDAOBean implements CarDAO {
+
+    private static final Logger logger = LogManager.getLogger();
     int CARS_PAGE_SIZE =5;
 
     @PersistenceContext(unitName = "HibernatePU")
@@ -77,5 +83,18 @@ public class CarDAOBean implements CarDAO {
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM car");
         Integer carsCount = ((BigInteger) q.getSingleResult()).intValue();
         return (int) (Math.ceil((double) carsCount / CARS_PAGE_SIZE));
+    }
+    @Override
+    public CarEntity getCarByID(int id) {
+        if(id <= 0){
+            logger.warn("Car id can't be <= 0!");
+            throw new IllegalArgumentException("Car id can't be <= 0!");
+        }
+        CarEntity car = entityManager.find(CarEntity.class, id);
+        if(car == null){
+            logger.warn("There is no car with such id");
+            throw new ServiceUserNotFoundException("There is no car with such id");
+        }
+        return car;
     }
 }
