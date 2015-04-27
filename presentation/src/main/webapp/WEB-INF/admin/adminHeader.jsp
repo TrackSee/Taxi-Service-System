@@ -37,8 +37,11 @@
                     <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="<%=application.getContextPath()%>/admin/drivers"><i class="fa fa-table fa-fw"></i> Driver Accounts<span class="fa arrow"></span></a>
+                    <a><i class="fa fa-table fa-fw"></i> Driver Accounts<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
+                        <li>
+                            <a href="<%=application.getContextPath()%>/admin/drivers">List of drivers</a>
+                        </li>
                         <li>
                             <a href="<%=application.getContextPath()%>/admin/createdriver">Create driver account</a>
                         </li>
