@@ -2,8 +2,12 @@ package ua.com.tracksee.dao.postrgresql;
 
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.CarDAO;
+import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.CarEntity;
+import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,6 +21,8 @@ import java.util.List;
  */
 @Stateless
 public class CarDAOBean implements CarDAO {
+
+    private static final Logger logger = LogManager.getLogger();
     int CARS_PAGE_SIZE =5;
 
     @PersistenceContext(unitName = "HibernatePU")
@@ -78,4 +84,28 @@ public class CarDAOBean implements CarDAO {
         Integer carsCount = ((BigInteger) q.getSingleResult()).intValue();
         return (int) (Math.ceil((double) carsCount / CARS_PAGE_SIZE));
     }
+    @Override
+    public CarEntity getCarByNumber(String carNumber) {
+        if(carNumber == null){
+            logger.warn("carNumber can't be null!");
+            throw new IllegalArgumentException("carNumber can't be null!");
+        }
+        CarEntity car = entityManager.find(CarEntity.class, carNumber);
+        if(car == null){
+            logger.warn("There is no car with such id");
+            //TODO write exception for car!!!!!
+            throw new ServiceUserNotFoundException("There is no car with such id");
+        }
+        return car;
+    }
+
+    //TODO make test for all methods in EJB CarDAOBean
+    @Override
+    public List<CarEntity> getAllFreeCars() {
+        Query q = entityManager.createNativeQuery("SELECT * FROM car where car.car_number NOT IN " +
+                "(SELECT service_user.car_number FROM service_user WHERE service_user.car_number " +
+                "IS NOT NULL)", CarEntity.class);
+        return q.getResultList();
+   }
+
 }

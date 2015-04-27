@@ -61,7 +61,7 @@
             </tr>
             </thead>
             <tbody id="table-body">
-            <c:forEach items="${requestScope.cars}" var="driver">
+            <c:forEach items="${requestScope.cars}" var="car">
                 <tr>
                     <td>${car.carNumber}</td>
                     <td>${car.carModel}</td>
@@ -103,7 +103,7 @@
 <!-- Custom Theme JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
 <%--for pagination--%>
-<script src="<%=application.getContextPath()%>/resources/admin/js/pagination-car.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/paginator-car.js"></script>
 
 
 </body>

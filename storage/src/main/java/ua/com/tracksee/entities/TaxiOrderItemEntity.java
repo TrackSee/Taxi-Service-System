@@ -82,4 +82,5 @@ public class TaxiOrderItemEntity {
     public void setTaxiOrder(TaxiOrderEntity taxiOrderByTrackingNumer) {
         this.taxiOrder = taxiOrderByTrackingNumer;
     }
+
 }

@@ -27,13 +27,16 @@ public class AdminCarServlet extends HttpServlet {
     private CarDAO carDAO;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<CarEntity> cars = carDAO.getCars();
+        List<CarEntity> cars = carDAO.getCarsPart(1);
         req.setAttribute("cars", cars);
+        System.out.println("PAGES COUNT" + carDAO.getCarPagesCount());
         req.setAttribute("pagesCount", carDAO.getCarPagesCount());
         req.getRequestDispatcher("/WEB-INF/admin/adminCarList.jsp").forward(req, resp);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        System.out.println("POOOOOOOOOST");
         String pageParam = req.getParameter("pageNumber");
         Integer pageNumber = null;
 

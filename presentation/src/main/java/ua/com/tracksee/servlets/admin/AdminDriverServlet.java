@@ -25,6 +25,7 @@ public class AdminDriverServlet extends HttpServlet {
 
     @EJB
     private AdministratorBean administratorBean;
+    //TODO make all operations via logic beans
     @EJB
     private UserDAO userDAO;
 

@@ -16,4 +16,11 @@ public interface CarDAO {
     List<CarEntity> getCars();
     public int getCarPagesCount();
     List<CarEntity> getCarsPart(int partNumber);
+    CarEntity getCarByNumber(String carNumber);
+
+    /**
+     *@author Vadym Akymov, Katia Stetsiuk
+     * @return list of all free cars
+     */
+    List<CarEntity> getAllFreeCars();
 }

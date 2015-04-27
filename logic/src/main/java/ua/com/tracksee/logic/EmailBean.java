@@ -14,12 +14,12 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
 import java.util.HashMap;
 import java.util.Map;
 
-import static ua.com.tracksee.mailsender.MailSender.*;
-import static ua.com.tracksee.util.EmailUtils.*;
+import static ua.com.tracksee.mailsender.MailSender.sendTemplatedEmail;
+import static ua.com.tracksee.util.EmailUtils.SERVER_EMAIL;
+import static ua.com.tracksee.util.EmailUtils.getEmailSession;
 
 /**
  * A bean provides any email sending action used in the system.
