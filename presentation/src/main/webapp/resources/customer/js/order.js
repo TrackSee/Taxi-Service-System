@@ -30,28 +30,14 @@ $(function() {
             url: 'signup',
             data: JSON.stringify(this.serializeObject()),
             success: function (data) {
-                var notifyMessage;
-
-                if (data == "success") {
-                    $(location).attr('href', '/');
-                } else
-
-                if (data == "bad-email") {
-                    $.notify("Invalid email!", "error");
-                } else if (data == "bad-password") {
-                    $.notify("Invalid password", "error");
-                } else if (data == "bad-phone") {
-                    $.notify("Invalid phone number", "error");
-                } else if (data == "send-fail") {
-                    $.notify("Email sending failed", "info");
-                } else if (data == "user-exists") {
-                    $.notify("You are already registered", "info");
+                if (data == "error") {
+                    $.notify("Invalid data entered!", "error");
                 } else {
                     $('document').html(data);
                 }
             },
             error: function (xhr, str) {
-                $.notify("Server failed", "info");
+                $.notify("Internal server error occurred.", "warn");
             }
         });
         return false;
