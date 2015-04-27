@@ -4,6 +4,7 @@ import ua.com.tracksee.enumartion.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 import static javax.persistence.EnumType.STRING;
@@ -29,6 +30,8 @@ public class TaxiOrderEntity {
     private Boolean airConditioner;
     private String comment;
     private Integer userId;
+    private Timestamp carArriveTime;
+
 
     @Id
     @GeneratedValue(generator = "orderSeq")
@@ -178,6 +181,16 @@ public class TaxiOrderEntity {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    @Basic
+    @Column(name = "car_arrive_time")
+    public Timestamp getCarArriveTime() {
+        return carArriveTime;
+    }
+
+    public void setCarArriveTime(Timestamp carArriveTime) {
+        this.carArriveTime = carArriveTime;
     }
 
     @Override

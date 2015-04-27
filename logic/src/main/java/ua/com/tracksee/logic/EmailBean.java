@@ -14,12 +14,11 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
 import java.util.HashMap;
 import java.util.Map;
 
-import static ua.com.tracksee.mailsender.MailSender.*;
-import static ua.com.tracksee.util.EmailUtils.*;
+import static ua.com.tracksee.util.EmailUtils.SERVER_EMAIL;
+import static ua.com.tracksee.util.EmailUtils.getEmailSession;
 
 /**
  * @author Ruslan Gunavardana
@@ -91,12 +90,12 @@ public class EmailBean {
 
     @Asynchronous
     public void sendChangingTOFromAssignedToInProgress(TaxiOrderItemEntity order) {
-        Map<String, Object> data = new HashMap<String, Object>();
-        data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
-        data.put("trackingNumber", order.getTaxiOrderByTrackingNumer().getTrackingNumber());
-        data.put("color", order.getServiceUserByDriverId().getCar().getColor());
-        data.put("carModel", order.getServiceUserByDriverId().getCar().getCarModel());
-        data.put("carNumber", order.getServiceUserByDriverId().getCar().getCarNumber());
+//        Map<String, Object> data = new HashMap<String, Object>();
+//        data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
+//        data.put("trackingNumber", order.getTaxiOrderByTrackingNumer().getTrackingNumber());
+//        data.put("color", order.getServiceUserByDriverId().getCar().getColor());
+//        data.put("carModel", order.getServiceUserByDriverId().getCar().getCarModel());
+//        data.put("carNumber", order.getServiceUserByDriverId().getCar().getCarNumber());
 //        sendTemplatedEmail(userDAO.getUserById(order.getTaxiOrderByTrackingNumer().getUserId()).getEmail(),
 //                CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_SUBJECT_TEMP_PROP_NAME,
 //                CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_TEMP_PATH, data);
@@ -109,12 +108,12 @@ public class EmailBean {
     @Asynchronous
     public void sendChangingTOFromInProgressToCompleted(TaxiOrderItemEntity order) {
         Map<String, Object> data = new HashMap<String, Object>();
-        data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
-        data.put("trackingNumber", order.getTaxiOrderByTrackingNumer().getTrackingNumber());
-        data.put("registrationURL", REGISTRATION_URL);
-
-        sendTemplatedEmail(userDAO.getUserById(order.getTaxiOrderByTrackingNumer().getUserId()).getEmail(), CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_SUBJECT_TEMP_PROP_NAME,
-                CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_TEMP_PATH, data);
+//        data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
+//        data.put("trackingNumber", order.getTaxiOrderByTrackingNumer().getTrackingNumber());
+//        data.put("registrationURL", REGISTRATION_URL);
+//
+//        sendTemplatedEmail(userDAO.getUserById(order.getTaxiOrderByTrackingNumer().getUserId()).getEmail(), CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_SUBJECT_TEMP_PROP_NAME,
+//                CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_TEMP_PATH, data);
     }
 
 
@@ -125,10 +124,10 @@ public class EmailBean {
     @Asynchronous
     public void sendChangingTOFromAssignedToRefused(TaxiOrderItemEntity order) {
         Map<String, Object> data = new HashMap<String, Object>();
-        data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
-        data.put("trackingNumber", order.getTaxiOrderByTrackingNumer().getTrackingNumber());
-
-        sendTemplatedEmail(userDAO.getUserById(order.getTaxiOrderByTrackingNumer().getUserId()).getEmail(), CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_SUBJECT_TEMP_PROP_NAME,
-                CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_TEMP_PATH, data);
+//        data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
+//        data.put("trackingNumber", order.getTaxiOrderByTrackingNumer().getTrackingNumber());
+//
+//        sendTemplatedEmail(userDAO.getUserById(order.getTaxiOrderByTrackingNumer().getUserId()).getEmail(), CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_SUBJECT_TEMP_PROP_NAME,
+//                CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_TEMP_PATH, data);
     }
 }

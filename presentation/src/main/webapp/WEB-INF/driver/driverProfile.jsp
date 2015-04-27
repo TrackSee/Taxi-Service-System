@@ -1,215 +1,452 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
-  User: Vadym Akymov
-  Date: 15.04.15
-  Time: 23:20
+  User: Maria Komar
+  Date: 19.04.2015
+  Time: 21:06
   To change this template use File | Settings | File Templates.
 --%>
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-    <!-- start: Meta -->
-    <meta charset="utf-8">
-    <title>TrackSee</title>
-    <!-- end: Meta -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <!-- start: Mobile Specific -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!-- end: Mobile Specific -->
+  <title>TrackSee</title>
 
-    <!-- start: Facebook Open Graph -->
-    <meta property="og:title" content=""/>
-    <meta property="og:description" content=""/>
-    <meta property="og:type" content=""/>
-    <meta property="og:url" content=""/>
-    <meta property="og:image" content=""/>
-    <!-- end: Facebook Open Graph -->
+  <!-- Bootstrap Core CSS -->
+  <link href="<%=application.getContextPath()%>/resources/css/bootstrap3/bootstrap.min.css" rel="stylesheet">
 
-    <!-- start: CSS -->
-    <link href="<%=application.getContextPath()%>/resources/css/bootstrap2/bootstrap.css" rel="stylesheet">
-    <link href="<%=application.getContextPath()%>/resources/css/bootstrap2/bootstrap-responsive.css" rel="stylesheet">
-    <link href="<%=application.getContextPath()%>/resources/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans:400,700">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Serif">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Boogaloo">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Economica:700,400italic">
-    <!-- end: CSS -->
+  <!-- MetisMenu CSS -->
+  <link href="<%=application.getContextPath()%>/resources/css/metisMenu.min.css" rel="stylesheet">
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+  <!-- Timeline CSS -->
+  <link href="<%=application.getContextPath()%>/resources/css/timeline.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="<%=application.getContextPath()%>/resources/css/sb-admin-2.css" rel="stylesheet">
+
+  <!-- Morris Charts CSS -->
+  <link href="<%=application.getContextPath()%>/resources/css/morris.css" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="<%=application.getContextPath()%>/resources/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
 </head>
+
 <body>
 
-<header>
-
-    <!--start: Container -->
-    <div class="container">
-
-        <!--start: Row -->
-        <div class="row">
-
-            <!--start: Logo -->
-            <div class="logo span3">
-
-                <a class="brand" href="#"><img src="<%=application.getContextPath()%>/resources/img/logo.png" alt="Logo"></a>
-
-            </div>
-            <!--end: Logo -->
-
-            <!--start: Navigation -->
-            <div class="span9">
-
-                <div class="navbar navbar-inverse">
-                    <div class="navbar-inner">
-                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </a>
-                        <div class="nav-collapse collapse">
-                            <ul class="nav">
-                                <li><a href="<%=application.getContextPath()%>">Order</a></li>
-                                <li class="active"><a href="">Order information</a></li>
-                                <li><a href="<c:url value="/signin"/>">Login</a></li>
-                                <li><a href="<c:url value="/signup"/>">Registration</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!--end: Navigation -->
-
-        </div>
-        <!--end: Row -->
-
-    </div>
-    <!--end: Container-->
-
-</header>
-
-<!-- start: Page Title -->
-<div id="page-title">
-
-    <div id="page-title-inner">
-
-        <!-- start: Container -->
-        <div class="container">
-
-            <h2><i class="ico-stats ico-white"></i>Order information</h2>
-
-        </div>
-        <!-- end: Container  -->
-
-    </div>
-
-</div>
-<!-- end: Page Title -->
-
-<!--start: Wrapper-->
 <div id="wrapper">
 
-    <!--start: Container -->
-    <div class="container">
-
-        <!--start: Row -->
-        <div class="row">
-
-            <div class="span8">
-
-                <!-- start: About Us -->
-                <div id="about">
-                    <div class="title"><h3>Information about order</h3></div>
-                    <p>
-
-                    </p>
-                </div>
-                <!-- end: About Us -->
-
-                <!-- start: Team -->
-                <div id="team">
-
-                    <div class="title"><h3>Information about assigned driver</h3></div>
-
-                    <!-- start: Row -->
-                    <div class="row">
-
-                        <!-- start: About Member -->
-                        <div class="span4">
-                            <div class="avatar view-team">
-                                <img src="<%=application.getContextPath()%>/resources/img/team_member.jpg" alt="team member">
-                                <div class="mask">
-                                    <h2>About driver</h2>
-                                    <p>
-                                        Information about driver.Information about driver.Information about driver.Information about driver.Information about driver.Information about driver.Information about driver.Information about driver.Information about driver.Information about driver.Information about driver.Information about driver.
-                                    </p>
-                                    <a href="#" class="info">Some additional information on another page</a>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                            <div class="team-name">Bill Budrov  <span> / Taxi drover</span></div>
-                        </div>
-                        <!-- end: About Member -->
-                        <!-- end: About Member -->
-
-                    </div>
-                    <!-- end: Row -->
-
-                </div>
-                <!-- end: Team -->
-
-
-            </div>
-
-            <div class="span4">
-
-                <!-- start: Sidebar -->
-                <div id="sidebar">
-
-                    <!-- start: Skills -->
-                    <div class="title"><h3>Information about ....</h3></div>
-                    <ul class="progress-bar">
-                        <li>
-                            <h5>Some information ( 40% )</h5>
-                            <div class="meter"><span style="width: 40%"></span></div><!-- Edite width here -->
-                        </li>
-                        <li>
-                            <h5>Some information ( 80% )</h5>
-                            <div class="meter"><span style="width: 80%"></span></div><!-- Edite width here -->
-                        </li>
-                        <li>
-                            <h5>Some information ( 100% )</h5>
-                            <div class="meter"><span style="width: 100%"></span></div><!-- Edite width here -->
-                        </li>
-                        <li>
-                            <h5>Some information ( 60% )</h5>
-                            <div class="meter"><span style="width: 60%"></span></div><!-- Edite width here -->
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+  <!-- Navigation -->
+  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/TaxiService/">TrackSee</a>
     </div>
+    <!-- /.navbar-header -->
+
+    <ul class="nav navbar-top-links navbar-right">
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+          <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-messages">
+          <li>
+            <a href="#">
+              <div>
+                <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+              </div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="#">
+              <div>
+                <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+              </div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="#">
+              <div>
+                <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+              </div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a class="text-center" href="#">
+              <strong>Read All Messages</strong>
+              <i class="fa fa-angle-right"></i>
+            </a>
+          </li>
+        </ul>
+        <!-- /.dropdown-messages -->
+      </li>
+      <!-- /.dropdown -->
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+          <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-tasks">
+          <li>
+            <a href="#">
+              <div>
+                <p>
+                  <strong>Task 1</strong>
+                  <span class="pull-right text-muted">40% Complete</span>
+                </p>
+                <div class="progress progress-striped active">
+                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                    <span class="sr-only">40% Complete (success)</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="#">
+              <div>
+                <p>
+                  <strong>Task 2</strong>
+                  <span class="pull-right text-muted">20% Complete</span>
+                </p>
+                <div class="progress progress-striped active">
+                  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                    <span class="sr-only">20% Complete</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="#">
+              <div>
+                <p>
+                  <strong>Task 3</strong>
+                  <span class="pull-right text-muted">60% Complete</span>
+                </p>
+                <div class="progress progress-striped active">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                    <span class="sr-only">60% Complete (warning)</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="#">
+              <div>
+                <p>
+                  <strong>Task 4</strong>
+                  <span class="pull-right text-muted">80% Complete</span>
+                </p>
+                <div class="progress progress-striped active">
+                  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                    <span class="sr-only">80% Complete (danger)</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a class="text-center" href="#">
+              <strong>See All Tasks</strong>
+              <i class="fa fa-angle-right"></i>
+            </a>
+          </li>
+        </ul>
+        <!-- /.dropdown-tasks -->
+      </li>
+      <!-- /.dropdown -->
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+          <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-alerts">
+          <li>
+            <a href="#">
+              <div>
+                <i class="fa fa-comment fa-fw"></i> New Comment
+                <span class="pull-right text-muted small">4 minutes ago</span>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="#">
+              <div>
+                <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                <span class="pull-right text-muted small">12 minutes ago</span>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="#">
+              <div>
+                <i class="fa fa-envelope fa-fw"></i> Message Sent
+                <span class="pull-right text-muted small">4 minutes ago</span>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="#">
+              <div>
+                <i class="fa fa-tasks fa-fw"></i> New Task
+                <span class="pull-right text-muted small">4 minutes ago</span>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="#">
+              <div>
+                <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                <span class="pull-right text-muted small">4 minutes ago</span>
+              </div>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a class="text-center" href="#">
+              <strong>See All Alerts</strong>
+              <i class="fa fa-angle-right"></i>
+            </a>
+          </li>
+        </ul>
+        <!-- /.dropdown-alerts -->
+      </li>
+      <!-- /.dropdown -->
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+          <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+          <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+          </li>
+          <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+          </li>
+          <li class="divider"></li>
+          <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+          </li>
+        </ul>
+        <!-- /.dropdown-user -->
+      </li>
+      <!-- /.dropdown -->
+    </ul>
+    <!-- /.navbar-top-links -->
+
+    <div class="navbar-default sidebar" role="navigation">
+      <div class="sidebar-nav navbar-collapse">
+        <ul class="nav" id="side-menu">
+          <li class="sidebar-search">
+            <div class="input-group custom-search-form">
+              <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                  <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+            </div>
+            <!-- /input-group -->
+          </li>
+
+          <li>
+            <a href="/TaxiService/driver"><i class="fa fa-table fa-fw"></i> Taxi orders</a>
+          </li>
+          <li>
+            <a href="/TaxiService/history-of-orders"><i class="fa fa-table fa-fw"></i> History of orders</a>
+          </li>
+          <li>
+            <a href="/TaxiService/driverProfile"><i class="fa fa-table fa-fw"></i> Your profile</a>
+          </li>
+        </ul>
+      </div>
+      <!-- /.sidebar-collapse -->
+    </div>
+    <!-- /.navbar-static-side -->
+  </nav>
+
+  <div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="page-header">Driver dashboard</h1>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-3">
+                <i class="fa fa-comments fa-5x"></i>
+              </div>
+              <div class="col-xs-9 text-right">
+                <div class="huge">26</div>
+                <div>Taxi Orders</div>
+              </div>
+            </div>
+          </div>
+          <a href="/TaxiService/driver">
+            <div class="panel-footer">
+              <span class="pull-left">View Details</span>
+              <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+              <div class="clearfix"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="panel panel-green">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-3">
+                <i class="fa fa-tasks fa-5x"></i>
+              </div>
+              <div class="col-xs-9 text-right">
+                <div class="huge">12</div>
+                <div>History Of Orders</div>
+              </div>
+            </div>
+          </div>
+          <a href="/TaxiService/history-of-orders">
+            <div class="panel-footer">
+              <span class="pull-left">View Details</span>
+              <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+              <div class="clearfix"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="panel panel-yellow">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-3">
+                <i class="fa fa-shopping-cart fa-5x"></i>
+              </div>
+              <div class="col-xs-9 text-right">
+                <div class="huge">124</div>
+                <div>Your Profile</div>
+              </div>
+            </div>
+          </div>
+          <a href="/TaxiService/driver-profile">
+            <div class="panel-footer">
+              <span class="pull-left">View Details</span>
+              <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+              <div class="clearfix"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-green">
+          <div class="panel-heading">
+            About driver
+          </div>
+          <div class="panel-body">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+          </div>
+          <div class="panel-footer">
+            Panel Footer
+          </div>
+        </div>
+        <!-- /.col-lg-4 -->
+      </div>
+      <div class="col-lg-12">
+        <div class="panel panel-yellow">
+          <div class="panel-heading">
+            About car
+          </div>
+          <div class="panel-body">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+          </div>
+          <div class="panel-footer">
+            Panel Footer
+          </div>
+        </div>
+        <!-- /.col-lg-4 -->
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+
+  </div>
+  <!-- /#page-wrapper -->
+
 </div>
-<!-- end: Wrapper  -->
+<!-- /#wrapper -->
 
+<!-- jQuery Version 1.11.2 -->
+<script src="<%=application.getContextPath()%>/resources/js/jquery-1.11.2.min.js"></script>
+<!--
+<script src="../../../resources/js/jquery-1.11.2.js"></script>
+<script src="../../../resources/js/jquery.min.js"></script>
+<script type="text/javascript" language="javascript" src="../../../resources/js/jquery.js"></script>
+-->
 
-<!-- start: Java Script -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="<%=application.getContextPath()%>/resources/js/jquery-1.8.2.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/bootstrap2/bootstrap.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/flexslider.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/carousel.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/jquery.cslider.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/slider.js"></script>
-<script def src="<%=application.getContextPath()%>/resources/js/custom.js"></script>
-<!-- end: Java Script -->
+<!-- Bootstrap Core JavaScript -->
+<script src="<%=application.getContextPath()%>/resources/js/bootstrap2/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="<%=application.getContextPath()%>/resources/js/metisMenu.min.js"></script>
+
+<!-- Morris Charts JavaScript -->
+<script src="<%=application.getContextPath()%>/resources/js/raphael-min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/morris.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/morris-data.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="<%=application.getContextPath()%>/resources/js/sb-admin-2.js"></script>
 
 </body>
+
 </html>

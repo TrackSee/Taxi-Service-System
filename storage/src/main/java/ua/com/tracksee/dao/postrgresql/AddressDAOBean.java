@@ -22,8 +22,8 @@ public class AddressDAOBean implements AddressDAO {
 
     @Override
     public void addAddress(AddressEntity address) {
-        String sql = "INSERT INTO address name, user_id, string representation, location" +
-                " VALUES (?,?,?,?)";
+        String sql = "INSERT INTO address name, user_id, string representation, location " +
+                "VALUES (?,?,?,?)";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, address.getName());
         query.setParameter(2, address.getUserId());

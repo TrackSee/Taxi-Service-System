@@ -4,6 +4,7 @@ package ua.com.tracksee.dao.postrgresql;
 
 import ua.com.tracksee.dao.CarDAO;
 import ua.com.tracksee.entities.CarEntity;
+import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
