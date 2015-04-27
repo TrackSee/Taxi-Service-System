@@ -30,6 +30,10 @@ public class TaxiOrderEntity {
     private String comment;
     private Integer userId;
 
+    public TaxiOrderEntity() {
+
+    }
+
     public TaxiOrderEntity(OrderStatus status) {
         this.status = status;
     }

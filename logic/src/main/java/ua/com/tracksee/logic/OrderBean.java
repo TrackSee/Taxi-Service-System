@@ -54,7 +54,7 @@ public class OrderBean {
         order.setMusicStyle(orderDTO.getMusicStyle());
         order.setAnimalTransportation(orderDTO.getAnimalTransportation());
         order.setFreeWifi(orderDTO.getFreeWiFi());
-        order.setSmokingDriver(orderDTO.getSmokingDriver());
+        order.setNonSmokingDriver(orderDTO.getSmokingDriver());
         order.setAirConditioner(orderDTO.getAirConditioner());
         return taxiOrderDAO.addOrder(order);
     }
