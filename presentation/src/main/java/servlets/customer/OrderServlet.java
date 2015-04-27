@@ -42,17 +42,16 @@ public class OrderServlet extends HttpServlet {
                 req.setAttribute("price", price);
                 req.setAttribute("addressOrigin", req.getParameter("addressOrigin"));
                 req.setAttribute("addressDestination", req.getParameter("addressDestination"));
-                System.out.println(req.getParameter("addressOrigin"));
-                req.getRequestDispatcher("/WEB-INF/orderComplete.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/success.jsp").forward(req, resp);
             } else {
-                resp.sendRedirect("/order?error=true");
+                req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req,resp);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage());
             resp.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, "Database unavailable.");
         } catch (NumberFormatException e) {
             logger.error(e.getMessage());
-            resp.sendRedirect("/order?error=true");
+            req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req,resp);
         }
     }
 }

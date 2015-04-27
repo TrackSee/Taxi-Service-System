@@ -59,8 +59,7 @@ public class TaxiOrderBean {
 
         TaxiOrderEntity taxiOrderEntity = validateForTaxiOrder(inputData);
 
-        int trackingNumber=taxiOrderDAO.addTaxiOrder(taxiOrderEntity);
-        sendEmail(serviceUserEntity,trackingNumber);
+        taxiOrderDAO.addTaxiOrder(taxiOrderEntity);
 
         logger.info("Check user :" + serviceUserEntity.getEmail());
         if (!userDAO.checkEmail(serviceUserEntity.getEmail())) {
@@ -198,13 +197,11 @@ public class TaxiOrderBean {
         taxiOrderEntity.setFreeWifi(Boolean.parseBoolean(inputData.get("freeWifi")));
         taxiOrderEntity.setSmokingDriver(Boolean.parseBoolean(inputData.get("smokingDriver")));
         taxiOrderEntity.setAirConditioner(Boolean.parseBoolean(inputData.get("airConditioner")));
-        System.out.println("Price string" + inputData.get("price"));
         try {
             double price = Double.parseDouble(inputData.get("price"));
             taxiOrderEntity.setPrice(price);
-            System.out.println(price + "--Price");
         } catch (Exception e) {
-            throw new OrderException("Invalid price address.", "wrong-destination");
+            throw new OrderException("Invalid price .", "wrong-destination");
         }
         return taxiOrderEntity;
 

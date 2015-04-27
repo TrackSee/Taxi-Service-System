@@ -18,10 +18,9 @@ public interface TaxiOrderDAO {
      * into table taxi_order.
      *
      * @param taxiOrder This is order entity which will be insert into database
-     * @return int This is  order tracking number which will be returned after adding data.
      *
      */
 
-    int addTaxiOrder(TaxiOrderEntity taxiOrder);
+    void addTaxiOrder(TaxiOrderEntity taxiOrder);
 
 }

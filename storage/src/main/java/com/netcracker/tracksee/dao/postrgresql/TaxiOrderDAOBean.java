@@ -20,10 +20,10 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
 
     @Override
-    public int addTaxiOrder(TaxiOrderEntity taxiOrderEntity) {
+    public void addTaxiOrder(TaxiOrderEntity taxiOrderEntity) {
       String sql="INSERT INTO taxi_order (status,price,service,car_category,way_of_payment,driver_sex," +
               "music_style,animal_transportation,free_wifi,smoking_driver,air_conditioner) " +
-              "VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11) RETURNING tracking_number";
+              "VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11)";
 
             Query query = entityManager.createNativeQuery(sql);
             query.setParameter(1, taxiOrderEntity.getStatus().toString());
@@ -38,9 +38,6 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
             query.setParameter(10, taxiOrderEntity.isSmokingDriver());
             query.setParameter(11, taxiOrderEntity.isAirConditioner());
             query.executeUpdate();
-        int id=(Integer)query.getSingleResult();
-        System.out.println(id);
-        return id;
     }
 
 }

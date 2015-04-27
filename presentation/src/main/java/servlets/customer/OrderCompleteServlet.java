@@ -67,13 +67,13 @@ public class OrderCompleteServlet extends HttpServlet {
 
 
             controller.makeOrder(inputData);
-
+            req.getRequestDispatcher("/WEB-INF/success.jsp").forward(req, resp);
         } catch (SQLException e) {
             logger.error(e.getMessage());
             resp.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, "Database unavailable.");
         } catch (OrderException e) {
             logger.error(e.getMessage());
-            resp.sendRedirect("/order?error=true");
+            req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req,resp);
         }
     }
 }
