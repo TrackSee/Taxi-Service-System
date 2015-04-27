@@ -42,7 +42,7 @@ public class OrderServlet extends HttpServlet {
                 req.setAttribute("price", price);
                 req.setAttribute("addressOrigin", req.getParameter("addressOrigin"));
                 req.setAttribute("addressDestination", req.getParameter("addressDestination"));
-                req.getRequestDispatcher("/WEB-INF/success.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/orderComplete.jsp").forward(req, resp);
             } else {
                 req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req,resp);
             }
