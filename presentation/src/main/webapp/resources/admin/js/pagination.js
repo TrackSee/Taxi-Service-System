@@ -19,7 +19,7 @@ $(document).ready(function() {
                 var rows = tBody.children;
                 var i;
                 for (i = 0; i < Math.max(rows.length, driversArray.length); i++) {
-                    //add all necessary td (if drivers.length > rows.length)
+                    //add all necessary td (if drivers.length >= rows.length)
                     if (i >= rows.length) {
                         var newTr = document.createElement('tr');
                         //TODO Don't forget to change magic number of attribute tr count

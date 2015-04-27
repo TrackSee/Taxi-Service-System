@@ -97,4 +97,14 @@ public class CarDAOBean implements CarDAO {
         }
         return car;
     }
+
+    //TODO make test for all methods in EJB CarDAOBean
+    @Override
+    public List<CarEntity> getAllFreeCars() {
+        Query q = entityManager.createNativeQuery("SELECT * FROM car where car.car_number NOT IN " +
+                "(SELECT service_user.car_number FROM service_user WHERE service_user.car_number " +
+                "IS NOT NULL)", CarEntity.class);
+        return q.getResultList();
+   }
+
 }
