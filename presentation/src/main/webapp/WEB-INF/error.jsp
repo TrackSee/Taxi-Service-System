@@ -20,9 +20,6 @@
 
 </head>
 <body>
-<div class="column">
-    <figure class="fixedratio"></figure>
-</div>
 
 </body>
 </html>

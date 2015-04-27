@@ -27,11 +27,17 @@ public class TaxiOrderEntity {
     private Boolean airConditioner;
     private String comment;
     private Integer userId;
-//    @TypeDef(
-//            name = "OrderStatus",
-//            typeClass = OrderStatus.class,
-//           defaultForType = OrderStatus.class;
-//    )
+    private String description;
+
+    @Basic
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     @Id
     @Column(name = "tracking_number")
@@ -43,7 +49,7 @@ public class TaxiOrderEntity {
         this.trackingNumber = trackingNumber;
     }
 
-    /* дописано з бд, бо було відсутнє */
+
     @Basic
     @Column(name = "user_id")
     public Integer getUserId() {

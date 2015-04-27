@@ -123,6 +123,7 @@
 <!-- end: Page Title -->
 
 <!--start: Wrapper-->
+<div class="padding">
 <div id="wrapper">
 
     <!--start: Container -->
@@ -241,8 +242,8 @@
                                 </label>
                             </div>
 
-                                Comments:<br />
-                                  <textarea name="comments" >
+                                Description:<br />
+                                  <textarea name="description" >
 
                                   </textarea><br />
 
@@ -261,10 +262,12 @@
 
         </div>
         <!-- end: Row -->
-    </div>
+     </div>
     <!-- end: Team -->
+   </div>
+    <%-- end:wrapper --%>
 </div>
-
+<%-- end:padding  --%>
 
     <!-- start: Java Script -->
     <!-- Placed at the end of the document so the pages load faster -->

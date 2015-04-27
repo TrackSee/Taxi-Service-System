@@ -64,6 +64,7 @@ public class OrderCompleteServlet extends HttpServlet {
             inputData.put("smokingDriver",req.getParameter("smokingDriver"));
             inputData.put("airConditioner",req.getParameter("airConditioner"));
             inputData.put("price",req.getParameter("price"));
+            inputData.put("description",req.getParameter("description"));
 
 
             controller.makeOrder(inputData);

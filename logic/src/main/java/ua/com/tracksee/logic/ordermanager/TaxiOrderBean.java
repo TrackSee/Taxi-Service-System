@@ -203,6 +203,11 @@ public class TaxiOrderBean {
         } catch (Exception e) {
             throw new OrderException("Invalid price .", "wrong-destination");
         }
+        if(!inputData.get("description").equals("")){
+        taxiOrderEntity.setDescription(inputData.get("description"));
+        }else{
+            taxiOrderEntity.setDescription("");
+        }
         return taxiOrderEntity;
 
 

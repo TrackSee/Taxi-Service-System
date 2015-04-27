@@ -22,8 +22,8 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     @Override
     public void addTaxiOrder(TaxiOrderEntity taxiOrderEntity) {
       String sql="INSERT INTO taxi_order (status,price,service,car_category,way_of_payment,driver_sex," +
-              "music_style,animal_transportation,free_wifi,smoking_driver,air_conditioner) " +
-              "VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11)";
+              "music_style,animal_transportation,free_wifi,smoking_driver,air_conditioner,description) " +
+              "VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12)";
 
             Query query = entityManager.createNativeQuery(sql);
             query.setParameter(1, taxiOrderEntity.getStatus().toString());
@@ -37,6 +37,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
             query.setParameter(9, taxiOrderEntity.isFreeWifi());
             query.setParameter(10, taxiOrderEntity.isSmokingDriver());
             query.setParameter(11, taxiOrderEntity.isAirConditioner());
+            query.setParameter(12, taxiOrderEntity.getDescription());
             query.executeUpdate();
     }
 
