@@ -19,9 +19,17 @@ import java.util.HashMap;
 
 /**
  * @author Sharaban Sasha
+ *
+ * This class return orderComplete.jsp,
+ * get data from this page and send it to TaxiOrderBean
  */
 @WebServlet("/orderComplete")
 public class OrderCompleteServlet extends HttpServlet {
+    /* order status is QUEUED  because
+    * the orders received from the page will
+    * always have the status QUEUED
+    */
+    private static final String ORDER_STATUS = "QUEUED";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,6 +53,7 @@ public class OrderCompleteServlet extends HttpServlet {
             inputData.put("email",req.getParameter("email"));
            inputData.put("addressOrigin", req.getParameter("addressOrigin"));
            inputData.put("addressDestination", req.getParameter("addressDestination"));
+            inputData.put("orderStatus", ORDER_STATUS);
             inputData.put("carCategory", req.getParameter("carCategory"));
             inputData.put("wayOfPayment",req.getParameter("wayOfPayment"));
             inputData.put("driverSex",req.getParameter("driverSex"));
@@ -55,7 +64,6 @@ public class OrderCompleteServlet extends HttpServlet {
             inputData.put("smokingDriver",req.getParameter("smokingDriver"));
             inputData.put("airConditioner",req.getParameter("airConditioner"));
             inputData.put("price",req.getParameter("price"));
-            System.out.println("Price: "+req.getParameter("price"));
 
 
             controller.makeOrder(inputData);

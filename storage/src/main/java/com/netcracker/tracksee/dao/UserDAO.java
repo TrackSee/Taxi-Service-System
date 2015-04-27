@@ -1,8 +1,7 @@
 package com.netcracker.tracksee.dao;
 
 import com.netcracker.tracksee.entities.ServiceUserEntity;
-import com.netcracker.tracksee.entities.TaxiOrder;
-import com.netcracker.tracksee.entities.User;
+
 
 import javax.ejb.Local;
 import java.sql.SQLException;

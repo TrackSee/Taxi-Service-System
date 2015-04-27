@@ -56,7 +56,6 @@ public class ValidatorBean {
      *
      * @param address - address that must be validate
      * @return address validation state
-     * @author Sharaban Sasha
      */
     public boolean isValidAddress(String address) {
         /**
@@ -71,9 +70,9 @@ public class ValidatorBean {
      *
      * @param phoneNumber - phone number that must be validate
      * @return phone number validation state
-     * @author Sharaban Sasha
      */
     public boolean isValidOrderPhoneNumber(String phoneNumber) {
+        // TODO Ruslan check and choose right method between two methods
         String regex = "^ *\\+?([0-9] ?){6,14}[0-9]( *)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(phoneNumber);

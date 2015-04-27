@@ -3,6 +3,8 @@ package ua.com.tracksee;
 import com.netcracker.tracksee.enumartion.CarCategory;
 import ua.com.tracksee.logic.exception.EnumException;
 
+import java.util.ArrayList;
+
 /**
  * Created by Katakuna on 25.04.2015.
  */

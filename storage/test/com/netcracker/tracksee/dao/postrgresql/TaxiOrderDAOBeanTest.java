@@ -13,7 +13,7 @@
 //        import javax.ejb.EJB;
 //
 ///**
-// * @author Sharaba Sasha
+// *
 // */
 //@RunWith(Arquillian.class)
 //public class TaxiOrderDAOBeanTest {

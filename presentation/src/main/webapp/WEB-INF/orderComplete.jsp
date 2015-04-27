@@ -122,13 +122,6 @@
 </div>
 <!-- end: Page Title -->
 
-<%--
-   Fast taxi order form with validation.
-
-  author: Sharaban Sasha
-  Date: 19.04.15
-  Time: 20:37
---%>
 <!--start: Wrapper-->
 <div id="wrapper">
 
@@ -141,7 +134,7 @@
             <div class="span8">
 
                 <!-- start: About Us -->
-                <div id="about" style="padding-left: 50%;">
+                <div id="about">
                     <div class="title"><h3>Fast Booking Taxi</h3></div>
 
                     <form method="post" action="<c:url value="/orderComplete"/>">

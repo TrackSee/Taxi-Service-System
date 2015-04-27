@@ -1,7 +1,6 @@
 package ua.com.tracksee.logic.ordermanager;
 
 
-import com.netcracker.tracksee.dao.AddressDAO;
 import com.netcracker.tracksee.dao.TaxiOrderDAO;
 import com.netcracker.tracksee.dao.UserDAO;
 import com.netcracker.tracksee.entities.*;
@@ -39,8 +38,6 @@ public class TaxiOrderBean {
     @EJB
     private UserDAO userDAO;
     @EJB
-    private AddressDAO addressDAO;
-    @EJB
     private EmailBean mailBean;
     @EJB
     private ValidatorBean validatorBean;
@@ -62,7 +59,9 @@ public class TaxiOrderBean {
 
         TaxiOrderEntity taxiOrderEntity = validateForTaxiOrder(inputData);
 
-       // taxiOrderDAO.addTaxiOrder(taxiOrderEntity);
+        int trackingNumber=taxiOrderDAO.addTaxiOrder(taxiOrderEntity);
+        sendEmail(serviceUserEntity,trackingNumber);
+
         logger.info("Check user :" + serviceUserEntity.getEmail());
         if (!userDAO.checkEmail(serviceUserEntity.getEmail())) {
             logger.info("Create new user: email-" + serviceUserEntity.getEmail() + " phone-" + serviceUserEntity.getPhone());
@@ -78,7 +77,15 @@ public class TaxiOrderBean {
         }
 
     }
-
+    /**
+     * This method checks incoming origin
+     * address and insert it into AddressEntity object.
+     *
+     * @param inputData - input data from the client
+     * @return AddressEntity object that contain checked origin address
+     * @exception ua.com.tracksee.logic.exception.OrderException
+     * @author Sharaban Sasha
+     */
     private ServiceUserEntity validateForUser(HashMap<String, String> inputData) throws OrderException {
         ServiceUserEntity serviceUserEntity = new ServiceUserEntity();
 
@@ -95,7 +102,15 @@ public class TaxiOrderBean {
 
         return serviceUserEntity;
     }
-
+    /**
+     * This method checks incoming origin
+     * address and insert it into AddressEntity object.
+     *
+     * @param inputData - input data from the client
+     * @return AddressEntity object that contain checked origin address
+     * @exception ua.com.tracksee.logic.exception.OrderException
+     * @author Sharaban Sasha
+     */
     private AddressEntity validateForOriginAddress(HashMap<String, String> inputData) throws OrderException {
         AddressEntity addressEntityOrigin = new AddressEntity();
         if (validatorBean.isValidAddress(inputData.get("addressOrigin"))) {
@@ -105,7 +120,15 @@ public class TaxiOrderBean {
         }
         return addressEntityOrigin;
     }
-
+    /**
+     * This method checks incoming destination
+     * address and insert it into AddressEntity object.
+     *
+     * @param inputData - input data from the client
+     * @return AddressEntity object that contain checked destination address
+     * @exception ua.com.tracksee.logic.exception.OrderException
+     * @author Sharaban Sasha
+     */
     private AddressEntity validateForDestinationAddress(HashMap<String, String> inputData) throws OrderException {
         AddressEntity addressEntityDestination = new AddressEntity();
         System.out.println(inputData.get("addressDestination"));
@@ -119,7 +142,15 @@ public class TaxiOrderBean {
         }
         return addressEntityDestination;
     }
-
+    /**
+     * This method checks incoming values and
+     * insert it into TaxiOrderEntity object.
+     *
+     * @param inputData - input data from the client
+     * @return TaxiOrderEntity object that contain checked values
+     * @exception ua.com.tracksee.logic.exception.OrderException
+     * @author Sharaban Sasha
+     */
     private TaxiOrderEntity validateForTaxiOrder(HashMap<String, String> inputData) throws OrderException {
         TaxiOrderEntity taxiOrderEntity = new TaxiOrderEntity();
         CarCategory carCategory;
@@ -129,7 +160,9 @@ public class TaxiOrderBean {
         MusicStyle musicStyle;
         OrderStatus orderStatus = OrderStatus.QUEUED;
 
+        if(inputData.get("orderStatus").equals("QUEUED")){
         taxiOrderEntity.setStatus(orderStatus);
+        }
 
         carCategory = setEnumCarCategory(inputData.get("carCategory"));
         if (carCategory != null) {
@@ -177,7 +210,14 @@ public class TaxiOrderBean {
 
 
     }
-
+    /**
+     * This method checks there is the such
+     * enum  and return it if it exists.
+     *
+     * @param carCategory - string representation of car category
+     * @return car category enum
+     * @author Sharaban Sasha
+     */
 
     private CarCategory setEnumCarCategory(String carCategory) {
         CarCategory enumCarCategory;
@@ -196,7 +236,14 @@ public class TaxiOrderBean {
         }
         return enumCarCategory;
     }
-
+    /**
+     * This method checks there is the such
+     * enum and return it if it exists.
+     *
+     * @param wayOfPayment - string representation of way of payment
+     * @return way of payment enum
+     * @author Sharaban Sasha
+     */
     private WayOfPayment setEnumWayOfPayment(String wayOfPayment) {
         WayOfPayment enumWayOfPayment;
         switch (wayOfPayment) {
@@ -211,7 +258,14 @@ public class TaxiOrderBean {
         }
         return enumWayOfPayment;
     }
-
+    /**
+     * This method checks there is the such
+     * enum and return it if it exists.
+     *
+     * @param driverSex - string representation of driver sex
+     * @return driver sex enum
+     * @author Sharaban Sasha
+     */
     private Sex setEnumDriverSex(String driverSex) {
         Sex enumDriverSex;
         switch (driverSex) {
@@ -226,6 +280,14 @@ public class TaxiOrderBean {
         }
         return enumDriverSex;
     }
+    /**
+     * This method checks there is the such
+     * enum and return it if it exists.
+     *
+     * @param service - string representation of service
+     * @return service enum
+     * @author Sharaban Sasha
+     */
 
     private Service setEnumService(String service) {
         Service enumService;
@@ -257,6 +319,15 @@ public class TaxiOrderBean {
         }
         return enumService;
     }
+
+    /**
+     * This method checks there is the such
+     * enum and return it if it exists.
+     *
+     * @param musicStyle - string representation of music style
+     * @return music style enum
+     * @author Sharaban Sasha
+     */
 
     private MusicStyle setEnumMusicStyle(String musicStyle) {
         MusicStyle enumMusicStyle;
@@ -291,12 +362,6 @@ public class TaxiOrderBean {
         return enumMusicStyle;
     }
 
-
-    private boolean checkPhone(long phone) {
-
-        return false;
-    }
-
     private boolean checkBlackList(long phone) {
 
         //TODO Check phone in black list
@@ -305,9 +370,12 @@ public class TaxiOrderBean {
     }
 
     /**
-     * @param origin      - address
-     * @param destination - number of data part (from 1 to driver_count/DRIVERS_LIMIT)
-     * @return list with part of drivers(default size of list if 10)
+     * This method calculate price,
+     * multiplying the price per 1 km on distance
+     *
+     * @param origin      - address from
+     * @param destination - address to
+     * @return price of order
      */
 
     @Lock(WRITE)
@@ -318,15 +386,15 @@ public class TaxiOrderBean {
         return 1;
     }
 
-    private long getDistance(Address origin, Address destination) {
-
-        // TODO calculate distance
-
-        return 0;
-    }
-
-    public void sendEmail(User user) {
-
+    /**
+     * This method send email with
+     * tracking number
+     *
+     * @param user- user that make order
+     * @param trackingNumber- user that make order
+     */
+    public void sendEmail(ServiceUserEntity user,int trackingNumber) {
+    // TODO send email
     }
 
 }

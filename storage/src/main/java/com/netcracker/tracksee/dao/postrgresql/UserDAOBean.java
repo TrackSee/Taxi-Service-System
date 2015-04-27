@@ -1,7 +1,6 @@
 package com.netcracker.tracksee.dao.postrgresql;
 
 import com.netcracker.tracksee.dao.UserDAO;
-import com.netcracker.tracksee.entities.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.netcracker.tracksee.entities.ServiceUserEntity;
@@ -30,9 +29,6 @@ public class UserDAOBean implements UserDAO {
     @Override
     public int addUser(ServiceUserEntity user) throws SQLException {
             Query query= entityManager.createNativeQuery("INSERT INTO service_user (email, phone,password,activated) VALUES (?1,?2,?3,?4)");
-            //String sql = "INSERT INTO address (email,phone,activated) " +
-            //      "VALUES("+"'"+user.getEmail()+"','"+user.getPhone()+"','"+user.isActivated()+")";
-            //Query query = entityManager.createNativeQuery(sql);
             query.setParameter(1, user.getEmail());
             query.setParameter(2, (user.getPhone()));
             query.setParameter(3,"NONE");
