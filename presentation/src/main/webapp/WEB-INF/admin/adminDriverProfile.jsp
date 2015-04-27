@@ -28,7 +28,6 @@
 
     <%--My resources--%>
     <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/admin/css/admin.css">
-    <script href="<%=application.getContextPath()%>/resources/admin/js/admin.js"></script>
 
     <!-- Custom Fonts -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -115,10 +114,10 @@
                                 </div>
                             </div>
                             <div class="panel-footer">
-                                <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
+                                <a data-toggle="tooltip" title="choose car" type="button" class="btn icon-cars btn-primary carChooseButton"><i class="glyphicon glyphicon-road"></i></a>
                         <span class="pull-right">
-                            <a href="updatedriver?userId=${driver.userId}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger removeBtn"><i class="glyphicon glyphicon-remove"></i></a>
+                            <a href="updatedriver?userId=${driver.userId}" title="update" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a data-original-title="Remove this user" title="delete" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger removeBtn"><i class="glyphicon glyphicon-remove"></i></a>
                             <input id="driverId" type="hidden" value="${driver.userId}">
                         </span>
                             </div>
@@ -128,6 +127,22 @@
                 </div>
             </div>
         <%--End profile container--%>
+            <%--Car choosing menu--%>
+            <div class="carChoose">
+                <div>
+                    <label>Choose car for driver</label>
+                </div>
+                    <select class="make form-control taxiCar" name="taxiCar">
+                        <c:forEach items="${requestScope.cars}" var="car">
+                            <option value="${car.carNumber}"></option>
+                        </c:forEach>
+                    </select>
+                <div class="carButtons">
+                    <input type="button" class="btn btn-success okBtn" value="OK"/>
+                    <input type="button" class="btn btn-danger cancelBtn" value="Cancel"/>
+                </div>
+            </div>
+            <%--end of car choosing menu--%>
     </div>
 </div>
 <!-- jQuery -->
@@ -145,6 +160,8 @@
 <script src="<%=application.getContextPath()%>/resources/admin/js/pagination.js"></script>
 <%--For removing drivers--%>
 <script src="<%=application.getContextPath()%>/resources/admin/js/driver-remove.js"></script>
+<%--For car choosing--%>
+<script src="<%=application.getContextPath()%>/resources/admin/js/admin.js"></script>
 
 </body>
 </html>

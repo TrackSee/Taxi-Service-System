@@ -7,9 +7,6 @@ package ua.com.tracksee.mailsender;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import ua.com.tracksee.entities.ServiceUserEntity;
-import ua.com.tracksee.entities.TaxiOrderEntity;
-import ua.com.tracksee.entities.TaxiOrderItemEntity;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -22,8 +19,6 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import static ua.com.tracksee.mailsender.SenderSessionSpecificator.GMAIL;
