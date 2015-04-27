@@ -6,23 +6,26 @@ import ua.com.tracksee.dao.AddressDAO;
 import ua.com.tracksee.entities.AddressEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
-import javax.persistence.EntityManager;
+import javax.ejb.Stateless;
 import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
 /**
  * Created by kstes_000 on 23-Apr-15.
  */
+@Stateless
 public class AddressDAOBean implements AddressDAO {
     public static final int ADDRESSES_LIMIT = 5;
     private static final Logger logger = LogManager.getLogger();
+    
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
 
     @Override
     public void addAddress(AddressEntity address) {
-        String sql = "INSERT INTO address name, user_id, string representation, location" +
+        String sql = "INSERT INTO address (name, user_id, string_representation, location)" +
                 " VALUES (?,?,?,?)";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, address.getName());
@@ -34,19 +37,26 @@ public class AddressDAOBean implements AddressDAO {
 
     @Override
     public void deleteAddress(AddressEntity address) {
-        String sql = "DELETE from address where name = " + address.getName();
+        String sql = "DELETE FROM address WHERE name = " + address.getName() + " AND " + address.getUserId();
         Query query = entityManager.createNativeQuery(sql);
         query.executeUpdate();
     }
 
     @Override
-    public void updateAddress(AddressEntity addressEntity) {
-        String sql = "UPDATE address Set string_representation = ?, location = ? " +
-                "where name = "+ addressEntity.getName();
+    public void updateAddress(AddressEntity address) {
+        String sql = "UPDATE address SET string_representation = ?, location = ? " +
+                "WHERE name = "+ address.getName() + " AND " + address.getUserId();
         Query query = entityManager.createNativeQuery(sql);
-        query.setParameter(1, addressEntity.getStringRepresentation());
-        query.setParameter(2, addressEntity.getLocation());
+        query.setParameter(1, address.getStringRepresentation());
+        query.setParameter(2, address.getLocation());
         query.executeUpdate();
+    }
+
+    @Override
+    public List getAllAddressesByUserId(AddressEntity address) {
+        Query query = entityManager.createNativeQuery("SELECT * FROM address WHERE user_id = "
+                + address.getUserId(), AddressEntity.class);
+        return query.getResultList();
     }
 
     @Override

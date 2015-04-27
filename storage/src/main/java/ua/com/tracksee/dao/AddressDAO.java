@@ -10,9 +10,10 @@ import java.util.List;
  */
 @Local
 public interface AddressDAO {
-    public void addAddress(AddressEntity address);
-    public void deleteAddress(AddressEntity address);
-    public void updateAddress(AddressEntity addressEntity);
+    void addAddress(AddressEntity address);
+    void deleteAddress(AddressEntity address);
+    void updateAddress(AddressEntity address);
+    List getAllAddressesByUserId(AddressEntity address);
     List<AddressEntity> getAddresses(int partNumber);
 
 }
