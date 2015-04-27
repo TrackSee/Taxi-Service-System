@@ -42,6 +42,12 @@ public class AdministratorBean {
     }
 
     /**
+     * @author Vadym Akymov, Katia Stetsiuk
+     */
+    public CarEntity getCarByNumber(String carNumber){
+        return carDAO.getCarByNumber(carNumber);
+    }
+    /**
      * @author Vadym_Akymov
      */
     public ServiceUserEntity getDriverByID(int id){

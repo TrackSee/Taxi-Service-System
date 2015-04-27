@@ -16,7 +16,7 @@ public interface CarDAO {
     List<CarEntity> getCars();
     public int getCarPagesCount();
     List<CarEntity> getCarsPart(int partNumber);
-    CarEntity getCarByID(int id);
+    CarEntity getCarByNumber(String carNumber);
 
     /**
      *@author Vadym Akymov, Katia Stetsiuk

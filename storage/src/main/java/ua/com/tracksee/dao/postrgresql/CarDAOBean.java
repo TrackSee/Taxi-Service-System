@@ -85,14 +85,15 @@ public class CarDAOBean implements CarDAO {
         return (int) (Math.ceil((double) carsCount / CARS_PAGE_SIZE));
     }
     @Override
-    public CarEntity getCarByID(int id) {
-        if(id <= 0){
-            logger.warn("Car id can't be <= 0!");
-            throw new IllegalArgumentException("Car id can't be <= 0!");
+    public CarEntity getCarByNumber(String carNumber) {
+        if(carNumber == null){
+            logger.warn("carNumber can't be null!");
+            throw new IllegalArgumentException("carNumber can't be null!");
         }
-        CarEntity car = entityManager.find(CarEntity.class, id);
+        CarEntity car = entityManager.find(CarEntity.class, carNumber);
         if(car == null){
             logger.warn("There is no car with such id");
+            //TODO write exception for car!!!!!
             throw new ServiceUserNotFoundException("There is no car with such id");
         }
         return car;
