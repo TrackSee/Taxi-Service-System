@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS Service_User
 (
   user_id           SERIAL PRIMARY KEY,
   email             VARCHAR(254) UNIQUE NOT NULL,
-  password          VARCHAR(28)         NOT NULL,
+  password          VARCHAR(150)         NOT NULL,
   phone             VARCHAR(28),
   sex               CHAR(1),
   driver            BOOLEAN             NOT NULL DEFAULT FALSE,
