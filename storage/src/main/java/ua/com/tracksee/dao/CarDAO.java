@@ -10,9 +10,12 @@ import java.util.List;
  */
 @Local
 public interface CarDAO {
+
+    int CARS_PAGE_SIZE =5;
+
     void createCar(CarEntity carEntity);
     void updateCar(CarEntity carEntity);
-    void deleteCar(CarEntity carEntity);
+    void deleteCar(String carNumber);
     List<CarEntity> getCars();
     public int getCarPagesCount();
     List<CarEntity> getCarsPart(int partNumber);

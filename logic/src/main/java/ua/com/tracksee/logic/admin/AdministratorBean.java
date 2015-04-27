@@ -20,43 +20,63 @@ public class AdministratorBean {
     private CarDAO carDAO;
 
 
-
     /**
-     * @author Vadym_Akymov
      * @param partNumber - number of part which is neeeded
-     * This method return part of drivers
+     *                   This method return part of drivers
+     * @author Vadym_Akymov
      */
-    public List<ServiceUserEntity> getDrivers(int partNumber){
+    public List<ServiceUserEntity> getDrivers(int partNumber) {
         return userDAO.getDrivers(partNumber);
     }
-    public Integer addUser(ServiceUserEntity user) {return  userDAO.addUser(user);}
-    public void  updateUser(ServiceUserEntity user) { userDAO.updateUser(user);}
-    public void createUser(ServiceUserEntity user) {userDAO.createUser(user);}
-    public List<CarEntity> getCars() {return carDAO.getCars();}
+
+    public Integer addUser(ServiceUserEntity user) {
+        return userDAO.addUser(user);
+    }
+
+    public void updateUser(ServiceUserEntity user) {
+        userDAO.updateUser(user);
+    }
+
+    public void createUser(ServiceUserEntity user) {
+        userDAO.createUser(user);
+    }
+
+    public void getDriverById(int driverId) {
+        userDAO.getDriverByID(driverId);
+    }
+
+    public List<CarEntity> getCars() {
+        return carDAO.getCars();
+    }
 
     /**
      * @author Vadym_Akymov, Katia Stetsiuk
      */
-    public List<CarEntity> getAllFreeCars(){
+    public List<CarEntity> getAllFreeCars() {
         return carDAO.getAllFreeCars();
     }
 
     /**
      * @author Vadym Akymov, Katia Stetsiuk
      */
-    public CarEntity getCarByNumber(String carNumber){
+    public CarEntity getCarByNumber(String carNumber) {
         return carDAO.getCarByNumber(carNumber);
     }
+
     /**
      * @author Vadym_Akymov
      */
-    public ServiceUserEntity getDriverByID(int id){
+    public ServiceUserEntity getDriverByID(int id) {
         return userDAO.getDriverByID(id);
     }
+
     /**
      * @author Vadym_Akymov
      */
-    public void deleteUser(int id){
+    public void deleteUser(int id) {
         userDAO.deleteUser(id);
     }
+
+    public void createCar(CarEntity carEntity){carDAO.createCar(carEntity);}
+
 }
