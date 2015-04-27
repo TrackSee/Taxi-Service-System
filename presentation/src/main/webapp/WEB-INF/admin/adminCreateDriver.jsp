@@ -79,16 +79,6 @@
             <option value="F">Female</option>
         </select>
 
-        <%--<div>--%>
-            <%--<label>Choose car for driver</label>--%>
-        <%--</div>--%>
-        <%--<select id="makes" class="make form-control" name="make">--%>
-            <%--<option value=""></option>--%>
-            <%--<c:forEach items="${requestScope.cars}" var="car">--%>
-                <%--<option value="${car.carNumber}"></option>--%>
-            <%--</c:forEach>--%>
-        <%--</select>--%>
-
         <div>
             <button  id="addDriver" type="button" class="btn btn-primary">Create</button>
         </div>
