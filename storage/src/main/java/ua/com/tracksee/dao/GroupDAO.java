@@ -24,5 +24,6 @@ public interface GroupDAO {
     public Integer getUsersCountByEmail(String userEmail);
     public Integer getUsersAllCount();
     public Integer getUsersInGroupCount(String groupName);
+    public void updateUserRoles(Integer userId, boolean isDriver, boolean isAdmin);
 }
 

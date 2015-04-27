@@ -42,7 +42,12 @@ public class GroupServlet extends HttpServlet {
     private static final String PAGE_NUMBER_ALIAS = "pageNumber";
     private static final String PAGE_SIZE_ALIAS = "pageSize";
     private static final String IDS_ALIAS = "ids";
+    private static final String UPDATE_ROLE_IDS_ALIAS = "updateRoleIds";
+    private static final String IS_DRIVERS_ALIAS = "isDrivers";
+    private static final String IS_ADMINS_ALIAS = "isAdmins";
     private static final String ERROR_MESSAGE_ALIAS = "-1";
+
+    private static final String SEPARATOR = ",";
 
     private List resList;
 
@@ -50,7 +55,8 @@ public class GroupServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         GroupSelectAction selectAction = GroupSelectAction.fromString(request.getParameter(SELECT_ACTION_ALIAS));
-        GroupSelectCountAction selectCountAction = GroupSelectCountAction.fromString(request.getParameter(SELECT_COUNT_ACTION_ALIAS));
+        GroupSelectCountAction selectCountAction =
+                GroupSelectCountAction.fromString(request.getParameter(SELECT_COUNT_ACTION_ALIAS));
 
         String groupName = request.getParameter(GROUP_NAME_ALIAS);
         String userEmail = request.getParameter(USER_EMAIL_ALIAS);
@@ -92,14 +98,31 @@ public class GroupServlet extends HttpServlet {
 
         String groupName = request.getParameter(GROUP_NAME_ALIAS);
         Role role = Role.fromString(request.getParameter(GROUP_ROLE_ALIAS));
-        String[] ids = request.getParameter(IDS_ALIAS).split(",");
 
-        for (String s : ids) {
-            System.out.println(s);
+        System.out.println(request.getParameter(IDS_ALIAS));
+        String idsString = request.getParameter(IDS_ALIAS);
+        String[] ids;
+        if (!idsString.equals("")) {
+            ids = idsString.split(SEPARATOR);
+        } else {
+            ids = new String[0];
         }
 
+        String updateIdsString = request.getParameter(UPDATE_ROLE_IDS_ALIAS);
+
+        Gson gson = new Gson();
+        UserRoles[] userRoles = gson.fromJson(updateIdsString, UserRoles[].class);
+        String[] updateIds = new String[userRoles.length];
+        boolean[] isDrivers = new boolean[userRoles.length];
+        boolean[] isAdmins = new boolean[userRoles.length];
+        int i = 0;
+        for (UserRoles user : userRoles) {
+            updateIds[i] = new String(user.getId().toString());
+            isDrivers[i] = user.isDriver;
+            isAdmins[i++] = user.isAdmin;
+        }
         try {
-            groupBean.executeUpdate(updateAction, groupName, stringsToIntegers(ids), role);
+            groupBean.executeUpdate(updateAction, groupName, ids, role, updateIds, isAdmins, isDrivers);
         } catch (EntityExistsException e) {
             if (request.getParameter(SELECT_ACTION_ALIAS).equals(GroupSelectAction.SELECT_GROUPS)) {
                 resList.add(new Group("", new Integer(ERROR_MESSAGE_ALIAS)));
@@ -111,18 +134,62 @@ public class GroupServlet extends HttpServlet {
             }
         } catch (SQLException e1) {
 
+        } catch (NumberFormatException e2) {
+
         }
 
         doGet(request, response);
     }
 
-    private Integer[] stringsToIntegers(String[] strings) {
-        Integer[] res = new Integer[strings.length];
+    private boolean[] stringToBools(String array, String separator) {
+        boolean[] res = null;
+        String[] arr = array.split(separator);
         int i = 0;
-        for (String s : strings) {
-            res[i++] = new Integer(s);
+        for (String s : arr) {
+            res[i++] = Boolean.parseBoolean(s);
         }
         return res;
+    }
+
+    private class UserRoles {
+        private Integer id;
+        private boolean isAdmin;
+        private boolean isDriver;
+
+        public UserRoles(){}
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        public boolean isAdmin() {
+            return isAdmin;
+        }
+
+        public void setIsAdmin(boolean isAdmin) {
+            this.isAdmin = isAdmin;
+        }
+
+        public boolean isDriver() {
+            return isDriver;
+        }
+
+        public void setIsDriver(boolean isDriver) {
+            this.isDriver = isDriver;
+        }
+
+        @Override
+        public String toString() {
+            return "UserRoles{" +
+                    "id=" + id +
+                    ", isAsmin=" + isAdmin +
+                    ", isDriver=" + isDriver +
+                    '}';
+        }
     }
 
 }

@@ -7,6 +7,11 @@
     <configuration>
         <property name="managementAddress">localhost</property>
         <property name="managementPort">9999</property>
+        <property name="username">igorokgula</property>
+        <property name="password">interpreter1994</property>
+        <property name="outputToConsole">true</property>
+        <property name="allowConnectingToRunningServer">true</property>
+        <property name="wlpHome">C:/wlp_arquillian</property>
     </configuration>
 </container>
 </arquillian>

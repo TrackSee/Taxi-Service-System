@@ -7,6 +7,8 @@ package ua.com.tracksee.logic;
  * Created by Igor Gula on 19.04.2015.
  */
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.GroupDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entity.Group;
@@ -30,25 +32,35 @@ import java.util.List;
 @Stateless
 public class GroupBean {
 
+    private static final Logger logger = LogManager.getLogger();
+
     @EJB
     private GroupDAO groupDAO;
 
-    private void addGroup(String groupName, Role role, Integer[] userIds) throws SQLException{
+    private void addGroup(String groupName, Role role, String[] userIds,
+                          Integer[] userIdsUpdateRole, boolean[] idAdmins, boolean[] isDrivers) throws SQLException{
         if (!groupDAO.existsGroup(groupName)) {
-            for (Integer id : userIds) {
+            for (Integer id : stringsToIntegers(userIds)) {
                 groupDAO.addUserToGroup(groupName, id);
                 groupDAO.setRoleToUser(role.getName(), id);
             }
         } else {
             throw new EntityExistsException();
         }
+        try {
+            setRolesToUsers(userIdsUpdateRole, isDrivers, idAdmins);
+        } catch (IllegalArgumentException e) {
+            logger.error(e);
+        }
     }
 
-    private void removeGroup(String groupName) {
-        if (groupDAO.existsGroup(groupName)) {
-            groupDAO.removeGroup(groupName);
-        } else {
-            throw new EntityNotFoundException();
+    private void removeGroups(String[] groupNames) {
+        for (String group: groupNames) {
+            if (groupDAO.existsGroup(group)) {
+                groupDAO.removeGroup(group);
+            } else {
+                throw new EntityNotFoundException();
+            }
         }
     }
 
@@ -60,18 +72,27 @@ public class GroupBean {
         return groupDAO.getGroupMemberIds(groupName);
     }
 
-    private void updateGroup(String groupName, Role role, Integer[] ids) {
+    private void updateGroup(String groupName, Role role, String[] ids,
+                             Integer[] userIds, boolean[] idAdmins, boolean[] isDrivers) {
+
         Integer[] groupIds = getGroupMemberIds(groupName);
         List<Integer> groupIdsList = Arrays.asList(groupIds);
         for (Integer userId : groupIds) {
             groupDAO.setRoleToUser(role.getName(), userId);
         }
-        for (Integer id : ids) {
+
+        for (Integer id : stringsToIntegers(ids)) {
             if (groupIdsList.contains(id)) {
                 groupDAO.removeUser(id);
             } else {
                 groupDAO.addUserToGroup(groupName, id);
             }
+        }
+
+        try {
+            setRolesToUsers(userIds, isDrivers, idAdmins);
+        } catch (IllegalArgumentException e) {
+            logger.error(e);
         }
     }
 
@@ -118,13 +139,17 @@ public class GroupBean {
         return groupDAO.getUsersInGroupCount(groupName);
     }
 
-    public void executeUpdate(GroupUpdateAction action, String groupName, Integer[] ids, Role role) throws SQLException {
+    public void executeUpdate(GroupUpdateAction action, String groupName, String[] ids, Role role, String[] userIdsStrings, boolean[] idAdmins, boolean[] isDrivers) throws SQLException {
+        Integer[] userIds = null;
+        if (userIdsStrings != null) {
+            userIds = stringsToIntegers(userIdsStrings);
+        }
         if (action == GroupUpdateAction.ADD_GROUP) {
-            addGroup(groupName, role, ids);
-        } else if (action == GroupUpdateAction.REMOVE_GROUP) {
-            removeGroup(groupName);
+            addGroup(groupName, role, ids, userIds, idAdmins, isDrivers);
+        } else if (action == GroupUpdateAction.REMOVE_GROUPS) {
+            removeGroups(ids);
         } else if (action == GroupUpdateAction.UPDATE_GROUP) {
-            updateGroup(groupName, role, ids);
+            updateGroup(groupName, role, ids, userIds, idAdmins, isDrivers);
         }
     }
 
@@ -152,4 +177,22 @@ public class GroupBean {
         return null;
     }
 
+    public void setRolesToUsers(Integer[] userIds, boolean[] isDrivers, boolean[] isAdmins) {
+        if ((userIds.length != isAdmins.length) || (userIds.length != isAdmins.length)) {
+            logger.error("Length of userIds has to be equils to isDrivers length, and to isAdmins arrays!");
+            throw new IllegalArgumentException();
+        }
+        for (int i = 0; i < userIds.length; i++) {
+            groupDAO.updateUserRoles(userIds[i], isDrivers[i], isAdmins[i]);
+        }
+    }
+
+    private Integer[] stringsToIntegers(String[] strings) {
+        Integer[] res = new Integer[strings.length];
+        int i = 0;
+        for (String s : strings) {
+            res[i++] = new Integer(s);
+        }
+        return res;
+    }
 }

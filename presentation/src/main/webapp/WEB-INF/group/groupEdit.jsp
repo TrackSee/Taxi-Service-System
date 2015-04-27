@@ -5,18 +5,13 @@
   Time: 21:59
   To change this template use File | Settings | File Templates.
 --%>
-<%--<%@ page contentType="text/html;charset=UTF-8" language="java" %>--%>
-<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/core"--%>
-           <%--prefix="c" %>--%>
-<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"--%>
-           <%--prefix="fn" %>--%>
 <html>
 
-<jsp:include page="header.jsp"/>
+<%--<jsp:include page="header.jsp"/>--%>
 
 <head>
 
-  <%--<jsp:include page="menu.jsp"/>--%>
+  <jsp:include page="menu.jsp"/>
 
   <style>
     #tableEmailDiv {
@@ -34,7 +29,9 @@
 <body class="container">
 
 <div class="form-group" id = "search">
-  <input id="input1" type="text" class="form-control" placeholder="Search" oninput="getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'), SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), pageNumber)">
+  <input id="input1" type="text" class="form-control" placeholder="Search"
+         oninput="getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'),
+          SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), pageNumber)">
 </div>
 
 <div id="tablediv" class="panel panel-default">
@@ -52,23 +49,26 @@
 
 <nav>
   <ul class="pager">
-    <li><button id = "nextPage" type="submit" class="btn btn-default" onclick="getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'), SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), --pageNumber)">PREVIOUS</button></li>
-    <li><button id = "previousPage" type="submit" class="btn btn-default" onclick="getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'), SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), ++pageNumber)">NEXT</button></li>
+    <li><button id = "nextPage" type="submit" class="btn btn-default"
+                onclick="getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'),
+                 SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), --pageNumber)">PREVIOUS</button></li>
+    <li><button id = "previousPage" type="submit" class="btn btn-default"
+                onclick="getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'),
+                 SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), ++pageNumber)">NEXT</button></li>
   </ul>
 </nav>
 
 <button id="addGroup" class="btn btn-primary" data-toggle="modal" data-target="#largeModal" onclick="onClickAddGroup()">ADD GROUP</button>
 
-<button id="removeGroups"  class="btn btn-primary" data-toggle="modal" data-target="#largeModal" onclick="removeGroups()" >REMOVE</button>
+<button id="removeGroups"  class="btn btn-primary" onclick="removeGroups()">REMOVE</button>
 
 <div id="largeModal" class="modal fade bs-example-modal-lg" data-backdrop="static" data-keyboard="false" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
 
-        <div class="alert alert-danger alert-dismissible" role="alert">
-          <%--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>--%>
-          <strong>Warning!</strong> This name is not free!
+        <div id="alert-danger" class="alert alert-danger alert-dismissible" role="alert">
+          <strong>Warning!</strong> This group name is not free!
         </div>
 
         <h3 id="labelGroupName"></h3>
