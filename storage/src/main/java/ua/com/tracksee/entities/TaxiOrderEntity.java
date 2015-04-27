@@ -138,7 +138,9 @@ public class TaxiOrderEntity {
         this.musicStyle = musicStyle;
     }
 
-    public Boolean isAnimalTransportation() {
+    @Basic
+    @Column(name = "animal_transportation")
+    public Boolean getAnimalTransportation() {
         return animalTransportation;
     }
 
@@ -146,7 +148,9 @@ public class TaxiOrderEntity {
         this.animalTransportation = animalTransportation;
     }
 
-    public Boolean isFreeWifi() {
+    @Basic
+    @Column(name = "free_wifi")
+    public Boolean getFreeWifi() {
         return freeWifi;
     }
 
@@ -154,7 +158,9 @@ public class TaxiOrderEntity {
         this.freeWifi = freeWifi;
     }
 
-    public Boolean isSmokingDriver() {
+    @Basic
+    @Column(name = "smoking_driver")
+    public Boolean getSmokingDriver() {
         return smokingDriver;
     }
 
@@ -162,7 +168,9 @@ public class TaxiOrderEntity {
         this.smokingDriver = smokingDriver;
     }
 
-    public Boolean isAirConditioner() {
+    @Basic
+    @Column(name = "air_conditioner")
+    public Boolean getAirConditioner() {
         return airConditioner;
     }
 
@@ -179,6 +187,7 @@ public class TaxiOrderEntity {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
 
     @Override
     public boolean equals(Object o) {

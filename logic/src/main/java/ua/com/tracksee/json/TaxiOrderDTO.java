@@ -3,16 +3,22 @@ package ua.com.tracksee.json;
 import org.joda.time.LocalDateTime;
 
 /**
+ * Taxi order data transfer object class.
+ * Objects of this class are used for converting to and from JSON.
+ *
  * @author Ruslan Gunavardana
  */
 public class TaxiOrderDTO {
-    private LocationDTO[] path;
+    private LocationDTO[][] routes;
     private String service;
     private LocalDateTime orderDate;
 
     /* contact info */
     private String email;
     private String phoneNumber;
+
+    private String description;
+    private String serviceInfo;
 
     /* additional info */
     private String carCategory;
@@ -24,12 +30,17 @@ public class TaxiOrderDTO {
     private Boolean smokingDriver;
     private Boolean airConditioner;
 
-    public LocationDTO[] getPath() {
-        return path;
+    /**
+     * An array of different routes.
+     *
+     * @return
+     */
+    public LocationDTO[][] getRoutes() {
+        return routes;
     }
 
-    public void setPath(LocationDTO[] path) {
-        this.path = path;
+    public void setRoutes(LocationDTO[][] routes) {
+        this.routes = routes;
     }
 
     public String getService() {
@@ -38,6 +49,14 @@ public class TaxiOrderDTO {
 
     public void setService(String service) {
         this.service = service;
+    }
+
+    public LocalDateTime getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
     }
 
     public String getEmail() {
@@ -54,6 +73,22 @@ public class TaxiOrderDTO {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getServiceInfo() {
+        return serviceInfo;
+    }
+
+    public void setServiceInfo(String serviceInfo) {
+        this.serviceInfo = serviceInfo;
     }
 
     public String getCarCategory() {
@@ -118,13 +153,5 @@ public class TaxiOrderDTO {
 
     public void setAirConditioner(Boolean airConditioner) {
         this.airConditioner = airConditioner;
-    }
-
-    public LocalDateTime getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(LocalDateTime orderDate) {
-        this.orderDate = orderDate;
     }
 }
