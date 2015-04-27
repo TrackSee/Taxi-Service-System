@@ -8,15 +8,22 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
- * Created by kstes_000 on 23-Apr-15.
+ * <p>Postgresql database implementation of
+ * {@link TaxiOrderDAO} interface.</p>
+ * <p>Used for persisting and accessing taxi order data.</p>
+ *
+ * @see ua.com.tracksee.dao.TaxiOrderDAO
+ * @author kstes_000
+ * @author Ruslan Gunavardana
  */
 public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
+
     @Override
     public void addComment(TaxiOrderEntity entity) {
-        String sql = "INSERT INTO taxi_order comment VALUES(?)";
+        String sql = "INSERT INTO taxi_order (comment) VALUES(?)";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, entity.getComment());
         query.executeUpdate();
