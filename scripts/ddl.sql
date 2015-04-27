@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS Address
 
 CREATE TABLE IF NOT EXISTS Taxi_Order
 (
-  tracking_number       SERIAL PRIMARY KEY,
+  tracking_number       BIGSERIAL PRIMARY KEY,
   status                VARCHAR(28) NOT NULL,
   service               VARCHAR(28),
   price                 MONEY,

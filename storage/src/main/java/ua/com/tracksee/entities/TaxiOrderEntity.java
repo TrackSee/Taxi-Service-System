@@ -14,7 +14,7 @@ import static javax.persistence.EnumType.STRING;
 @Entity
 @Table(name = "taxi_order", schema = "public", catalog = "tracksee")
 public class TaxiOrderEntity {
-    private Integer trackingNumber;
+    private Long trackingNumber;
     private OrderStatus status;
     private BigDecimal price;
     private Service service;
@@ -35,11 +35,11 @@ public class TaxiOrderEntity {
     @SequenceGenerator(name = "orderSeq", sequenceName = "taxi_order_tracking_number_seq",
             allocationSize = 1, initialValue= 1)
     @Column(name = "tracking_number")
-    public Integer getTrackingNumber() {
+    public Long getTrackingNumber() {
         return trackingNumber;
     }
 
-    public void setTrackingNumber(Integer trackingNumber) {
+    public void setTrackingNumber(Long trackingNumber) {
         this.trackingNumber = trackingNumber;
     }
 
