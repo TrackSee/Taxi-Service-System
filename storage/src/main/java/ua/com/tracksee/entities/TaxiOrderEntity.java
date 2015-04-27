@@ -18,6 +18,7 @@ public class TaxiOrderEntity {
     private OrderStatus status;
     private BigDecimal price;
     private Service service;
+    private String description;
     private CarCategory carCategory;
     private WayOfPayment wayOfPayment;
     private Sex driverSex;
@@ -54,7 +55,7 @@ public class TaxiOrderEntity {
 
     @Basic
     @Enumerated(STRING)
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     public OrderStatus getStatus() {
         return status;
     }
@@ -82,6 +83,16 @@ public class TaxiOrderEntity {
 
     public void setService(Service service) {
         this.service = service;
+    }
+
+    @Basic
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Basic
