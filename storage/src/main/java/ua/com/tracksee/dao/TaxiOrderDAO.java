@@ -3,6 +3,7 @@ package ua.com.tracksee.dao;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 
 import javax.ejb.Local;
+import java.util.List;
 
 /**
  * Interface for persisting and accessing taxi order data.
@@ -12,7 +13,9 @@ import javax.ejb.Local;
  */
 @Local
 public interface TaxiOrderDAO {
-    public void addComment(TaxiOrderEntity taxiOrderEntity);
+    void addComment(TaxiOrderEntity taxiOrderEntity);
 
     Long addOrder(TaxiOrderEntity taxiOrderEntity);
+
+    List<TaxiOrderEntity> getQueuedOrders();
 }

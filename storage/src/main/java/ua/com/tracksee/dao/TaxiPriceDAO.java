@@ -2,9 +2,12 @@ package ua.com.tracksee.dao;
 
 import ua.com.tracksee.entities.TaxiPriceEntity;
 
+import javax.ejb.Local;
+
 /**
- * Created by kstes_000 on 23-Apr-15.
+ * @author kstes_000
  */
+@Local
 public interface TaxiPriceDAO {
     /**
      *
