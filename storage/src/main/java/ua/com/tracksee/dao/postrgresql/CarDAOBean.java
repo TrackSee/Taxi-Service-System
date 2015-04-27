@@ -93,7 +93,7 @@ public class CarDAOBean implements CarDAO {
         CarEntity car = entityManager.find(CarEntity.class, id);
         if(car == null){
             logger.warn("There is no car with such id");
-            throw new ServiceUserNotFoundException("There is no driver with such id");
+            throw new ServiceUserNotFoundException("There is no car with such id");
         }
         return car;
     }
