@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.List;
 
 /**
  * <p>Postgresql database implementation of
@@ -58,5 +59,10 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
         //TODO not finished
         return (Long) query.getSingleResult();
+    }
+
+    @Override
+    public List<TaxiOrderEntity> getQueuedOrders() {
+        return null;
     }
 }

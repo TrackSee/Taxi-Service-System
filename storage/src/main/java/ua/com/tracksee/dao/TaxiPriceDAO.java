@@ -13,5 +13,5 @@ public interface TaxiPriceDAO {
      *
      * @param priceEntity
      */
-    public void updateTariff(TaxiPriceEntity priceEntity);
+    void updateTariff(TaxiPriceEntity priceEntity);
 }
