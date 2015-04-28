@@ -13,7 +13,7 @@ public interface AddressDAO {
     public void addAddress(AddressEntity address);
     public void deleteAddress(AddressEntity address);
     public void updateAddress(AddressEntity addressEntity);
-    List<AddressEntity> getAddresses(int partNumber);
+    List<AddressEntity> getAddresses();
 
 }
 

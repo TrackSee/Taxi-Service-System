@@ -3,7 +3,7 @@ package ua.com.tracksee.servlets.admin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
-import ua.com.tracksee.dao.UserDAO;
+import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.logic.admin.AdministratorBean;
 
@@ -17,26 +17,23 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- * Created by kstes_000 on 25-Apr-15.
+ * Created by kstes_000 on 27-Apr-15.
  */
-@WebServlet("/admin/updatedriver")
-public class AdminUpdateDriverServlet extends HttpServlet {
+@WebServlet("/admin/createcar")
+public class AdminCreateCarServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
 
-    private  Integer id;
     @EJB
     private AdministratorBean administratorBean;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        id = Integer.parseInt(req.getParameter("userId"));
-        req.setAttribute("driver", administratorBean.getDriverByID(id));
-        System.out.println("USER Id" + administratorBean.getDriverByID(id).getEmail());
-        req.getRequestDispatcher("/WEB-INF/admin/adminUpdateDriver.jsp").forward(req, resp);
-
+        req.getRequestDispatcher("/WEB-INF/admin/adminCreateCar.jsp").forward(req, resp);
     }
 
-    @Override
+    /**
+     * Create driver
+     */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         StringBuilder sb = new StringBuilder();
         try {
@@ -47,13 +44,12 @@ public class AdminUpdateDriverServlet extends HttpServlet {
                 sb.append(line).append("\n");
             } while (line != null);
         } catch (IOException e){
-            logger.warn("Cannot get json from post /admin/updatedriver");
+            logger.warn("Cannot get json from post /admin/createcar");
         }
-        System.out.println("data: " + sb.toString());
         ObjectMapper mapper = new ObjectMapper();
-        ServiceUserEntity user = mapper.readValue(sb.toString(), ServiceUserEntity.class);
-        user.setUserId(id);
-        user.setDriver(true);
-        administratorBean.updateUser(user);
+        CarEntity car = mapper.readValue(sb.toString(), CarEntity.class);
+        car.getAnimalTransportationApplicable();
+        administratorBean.createCar(car);
+        resp.sendRedirect("cars");
     }
 }

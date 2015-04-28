@@ -1,5 +1,7 @@
 package ua.com.tracksee.servlets.admin;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.dao.CarDAO;
 import ua.com.tracksee.dao.UserDAO;
@@ -21,12 +23,15 @@ import java.util.List;
  */
 @WebServlet("/admin/cars")
 public class AdminCarServlet extends HttpServlet {
+
+    private static Logger logger = LogManager.getLogger();
     @EJB
     private AdministratorBean administratorBean;
     @EJB
     private CarDAO carDAO;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("GEEEEEEEEEET");
         List<CarEntity> cars = carDAO.getCarsPart(1);
         req.setAttribute("cars", cars);
         System.out.println("PAGES COUNT" + carDAO.getCarPagesCount());
@@ -35,18 +40,26 @@ public class AdminCarServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        System.out.println("POOOOOOOOOST");
-        String pageParam = req.getParameter("pageNumber");
+        System.out.println("POOOOOOOOOOSt");
+       String pageParam = req.getParameter("pageNumber");
         Integer pageNumber = null;
-
-        System.out.println("PageNumber" + pageNumber);
+        //check pageNumber
+        try {
+            pageNumber = Integer.parseInt(req.getParameter("pageNumber"));
+            if(pageNumber > carDAO.getCarPagesCount()){
+                pageNumber = 1;
+                logger.warn("wrong page was request on /admin/cars");
+            }
+        } catch (NumberFormatException e){
+            pageNumber = 1;
+            logger.warn("wrong page was request on /admin/drivers");
+        }
+ System.out.println("PageNumber" + pageNumber);
         List<CarEntity> cars = carDAO.getCarsPart(pageNumber);
         req.setAttribute("cars", cars);
         req.setAttribute("pagesCount", carDAO.getCarPagesCount());
-        System.out.println("json: " + getJsonFromList(cars));
+  System.out.println("json: " + getJsonFromList(cars));
         resp.getWriter().write(getJsonFromList(cars));
-//        resp.setStatus(200);
     }
 
 
