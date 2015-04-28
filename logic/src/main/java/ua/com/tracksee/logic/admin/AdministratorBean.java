@@ -32,7 +32,6 @@ public class AdministratorBean {
     public Integer addUser(ServiceUserEntity user) {return  userDAO.addUser(user);}
     public void  updateUser(ServiceUserEntity user) { userDAO.updateUser(user);}
     public void createUser(ServiceUserEntity user) {userDAO.createUser(user);}
-    public List<CarEntity> getCars() {return carDAO.getCars();}
     
 
     public void getDriverById(int driverId) {
