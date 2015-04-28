@@ -262,10 +262,10 @@ public class TaxiOrderBean {
         Sex enumDriverSex;
         switch (driverSex) {
             case "male":
-                enumDriverSex = Sex.M;
+                enumDriverSex = Sex.MALE;
                 break;
             case "female":
-                enumDriverSex = Sex.F;
+                enumDriverSex = Sex.FEMALE;
                 break;
             default:
                 enumDriverSex = null;

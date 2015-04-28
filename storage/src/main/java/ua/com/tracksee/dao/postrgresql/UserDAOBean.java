@@ -154,14 +154,15 @@ public class UserDAOBean implements UserDAO {
 
     public void createUser(ServiceUserEntity user) {
         String sql = "INSERT INTO service_user " +
-                "(email, password, phone, driver, car_number) " +
-                "VALUES (?, ?, ?, ?, ?)";
+                "(email, password, phone, driver, car_number, sex) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, user.getEmail());
         query.setParameter(2, user.getPassword());
         query.setParameter(3, user.getPhone());
         query.setParameter(4, user.getDriver());
         query.setParameter(5, user.getCar() != null ? user.getCar().getCarNumber() : null);
+        query.setParameter(6, user.getSex());
         query.executeUpdate();
     }
 
