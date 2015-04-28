@@ -10,12 +10,21 @@ import java.util.List;
  *
  * @author Katia Stetsiuk
  * @author Ruslan Gunavardana
+ * @author Sharaban Sasha
  */
 @Local
 public interface TaxiOrderDAO {
+
     void addComment(TaxiOrderEntity taxiOrderEntity);
 
-    Long addOrder(TaxiOrderEntity taxiOrderEntity);
+    /**
+     * Adds order to database.
+     *
+     * @param order taxi order entity which will be insert into database
+     */
+    Long addOrder(TaxiOrderEntity order);
 
     List<TaxiOrderEntity> getQueuedOrders();
+
+    TaxiOrderEntity getOrder(Long trackingNumber);
 }

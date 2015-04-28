@@ -11,130 +11,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>TrackSee</title>
-    <!-- start: Mobile Specific -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!-- end: Mobile Specific -->
+    <%@include file="parts/meta.jsp" %>
+    <%@include file="parts/bootstrap2.jsp" %>
 
-    <!-- start: Facebook Open Graph -->
-    <meta property="og:title" content=""/>
-    <meta property="og:description" content=""/>
-    <meta property="og:type" content=""/>
-    <meta property="og:url" content=""/>
-    <meta property="og:image" content=""/>
-    <!-- end: Facebook Open Graph -->
-
-    <!-- start: CSS -->
-    <link href="<%=application.getContextPath()%>/resources/css/bootstrap2/bootstrap.css" rel="stylesheet">
-    <link href="<%=application.getContextPath()%>/resources/css/bootstrap2/bootstrap-responsive.css" rel="stylesheet">
-    <link href="<%=application.getContextPath()%>/resources/css/style.css" rel="stylesheet">
-    <link href="<%=application.getContextPath()%>/resources/css/corrections/position.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans:400,700">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Serif">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Boogaloo">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Economica:700,400italic">
-    <!-- end: CSS -->
     <%--For slider--%>
     <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/css/carousel.css">
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
 </head>
+
 <body>
-<!--start: Header -->
-<header>
-
-    <!--start: Container -->
-    <div class="container">
-
-        <!--start: Row -->
-        <div class="row">
-
-            <!--start: Logo -->
-            <div class="logo span3">
-
-                <a class="brand" href="#"><img src="<%=application.getContextPath()%>/resources/img/logo.png"
-                                               alt="Logo"></a>
-
-            </div>
-            <!--end: Logo -->
-
-            <!--start: Navigation -->
-            <div class="span9">
-
-                <div class="navbar navbar-inverse">
-                    <div class="navbar-inner">
-                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </a>
-
-                        <div class="nav-collapse collapse">
-                            <ul class="nav">
-                                <li class="active"><a href="">Order</a></li>
-                                <li><a href="<c:url value="/order/info"/>">Driver information</a></li>
-                                <li><a href="<c:url value="/signin"/>">Login</a></li>
-                                <li><a href="<c:url value="/signup"/>">Registration</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!--end: Navigation -->
-
-        </div>
-        <!--end: Row -->
-
-    </div>
-    <!--end: Container-->
-
-</header>
-<!--end: Header-->
-<!-- start: Slider -->
+<%@include file="parts/header.jsp"%>
+<%-- start: Slider --%>
 <div id="myCarousel" class="carousel slide">
     <div class="carousel-inner">
         <div class="item active">
-            <img src="resources/img/slides/slide1.jpg" alt="slide1">
+            <img src="<%=application.getContextPath()%>/resources/img/slides/slide1.jpg" alt="slide1">
 
             <div class="container">
                 <div class="carousel-caption">
-                    <h1>Example headline.</h1>
+                    <h1>Cab booking online</h1>
 
-                    <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                        porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <a class="btn btn-large btn-primary" href="signup">Sign up today</a>
+                    <p class="lead" >You can book a taxi right now without delay and red tape. </p>
+                    <a class="btn btn-large btn-success" href="#">Book taxi now</a>
                 </div>
             </div>
         </div>
         <div class="item">
-            <img src="resources/img/slides/slide9.jpg" alt="slide2">
+            <img src="<%=application.getContextPath()%>/resources/img/slides/slide9.jpg" alt="slide2">
 
             <div class="container">
                 <div class="carousel-caption">
-                    <h1>Another example headline.</h1>
+                    <h1>My account</h1>
 
-                    <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                        porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <a class="btn btn-large btn-primary" href="#">Learn more</a>
+                    <p class="lead">You can create your own account which simplifies and accelerates the
+                        process of ordering a taxi</p>
+                    <a class="btn btn-large btn-success" href="#">Sign up now</a>
                 </div>
             </div>
         </div>
         <div class="item">
-            <img src="resources/img/slides/slide4.jpg" alt="slide3">
+            <img src="<%=application.getContextPath()%>/resources/img/slides/slide4.jpg" alt="slide3">
 
             <div class="container">
                 <div class="carousel-caption">
-                    <h1>One more for good measure.</h1>
+                    <h1>Additional information</h1>
 
-                    <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                        porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <a class="btn btn-large btn-primary" href="#">Browse gallery</a>
+                    <p class="lead" >Our company is young and promising</p>
+                    <a class="btn btn-large btn-success" href="#">Read about us</a>
                 </div>
             </div>
         </div>
@@ -145,110 +67,13 @@
 <%--End slider--%>
 
 
-<!-- start: Page Title -->
-<%--<div id="page-title" class="position">--%>
-
-<%--<div id="page-title-inner">--%>
-
-<%--<!-- start: Container -->--%>
-<%--<div class="container">--%>
-
-<%--<h2><i class="ico-stats ico-white"></i>Order</h2>--%>
-
-<%--</div>--%>
-<%--<!-- end: Container  -->--%>
-
-<%--</div>--%>
-
-<%--</div>--%>
-<!-- end: Page Title -->
-
-
-<!--start: Wrapper-->
-<%--<div id="wrapper">--%>
-
-    <%--<!--start: Container -->--%>
-    <%--<div class="container">--%>
-
-        <%--<!--start: Row -->--%>
-        <%--<div class="row">--%>
-
-            <%--<div class="span8">--%>
-
-                <%--<!-- start: About Us -->--%>
-                <%--<div id="team">--%>
-                    <%--<div class="title"><h3>Fast Taxi Order</h3></div>--%>
-
-                    <%--<form method="post">--%>
-                        <%--<div class="form-group">--%>
-                            <%--<input type="text" class="form-control" id="phoneNumber" placeholder="Phone number:"--%>
-                                   <%--required>--%>
-                        <%--</div>--%>
-
-
-                        <%--<div class="form-group">--%>
-                            <%--<input type="email" class="form-control" id="email" placeholder="Email"--%>
-                                   <%--data-error="That email is invalid" required>--%>
-                        <%--</div>--%>
-
-                        <%--<div class="form-group">--%>
-                            <%--<input type="text" class="form-control" id="addressFrom" placeholder="Address from:"--%>
-                                   <%--data-error="That address is invalid" required>--%>
-
-                        <%--</div>--%>
-
-                        <%--<div class="form-group">--%>
-                            <%--<input type="text" class="form-control" id="addressTo" placeholder="Address to:"--%>
-                                   <%--data-error="That address is invalid" required>--%>
-
-                        <%--</div>--%>
-
-                        <%--<div class="form-group">--%>
-                            <%--<button type="submit" class="btn btn-success btn-large">Submit</button>--%>
-                        <%--</div>--%>
-                    <%--</form>--%>
-                <%--</div>--%>
-                <%--</p>--%>
-            <%--</div>--%>
-            <%--<!-- end: About Us -->--%>
-
-            <%--<!-- start: Team -->--%>
-            <%--<div id="team">--%>
-
-                <%--<div class="title"><h3>Additional features </h3></div>--%>
-                <%--<p>--%>
-                <%--<h4>--%>
-                    <%--You can also use the extended order form, where you can choose such options:</h4>--%>
-                <%--</p>--%>
-                <%--<p><a class="btn btn-success btn-large">Extended taxi order&raquo;</a>--%>
-                    <%--<a class="btn btn-info btn-large">Sign in &raquo;</a></p>--%>
-
-                <%--<!-- start: Team -->--%>
-
-
-            <%--</div>--%>
-
-        <%--</div>--%>
-        <%--<!-- end: Row -->--%>
-    <%--</div>--%>
-    <%--<!-- end: Team -->--%>
-<%--</div>--%>
-<!-- start: Copyright -->    <!-- end: Copyright -->
-
-
-<!-- start: Java Script -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="<%=application.getContextPath()%>/resources/js/jquery-1.8.2.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/bootstrap2/bootstrap.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/flexslider.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/jquery.cslider.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/slider.js"></script>
-<script defer="defer" src="<%=application.getContextPath()%>/resources/js/custom.js"></script>
+<%-- start: Java Script --%>
+<%@include file="parts/scripts.jsp" %>
 
 <%--For slider--%>
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-carousel.js"></script>
-<!-- end: Java Script -->
+<%-- end: Java Script --%>
 
-<jsp:include page="parts/footer.jsp"/>
+<%@include file="parts/footer.jsp"%>
 </body>
 </html>

@@ -4,6 +4,9 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 import javax.ejb.Stateless;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static java.lang.Character.isDigit;
 
 /**
@@ -23,7 +26,7 @@ public class ValidationBean {
      */
     private String PASSWORD_REGEXP = "^(?=.*[0-9@#$%^&+=_])(?=.*[a-z])(?=.*[A-Z])[\\w@#$%^&+=]{6,28}$";
 
-    private String PHONE_NUMBER_REGEXP = "^[0-9 +()-]{5,28}$";
+    private String PHONE_NUMBER_REGEXP = "^\\+?[0-9 ()-]{5,27}$";
 
     /**
      * Returns true if email address is valid, false in other case.
@@ -39,7 +42,6 @@ public class ValidationBean {
     }
 
     public boolean isValidPhoneNumber(String phoneNumber) {
-        boolean isValidSymbols = phoneNumber.matches(PHONE_NUMBER_REGEXP);
         int digitCount = 0;
         for (int i = 0; i < phoneNumber.length(); i++) {
             char c = phoneNumber.charAt(i);
@@ -47,6 +49,6 @@ public class ValidationBean {
                 ++digitCount;
             }
         }
-        return digitCount > 4 & digitCount < 16 & isValidSymbols;
+        return digitCount > 4 & digitCount < 16 & phoneNumber.matches(PHONE_NUMBER_REGEXP);
     }
 }

@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS Taxi_Order
   music_style           VARCHAR(50),
   animal_transportation BOOLEAN,
   free_wifi             BOOLEAN,
-  smoking_driver        BOOLEAN,
+  non_smoking_driver    BOOLEAN,
   air_conditioner       BOOLEAN,
   comment               VARCHAR(400)
 );

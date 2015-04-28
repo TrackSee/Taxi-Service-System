@@ -22,13 +22,21 @@ public class TaxiOrderEntity {
     private CarCategory carCategory;
     private WayOfPayment wayOfPayment;
     private Sex driverSex;
-    private String musicStyle;
+    private MusicStyle musicStyle;
     private Boolean animalTransportation;
     private Boolean freeWifi;
-    private Boolean smokingDriver;
+    private Boolean nonSmokingDriver;
     private Boolean airConditioner;
     private String comment;
     private Integer userId;
+
+    public TaxiOrderEntity() {
+
+    }
+
+    public TaxiOrderEntity(OrderStatus status) {
+        this.status = status;
+    }
 
     @Id
     @GeneratedValue(generator = "orderSeq")
@@ -129,12 +137,13 @@ public class TaxiOrderEntity {
     }
 
     @Basic
+    @Enumerated(STRING)
     @Column(name = "music_style")
-    public String getMusicStyle() {
+    public MusicStyle getMusicStyle() {
         return musicStyle;
     }
 
-    public void setMusicStyle(String musicStyle) {
+    public void setMusicStyle(MusicStyle musicStyle) {
         this.musicStyle = musicStyle;
     }
 
@@ -159,13 +168,13 @@ public class TaxiOrderEntity {
     }
 
     @Basic
-    @Column(name = "smoking_driver")
-    public Boolean getSmokingDriver() {
-        return smokingDriver;
+    @Column(name = "non_smoking_driver")
+    public Boolean getNonSmokingDriver() {
+        return nonSmokingDriver;
     }
 
-    public void setSmokingDriver(Boolean smokingDriver) {
-        this.smokingDriver = smokingDriver;
+    public void setNonSmokingDriver(Boolean smokingDriver) {
+        this.nonSmokingDriver = smokingDriver;
     }
 
     @Basic

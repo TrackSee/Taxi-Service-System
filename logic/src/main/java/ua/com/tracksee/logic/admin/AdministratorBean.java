@@ -16,10 +16,9 @@ import java.util.List;
 public class AdministratorBean {
     @EJB
     private UserDAO userDAO;
+
     @EJB
     private CarDAO carDAO;
-
-
 
     /**
      * @author Vadym_Akymov
@@ -29,6 +28,7 @@ public class AdministratorBean {
     public List<ServiceUserEntity> getDrivers(int partNumber){
         return userDAO.getDrivers(partNumber);
     }
+
     public Integer addUser(ServiceUserEntity user) {return  userDAO.addUser(user);}
 
     /**
@@ -36,8 +36,8 @@ public class AdministratorBean {
      * @param user entity for creating and updating
      */
     public void  updateUser(ServiceUserEntity user) { userDAO.updateUser(user);}
+
     public void createUser(ServiceUserEntity user) {userDAO.createUser(user);}
-    
 
     public void getDriverById(int driverId) {
         userDAO.getDriverByID(driverId);

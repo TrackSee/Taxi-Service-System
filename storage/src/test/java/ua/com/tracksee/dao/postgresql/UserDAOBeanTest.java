@@ -28,6 +28,7 @@ import static org.junit.Assert.assertTrue;
  * @author Vadym_Akymov
  */
 //TODO add data initialization
+
 @RunWith(Arquillian.class)
 public class UserDAOBeanTest {
     @EJB
@@ -71,6 +72,7 @@ public class UserDAOBeanTest {
             assertTrue(driver.getDriver());
         }
     }
+
     @Test(expected = EJBException.class)
     public void testGetDriversException() throws Exception{
         //negative param

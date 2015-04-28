@@ -17,6 +17,7 @@ import java.util.List;
  * @see ua.com.tracksee.dao.TaxiOrderDAO
  * @author kstes_000
  * @author Ruslan Gunavardana
+ * @author Sharaban Sasha
  */
 @Stateless
 public class TaxiOrderDAOBean implements TaxiOrderDAO {
@@ -53,7 +54,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(9, order.getMusicStyle());
         query.setParameter(10, order.getAnimalTransportation());
         query.setParameter(11, order.getFreeWifi());
-        query.setParameter(12, order.getSmokingDriver());
+        query.setParameter(12, order.getNonSmokingDriver());
         query.setParameter(13, order.getAirConditioner());
         query.setParameter(14, order.getComment());
 
@@ -63,6 +64,11 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @Override
     public List<TaxiOrderEntity> getQueuedOrders() {
+        return null;
+    }
+
+    @Override
+    public TaxiOrderEntity getOrder(Long trackingNumber) {
         return null;
     }
 }

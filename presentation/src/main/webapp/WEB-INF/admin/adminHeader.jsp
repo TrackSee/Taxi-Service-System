@@ -52,8 +52,7 @@
                     </ul>
                 </li>
                 <%--Logout from page--%>
-                <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                </li>
+                <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

@@ -37,7 +37,7 @@ public class UserDAOBean implements UserDAO {
         throw new IllegalArgumentException("partNumber can't be <= 0");
     }
     Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
-            "WHERE driver = TRUE LIMIT ?1 OFFSET ?2", ServiceUserEntity.class);
+            "WHERE driver = TRUE ORDER BY email LIMIT ?1 OFFSET ?2", ServiceUserEntity.class);
     query.setParameter(1, DRIVERS_PAGE_SIZE);
     query.setParameter(2, (partNumber - 1) * DRIVERS_PAGE_SIZE);
     return query.getResultList();
@@ -52,6 +52,21 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
+    public boolean checkUserByEmail(String email) {
+        Query query=entityManager.createNativeQuery("SELECT * FROM service_user WHERE email=?1");
+        query.setParameter(1, email);
+        if(query.getResultList().size()==0)return false;
+        return true;
+    }
+
+    @Override
+    public Integer getUserIdByEmail(String email) {
+        Query query = entityManager.createNativeQuery("SELECT user_id FROM service_user WHERE email=?1");
+        query.setParameter(1, email);
+        return query.getFirstResult();
+    }
+
+
     public void assignCar(String carNumber, Integer driverID) {
         if(carNumber == null){
             logger.warn("carNumber can't be null");
