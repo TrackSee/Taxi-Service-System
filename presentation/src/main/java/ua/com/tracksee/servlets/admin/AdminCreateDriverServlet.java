@@ -48,6 +48,7 @@ public class AdminCreateDriverServlet extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
         ServiceUserEntity user = mapper.readValue(sb.toString(), ServiceUserEntity.class);
         user.setDriver(true);
+        System.out.println("user uuuuuu" + user.getSex());
         administratorBean.createUser(user);
         resp.sendRedirect("drivers");
     }

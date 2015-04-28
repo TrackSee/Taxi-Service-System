@@ -74,9 +74,9 @@
         <div>
             <label>Sex</label>
         </div>
-        <select class="sex form-control" name="sex">
-            <option value="M">Male</option>
-            <option value="F">Female</option>
+        <select id = "sex" class="sex form-control" name="sex">
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
         </select>
 
         <div>
