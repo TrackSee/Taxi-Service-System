@@ -26,7 +26,7 @@ public class CustomerBean {
      * @param name -
      * @return -
      */
-    public AddressEntity getAddressByUserId(long userId, String name) {
+    public AddressEntity getAddressByUserId(Integer userId, String name) {
         return addressDAO.getAddressByUserId(userId, name);
     }
 
@@ -35,7 +35,7 @@ public class CustomerBean {
      * @param userId -
      * @return p-
      */
-    public List getAllAddressesByUserId(long userId) {
+    public List getAllAddressesByUserId(Integer userId) {
         return addressDAO.getAllAddressesByUserId(userId);
     }
 
