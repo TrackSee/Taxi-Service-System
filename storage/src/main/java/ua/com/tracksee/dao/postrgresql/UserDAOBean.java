@@ -37,7 +37,7 @@ public class UserDAOBean implements UserDAO {
         throw new IllegalArgumentException("partNumber can't be <= 0");
     }
     Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
-            "WHERE driver = TRUE LIMIT ?1 OFFSET ?2", ServiceUserEntity.class);
+            "WHERE driver = TRUE ORDER BY email LIMIT ?1 OFFSET ?2", ServiceUserEntity.class);
     query.setParameter(1, DRIVERS_PAGE_SIZE);
     query.setParameter(2, (partNumber - 1) * DRIVERS_PAGE_SIZE);
     return query.getResultList();
