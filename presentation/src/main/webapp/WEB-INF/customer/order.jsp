@@ -34,7 +34,6 @@
 </div>
 <!-- end: Page Title -->
 <!--start: Wrapper-->
-<div class="padding">
 <div id="wrapper">
 
     <!--start: Container -->
@@ -77,8 +76,6 @@
     <!-- end: Team -->
    </div>
     <!-- end: wrapper -->
-</div>
-<%-- end:padding  --%>
 
 <p id="error-label"></p>
 

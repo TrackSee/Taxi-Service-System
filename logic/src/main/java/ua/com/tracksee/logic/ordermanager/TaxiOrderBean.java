@@ -191,7 +191,7 @@ public class TaxiOrderBean {
             double price = Double.parseDouble(inputData.get("price"));
             taxiOrderEntity.setPrice(new BigDecimal(price));
         } catch (Exception e) {
-            throw new OrderException("Invalid price .", "wrong-price");
+            throw new OrderException("Invalid price .", "wrong-");
         }
         if(!inputData.get("description").equals("")){
         taxiOrderEntity.setDescription(inputData.get("description"));
