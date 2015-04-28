@@ -22,10 +22,29 @@ public class CustomerBean {
 
     /**
      *
+     * @param userId -
+     * @param name -
+     * @return -
+     */
+    public AddressEntity getAddressByUserId(long userId, String name) {
+        return addressDAO.getAddressByUserId(userId, name);
+    }
+
+    /**
+     *
+     * @param userId -
+     * @return p-
+     */
+    public List getAllAddressesByUserId(long userId) {
+        return addressDAO.getAllAddressesByUserId(userId);
+    }
+
+    /**
+     *
      * @param address number of part which is needed
      * @return part of addresses
      */
-    public List getAddressesByUserId(AddressEntity address){
+    public List getAllAddressesByUserId(AddressEntity address){
         return addressDAO.getAllAddressesByUserId(address);
     }
 
