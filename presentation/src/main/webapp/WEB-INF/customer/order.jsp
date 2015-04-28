@@ -13,10 +13,9 @@
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
 </head>
-<body>
+<body >
 <%@include file="../parts/header.jsp" %>
 
-<!-- start: Page Title -->
 <div id="page-title">
 
     <div id="page-title-inner">
@@ -32,6 +31,7 @@
     </div>
 
 </div>
+
 <!-- end: Page Title -->
 <!--start: Wrapper-->
 <div id="wrapper">
@@ -76,8 +76,6 @@
     <!-- end: Team -->
    </div>
     <!-- end: wrapper -->
-
-<p id="error-label"></p>
 
 <div id="map-canvas" class="googleMap"></div>
 

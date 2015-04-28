@@ -9,9 +9,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-<p id="error-label"></p>
-
-<div id="map-canvas" class="googleMap"></div>
 
 <%-- start: Java Script --%>
 <%@include file="../parts/scripts.jsp" %>
@@ -187,9 +184,14 @@
     <%-- end:wrapper --%>
 </div>
 
-<p id="error-label"></p>
+<div class="row">
 
-<div id="map-canvas" class="googleMap"></div>
+    <div class="span12">
+
+    <div id="map-canvas" class="googleMap"></div>
+
+        </div>
+    </div>
 
 <%-- start: Java Script --%>
 <%@include file="../parts/scripts.jsp" %>
