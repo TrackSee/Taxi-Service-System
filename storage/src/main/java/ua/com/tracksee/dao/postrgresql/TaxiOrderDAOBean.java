@@ -17,6 +17,7 @@ import java.util.List;
  * @see ua.com.tracksee.dao.TaxiOrderDAO
  * @author kstes_000
  * @author Ruslan Gunavardana
+ * @author Sharaban Sasha
  */
 @Stateless
 public class TaxiOrderDAOBean implements TaxiOrderDAO {

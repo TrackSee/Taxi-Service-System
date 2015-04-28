@@ -72,57 +72,6 @@
             </div>
             <!-- end: About Us -->
 
-            <!-- start: Team -->
-            <%--<div id="team">--%>
-
-            <%--<div class="title"><h3>Extended Booking Taxi </h3></div>--%>
-            <%--<p>--%>
-            <%--<form method="POST" action="extendedOrder">--%>
-            <%--<div class="form-group">--%>
-            <%--<input type="text" name="phoneNumber" class="form-control" id="phoneNumber" placeholder="Phone number:"--%>
-            <%--required>--%>
-            <%--</div>--%>
-
-
-            <%--<div class="form-group">--%>
-            <%--<input type="email"  class="form-control" id="email" name="email" placeholder="Email"--%>
-            <%--data-error="That email is invalid" required>--%>
-            <%--</div>--%>
-
-            <%--<div class="form-group">--%>
-            <%--<input type="text" class="form-control" id="addressFrom" name="addressFrom" placeholder="Address from:"--%>
-            <%--data-error="That address is invalid" required>--%>
-
-            <%--</div>--%>
-
-            <%--<div class="form-group">--%>
-            <%--<input type="text" class="form-control" id="addressTo" name="addressTo" placeholder="Address to:"--%>
-            <%--data-error="That address is invalid" required>--%>
-
-            <%--</div>--%>
-
-            <%--<div class="form-group">--%>
-            <%--<p><b></b></p>--%>
-            <%--<p><input type="checkbox" name="option1" value="a1" checked>Possibility to transport animals<Br>--%>
-            <%--<input type="checkbox" name="option2" value="a2">Free wi-fi in taxi<Br>--%>
-            <%--<input type="checkbox" name="option3" value="a3">Smoking driver<Br>--%>
-            <%--<input type="checkbox" name="option4" value="a4">Air conditioning<Br>--%>
-            <%--<input type="checkbox" name="option5" value="a5">Meet at the airport</p>--%>
-            <%--<input type="checkbox" name="option5" value="a5">"Sober driver" service</p>--%>
-            <%--<input type="checkbox" name="option5" value="a5">Meet at the airport</p>--%>
-            <%--<input type="checkbox" name="option5" value="a5">Convey corporation employees</p>--%>
-            <%--...--%>
-
-            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-
-            <%--<div class="form-group">--%>
-            <%--<button type="submit" class="btn btn-success btn-large">Submit</button>--%>
-            <%--</div>--%>
-            <%--</form>--%>
-            <%--</p>--%>
-            <!-- end: Team -->
-            <%--</div>--%>
-
         </div>
         <!-- end: Row -->
     </div>
