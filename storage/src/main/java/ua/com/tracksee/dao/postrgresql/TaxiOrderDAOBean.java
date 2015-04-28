@@ -72,20 +72,27 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     //write transaction
     @Override
     public void setAssignOrder(ServiceUserEntity driver, TaxiOrderEntity taxiOrderEntity, Timestamp carArriveTime) {
-        assignOrderToDriver(driver);
-        String sql = "UPDATE taxi_order SET status = ASSIGNED, car_arrive_time = ? WHERE tracking_number = ?";
-        Query query = entityManager.createNativeQuery(sql);
-        query.setParameter(1, carArriveTime);
-        query.setParameter(2, taxiOrderEntity.getTrackingNumber());
-        query.executeUpdate();
-    }
+        try {
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createNativeQuery("UPDATE taxi_order_item SET driver_id = ?");
+            query.setParameter(1, driver.getUserId());
+            Query query2 = entityManager.createNativeQuery("UPDATE taxi_order SET status = ASSIGNED, car_arrive_time = ? " +
+                    "WHERE tracking_number = ?");
+            query2.setParameter(1, carArriveTime);
+            query2.setParameter(2, taxiOrderEntity.getTrackingNumber());
+            query.executeUpdate();
+            query2.executeUpdate();
+            entityManager.getTransaction().commit();
+        }
+        catch (  Exception e) {
+            entityManager.getTransaction().rollback();
+        }
+        if (entityManager != null) {
+            entityManager.close();
+            entityManager=null;
+        }
+        }
 
-    public void assignOrderToDriver(ServiceUserEntity driver){
-        String sql = "UPDATE taxi_order_item SET driver_id = ?";
-        Query query = entityManager.createNativeQuery(sql);
-        query.setParameter(1, driver.getUserId());
-        query.executeUpdate();
-    }
 
     @Override
     public void setInProgressOrder(TaxiOrderEntity taxiOrderEntity) {
