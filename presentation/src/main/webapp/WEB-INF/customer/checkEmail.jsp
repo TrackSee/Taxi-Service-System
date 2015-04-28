@@ -1,3 +1,4 @@
+<%-- Created by Ruslan Gunavardana--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="ru">
@@ -5,6 +6,7 @@
     <%@include file="../parts/meta.jsp"%>
 </head>
 <body>
+<%@include file="../parts/header.jsp" %>
 
 <div class="jumbotron">
     <div class="container">
@@ -20,6 +22,7 @@
     <%@include file="../parts/footer.jsp" %>
 </div>
 
+<%@include file="../parts/scripts.jsp" %>
 <%@include file="../parts/scripts-sign.jsp" %>
 
 </body>

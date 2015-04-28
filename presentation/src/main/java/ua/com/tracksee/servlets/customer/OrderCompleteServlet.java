@@ -23,7 +23,7 @@ import java.util.HashMap;
  * This class return orderComplete.jsp,
  * get data from this page and send it to TaxiOrderBean
  */
-@WebServlet("/orderComplete")
+@WebServlet("/order/complete")
 public class OrderCompleteServlet extends HttpServlet {
     /* order status is QUEUED  because
     * the orders received from the page will

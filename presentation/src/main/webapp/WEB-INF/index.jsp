@@ -13,61 +13,14 @@
 <head>
     <%@include file="parts/meta.jsp" %>
     <%@include file="parts/bootstrap2.jsp" %>
+
+    <%--For slider--%>
+    <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/css/carousel.css">
 </head>
 
 <body>
-<!--start: Header -->
-<header>
-
-    <!--start: Container -->
-    <div class="container">
-
-        <!--start: Row -->
-        <div class="row">
-
-            <!--start: Logo -->
-            <div class="logo span3">
-
-                <a class="brand" href="#"><img src="<%=application.getContextPath()%>/resources/img/logo.png"
-                                               alt="Logo"></a>
-
-            </div>
-            <!--end: Logo -->
-
-            <!--start: Navigation -->
-            <div class="span9">
-
-                <div class="navbar navbar-inverse">
-                    <div class="navbar-inner">
-                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </a>
-
-                        <div class="nav-collapse collapse">
-                            <ul class="nav">
-                                <li class="active"><a href="">Home</a></li>
-                                <li><a href="order">Order</a></li>
-                                <li><a href="orderInfo">Order nformation</a></li>
-                                <li><a href="signin">Login</a></li>
-                                <li><a href="signup">Registration</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!--end: Navigation -->
-
-        </div>
-        <!--end: Row -->
-
-    </div>
-    <!--end: Container-->
-
-</header>
-<!-- start: Slider -->
+<%@include file="parts/header.jsp"%>
+<%-- start: Slider --%>
 <div id="myCarousel" class="carousel slide">
     <div class="carousel-inner">
         <div class="item active">
@@ -113,10 +66,14 @@
 </div>
 <%--End slider--%>
 
+
+<%-- start: Java Script --%>
 <%@include file="parts/scripts.jsp" %>
 
 <%--For slider--%>
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-carousel.js"></script>
+<%-- end: Java Script --%>
 
+<%@include file="parts/footer.jsp"%>
 </body>
 </html>
