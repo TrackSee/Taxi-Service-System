@@ -17,6 +17,23 @@ public class AddressEntity {
     private String stringRepresentation;
     private PGpoint location;
 
+    public AddressEntity(String name, Integer userId, String stringRepresentation, PGpoint location) {
+        this.name = name;
+        this.userId = userId;
+        this.stringRepresentation = stringRepresentation;
+        this.location = location;
+    }
+
+    //TODO delete this constructor by Kozin O.
+    public AddressEntity(String name, Integer userId, String stringRepresentation) {
+        this.name = name;
+        this.userId = userId;
+        this.stringRepresentation = stringRepresentation;
+    }
+
+    public AddressEntity() {
+    }
+
     @Id
     @Column(name = "name")
     public String getName() {
