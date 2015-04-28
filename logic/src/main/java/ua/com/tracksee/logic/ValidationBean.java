@@ -26,7 +26,7 @@ public class ValidationBean {
      */
     private String PASSWORD_REGEXP = "^(?=.*[0-9@#$%^&+=_])(?=.*[a-z])(?=.*[A-Z])[\\w@#$%^&+=]{6,28}$";
 
-    private String PHONE_NUMBER_REGEXP = "^[0-9 +()-]{5,28}$";
+    private String PHONE_NUMBER_REGEXP = "^\\+?[0-9 ()-]{5,27}$";
 
     /**
      * Returns true if email address is valid, false in other case.
@@ -49,10 +49,6 @@ public class ValidationBean {
                 ++digitCount;
             }
         }
-        // TODO Ruslan check and choose right method between two methods
-        String regex = "^ *\\+?([0-9] ?){6,14}[0-9]( *)$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(phoneNumber);
-        return digitCount > 4 & digitCount < 16 & matcher.matches();
+        return digitCount > 4 & digitCount < 16 & phoneNumber.matches(PHONE_NUMBER_REGEXP);
     }
 }
