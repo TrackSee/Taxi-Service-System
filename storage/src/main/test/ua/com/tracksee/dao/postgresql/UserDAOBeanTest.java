@@ -13,6 +13,8 @@ import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.postrgresql.UserDAOBean;
 import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.enumartion.Sex;
+import ua.com.tracksee.error.PersistError;
 
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
@@ -42,6 +44,8 @@ public class UserDAOBeanTest {
                 .addPackage(PGBinaryObject.class.getPackage())
                 .addPackage(ServiceUserEntity.class.getPackage())
                 .addPackage(UserDAOBean.class.getPackage())
+                .addPackage(Sex.class.getPackage())
+                .addPackage(PersistError.class.getPackage())
                 .addPackage(UserDAO.class.getPackage())
                 .addAsResource("META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");

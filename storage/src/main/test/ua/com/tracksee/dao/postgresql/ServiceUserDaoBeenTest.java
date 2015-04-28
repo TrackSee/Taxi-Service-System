@@ -1,6 +1,6 @@
 package ua.com.tracksee.dao.postgresql;
 
-import junit.framework.Assert;
+import static org.junit.Assert.assertTrue;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -15,10 +15,11 @@ import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.postrgresql.ServiceUserDaoBeen;
 import ua.com.tracksee.dao.postrgresql.UserDAOBean;
 import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.enumartion.Sex;
+import ua.com.tracksee.error.PersistError;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.validation.constraints.AssertTrue;
+import javax.persistence.EntityManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,9 @@ public class ServiceUserDaoBeenTest {
 
     @EJB
     ServiceUserDaoBeen daoBeen;
+
+    @EJB
+    EntityManager em;
 
     @Deployment
     public static WebArchive createTestArchive() {
@@ -45,6 +49,8 @@ public class ServiceUserDaoBeenTest {
                 .addPackage(PGBinaryObject.class.getPackage())
                 .addPackage(ServiceUserEntity.class.getPackage())
                 .addPackage(UserDAOBean.class.getPackage())
+                .addPackage(Sex.class.getPackage())
+                .addPackage(PersistError.class.getPackage())
                 .addPackage(UserDAO.class.getPackage())
                 .addAsResource("META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -68,7 +74,6 @@ public class ServiceUserDaoBeenTest {
             usersId.add(serviceUserEntity.getUserId());
         }
         List<ServiceUserEntity> entityList = daoBeen.getAllById(usersId);
-
-        Assert.assertTrue(entityList.size() == usersId.size());
+        assertTrue(entityList.size() == usersId.size());
     }
 }
