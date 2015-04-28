@@ -58,8 +58,11 @@ public interface UserDAO {
     int getDriverPagesCount();
 
     /**
+     * @param serviceUserID user_id for deleting
+     * @author Katia Stetsiuk
      */
     void deleteUser(int serviceUserID);
+
     void updateUser(ServiceUserEntity serviceUserEntity);
 
     ServiceUserEntity getUserByEmail(String email);
@@ -68,8 +71,7 @@ public interface UserDAO {
 
     /**
      * @throws ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException when there
-     * is no service user with such id
-     *
+     *                                                                                 is no service user with such id
      */
     ServiceUserEntity getDriverByID(int id);
 
@@ -82,4 +84,9 @@ public interface UserDAO {
     boolean checkUserByEmail(String email);
 
     Integer getUserIdByEmail(String email);
+
+    /**
+     * @author Vadym Akymov
+     */
+    void assignCar(String carNumber, Integer driverID);
 }

@@ -1,8 +1,9 @@
 package ua.com.tracksee.servlets.admin;
 
-        import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
+import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.logic.admin.AdministratorBean;
 
@@ -18,8 +19,8 @@ import java.io.IOException;
 /**
  * @author Katia Stetsiuk
  */
-@WebServlet("/admin/createdriver")
-public class AdminCreateDriverServlet extends HttpServlet {
+@WebServlet("/admin/createcar")
+public class AdminCreateCarServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
 
     @EJB
@@ -27,7 +28,7 @@ public class AdminCreateDriverServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/admin/adminCreateDriver.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/admin/adminCreateCar.jsp").forward(req, resp);
     }
 
     /**
@@ -43,12 +44,12 @@ public class AdminCreateDriverServlet extends HttpServlet {
                 sb.append(line).append("\n");
             } while (line != null);
         } catch (IOException e){
-            logger.warn("Cannot get json from post /admin/updatedriver");
+            logger.warn("Cannot get json from post /admin/createcar");
         }
         ObjectMapper mapper = new ObjectMapper();
-        ServiceUserEntity user = mapper.readValue(sb.toString(), ServiceUserEntity.class);
-        user.setDriver(true);
-        administratorBean.createUser(user);
-        resp.sendRedirect("drivers");
+        CarEntity car = mapper.readValue(sb.toString(), CarEntity.class);
+        car.getAnimalTransportationApplicable();
+        administratorBean.createCar(car);
+        resp.sendRedirect("cars");
     }
 }

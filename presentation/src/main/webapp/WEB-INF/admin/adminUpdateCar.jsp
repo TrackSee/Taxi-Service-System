@@ -1,10 +1,11 @@
 <%--
   Created by IntelliJ IDEA.
   User: Katia Stetsiuk
-  Date: 24-Apr-15
-  Time: 09:37
+  Date: 27-Apr-15
+  Time: 19:28
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -55,32 +56,34 @@
 </div>
 <div class="container" style=" width : 500px; ">
 
-    <form class="create-driver" id="createDriver" action="<c:url value="/admin/createdriver"/>" method="post">
-        <h2 class="form-sign-up-heading">Please enter drivers data</h2>
-        <label for="email" class="sr-only">Email</label>
-        <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required>
+    <form class="update-car" id="updateItCar" action="<c:url value="/admin/updatecar"/>" method="post">
+        <h2 class="form-sign-up-heading">Please enter cars data</h2>
+               <%--<label for="carNumber" class="sr-only">Number</label>--%>
+        <%--<input type="carNumber" id="carNumber" name="carNumber" class="form-control" placeholder="Car Number" value="${car.carNumber}">--%>
 
-        <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        <label for="carModel" class="sr-only">Model</label>
+        <input type="carModel" id="carModel" name="carModel" class="form-control"   value="${car.carModel}">
 
-        <label for="confirmpassword" class="sr-only">Password</label>
-        <input type="password" id="confirmpassword" name="confirmpassword" class="form-control"
-               placeholder="confirm password" required>
+        <label for="carColor" class="sr-only">Color</label>
+        <input type="carColor" id="carColor" name="carColor" class="form-control"
+               placeholder="color"  value="${car.color}">
 
-        <label for="phone" class="sr-only">Phone number</label>
-        <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" required>
 
         <%--TODO send via ajax!!--%>
         <div>
-            <label>Sex</label>
+            <label>Category</label>
         </div>
-        <select class="sex form-control" name="sex">
-            <option value="M">Male</option>
-            <option value="F">Female</option>
+        <select id = "category" class="category form-control" name="category">
+            <option value="BUSINESS_CLASS">BUSINESS CLASS</option>
+            <option value="ECONOMY_CLASS">ECONOMY CLASS</option>
+            <option value="VAN">VAN</option>
         </select>
-
+        <%--<label for="animalTransportationApplicable" class="sr-only">Color</label>--%>
+        <input type="checkbox" id = "animalTransportationApplicable" name="animalTransportationApplicable"  value="${car.animalTransportationApplicable}" >Animal Transportation Applicable<Br>
+        <input type="checkbox" id = "freeWifi" name="freeWifi" value="${car.freeWifi}">Free Wifi<Br>
+        <input type="checkbox" id = "airConditioner" name="airConditioner" value="${car.airConditioner}" >Air Conditioner<Br>
         <div>
-            <button  id="addDriver" type="button" class="btn btn-primary">Create</button>
+            <button  id="updateCar" type="button" class="btn btn-primary">Create</button>
         </div>
 
 
@@ -88,13 +91,10 @@
 </div>
 
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
-<%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.delegate.js"--%>
-        <%--type="text/javascript"></script>--%>
 <script src="<%=application.getContextPath()%>/resources/admin//bower_components/jquery/dist/jquery.validate.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-<script src="<%=application.getContextPath()%>/resources/admin/js/createdriver.js"></script>
-<script src="<%=application.getContextPath()%>/resources/admin/js/hsps.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/updatecar.js"></script>
 
 
 </body>

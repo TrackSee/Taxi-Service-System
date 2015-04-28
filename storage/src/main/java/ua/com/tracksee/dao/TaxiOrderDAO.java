@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Interface for persisting and accessing taxi order data.
  *
- * @author kstes_000
+ * @author Katia Stetsiuk
  * @author Ruslan Gunavardana
  * @author Sharaban Sasha
  */

@@ -31,14 +31,24 @@ public class AdministratorBean {
 
     public Integer addUser(ServiceUserEntity user) {return  userDAO.addUser(user);}
 
+    /**
+     * @author Katia Stetsiuk
+     * @param user entity for creating and updating
+     */
     public void  updateUser(ServiceUserEntity user) { userDAO.updateUser(user);}
 
     public void createUser(ServiceUserEntity user) {userDAO.createUser(user);}
 
-    public List<CarEntity> getCars() {return carDAO.getCars();}
+    public void getDriverById(int driverId) {
+        userDAO.getDriverByID(driverId);
+    }
+
+    public List<CarEntity> getCars() {
+        return carDAO.getCars();
+    }
 
     /**
-     * @author Vadym_Akymov, Katia Stetsiuk
+     * @author Vadym Akymov, Katia Stetsiuk
      */
     public List<CarEntity> getAllFreeCars(){
         return carDAO.getAllFreeCars();
@@ -51,15 +61,32 @@ public class AdministratorBean {
         return carDAO.getCarByNumber(carNumber);
     }
     /**
-     * @author Vadym_Akymov
+     * @author Vadym Akymov
      */
     public ServiceUserEntity getDriverByID(int id){
         return userDAO.getDriverByID(id);
     }
     /**
-     * @author Vadym_Akymov
+     * @author Vadym Akymov
      */
     public void deleteUser(int id){
         userDAO.deleteUser(id);
     }
+
+    /**
+     * @author Vadym Akymov
+     */
+    public void assignCar(String carNumber, Integer driverID){
+        userDAO.assignCar(carNumber, driverID);
+    }
+
+    /**
+     * @author Katia Stetsiuk
+     * @param carEntity entity for updating, creating, deleting
+     */
+    public void createCar(CarEntity carEntity){carDAO.createCar(carEntity);}
+    public void updateCar(CarEntity carEntity){carDAO.updateCar(carEntity);}
+    public void deleteCar(String carNumber) {carDAO.deleteCar(carNumber);}
+
+
 }

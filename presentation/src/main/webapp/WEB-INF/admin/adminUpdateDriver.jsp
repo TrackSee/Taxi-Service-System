@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: kstes_000
+  User: Katia Stetsiuk
   Date: 25-Apr-15
   Time: 23:46
   To change this template use File | Settings | File Templates.
@@ -60,7 +60,7 @@
 </div>
 <div class="container" style=" width : 500px; ">
 
-    <form class="create-driver" id="updateItDriver" action="<c:url value="/admin/updatedriver"/>">
+    <form class="update-driver" id="updateItDriver" action="<c:url value="/admin/updatedriver"/>">
         <h2 class="form-sign-up-heading">Update Profile</h2>
         <label for="email" class="sr-only">Email </label>
         <input type="email" placeholder="email" id="email" name="email" class="form-control" value="${driver.email}" >

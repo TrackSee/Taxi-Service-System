@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.logic.admin.AdministratorBean;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -16,7 +17,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- * Created by kstes_000 on 25-Apr-15.
+ * @author Katia Stetsiuk
  */
 @WebServlet("/admin/updatedriver")
 public class AdminUpdateDriverServlet extends HttpServlet {
@@ -24,13 +25,13 @@ public class AdminUpdateDriverServlet extends HttpServlet {
 
     private  Integer id;
     @EJB
-    private UserDAO userDAO;
+    private AdministratorBean administratorBean;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         id = Integer.parseInt(req.getParameter("userId"));
-        req.setAttribute("driver", userDAO.getDriverByID(id));
-        System.out.println("USER Id" + userDAO.getDriverByID(id).getEmail());
+        req.setAttribute("driver", administratorBean.getDriverByID(id));
+        System.out.println("USER Id" + administratorBean.getDriverByID(id).getEmail());
         req.getRequestDispatcher("/WEB-INF/admin/adminUpdateDriver.jsp").forward(req, resp);
 
     }
@@ -53,6 +54,6 @@ public class AdminUpdateDriverServlet extends HttpServlet {
         ServiceUserEntity user = mapper.readValue(sb.toString(), ServiceUserEntity.class);
         user.setUserId(id);
         user.setDriver(true);
-        userDAO.updateUser(user);
+        administratorBean.updateUser(user);
     }
 }

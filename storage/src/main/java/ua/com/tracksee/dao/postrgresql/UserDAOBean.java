@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * @author Vadym Akymov
  * @author Ruslan Gunavardana
+ * @author Katia Stetsiuk
  */
 @Stateless
 public class UserDAOBean implements UserDAO {
@@ -60,9 +61,26 @@ public class UserDAOBean implements UserDAO {
 
     @Override
     public Integer getUserIdByEmail(String email) {
-        Query query=entityManager.createNativeQuery("SELECT user_id FROM service_user WHERE email=?1");
+        Query query = entityManager.createNativeQuery("SELECT user_id FROM service_user WHERE email=?1");
         query.setParameter(1, email);
         return query.getFirstResult();
+    }
+
+
+    public void assignCar(String carNumber, Integer driverID) {
+        if(carNumber == null){
+            logger.warn("carNumber can't be null");
+            throw new IllegalArgumentException("carNumber can't be null");
+        }
+        if(driverID == null){
+            logger.warn("driverID can't be null");
+            throw new IllegalArgumentException("driverID can't be null");
+        }
+        Query q = entityManager.createNativeQuery("UPDATE service_user SET car_number = ?1 " +
+                "WHERE user_id = ?2");
+        q.setParameter(1, carNumber);
+        q.setParameter(2, driverID);
+        q.executeUpdate();
     }
 
     @Override
