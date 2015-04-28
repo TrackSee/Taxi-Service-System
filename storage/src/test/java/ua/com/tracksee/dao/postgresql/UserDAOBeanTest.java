@@ -28,6 +28,7 @@ import static org.junit.Assert.assertTrue;
  * @author Vadym_Akymov
  */
 //TODO add data initialization
+
 @RunWith(Arquillian.class)
 public class UserDAOBeanTest {
     @EJB

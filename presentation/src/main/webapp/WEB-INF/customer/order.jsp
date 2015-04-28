@@ -88,6 +88,10 @@
 </div>
 <%-- end:padding  --%>
 
+<p id="error-label"></p>
+
+<div id="map-canvas" style="width:75%; height:75%; position: absolute; float: left"></div>
+
 <%@include file="../parts/scripts.jsp" %>
 <%@include file="../parts/footer.jsp" %>
 
