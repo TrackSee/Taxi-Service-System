@@ -17,7 +17,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- * Created by kstes_000 on 25-Apr-15.
+ * @author Katia Stetsiuk
  */
 @WebServlet("/admin/updatedriver")
 public class AdminUpdateDriverServlet extends HttpServlet {

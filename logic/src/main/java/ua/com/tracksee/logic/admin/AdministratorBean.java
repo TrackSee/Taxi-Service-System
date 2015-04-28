@@ -30,6 +30,11 @@ public class AdministratorBean {
         return userDAO.getDrivers(partNumber);
     }
     public Integer addUser(ServiceUserEntity user) {return  userDAO.addUser(user);}
+
+    /**
+     * @author Katia Stetsiuk
+     * @param user entity for creating and updating
+     */
     public void  updateUser(ServiceUserEntity user) { userDAO.updateUser(user);}
     public void createUser(ServiceUserEntity user) {userDAO.createUser(user);}
     
@@ -75,6 +80,13 @@ public class AdministratorBean {
         userDAO.assignCar(carNumber, driverID);
     }
 
+    /**
+     * @author Katia Stetsiuk
+     * @param carEntity entity for updating, creating, deleting
+     */
     public void createCar(CarEntity carEntity){carDAO.createCar(carEntity);}
+    public void updateCar(CarEntity carEntity){carDAO.updateCar(carEntity);}
+    public void deleteCar(String carNumber) {carDAO.deleteCar(carNumber);}
+
 
 }

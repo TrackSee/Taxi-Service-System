@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by kstes_000 on 26-Apr-15.
+ * Katia Stetsiuk
  */
 @WebServlet("/admin/cars")
 public class AdminCarServlet extends HttpServlet {

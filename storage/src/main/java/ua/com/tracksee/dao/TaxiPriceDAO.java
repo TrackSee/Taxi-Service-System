@@ -5,7 +5,7 @@ import ua.com.tracksee.entities.TaxiPriceEntity;
 import javax.ejb.Local;
 
 /**
- * @author kstes_000
+ * @author Katia Stetsiuk
  */
 @Local
 public interface TaxiPriceDAO {

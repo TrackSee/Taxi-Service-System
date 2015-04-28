@@ -6,7 +6,7 @@ import javax.ejb.Local;
 import java.util.List;
 
 /**
- * Created by kstes_000 on 23-Apr-15.
+ * @author  Katia Stetsiuk
  */
 @Local
 public interface AddressDAO {

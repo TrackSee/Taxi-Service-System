@@ -1,14 +1,10 @@
 package ua.com.tracksee.dao.postrgresql;
 
-
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.CarDAO;
-import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
+import ua.com.tracksee.dao.postrgresql.exceptions.CarNotFoundException;
 import ua.com.tracksee.entities.CarEntity;
-import ua.com.tracksee.entities.ServiceUserEntity;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -48,16 +44,16 @@ public class CarDAOBean implements CarDAO {
 
     @Override
     public void updateCar(CarEntity carEntity) {
-        String sql = "UPDATE car SET car_number = ?, car_model = ?, color = ? ,animal_transportation = ?, " +
-                "free_wifi = ? , air_conditioner = ?";
+        String sql = "UPDATE car SET car_model = ?, color = ? ,animal_transportation_applicable = ?, " +
+                "free_wifi = ? , air_conditioner = ? " +
+                " WHERE car_number = ?" ;
         Query query = entityManager.createNativeQuery(sql);
-        query.setParameter(1, carEntity.getCarNumber());
-        query.setParameter(2, carEntity.getCarCategory());
-        query.setParameter(3, carEntity.getColor());
-        //  query.setParameter(3, carEntity.getCarCategory());
-        query.setParameter(4, carEntity.getAnimalTransportationApplicable());
-        query.setParameter(5, carEntity.getFreeWifi());
-        query.setParameter(6, carEntity.getAirConditioner());
+        query.setParameter(1, carEntity.getCarModel());
+        query.setParameter(2, carEntity.getColor());
+        query.setParameter(3, carEntity.getAnimalTransportationApplicable());
+        query.setParameter(4, carEntity.getFreeWifi());
+        query.setParameter(5, carEntity.getAirConditioner());
+        query.setParameter(6, carEntity.getCarNumber());
         query.executeUpdate();
     }
 
@@ -68,7 +64,7 @@ public class CarDAOBean implements CarDAO {
             throw new IllegalArgumentException("carId can't be <= 0");
         }
         String sql = "DELETE from car " +
-                "where carNumber = ?1";
+                "where car_number = ?1";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, carNumber);
         query.executeUpdate();
@@ -105,8 +101,7 @@ public class CarDAOBean implements CarDAO {
         CarEntity car = entityManager.find(CarEntity.class, carNumber);
         if(car == null){
             logger.warn("There is no car with such id");
-            //TODO write exception for car!!!!!
-            throw new ServiceUserNotFoundException("There is no car with such id");
+            throw new CarNotFoundException("There is no car with such id");
         }
         return car;
     }

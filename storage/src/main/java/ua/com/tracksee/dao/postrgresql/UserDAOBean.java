@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * @author Vadym Akymov
  * @author Ruslan Gunavardana
+ * @author Katia Stetsiuk
  */
 @Stateless
 public class UserDAOBean implements UserDAO {
