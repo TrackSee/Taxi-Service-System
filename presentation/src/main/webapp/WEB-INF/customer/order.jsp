@@ -33,14 +33,6 @@
 
 </div>
 <!-- end: Page Title -->
-
-<%--
-   Fast taxi order form with validation.
-
-  author: Sharaban Sasha
-  Date: 19.04.15
-  Time: 20:37
---%>
 <!--start: Wrapper-->
 <div class="padding">
 <div id="wrapper">
@@ -92,6 +84,11 @@
 
 <div id="map-canvas" style="width:75%; height:75%; position: absolute; float: left"></div>
 
+<%-- start: Java Script --%>
+<%@include file="../parts/scripts.jsp" %>
+<script src="<%=application.getContextPath()%>/resources/customer/js/google-maps.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
+<%-- end: Java Script --%>
 <%@include file="../parts/scripts.jsp" %>
 <%@include file="../parts/footer.jsp" %>
 
