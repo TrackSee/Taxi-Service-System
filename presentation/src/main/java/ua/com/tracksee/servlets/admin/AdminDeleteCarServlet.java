@@ -27,7 +27,7 @@ public class AdminDeleteCarServlet extends HttpServlet {
         String carNumber = req.getParameter("carNumber");
         System.out.println("car num " + carNumber);
         administratorBean.deleteCar(carNumber);
-        resp.sendRedirect("/cars");
+        resp.sendRedirect("cars");
         }
 
     @Override

@@ -43,6 +43,12 @@
                         <li>
                             <a href="<%=application.getContextPath()%>/admin/createdriver">Create driver account</a>
                         </li>
+                        <li>
+                            <a href="<%=application.getContextPath()%>/admin/cars">List of cars</a>
+                        </li>
+                        <li>
+                            <a href="<%=application.getContextPath()%>/admin/createcar">Create car</a>
+                        </li>
                     </ul>
                 </li>
                 <%--Logout from page--%>

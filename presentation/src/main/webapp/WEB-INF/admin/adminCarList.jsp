@@ -64,15 +64,15 @@
             <tbody id="table-body">
             <c:forEach items="${requestScope.cars}" var="car">
                 <tr>
-                    <td>${car.carNumber}</td>
+                    <td><a href="updatecar?carNumber=${car.carNumber}">${car.carNumber}</a></td>
                     <td>${car.carModel}</td>
                     <td>${car.color}</td>
                     <td>${car.carCategory}</td>
                     <td>${car.animalTransportationApplicable}</td>
                     <td>${car.freeWifi}</td>
                     <td>${car.airConditioner}</td>
-                        <td><a href="updatecar?carNumber=${car.carNumber}" >Edit</a> </td>
-                    <td><a href="deletecar?carNumber=${car.carNumber}">Delete</a> </td>
+                    <td><a href="updatecar?carNumber=${car.carNumber}" >Edit</a></td>
+                    <td><a href="deletecar?carNumber=${car.carNumber}">Delete</a></td>
                 </tr>
             </c:forEach>
             </tbody>
