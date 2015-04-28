@@ -16,5 +16,6 @@
     <link href="<%=application.getContextPath()%>/resources/customer/css/successStyle.css" rel="stylesheet">
 </head>
 <body>
+
 </body>
 </html>
