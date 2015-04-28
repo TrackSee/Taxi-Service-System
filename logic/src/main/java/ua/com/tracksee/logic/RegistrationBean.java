@@ -2,6 +2,7 @@ package ua.com.tracksee.logic;
 
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
+
 import ua.com.tracksee.logic.exception.RegistrationException;
 
 import javax.ejb.EJB;

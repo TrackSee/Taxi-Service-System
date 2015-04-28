@@ -51,6 +51,21 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
+    public boolean checkUserByEmail(String email) {
+        Query query=entityManager.createNativeQuery("SELECT * FROM service_user WHERE email=?1");
+        query.setParameter(1, email);
+        if(query.getResultList().size()==0)return false;
+        return true;
+    }
+
+    @Override
+    public Integer getUserIdByEmail(String email) {
+        Query query=entityManager.createNativeQuery("SELECT user_id FROM service_user WHERE email=?1");
+        query.setParameter(1, email);
+        return query.getFirstResult();
+    }
+
+    @Override
     public void clearUnactivatedAccounts(int unactivatedDays) {
         String sql = "DELETE FROM service_user " +
                 "WHERE activated = FALSE " +

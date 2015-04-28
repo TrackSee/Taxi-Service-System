@@ -24,25 +24,26 @@ public class SignUpServlet extends HttpServlet {
     @EJB
     private RegistrationBean controller;
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/customer/signUp.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/customer/registration.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            String email = req.getParameter("email");
-            String password = req.getParameter("password");
-            String phoneNumber = req.getParameter("phone-number");
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
+        String phoneNumber = req.getParameter("phone-number");
 
+        try {
             controller.registerCustomerUser(email, password, phoneNumber);
-            logger.info("Successful sign up. User: {}", email);
-            req.getRequestDispatcher("/WEB-INF/customer/checkEmail.jsp").forward(req, resp);
         } catch (RegistrationException e) {
             logger.warn(e.getMessage());
             resp.getWriter().append(e.getErrorType());
+            return;
         }
+
+        logger.info("Successful sign up. User: {}", email);
+        req.getRequestDispatcher("/WEB-INF/customer/checkEmail.jsp").forward(req, resp);
     }
 }

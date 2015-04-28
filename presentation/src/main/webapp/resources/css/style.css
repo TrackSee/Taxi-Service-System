@@ -19,6 +19,9 @@
 @import url("hover.css");				/* Hover CSS3 Effect */
 @import url("parallax-slider.css");		/* Parallax Slider */
 
+
+
+
 .clear {
 	clear:both;
 }
@@ -579,6 +582,7 @@ html[xmlns] .slides {display: block;}
 	text-align: center;
 
 }
+
 
 .team-name span {
 	font-size: 12px;

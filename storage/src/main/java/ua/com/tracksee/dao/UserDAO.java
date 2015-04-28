@@ -74,11 +74,12 @@ public interface UserDAO {
     ServiceUserEntity getDriverByID(int id);
 
 
-    /**
-     *
-     */
     ServiceUserEntity getUserById(int id);
 
 
     List<String> getDriversEmails();
+
+    boolean checkUserByEmail(String email);
+
+    Integer getUserIdByEmail(String email);
 }

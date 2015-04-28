@@ -22,7 +22,7 @@ public class TaxiOrderEntity {
     private CarCategory carCategory;
     private WayOfPayment wayOfPayment;
     private Sex driverSex;
-    private String musicStyle;
+    private MusicStyle musicStyle;
     private Boolean animalTransportation;
     private Boolean freeWifi;
     private Boolean nonSmokingDriver;
@@ -137,12 +137,13 @@ public class TaxiOrderEntity {
     }
 
     @Basic
+    @Enumerated(STRING)
     @Column(name = "music_style")
-    public String getMusicStyle() {
+    public MusicStyle getMusicStyle() {
         return musicStyle;
     }
 
-    public void setMusicStyle(String musicStyle) {
+    public void setMusicStyle(MusicStyle musicStyle) {
         this.musicStyle = musicStyle;
     }
 

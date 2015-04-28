@@ -1,7 +1,6 @@
 package ua.com.tracksee.servlets.customer;
 
 import ua.com.tracksee.entities.ServiceUserEntity;
-import ua.com.tracksee.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,7 +29,7 @@ public class SignInServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/customer/signIn.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/customer/login.jsp").forward(req, resp);
     }
 
     @Override
@@ -39,20 +38,15 @@ public class SignInServlet extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
-        try {
-            ServiceUserEntity user = null;
-            //TODO  checkAndGetUser(req.getParameter("email"), req.getParameter("password"));
-            if (user == null) {
-                resp.sendRedirect(req.getParameter("redirect_url"));
-            } else {
-                session = req.getSession(true);
-                session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_INTERVAL);
-                session.setAttribute("user", user);
-                resp.sendRedirect(req.getParameter("redirect_url"));
-            }
-        } catch (Exception e/*SQLException e*/) { //TODO
-            logger.error(e.getMessage());
-            resp.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, "Database unavailable.");
+        ServiceUserEntity user = null;
+        //TODO  checkAndGetUser(req.getParameter("email"), req.getParameter("password"));
+        if (user == null) {
+            resp.sendRedirect(req.getParameter("redirect_url"));
+        } else {
+            session = req.getSession(true);
+            session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_INTERVAL);
+            session.setAttribute("user", user);
+            resp.sendRedirect(req.getParameter("redirect_url"));
         }
     }
 }

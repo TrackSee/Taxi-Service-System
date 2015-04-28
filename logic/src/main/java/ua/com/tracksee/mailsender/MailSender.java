@@ -1,9 +1,5 @@
 package ua.com.tracksee.mailsender;
 
-/**
- * @author Igor Dvorskij
- */
-
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -15,7 +11,6 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -23,8 +18,12 @@ import java.util.Map;
 
 import static ua.com.tracksee.mailsender.SenderSessionSpecificator.GMAIL;
 
+/**
+ * @author Igor Dvorskij
+ */
 public class MailSender {
     private static Session SESSION = GMAIL.getSession();
+
     private static InternetAddress FROM_ADDRESS;
 
     static {
@@ -32,6 +31,7 @@ public class MailSender {
             FROM_ADDRESS = SenderSessionSpecificator.GMAIL.getInternetAddress();
         } catch (AddressException e) {
             e.printStackTrace();
+            //TODO logger.info("get this shit out of our code");
         }
     }
 
@@ -55,6 +55,7 @@ public class MailSender {
 
         } catch (MessagingException e) {
             e.printStackTrace();
+            //TODO logger.info("get this shit out of our code");
         }
     }
 
@@ -82,6 +83,7 @@ public class MailSender {
 
         } catch (MessagingException e) {
             e.printStackTrace();
+            //TODO logger.info("get this shit out of our code");
         }
     }
 
@@ -98,8 +100,10 @@ public class MailSender {
             sendEmail(to, subject, body);
         } catch (IOException e) {
             e.printStackTrace();
+            //TODO logger.info("get this shit out of our code");
         } catch (TemplateException e) {
             e.printStackTrace();
+            //TODO logger.info("get this shit out of our code");
         }
     }
 
@@ -108,5 +112,4 @@ public class MailSender {
         return cfg
                 .getTemplate(path);
     }
-
 }
