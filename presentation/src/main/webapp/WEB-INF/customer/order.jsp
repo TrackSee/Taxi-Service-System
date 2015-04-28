@@ -82,7 +82,7 @@
 
 <p id="error-label"></p>
 
-<div id="map-canvas" style="width:75%; height:75%; position: absolute; float: left"></div>
+<div id="map-canvas" class="googleMap"></div>
 
 <%-- start: Java Script --%>
 <%@include file="../parts/scripts.jsp" %>
