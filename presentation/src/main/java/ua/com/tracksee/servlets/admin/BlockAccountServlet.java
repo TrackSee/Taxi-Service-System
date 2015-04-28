@@ -1,13 +1,14 @@
 package ua.com.tracksee.servlets.admin;
 
 
+import org.apache.logging.log4j.LogManager;
 import ua.com.tracksee.config.manager.been.ConfigManagerBean;
 import ua.com.tracksee.config.manager.been.MessageManagerBean;
 import ua.com.tracksee.dao.postrgresql.ServiceUserDaoBeen;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.error.PersistError;
 import ua.com.tracksee.logic.admin.AdministratorBean;
-
+import org.apache.logging.log4j.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,9 +29,17 @@ import java.util.List;
 public class BlockAccountServlet extends HttpServlet {
 
 
+    private Logger logger;
+
     public static int COUNT_PER_PAGE = 20;
     public static int BLOCK_ACCOUNT_VALUE = 10;
 
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        logger = LogManager.getLogger();
+    }
 
     @EJB
     private ConfigManagerBean configManager;
@@ -54,6 +63,7 @@ public class BlockAccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        logger.debug("blockAccount, Get method");
         List<ServiceUserEntity> list = new LinkedList<>();
 
         int countPerPage = getIntParam(req, "countPerPage", COUNT_PER_PAGE);
@@ -68,7 +78,7 @@ public class BlockAccountServlet extends HttpServlet {
         req.setAttribute("countPerPage", countPerPage);
         req.setAttribute("noOfPages", pageCount);
         req.setAttribute("users", list);
-
+        logger.debug("blockAccount servlet, redirect to: " + configManager.getString("path.page.block.account"));
         forwardPage("path.page.block.account", req, resp);
 
 
@@ -83,19 +93,22 @@ public class BlockAccountServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        logger.debug("blockAccount, Post method");
         List<Integer> userId = getUsersIdFromReq(req);
 
         if (userId == null || userId.size() == 0){
             req.setAttribute("errorMessage", messageManagerBean.getString("select.users"));
             doGet(req, resp);
+            return;
         }
 
 
 
         try {
             administratorBean.blockAllById(userId, BLOCK_ACCOUNT_VALUE);
+            req.setAttribute("completeMessage", messageManagerBean.getString("block.account.success"));
         } catch (PersistError persistError) {
+            logger.error("blockAccount servlet", persistError);
             req.setAttribute("errorMessage", messageManagerBean.getString("block.account.error"));
         }
 
@@ -123,6 +136,7 @@ public class BlockAccountServlet extends HttpServlet {
                 countPerPage = Integer.parseInt(strCountPerPage);
             } else countPerPage = defaultVal;
         } catch (Exception e){
+            logger.error("blocAccountServlet, str count per page", e);
             countPerPage = defaultVal;
         }
 
@@ -140,7 +154,6 @@ public class BlockAccountServlet extends HttpServlet {
 
     private void forwardPage(String conf_page, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, IOException {
         String page = configManager.getString(conf_page);
-
 
         RequestDispatcher dispatcher = req.getRequestDispatcher(page);
 
@@ -167,13 +180,14 @@ public class BlockAccountServlet extends HttpServlet {
                         Integer userId = Integer.parseInt(userIdStr);
                         result.add(userId);
                     } catch (Exception e){
+                        logger.error("user id is not validation", e);
                         errorUserIds.append(userIdStr).append(", ");
                     }
                 }
             }
 
         if (errorUserIds.length() != 0){
-            req.setAttribute("errorUserId", errorUserIds);
+            req.setAttribute("errorUserIds", errorUserIds);
         }
 
         return result;
