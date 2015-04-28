@@ -16,5 +16,8 @@ public interface AddressDAO {
     List getAllAddressesByUserId(AddressEntity address);
     List<AddressEntity> getAddresses(int partNumber);
 
+    AddressEntity getAddressByUserId(long userId, String name);
+    List getAllAddressesByUserId(long userId);
+
 }
 

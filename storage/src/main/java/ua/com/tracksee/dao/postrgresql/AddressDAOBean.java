@@ -25,8 +25,7 @@ public class AddressDAOBean implements AddressDAO {
 
     @Override
     public void addAddress(AddressEntity address) {
-        String sql = "INSERT INTO address (name, user_id, string_representation, location)" +
-                " VALUES (?,?,?,?)";
+        String sql = "INSERT INTO address (name, user_id, string_representation, location) VALUES (?,?,?,?)";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, address.getName());
         query.setParameter(2, address.getUserId());
@@ -37,15 +36,15 @@ public class AddressDAOBean implements AddressDAO {
 
     @Override
     public void deleteAddress(AddressEntity address) {
-        String sql = "DELETE FROM address WHERE name = " + address.getName() + " AND " + address.getUserId();
+        String sql = "DELETE FROM address WHERE name = " + address.getName() + " AND user_id = " + address.getUserId();
         Query query = entityManager.createNativeQuery(sql);
         query.executeUpdate();
     }
 
     @Override
     public void updateAddress(AddressEntity address) {
-        String sql = "UPDATE address SET string_representation = ?, location = ? " +
-                "WHERE name = "+ address.getName() + " AND " + address.getUserId();
+        String sql = "UPDATE address SET string_representation = ?, location = ? WHERE name = "
+                + address.getName() + " AND user_id = " + address.getUserId();
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, address.getStringRepresentation());
         query.setParameter(2, address.getLocation());
@@ -54,8 +53,8 @@ public class AddressDAOBean implements AddressDAO {
 
     @Override
     public List getAllAddressesByUserId(AddressEntity address) {
-        Query query = entityManager.createNativeQuery("SELECT * FROM address WHERE user_id = "
-                + address.getUserId(), AddressEntity.class);
+        String sql = "SELECT * FROM address WHERE user_id = " + address.getUserId();
+        Query query = entityManager.createNativeQuery(sql, AddressEntity.class);
         return query.getResultList();
     }
 
@@ -65,10 +64,26 @@ public class AddressDAOBean implements AddressDAO {
             logger.error("partNumber can't be <= 0");
             throw new IllegalArgumentException("partNumber can't be <= 0");
         }
-        Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
-                "WHERE driver = TRUE LIMIT ?1 OFFSET ?2", ServiceUserEntity.class);
+        String sql = "SELECT * FROM service_user WHERE driver = TRUE LIMIT ?1 OFFSET ?2";
+        Query query = entityManager.createNativeQuery(sql, ServiceUserEntity.class);
         query.setParameter(1, ADDRESSES_LIMIT);
         query.setParameter(2, (partNumber - 1) * ADDRESSES_LIMIT);
+        return query.getResultList();
+    }
+
+    @Override
+    public AddressEntity getAddressByUserId(long userId, String name) {
+//        String sql = "SELECT * FROM address WHERE name = " + name + " AND user_id = " + userId;
+//        Query query = entityManager.createNativeQuery(sql, AddressEntity.class);
+
+        AddressEntity address = entityManager.find(AddressEntity.class, name);
+        return address;
+    }
+
+    @Override
+    public List getAllAddressesByUserId(long userId) {
+        String sql = "SELECT * FROM address WHERE user_id = " + userId;
+        Query query = entityManager.createNativeQuery(sql, AddressEntity.class);
         return query.getResultList();
     }
 }
