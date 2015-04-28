@@ -9,6 +9,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
+
+<%-- start: Java Script --%>
+<%@include file="../parts/scripts.jsp" %>
+<%-- end: Java Script --%>
+
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
@@ -35,7 +40,6 @@
 <!-- end: Page Title -->
 
 <!--start: Wrapper-->
-<div class="padding">
 <div id="wrapper">
 
     <!--start: Container -->
@@ -48,7 +52,7 @@
 
                 <!-- start: About Us -->
                 <div id="about">
-                    <div class="title"><h3>Fast Booking Taxi</h3></div>
+                    <div class="title"><h3>Extended Booking Taxi</h3></div>
 
                     <form method="post" action="<c:url value="/order/complete"/>">
                         <div class="form-group">
@@ -64,19 +68,19 @@
                         <div class="form-group">
                             <label>Address from</label>
                             <input   type="text"  class="form-control" value="${addressOrigin}"
-                                    name="addressOrigin" data-error="That address is invalid" readonly>
+                                    name="addressOrigin" data-error="That address is invalid">
                         </div>
 
                         <div class="form-group">
                             <label>Address to</label>
                             <input  type="text" class="form-control" value="${addressDestination}"
-                                   name="addressDestination" data-error="That address is invalid" readonly>
+                                   name="addressDestination" data-error="That address is invalid">
                           </div>
 
                         <div class="form-group">
                             <label>Order price</label>
                             <input  type="text" name="price" class="form-control"
-                                   value="${price}"  placeholder="Address to:"
+                                   value="${price}"
                                    data-error="That address is invalid" readonly>
                         </div>
 
@@ -179,8 +183,21 @@
    </div>
     <%-- end:wrapper --%>
 </div>
-<%-- end:padding  --%>
 
+<div class="row">
+
+    <div class="span12">
+
+    <div id="map-canvas" class="googleMap"></div>
+
+        </div>
+    </div>
+
+<%-- start: Java Script --%>
+<%@include file="../parts/scripts.jsp" %>
+<script src="<%=application.getContextPath()%>/resources/customer/js/google-maps.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
+<%-- end: Java Script --%>
 
 <%@include file="../parts/scripts.jsp" %>
 <%@include file="../parts/footer.jsp" %>
