@@ -81,4 +81,9 @@ public interface UserDAO {
 
 
     List<String> getDriversEmails();
+
+    /**
+     * @author Vadym Akymov
+     */
+    void assignCar(String carNumber, Integer driverID);
 }

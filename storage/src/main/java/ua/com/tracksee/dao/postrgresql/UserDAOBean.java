@@ -51,6 +51,23 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
+    public void assignCar(String carNumber, Integer driverID) {
+        if(carNumber == null){
+            logger.warn("carNumber can't be null");
+            throw new IllegalArgumentException("carNumber can't be null");
+        }
+        if(driverID == null){
+            logger.warn("driverID can't be null");
+            throw new IllegalArgumentException("driverID can't be null");
+        }
+        Query q = entityManager.createNativeQuery("UPDATE service_user SET car_number = ?1 " +
+                "WHERE user_id = ?2");
+        q.setParameter(1, carNumber);
+        q.setParameter(2, driverID);
+        q.executeUpdate();
+    }
+
+    @Override
     public void clearUnactivatedAccounts(int unactivatedDays) {
         String sql = "DELETE FROM service_user " +
                 "WHERE activated = FALSE " +

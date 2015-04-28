@@ -35,7 +35,7 @@ public class AdministratorBean {
     public List<CarEntity> getCars() {return carDAO.getCars();}
 
     /**
-     * @author Vadym_Akymov, Katia Stetsiuk
+     * @author Vadym Akymov, Katia Stetsiuk
      */
     public List<CarEntity> getAllFreeCars(){
         return carDAO.getAllFreeCars();
@@ -48,15 +48,22 @@ public class AdministratorBean {
         return carDAO.getCarByNumber(carNumber);
     }
     /**
-     * @author Vadym_Akymov
+     * @author Vadym Akymov
      */
     public ServiceUserEntity getDriverByID(int id){
         return userDAO.getDriverByID(id);
     }
     /**
-     * @author Vadym_Akymov
+     * @author Vadym Akymov
      */
     public void deleteUser(int id){
         userDAO.deleteUser(id);
+    }
+
+    /**
+     * @author Vadym Akymov
+     */
+    public void assignCar(String carNumber, Integer driverID){
+        userDAO.assignCar(carNumber, driverID);
     }
 }

@@ -64,7 +64,7 @@
                             </div>
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="<%=application.getContextPath()%>/resources/admin/img/profile.gif?sz=100" class="img-circle"> </div>
+                                    <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="<%=application.getContextPath()%>/resources/admin/img/profile.png?sz=100" class="img-circle"> </div>
 
                                     <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
                                       <dl>
@@ -94,7 +94,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Car number</td>
-                                                <td>${driver.car.carNumber != null ? driver.car.carNumber : "No car"}</td>
+                                                <td class="carNumb">${driver.car.carNumber != null ? driver.car.carNumber : "No car"}</td>
                                             </tr>
 
                                             <%--<tr>--%>

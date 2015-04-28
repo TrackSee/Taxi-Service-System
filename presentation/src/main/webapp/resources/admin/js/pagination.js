@@ -13,7 +13,6 @@ $(document).ready(function() {
             data: 'pageNumber=' + pageNumber,
             url: 'drivers',
             success: function(data){
-                alert("SUCCESS");
                 var driversArray = JSON.parse(data);
                 var tBody = document.getElementById('table-body');
                 var rows = tBody.children;
