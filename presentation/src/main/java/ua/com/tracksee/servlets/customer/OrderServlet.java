@@ -24,8 +24,7 @@ import java.nio.CharBuffer;
  * @author Sharaban Sasha
  * @author Ruslan Gunavardana
  */
-//TODO kill clone
-@WebServlet("/order1")
+@WebServlet("/order")
 public class OrderServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
 
