@@ -22,7 +22,7 @@ $(document).ready(function () {
                     if (i >= rows.length) {
                         var newTr = document.createElement('tr');
                         //TODO Don't forget to change magic number of attribute tr count
-                        for (var j = 0; j < 4; j++) {
+                        for (var j = 0; j <9 ; j++) {
                             newTr.appendChild(document.createElement('td'));
                         }
                         tBody.appendChild(newTr);
@@ -35,8 +35,6 @@ $(document).ready(function () {
                         rows[i].children[1].innerHTML = carsArray[i].carModel != null ? carsArray[i].carModel : "-";
                         rows[i].children[2].innerHTML = carsArray[i].color != null ? carsArray[i].color : "-";
 
-                     //   rows[i].children[3].innerHTML = carsArray[i].carCategory != null ? carsArray[i].carCategory : "-";
-                        //rows[i].children[4].innerHTML = carsArray[i].animalTransportationApplicable != null ? carsArray[i].animalTransportationApplicable : "-";
                         rows[i].children[4].innerHTML = carsArray[i].animalTransportationApplicable == true ? "+" : "-";
                         rows[i].children[5].innerHTML = carsArray[i].freeWifi == true ? "+" : "-";
                         rows[i].children[6].innerHTML = carsArray[i].airConditioner == true ? "+" : "-";

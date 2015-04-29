@@ -1,9 +1,11 @@
 package ua.com.tracksee.entities;
 
+import org.postgresql.util.PGmoney;
 import ua.com.tracksee.enumartion.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 import static javax.persistence.EnumType.STRING;
@@ -29,6 +31,7 @@ public class TaxiOrderEntity {
     private Boolean airConditioner;
     private String comment;
     private Integer userId;
+    private Timestamp orderedDate = new Timestamp(System.currentTimeMillis());
 
     public TaxiOrderEntity() {
 
@@ -168,7 +171,7 @@ public class TaxiOrderEntity {
     }
 
     @Basic
-    @Column(name = "non_smoking_driver")
+    @Column(name = "smoking_driver")
     public Boolean getNonSmokingDriver() {
         return nonSmokingDriver;
     }
@@ -197,6 +200,15 @@ public class TaxiOrderEntity {
         this.comment = comment;
     }
 
+    @Basic
+    @Column(name="ordered_date")
+    public Timestamp getOrderedDate(){
+        return orderedDate;
+    }
+    public void setOrderedDate(Timestamp orderedDate){
+        this.orderedDate = orderedDate;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -211,11 +223,12 @@ public class TaxiOrderEntity {
                 Objects.equals(wayOfPayment, that.wayOfPayment) &&
                 Objects.equals(driverSex, that.driverSex) &&
                 Objects.equals(musicStyle, that.musicStyle) &&
-                Objects.equals(comment, that.comment);
+                Objects.equals(comment, that.comment) &&
+                Objects.equals(orderedDate, that.orderedDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(trackingNumber, status, price, service, carCategory, wayOfPayment, driverSex, musicStyle, comment);
+        return Objects.hash(trackingNumber, status, price, service, carCategory, wayOfPayment, driverSex, musicStyle, comment, orderedDate);
     }
 }

@@ -2,6 +2,7 @@ package ua.com.tracksee.logic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.postgresql.util.PGmoney;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.AddressEntity;
@@ -17,6 +18,7 @@ import javax.mail.MessagingException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 
 import static javax.ejb.LockType.WRITE;
 import static ua.com.tracksee.enumartion.OrderStatus.QUEUED;
@@ -60,44 +62,84 @@ public class TaxiOrderBean {
             logger.warn("Could not parse enum during taxi order creation.");
             return null;
         }
-
-        order.setDescription(orderDTO.getDescription());
-        order.setAnimalTransportation(orderDTO.getAnimalTransportation());
-        order.setFreeWifi(orderDTO.getFreeWiFi());
-        order.setNonSmokingDriver(orderDTO.getSmokingDriver());
-        order.setAirConditioner(orderDTO.getAirConditioner());
-        return taxiOrderDAO.addOrder(order);
+        return order.getTrackingNumber();
     }
 
     /**
-     * Creates taxi order for non-authorised user.
+     * This method check input data,insert order in database.
+     * Also it insert user in database if he doesn't have  record
+     * about him in database. And it send conformation letter with
+     * tracking number, also tracking number returns to be shown to
+     * user.
      *
-     * @param inputData hash map, that specifies taxi order
-     * @throws OrderException
+     * @param inputData- input data about user and his order
+     * @exception javax.mail.MessagingException
+     * @exception ua.com.tracksee.logic.exception.OrderException
+     * @return Integer - tracking number of user order
+     *
+     * @author Sharaban Sasha
+     * @author Avlasov Sasha
      */
-    public void createNonAuthorisedOrder(HashMap<String, String> inputData) throws OrderException {
+    public Long makeOrder(HashMap<String, String> inputData) throws OrderException,MessagingException {
+
         ServiceUserEntity serviceUserEntity = validateForUser(inputData);
         TaxiOrderEntity taxiOrderEntity = validateForTaxiOrder(inputData);
-
-        taxiOrderDAO.addOrder(taxiOrderEntity);
-
-        logger.info("Check user :" + serviceUserEntity.getEmail());
-        if (!userDAO.checkUserByEmail(serviceUserEntity.getEmail())) {
-            logger.info("Create new user: email-" + serviceUserEntity.getEmail() + " phone-" + serviceUserEntity.getPhone());
-            serviceUserEntity.setActivated(false);
-            userDAO.addUser(serviceUserEntity);
-        } else {
-            logger.info("User was found");
-        }
-
-        serviceUserEntity.setUserId(userDAO.getUserIdByEmail(serviceUserEntity.getEmail()));
-        //TODO check mail send
-        try {
-            mailBean.sendOrderConfirmInfo(serviceUserEntity);
-        } catch (MessagingException e) {
-            throw new OrderException("Failed to send tracking number email.", "");
-        }
+        serviceUserEntity=checkUserPresent(serviceUserEntity);
+        taxiOrderEntity.setUserId(serviceUserEntity.getUserId());
+        Long trackingNumber = taxiOrderDAO.addOrder(taxiOrderEntity);
+        sendEmail(serviceUserEntity,trackingNumber);
+        return trackingNumber;
     }
+
+    /**
+     * @author Vadym Akymov
+     */
+    public List<TaxiOrderEntity> getOrdersPerPage(int pageNumber){
+        return taxiOrderDAO.getOrdersPerPage(pageNumber);
+    }
+    /**
+     * This method checks whether there is a user who made
+     * the order in database, if he present in database the
+     * unique number of record attache to him,
+     * if not then create record in the database and attache to him
+     * new and unique generation number of created record.
+     *
+     * @param serviceUserEntity - data about the user
+     * @return ServiceUserEntity object that contain checked
+     * @author Sharaban Sasha
+     * @author Avlasov Sasha
+     */
+    private ServiceUserEntity checkUserPresent(ServiceUserEntity serviceUserEntity) {
+        if (userDAO.checkUserByEmail(serviceUserEntity.getEmail())) {
+            logger.info("User was found");
+            //TODO working DAO methods
+//            serviceUserEntity.setUserId(userDAO.getUserIdByEmail(serviceUserEntity.getEmail()));
+        } else {
+            logger.info("User was not found");
+            //TODO working DAO methods
+//            serviceUserEntity.setActivated(false);
+//            serviceUserEntity.setUserId(userDAO.addUser(serviceUserEntity));
+        }
+        serviceUserEntity.setUserId(1);
+        return serviceUserEntity;
+    }
+
+    /**
+     * This method send confirmation letter with
+     * tracking number to the user who made the order
+     *
+     * @param serviceUserEntity- the user who made the order
+     * @param trackingNumber- tracking number of made order
+     * @exception javax.mail.MessagingException
+     *
+     * @author Sharaban Sasha
+     * @author Avlasov Sasha
+     */
+    public void sendEmail(ServiceUserEntity serviceUserEntity, Long trackingNumber)throws MessagingException {
+        mailBean.sendOrderConfirmInfo(serviceUserEntity);
+        //TODO check mail send with tracking number and check sending letter
+    }
+
     /**
      * This method checks incoming origin
      * address and insert it into AddressEntity object.
@@ -154,6 +196,7 @@ public class TaxiOrderBean {
         System.out.println("add");
         return addressEntityDestination;
     }
+
     /**
      * This method checks incoming values and
      * insert it into TaxiOrderEntity object.
@@ -376,33 +419,4 @@ public class TaxiOrderBean {
         }
         return enumMusicStyle;
     }
-
-    /**
-     * This method calculate price,
-     * multiplying the price per 1 km on distance
-     *
-     * @param origin      - address from
-     * @param destination - address to
-     * @return price of order
-     */
-
-    @Lock(WRITE)
-    public long calculatePrice(String origin, String destination) throws SQLException {
-        long distance = 0;
-        long price = 0;
-        //TODO calculate price
-        return 1;
-    }
-
-    /**
-     * This method send email with
-     * tracking number
-     *
-     * @param user- user that make order
-     * @param trackingNumber- user that make order
-     */
-    public void sendEmail(ServiceUserEntity user,int trackingNumber) {
-    // TODO send email
-    }
-
 }

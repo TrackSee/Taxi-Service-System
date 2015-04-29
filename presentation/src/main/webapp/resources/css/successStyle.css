@@ -1,24 +1,20 @@
 /* author Sharaban Sasha */
 body {
-    /* Путь к изображению относительно данного файла */
+    /* Path ot image*/
     background-image: url(../img/success.jpg);
 
-    /* Центрирование изображения по вертикали и горизонтали всегда */
+    /*Picture vertical and horizontal always centered*/
     background-position: center center;
 
-    /* Запрещаем повтор изображения */
+    /* Prohibit repeated image*/
     background-repeat: no-repeat;
 
-    /* Фиксируем изображение - оно остается на месте при прокрутке окна */
+    /* Fix an image - it stays in place as you scroll through the window*/
     background-attachment: fixed;
 
-    /* Изображение будет масштабироваться в зависимости от размеров контейнера */
+    /* The image will be scaled according to the size of the container */
     background-size: cover;
 
-    /* Цвет фона изображения, который будет показываться пока изображение не загрузится */
+    /* The background color of the image that will be shown until the image is loaded */
     background-color:#464646;
-
-    /* Эквивалентная сокращенная запись
-    * background: url(background-photo.jpg) center center cover no-repeat fixed;
-    */
 }

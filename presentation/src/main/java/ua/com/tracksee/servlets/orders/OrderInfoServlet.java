@@ -1,6 +1,5 @@
 package ua.com.tracksee.servlets.orders;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,5 +17,4 @@ public class OrderInfoServlet extends HttpServlet {
         req.setAttribute("pageName", "orderInformation");
         req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req,resp);
     }
-
 }
