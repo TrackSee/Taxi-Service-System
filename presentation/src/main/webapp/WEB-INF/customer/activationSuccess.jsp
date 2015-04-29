@@ -6,11 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title></title>
+  <%@include file="../parts/meta.jsp" %>
+  <!-- background adaptive image -->
+  <link href="<%=application.getContextPath()%>/resources/customer/css/successStyle.css" rel="stylesheet">
 </head>
 <body>
-Activation successful.
+    <p>Activation successful</p>
 </body>
 </html>

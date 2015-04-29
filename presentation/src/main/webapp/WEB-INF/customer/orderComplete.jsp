@@ -42,16 +42,17 @@
 <!--start: Wrapper-->
 <div id="wrapper">
 
-    <!--start: Container -->
+    <%--start: Container --%>
     <div class="container">
 
-        <!--start: Row -->
+        <%--start: Row --%>
         <div class="row">
 
             <div class="span8">
 
-                <!-- start: About Us -->
+                <%-- start: About Us --%>
                 <div id="about">
+
                     <div class="title"><h3>Extended Booking Taxi</h3></div>
 
                     <form method="post" action="<c:url value="/order/complete"/>">
@@ -67,20 +68,20 @@
 
                         <div class="form-group">
                             <label>Address from</label>
-                            <input   type="text"  class="form-control" value="${addressOrigin}"
+                            <input type="text" id="origin" class="form-control" value="${addressOrigin}"
                                     name="addressOrigin" data-error="That address is invalid">
                         </div>
 
                         <div class="form-group">
                             <label>Address to</label>
-                            <input  type="text" class="form-control" value="${addressDestination}"
+                            <input  type="text" id="destination" class="form-control" value="${addressDestination}"
                                    name="addressDestination" data-error="That address is invalid">
                           </div>
 
                         <div class="form-group">
                             <label>Order price</label>
                             <input  type="text" name="price" class="form-control"
-                                   value="${price}"
+                                   value="0"
                                    data-error="That address is invalid" readonly>
                         </div>
 
@@ -171,35 +172,32 @@
 
                     </form>
                 </div>
-                </p>
+
             </div>
-            <!-- end: About Us -->
-
-
+            <%-- end: About Us --%>
         </div>
-        <!-- end: Row -->
+        <%-- end: Row --%>
+
      </div>
-    <!-- end: Team -->
-   </div>
-    <%-- end:wrapper --%>
+    <%-- end: Team --%>
+
 </div>
+<%-- end:wrapper --%>
 
 <div class="row">
-
     <div class="span12">
-
-    <div id="map-canvas" class="googleMap"></div>
-
-        </div>
+        <div id="map-canvas" class="googleMap"></div>
     </div>
+</div>
 
 <%-- start: Java Script --%>
+<%--<script>var prices = ${};</script>--%>
+<script src="<%=application.getContextPath()%>/resources/js/notify-combined.min.js"></script>
 <%@include file="../parts/scripts.jsp" %>
 <script src="<%=application.getContextPath()%>/resources/customer/js/google-maps.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
 <%-- end: Java Script --%>
 
-<%@include file="../parts/scripts.jsp" %>
 <%@include file="../parts/footer.jsp" %>
 
 </body>

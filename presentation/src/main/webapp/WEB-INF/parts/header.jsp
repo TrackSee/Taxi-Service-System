@@ -48,10 +48,10 @@
                                         <a href="<c:url value="/order/info"/>">Order information</a>
                                     </li>
                                     <li <c:if test="${requestScope.pageName == 'signIn'}">class="active"</c:if>>
-                                        <a href="<c:url value="/signin"/>">Login</a>
+                                        <a href="<c:url value="/signin"/>">Sign in</a>
                                     </li>
                                     <li <c:if test="${requestScope.pageName == 'signUp'}">class="active"</c:if>>
-                                        <a href="<c:url value="/signup"/>">Registration</a>
+                                        <a href="<c:url value="/signup"/>">Sign up</a>
                                     </li>
                                 </ul>
                             </div>
