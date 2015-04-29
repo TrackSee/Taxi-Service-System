@@ -59,11 +59,11 @@ public class GenerateRundomUsersBean {
                 userEntity.setPhone((String) userJsonObject.get("phone"));
                 userEntity.setPassword((String) userJsonObject.get("password"));
                 userEntity.setActivated(Math.random() < 0.96);
-                userEntity.setIsDriver(Math.random() > 0.95);
+                userEntity.setDriver(Math.random() > 0.95);
                 userEntity.setAdmin(Math.random() > 0.98);
                 userEntity.setIgnoredTimes((int) ((Math.random() / 2) * 10));
                 userEntity.setRegistrationDate(new Timestamp(System.currentTimeMillis()));
-                userEntity.setSex(((String) userJsonObject.get("gender")).equals("female") ? Sex.FEMALE: Sex.MALE);
+                userEntity.setSex((userJsonObject.get("gender")).equals("female") ? "F": "M");
                 em.persist(userEntity);
             }
         } catch (ParseException | IOException e) {
