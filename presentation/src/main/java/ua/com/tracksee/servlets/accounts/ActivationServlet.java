@@ -1,4 +1,4 @@
-package ua.com.tracksee.servlets.customer;
+package ua.com.tracksee.servlets.accounts;
 
 import ua.com.tracksee.logic.RegistrationBean;
 

@@ -1,4 +1,4 @@
-package ua.com.tracksee.servlets.customer;
+package ua.com.tracksee.servlets.accounts;
 
 import ua.com.tracksee.logic.RegistrationBean;
 import ua.com.tracksee.logic.exception.RegistrationException;
@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 /**
  * @author Ruslan Gunavardana

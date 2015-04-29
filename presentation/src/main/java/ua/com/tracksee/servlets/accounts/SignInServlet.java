@@ -1,4 +1,4 @@
-package ua.com.tracksee.servlets.customer;
+package ua.com.tracksee.servlets.accounts;
 
 import ua.com.tracksee.entities.ServiceUserEntity;
 import org.apache.logging.log4j.LogManager;
@@ -17,14 +17,12 @@ import java.io.IOException;
  */
 @WebServlet("/signin")
 public class SignInServlet extends HttpServlet {
-    private Logger logger;
-
     private static final int SESSION_MAX_INACTIVE_INTERVAL = 60 * 60;
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public void init() throws ServletException {
         super.init();
-        logger = LogManager.getLogger();
     }
 
     @Override
@@ -39,15 +37,19 @@ public class SignInServlet extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
-        ServiceUserEntity user = null;
-        //TODO  checkAndGetUser(req.getParameter("email"), req.getParameter("password"));
-        if (user == null) {
-            resp.sendRedirect(req.getParameter("redirect_url"));
-        } else {
-            session = req.getSession(true);
-            session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_INTERVAL);
-            session.setAttribute("user", user);
-            resp.sendRedirect(req.getParameter("redirect_url"));
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
+
+        logger.debug("User attempts to authorise {}", email);
+        resp.sendRedirect(req.getParameter("redirect_url"));
+        try {
+            req.login(email, password);
+        } catch (ServletException e) {
+            //TODO uncomment with JAAS: resp.getWriter().append("error");
+            //TODO uncomment with JAAS: return;
         }
+        session = req.getSession(true);
+        session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_INTERVAL);
+        session.setAttribute("email", email);
     }
 }
