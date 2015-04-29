@@ -161,10 +161,10 @@
                                 </label>
                             </div>
 
-                                Description:<br />
-                                  <textarea name="description">
+                        Description:<br />
+                        <textarea name="description" id="description" rows="4" cols="50"></textarea>
 
-                                  </textarea><br />
+                        </textarea></p><br/>
 
 
 
