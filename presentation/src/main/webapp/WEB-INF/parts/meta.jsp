@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="TrackSee, Taxi, Service, System">
     <meta name="author" content="TrackSee Team">
-    <link rel="icon" href="<%=application.getContextPath()%>/resources/img/favicon.ico">
+    <link rel="icon" href="<%=application.getContextPath()%>/resources/img/icons/cab.png" type="image/png">
     <title>TrackSee</title>
 
     <!-- start: Mobile Specific -->

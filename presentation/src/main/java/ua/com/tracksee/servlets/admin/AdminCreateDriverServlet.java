@@ -46,9 +46,9 @@ public class AdminCreateDriverServlet extends HttpServlet {
             logger.warn("Cannot get json from post /admin/updatedriver");
         }
         ObjectMapper mapper = new ObjectMapper();
-        System.out.println("JSON " + sb.toString());
         ServiceUserEntity user = mapper.readValue(sb.toString(), ServiceUserEntity.class);
         user.setDriver(true);
+        user.setSex(user.getSex().substring(0, 1));
         System.out.println("user uuuuuu" + user.getSex());
         administratorBean.createUser(user);
         resp.sendRedirect("drivers");

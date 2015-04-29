@@ -87,7 +87,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Sex</td>
-                                                <td>${driver.sex}</td>
+                                                <td>${driver.sex == "F" ? "Female" : "Male"}</td>
                                             </tr>
                                                 <td>Phone Number</td>
                                                 <td>${driver.phone != null ? driver.phone : "No phone number"} </td>

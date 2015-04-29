@@ -14,7 +14,7 @@ import java.util.List;
 @Local
 public interface UserDAO {
     //13 drivers per query by default
-    int DRIVERS_PAGE_SIZE = 13;
+    int DRIVERS_PAGE_SIZE = 12;
 
     /**
      * @param partNumber - number of data part
@@ -89,4 +89,5 @@ public interface UserDAO {
      * @author Vadym Akymov
      */
     void assignCar(String carNumber, Integer driverID);
+
 }

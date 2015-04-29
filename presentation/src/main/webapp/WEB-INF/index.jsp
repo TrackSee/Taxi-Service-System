@@ -16,6 +16,8 @@
 
     <%--For slider--%>
     <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/css/carousel.css">
+    <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/css/textOutline.css">
+    <link rel="shortcut icon" href="<%=application.getContextPath()%>/resources/img/icons/cab.png" type="image/png">
 </head>
 
 <body>
@@ -28,10 +30,10 @@
 
             <div class="container">
                 <div class="carousel-caption">
-                    <h1>Cab booking online</h1>
+                    <div><h1 class="outline">Cab booking online</h1>
 
-                    <p class="lead" >You can book a taxi right now without delay and red tape. </p>
-                    <a class="btn btn-large btn-success" href="#">Book taxi now</a>
+                    <p class="lead" ><h3 class="outline">You can book a taxi right now without delay and red tape.</h3> </p>
+                    <a class="btn btn-large btn-success" href="#"><h4 class="outline">Book taxi now</h4></a></div>
                 </div>
             </div>
         </div>
@@ -40,11 +42,11 @@
 
             <div class="container">
                 <div class="carousel-caption">
-                    <h1>My account</h1>
+                    <h1 class="outline">My account</h1>
 
-                    <p class="lead">You can create your own account which simplifies and accelerates the
-                        process of ordering a taxi</p>
-                    <a class="btn btn-large btn-success" href="#">Sign up now</a>
+                    <p class="lead"><h3 class="outline">You can create your own account which simplifies and accelerates
+                    the process of ordering a taxi</h3></p>
+                    <a class="btn btn-large btn-success" href="#"><h4 class="outline">Sign up now</h4></a>
                 </div>
             </div>
         </div>
@@ -53,10 +55,10 @@
 
             <div class="container">
                 <div class="carousel-caption">
-                    <h1>Additional information</h1>
+                    <h1 class="outline">Additional information</h1>
 
-                    <p class="lead" >Our company is young and promising</p>
-                    <a class="btn btn-large btn-success" href="#">Read about us</a>
+                    <p class="lead" ><h3 class="outline">Our company is young and promising</h3></p>
+                    <a class="btn btn-large btn-success" href="#"><h4 class="outline">Read about us</h4></a>
                 </div>
             </div>
         </div>

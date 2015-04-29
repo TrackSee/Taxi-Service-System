@@ -14,6 +14,7 @@ import java.util.List;
  */
 @Local
 public interface TaxiOrderDAO {
+    int TO_ORDERS_PER_PAGE = 3;
 
     void addComment(TaxiOrderEntity taxiOrderEntity);
 
@@ -22,9 +23,16 @@ public interface TaxiOrderDAO {
      *
      * @param order taxi order entity which will be insert into database
      */
-    Long addOrder(TaxiOrderEntity order);
+    Integer addOrder(TaxiOrderEntity order);
 
     List<TaxiOrderEntity> getQueuedOrders();
 
-    TaxiOrderEntity getOrder(Long trackingNumber);
+    TaxiOrderEntity getOrder(Integer trackingNumber);
+
+    /**
+     * @author Vadym Akymov
+     * @param partNumber - number of orders portion
+     * @return list of order's item
+     */
+    List<TaxiOrderEntity> getOrdersPerPage(int partNumber);
 }
