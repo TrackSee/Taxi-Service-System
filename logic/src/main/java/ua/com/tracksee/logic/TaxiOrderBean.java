@@ -1,5 +1,4 @@
-package ua.com.tracksee.logic.ordermanager;
-
+package ua.com.tracksee.logic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,53 +8,75 @@ import ua.com.tracksee.entities.AddressEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.enumartion.*;
-import ua.com.tracksee.logic.EmailBean;
-import ua.com.tracksee.logic.ValidationBean;
+import ua.com.tracksee.json.TaxiOrderDTO;
 import ua.com.tracksee.logic.exception.OrderException;
 
-import javax.ejb.EJB;
-import javax.ejb.Local;
-import javax.ejb.Lock;
-import javax.ejb.Singleton;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.*;
 import javax.mail.MessagingException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.HashMap;
 
 import static javax.ejb.LockType.WRITE;
-
+import static ua.com.tracksee.enumartion.OrderStatus.QUEUED;
 
 /**
- * Session Bean implementation class OrderRegistrator
+ * Stateless bean used for any order processing business logic.
  *
  * @author Sasha Avlasov
  * @author Sharaban Sasha
+ * @author Ruslan Gunavardana
  */
-@Singleton
-@Local
+@Stateless
 public class TaxiOrderBean {
-    @EJB
-    private TaxiOrderDAO taxiOrderDAO;
-    @EJB
-    private UserDAO userDAO;
-    @EJB
-    private EmailBean mailBean;
-    @EJB
-    private ValidationBean validationBean;
-    private Logger logger;
+    private static final Logger logger = LogManager.getLogger();
+
+    private @EJB TaxiOrderDAO taxiOrderDAO;
+    private @EJB UserDAO userDAO;
+    private @EJB EmailBean mailBean;
+    private @EJB ValidationBean validationBean;
 
     /**
-     * Default constructor.
+     * Creates taxi order for authorised user.
+     *
+     * @param userId id of authorised customer user
+     * @param orderDTO basic information about the order
      */
-    public TaxiOrderBean() {
-        logger = LogManager.getLogger();
+    @RolesAllowed("customer")
+    public Long createAuthorisedOrder(Integer userId, TaxiOrderDTO orderDTO) {
+        TaxiOrderEntity order = new TaxiOrderEntity();
+        order.setUserId(userId);
+        order.setStatus(QUEUED);
+        //TODO service + price calculation at server order.setPrice();
+
+        // collecting data from DTO
+        try {
+            order.setCarCategory(CarCategory.valueOf(orderDTO.getCarCategory()));
+            order.setWayOfPayment(WayOfPayment.valueOf(orderDTO.getWayOfPayment()));
+            order.setDriverSex(Sex.valueOf(orderDTO.getDriverSex()));
+            order.setMusicStyle(MusicStyle.valueOf(orderDTO.getMusicStyle()));
+        } catch (IllegalArgumentException e) {
+            logger.warn("Could not parse enum during taxi order creation.");
+            return null;
+        }
+
+        order.setDescription(orderDTO.getDescription());
+        order.setAnimalTransportation(orderDTO.getAnimalTransportation());
+        order.setFreeWifi(orderDTO.getFreeWiFi());
+        order.setNonSmokingDriver(orderDTO.getSmokingDriver());
+        order.setAirConditioner(orderDTO.getAirConditioner());
+        return taxiOrderDAO.addOrder(order);
     }
 
-    @Lock(WRITE)
-    public void makeOrder(HashMap<String, String> inputData) throws SQLException, OrderException {
-
+    /**
+     * Creates taxi order for non-authorised user.
+     *
+     * @param inputData hash map, that specifies taxi order
+     * @throws OrderException
+     */
+    public void createNonAuthorisedOrder(HashMap<String, String> inputData) throws OrderException {
         ServiceUserEntity serviceUserEntity = validateForUser(inputData);
-
         TaxiOrderEntity taxiOrderEntity = validateForTaxiOrder(inputData);
 
         taxiOrderDAO.addOrder(taxiOrderEntity);
@@ -65,15 +86,17 @@ public class TaxiOrderBean {
             logger.info("Create new user: email-" + serviceUserEntity.getEmail() + " phone-" + serviceUserEntity.getPhone());
             serviceUserEntity.setActivated(false);
             userDAO.addUser(serviceUserEntity);
-        } else logger.info("User was found");
+        } else {
+            logger.info("User was found");
+        }
+
         serviceUserEntity.setUserId(userDAO.getUserIdByEmail(serviceUserEntity.getEmail()));
         //TODO check mail send
         try {
             mailBean.sendOrderConfirmInfo(serviceUserEntity);
         } catch (MessagingException e) {
-            e.printStackTrace();
+            throw new OrderException("Failed to send tracking number email.", "");
         }
-
     }
     /**
      * This method checks incoming origin
@@ -352,13 +375,6 @@ public class TaxiOrderBean {
                 enumMusicStyle = null;
         }
         return enumMusicStyle;
-    }
-
-    private boolean checkBlackList(long phone) {
-
-        //TODO Check phone in black list
-
-        return false;
     }
 
     /**

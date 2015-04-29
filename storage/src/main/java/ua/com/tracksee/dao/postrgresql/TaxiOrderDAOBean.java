@@ -41,8 +41,8 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
                 "music_style, animal_transportation, free_wifi, smoking_driver, air_conditioner, comment)  " +
                 "VALUES " +
                 "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
-                "RETURNING tracking_number; " +
-                "INSERT INTO taxi_order_item (tracking_numer, path, ordered_quantity, driver_id) VALUES ()";
+                "RETURNING tracking_number;  ";// +
+                //"INSERT INTO taxi_order_item (tracking_numer, path, ordered_quantity, driver_id) VALUES ()";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, order.getStatus().toString());
         query.setParameter(3, order.getService());
