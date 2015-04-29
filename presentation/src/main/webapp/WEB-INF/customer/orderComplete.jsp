@@ -10,6 +10,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+
 <%-- start: Java Script --%>
 <%@include file="../parts/scripts.jsp" %>
 <%-- end: Java Script --%>
@@ -86,9 +88,9 @@
 
                         <div class="form-group">
                             <label class="control-label">Car category</label>
-                            <select class="form-control order_priority" name="carCategory">
+                            <select class="form-control order_priority" name="carCategory" id="carCategory">
                                 <option value="economyClass">Economy class</option>
-                                <option value="businessClass"> selected>Business class</option>
+                                <option value="businessClass">Business class</option>
                                 <option value="van">Van</option>
                             </select>
                         </div>
@@ -111,7 +113,7 @@
 
                             <div class="form-group">
                                 <label class="control-label">Service</label>
-                                <select class="form-control order_priority" name="service">
+                                <select class="form-control order_priority" name="service" id="service">
                                     <option value="default">Default</option>
                                     <option value="soberDriver">Service "Sober driver"</option>
                                     <option value="guestDelivery">Service "Guest delivery"</option>
@@ -124,7 +126,7 @@
 
                             <div class="form-group">
                                 <label class="control-label">Music style</label>
-                                <select class="form-control order_priority" name="musicStyle">
+                                <select class="form-control order_priority" name="musicStyle" id="musicStyle">
                                     <option value="default">Default</option>
                                     <option value="blues">Blues</option>
                                     <option value="classicalMusic">Classical music</option>
@@ -139,27 +141,28 @@
 
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="animalTransportation"> Animal transportation
+                                    <input type="checkbox" name="animalTransportation" id="animalTransportation">
+                                    Animal transportation
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="freeWifi"> Free wi-fi
+                                    <input type="checkbox" name="freeWifi" id="freeWifi"> Free wi-fi
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="smokingDriver"> Smoking driver
+                                    <input type="checkbox" name="smokingDriver" id="smokingDriver"> Smoking driver
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="airConditioner"> Air conditioner
+                                    <input type="checkbox" name="airConditioner" id="airConditioner"> Air conditioner
                                 </label>
                             </div>
 
                                 Description:<br />
-                                  <textarea name="description" >
+                                  <textarea name="description">
 
                                   </textarea><br />
 
@@ -197,7 +200,12 @@
 <%@include file="../parts/scripts.jsp" %>
 <script src="<%=application.getContextPath()%>/resources/customer/js/google-maps.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/soberDriver.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/meetMyGuest.js"></script>
 <%-- end: Java Script --%>
+<script src="<%=application.getContextPath()%>http://code.jquery.com/jquery-1.9.1.js"></script>
+
+<script src="<%=application.getContextPath()%>http://code.jquery.com/jquery-migrate-1.1.0.js"></script>
 
 <%@include file="../parts/scripts.jsp" %>
 <%@include file="../parts/footer.jsp" %>

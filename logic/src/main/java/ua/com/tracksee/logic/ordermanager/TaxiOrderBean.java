@@ -269,6 +269,9 @@ public class TaxiOrderBean {
             case "van":
                 enumCarCategory = CarCategory.VAN;
                 break;
+            case "userCar":
+                enumCarCategory = CarCategory.USER_CAR;
+                break;
             default:
                 enumCarCategory = null;
         }
@@ -308,10 +311,10 @@ public class TaxiOrderBean {
         Sex enumDriverSex;
         switch (driverSex) {
             case "male":
-                enumDriverSex = Sex.MALE;
+                enumDriverSex = Sex.M;
                 break;
             case "female":
-                enumDriverSex = Sex.FEMALE;
+                enumDriverSex = Sex.F;
                 break;
             default:
                 enumDriverSex = null;
