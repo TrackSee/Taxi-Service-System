@@ -6,7 +6,7 @@ import javax.ejb.Local;
 import java.util.List;
 
 /**
- * Created by kstes_000 on 23-Apr-15.
+ * @author  Katia Stetsiuk
  */
 @Local
 public interface AddressDAO {
@@ -14,7 +14,7 @@ public interface AddressDAO {
     void deleteAddress(AddressEntity address);
     void updateAddress(AddressEntity address);
     List getAllAddressesByUserId(AddressEntity address);
-    List<AddressEntity> getAddresses(int partNumber);
+    List<AddressEntity> getAddresses();
 
     AddressEntity getAddressByUserId(Integer userId, String name);
     List getAllAddressesByUserId(Integer userId);

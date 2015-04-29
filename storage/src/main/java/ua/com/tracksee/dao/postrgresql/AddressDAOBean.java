@@ -7,8 +7,8 @@ import ua.com.tracksee.entities.AddressEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Stateless;
-import javax.persistence.PersistenceContext;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -19,7 +19,6 @@ import java.util.List;
 public class AddressDAOBean implements AddressDAO {
     public static final int ADDRESSES_LIMIT = 5;
     private static final Logger logger = LogManager.getLogger();
-    
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
 
@@ -59,15 +58,14 @@ public class AddressDAOBean implements AddressDAO {
     }
 
     @Override
-    public List<AddressEntity> getAddresses(int partNumber) {
-        if (partNumber <= 0) {
-            logger.error("partNumber can't be <= 0");
-            throw new IllegalArgumentException("partNumber can't be <= 0");
-        }
-        String sql = "SELECT * FROM service_user WHERE driver = TRUE LIMIT ?1 OFFSET ?2";
-        Query query = entityManager.createNativeQuery(sql, ServiceUserEntity.class);
-        query.setParameter(1, ADDRESSES_LIMIT);
-        query.setParameter(2, (partNumber - 1) * ADDRESSES_LIMIT);
+    public List<AddressEntity> getAddresses() {
+//        if (partNumber <= 0) {
+//            logger.error("partNumber can't be <= 0");
+//            throw new IllegalArgumentException("partNumber can't be <= 0");
+//        }
+        Query query = entityManager.createNativeQuery("SELECT * FROM address " , AddressEntity.class);
+//        query.setParameter(1, ADDRESSES_LIMIT);
+//        query.setParameter(2, (partNumber - 1)
         return query.getResultList();
     }
 
