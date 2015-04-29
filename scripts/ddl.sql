@@ -72,6 +72,7 @@ CREATE TABLE IF NOT EXISTS Taxi_Order
   car_category          VARCHAR(28),
   way_of_payment        VARCHAR(28),
   driver_sex            CHAR(1),
+  ordered_date          TIMESTAMP,
   music_style           VARCHAR(50),
   animal_transportation BOOLEAN,
   free_wifi             BOOLEAN,
