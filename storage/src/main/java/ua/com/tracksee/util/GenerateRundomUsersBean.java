@@ -25,7 +25,7 @@ import ua.com.tracksee.enumartion.Sex;
  * Created by byte on 4/24/15.
  */
 @Singleton(name = "GenerateRundomUsersEJB")
-@Startup
+//@Startup
 public class GenerateRundomUsersBean {
 
     @PersistenceContext
@@ -35,7 +35,7 @@ public class GenerateRundomUsersBean {
     public GenerateRundomUsersBean() {
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void generateUser() {
         try {
             URL url = new URL("http://api.randomuser.me/?results=100");
