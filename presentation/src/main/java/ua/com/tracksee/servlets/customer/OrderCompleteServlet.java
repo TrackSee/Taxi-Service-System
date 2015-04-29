@@ -23,7 +23,7 @@ import java.util.HashMap;
  * This class return orderComplete.jsp,
  * get data from this page and send it to TaxiOrderBean
  */
-@WebServlet("/order/complete")
+@WebServlet("/orderComplete")
 public class OrderCompleteServlet extends HttpServlet {
     /* order status is QUEUED  because
     * the orders received from the page will
@@ -39,11 +39,6 @@ public class OrderCompleteServlet extends HttpServlet {
     @EJB
     private TaxiOrderBean controller;
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        logger = LogManager.getLogger();
-    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -66,9 +61,14 @@ public class OrderCompleteServlet extends HttpServlet {
             inputData.put("price",req.getParameter("price"));
             inputData.put("description",req.getParameter("description"));
 
+            Integer trackingNumber=controller.makeOrder(inputData);
 
-            controller.makeOrder(inputData);
-            req.getRequestDispatcher("/WEB-INF/customer/success.jsp").forward(req, resp);
+            req.setAttribute("successAlert","<div class=\"alert alert-success\" role=\"alert\"  >" +
+                    "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
+                    "  <span aria-hidden=\"true\">&times;</span></button><h3>Your order accepted for further " +
+                    "processing successfully and you was assigned to such tracking number:"
+                    + trackingNumber + "</h3></div>");
+            req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
         } catch (SQLException e) {
             logger.error(e.getMessage());
             resp.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, "Database unavailable.");

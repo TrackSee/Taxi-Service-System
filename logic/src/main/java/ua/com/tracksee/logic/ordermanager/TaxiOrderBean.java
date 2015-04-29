@@ -52,14 +52,18 @@ public class TaxiOrderBean {
     }
 
     @Lock(WRITE)
-    public void makeOrder(HashMap<String, String> inputData) throws SQLException, OrderException {
+    public Integer makeOrder(HashMap<String, String> inputData) throws SQLException, OrderException {
 
         ServiceUserEntity serviceUserEntity = validateForUser(inputData);
-
         TaxiOrderEntity taxiOrderEntity = validateForTaxiOrder(inputData);
+        checkUser(serviceUserEntity);
+        taxiOrderEntity.setUserId(1);
+        Integer trackingNumber=taxiOrderDAO.addOrder(taxiOrderEntity);
 
-        taxiOrderDAO.addOrder(taxiOrderEntity);
+     return trackingNumber;
+    }
 
+    private void checkUser(ServiceUserEntity serviceUserEntity){
         logger.info("Check user :" + serviceUserEntity.getEmail());
         if (!userDAO.checkUserByEmail(serviceUserEntity.getEmail())) {
             logger.info("Create new user: email-" + serviceUserEntity.getEmail() + " phone-" + serviceUserEntity.getPhone());
@@ -73,7 +77,6 @@ public class TaxiOrderBean {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-
     }
     /**
      * This method checks incoming origin

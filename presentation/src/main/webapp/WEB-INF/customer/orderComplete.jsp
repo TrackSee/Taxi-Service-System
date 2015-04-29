@@ -54,7 +54,7 @@
                 <div id="about">
                     <div class="title"><h3>Extended Booking Taxi</h3></div>
 
-                    <form method="post" action="<c:url value="/order/complete"/>">
+                    <form method="post" action="<c:url value="/orderComplete"/>">
                         <div class="form-group">
                             <input type="text" name="phoneNumber" class="form-control"  placeholder="Phone number:"
                                    required>

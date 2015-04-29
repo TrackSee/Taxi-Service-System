@@ -33,42 +33,42 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(1, entity.getComment());
         query.executeUpdate();
     }
-
     @Override
-    public Long addOrder(TaxiOrderEntity order) {
-        String sql = "INSERT INTO taxi_order " +
-                "(status, service, price, user_id, description, car_category, way_of_payment, driver_sex, " +
-                "music_style, animal_transportation, free_wifi, smoking_driver, air_conditioner, comment)  " +
-                "VALUES " +
-                "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
-                "RETURNING tracking_number; " +
-                "INSERT INTO taxi_order_item (tracking_numer, path, ordered_quantity, driver_id) VALUES ()";
+    public Integer addOrder(TaxiOrderEntity order) {
+        String sql="INSERT INTO taxi_order (description,status,price,user_id,service,car_category,way_of_payment,driver_sex," +
+                "music_style,animal_transportation,free_wifi,smoking_driver,air_conditioner) " +
+                "VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13)" +
+                "RETURNING tracking_number";
+
+        //TODO insert into taxi items
+        //     "INSERT INTO taxi_order_item (tracking_numer, path, ordered_quantity, driver_id) VALUES ()"
+
         Query query = entityManager.createNativeQuery(sql);
-        query.setParameter(1, order.getStatus().toString());
-        query.setParameter(3, order.getService());
-        query.setParameter(4, order.getUserId());
-        query.setParameter(5, order.getDescription());
-        query.setParameter(6, order.getCarCategory());
-        query.setParameter(7, order.getWayOfPayment());
-        query.setParameter(8, order.getDriverSex());
-        query.setParameter(9, order.getMusicStyle());
+        query.setParameter(1,order.getDescription());
+        query.setParameter(2, order.getStatus().toString());
+        query.setParameter(3, order.getPrice());
+        query.setParameter(4,order.getUserId());
+        query.setParameter(5, order.getService().toString());
+        query.setParameter(6, order.getCarCategory().toString());
+        query.setParameter(7, order.getWayOfPayment().toString());
+        query.setParameter(8, order.getDriverSex().toString());
+        query.setParameter(9, order.getMusicStyle().toString());
         query.setParameter(10, order.getAnimalTransportation());
         query.setParameter(11, order.getFreeWifi());
         query.setParameter(12, order.getNonSmokingDriver());
-        query.setParameter(13, order.getAirConditioner());
-        query.setParameter(14, order.getComment());
+        query.setParameter(13,order.getAirConditioner());
 
-        //TODO not finished
-        return (Long) query.getSingleResult();
+
+        //   Query query2 = entityManager.createNativeQuery("SELECT max(tracking_number) FROM taxi_order", OrderEntity.class);
+        return (Integer) query.getSingleResult();
     }
-
     @Override
     public List<TaxiOrderEntity> getQueuedOrders() {
         return null;
     }
 
     @Override
-    public TaxiOrderEntity getOrder(Long trackingNumber) {
+    public TaxiOrderEntity getOrder(Integer trackingNumber) {
         return null;
     }
 }

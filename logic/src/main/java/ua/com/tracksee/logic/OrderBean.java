@@ -35,7 +35,7 @@ public class OrderBean {
      * @param orderDTO basic information about the order
      */
     @RolesAllowed("customer")
-    public Long createAuthorisedOrder(Integer userId, TaxiOrderDTO orderDTO) {
+    public Integer createAuthorisedOrder(Integer userId, TaxiOrderDTO orderDTO) {
         TaxiOrderEntity order = new TaxiOrderEntity();
         order.setUserId(userId);
         order.setStatus(QUEUED);

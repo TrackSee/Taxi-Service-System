@@ -22,9 +22,9 @@ public interface TaxiOrderDAO {
      *
      * @param order taxi order entity which will be insert into database
      */
-    Long addOrder(TaxiOrderEntity order);
+    Integer addOrder(TaxiOrderEntity order);
 
     List<TaxiOrderEntity> getQueuedOrders();
 
-    TaxiOrderEntity getOrder(Long trackingNumber);
+    TaxiOrderEntity getOrder(Integer trackingNumber);
 }
