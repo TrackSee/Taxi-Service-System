@@ -168,7 +168,7 @@ public class TaxiOrderEntity {
     }
 
     @Basic
-    @Column(name = "non_smoking_driver")
+    @Column(name = "smoking_driver")
     public Boolean getNonSmokingDriver() {
         return nonSmokingDriver;
     }

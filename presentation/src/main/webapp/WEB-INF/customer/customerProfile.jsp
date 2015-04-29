@@ -43,17 +43,18 @@
     <!-- start: Row -->
     <div class="row">
 
-      <%--3 samples--%>
+    <c:forEach items="${requestScope.orders}" var="order">
       <div class="span4">
         <div class="icons-box">
           <i class="ico-shopping-cart circle big"></i>
-          <div class="title"><h3>e-commerce</h3></div>
+          <div class="title"><h3>Order № ${order.trackingNumber}</h3></div>
           <p>
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
           </p>
           <div class="clear"></div>
         </div>
       </div>
+    </c:forEach>
 
     </div>
     <!-- end: Container  -->
