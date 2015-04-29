@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS Taxi_Order
   tracking_number       BIGSERIAL PRIMARY KEY,
   status                VARCHAR(28) NOT NULL,
   service               VARCHAR(28),
-  price                 MONEY,
+  price                 numeric(10, 2),
   user_id               INT REFERENCES Service_User (user_id) ON DELETE SET NULL,
   description           VARCHAR(250),
   car_category          VARCHAR(28),
