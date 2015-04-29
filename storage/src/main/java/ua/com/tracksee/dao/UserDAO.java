@@ -89,4 +89,5 @@ public interface UserDAO {
      * @author Vadym Akymov
      */
     void assignCar(String carNumber, Integer driverID);
+
 }

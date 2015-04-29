@@ -10,6 +10,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/customer/css/customer-style.css">
+  <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/customer/css/custom.css">
   <%@include file="../parts/meta.jsp" %>
   <%@include file="../parts/bootstrap2.jsp" %>
   <title>profile</title>
@@ -41,14 +43,26 @@
     <!-- start: Row -->
     <div class="row">
 
+      <%--3 samples--%>
+      <div class="span4">
+        <div class="icons-box">
+          <i class="ico-shopping-cart circle big"></i>
+          <div class="title"><h3>e-commerce</h3></div>
+          <p>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+          </p>
+          <div class="clear"></div>
+        </div>
+      </div>
+
     </div>
     <!-- end: Container  -->
-
   </div>
 </div>
 
 <%-- start: JavaScript --%>
 
+<script src="<%=application.getContextPath()%>/resources/customer/js/customer.js"></script>
 <%@include file="../parts/scripts.jsp" %>
 <%@include file="../parts/footer.jsp" %>
 
