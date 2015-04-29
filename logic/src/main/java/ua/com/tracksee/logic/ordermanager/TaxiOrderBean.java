@@ -3,6 +3,7 @@ package ua.com.tracksee.logic.ordermanager;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.postgresql.util.PGmoney;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.AddressEntity;
@@ -243,7 +244,7 @@ public class TaxiOrderBean {
         taxiOrderEntity.setAirConditioner(Boolean.parseBoolean(inputData.get("airConditioner")));
         try {
             double price = Double.parseDouble(inputData.get("price"));
-            taxiOrderEntity.setPrice(new BigDecimal(price));
+            taxiOrderEntity.setPrice(new Double(price));
         } catch (Exception e) {
             throw new OrderException("Invalid price .", "wrong-");
         }

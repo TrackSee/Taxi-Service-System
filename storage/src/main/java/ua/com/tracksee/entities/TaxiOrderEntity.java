@@ -1,5 +1,6 @@
 package ua.com.tracksee.entities;
 
+import org.postgresql.util.PGmoney;
 import ua.com.tracksee.enumartion.*;
 
 import javax.persistence.*;
@@ -16,7 +17,7 @@ import static javax.persistence.EnumType.STRING;
 public class TaxiOrderEntity {
     private Long trackingNumber;
     private OrderStatus status;
-    private BigDecimal price;
+    private Double price;
     private Service service;
     private String description;
     private CarCategory carCategory;
@@ -74,11 +75,11 @@ public class TaxiOrderEntity {
 
     @Basic
     @Column(name = "price")
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
