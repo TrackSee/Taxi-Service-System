@@ -5,6 +5,7 @@ import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -15,6 +16,7 @@ import java.util.List;
  * @author kstes_000
  * @author Maria Komar
  */
+@Stateless
 public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @PersistenceContext(unitName = "HibernatePU")

@@ -19,8 +19,6 @@ public class AdministratorBean {
     @EJB
     private CarDAO carDAO;
 
-
-
     /**
      * @author Vadym_Akymov
      * @param partNumber - number of part which is neeeded

@@ -3,6 +3,7 @@ package ua.com.tracksee.dao;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 
+import javax.ejb.Local;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author kstes_000
  * @author Maria Komar
  */
+@Local
 public interface TaxiOrderDAO {
     public void addComment(TaxiOrderEntity taxiOrderEntity);
 
