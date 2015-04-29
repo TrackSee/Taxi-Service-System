@@ -1,10 +1,10 @@
-package ua.com.tracksee.servlets.customer;
+package ua.com.tracksee.servlets.orders;
 
 
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.com.tracksee.logic.ordermanager.TaxiOrderBean;
+import ua.com.tracksee.logic.TaxiOrderBean;
 import ua.com.tracksee.logic.exception.OrderException;
 
 import javax.ejb.EJB;
@@ -14,36 +14,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
- * @author Sharaban Sasha
- *
  * This class return orderComplete.jsp,
- * get data from this page and send it to TaxiOrderBean
+ * get data from this page and send it to TaxiOrderBean.
+ *
+ * @author Sharaban Sasha
  */
 @WebServlet("/order/complete")
 public class OrderCompleteServlet extends HttpServlet {
-    /* order status is QUEUED  because
-    * the orders received from the page will
-    * always have the status QUEUED
+    /**
+     * Order status is QUEUED  because
+     * the orders received from the page will
+     * always have the status QUEUED
     */
     private static final String ORDER_STATUS = "QUEUED";
+    private static final Logger logger = LogManager.getLogger();
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/customer/orderComplete.jsp").forward(req,resp);
-    }
-    private Logger logger;
-    @EJB
-    private TaxiOrderBean controller;
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        logger = LogManager.getLogger();
-    }
+    private @EJB TaxiOrderBean controller;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -67,11 +56,8 @@ public class OrderCompleteServlet extends HttpServlet {
             inputData.put("description",req.getParameter("description"));
 
 
-            controller.makeOrder(inputData);
+            controller.createNonAuthorisedOrder(inputData);
             req.getRequestDispatcher("/WEB-INF/customer/success.jsp").forward(req, resp);
-        } catch (SQLException e) {
-            logger.error(e.getMessage());
-            resp.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, "Database unavailable.");
         } catch (OrderException e) {
             logger.error(e.getMessage());
             req.getRequestDispatcher("/WEB-INF/customer/error.jsp").forward(req,resp);

@@ -1,24 +1,16 @@
-package ua.com.tracksee.servlets.customer;
+package ua.com.tracksee.servlets.orders;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
-import ua.com.tracksee.entities.TaxiOrderEntity;
-import ua.com.tracksee.json.TaxiOrderDTO;
-import ua.com.tracksee.logic.OrderBean;
-import ua.com.tracksee.logic.ordermanager.TaxiOrderBean;
+import ua.com.tracksee.logic.TaxiOrderBean;
 
 import javax.ejb.EJB;
-import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.CharBuffer;
 
 /**
  * @author Sharaban Sasha

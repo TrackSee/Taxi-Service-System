@@ -1,4 +1,4 @@
-package ua.com.tracksee.servlets.customer;
+package ua.com.tracksee.servlets.orders;
 
 
 import javax.servlet.ServletException;
