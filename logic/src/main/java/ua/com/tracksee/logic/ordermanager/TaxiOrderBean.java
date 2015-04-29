@@ -26,7 +26,7 @@ import static javax.ejb.LockType.WRITE;
 
 
 /**
- * Session Bean implementation class OrderRegistrator
+ * Session Bean used for any order proceed
  *
  * @author Sasha Avlasov
  * @author Sharaban Sasha
@@ -50,34 +50,77 @@ public class TaxiOrderBean {
     public TaxiOrderBean() {
         logger = LogManager.getLogger();
     }
-
+    /**
+     * This method check input data,insert order in database.
+     * Also it insert user in database if he doesn't have  record
+     * about him in database. And it send conformation letter with
+     * tracking number, also tracking number returns to be shown to
+     * user.
+     *
+     * @param inputData- input data about user and his order
+     * @exception javax.mail.MessagingException
+     * @exception java.sql.SQLException
+     * @exception ua.com.tracksee.logic.exception.OrderException
+     * @return Integer - tracking number of user order
+     *
+     * @author Sharaban Sasha
+     * @author Avlasov Sasha
+     */
     @Lock(WRITE)
-    public Integer makeOrder(HashMap<String, String> inputData) throws SQLException, OrderException {
+    public Integer makeOrder(HashMap<String, String> inputData) throws SQLException, OrderException,MessagingException {
 
         ServiceUserEntity serviceUserEntity = validateForUser(inputData);
         TaxiOrderEntity taxiOrderEntity = validateForTaxiOrder(inputData);
-        checkUser(serviceUserEntity);
-        taxiOrderEntity.setUserId(1);
+        serviceUserEntity=checkUserPresent(serviceUserEntity);
+        taxiOrderEntity.setUserId(serviceUserEntity.getUserId());
         Integer trackingNumber=taxiOrderDAO.addOrder(taxiOrderEntity);
-
+        sendEmail(serviceUserEntity,trackingNumber);
      return trackingNumber;
     }
+    /**
+     * This method checks whether there is a user who made
+     * the order in database, if he present in database the
+     * unique number of record attache to him,
+     * if not then create record in the database and attache to him
+     * new and unique generation number of created record.
+     *
+     * @param serviceUserEntity - data about the user
+     * @return ServiceUserEntity object that contain checked
 
-    private void checkUser(ServiceUserEntity serviceUserEntity){
-        logger.info("Check user :" + serviceUserEntity.getEmail());
-        if (!userDAO.checkUserByEmail(serviceUserEntity.getEmail())) {
-            logger.info("Create new user: email-" + serviceUserEntity.getEmail() + " phone-" + serviceUserEntity.getPhone());
-            serviceUserEntity.setActivated(false);
-            userDAO.addUser(serviceUserEntity);
-        } else logger.info("User was found");
-        serviceUserEntity.setUserId(userDAO.getUserIdByEmail(serviceUserEntity.getEmail()));
-        //TODO check mail send
-        try {
-            mailBean.sendOrderConfirmInfo(serviceUserEntity);
-        } catch (MessagingException e) {
-            e.printStackTrace();
+     * @author Sharaban Sasha
+     * @author Avlasov Sasha
+     */
+    private ServiceUserEntity checkUserPresent(ServiceUserEntity serviceUserEntity) {
+        if (userDAO.checkUserByEmail(serviceUserEntity.getEmail())) {
+            logger.info("User was found");
+            //TODO working DAO methods
+//            serviceUserEntity.setUserId(userDAO.getUserIdByEmail(serviceUserEntity.getEmail()));
+        } else {
+            logger.info("User was not found");
+            //TODO working DAO methods
+//            serviceUserEntity.setActivated(false);
+//            serviceUserEntity.setUserId(userDAO.addUser(serviceUserEntity));
         }
+        serviceUserEntity.setUserId(1);
+        return serviceUserEntity;
     }
+
+    /**
+     * This method send confirmation letter with
+     * tracking number to the user who made the order
+     *
+     * @param serviceUserEntity- the user who made the order
+     * @param trackingNumber- tracking number of made order
+     * @exception javax.mail.MessagingException
+     *
+     * @author Sharaban Sasha
+     * @author Avlasov Sasha
+     */
+    public void sendEmail(ServiceUserEntity serviceUserEntity,int trackingNumber)throws MessagingException {
+        mailBean.sendOrderConfirmInfo(serviceUserEntity);
+        //TODO check mail send with tracking number and check sending letter
+    }
+
     /**
      * This method checks incoming origin
      * address and insert it into AddressEntity object.
@@ -381,15 +424,6 @@ public class TaxiOrderBean {
         return 1;
     }
 
-    /**
-     * This method send email with
-     * tracking number
-     *
-     * @param user- user that make order
-     * @param trackingNumber- user that make order
-     */
-    public void sendEmail(ServiceUserEntity user,int trackingNumber) {
-    // TODO send email
-    }
+
 
 }
