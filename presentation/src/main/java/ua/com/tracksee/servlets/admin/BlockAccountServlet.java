@@ -25,7 +25,7 @@ import java.util.List;
  *
  */
 
-@WebServlet(urlPatterns = "admin/block")
+@WebServlet(urlPatterns = "/admin/block")
 public class BlockAccountServlet extends HttpServlet {
 
 

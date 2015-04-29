@@ -10,7 +10,7 @@
 <html>
 <jsp:include page="header.jsp"/>
 <body>
-<jsp:include page="menu.jsp"/>
+<jsp:include page="adminHeader.jsp"/>
 <jsp:useBean id="messages" scope="page" class="ua.com.tracksee.config.manager.been.MessageManagerBean"/>
 <div id="page-wrapper">
 
@@ -25,7 +25,7 @@
     <h3 style="color: green"> ${completeMessage} </h3>
 
     <div class="row">
-        <form method="get" action="blockAccount">
+        <form method="get" action="block">
             <label for="limit">limit</label>
             <select class="form" id="limit" name="countPerPage">
                 <option value="20">20</option>
@@ -35,7 +35,7 @@
             <input type="submit">
         </form>
 
-        <%--<form method="get" action="blockAccount" id="search">
+        <%--<form method="get" action="block" id="search">
             <div class="col-lg-6">
                 <div class="input-group">
                     <input type="text" name="search" id="param" class="form-control" placeholder="Search for...">
@@ -60,7 +60,7 @@
                     </c:forEach>
                     <c:param name="page" value="${currentPage - 1}"/>
                 </c:url>
-                <a href="blockAccount${nextUrl}">Previous</a>
+                <a href="block${nextUrl}">Previous</a>
             </td>
         </c:if>
         <c:if test="${currentPage == 1}">
@@ -81,7 +81,7 @@
                     </c:forEach>
                     <c:param name="page" value="${currentPage + 1}"/>
                 </c:url>
-                <a href="blockAccount${nextUrl}">Next</a>
+                <a href="block${nextUrl}">Next</a>
             </td>
 
         </c:if>
@@ -95,7 +95,7 @@
                 </c:if>
             </c:forEach>
         </c:url>
-        <form action="blockAccount${nextUrl}" method="post">
+        <form action="block${nextUrl}" method="post">
 
             <table class="table table-hover">
 
@@ -153,7 +153,7 @@
                     </c:forEach>
                     <c:param name="page" value="${currentPage - 1}"/>
                 </c:url>
-                <a href="blockAccount${nextUrl}">Previous</a>
+                <a href="block${nextUrl}">Previous</a>
             </td>
         </c:if>
         <c:if test="${currentPage == 1}">
@@ -174,7 +174,7 @@
                     </c:forEach>
                     <c:param name="page" value="${currentPage + 1}"/>
                 </c:url>
-                <a href="blockAccount${nextUrl}">Next</a>
+                <a href="block${nextUrl}">Next</a>
             </td>
 
         </c:if>

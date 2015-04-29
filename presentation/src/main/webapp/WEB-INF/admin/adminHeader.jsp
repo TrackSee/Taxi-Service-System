@@ -51,6 +51,8 @@
                         </li>
                     </ul>
                 </li>
+                <%--block users account--%>
+                <li><a href="block">Block User</a> </li>
                 <%--Logout from page--%>
                 <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
             </ul>
