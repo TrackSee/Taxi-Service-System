@@ -53,7 +53,7 @@
                     <form method="post" action="<c:url value="/orderInfo"/>">
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-large">Submit</button>
+                            <button type="submit" class="btn btn-danger btn-large">Refuse order</button>
                         </div>
                     </form>
                     </p>
