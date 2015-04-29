@@ -20,8 +20,7 @@ import java.io.IOException;
 public class SignUpServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
 
-    @EJB
-    private RegistrationBean controller;
+    private @EJB RegistrationBean controller;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -31,7 +31,7 @@
                     <h1>Cab booking online</h1>
 
                     <p class="lead">You can book a taxi right now without delay and red tape. </p>
-                    <a class="btn btn-large btn-success" href="#">Book taxi now</a>
+                    <a class="btn btn-large btn-success" href="order">Book taxi now</a>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
 
                     <p class="lead">You can create your own account which simplifies and accelerates the
                         process of ordering a taxi</p>
-                    <a class="btn btn-large btn-success" href="#">Sign up now</a>
+                    <a class="btn btn-large btn-success" href="signup">Sign up now</a>
                 </div>
             </div>
         </div>
@@ -68,7 +68,13 @@
 
 
 <%-- start: Java Script --%>
-<%@include file="parts/scripts.jsp" %>
+<script src="<%=application.getContextPath()%>/resources/js/jquery-1.8.2.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/bootstrap2/bootstrap.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/flexslider.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/jquery.cslider.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/slider.js"></script>
+<script defer="defer" src="<%=application.getContextPath()%>/resources/js/custom.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/notify-combined.min.js"></script>
 
 <%--For slider--%>
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-carousel.js"></script>

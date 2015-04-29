@@ -18,6 +18,7 @@ var destination;
 
 /* Constants */
 var DEFAULT_LOCATION;
+var DEFAULT_REGION = 'UA';
 var DEFAULT_ZOOM = 12;
 var SECS_PER_MINUTE = 60;
 var MINUTES_PER_HOUR = 60;
@@ -25,7 +26,7 @@ var MINUTES_PER_HOUR = 60;
 function loadScript() {
     var script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.9&key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&sensor=true'
+    script.src = 'http://maps.googleapis.com/maps/api/js?v=3.9&key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&sensor=true'
     + '&signed_in=true&callback=initialize';
     document.body.appendChild(script);
 }
@@ -52,40 +53,16 @@ function initialize() {
 function initializeDirections() {
     var rendererOptions = {
         draggable: true,
-        preserveViewport: true
+        preserveViewport: true,
+        region: DEFAULT_REGION
     };
     directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
     directionsService = new google.maps.DirectionsService();
     directionsDisplay.setMap(map);
     google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
-        updateInfoBox(directionsDisplay.getDirections());
+        updateInfoBox(directionsDisplay.getDirections().routes[0]);
+        updateAddresses(directionsDisplay.getDirections().routes[0]);
     });
-}
-
-/**
- * updateInfoBox
- * Updates route distance and duration information on the
- * {google.maps.InfoWindow} instance, that is connected to this route.
- *
- * @param result {google.maps.DirectionsResult}
- */
-function updateInfoBox(result) {
-    var route = result.routes[0];
-    var data = getRouteData(route);
-    var time = data.duration;
-
-    var timeText = time % MINUTES_PER_HOUR + ' m';
-    if (time >= MINUTES_PER_HOUR) {
-        timeText = Math.floor(time / MINUTES_PER_HOUR) + ' h ' + timeText;
-    }
-    var text = '<p>' + timeText + '<p>' + data.distance + ' km';
-
-    if (data.distance > 0) {
-        var middle = getRouteMiddle(route);
-        infoBox.setContent(text);
-        infoBox.setPosition(middle);
-        infoBox.open(map);
-    }
 }
 
 /**
@@ -94,6 +71,7 @@ function updateInfoBox(result) {
  * Duration in minutes, length in km.
  *
  * @param route {google.maps.DirectionsRoute}
+ * @returns {{duration: number, distance: number}}
  */
 function getRouteData(route) {
     var duration = 0;
@@ -107,7 +85,7 @@ function getRouteData(route) {
 }
 
 /**
- * getRouteMiddle
+ * getRouteMiddle()
  * Returns one of the middle route points.
  *
  * @param route {google.maps.DirectionsRoute}
@@ -139,24 +117,7 @@ function tryGeolocation() {
 }
 
 /**
- * updateAddresses
- * Geocodes entered addreses and changes the route on the map.
- */
-function updateAddresses() {
-    var address1 = $('#origin').val();
-    var address2 = $('#destination').val();
-
-    if (address1 != "") {
-        origin.location = address1;
-    }
-    if (address2 != "") {
-        destination.location = address2;
-    }
-    calcRoute();
-}
-
-/**
- * calcRoute
+ * calcRoute()
  * Sends a request for building new path to Google Directions Service.
  */
 function calcRoute() {
@@ -172,5 +133,85 @@ function calcRoute() {
         }
     });
 }
+
+/**
+ * useLatLngAddressFor
+ * Function geocodes passed LatLng parameter and uses it
+ * as callback parameter.
+ *
+ * @param latLng {google.maps.LatLng}
+ * @param callback {function(string)}
+ */
+function useLatLngAddressFor(latLng, callback) {
+    geocoder.geocode({'latLng': latLng}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+                callback(results[1]);
+            } else {
+                $('#error-label').text('No results found');
+            }
+        } else {
+            $('#error-label').text('Geocoder failed due to: ' + status);
+        }
+    });
+}
+
+/* Results view */
+
+/**
+ * updateInfoBox
+ * Updates route distance and duration information on the
+ * {google.maps.InfoWindow} instance, that is connected to this route.
+ *
+ * @param route {google.maps.DirectionsRoute}
+ */
+function updateInfoBox(route) {
+    var data = getRouteData(route);
+    var time = data.duration;
+
+    var timeText = time % MINUTES_PER_HOUR + ' m';
+    if (time >= MINUTES_PER_HOUR) {
+        timeText = Math.floor(time / MINUTES_PER_HOUR) + ' h ' + timeText;
+    }
+    var text = '<p>' + timeText + '<p>' + data.distance + ' km';
+
+    if (data.distance > 0) {
+        var middle = getRouteMiddle(route);
+        infoBox.setContent(text);
+        infoBox.setPosition(middle);
+        infoBox.open(map);
+    }
+}
+
+/**
+ * updateAddresses
+ * Updates addresses text fields with new Google Maps
+ * information.
+ */
+function updateAddresses() {
+    useLatLngAddressFor(route.overview_path[0], $('#origin').val);
+    useLatLngAddressFor(route.overview_path[route.overview_path.length - 1], $('#destination').val);
+}
+
+/**
+ * updateRoute()
+ * Geocodes entered addresses and changes the route on the map.
+ */
+function updateRoute() {
+    var address1 = $('#origin').val();
+    var address2 = $('#destination').val();
+
+    if (address1 != "") {
+        origin.location = address1;
+    }
+    if (address2 != "") {
+        destination.location = address2;
+    }
+    calcRoute();
+}
+
+//function getSo() {
+//    return {route: directionsDisplay.getDirections().routes[0].overview_path}
+//}
 
 $(document).ready(loadScript);

@@ -18,6 +18,8 @@ import java.io.IOException;
 @WebServlet("/signin")
 public class SignInServlet extends HttpServlet {
     private static final int SESSION_MAX_INACTIVE_INTERVAL = 60 * 60;
+    private static final String SUCCESS = "success";
+    private static final String ERROR = "error";
     private static final Logger logger = LogManager.getLogger();
 
     @Override
@@ -41,11 +43,11 @@ public class SignInServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         logger.debug("User attempts to authorise {}", email);
-        resp.sendRedirect(req.getParameter("redirect_url"));
         try {
             req.login(email, password);
         } catch (ServletException e) {
-            //TODO uncomment with JAAS: resp.getWriter().append("error");
+            logger.warn(e.getMessage());
+            //TODO uncomment with JAAS: resp.getWriter().append(ERROR);
             //TODO uncomment with JAAS: return;
         }
         session = req.getSession(true);
