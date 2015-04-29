@@ -65,17 +65,24 @@
                         <!-- start: About Member -->
                         <div class="span4">
                             <div class="avatar view-team">
-                                <img src="<%=application.getContextPath()%>/resources/img/team_member.jpg" alt="team member">
+                                <img src="<%=application.getContextPath()%>/resources/img/team_member.jpg"
+                                     alt="team member">
+
                                 <div class="mask">
                                     <h2>About driver</h2>
+
                                     <p>
-                                        Information about driver.Information about driver.Information about driver.Information about driver.Information about driver.Information about driver.Information about driver.Information about driver.Information about driver.Information about driver.Information about driver.Information about driver.
+                                        Information about driver.Information about driver.Information about
+                                        driver.Information about driver.Information about driver.Information about
+                                        driver.Information about driver.Information about driver.Information about
+                                        driver.Information about driver.Information about driver.Information about
+                                        driver.
                                     </p>
                                     <a href="#" class="info">Some additional information on another page</a>
                                 </div>
                             </div>
                             <div class="clear"></div>
-                            <div class="team-name">Bill Budrov  <span> / Taxi drover</span></div>
+                            <div class="team-name">Bill Budrov <span> / Taxi drover</span></div>
                         </div>
                         <!-- end: About Member -->
                         <!-- end: About Member -->
@@ -99,19 +106,27 @@
                     <ul class="progress-bar">
                         <li>
                             <h5>Some information ( 40% )</h5>
-                            <div class="meter"><span style="width: 40%"></span></div><!-- Edite width here -->
+
+                            <div class="meter"><span style="width: 40%"></span></div>
+                            <!-- Edite width here -->
                         </li>
                         <li>
                             <h5>Some information ( 80% )</h5>
-                            <div class="meter"><span style="width: 80%"></span></div><!-- Edite width here -->
+
+                            <div class="meter"><span style="width: 80%"></span></div>
+                            <!-- Edite width here -->
                         </li>
                         <li>
                             <h5>Some information ( 100% )</h5>
-                            <div class="meter"><span style="width: 100%"></span></div><!-- Edite width here -->
+
+                            <div class="meter"><span style="width: 100%"></span></div>
+                            <!-- Edite width here -->
                         </li>
                         <li>
                             <h5>Some information ( 60% )</h5>
-                            <div class="meter"><span style="width: 60%"></span></div><!-- Edite width here -->
+
+                            <div class="meter"><span style="width: 60%"></span></div>
+                            <!-- Edite width here -->
                         </li>
                     </ul>
                 </div>

@@ -48,8 +48,11 @@
                     <div class="control-group">
                         <%-- Email--%>
                         <label class="control-label" for="email">E-mail</label>
+
                         <div class="controls">
-                            <input type="email" id="email" name="email" placeholder="Enter your email" class="input-xlarge" required>
+                            <input type="email" id="email" name="email" placeholder="Enter your email"
+                                   class="input-xlarge" required>
+
                             <p class="help-block">Enter your e-mail</p>
                         </div>
                     </div>
@@ -57,8 +60,11 @@
                     <div class="control-group">
                         <%-- Password--%>
                         <label class="control-label" for="password">Password</label>
+
                         <div class="controls">
-                            <input type="password" id="password" name="password" placeholder="" class="input-xlarge" required>
+                            <input type="password" id="password" name="password" placeholder="" class="input-xlarge"
+                                   required>
+
                             <p class="help-block">Enter your password</p>
                         </div>
                     </div>

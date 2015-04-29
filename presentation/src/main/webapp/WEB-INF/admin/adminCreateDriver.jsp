@@ -74,13 +74,13 @@
         <div>
             <label>Sex</label>
         </div>
-        <select id = "sex" class="sex form-control" name="sex">
+        <select id="sex" class="sex form-control" name="sex">
             <option value="MALE">Male</option>
             <option value="FEMALE">Female</option>
         </select>
 
         <div>
-            <button  id="addDriver" type="button" class="btn btn-primary">Create</button>
+            <button id="addDriver" type="button" class="btn btn-primary">Create</button>
         </div>
 
 
@@ -89,7 +89,7 @@
 
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
 <%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.delegate.js"--%>
-        <%--type="text/javascript"></script>--%>
+<%--type="text/javascript"></script>--%>
 <script src="<%=application.getContextPath()%>/resources/admin//bower_components/jquery/dist/jquery.validate.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 

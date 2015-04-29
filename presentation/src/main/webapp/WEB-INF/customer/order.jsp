@@ -13,7 +13,7 @@
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
 </head>
-<body >
+<body>
 <%@include file="../parts/header.jsp" %>
 
 <div id="page-title">
@@ -51,13 +51,13 @@
                     <form method="post" action="<c:url value="/order"/>">
 
                         <div class="form-group">
-                            <input type="text" class="form-control"  name="addressOrigin" placeholder="Address from:"
+                            <input type="text" class="form-control" name="addressOrigin" placeholder="Address from:"
                                    data-error="That address is invalid" required>
 
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control"  name="addressDestination" placeholder="Address to:"
+                            <input type="text" class="form-control" name="addressDestination" placeholder="Address to:"
                                    data-error="That address is invalid" required>
 
                         </div>
@@ -74,8 +74,8 @@
         <!-- end: Row -->
     </div>
     <!-- end: Team -->
-   </div>
-    <!-- end: wrapper -->
+</div>
+<!-- end: wrapper -->
 
 <div id="map-canvas" class="googleMap"></div>
 

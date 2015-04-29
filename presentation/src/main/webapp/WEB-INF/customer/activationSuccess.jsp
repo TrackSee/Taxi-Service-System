@@ -9,11 +9,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%@include file="../parts/meta.jsp" %>
-  <!-- background adaptive image -->
-  <link href="<%=application.getContextPath()%>/resources/customer/css/successStyle.css" rel="stylesheet">
+    <%@include file="../parts/meta.jsp" %>
+    <!-- background adaptive image -->
+    <link href="<%=application.getContextPath()%>/resources/customer/css/successStyle.css" rel="stylesheet">
 </head>
 <body>
-    <p>Activation successful</p>
+<p>Activation successful</p>
 </body>
 </html>

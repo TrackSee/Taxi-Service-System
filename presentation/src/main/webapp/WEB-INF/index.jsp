@@ -19,7 +19,7 @@
 </head>
 
 <body>
-<%@include file="parts/header.jsp"%>
+<%@include file="parts/header.jsp" %>
 <%-- start: Slider --%>
 <div id="myCarousel" class="carousel slide">
     <div class="carousel-inner">
@@ -30,7 +30,7 @@
                 <div class="carousel-caption">
                     <h1>Cab booking online</h1>
 
-                    <p class="lead" >You can book a taxi right now without delay and red tape. </p>
+                    <p class="lead">You can book a taxi right now without delay and red tape. </p>
                     <a class="btn btn-large btn-success" href="#">Book taxi now</a>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                 <div class="carousel-caption">
                     <h1>Additional information</h1>
 
-                    <p class="lead" >Our company is young and promising</p>
+                    <p class="lead">Our company is young and promising</p>
                     <a class="btn btn-large btn-success" href="#">Read about us</a>
                 </div>
             </div>
@@ -74,6 +74,6 @@
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-carousel.js"></script>
 <%-- end: Java Script --%>
 
-<%@include file="parts/footer.jsp"%>
+<%@include file="parts/footer.jsp" %>
 </body>
 </html>

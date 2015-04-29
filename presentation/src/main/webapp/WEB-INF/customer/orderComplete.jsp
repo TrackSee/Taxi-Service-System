@@ -57,30 +57,30 @@
 
                     <form method="post" action="<c:url value="/order/complete"/>">
                         <div class="form-group">
-                            <input type="text" name="phoneNumber" class="form-control"  placeholder="Phone number:"
+                            <input type="text" name="phoneNumber" class="form-control" placeholder="Phone number:"
                                    required>
                         </div>
 
                         <div class="form-group">
-                            <input type="email"  class="form-control" name="email" placeholder="Email"
+                            <input type="email" class="form-control" name="email" placeholder="Email"
                                    data-error="That email is invalid" required>
                         </div>
 
                         <div class="form-group">
                             <label>Address from</label>
                             <input type="text" id="origin" class="form-control" value="${addressOrigin}"
-                                    name="addressOrigin" data-error="That address is invalid">
+                                   name="addressOrigin" data-error="That address is invalid">
                         </div>
 
                         <div class="form-group">
                             <label>Address to</label>
-                            <input  type="text" id="destination" class="form-control" value="${addressDestination}"
+                            <input type="text" id="destination" class="form-control" value="${addressDestination}"
                                    name="addressDestination" data-error="That address is invalid">
-                          </div>
+                        </div>
 
                         <div class="form-group">
                             <label>Order price</label>
-                            <input  type="text" name="price" class="form-control"
+                            <input type="text" name="price" class="form-control"
                                    value="0"
                                    data-error="That address is invalid" readonly>
                         </div>
@@ -94,76 +94,75 @@
                             </select>
                         </div>
 
-                            <div class="form-group">
-                                <label class="control-label">Way of payment</label>
-                                <select class="form-control order_priority" name="wayOfPayment">
-                                    <option value="cash">Cash</option>
-                                    <option value="visaCard">Visa card</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label class="control-label">Way of payment</label>
+                            <select class="form-control order_priority" name="wayOfPayment">
+                                <option value="cash">Cash</option>
+                                <option value="visaCard">Visa card</option>
+                            </select>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="control-label">Driver sex</label>
-                                <select class="form-control order_priority" name="driverSex">
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label class="control-label">Driver sex</label>
+                            <select class="form-control order_priority" name="driverSex">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="control-label">Service</label>
-                                <select class="form-control order_priority" name="service">
-                                    <option value="default">Default</option>
-                                    <option value="soberDriver">Service "Sober driver"</option>
-                                    <option value="guestDelivery">Service "Guest delivery"</option>
-                                    <option value="cargoTaxi">Service "Cargo taxi"</option>
-                                    <option value="meetMyGuest">Service "Meet my guest"</option>
-                                    <option value="celebrationTaxi">Service "Celebration taxi"</option>
-                                    <option value="foodStuffDelivery">Service "Foodstuff delivery"</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label class="control-label">Service</label>
+                            <select class="form-control order_priority" name="service">
+                                <option value="default">Default</option>
+                                <option value="soberDriver">Service "Sober driver"</option>
+                                <option value="guestDelivery">Service "Guest delivery"</option>
+                                <option value="cargoTaxi">Service "Cargo taxi"</option>
+                                <option value="meetMyGuest">Service "Meet my guest"</option>
+                                <option value="celebrationTaxi">Service "Celebration taxi"</option>
+                                <option value="foodStuffDelivery">Service "Foodstuff delivery"</option>
+                            </select>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="control-label">Music style</label>
-                                <select class="form-control order_priority" name="musicStyle">
-                                    <option value="default">Default</option>
-                                    <option value="blues">Blues</option>
-                                    <option value="classicalMusic">Classical music</option>
-                                    <option value="rock">Rock</option>
-                                    <option value="jazz">Jazz</option>
-                                    <option value="danceMusic">Dance music</option>
-                                    <option value="electronicMusic">Electronic music</option>
-                                    <option value="hipHop">Hip Hop</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label class="control-label">Music style</label>
+                            <select class="form-control order_priority" name="musicStyle">
+                                <option value="default">Default</option>
+                                <option value="blues">Blues</option>
+                                <option value="classicalMusic">Classical music</option>
+                                <option value="rock">Rock</option>
+                                <option value="jazz">Jazz</option>
+                                <option value="danceMusic">Dance music</option>
+                                <option value="electronicMusic">Electronic music</option>
+                                <option value="hipHop">Hip Hop</option>
+                            </select>
+                        </div>
 
 
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="animalTransportation"> Animal transportation
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="freeWifi"> Free wi-fi
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="smokingDriver"> Smoking driver
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="airConditioner"> Air conditioner
-                                </label>
-                            </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="animalTransportation"> Animal transportation
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="freeWifi"> Free wi-fi
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="smokingDriver"> Smoking driver
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="airConditioner"> Air conditioner
+                            </label>
+                        </div>
 
-                                Description:<br />
-                                  <textarea name="description" >
+                        Description:<br/>
+                                  <textarea name="description">
 
-                                  </textarea><br />
-
+                                  </textarea><br/>
 
 
                         <div class="form-group">
@@ -178,7 +177,7 @@
         </div>
         <%-- end: Row --%>
 
-     </div>
+    </div>
     <%-- end: Team --%>
 
 </div>

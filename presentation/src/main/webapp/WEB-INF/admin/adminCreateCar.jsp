@@ -73,17 +73,19 @@
         <div>
             <label>Category</label>
         </div>
-        <select id = "category" class="category form-control" name="category">
+        <select id="category" class="category form-control" name="category">
             <option value="BUSINESS_CLASS">BUSINESS CLASS</option>
             <option value="ECONOMY_CLASS">ECONOMY CLASS</option>
             <option value="VAN">VAN</option>
         </select>
         <%--<label for="animalTransportationApplicable" class="sr-only">Color</label>--%>
-        <input type="checkbox" id = "animalTransportationApplicable" name="animalTransportationApplicable" >Animal Transportation Applicable<Br>
-        <input type="checkbox" id = "freeWifi" name="freeWifi" >Free Wifi<Br>
-        <input type="checkbox" id = "airConditioner" name="airConditioner" >Air Conditioner<Br>
+        <input type="checkbox" id="animalTransportationApplicable" name="animalTransportationApplicable">Animal
+        Transportation Applicable<Br>
+        <input type="checkbox" id="freeWifi" name="freeWifi">Free Wifi<Br>
+        <input type="checkbox" id="airConditioner" name="airConditioner">Air Conditioner<Br>
+
         <div>
-            <button  id="addCar" type="button" class="btn btn-primary">Create</button>
+            <button id="addCar" type="button" class="btn btn-primary">Create</button>
         </div>
 
 

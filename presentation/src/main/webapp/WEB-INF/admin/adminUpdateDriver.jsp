@@ -63,16 +63,19 @@
     <form class="update-driver" id="updateItDriver" action="<c:url value="/admin/updatedriver"/>">
         <h2 class="form-sign-up-heading">Update Profile</h2>
         <label for="email" class="sr-only">Email </label>
-        <input type="email" placeholder="email" id="email" name="email" class="form-control" value="${driver.email}" >
+        <input type="email" placeholder="email" id="email" name="email" class="form-control" value="${driver.email}">
 
         <label for="password" class="sr-only">Password</label>
-        <input type="password" placeholder="password" id="password" name="password" class="form-control" value="${driver.password}">
+        <input type="password" placeholder="password" id="password" name="password" class="form-control"
+               value="${driver.password}">
 
         <label for="confirmpassword" class="sr-only">Password</label>
-        <input type="password" placeholder="confirm password" id="confirmpassword" name="confirmpassword" class="form-control" value="${driver.password}">
+        <input type="password" placeholder="confirm password" id="confirmpassword" name="confirmpassword"
+               class="form-control" value="${driver.password}">
 
         <label for="phone" class="sr-only">Phone number</label>
-        <input type="text" placeholder="phone number" id="phone" name="phone" class="form-control" value="${driver.phone}">
+        <input type="text" placeholder="phone number" id="phone" name="phone" class="form-control"
+               value="${driver.phone}">
 
         <div id="updateDriver">
             <button type="button" class="btn btn-primary">Update</button>

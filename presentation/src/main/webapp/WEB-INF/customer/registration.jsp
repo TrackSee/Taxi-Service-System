@@ -42,7 +42,8 @@
 
         <!-- start: Row -->
         <div class="row">
-            <form id="form-sign-up" class="form-horizontal" action="javascript:void(null);" method="POST" onsubmit="sendForm()">
+            <form id="form-sign-up" class="form-horizontal" action="javascript:void(null);" method="POST"
+                  onsubmit="sendForm()">
                 <fieldset>
                     <div id="legend">
                         <legend><h2 class="form-sign-in-heading">Please sign up</h2></legend>
@@ -51,6 +52,7 @@
                     <div class="control-group">
                         <!-- E-mail -->
                         <label class="control-label" for="email">E-mail</label>
+
                         <div class="controls">
                             <input type="email" id="email" name="email" placeholder="Email address"
                                    class="input-xlarge" required autofocus>
@@ -61,26 +63,32 @@
                     <div class="control-group">
                         <!-- Password-->
                         <label class="control-label" for="password">Password</label>
+
                         <div class="controls">
-                            <input type="password" id="password" name="password" placeholder="Password" class="input-xlarge" required>
+                            <input type="password" id="password" name="password" placeholder="Password"
+                                   class="input-xlarge" required>
                             <%--<p class="help-block">Password should be at least 4 characters</p>--%>
                         </div>
                     </div>
 
                     <div class="control-group">
                         <!-- Password -->
-                        <label class="control-label"  for="repeat-password">Confirm Password</label>
+                        <label class="control-label" for="repeat-password">Confirm Password</label>
+
                         <div class="controls">
-                            <input type="password" id="repeat-password" name="repeat-password" placeholder="Confirm password" class="input-xlarge" required>
+                            <input type="password" id="repeat-password" name="repeat-password"
+                                   placeholder="Confirm password" class="input-xlarge" required>
                             <%--<p class="help-block">Please confirm password</p>--%>
                         </div>
                     </div>
 
                     <div class="control-group">
                         <!-- Username -->
-                        <label class="control-label"  for="phone-number">Phone number</label>
+                        <label class="control-label" for="phone-number">Phone number</label>
+
                         <div class="controls">
-                            <input type="text" id="phone-number" name="phone-number" placeholder="Phone number" class="input-xlarge">
+                            <input type="text" id="phone-number" name="phone-number" placeholder="Phone number"
+                                   class="input-xlarge">
                             <%--<p class="help-block">Username can contain any letters or numbers, without spaces</p>--%>
                         </div>
                     </div>
