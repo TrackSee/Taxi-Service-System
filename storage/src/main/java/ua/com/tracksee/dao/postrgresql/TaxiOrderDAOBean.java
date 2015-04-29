@@ -1,6 +1,9 @@
 package ua.com.tracksee.dao.postrgresql;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
+import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 
 import javax.ejb.Stateless;
@@ -21,7 +24,7 @@ import java.util.List;
  */
 @Stateless
 public class TaxiOrderDAOBean implements TaxiOrderDAO {
-
+    private static final Logger logger = LogManager.getLogger();
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
 
@@ -70,5 +73,18 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     @Override
     public TaxiOrderEntity getOrder(Integer trackingNumber) {
         return null;
+    }
+
+    @Override
+    public List<TaxiOrderEntity> getOrdersPerPage(int partNumber) {
+        if(partNumber <= 0) {
+            logger.error("partNumber can't be <= 0");
+            throw new IllegalArgumentException("partNumber can't be <= 0");
+        }
+        Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order " +
+                "ORDER BY ordered_date LIMIT ?1 OFFSET ?2", ServiceUserEntity.class);
+        query.setParameter(1, TO_ORDERS_PER_PAGE);
+        query.setParameter(2, (partNumber - 1)*TO_ORDERS_PER_PAGE);
+        return query.getResultList();
     }
 }

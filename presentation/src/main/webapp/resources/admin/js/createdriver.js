@@ -20,8 +20,8 @@ $(document).ready(function () {
                 equalTo: "#password"
             },
             phone: {
-                required: true,
-                minlength:9
+                required: false,
+                minlength:7
             }
         }
     });

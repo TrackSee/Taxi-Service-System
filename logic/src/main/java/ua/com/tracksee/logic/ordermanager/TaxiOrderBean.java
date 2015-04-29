@@ -21,6 +21,7 @@ import javax.mail.MessagingException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 
 import static javax.ejb.LockType.WRITE;
 
@@ -43,7 +44,7 @@ public class TaxiOrderBean {
     @EJB
     private ValidationBean validationBean;
     private Logger logger;
-
+    
     /**
      * Default constructor.
      */
@@ -76,6 +77,13 @@ public class TaxiOrderBean {
         Integer trackingNumber=taxiOrderDAO.addOrder(taxiOrderEntity);
         sendEmail(serviceUserEntity,trackingNumber);
      return trackingNumber;
+    }
+
+    /*
+     *@author Vadym Akymov
+     */
+    public List<TaxiOrderEntity> getOrdersPerPage(int pageNumber){
+        return taxiOrderDAO.getOrdersPerPage(pageNumber);
     }
     /**
      * This method checks whether there is a user who made

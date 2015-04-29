@@ -89,4 +89,12 @@ public class AdministratorBean {
     public void deleteCar(String carNumber) {carDAO.deleteCar(carNumber);}
 
 
+    /**
+     *@author Vadym Akymov
+     * @return count of drivers per page
+     */
+    public int getDriverPagesCount(){
+        return userDAO.getDriverPagesCount();
+    }
+
 }

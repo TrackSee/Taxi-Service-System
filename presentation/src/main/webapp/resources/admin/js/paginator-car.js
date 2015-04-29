@@ -11,7 +11,6 @@ $(document).ready(function () {
             url: 'cars',
 
             success: function (data) {
-                ;
                 var carsArray = JSON.parse(data);
                 var tBody = document.getElementById('table-body');
                 var rows = tBody.children;
@@ -22,7 +21,7 @@ $(document).ready(function () {
                     if (i >= rows.length) {
                         var newTr = document.createElement('tr');
                         //TODO Don't forget to change magic number of attribute tr count
-                        for (var j = 0; j < 4; j++) {
+                        for (var j = 0; j < 8; j++) {
                             newTr.appendChild(document.createElement('td'));
                         }
                         tBody.appendChild(newTr);
