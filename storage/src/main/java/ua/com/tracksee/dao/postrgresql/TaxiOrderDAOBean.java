@@ -82,7 +82,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
             throw new IllegalArgumentException("partNumber can't be <= 0");
         }
         Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order " +
-                "ORDER BY ordered_date LIMIT ?1 OFFSET ?2", ServiceUserEntity.class);
+                "ORDER BY ordered_date LIMIT ?1 OFFSET ?2", TaxiOrderEntity.class);
         query.setParameter(1, TO_ORDERS_PER_PAGE);
         query.setParameter(2, (partNumber - 1)*TO_ORDERS_PER_PAGE);
         return query.getResultList();
