@@ -68,9 +68,9 @@
                     <td>${car.carModel}</td>
                     <td>${car.color}</td>
                     <td>${car.carCategory}</td>
-                    <td>${car.animalTransportationApplicable}</td>
-                    <td>${car.freeWifi}</td>
-                    <td>${car.airConditioner}</td>
+                    <td>${car.animalTransportationApplicable==true ? "+" : "-"}</td>
+                    <td>${car.freeWifi==true ? "+" : "-"}</td>
+                    <td>${car.airConditioner==true ? "+" : "-"}</td>
                     <td><a href="updatecar?carNumber=${car.carNumber}" >Edit</a></td>
                     <td><a href="deletecar?carNumber=${car.carNumber}">Delete</a></td>
                 </tr>
