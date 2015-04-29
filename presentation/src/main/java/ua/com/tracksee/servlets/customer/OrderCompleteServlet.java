@@ -8,6 +8,7 @@ import ua.com.tracksee.logic.ordermanager.TaxiOrderBean;
 import ua.com.tracksee.logic.exception.OrderException;
 
 import javax.ejb.EJB;
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -72,7 +73,7 @@ public class OrderCompleteServlet extends HttpServlet {
         } catch (SQLException e) {
             logger.error(e.getMessage());
             resp.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, "Database unavailable.");
-        } catch (OrderException e) {
+        } catch (OrderException | MessagingException e) {
             logger.error(e.getMessage());
             req.getRequestDispatcher("/WEB-INF/customer/error.jsp").forward(req,resp);
         }
