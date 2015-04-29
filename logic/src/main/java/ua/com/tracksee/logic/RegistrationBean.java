@@ -3,8 +3,11 @@ package ua.com.tracksee.logic;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
+import ua.com.tracksee.logic.EmailBean;
+import ua.com.tracksee.logic.ValidationBean;
 import ua.com.tracksee.logic.exception.RegistrationException;
 
+import javax.annotation.security.DeclareRoles;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
@@ -13,8 +16,8 @@ import javax.mail.MessagingException;
 import static ua.com.tracksee.logic.exception.RegistrationExceptionType.*;
 
 /**
- * Bean provides account registration, authorisation
- * and activation functionality.
+ * Bean provides account registration and activation
+ * functionality.
  *
  * @author Ruslan Gunavardana
 */
@@ -25,9 +28,6 @@ public class RegistrationBean {
     private @EJB EmailBean emailBean;
     private @EJB ValidationBean validationBean;
     private @EJB UserDAO userDAO;
-
-    public void getUserByAccountInfo() {
-    }
 
     /**
      * Activates registered user's account.
