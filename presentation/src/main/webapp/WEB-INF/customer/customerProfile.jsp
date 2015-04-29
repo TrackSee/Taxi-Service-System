@@ -45,17 +45,25 @@
 
     <c:forEach items="${requestScope.orders}" var="order">
       <div class="span4">
-        <div class="icons-box">
+        <div class="icons-box orderBody">
           <i class="ico-shopping-cart circle big"></i>
           <div class="title"><h3>Order № ${order.trackingNumber}</h3></div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-          </p>
+          <div>
+            <p><b>SERVICE:</b> ${order.service}</p>
+          </div>
+          <div>
+            <p><b>STATUS:</b> ${order.status}</p>
+          </div>
+          <div>
+            <p><b>PRICE:</b> ${order.price} grn</p>
+          </div>
+          <div>
+            <p><b>DATE:</b> ${order.orderedDate} grn</p>
+          </div>
           <div class="clear"></div>
         </div>
       </div>
     </c:forEach>
-
     </div>
     <!-- end: Container  -->
   </div>
