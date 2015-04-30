@@ -13,11 +13,11 @@ import java.util.Objects;
 @IdClass(AddressEntityPK.class)
 public class AddressEntity {
     private String name;
-    private Integer userId;
+    private ServiceUserEntity userId;
     private String stringRepresentation;
     private PGpoint location;
 
-    public AddressEntity(String name, Integer userId, String stringRepresentation, PGpoint location) {
+    public AddressEntity(String name, ServiceUserEntity userId, String stringRepresentation, PGpoint location) {
         this.name = name;
         this.userId = userId;
         this.stringRepresentation = stringRepresentation;
@@ -25,7 +25,7 @@ public class AddressEntity {
     }
 
     //TODO delete this constructor by Kozin O.
-    public AddressEntity(String name, Integer userId, String stringRepresentation) {
+    public AddressEntity(String name, ServiceUserEntity userId, String stringRepresentation) {
         this.name = name;
         this.userId = userId;
         this.stringRepresentation = stringRepresentation;
@@ -46,11 +46,13 @@ public class AddressEntity {
 
     @Id
     @Column(name = "user_id")
-    public Integer getUserId() {
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    public ServiceUserEntity getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(ServiceUserEntity userId) {
         this.userId = userId;
     }
 
