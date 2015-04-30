@@ -32,7 +32,7 @@ function loadScript() {
 }
 
 function initialize() {
-    DEFAULT_LOCATION = new google.maps.LatLng(50.449226, 30.542454);
+    DEFAULT_LOCATION = new google.maps.LatLng(50.447136, 30.455119);
     origin = {location: DEFAULT_LOCATION};
     destination = {location: DEFAULT_LOCATION};
 
@@ -108,11 +108,11 @@ function tryGeolocation() {
             destination.location = pos;
             calcRoute();
         }, function() {
-            $('#error-label').text('The Geolocation service failed.');
+            $.notify('The Geolocation service failed.', 'error');
         });
     } else {
         // Browser doesn't support Geolocation
-        $('#error-label').text('Your browser doesn\'t support geolocation.');
+        $.notify('Your browser doesn\'t support geolocation.', 'error');
     }
 }
 
@@ -140,18 +140,18 @@ function calcRoute() {
  * as callback parameter.
  *
  * @param latLng {google.maps.LatLng}
- * @param callback {function(string)}
+ * @param textInput {Node}
  */
-function useLatLngAddressFor(latLng, callback) {
+function useLatLngAddressFor(latLng, textInput) {
     geocoder.geocode({'latLng': latLng}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            if (results[1]) {
-                callback(results[1]);
+            if (results[0]) {
+                textInput.val(results[0].formatted_address);
             } else {
-                $('#error-label').text('No results found');
+                $.notify('No results found', 'error');
             }
         } else {
-            $('#error-label').text('Geocoder failed due to: ' + status);
+            $.notify('Geocoder failed due to: ' + status, 'error');
         }
     });
 }
@@ -188,9 +188,9 @@ function updateInfoBox(route) {
  * Updates addresses text fields with new Google Maps
  * information.
  */
-function updateAddresses() {
-    useLatLngAddressFor(route.overview_path[0], $('#origin').val);
-    useLatLngAddressFor(route.overview_path[route.overview_path.length - 1], $('#destination').val);
+function updateAddresses(route) {
+    useLatLngAddressFor(route.overview_path[0], $('#origin'));
+    useLatLngAddressFor(route.overview_path[route.overview_path.length - 1], $('#destination'));
 }
 
 /**

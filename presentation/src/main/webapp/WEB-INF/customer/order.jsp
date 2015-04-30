@@ -51,14 +51,16 @@
                     <form method="post" action="<c:url value="/order"/>">
 
                         <div class="form-group">
-                            <input type="text" class="form-control" name="addressOrigin" placeholder="Address from:"
-                                   data-error="That address is invalid" required>
+                            <input type="text" class="form-control" name="addressOrigin" id="origin"
+                                   placeholder="Address from:" data-error="That address is invalid"
+                                   required onblur="updateRoute()">
 
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" name="addressDestination" placeholder="Address to:"
-                                   data-error="That address is invalid" required>
+                            <input type="text" class="form-control" name="addressDestination" id="destination"
+                                   placeholder="Address to:" data-error="That address is invalid"
+                                   required  onblur="updateRoute()">
 
                         </div>
 

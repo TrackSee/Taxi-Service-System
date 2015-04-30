@@ -67,20 +67,22 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Address from</label>
+                            <label for="origin">Address from</label>
                             <input type="text" id="origin" class="form-control" value="${addressOrigin}"
-                                   name="addressOrigin" data-error="That address is invalid">
+                                   name="addressOrigin" data-error="That address is invalid"
+                                   onblur="updateRoute()">
                         </div>
 
                         <div class="form-group">
-                            <label>Address to</label>
+                            <label for="destination">Address to</label>
                             <input type="text" id="destination" class="form-control" value="${addressDestination}"
-                                   name="addressDestination" data-error="That address is invalid">
+                                   name="addressDestination" data-error="That address is invalid"
+                                   onblur="updateRoute()">
                         </div>
 
                         <div class="form-group">
-                            <label>Order price</label>
-                            <input type="text" name="price" class="form-control"
+                            <label for="price">Order price</label>
+                            <input type="text" name="price" id="price" class="form-control"
                                    value="0"
                                    data-error="That address is invalid" readonly>
                         </div>
