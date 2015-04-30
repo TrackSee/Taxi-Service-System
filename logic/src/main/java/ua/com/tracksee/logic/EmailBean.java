@@ -34,7 +34,9 @@ import static ua.com.tracksee.util.EmailUtils.getEmailSession;
 @Stateless
 public class EmailBean {
 
-    private @EJB UserDAO userDAO;
+    private
+    @EJB
+    UserDAO userDAO;
 
     private static final Logger logger = LogManager.getLogger();
 
@@ -82,14 +84,13 @@ public class EmailBean {
 
     private String getMessageText(String userCode) {
         return "Hi, \n"
-                +  "Your email address was used for registration at "
+                + "Your email address was used for registration at "
                 + WEBSITE_SHORT
                 + "\nPlease click the confirmation link to complete registration: "
                 + WEBSITE_FULL + "activation?code=" + userCode;
     }
 
     /**
-     *
      * @param user
      * @param userCode
      */
@@ -100,11 +101,10 @@ public class EmailBean {
         data.put("website_full", WEBSITE_FULL);
         data.put("website_short", WEBSITE_SHORT);
         data.put("userCode", userCode);//userCode
-        sendTemplatedEmail(user.getEmail(),REGISTRATION_SUBJECT_TEMP_PROP_NAME, REGISTRATION_TEMP_PATH, data);
+        sendTemplatedEmail(user.getEmail(), REGISTRATION_SUBJECT_TEMP_PROP_NAME, REGISTRATION_TEMP_PATH, data);
     }
 
     /**
-     *
      * @param user
      */
     @Asynchronous
@@ -115,7 +115,6 @@ public class EmailBean {
     }
 
     /**
-     *
      * @param order
      */
 
@@ -133,7 +132,6 @@ public class EmailBean {
     }
 
     /**
-     *
      * @param order
      */
     @Asynchronous
@@ -149,7 +147,6 @@ public class EmailBean {
 
 
     /**
-     *
      * @param order
      */
     @Asynchronous
@@ -163,6 +160,10 @@ public class EmailBean {
     }
 
 
+    public void sendOrderConfirmation(ServiceUserEntity user) {
+
+    }
+
 
     @Asynchronous
     public void sendOrderConfirmInfo(ServiceUserEntity user) throws MessagingException {
@@ -174,9 +175,10 @@ public class EmailBean {
         Transport.send(message);
         logger.debug("Sent message successfully to {1}", user.getEmail());
     }
+
     private String getOrderConfirmMessageText(int id) {
         return "Hello! \n"
-                +  "Order taxi confirm message! "
+                + "Order taxi confirm message! "
                 + WEBSITE_SHORT
                 + "\nLink for your dashbord whith orders: "
                 + WEBSITE_FULL + "user_orders?user_id=" + id;

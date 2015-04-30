@@ -25,6 +25,8 @@ import static ua.com.tracksee.mailsender.SenderSessionSpecificator.GMAIL;
  * @author Igor Dvorskij
  */
 public class MailSender {
+
+    private static final Logger logger = LogManager.getLogger();
     private static Session SESSION = GMAIL.getSession();
 
     private static InternetAddress FROM_ADDRESS;
@@ -33,7 +35,7 @@ public class MailSender {
         try {
             FROM_ADDRESS = SenderSessionSpecificator.GMAIL.getInternetAddress();
         } catch (AddressException e) {
-            //TODO logger.info("get this shit out of our code");
+            logger.error("ERROR, can not parse server_email: {1} to getInternetAddress","tracksee.mail@gmail.com");
         }
     }
 
