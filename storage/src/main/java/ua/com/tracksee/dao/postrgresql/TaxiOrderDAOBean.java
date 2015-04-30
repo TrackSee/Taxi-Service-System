@@ -52,7 +52,8 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @Override
     public List<TaxiOrderEntity> getHistoryOfOrders(int id) {
-        String sql = "SELECT * FROM taxi_order INNER JOIN taxi_order_item " +
+        String sql = "SELECT * FROM taxi_order WHERE status = Completed" +
+                "INNER JOIN taxi_order_item " +
                 "ON taxi_order.tracking_number = taxi_order_item.tracking_numer" +
                 " AND status = Completed " +
                 "AND driver_id = ?";

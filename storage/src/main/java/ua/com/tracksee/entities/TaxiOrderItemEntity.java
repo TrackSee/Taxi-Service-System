@@ -3,7 +3,6 @@ package ua.com.tracksee.entities;
 import org.postgresql.geometric.PGpath;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -14,7 +13,7 @@ import java.util.Objects;
 public class TaxiOrderItemEntity {
     private Integer taxiItemId;
     private PGpath path;
-    private BigDecimal orderedQuantity;
+    //private BigDecimal orderedQuantity;
     private ServiceUserEntity driver;
     private TaxiOrderEntity taxiOrder;
 
@@ -39,15 +38,15 @@ public class TaxiOrderItemEntity {
         this.path = path;
     }
 
-    @Basic
-    @Column(name = "ordered_quantity")
-    public BigDecimal getOrderedQuantity() {
-        return orderedQuantity;
-    }
-
-    public void setOrderedQuantity(BigDecimal orderedQuantity) {
-        this.orderedQuantity = orderedQuantity;
-    }
+//    @Basic
+//    @Column(name = "ordered_quantity")
+//    public BigDecimal getOrderedQuantity() {
+//        return orderedQuantity;
+//    }
+//
+//    public void setOrderedQuantity(BigDecimal orderedQuantity) {
+//        this.orderedQuantity = orderedQuantity;
+//    }
 
     @Override
     public boolean equals(Object o) {
