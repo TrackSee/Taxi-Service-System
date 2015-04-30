@@ -17,6 +17,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static ua.com.tracksee.mailsender.MailSender.sendTemplatedEmail;
 import static ua.com.tracksee.util.EmailUtils.SERVER_EMAIL;
@@ -43,6 +44,9 @@ public class EmailBean {
     // template properties
     private static final String SITE_ADDRESS_TEMP_PROP_NAME = "siteadress";
 
+    private static final String REGISTRATION_EMAIL_SUBJECT = "Registration at TrackSee";
+    private static final String REGISTRATION_TEMPLATE_PATH = "logic/mailtemplates/registration-template.ftl";
+
     private static final String BLOCKING_ACCOUNT_SUBJECT_TEMP_PROP_NAME = "TrackSee Blocking Account";
     private static final String BLOCKING_ACCOUNT_TEMP_PATH = "logic/src/main/resources/mailtemplates/blockingusertemplate.ftl";
 
@@ -64,6 +68,10 @@ public class EmailBean {
         message.setSubject("Registration at " + WEBSITE_SHORT);
         message.setText(getMessageText(userCode));
         Transport.send(message);
+//        Map<String, Object> data = new HashMap<>();
+//        data.put("activationLink", WEBSITE_FULL + "activation?code=" + userCode);
+//        sendTemplatedEmail(user.getEmail(), REGISTRATION_EMAIL_SUBJECT,
+//                REGISTRATION_TEMPLATE_PATH, data);
         logger.debug("Sent message successfully to {}", user.getEmail());
     }
 
