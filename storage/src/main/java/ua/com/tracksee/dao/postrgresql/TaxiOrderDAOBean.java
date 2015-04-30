@@ -1,7 +1,6 @@
 package ua.com.tracksee.dao.postrgresql;
 
 import ua.com.tracksee.dao.TaxiOrderDAO;
-import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 
@@ -9,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     @Override
     public List<TaxiOrderEntity> getAvailableOrders(ServiceUserEntity driver){
         String sql = "SELECT * FROM taxi_order WHERE " +
-                "status = QUEUED OR status = UPDATED " +
+                "status = Queued OR status = Updated " +
                 "AND car_category = ? AND driver_sex = ? AND animal_transportation = ? AND free_wifi = ?" +
                 "AND air_conditioner = ?";
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
@@ -51,13 +51,13 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     }
 
     @Override
-    public List<TaxiOrderEntity> getHistoryOfOrders(ServiceUserEntity driver) {
+    public List<TaxiOrderEntity> getHistoryOfOrders(int id) {
         String sql = "SELECT * FROM taxi_order INNER JOIN taxi_order_item " +
                 "ON taxi_order.tracking_number = taxi_order_item.tracking_numer" +
-                " AND status = COMPLETED " +
+                " AND status = Completed " +
                 "AND driver_id = ?";
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
-        query.setParameter(1,driver.getCar().getCarCategory());
+        query.setParameter(1,id);
         return query.getResultList();
     }
 
@@ -118,6 +118,16 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, taxiOrderEntity.getTrackingNumber());
         query.executeUpdate();
+    }
+
+
+    @Override
+    public int getOrdersPagesCount(int id) {
+        Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order INNER JOIN taxi_order_item " +
+                "ON taxi_order.tracking_number = taxi_order_item.tracking_numer " +
+                "AND taxi_order_item.driver_id = ? AND taxi_order.status = COMPLETED");
+        Integer driversCount = ((BigInteger) q.getSingleResult()).intValue();
+        return (int) (Math.ceil((double) driversCount / ORDERS_PAGE_SIZE));
     }
 
 

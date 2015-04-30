@@ -13,13 +13,15 @@ import java.util.List;
  */
 @Local
 public interface TaxiOrderDAO {
+    int ORDERS_PAGE_SIZE = 10;
+
     public void addComment(TaxiOrderEntity taxiOrderEntity);
 
     Integer addOrder(TaxiOrderEntity taxiOrderEntity);
 
     public List<TaxiOrderEntity> getAvailableOrders(ServiceUserEntity driver);
 
-    public List<TaxiOrderEntity> getHistoryOfOrders(ServiceUserEntity driver);
+    public List<TaxiOrderEntity> getHistoryOfOrders(int id);
 
     public TaxiOrderEntity getAssignedOrder(ServiceUserEntity driver);
 
@@ -30,4 +32,6 @@ public interface TaxiOrderDAO {
     public void setCompletedOrder(TaxiOrderEntity taxiOrderEntity);
 
     public void setRefusedOrder(TaxiOrderEntity taxiOrderEntity);
+
+    public int getOrdersPagesCount(int id);
 }

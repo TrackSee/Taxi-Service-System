@@ -7,6 +7,8 @@
         <configuration>
             <property name="managementAddress">localhost</property>
             <property name="managementPort">9999</property>
+            <property name="username">admin</property>
+            <property name="password">nevfy88</property>
         </configuration>
     </container>
 </arquillian>

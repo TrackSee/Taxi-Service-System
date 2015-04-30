@@ -35,13 +35,13 @@
         </li>
 
         <li>
-          <a href="/TaxiService/driver"><i class="fa fa-table fa-fw"></i> Taxi orders</a>
+          <a href="/TaxiService/driver/free-orders"><i class="fa fa-table fa-fw"></i> Taxi orders</a>
         </li>
         <li>
-          <a href="/TaxiService/history-of-orders"><i class="fa fa-table fa-fw"></i> History of orders</a>
+          <a href="/TaxiService/driver/history-of-orders"><i class="fa fa-table fa-fw"></i> History of orders</a>
         </li>
         <li>
-          <a href="/TaxiService/driver-profile"><i class="fa fa-table fa-fw"></i> Your profile</a>
+          <a href="/TaxiService/driver/driver-profile"><i class="fa fa-table fa-fw"></i> Your profile</a>
         </li>
       </ul>
         <%--Logout from page--%>

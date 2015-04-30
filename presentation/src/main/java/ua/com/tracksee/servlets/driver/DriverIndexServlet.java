@@ -11,7 +11,7 @@ import java.io.IOException;
  * Created by Maria Komar on 19.04.2015.
  */
 
-@WebServlet("/driver")
+@WebServlet("/driver/free-orders")
 public class DriverIndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
