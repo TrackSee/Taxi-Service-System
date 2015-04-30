@@ -10,7 +10,6 @@ import java.util.List;
 
 /**
  * Created on 28.04.2015
- *
  * @author Oleksandr Kozin
  */
 @Stateless
