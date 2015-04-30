@@ -103,7 +103,6 @@
 
                         </div>
                         </p>
-.
                         <div class="form-group">
                             <label class="control-label">Car category</label>
                             <select class="form-control order_priority" name="carCategory" id="carCategory">
@@ -159,13 +158,13 @@
 
 
                             <div class="checkbox">
-                                <label>
+                                <label for="animalTransportation">
                                     <input type="checkbox" name="animalTransportation" id="animalTransportation">
                                     Animal transportation
                                 </label>
                             </div>
                             <div class="checkbox">
-                                <label>
+                                <label for="freeWifi">
                                     <input type="checkbox" name="freeWifi" id="freeWifi"> Free wi-fi
                                 </label>
                             </div>

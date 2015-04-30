@@ -1,10 +1,6 @@
-body {
-    background-color: #e67e22;
-    margin: 0 auto;
-    max-width: 760px;
-}
 
-body, input, button {
+
+input,button{
     font-family: Georgia, Helvetica;
     font-size: 17px;
     color: #2c3e50;
