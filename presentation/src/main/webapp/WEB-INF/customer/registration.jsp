@@ -96,7 +96,7 @@
                     <div class="control-group">
                         <!-- Button -->
                         <div class="controls">
-                            <button class="btn btn-success" type="submit">Sign up</button>
+                            <button class="btn btn-success gradient" type="submit">Sign up</button>
                         </div>
                     </div>
                 </fieldset>

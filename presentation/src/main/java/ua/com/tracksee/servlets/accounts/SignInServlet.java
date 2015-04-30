@@ -1,9 +1,11 @@
 package ua.com.tracksee.servlets.accounts;
 
+import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Objects;
+
+import static java.lang.Boolean.TRUE;
 
 /**
  * @author Ruslan Gunavardana
@@ -22,10 +27,7 @@ public class SignInServlet extends HttpServlet {
     private static final String ERROR = "error";
     private static final Logger logger = LogManager.getLogger();
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-    }
+    private @EJB UserDAO userDAO;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -50,8 +52,16 @@ public class SignInServlet extends HttpServlet {
             //TODO uncomment with JAAS: resp.getWriter().append(ERROR);
             //TODO uncomment with JAAS: return;
         }
+
+        ServiceUserEntity user = userDAO.getUserByEmail(email);
+        if (user == null || !Objects.equals(user.getPassword(), password) || user.getActivated() != TRUE) {
+            resp.getWriter().append(ERROR);
+            return;
+        }
+
         session = req.getSession(true);
         session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_INTERVAL);
+        session.setAttribute("userId", user.getUserId());
         session.setAttribute("email", email);
     }
 }

@@ -37,7 +37,7 @@ public class EmailBean {
 
     // website
     private static final String WEBSITE_SHORT = "tracksee.team.com/TaxiService";
-    private static final String WEBSITE_FULL = "localhost:8080/TaxiService/";
+    private static final String WEBSITE_FULL = "http://localhost:8080/TaxiService/";
     private static final String REGISTRATION_URL = "c";
 
     // template properties

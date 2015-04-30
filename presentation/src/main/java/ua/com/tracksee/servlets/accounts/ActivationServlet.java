@@ -1,6 +1,7 @@
 package ua.com.tracksee.servlets.accounts;
 
 import ua.com.tracksee.logic.RegistrationBean;
+import ua.com.tracksee.logic.exception.RegistrationException;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -20,6 +21,11 @@ public class ActivationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            registrationBean.activateCustomerUserAccount(req.getParameter("code"));
+        } catch (RegistrationException e) {
+            req.getRequestDispatcher("/WEB-INF/customer/error.jsp").forward(req,resp);
+        }
         req.getRequestDispatcher("/WEB-INF/customer/activationSuccess.jsp").forward(req,resp);
     }
 }

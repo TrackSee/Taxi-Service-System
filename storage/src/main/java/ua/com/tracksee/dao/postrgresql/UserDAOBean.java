@@ -7,10 +7,8 @@ import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
+import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -52,18 +50,16 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
-    public boolean checkUserByEmail(String email) {
-        Query query=entityManager.createNativeQuery("SELECT * FROM service_user WHERE email=?1");
-        query.setParameter(1, email);
-        if(query.getResultList().size()==0)return false;
-        return true;
-    }
-
-    @Override
     public Integer getUserIdByEmail(String email) {
         Query query = entityManager.createNativeQuery("SELECT user_id FROM service_user WHERE email=?1");
         query.setParameter(1, email);
-        return query.getFirstResult();
+        Integer result;
+        try {
+            result = (Integer) query.getSingleResult();
+        } catch (NoResultException e) {
+            result = null;
+        }
+        return result;
     }
 
 
@@ -94,15 +90,22 @@ public class UserDAOBean implements UserDAO {
 
     @Override
     public Boolean accountIsActivated(Integer userId) {
-        String sql = "SELECT  FROM service_user WHERE user_id = " + userId;
+        String sql = "SELECT activated FROM service_user WHERE user_id = " + userId;
         Query query = entityManager.createNativeQuery(sql);
-        return (Boolean) query.getSingleResult();
+        Boolean result;
+        try {
+            result = (Boolean) query.getSingleResult();
+        } catch (PersistenceException e) {
+            result = null;
+        }
+
+        return result;
     }
 
     @Override
     public boolean activateAccount(Integer userId) {
         String sql = "UPDATE service_user SET activated = TRUE WHERE user_id = " + userId;
-        Query query = entityManager.createNamedQuery(sql);
+        Query query = entityManager.createNativeQuery(sql);
         return query.executeUpdate() == 0;
     }
 
@@ -149,7 +152,14 @@ public class UserDAOBean implements UserDAO {
         String sql = "SELECT * FROM service_user WHERE email = ?";
         Query query = entityManager.createNativeQuery(sql, ServiceUserEntity.class);
         query.<String>setParameter(1, email);
-        return (ServiceUserEntity) query.getSingleResult();
+
+        ServiceUserEntity result;
+        try {
+            result = (ServiceUserEntity) query.getSingleResult();
+        } catch (NoResultException e) {
+            result = null;
+        }
+        return result;
     }
 
     public void createUser(ServiceUserEntity user) {

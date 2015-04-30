@@ -11,6 +11,7 @@
 <html lang="en">
 <head>
     <%@include file="../parts/meta.jsp" %>
+    <meta http-equiv="refresh" content="3;url=." />
 
     <!-- background adaptive image -->
     <link href="<%=application.getContextPath()%>/resources/customer/css/errorStyle.css" rel="stylesheet">

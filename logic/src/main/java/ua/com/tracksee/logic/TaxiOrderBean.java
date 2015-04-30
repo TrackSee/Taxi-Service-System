@@ -110,7 +110,7 @@ public class TaxiOrderBean {
      * @author Avlasov Sasha
      */
     private ServiceUserEntity checkUserPresent(ServiceUserEntity serviceUserEntity) {
-        if (userDAO.checkUserByEmail(serviceUserEntity.getEmail())) {
+        if (userDAO.getUserIdByEmail(serviceUserEntity.getEmail()) != null) {
             logger.info("User was found");
             //TODO working DAO methods
 //            serviceUserEntity.setUserId(userDAO.getUserIdByEmail(serviceUserEntity.getEmail()));

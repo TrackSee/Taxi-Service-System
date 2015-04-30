@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * @author Ruslan Gunavardana
  */
-@WebServlet("/signin")
+@WebServlet("/signout")
 public class SignOutServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
 

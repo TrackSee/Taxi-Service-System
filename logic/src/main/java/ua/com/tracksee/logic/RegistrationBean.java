@@ -13,6 +13,7 @@ import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.mail.MessagingException;
 
+import static java.lang.Boolean.FALSE;
 import static ua.com.tracksee.logic.exception.RegistrationExceptionType.*;
 
 /**
@@ -42,7 +43,7 @@ public class RegistrationBean {
         } catch (NumberFormatException e) {
             throw new RegistrationException("Invalid link.", BAD_LINK);
         }
-        if (userDAO.accountIsActivated(userId)) {
+        if (userDAO.accountIsActivated(userId) != FALSE) {
             throw new RegistrationException("User is already activated.", USER_IS_ACTIVE);
         }
 

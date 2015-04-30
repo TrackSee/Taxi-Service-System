@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="<%=application.getContextPath()%>/resources/customer/js/sign-out.js"></script>
 <!--start: Header -->
 <header>
 
@@ -37,7 +38,7 @@
                             </a>
 
                             <div class="nav-collapse collapse">
-                                <ul class="nav">
+                                <ul class="nav" id="button-list">
                                     <li <c:if test="${requestScope.pageName == 'index'}">class="active"</c:if>>
                                         <a href="<c:url value="/"/>">Home</a>
                                     </li>
@@ -47,12 +48,22 @@
                                     <li <c:if test="${requestScope.pageName == 'orderInformation'}">class="active"</c:if>>
                                         <a href="<c:url value="/order/info"/>">Order information</a>
                                     </li>
-                                    <li <c:if test="${requestScope.pageName == 'signIn'}">class="active"</c:if>>
-                                        <a href="<c:url value="/signin"/>">Sign in</a>
-                                    </li>
-                                    <li <c:if test="${requestScope.pageName == 'signUp'}">class="active"</c:if>>
-                                        <a href="<c:url value="/signup"/>">Sign up</a>
-                                    </li>
+                                    <c:if test="${sessionScope.userId == null}">
+                                        <li <c:if test="${requestScope.pageName == 'signIn'}">class="active"</c:if>>
+                                            <a href="<c:url value="/signin"/>">Sign in</a>
+                                        </li>
+                                        <li <c:if test="${requestScope.pageName == 'signUp'}">class="active"</c:if>>
+                                            <a href="<c:url value="/signup"/>">Sign up</a>
+                                        </li>
+                                    </c:if>
+                                    <c:if test="${sessionScope.userId != null}">
+                                        <li <c:if test="${requestScope.pageName == 'signOut'}">class="active"</c:if>
+                                                id="signout">
+                                            <a href="<c:url value="#"/>" onclick="signOut()">
+                                                Sign out
+                                            </a>
+                                        </li>
+                                    </c:if>
                                 </ul>
                             </div>
                         </div>
