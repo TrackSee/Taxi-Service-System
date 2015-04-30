@@ -6,6 +6,7 @@ import java.util.Objects;
 
 /**
  * @author Ruslan Gunavardana
+ * @author Maria Komar
  */
 @Entity
 @Table(name = "service_user", schema = "public", catalog = "tracksee")

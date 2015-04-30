@@ -1,11 +1,10 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Maria Komar
-  Date: 19.04.2015
-  Time: 21:06
+  User: maria
+  Date: 30.04.2015
+  Time: 11:25
   To change this template use File | Settings | File Templates.
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -50,7 +49,7 @@
 
     <div class="row">
       <div class="col-lg-12">
-        <h1 class="page-header">History of completed orders</h1>
+        <h1 class="page-header">Assigned order</h1>
       </div>
       <!-- /.col-lg-12 -->
     </div>
@@ -60,7 +59,7 @@
       <div class="col-lg-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            History of completed orders
+            Assigned order
           </div>
           <!-- /.panel-heading -->
           <div class="panel-body">
@@ -73,20 +72,22 @@
                   <th>Start address</th>
                   <th>Finish address</th>
                   <th>Price</th>
-                  <th>User comment</th>
+                  <th>Refuse</th>
+                  <th>In progress</th>
+                  <th>Completed</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${requestScope.orders}" var="order">
-                <tr class="odd gradeX">
-                  <td>${order.trackingNumber}</td>
-                  <td>${order.carArriveTime}</td>
-                  <td>${"-"}</td>
-                  <td>${"-"}</td>
-                  <td>${order.price}</td>
-                  <td>${order.comment}</td>
-                </tr>
-                </c:forEach>
+                  <tr>
+                      <td>${order.trackingNumber}</td>
+                      <td>${order.carArriveTime}</td>
+                      <td>${"-"}</td>
+                      <td>${"-"}</td>
+                      <td>${order.price}</td>
+                      <td><button type="button" class="btn btn-warning">Refuse</button</td>
+                      <td><button type="button" class="btn btn-primary">In progress</button</td>
+                      <td><button type="button" class="btn btn-success">Completed</button></td>
+                  </tr>
                 </tbody>
               </table>
               <div class="text-center">

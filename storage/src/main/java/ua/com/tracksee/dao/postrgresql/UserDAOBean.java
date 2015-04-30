@@ -133,6 +133,20 @@ public class UserDAOBean implements UserDAO {
         query.executeUpdate();
     }
 
+//    @Override
+//    public ServiceUserEntity getDriverByID(int id) {
+//        if(id <= 0){
+//            logger.warn("Driver id can't be <= 0!");
+//            throw new IllegalArgumentException("Driver id can't be <= 0!");
+//        }
+//        ServiceUserEntity driver = entityManager.find(ServiceUserEntity.class, id);
+//        if(driver == null){
+//            logger.warn("There is no driver with such id");
+//            throw new ServiceUserNotFoundException("There is no driver with such id");
+//        }
+//        return driver;
+//    }
+
     @Override
     public ServiceUserEntity getDriverByID(int id) {
         if(id <= 0){
@@ -149,16 +163,10 @@ public class UserDAOBean implements UserDAO {
 
     @Override
     public ServiceUserEntity getUserById(int id) {
-        if(id <= 0){
-            logger.warn("User id can't be <= 0!");
-            throw new IllegalArgumentException("User id can't be <= 0!");
-        }
-        ServiceUserEntity user = entityManager.find(ServiceUserEntity.class, id);
-        if(user == null){
-            logger.warn("There is no User with such id");
-            throw new ServiceUserNotFoundException("There is no User with such id");
-        }
-        return user;
+        String sql = "SELECT * FROM service_user WHERE user_id = ?";
+        Query query = entityManager.createNativeQuery(sql, ServiceUserEntity.class);
+        query.setParameter(1, id);
+        return (ServiceUserEntity) query.getSingleResult();
     }
 
     //TODO test this method

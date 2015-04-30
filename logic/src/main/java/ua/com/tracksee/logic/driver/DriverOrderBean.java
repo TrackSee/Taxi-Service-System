@@ -18,15 +18,15 @@ public class DriverOrderBean {
     private TaxiOrderDAO taxiOrderDao;
 
     public List<TaxiOrderEntity> getAvailableOrders(ServiceUserEntity driver){
-        return taxiOrderDao.getAvailableOrders(driver);
+       return taxiOrderDao.getAvailableOrders(driver);
     }
 
     public List<TaxiOrderEntity> getHistoryOfOrders(int id){
         return taxiOrderDao.getHistoryOfOrders(id);
     }
 
-    public TaxiOrderEntity getAssignedOrder(ServiceUserEntity driver){
-        return taxiOrderDao.getAssignedOrder(driver);
+    public TaxiOrderEntity getAssignedOrder(int id){
+        return taxiOrderDao.getAssignedOrder(id);
     }
 
     public void setAssignOrder(ServiceUserEntity driver, TaxiOrderEntity taxiOrderEntity, Timestamp carArriveTime){

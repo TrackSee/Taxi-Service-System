@@ -18,4 +18,8 @@ public class DriverBean {
     public CarEntity getDriversCar(ServiceUserEntity driver){
         return userDAO.getDriversCar(driver);
     }
+
+    public ServiceUserEntity getUserById(int id){
+        return userDAO.getUserById(id);
+    }
 }

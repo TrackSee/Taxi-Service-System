@@ -15,7 +15,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="index.html">TrackSee</a>
+    <a class="navbar-brand" href="/TaxiService/">TrackSee</a>
   </div>
   <!-- /.navbar-header -->
 
@@ -36,6 +36,9 @@
 
         <li>
           <a href="/TaxiService/driver/free-orders"><i class="fa fa-table fa-fw"></i> Taxi orders</a>
+        </li>
+        <li>
+          <a href="/TaxiService/driver/assigned-order"><i class="fa fa-table fa-fw"></i> Assigned order</a>
         </li>
         <li>
           <a href="/TaxiService/driver/history-of-orders"><i class="fa fa-table fa-fw"></i> History of orders</a>

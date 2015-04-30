@@ -37,25 +37,29 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @Override
     public List<TaxiOrderEntity> getAvailableOrders(ServiceUserEntity driver){
+
         String sql = "SELECT * FROM taxi_order WHERE " +
-                "status = Queued OR status = Updated " +
-                "AND car_category = ? AND driver_sex = ? AND animal_transportation = ? AND free_wifi = ?" +
+               "status = 'Queued' OR status = 'Updated' " +
+                "AND car_category = ? " +
+                        "AND driver_sex = ?" +
+"AND animal_transportation = ? AND free_wifi = ?" +
                 "AND air_conditioner = ?";
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
-        query.setParameter(1,driver.getCar().getCarCategory());
-        query.setParameter(2, driver.getSex());
-        query.setParameter(3,driver.getCar().getAnimalTransportationApplicable());
-        query.setParameter(4,driver.getCar().getFreeWifi());
-        query.setParameter(5,driver.getCar().getAirConditioner());
+        query.setParameter(1,driver.getCar().getCarCategory().toString());
+        query.<Boolean>setParameter(2, driver.getSex());
+        query.<Boolean>setParameter(3,driver.getCar().getAnimalTransportationApplicable());
+        query.<Boolean>setParameter(4,driver.getCar().getFreeWifi());
+        query.<Boolean>setParameter(5,driver.getCar().getAirConditioner());
         return query.getResultList();
     }
 
     @Override
     public List<TaxiOrderEntity> getHistoryOfOrders(int id) {
-        String sql = "SELECT * FROM taxi_order WHERE status = Completed" +
+        String sql = "SELECT * FROM taxi_order " +
+//                "WHERE status = 'Completed'";
                 "INNER JOIN taxi_order_item " +
                 "ON taxi_order.tracking_number = taxi_order_item.tracking_numer" +
-                " AND status = Completed " +
+                " AND status = 'Completed' " +
                 "AND driver_id = ?";
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
         query.setParameter(1,id);
@@ -63,12 +67,12 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     }
 
     @Override
-    public TaxiOrderEntity getAssignedOrder(ServiceUserEntity driver) {
+    public TaxiOrderEntity getAssignedOrder(int id) {
         String sql = "SELECT * FROM taxi_order INNER JOIN taxi_order_item " +
                 "ON taxi_order.tracking_number = taxi_order_item.tracking_numer " +
-                "AND taxi_order_item.driver_id = ?";
+                "AND taxi_order_item.driver_id = ? AND status = 'Assigned'";
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
-        query.setParameter(1, driver.getUserId());
+        query.setParameter(1, id);
         return (TaxiOrderEntity) query.getSingleResult();
     }
 

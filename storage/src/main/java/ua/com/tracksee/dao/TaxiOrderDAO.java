@@ -23,7 +23,7 @@ public interface TaxiOrderDAO {
 
     public List<TaxiOrderEntity> getHistoryOfOrders(int id);
 
-    public TaxiOrderEntity getAssignedOrder(ServiceUserEntity driver);
+    public TaxiOrderEntity getAssignedOrder(int id);
 
     public void setAssignOrder(ServiceUserEntity driver, TaxiOrderEntity taxiOrderEntity, Timestamp carArriveTime);
 

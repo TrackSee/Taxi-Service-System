@@ -16,18 +16,18 @@ import static javax.persistence.EnumType.STRING;
 @Table(name = "taxi_order", schema = "public", catalog = "tracksee")
 public class TaxiOrderEntity {
     private Long trackingNumber;
-    private OrderStatus status;
+    private String status;
     private BigDecimal price;
-    private Service service;
+    private String service;
     private String description;
     private CarCategory carCategory;
     private WayOfPayment wayOfPayment;
     private Sex driverSex;
     private String musicStyle;
-    private Boolean animalTransportation;
-    private Boolean freeWifi;
-    private Boolean smokingDriver;
-    private Boolean airConditioner;
+    private Boolean animalTransportation = false;
+    private Boolean freeWifi = false;
+    private Boolean smokingDriver = false;
+    private Boolean airConditioner = false;
     private String comment;
     private Integer userId;
     private Timestamp carArriveTime;
@@ -57,13 +57,12 @@ public class TaxiOrderEntity {
     }
 
     @Basic
-    @Enumerated(STRING)
-    @Column(name = "status", nullable = false)
-    public OrderStatus getStatus() {
+    @Column(name = "status")
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -78,13 +77,12 @@ public class TaxiOrderEntity {
     }
 
     @Basic
-    @Enumerated(STRING)
     @Column(name = "service")
-    public Service getService() {
+    public String getService() {
         return service;
     }
 
-    public void setService(Service service) {
+    public void setService(String service) {
         this.service = service;
     }
 
@@ -141,6 +139,8 @@ public class TaxiOrderEntity {
         this.musicStyle = musicStyle;
     }
 
+    @Basic
+    @Column(name = "animal_transportation", nullable = false)
     public Boolean isAnimalTransportation() {
         return animalTransportation;
     }
@@ -149,6 +149,8 @@ public class TaxiOrderEntity {
         this.animalTransportation = animalTransportation;
     }
 
+    @Basic
+    @Column(name = "free_wifi", nullable = false)
     public Boolean isFreeWifi() {
         return freeWifi;
     }
@@ -157,6 +159,8 @@ public class TaxiOrderEntity {
         this.freeWifi = freeWifi;
     }
 
+    @Basic
+    @Column(name = "smoking_driver", nullable = false)
     public Boolean isSmokingDriver() {
         return smokingDriver;
     }
@@ -165,6 +169,8 @@ public class TaxiOrderEntity {
         this.smokingDriver = smokingDriver;
     }
 
+    @Basic
+    @Column(name = "air_conditioner", nullable = false)
     public Boolean isAirConditioner() {
         return airConditioner;
     }
@@ -184,7 +190,7 @@ public class TaxiOrderEntity {
     }
 
     @Basic
-    @Column(name = "car_arrive_time")
+    @Column(name = "ordered_date")
     public Timestamp getCarArriveTime() {
         return carArriveTime;
     }

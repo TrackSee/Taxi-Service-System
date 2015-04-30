@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class TaxiOrderItemEntityPK implements Serializable {
     private Integer trackingNumber;
 
-    @Column(name = "tracking_number")
+    @Column(name = "tracking_numer")
     @Id
     public Integer getTrackingNumber() {
         return trackingNumber;
