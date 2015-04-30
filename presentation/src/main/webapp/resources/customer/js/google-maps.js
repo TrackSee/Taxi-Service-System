@@ -26,13 +26,13 @@ var MINUTES_PER_HOUR = 60;
 function loadScript() {
     var script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'http://maps.googleapis.com/maps/api/js?v=3.9&key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&sensor=true'
-    + '&signed_in=true&callback=initialize';
+    script.src = 'http://maps.googleapis.com/maps/api/js?v=3.9&key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8'
+        + '&sensor=true&language=en&signed_in=true&callback=initialize';
     document.body.appendChild(script);
 }
 
 function initialize() {
-    DEFAULT_LOCATION = new google.maps.LatLng(50.447136, 30.455119);
+    DEFAULT_LOCATION = new google.maps.LatLng(50.4500, 30.5233);
     origin = {location: DEFAULT_LOCATION};
     destination = {location: DEFAULT_LOCATION};
 
