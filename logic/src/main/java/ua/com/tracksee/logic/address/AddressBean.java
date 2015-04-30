@@ -1,7 +1,6 @@
 package ua.com.tracksee.logic.address;
 
 import ua.com.tracksee.dao.AddressDAO;
-import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.AddressEntity;
 
 import javax.ejb.EJB;
@@ -13,14 +12,12 @@ import java.util.List;
  * @author Oleksandr Kozin
  */
 @Stateless
-public class AddressEntityBean {
+public class AddressBean {
 
-    @EJB
-    private UserDAO userDAO;
     @EJB
     private AddressDAO addressDAO;
 
-    public AddressEntityBean() {
+    public AddressBean() {
     }
 
     /**
@@ -44,8 +41,8 @@ public class AddressEntityBean {
 
     /**
      *
-     * @param address number of part which is needed
-     * @return part of addresses
+     * @param address -
+     * @return -
      */
     public List getAllAddressesByUserId(AddressEntity address){
         return addressDAO.getAllAddressesByUserId(address);
