@@ -35,6 +35,7 @@ public class OrderCompleteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("pageName", "orderInformation");
         HashMap<String,String> inputData=new HashMap<String, String>();
         try {
             inputData.put("phoneNumber", req.getParameter("phoneNumber"));
