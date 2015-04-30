@@ -16,6 +16,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import static ua.com.tracksee.mailsender.SenderSessionSpecificator.GMAIL;
 
 /**
@@ -30,7 +33,6 @@ public class MailSender {
         try {
             FROM_ADDRESS = SenderSessionSpecificator.GMAIL.getInternetAddress();
         } catch (AddressException e) {
-            e.printStackTrace();
             //TODO logger.info("get this shit out of our code");
         }
     }
@@ -42,21 +44,16 @@ public class MailSender {
      * @param subject - specifies the mail subject
      * @param body    - specifies the mail body
      */
-    public static void sendEmail(String to, String subject, String body) {
-        try {
-            Message message = new MimeMessage(SESSION);
-            message.setFrom(FROM_ADDRESS);
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(to));
-            message.setSubject(subject);
-            message.setContent(body, "text/html");
+    public static void sendEmail(String to, String subject, String body) throws MessagingException {
 
-            Transport.send(message);
+        Message message = new MimeMessage(SESSION);
+        message.setFrom(FROM_ADDRESS);
+        message.setRecipients(Message.RecipientType.TO,
+                InternetAddress.parse(to));
+        message.setSubject(subject);
+        message.setContent(body, "text/html");
+        Transport.send(message);
 
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            //TODO logger.info("get this shit out of our code");
-        }
     }
 
     /**
@@ -66,45 +63,29 @@ public class MailSender {
      * @param subject    - specifies the mail subject
      * @param body       - specifies the mail body
      */
-    public static void sendEmailToGroup(java.util.List<String> recipients, String subject, String body) {
-        try {
-            Message message = new MimeMessage(SESSION);
-            message.setFrom(FROM_ADDRESS);
+    public static void sendEmailToGroup(java.util.List<String> recipients, String subject, String body) throws MessagingException {
+        Message message = new MimeMessage(SESSION);
+        message.setFrom(FROM_ADDRESS);
 
-            for (String to : recipients) {
-                message.addRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(to));
-            }
-
-            message.setSubject(subject);
-            message.setText(body);
-
-            Transport.send(message);
-
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            //TODO logger.info("get this shit out of our code");
+        for (String to : recipients) {
+            message.addRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(to));
         }
+        message.setSubject(subject);
+        message.setContent(body, "text/html");
+        Transport.send(message);
     }
 
 
     public static void sendTemplatedEmail(String to, String subject,
-                                          String templatePath, Map<String, Object> data) {
-        try {
-            Template template = loadTemplate(templatePath);
-            Writer out = new StringWriter();
-            template.process(data, out);
-            String body = out.toString();
-            out.flush();
+                                          String templatePath, Map<String, Object> data) throws IOException, TemplateException, MessagingException {
+        Template template = loadTemplate(templatePath);
+        Writer out = new StringWriter();
+        template.process(data, out);
+        String body = out.toString();
+        out.flush();
+        sendEmail(to, subject, body);
 
-            sendEmail(to, subject, body);
-        } catch (IOException e) {
-            e.printStackTrace();
-            //TODO logger.info("get this shit out of our code");
-        } catch (TemplateException e) {
-            e.printStackTrace();
-            //TODO logger.info("get this shit out of our code");
-        }
     }
 
     public static Template loadTemplate(String path) throws IOException {
@@ -112,4 +93,5 @@ public class MailSender {
         return cfg
                 .getTemplate(path);
     }
+
 }
