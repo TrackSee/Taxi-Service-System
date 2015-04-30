@@ -1,5 +1,6 @@
 package ua.com.tracksee.logic;
 
+import freemarker.template.TemplateException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
@@ -15,6 +16,7 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -59,6 +61,9 @@ public class EmailBean {
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_TEMP_PATH = "logic/src/main/resources/mailtemplates/changing_to-from-assigned_to_refused.ftl";
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_SUBJECT_TEMP_PROP_NAME = "TrackSee Order refused";
 
+    private static final String REGISTRATION_TEMP_PATH = "logic/src/main/resources/mailtemplates/registration_template.ftl";
+    private static final String REGISTRATION_SUBJECT_TEMP_PROP_NAME = "TrackSee Confirm User Registration";
+
 
     @Asynchronous
     public void sendRegistrationEmail(ServiceUserEntity user, String userCode) throws MessagingException {
@@ -86,9 +91,24 @@ public class EmailBean {
     /**
      *
      * @param user
+     * @param userCode
      */
     @Asynchronous
-    public void sendBlockingUserEmail(ua.com.tracksee.entities.ServiceUserEntity user) {
+    public void sendRegistration(ServiceUserEntity user, String userCode) throws TemplateException, IOException, MessagingException {
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
+        data.put("website_full", WEBSITE_FULL);
+        data.put("website_short", WEBSITE_SHORT);
+        data.put("userCode", userCode);//userCode
+        sendTemplatedEmail(user.getEmail(),REGISTRATION_SUBJECT_TEMP_PROP_NAME, REGISTRATION_TEMP_PATH, data);
+    }
+
+    /**
+     *
+     * @param user
+     */
+    @Asynchronous
+    public void sendBlockingUserEmail(ua.com.tracksee.entities.ServiceUserEntity user) throws TemplateException, IOException, MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
         sendTemplatedEmail(user.getEmail(), BLOCKING_ACCOUNT_SUBJECT_TEMP_PROP_NAME, BLOCKING_ACCOUNT_TEMP_PATH, data);
@@ -100,7 +120,7 @@ public class EmailBean {
      */
 
     @Asynchronous
-    public void sendChangingTOFromAssignedToInProgress(TaxiOrderItemEntity order) {
+    public void sendChangingTOFromAssignedToInProgress(TaxiOrderItemEntity order) throws TemplateException, IOException, MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
         data.put("trackingNumber", order.getTaxiOrder().getTrackingNumber());
@@ -117,7 +137,7 @@ public class EmailBean {
      * @param order
      */
     @Asynchronous
-    public void sendChangingTOFromInProgressToCompleted(TaxiOrderItemEntity order) {
+    public void sendChangingTOFromInProgressToCompleted(TaxiOrderItemEntity order) throws TemplateException, IOException, MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
         data.put("trackingNumber", order.getTaxiOrder().getTrackingNumber());
@@ -133,7 +153,7 @@ public class EmailBean {
      * @param order
      */
     @Asynchronous
-    public void sendChangingTOFromAssignedToRefused(TaxiOrderItemEntity order) {
+    public void sendChangingTOFromAssignedToRefused(TaxiOrderItemEntity order) throws TemplateException, IOException, MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
         data.put("trackingNumber", order.getTaxiOrder().getTrackingNumber());
@@ -141,6 +161,8 @@ public class EmailBean {
         sendTemplatedEmail(userDAO.getUserById(order.getTaxiOrder().getUserId()).getEmail(), CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_SUBJECT_TEMP_PROP_NAME,
                 CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_TEMP_PATH, data);
     }
+
+
 
     @Asynchronous
     public void sendOrderConfirmInfo(ServiceUserEntity user) throws MessagingException {
