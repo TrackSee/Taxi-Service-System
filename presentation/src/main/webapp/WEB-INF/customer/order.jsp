@@ -51,6 +51,19 @@
                     <form method="post" action="<c:url value="/order"/>">
 
                         <div class="form-group">
+                            <label>Phone number</label>
+                            <input type="text" name="phoneNumber" class="form-control"  placeholder="Enter phone number:"
+                                   required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email"  class="form-control" name="email" placeholder="Enter email"
+                                   data-error="That email is invalid" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Address from</label>
                             <input type="text" class="form-control" name="addressOrigin" id="origin"
                                    placeholder="Address from:" data-error="That address is invalid"
                                    required onblur="updateRoute()">
@@ -58,6 +71,7 @@
                         </div>
 
                         <div class="form-group">
+                            <label>Address to</label>
                             <input type="text" class="form-control" name="addressDestination" id="destination"
                                    placeholder="Address to:" data-error="That address is invalid"
                                    required  onblur="updateRoute()">

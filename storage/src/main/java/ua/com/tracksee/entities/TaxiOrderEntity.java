@@ -6,6 +6,7 @@ import ua.com.tracksee.enumartion.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 import static javax.persistence.EnumType.STRING;
@@ -32,6 +33,24 @@ public class TaxiOrderEntity {
     private String comment;
     private Integer userId;
     private Timestamp orderedDate = new Timestamp(System.currentTimeMillis());
+    private Timestamp arriveDate;
+    private Timestamp endDate;
+
+    public Timestamp getArriveDate() {
+        return arriveDate;
+    }
+
+    public void setArriveDate(Timestamp arriveDate) {
+        this.arriveDate = arriveDate;
+    }
+
+    public Timestamp getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Timestamp endDate) {
+        this.endDate = endDate;
+    }
 
     public TaxiOrderEntity() {
 

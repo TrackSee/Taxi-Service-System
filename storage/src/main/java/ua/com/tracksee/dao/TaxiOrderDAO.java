@@ -19,9 +19,9 @@ public interface TaxiOrderDAO {
     void addComment(TaxiOrderEntity taxiOrderEntity);
 
     /**
-     * Adds order to database.
-     *
-     * @param order taxi order entity which will be insert into database
+     * @author Sharaban Sasha
+     * @param order - order entity which will be insert into database
+     * @return tracking number
      */
     Long addOrder(TaxiOrderEntity order);
 

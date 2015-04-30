@@ -41,6 +41,15 @@ public class PriceCalculatorBean {
         return summ;
     }
 
+    public double simpleCalculatePrice(int distance){
+        double price=0;
+
+        //TODO getting taxiPrice from database
+        int taxiPricePerKm=1;
+
+        price=distance*taxiPricePerKm;
+        return price;
+    }
     private BigDecimal getServicePrice(TaxiOrderEntity order) {
         TaxiPriceEntity priceList = getTariff(order);
         Service service = order.getService();

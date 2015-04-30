@@ -43,7 +43,10 @@
                                         <a href="<c:url value="/"/>">Home</a>
                                     </li>
                                     <li <c:if test="${requestScope.pageName == 'order'}">class="active"</c:if>>
-                                        <a href="<c:url value="/order"/>">Order</a>
+                                        <a href="<c:url value="/order"/>">Fast Order</a>
+                                    </li>
+                                    <li <c:if test="${requestScope.pageName == 'orderComplete'}">class="active"</c:if>>
+                                        <a href="<c:url value="/orderComplete"/>">Order</a>
                                     </li>
                                     <li <c:if test="${requestScope.pageName == 'orderInformation'}">class="active"</c:if>>
                                         <a href="<c:url value="/order/info"/>">Order information</a>
