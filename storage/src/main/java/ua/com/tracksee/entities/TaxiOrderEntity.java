@@ -36,6 +36,8 @@ public class TaxiOrderEntity {
     private Timestamp arriveDate;
     private Timestamp endDate;
 
+    @Basic
+    @Column(name = "arrive_date")
     public Timestamp getArriveDate() {
         return arriveDate;
     }
@@ -44,6 +46,8 @@ public class TaxiOrderEntity {
         this.arriveDate = arriveDate;
     }
 
+    @Basic
+    @Column(name="end_date")
     public Timestamp getEndDate() {
         return endDate;
     }
@@ -190,7 +194,7 @@ public class TaxiOrderEntity {
     }
 
     @Basic
-    @Column(name = "smoking_driver")
+    @Column(name = "non_smoking_driver")
     public Boolean getNonSmokingDriver() {
         return nonSmokingDriver;
     }
