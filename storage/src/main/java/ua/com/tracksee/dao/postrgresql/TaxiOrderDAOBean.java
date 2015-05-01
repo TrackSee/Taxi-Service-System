@@ -78,12 +78,34 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     }
 
     @Override
-    public List<TaxiOrderEntity> getOrdersPerPage(int partNumber) {
+    public int getOldTaxiOrderPagesCount() {
+        Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order WHERE " +
+                "status = 'COMPLETED'");
+        BigInteger generalOrderCount = (BigInteger) q.getSingleResult();
+        return (int) Math.ceil(generalOrderCount.intValue()/ (double) TO_ORDERS_PER_PAGE);
+    }
+
+    @Override
+    public List<TaxiOrderEntity> getActiveOrdersPerPage(int partNumber) {
         if(partNumber <= 0) {
             logger.error("partNumber can't be <= 0");
             throw new IllegalArgumentException("partNumber can't be <= 0");
         }
-        Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order " +
+        Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order WHERE status != " +
+                "'COMPLETED' " +
+                "ORDER BY ordered_date DESC LIMIT ?1 OFFSET ?2", TaxiOrderEntity.class);
+        query.setParameter(1, TO_ORDERS_PER_PAGE);
+        query.setParameter(2, (partNumber - 1)*TO_ORDERS_PER_PAGE);
+        return query.getResultList();
+    }
+    @Override
+    public List<TaxiOrderEntity> getOldOrdersPerPage(int partNumber) {
+        if(partNumber <= 0) {
+            logger.error("partNumber can't be <= 0");
+            throw new IllegalArgumentException("partNumber can't be <= 0");
+        }
+        Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order WHERE status = " +
+                "'COMPLETED' " +
                 "ORDER BY ordered_date DESC LIMIT ?1 OFFSET ?2", TaxiOrderEntity.class);
         query.setParameter(1, TO_ORDERS_PER_PAGE);
         query.setParameter(2, (partNumber - 1)*TO_ORDERS_PER_PAGE);
@@ -91,8 +113,9 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     }
 
     @Override
-    public int getTaxiOrderPagesCount() {
-        Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order");
+    public int getActiveTaxiOrderPagesCount() {
+        Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order WHERE " +
+                "status != 'COMPLETED'");
         BigInteger generalOrderCount = (BigInteger) q.getSingleResult();
         return (int) Math.ceil(generalOrderCount.intValue()/ (double) TO_ORDERS_PER_PAGE);
     }
