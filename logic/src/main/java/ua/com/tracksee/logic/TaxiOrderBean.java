@@ -129,14 +129,14 @@ public class TaxiOrderBean {
         if (userDAO.getUserIdByEmail(serviceUserEntity.getEmail()) != null) {
             logger.info("User was found");
             //TODO working DAO methods
-//            serviceUserEntity.setUserId(userDAO.getUserIdByEmail(serviceUserEntity.getEmail()));
+           serviceUserEntity.setUserId(userDAO.getUserIdByEmail(serviceUserEntity.getEmail()));
         } else {
             logger.info("User was not found");
             //TODO working DAO methods
-//            serviceUserEntity.setActivated(false);
-//            serviceUserEntity.setUserId(userDAO.addUser(serviceUserEntity));
+            serviceUserEntity.setActivated(false);
+            serviceUserEntity.setPassword("");
+            serviceUserEntity.setUserId(userDAO.addUser(serviceUserEntity));
         }
-        serviceUserEntity.setUserId(32);
         return serviceUserEntity;
     }
 
@@ -152,7 +152,6 @@ public class TaxiOrderBean {
      */
     public void sendEmail(ServiceUserEntity serviceUserEntity, Long trackingNumber)throws MessagingException {
         mailBean.sendOrderConfirmInfo(serviceUserEntity);
-        //TODO check mail send with tracking number and check sending letter
     }
 
     /**
