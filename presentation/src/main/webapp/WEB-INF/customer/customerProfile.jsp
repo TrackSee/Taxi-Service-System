@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,22 +59,26 @@
             <p><b>PRICE:</b> ${order.price} grn</p>
           </div>
           <div>
-            <p><b>DATE:</b> ${order.orderedDate} grn</p>
+            <p><b>DATE:</b> <fmt:formatDate pattern="dd-MM-yyyy" value="${order.orderedDate}"/></p>
           </div>
           <div class="clear"></div>
         </div>
       </div>
     </c:forEach>
     </div>
+    <div class="pointers">
+      <input class="pageNumber" type="hidden" value="1">
+      <button type="button" class="btn btn-default prevButton">Prev</button>
+      <button type="button" class="btn btn-default nextButton">Next</button>
+    </div>
     <!-- end: Container  -->
   </div>
 </div>
 
 <%-- start: JavaScript --%>
-
 <script src="<%=application.getContextPath()%>/resources/customer/js/customer.js"></script>
 <%@include file="../parts/scripts.jsp" %>
-<%@include file="../parts/footer.jsp" %>
+<%--<%@include file="../parts/footer.jsp" %>--%>
 
 </body>
 </html>

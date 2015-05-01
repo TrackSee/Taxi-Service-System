@@ -35,4 +35,10 @@ public interface TaxiOrderDAO {
      * @return list of order's item
      */
     List<TaxiOrderEntity> getOrdersPerPage(int partNumber);
+
+    /**
+     * @author Vadym Akymov
+     * @return pages count of taxi order
+     */
+    int getTaxiOrdersPageCount();
 }

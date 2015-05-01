@@ -5,3 +5,7 @@
 .orderBody {
     display: inline-block;
 }
+.pointers {
+    margin: 30px auto;
+    max-width: 200px;
+}

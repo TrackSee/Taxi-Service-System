@@ -89,4 +89,11 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(2, (partNumber - 1)*TO_ORDERS_PER_PAGE);
         return query.getResultList();
     }
+
+    @Override
+    public int getTaxiOrdersPageCount() {
+        Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order");
+        int generalOrderCount = (int) q.getSingleResult();
+        return (int) Math.ceil(generalOrderCount/ (double) TO_ORDERS_PER_PAGE);
+    }
 }
