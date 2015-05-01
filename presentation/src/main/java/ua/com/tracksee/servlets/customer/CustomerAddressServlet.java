@@ -2,6 +2,7 @@ package ua.com.tracksee.servlets.customer;
 
 import ua.com.tracksee.entities.AddressEntity;
 import ua.com.tracksee.logic.address.AddressBean;
+import ua.com.tracksee.logic.admin.AdministratorBean;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -22,6 +23,8 @@ public class CustomerAddressServlet extends HttpServlet {
 
     @EJB
     private AddressBean addressBean;
+    @EJB
+    private AdministratorBean administratorBean;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Получаем список пользователей
@@ -34,7 +37,10 @@ public class CustomerAddressServlet extends HttpServlet {
         // который отправится на jsp
         request.setAttribute("allAddresses", allAddresses);
 
+//        List<CarEntity> cars = administratorBean.getCars();
+//        request.setAttribute("cars", cars);
+
         // отправляем request на jsp
-        request.getRequestDispatcher("/address.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/customer/address.jsp").forward(request, response);
     }
 }

@@ -17,7 +17,7 @@ public interface AddressDAO {
     List<AddressEntity> getAddresses();
 
     AddressEntity getAddressByUserId(Integer userId, String name);
-    List getAllAddressesByUserId(Integer userId);
+    List<AddressEntity> getAllAddressesByUserId(Integer userId);
 
 }
 

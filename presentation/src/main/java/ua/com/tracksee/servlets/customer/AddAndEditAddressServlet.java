@@ -35,7 +35,7 @@ public class AddAndEditAddressServlet extends HttpServlet {
 //            request.setAttribute("user", user);
         }
 
-        request.getRequestDispatcher("/add.jsp").forward(request, response);
+        request.getRequestDispatcher("/addAndEditAddress.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -63,6 +63,6 @@ public class AddAndEditAddressServlet extends HttpServlet {
         }
 
         // перенаправляем на сервлет, который выводит все пользователей
-        response.sendRedirect("list");
+        response.sendRedirect("customer/address");
     }
 }

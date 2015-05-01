@@ -35,7 +35,7 @@ public class AddressBean {
      * @param userId -
      * @return p-
      */
-    public List getAllAddressesByUserId(Integer userId) {
+    public List<AddressEntity> getAllAddressesByUserId(Integer userId) {
         return addressDAO.getAllAddressesByUserId(userId);
     }
 

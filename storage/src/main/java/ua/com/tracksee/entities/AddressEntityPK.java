@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public class AddressEntityPK implements Serializable {
     private String name;
-    private ServiceUserEntity userId;
+    private Integer userId;
 
     @Column(name = "name")
     @Id
@@ -24,11 +24,11 @@ public class AddressEntityPK implements Serializable {
 
     @Column(name = "user_id")
     @Id
-    public ServiceUserEntity getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(ServiceUserEntity userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

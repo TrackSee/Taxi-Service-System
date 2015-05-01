@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.AddressDAO;
 import ua.com.tracksee.entities.AddressEntity;
-import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -79,7 +78,7 @@ public class AddressDAOBean implements AddressDAO {
     }
 
     @Override
-    public List getAllAddressesByUserId(Integer userId) {
+    public List<AddressEntity> getAllAddressesByUserId(Integer userId) {
         String sql = "SELECT * FROM address WHERE user_id = " + userId;
         Query query = entityManager.createNativeQuery(sql, AddressEntity.class);
         return query.getResultList();

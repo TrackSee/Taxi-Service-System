@@ -20,5 +20,17 @@
       </li>
     </c:forEach>
 </ol>
+
+  <%--<h3>All addresses:</h3>(<a href="customer/address/add">Add</a>)--%>
+  <%--<ol>--%>
+      <%--<c:forEach items="${requestScope.cars}" var="car">--%>
+          <%--<li>--%>
+              <%--${car.carNumber} - ${car.carModel}--%>
+              <%--<a href="customer/address/add?edit=${car.carNumber}">Edit</a>--%>
+                <%--| <a href="customer/address/delete?id=${car.carNumber}">Delete</a>--%>
+          <%--</li>--%>
+      <%--</c:forEach>--%>
+  <%--</ol>--%>
+
 </body>
 </html>
