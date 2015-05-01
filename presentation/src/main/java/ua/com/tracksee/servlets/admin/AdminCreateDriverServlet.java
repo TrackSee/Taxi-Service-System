@@ -16,7 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- * Created by kstes_000 on 24-Apr-15.
+ * @author Katia Stetsiuk
  */
 @WebServlet("/admin/createdriver")
 public class AdminCreateDriverServlet extends HttpServlet {
@@ -48,6 +48,8 @@ public class AdminCreateDriverServlet extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
         ServiceUserEntity user = mapper.readValue(sb.toString(), ServiceUserEntity.class);
         user.setDriver(true);
+        user.setSex(user.getSex().substring(0, 1));
+        System.out.println("user uuuuuu" + user.getSex());
         administratorBean.createUser(user);
         resp.sendRedirect("drivers");
     }

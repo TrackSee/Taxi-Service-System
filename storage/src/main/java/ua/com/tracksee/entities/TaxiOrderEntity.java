@@ -1,5 +1,6 @@
 package ua.com.tracksee.entities;
 
+import org.postgresql.util.PGmoney;
 import ua.com.tracksee.enumartion.*;
 
 import javax.persistence.*;
@@ -16,19 +17,27 @@ import static javax.persistence.EnumType.STRING;
 public class TaxiOrderEntity {
     private Long trackingNumber;
     private OrderStatus status;
-    private BigDecimal price;
+    private Double price;
     private Service service;
     private String description;
     private CarCategory carCategory;
     private WayOfPayment wayOfPayment;
     private Sex driverSex;
-    private String musicStyle;
+    private MusicStyle musicStyle;
     private Boolean animalTransportation;
     private Boolean freeWifi;
-    private Boolean smokingDriver;
+    private Boolean nonSmokingDriver;
     private Boolean airConditioner;
     private String comment;
     private Integer userId;
+
+    public TaxiOrderEntity() {
+
+    }
+
+    public TaxiOrderEntity(OrderStatus status) {
+        this.status = status;
+    }
 
     @Id
     @GeneratedValue(generator = "orderSeq")
@@ -66,11 +75,11 @@ public class TaxiOrderEntity {
 
     @Basic
     @Column(name = "price")
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -129,12 +138,13 @@ public class TaxiOrderEntity {
     }
 
     @Basic
+    @Enumerated(STRING)
     @Column(name = "music_style")
-    public String getMusicStyle() {
+    public MusicStyle getMusicStyle() {
         return musicStyle;
     }
 
-    public void setMusicStyle(String musicStyle) {
+    public void setMusicStyle(MusicStyle musicStyle) {
         this.musicStyle = musicStyle;
     }
 
@@ -159,13 +169,13 @@ public class TaxiOrderEntity {
     }
 
     @Basic
-    @Column(name = "non_smoking_driver")
-    public Boolean getSmokingDriver() {
-        return smokingDriver;
+    @Column(name = "smoking_driver")
+    public Boolean getNonSmokingDriver() {
+        return nonSmokingDriver;
     }
 
-    public void setSmokingDriver(Boolean smokingDriver) {
-        this.smokingDriver = smokingDriver;
+    public void setNonSmokingDriver(Boolean smokingDriver) {
+        this.nonSmokingDriver = smokingDriver;
     }
 
     @Basic

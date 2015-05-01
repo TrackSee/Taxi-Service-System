@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * @author Vadym Akymov
  * @author Ruslan Gunavardana
+ * @author Katia Stetsiuk
  */
 @Stateless
 public class UserDAOBean implements UserDAO {
@@ -36,7 +37,7 @@ public class UserDAOBean implements UserDAO {
         throw new IllegalArgumentException("partNumber can't be <= 0");
     }
     Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
-            "WHERE driver = TRUE LIMIT ?1 OFFSET ?2", ServiceUserEntity.class);
+            "WHERE driver = TRUE ORDER BY email LIMIT ?1 OFFSET ?2", ServiceUserEntity.class);
     query.setParameter(1, DRIVERS_PAGE_SIZE);
     query.setParameter(2, (partNumber - 1) * DRIVERS_PAGE_SIZE);
     return query.getResultList();
@@ -48,6 +49,38 @@ public class UserDAOBean implements UserDAO {
         Query query = entityManager.createNativeQuery("SELECT email FROM service_user " +
                 "WHERE driver = TRUE ", String.class);
         return query.getResultList();
+    }
+
+    @Override
+    public boolean checkUserByEmail(String email) {
+        Query query=entityManager.createNativeQuery("SELECT * FROM service_user WHERE email=?1");
+        query.setParameter(1, email);
+        if(query.getResultList().size()==0)return false;
+        return true;
+    }
+
+    @Override
+    public Integer getUserIdByEmail(String email) {
+        Query query = entityManager.createNativeQuery("SELECT user_id FROM service_user WHERE email=?1");
+        query.setParameter(1, email);
+        return query.getFirstResult();
+    }
+
+
+    public void assignCar(String carNumber, Integer driverID) {
+        if(carNumber == null){
+            logger.warn("carNumber can't be null");
+            throw new IllegalArgumentException("carNumber can't be null");
+        }
+        if(driverID == null){
+            logger.warn("driverID can't be null");
+            throw new IllegalArgumentException("driverID can't be null");
+        }
+        Query q = entityManager.createNativeQuery("UPDATE service_user SET car_number = ?1 " +
+                "WHERE user_id = ?2");
+        q.setParameter(1, carNumber);
+        q.setParameter(2, driverID);
+        q.executeUpdate();
     }
 
     @Override
@@ -121,14 +154,15 @@ public class UserDAOBean implements UserDAO {
 
     public void createUser(ServiceUserEntity user) {
         String sql = "INSERT INTO service_user " +
-                "(email, password, phone, driver, car_number) " +
-                "VALUES (?, ?, ?, ?, ?)";
+                "(email, password, phone, driver, car_number, sex) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, user.getEmail());
         query.setParameter(2, user.getPassword());
         query.setParameter(3, user.getPhone());
         query.setParameter(4, user.getDriver());
         query.setParameter(5, user.getCar() != null ? user.getCar().getCarNumber() : null);
+        query.setParameter(6, user.getSex());
         query.executeUpdate();
     }
 

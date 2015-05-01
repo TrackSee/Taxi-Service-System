@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderItemEntity;
+import ua.com.tracksee.util.EmailUtils;
 
 import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
@@ -74,7 +75,6 @@ public class EmailBean {
                 + WEBSITE_FULL + "activation?code=" + userCode;
     }
 
-
     /**
      *
      * @param user
@@ -132,5 +132,23 @@ public class EmailBean {
 
         sendTemplatedEmail(userDAO.getUserById(order.getTaxiOrder().getUserId()).getEmail(), CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_SUBJECT_TEMP_PROP_NAME,
                 CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_TEMP_PATH, data);
+    }
+
+    @Asynchronous
+    public void sendOrderConfirmInfo(ServiceUserEntity user) throws MessagingException {
+        MimeMessage message = new MimeMessage(EmailUtils.getEmailSession());
+        message.setFrom(new InternetAddress(EmailUtils.SERVER_EMAIL));
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
+        message.setSubject("Order Taxi " + WEBSITE_SHORT);
+        message.setText(getOrderConfirmMessageText(user.getUserId()));
+        Transport.send(message);
+        logger.debug("Sent message successfully to {1}", user.getEmail());
+    }
+    private String getOrderConfirmMessageText(int id) {
+        return "Hello! \n"
+                +  "Order taxi confirm message! "
+                + WEBSITE_SHORT
+                + "\nLink for your dashbord whith orders: "
+                + WEBSITE_FULL + "user_orders?user_id=" + id;
     }
 }

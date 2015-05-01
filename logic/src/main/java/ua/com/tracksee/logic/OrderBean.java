@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.enumartion.CarCategory;
+import ua.com.tracksee.enumartion.MusicStyle;
 import ua.com.tracksee.enumartion.Sex;
 import ua.com.tracksee.enumartion.WayOfPayment;
 import ua.com.tracksee.json.TaxiOrderDTO;
@@ -34,7 +35,7 @@ public class OrderBean {
      * @param orderDTO basic information about the order
      */
     @RolesAllowed("customer")
-    public Long createAuthorisedOrder(Integer userId, TaxiOrderDTO orderDTO) {
+    public Integer createAuthorisedOrder(Integer userId, TaxiOrderDTO orderDTO) {
         TaxiOrderEntity order = new TaxiOrderEntity();
         order.setUserId(userId);
         order.setStatus(QUEUED);
@@ -45,16 +46,16 @@ public class OrderBean {
             order.setCarCategory(CarCategory.valueOf(orderDTO.getCarCategory()));
             order.setWayOfPayment(WayOfPayment.valueOf(orderDTO.getWayOfPayment()));
             order.setDriverSex(Sex.valueOf(orderDTO.getDriverSex()));
+            order.setMusicStyle(MusicStyle.valueOf(orderDTO.getMusicStyle()));
         } catch (IllegalArgumentException e) {
             logger.warn("Could not parse enum during taxi order creation.");
             return null;
         }
 
         order.setDescription(orderDTO.getDescription());
-        order.setMusicStyle(orderDTO.getMusicStyle());
         order.setAnimalTransportation(orderDTO.getAnimalTransportation());
         order.setFreeWifi(orderDTO.getFreeWiFi());
-        order.setSmokingDriver(orderDTO.getSmokingDriver());
+        order.setNonSmokingDriver(orderDTO.getSmokingDriver());
         order.setAirConditioner(orderDTO.getAirConditioner());
         return taxiOrderDAO.addOrder(order);
     }

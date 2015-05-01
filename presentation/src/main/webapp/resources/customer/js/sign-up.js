@@ -36,7 +36,7 @@ $().ready(function () {
 
     $.validator.addMethod('phoneRegex', function(value, element)
     {
-        return this.optional(element) || /^[0-9 +()-]*$/.test(value);
+        return this.optional(element) || /^\+?[0-9 ()-]{5,27}$/.test(value);
     }, 'Better to use digits, whitespaces or symbols +()-');
 
     // validate signin-form on keyup and submit

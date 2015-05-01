@@ -1,6 +1,9 @@
 package ua.com.tracksee.dao.postrgresql;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
+import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 
 import javax.ejb.Stateless;
@@ -17,10 +20,11 @@ import java.util.List;
  * @see ua.com.tracksee.dao.TaxiOrderDAO
  * @author kstes_000
  * @author Ruslan Gunavardana
+ * @author Sharaban Sasha
  */
 @Stateless
 public class TaxiOrderDAOBean implements TaxiOrderDAO {
-
+    private static final Logger logger = LogManager.getLogger();
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
 
@@ -32,37 +36,55 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(1, entity.getComment());
         query.executeUpdate();
     }
-
     @Override
-    public Long addOrder(TaxiOrderEntity order) {
-        String sql = "INSERT INTO taxi_order " +
-                "(status, service, price, user_id, description, car_category, way_of_payment, driver_sex, " +
-                "music_style, animal_transportation, free_wifi, smoking_driver, air_conditioner, comment)  " +
-                "VALUES " +
-                "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
-                "RETURNING tracking_number; " +
-                "INSERT INTO taxi_order_item (tracking_numer, path, ordered_quantity, driver_id) VALUES ()";
+    public Integer addOrder(TaxiOrderEntity orderEntity) {
+        String sql="INSERT INTO taxi_order (description,status,price,user_id,service,car_category,way_of_payment,driver_sex," +
+                "music_style,animal_transportation,free_wifi,smoking_driver,air_conditioner) " +
+                "VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13)" +
+                "RETURNING tracking_number";
+
+        //TODO insert into taxi items
+        //     "INSERT INTO taxi_order_item (tracking_numer, path, ordered_quantity, driver_id) VALUES ()"
+
         Query query = entityManager.createNativeQuery(sql);
-        query.setParameter(1, order.getStatus().toString());
-        query.setParameter(3, order.getService());
-        query.setParameter(4, order.getUserId());
-        query.setParameter(5, order.getDescription());
-        query.setParameter(6, order.getCarCategory());
-        query.setParameter(7, order.getWayOfPayment());
-        query.setParameter(8, order.getDriverSex());
-        query.setParameter(9, order.getMusicStyle());
-        query.setParameter(10, order.getAnimalTransportation());
-        query.setParameter(11, order.getFreeWifi());
-        query.setParameter(12, order.getSmokingDriver());
-        query.setParameter(13, order.getAirConditioner());
-        query.setParameter(14, order.getComment());
+        query.setParameter(1,orderEntity.getDescription());
+        query.setParameter(2, orderEntity.getStatus().toString());
+        query.setParameter(3, orderEntity.getPrice());
+        query.setParameter(4,orderEntity.getUserId());
+        query.setParameter(5, orderEntity.getService().toString());
+        query.setParameter(6, orderEntity.getCarCategory().toString());
+        query.setParameter(7, orderEntity.getWayOfPayment().toString());
+        query.setParameter(8, orderEntity.getDriverSex().toString());
+        query.setParameter(9, orderEntity.getMusicStyle().toString());
+        query.setParameter(10, orderEntity.getAnimalTransportation());
+        query.setParameter(11, orderEntity.getFreeWifi());
+        query.setParameter(12, orderEntity.getNonSmokingDriver());
+        query.setParameter(13,orderEntity.getAirConditioner());
 
-        //TODO not finished
-        return (Long) query.getSingleResult();
+
+        //   Query query2 = entityManager.createNativeQuery("SELECT max(tracking_number) FROM taxi_order", OrderEntity.class);
+        return (Integer) query.getSingleResult();
     }
-
     @Override
     public List<TaxiOrderEntity> getQueuedOrders() {
         return null;
+    }
+
+    @Override
+    public TaxiOrderEntity getOrder(Integer trackingNumber) {
+        return null;
+    }
+
+    @Override
+    public List<TaxiOrderEntity> getOrdersPerPage(int partNumber) {
+        if(partNumber <= 0) {
+            logger.error("partNumber can't be <= 0");
+            throw new IllegalArgumentException("partNumber can't be <= 0");
+        }
+        Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order " +
+                "ORDER BY ordered_date LIMIT ?1 OFFSET ?2", TaxiOrderEntity.class);
+        query.setParameter(1, TO_ORDERS_PER_PAGE);
+        query.setParameter(2, (partNumber - 1)*TO_ORDERS_PER_PAGE);
+        return query.getResultList();
     }
 }

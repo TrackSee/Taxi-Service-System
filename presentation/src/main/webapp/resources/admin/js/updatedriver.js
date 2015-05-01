@@ -20,7 +20,7 @@ $(document).ready(function () {
             },
             phone: {
                 required: false,
-                minlength:9
+                minlength:7
             }
         }
     });

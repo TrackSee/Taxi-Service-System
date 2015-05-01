@@ -36,16 +36,19 @@
             <version>9.4-1201-jdbc41</version>
         </dependency>
 
-        <!--for Hibernate features-->
+        <!--for Hibernate features in tests-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>4.3.9.Final</version>
+            <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-            <version>3.5.6-Final</version>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.3.9.Final</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

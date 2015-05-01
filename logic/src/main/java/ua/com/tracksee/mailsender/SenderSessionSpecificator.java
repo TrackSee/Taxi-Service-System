@@ -13,7 +13,7 @@ import java.util.Properties;
  */
 
 class SenderSessionSpecificator {
-    //
+
     public static IEmailUtil GMAIL = new GmailSpecificator();
 
 

@@ -4,7 +4,7 @@
 $(document).ready(function () {
 
 
-        $('#createDriver').validate({
+    $('#createDriver').validate({
         rules: {
             email: {
                 required: true,
@@ -20,8 +20,8 @@ $(document).ready(function () {
                 equalTo: "#password"
             },
             phone: {
-                required: true,
-                minlength:9
+                required: false,
+                minlength:7
             }
         }
     });
@@ -29,7 +29,7 @@ $(document).ready(function () {
     $(".dropdown-menu").on('click', 'li a', function(){
         $(".btn-sm:first-child").text($(this).text());
         $(".btn-sm:first-child").val($(this).text());
-     });
+    });
 
 
     var data = {};
@@ -38,7 +38,8 @@ $(document).ready(function () {
         data["email"] = $('input[name = email]', '#createDriver').val();
         data["password"] = calcMD5($('input[name = password]', '#createDriver').val());
         data["phone"] = $('input[name = phone]', '#createDriver').val();
-
+        data["sex"] = $('select option:selected').val();
+        //$('select option:selected').val() ;
         data = JSON.stringify(data);
         $.ajax({
             type: 'POST',
