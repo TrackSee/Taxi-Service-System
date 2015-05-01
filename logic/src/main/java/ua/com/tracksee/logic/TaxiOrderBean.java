@@ -101,9 +101,17 @@ public class TaxiOrderBean {
 
     /**
      * @author Vadym Akymov
+     * @see TaxiOrderDAO
      */
     public List<TaxiOrderEntity> getOrdersPerPage(int pageNumber){
         return taxiOrderDAO.getOrdersPerPage(pageNumber);
+    }
+    /**
+     * @author Vadym Akymov
+     * @see TaxiOrderDAO
+     */
+    int getTaxiOrdersPageCount(){
+        return taxiOrderDAO.getTaxiOrdersPageCount();
     }
     /**
      * This method checks whether there is a user who made
