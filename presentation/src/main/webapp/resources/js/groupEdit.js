@@ -76,9 +76,13 @@ var COLOR_NOT_CHOSEN = "dimgrey";
 var SERVLET_NAME = "GroupServlet";
 var GET_MAX_SIZE = '-1';
 
+var INPUT_NAME_MESSAGE = "Please input name of the group!";
+var NOT_FREE_NAME_MESSAGE = "This group name is not free!";
+var ASSIGN_USERS_MESSAGE = "Please assing user for group!";
+
 var pageNumber = 1;
-var pageSize = 3;
-var pageMaxNumber = 5;
+var pageSize = 5;
+var pageMaxNumber = 999999999;
 var userIds = [];
 var groupIds = [];
 var groupName = "";
@@ -86,13 +90,15 @@ var groupNameHelp = "";
 var role = "";
 var arrUpdateRoles = [];
 
+var countGroupsBeforeAdd;
+
 function getPageNum(pageSize1, pageMaxNumber1, pageNumber1) {
-    if (pageMaxNumber1 <= pageNumber1*pageSize1) {
-        if (pageMaxNumber1 == pageNumber1*pageSize1) {
-            return pageNumber1;
-        } else {
-            return Math.floor(pageMaxNumber1/pageSize1) + 1;
-        }
+    if (pageMaxNumber1 < pageNumber1*pageSize1) {
+        pageNumber = Math.floor(pageMaxNumber1 / pageSize1) + 1;
+        return Math.floor(pageMaxNumber1 / pageSize1) + 1;
+    } else if (pageNumber1 == pageNumber1*pageSize1) {
+        pageNumber = pageNumber1;
+        return pageNumber1;
     } else {
         return pageNumber1;
     }
@@ -126,7 +132,7 @@ function getUsers(responseJson) {
         var previousUserGroup;
         $.each(responseJson, function (key, value) {
             if (value[USER_ATTRIBUTES.get('EMAIL')] !== "") {
-                var rowNew = $("<tr class='active'><td></td><td></td><td></td><td></td><td><s/td><td></td><td></td></tr>");
+                var rowNew = $("<tr class='active'><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
                 var currentId = value[USER_ATTRIBUTES.get('USER_ID')];
                 rowNew.children().eq(0).text(currentId);
                 rowNew.children().eq(1).text(value[USER_ATTRIBUTES.get('EMAIL')]);
@@ -144,12 +150,12 @@ function getUsers(responseJson) {
 
                 rowNew.appendTo(table2);
             } else {
-                if (value[USER_ATTRIBUTES.get('USER_ID')] === GET_MAX_SIZE) {
-                    $("#alert-danger").show();
-                } else {
-                    pageMaxNumber = value[USER_ATTRIBUTES.get('USER_ID')];
-                    alert(pageMaxNumber);
-                }
+                pageMaxNumber = value[USER_ATTRIBUTES.get('USER_ID')];
+                //if (value[USER_ATTRIBUTES.get('USER_ID')] === GET_MAX_SIZE) {
+                //    $("#alert-danger").show();
+                //} else {
+                //      pageMaxNumber = value[USER_ATTRIBUTES.get('USER_ID')];
+                //}
             }
         });
     }
@@ -238,7 +244,6 @@ function getGroups(responseJson) {
                 rowNew.appendTo(table1);
             } else {
                 pageMaxNumber = value['countUsers'];
-                alert(pageMaxNumber);
             }
         });
     }
@@ -263,6 +268,7 @@ function getGroupUserData(servletName, selectAction, selectCountAction, groupNam
 
 $(document).ready(function () {
     $("#alert-danger").hide();
+    $("#alert-danger-group-name").hide();
     getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'), SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), "", "", 1);
 });
 $(document).ready(function () {
@@ -270,6 +276,7 @@ $(document).ready(function () {
 });
 
 function onClickEditGroup(el) {
+    pageNumber = 1;
     groupName = el.parentNode.parentNode.getElementsByTagName("td")[0].innerHTML;
     groupNameHelp = groupName;
     onClickGroup(el.parentNode.parentNode);
@@ -302,10 +309,12 @@ function removeGroups() {
 }
 
 function onClickAddGroup() {
+    pageNumber = 1;
     $("#labelGroupName").hide();
     $("#groupNameInput").show();
     $("#groupRole").show();
     getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, '', 1);
+    countGroupsBeforeAdd = pageMaxNumber;
 }
 
 function onCansel() {
@@ -314,6 +323,7 @@ function onCansel() {
     $("#alert-danger").hide();
     $("#groupNameInput").val('');
     $("#inputEmail").val('');
+    $("#groupRole").val('registered_customer');
     userIds = [];
     arrUpdateRoles = [];
     getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'),
@@ -323,24 +333,42 @@ function onCansel() {
 
 function saveChanges() {
     if (userIds.length > 0) {
-        if ((groupName === "")) {
+        if (groupName === "") {
             groupName = $("#groupNameInput").val();
             if (groupName !== "") {
-                manageGroups(SERVLET_NAME, pageNumber, UPDATE_CONSTANTS.get("ADD_GROUP"), SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), userIds);
+                manageGroups(SERVLET_NAME, pageNumber, UPDATE_CONSTANTS.get("ADD_GROUP"),
+                    SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), userIds);
                 location.reload();
+                //onCansel();
+                //$("#largeModal").hide();
+                //if (countGroupsBeforeAdd >= pageMaxNumber ) {
+                //    $("#alert-danger").html(NOT_FREE_NAME_MESSAGE);
+                //    $("#alert-danger").show();
+                //    $("#alert-danger").fadeOut(1000);
+                //}
             } else {
-                alert("input groupname");
+                $("#alert-danger").html(INPUT_NAME_MESSAGE);
+                $("#alert-danger").show();
+                $("#alert-danger").fadeOut(5000);
             }
         } else {
-            manageGroups(SERVLET_NAME, pageNumber, UPDATE_CONSTANTS.get("UPDATE_GROUP"), SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), userIds);
+            manageGroups(SERVLET_NAME, pageNumber, UPDATE_CONSTANTS.get("UPDATE_GROUP"),
+                SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), userIds);
+            //onCansel();
+            //$("#largeModal").hide();
             location.reload();
         }
     } else {
         if (groupNameHelp === "") {
-            alert("assign users for group");
+            $("#alert-danger").html(ASSIGN_USERS_MESSAGE);
+            $("#alert-danger").show();
+            $("#alert-danger").fadeOut(5000);
         } else {
-            manageGroups(SERVLET_NAME, pageNumber, UPDATE_CONSTANTS.get("UPDATE_GROUP"), SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), userIds);
+            manageGroups(SERVLET_NAME, pageNumber, UPDATE_CONSTANTS.get("UPDATE_GROUP"),
+                SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), userIds);
             location.reload();
+            //onCansel();
+            //$("#largeModal").hide();
         }
     }
 }

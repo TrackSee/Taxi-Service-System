@@ -43,8 +43,6 @@ public class GroupServlet extends HttpServlet {
     private static final String PAGE_SIZE_ALIAS = "pageSize";
     private static final String IDS_ALIAS = "ids";
     private static final String UPDATE_ROLE_IDS_ALIAS = "updateRoleIds";
-    private static final String IS_DRIVERS_ALIAS = "isDrivers";
-    private static final String IS_ADMINS_ALIAS = "isAdmins";
     private static final String ERROR_MESSAGE_ALIAS = "-1";
 
     private static final String SEPARATOR = ",";
@@ -72,7 +70,7 @@ public class GroupServlet extends HttpServlet {
             ServiceUserEntity entity = new ServiceUserEntity();
             entity.setUserId(count.intValue());
             entity.setEmail("");
-            resList.add(entity);
+            resList.add(0, entity);
         }
 
         String json = new Gson().toJson(resList);
@@ -123,7 +121,7 @@ public class GroupServlet extends HttpServlet {
         }
         try {
             groupBean.executeUpdate(updateAction, groupName, ids, role, updateIds, isAdmins, isDrivers);
-        } catch (EntityExistsException e) {
+        } catch (javax.ejb.EJBException e) {
             if (request.getParameter(SELECT_ACTION_ALIAS).equals(GroupSelectAction.SELECT_GROUPS)) {
                 resList.add(new Group("", new Integer(ERROR_MESSAGE_ALIAS)));
             } else if (request.getParameter(SELECT_ACTION_ALIAS).equals(GroupSelectAction.SELECT_USERS)) {
@@ -132,23 +130,9 @@ public class GroupServlet extends HttpServlet {
                 entity.setUserId(Integer.parseInt(ERROR_MESSAGE_ALIAS));
                 resList.add(new ServiceUserEntity());
             }
-        } catch (SQLException e1) {
-
-        } catch (NumberFormatException e2) {
-
         }
 
         doGet(request, response);
-    }
-
-    private boolean[] stringToBools(String array, String separator) {
-        boolean[] res = null;
-        String[] arr = array.split(separator);
-        int i = 0;
-        for (String s : arr) {
-            res[i++] = Boolean.parseBoolean(s);
-        }
-        return res;
     }
 
     private class UserRoles {

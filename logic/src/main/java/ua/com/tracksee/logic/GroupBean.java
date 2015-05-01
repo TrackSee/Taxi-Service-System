@@ -37,16 +37,17 @@ public class GroupBean {
     @EJB
     private GroupDAO groupDAO;
 
-    private void addGroup(String groupName, Role role, String[] userIds,
-                          Integer[] userIdsUpdateRole, boolean[] idAdmins, boolean[] isDrivers) throws SQLException{
-        if (!groupDAO.existsGroup(groupName)) {
-            for (Integer id : stringsToIntegers(userIds)) {
-                groupDAO.addUserToGroup(groupName, id);
-                groupDAO.setRoleToUser(role.getName(), id);
-            }
-        } else {
-            throw new EntityExistsException();
+    private void addGroup(String groupName, Role role, String[] userIds, Integer[] userIdsUpdateRole,
+                          boolean[] idAdmins, boolean[] isDrivers) throws SQLException{
+        for (Integer id : stringsToIntegers(userIds)) {
+            groupDAO.addUserToGroup(groupName, id);
+            groupDAO.setRoleToUser(role.getName(), id);
         }
+//        if (!groupDAO.existsGroup(groupName)) {
+//
+//        } else {
+//            throw new EntityExistsException();
+//        }
         try {
             setRolesToUsers(userIdsUpdateRole, isDrivers, idAdmins);
         } catch (IllegalArgumentException e) {
@@ -64,7 +65,8 @@ public class GroupBean {
         }
     }
 
-    private List<ServiceUserEntity> getGroupMembers(String groupName, String userEmail, Integer pageNumber, Integer pageSize) {
+    private List<ServiceUserEntity> getGroupMembers(String groupName, String userEmail,
+                                                    Integer pageNumber, Integer pageSize) {
         return groupDAO.getGroupMembers(groupName, userEmail, pageNumber, pageSize);
     }
 
@@ -100,18 +102,6 @@ public class GroupBean {
         return Role.fromString(groupDAO.getGroupRole(groupName));
     }
 
-    private void removeUsersFromGroup(Integer[] usersId) {
-        for (Integer id : usersId) {
-            groupDAO.removeUser(id);
-        }
-    }
-
-    private void addUsersToGroup(String groupName, Integer[] userIds) {
-        for (Integer id : userIds) {
-            groupDAO.addUserToGroup(groupName, id);
-        }
-    }
-
     private List<Group> getGroupsByName(String name, int pageNumber, int pageSize) {
         List<Group> res = new ArrayList<>();
         List<Object[]> aList = groupDAO.getGroupByName(name, pageNumber, pageSize);
@@ -131,21 +121,22 @@ public class GroupBean {
         return groupDAO.getUsersCountByEmail(userEmail);
     }
 
-    private Integer getUsersAllCount() {
-        return groupDAO.getUsersAllCount();
-    }
-
     private Integer getUsersInGroupCount(String groupName) {
         return groupDAO.getUsersInGroupCount(groupName);
     }
 
-    public void executeUpdate(GroupUpdateAction action, String groupName, String[] ids, Role role, String[] userIdsStrings, boolean[] idAdmins, boolean[] isDrivers) throws SQLException {
+    public void executeUpdate(GroupUpdateAction action, String groupName, String[] ids, Role role,
+                              String[] userIdsStrings, boolean[] idAdmins, boolean[] isDrivers){
         Integer[] userIds = null;
         if (userIdsStrings != null) {
             userIds = stringsToIntegers(userIdsStrings);
         }
         if (action == GroupUpdateAction.ADD_GROUP) {
-            addGroup(groupName, role, ids, userIds, idAdmins, isDrivers);
+            try {
+                addGroup(groupName, role, ids, userIds, idAdmins, isDrivers);
+            } catch (SQLException e) {
+                logger.error(e);
+            }
         } else if (action == GroupUpdateAction.REMOVE_GROUPS) {
             removeGroups(ids);
         } else if (action == GroupUpdateAction.UPDATE_GROUP) {
@@ -153,7 +144,8 @@ public class GroupBean {
         }
     }
 
-    public List executeSelect(GroupSelectAction action, String groupName, String userEmail, Integer pageNumber, Integer pageSize) {
+    public List executeSelect(GroupSelectAction action, String groupName, String userEmail,
+                              Integer pageNumber, Integer pageSize) {
         if (action == GroupSelectAction.SELECT_GROUPS) {
             return getGroupsByName(groupName, pageNumber, pageSize);
         } else if (action == GroupSelectAction.SELECT_USERS) {
@@ -171,7 +163,8 @@ public class GroupBean {
             } else if (!groupName.equals("")) {
                 return this.getUsersInGroupCount(groupName);
             } else {
-                return this.getUsersAllCount();
+                //return this.getUsersAllCount();
+                return this.getUsersCountByEmail("");
             }
         }
         return null;

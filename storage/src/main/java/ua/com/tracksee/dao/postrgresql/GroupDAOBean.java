@@ -81,7 +81,7 @@ public class GroupDAOBean implements GroupDAO {
     }
 
     @Override
-    public void setRoleToUser(String role, Integer userId) {
+    public int setRoleToUser(String role, Integer userId) {
         Query query = null;
         if (role.equals(ROLE_ADMIN)) {
             query = entityManager.createNativeQuery("UPDATE service_user SET admin = TRUE WHERE user_id = ?1");
@@ -90,17 +90,18 @@ public class GroupDAOBean implements GroupDAO {
         }
         if (query != null) {
             query.setParameter(1, userId);
-            query.executeUpdate();
+            return query.executeUpdate();
         }
+        return 0;
     }
 
     @Override
-    public void removeGroup(String groupName) {
+    public int removeGroup(String groupName) {
         if (existsGroup(groupName)) {
             Query query = entityManager.createNativeQuery("UPDATE service_user " +
                     "SET group_name = NULL WHERE group_name = ?");
             query.setParameter(1, groupName);
-            query.executeUpdate();
+            return query.executeUpdate();
         } else {
             throw new EntityNotFoundException();
         }
@@ -122,12 +123,6 @@ public class GroupDAOBean implements GroupDAO {
     }
 
     @Override
-    public Integer getUsersAllCount() {
-        Query query = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user");
-        return ((BigInteger)query.getSingleResult()).intValue();
-    }
-
-    @Override
     public Integer getUsersInGroupCount(String groupName) {
         Query query = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user g WHERE g.group_name = ?1");
         query.setParameter(1, groupName);
@@ -135,18 +130,18 @@ public class GroupDAOBean implements GroupDAO {
     }
 
     @Override
-    public void addUserToGroup(String groupName, Integer userId) {
+    public int addUserToGroup(String groupName, Integer userId) {
         Query query = entityManager.createNativeQuery("UPDATE service_user SET group_name = ?1 WHERE user_id = ?2");
         query.setParameter(1, groupName);
         query.setParameter(2, userId);
-        query.executeUpdate();
+        return query.executeUpdate();
     }
 
     @Override
-    public void removeUser(Integer userId) {
+    public int removeUser(Integer userId) {
         Query query = entityManager.createNativeQuery("UPDATE service_user SET group_name = DEFAULT WHERE user_id = ?");
         query.setParameter(1, userId);
-        query.executeUpdate();
+        return query.executeUpdate();
     }
 
     @Override
@@ -180,12 +175,16 @@ public class GroupDAOBean implements GroupDAO {
     }
 
     @Override
-    public void updateUserRoles(Integer userId, boolean isDriver, boolean isAdmin) {
+    public int updateUserRoles(Integer userId, boolean isDriver, boolean isAdmin) {
         Query query = entityManager.createNativeQuery("UPDATE service_user SET admin = ?1, driver = ?2 WHERE user_id = ?3");
         query.setParameter(1, isAdmin);
         query.setParameter(2, isDriver);
         query.setParameter(3, userId);
-        query.executeUpdate();
+        return query.executeUpdate();
     }
 
+    @Override
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
 }
