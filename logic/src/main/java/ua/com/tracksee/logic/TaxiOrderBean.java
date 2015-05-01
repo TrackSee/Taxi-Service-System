@@ -103,15 +103,29 @@ public class TaxiOrderBean {
      * @author Vadym Akymov
      * @see TaxiOrderDAO
      */
-    public List<TaxiOrderEntity> getOrdersPerPage(int pageNumber){
-        return taxiOrderDAO.getOrdersPerPage(pageNumber);
+    public List<TaxiOrderEntity> getActiveOrdersPerPage(int partNumber){
+        return taxiOrderDAO.getActiveOrdersPerPage(partNumber);
     }
     /**
      * @author Vadym Akymov
      * @see TaxiOrderDAO
      */
-    public int getTaxiOrderPagesCount(){
-        return taxiOrderDAO.getTaxiOrderPagesCount();
+    public List<TaxiOrderEntity> getOldOrdersPerPage(int partNumber){
+        return taxiOrderDAO.getOldOrdersPerPage(partNumber);
+    }
+    /**
+     * @author Vadym Akymov
+     * @see TaxiOrderDAO
+     */
+    public int getActiveTaxiOrderPagesCount(){
+        return taxiOrderDAO.getActiveTaxiOrderPagesCount();
+    }
+    /**
+     * @author Vadym Akymov
+     * @see TaxiOrderDAO
+     */
+    public int getOldTaxiOrderPagesCount(){
+        return taxiOrderDAO.getOldTaxiOrderPagesCount();
     }
     /**
      * This method checks whether there is a user who made

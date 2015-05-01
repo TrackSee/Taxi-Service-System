@@ -9,3 +9,6 @@
     margin: 30px auto;
     max-width: 200px;
 }
+.group{
+    display: inline-block;
+}

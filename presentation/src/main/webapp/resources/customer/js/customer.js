@@ -2,7 +2,20 @@
  * Created by Vadym Akymov on 29.04.15.
  */
 
+var dataType = $('.active').val();
+console.log('dataType value: ' + dataType);
+
+//click on old button
+$('.old').click(function(){
+    window.location.href = 'dashboard?type=old';
+});
+//click on active button
+$('.act').click(function(){
+    window.location.href = 'dashboard?type=active';
+});
+
 $('.nextButton').click(function(){
+    console.log('dataType ' + dataType);
     var pageNumber = $('.pageNumber').val();
     var pagesCount = $('.pagesCount').val();
     if((++pageNumber) >= pagesCount){
@@ -18,7 +31,7 @@ $('.nextButton').click(function(){
     $.ajax({
         type: 'GET',
         url: 'get-orders',
-        data: 'pageNumber=' + (++pageNumber),
+        data: 'pageNumber=' + (++pageNumber) + '&type=' + dataType,
         success: function(data){
             $('.pageNumber').val(pageNumber);
             var ordersArray = JSON.parse(data);
@@ -37,6 +50,7 @@ $('.nextButton').click(function(){
 
 //Previous button click
 $('.prevButton').click(function(){
+    console.log('dataType ' + dataType);
     var pageNumber = $('.pageNumber').val();
     var pagesCount = $('.pagesCount').val();
     if((--pageNumber) <= 1){
@@ -52,7 +66,7 @@ $('.prevButton').click(function(){
     $.ajax({
         type: 'GET',
         url: 'get-orders',
-        data: 'pageNumber=' + (--pageNumber),
+        data: 'pageNumber=' + (--pageNumber) + '&type=' + dataType,
         success: function(data){
             $('.pageNumber').val(pageNumber);
             var ordersArray = JSON.parse(data);
