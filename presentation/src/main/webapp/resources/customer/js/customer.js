@@ -5,7 +5,6 @@
 $('.nextButton').click(function(){
     var pageNumber = $('.pageNumber').val();
     var pagesCount = $('.pagesCount').val();
-    console.log(pageNumber + '/' + pagesCount);
     if((++pageNumber) >= pagesCount){
         $('.nextButton').attr('disabled','disabled');
     } else {
@@ -24,7 +23,6 @@ $('.nextButton').click(function(){
             $('.pageNumber').val(pageNumber);
             var ordersArray = JSON.parse(data);
             for(var i = 0; i < ordersArray.length; i++){
-                console.log(ordersArray[i].trackingNumber);
                 $('.order' + i).text('Order № ' + ordersArray[i].trackingNumber);
                 $('.service' + i).html('<b>SERVICE:</b> ' + ordersArray[i].service);
                 $('.status' + i).html('<b>STATUS:</b> ' + ordersArray[i].status);
@@ -41,7 +39,6 @@ $('.nextButton').click(function(){
 $('.prevButton').click(function(){
     var pageNumber = $('.pageNumber').val();
     var pagesCount = $('.pagesCount').val();
-    console.log(pageNumber + '/' + pagesCount);
     if((--pageNumber) <= 1){
         $('.prevButton').attr('disabled','disabled');
     } else {
@@ -60,7 +57,6 @@ $('.prevButton').click(function(){
             $('.pageNumber').val(pageNumber);
             var ordersArray = JSON.parse(data);
             for(var i = 0; i < ordersArray.length; i++){
-                console.log(ordersArray[i].trackingNumber);
                 $('.order' + i).text('Order № ' + ordersArray[i].trackingNumber);
                 $('.service' + i).html('<b>SERVICE:</b> ' + ordersArray[i].service);
                 $('.status' + i).html('<b>STATUS:</b> ' + ordersArray[i].status);

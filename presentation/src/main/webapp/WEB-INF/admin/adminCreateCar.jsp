@@ -37,6 +37,7 @@
     <!-- Custom Fonts -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css"
           rel="stylesheet" type="text/css">
+    <link href="<%=application.getContextPath()%>/resources/admin/css/createcar.css" type="text/css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -53,10 +54,9 @@
 
 <div id="wrapper">
     <jsp:include page="adminHeader.jsp"/>
-</div>
-<div class="container" style=" width : 500px; ">
+<div id="page-wrapper">
 
-    <form class="create-driver" id="createCar" action="<c:url value="/admin/createcar"/>" method="post">
+    <form id="carCreate" class="create-driver" id="createCar" action="<c:url value="/admin/createcar"/>" method="post">
         <h2 class="form-sign-up-heading">Please enter cars data</h2>
         <label for="carNumber" class="sr-only">Number</label>
         <input type="carNumber" id="carNumber" name="carNumber" class="form-control" placeholder="Car Number" required>
@@ -88,8 +88,8 @@
             <button id="addCar" type="button" class="btn btn-primary">Create</button>
         </div>
 
-
     </form>
+</div>
 </div>
 
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
