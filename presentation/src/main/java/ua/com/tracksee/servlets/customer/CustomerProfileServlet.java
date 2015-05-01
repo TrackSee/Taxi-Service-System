@@ -23,7 +23,14 @@ public class CustomerProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<TaxiOrderEntity> orders = taxiOrderBean.getOrdersPerPage(1);
+        request.setAttribute("pagesCount", taxiOrderBean.getTaxiOrderPagesCount());
+        request.setAttribute("pageNumber", 1);
         request.setAttribute("orders", orders);
         request.getRequestDispatcher("/WEB-INF/customer/customerProfile.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
     }
 }

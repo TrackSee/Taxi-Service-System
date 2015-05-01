@@ -40,5 +40,5 @@ public interface TaxiOrderDAO {
      * @author Vadym Akymov
      * @return pages count of taxi order
      */
-    int getTaxiOrdersPageCount();
+    int getTaxiOrderPagesCount();
 }

@@ -110,8 +110,8 @@ public class TaxiOrderBean {
      * @author Vadym Akymov
      * @see TaxiOrderDAO
      */
-    int getTaxiOrdersPageCount(){
-        return taxiOrderDAO.getTaxiOrdersPageCount();
+    public int getTaxiOrderPagesCount(){
+        return taxiOrderDAO.getTaxiOrderPagesCount();
     }
     /**
      * This method checks whether there is a user who made
