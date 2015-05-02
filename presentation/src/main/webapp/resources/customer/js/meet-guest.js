@@ -1,4 +1,7 @@
 /**
+ * This script show additional information
+ * for service "Meet my guest"
+ *
  * author Sharaban Sasha
  */
 $(document).ready(function() {

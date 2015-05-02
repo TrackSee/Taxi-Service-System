@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.math.BigInteger;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -41,12 +42,13 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     @Override
     public Long addOrder(TaxiOrderEntity orderEntity) {
         String sql="INSERT INTO taxi_order (description,status,price,user_id,service,car_category,way_of_payment,driver_sex," +
-                "music_style,animal_transportation,free_wifi,non_smoking_driver,air_conditioner,arrive_date,end_date) " +
-                "VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15) RETURNING tracking_number";
+                "music_style,animal_transportation,free_wifi,non_smoking_driver,air_conditioner,ordered_date) " +
+                "VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14) RETURNING tracking_number";
 
         //TODO insert into taxi items
         //     "INSERT INTO taxi_order_item (tracking_numer, path, ordered_quantity, driver_id) VALUES ()"
 
+        System.out.println("Here "+orderEntity.getArriveDate());
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1,orderEntity.getDescription());
         query.setParameter(2, orderEntity.getStatus().toString());
@@ -61,12 +63,30 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(11, orderEntity.getFreeWifi());
         query.setParameter(12, orderEntity.getNonSmokingDriver());
         query.setParameter(13,orderEntity.getAirConditioner());
-        query.setParameter(14,orderEntity.getArriveDate());
-        query.setParameter(15,orderEntity.getEndDate());
+        query.setParameter(14,orderEntity.getOrderedDate());
 
         BigInteger trackingNumber=(BigInteger)query.getSingleResult();
         return trackingNumber.longValue();
     }
+    @Override
+    public void addArriveDate(Timestamp arriveDate,long trackingNumber) {
+        String sql="UPDATE taxi_order SET arrive_date=(?1) WHERE tracking_number=(?2)";
+
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1,arriveDate);
+        query.setParameter(2,trackingNumber);
+        query.executeUpdate();
+    }
+    @Override
+    public void addEndDate(Timestamp endDate,long trackingNumber) {
+        String sql="UPDATE taxi_order SET end_date=(?1) WHERE tracking_number=(?2)";
+
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1,endDate);
+        query.setParameter(2,trackingNumber);
+        query.executeUpdate();
+    }
+
     @Override
     public List<TaxiOrderEntity> getQueuedOrders() {
         return null;

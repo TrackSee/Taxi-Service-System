@@ -1,7 +1,8 @@
 /**
- * author Sharaban Sasha
+ * This script hide fields that unnecessary
+ * when select service "Sober driver"
  *
- * This
+ * author Sharaban Sasha
  */
 
 $(document).ready(function() {

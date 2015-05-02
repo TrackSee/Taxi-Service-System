@@ -1,4 +1,7 @@
 /**
+ * This script disable hidden from fields when
+ * selected services that don't need hidden fields.
+ *
  * author Sharaban Sasha
  */
 
