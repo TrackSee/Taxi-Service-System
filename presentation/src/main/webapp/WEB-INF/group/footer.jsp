@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<script type="text/javascript"></script>>
+<script type="text/javascript"></script>
 
 <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
 

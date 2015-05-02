@@ -75,6 +75,7 @@ var COLOR_CHOSEN = "#0044cc";
 var COLOR_NOT_CHOSEN = "dimgrey";
 var SERVLET_NAME = "GroupServlet";
 var GET_MAX_SIZE = '-1';
+var FADE_OUT = 5000;
 
 var INPUT_NAME_MESSAGE = "Please input name of the group!";
 var NOT_FREE_NAME_MESSAGE = "This group name is not free!";
@@ -93,14 +94,19 @@ var arrUpdateRoles = [];
 var countGroupsBeforeAdd;
 
 function getPageNum(pageSize1, pageMaxNumber1, pageNumber1) {
+    if (pageMaxNumber1 === 0) {
+        return 1;
+    }
     if (pageMaxNumber1 < pageNumber1*pageSize1) {
+        if (pageMaxNumber1 === (pageNumber1 - 1)*pageSize1) {
+            pageNumber = pageNumber1 - 1;
+            return pageNumber;
+        }
         pageNumber = Math.floor(pageMaxNumber1 / pageSize1) + 1;
-        return Math.floor(pageMaxNumber1 / pageSize1) + 1;
-    } else if (pageNumber1 == pageNumber1*pageSize1) {
-        pageNumber = pageNumber1;
-        return pageNumber1;
+        return pageNumber;
     } else {
-        return pageNumber1;
+        pageNumber = pageNumber1;
+        return pageNumber;
     }
 }
 
@@ -116,6 +122,8 @@ function manageGroups(servletName1, pageNumber1, updateAction,  selectAction, se
             if (updateAction === UPDATE_CONSTANTS.get("REMOVE_GROUPS")) {
                 getGroups(responseJson);
                 onCansel();
+                groupIds = [];
+                $("#removeGroups").hide();
             } else {
                 getUsers(responseJson);
             }
@@ -196,9 +204,9 @@ function selectRole(el, id, action) {
 
 function updateRolesIds(el) {
     var id = el.parentNode.parentNode.getElementsByTagName("td")[0].innerHTML;
-    var buf = el.parentNode.parentNode.getElementsByTagName("td")[3].getElementsByTagName("select")[0];
+    var buf = el.parentNode.parentNode.getElementsByTagName("td")[4].getElementsByTagName("select")[0];
     var isAdmin = buf.options[buf.selectedIndex].value;
-    buf = el.parentNode.parentNode.getElementsByTagName("td")[4].getElementsByTagName("select")[0];
+    buf = el.parentNode.parentNode.getElementsByTagName("td")[3].getElementsByTagName("select")[0];
     var isDriver = buf.options[buf.selectedIndex].value;
     for (var o in arrUpdateRoles) {
         var obj = arrUpdateRoles[o];
@@ -326,9 +334,9 @@ function onCansel() {
     $("#groupRole").val('registered_customer');
     userIds = [];
     arrUpdateRoles = [];
+    pageNumber = 1;
     getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'),
         SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), pageNumber);
-    pageNumber = 1;
 }
 
 function saveChanges() {
@@ -349,7 +357,7 @@ function saveChanges() {
             } else {
                 $("#alert-danger").html(INPUT_NAME_MESSAGE);
                 $("#alert-danger").show();
-                $("#alert-danger").fadeOut(5000);
+                $("#alert-danger").fadeOut(FADE_OUT);
             }
         } else {
             manageGroups(SERVLET_NAME, pageNumber, UPDATE_CONSTANTS.get("UPDATE_GROUP"),
@@ -362,7 +370,7 @@ function saveChanges() {
         if (groupNameHelp === "") {
             $("#alert-danger").html(ASSIGN_USERS_MESSAGE);
             $("#alert-danger").show();
-            $("#alert-danger").fadeOut(5000);
+            $("#alert-danger").fadeOut(FADE_OUT);
         } else {
             manageGroups(SERVLET_NAME, pageNumber, UPDATE_CONSTANTS.get("UPDATE_GROUP"),
                 SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), userIds);

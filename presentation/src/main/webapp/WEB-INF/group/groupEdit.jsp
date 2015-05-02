@@ -21,7 +21,7 @@
         }
 
         .modal-dialog{
-            width:90%;
+            width:auto;
         }
     </style>
 
@@ -96,7 +96,7 @@
                 </select>
 
             </div>
-            <div class="panel panel-default">
+            <div id="panelUserTable" class="panel panel-default">
                 <div class="modal-body" id="tableEmailDiv">
                     <%--<p>Add the <code>.modal-lg</code> class on <code>.modal-dialog</code> to create this large modal.</p>--%>
                     <div class="container">

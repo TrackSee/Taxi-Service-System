@@ -15,6 +15,7 @@ import ua.com.tracksee.logic.group.GroupUpdateAction;
 
 import javax.ejb.EJB;
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -121,7 +122,7 @@ public class GroupServlet extends HttpServlet {
         }
         try {
             groupBean.executeUpdate(updateAction, groupName, ids, role, updateIds, isAdmins, isDrivers);
-        } catch (javax.ejb.EJBException e) {
+        } catch (javax.ejb.EJBException|EntityExistsException e) {
             if (request.getParameter(SELECT_ACTION_ALIAS).equals(GroupSelectAction.SELECT_GROUPS)) {
                 resList.add(new Group("", new Integer(ERROR_MESSAGE_ALIAS)));
             } else if (request.getParameter(SELECT_ACTION_ALIAS).equals(GroupSelectAction.SELECT_USERS)) {

@@ -39,15 +39,14 @@ public class GroupBean {
 
     private void addGroup(String groupName, Role role, String[] userIds, Integer[] userIdsUpdateRole,
                           boolean[] idAdmins, boolean[] isDrivers) throws SQLException{
-        for (Integer id : stringsToIntegers(userIds)) {
-            groupDAO.addUserToGroup(groupName, id);
-            groupDAO.setRoleToUser(role.getName(), id);
+        if (!groupDAO.existsGroup(groupName)) {
+            for (Integer id : stringsToIntegers(userIds)) {
+                groupDAO.addUserToGroup(groupName, id);
+                groupDAO.setRoleToUser(role.getName(), id);
+            }
+        } else {
+            throw new EntityExistsException();
         }
-//        if (!groupDAO.existsGroup(groupName)) {
-//
-//        } else {
-//            throw new EntityExistsException();
-//        }
         try {
             setRolesToUsers(userIdsUpdateRole, isDrivers, idAdmins);
         } catch (IllegalArgumentException e) {
@@ -83,7 +82,8 @@ public class GroupBean {
             groupDAO.setRoleToUser(role.getName(), userId);
         }
 
-        for (Integer id : stringsToIntegers(ids)) {
+        Integer[] idsInt = stringsToIntegers(ids);
+        for (Integer id : idsInt) {
             if (groupIdsList.contains(id)) {
                 groupDAO.removeUser(id);
             } else {
@@ -126,7 +126,8 @@ public class GroupBean {
     }
 
     public void executeUpdate(GroupUpdateAction action, String groupName, String[] ids, Role role,
-                              String[] userIdsStrings, boolean[] idAdmins, boolean[] isDrivers){
+                              String[] userIdsStrings, boolean[] idAdmins, boolean[] isDrivers)
+            throws EntityExistsException {
         Integer[] userIds = null;
         if (userIdsStrings != null) {
             userIds = stringsToIntegers(userIdsStrings);
@@ -138,7 +139,11 @@ public class GroupBean {
                 logger.error(e);
             }
         } else if (action == GroupUpdateAction.REMOVE_GROUPS) {
-            removeGroups(ids);
+            try {
+                removeGroups(ids);
+            } catch ( EntityNotFoundException e) {
+                logger.error("This group does not exist! " + e);
+            }
         } else if (action == GroupUpdateAction.UPDATE_GROUP) {
             updateGroup(groupName, role, ids, userIds, idAdmins, isDrivers);
         }
