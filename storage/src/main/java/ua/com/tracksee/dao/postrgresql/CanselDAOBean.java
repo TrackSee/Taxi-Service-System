@@ -8,8 +8,10 @@ import ua.com.tracksee.enumartion.OrderStatus;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transaction;
 import java.sql.SQLException;
 
 /**
@@ -49,13 +51,35 @@ public class CanselDAOBean {
         query.setParameter(2, orderId);
         return query.executeUpdate();
     }
-    public void canselOrder(long trackingNumber){
+    public boolean canselOrder(long trackingNumber){
+        EntityTransaction transaction=entityManager.getTransaction();
+        transaction.begin();
         setRefusedOrder(trackingNumber);
         try {
             incrimentUserIgnoredTimes(trackingNumber);
         } catch (SQLException e) {
             logger.error("something wrong when incriment \"ignored times\" for user ");
             logger.error(e.toString());
+            transaction.rollback();
+            return false;
         }
+        transaction.commit();
+        return true;
+    }
+
+    public int getUserRefusedTimes(long trackingNumber) {
+        String sql ="SELECT\n" +
+                "  ignored_times\n" +
+                "FROM\n" +
+                "  service_user\n" +
+                "INNER JOIN\n" +
+                "  taxi_order\n" +
+                "ON\n" +
+                "  service_user.user_id = taxi_order.user_id\n" +
+                "WHERE\n" +
+                "  taxi_order.tracking_number=?1";
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1,trackingNumber);
+        return (Integer)query.getSingleResult();
     }
 }
