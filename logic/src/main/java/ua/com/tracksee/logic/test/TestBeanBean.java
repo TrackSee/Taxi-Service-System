@@ -68,6 +68,8 @@ public class TestBeanBean {
             boolean rez = cancellationBean.cancelOrder(order.getTrackingNumber());
             System.out.println("The order wos deleted?" + rez);
         } else System.out.println("The order does not exist");
+        user=userDAO.getUserById(order.getUserId());
+        System.out.println("The user ingnored times is "+user.getIgnoredTimes());
 
     }
 
