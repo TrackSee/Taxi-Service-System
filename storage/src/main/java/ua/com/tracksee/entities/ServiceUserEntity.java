@@ -7,8 +7,15 @@ import java.util.Objects;
 /**
  * @author Ruslan Gunavardana
  */
+
 @Entity
 @Table(name = "service_user", schema = "public", catalog = "tracksee")
+@NamedQueries({
+        @NamedQuery(name = "getAll", query = "SELECT user from ServiceUserEntity  user"),
+        @NamedQuery(name = "getAllById", query = "SELECT user from ServiceUserEntity user WHERE userId in:usersId"),
+        @NamedQuery(name = "blockAll", query = "UPDATE ServiceUserEntity user SET user.ignoredTimes=:ignoredTimes WHERE user.userId in :userIds"),
+        @NamedQuery(name = "usersSize", query = "SELECT count (user) from ServiceUserEntity user")
+})
 public class ServiceUserEntity {
     private Integer userId;
     private String email;

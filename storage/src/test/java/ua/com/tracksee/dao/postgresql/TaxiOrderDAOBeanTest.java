@@ -1,11 +1,13 @@
 package ua.com.tracksee.dao.postgresql;
 
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.postgresql.geometric.PGpoint;
 import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.TaxiOrderDAO;
@@ -26,6 +28,7 @@ import static ua.com.tracksee.enumartion.OrderStatus.QUEUED;
 /**
  * @author Ruslan Gunavardana
  */
+@RunWith(Arquillian.class)
 public class TaxiOrderDAOBeanTest {
 
     private @EJB TaxiOrderDAO taxiOrderDAO;
@@ -64,7 +67,8 @@ public class TaxiOrderDAOBeanTest {
         order.setFreeWifi(TRUE);
         order.setDescription("I like to mov it mov it");
 
-        Integer trackingNumber = taxiOrderDAO.addOrder(order);
+
+        Long trackingNumber = taxiOrderDAO.addOrder(order);
 
         TaxiOrderEntity databaseOrder = taxiOrderDAO.getOrder(trackingNumber);
         assertEquals(databaseOrder.getTrackingNumber(), trackingNumber);

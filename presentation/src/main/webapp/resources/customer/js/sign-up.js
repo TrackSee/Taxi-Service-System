@@ -2,11 +2,11 @@
  * Created by Ruslan Gunavardana
  */
 function sendForm() {
-    var msg = $('#form-sign-up').serialize();
+    var form = $('#form-sign-up');
     $.ajax({
         type: 'POST',
         url: 'signup',
-        data: msg,
+        data: form.serialize(),
         success: function (data) {
             if (data == "bad-email") {
                 $.notify("Invalid email!", "error");
@@ -19,7 +19,7 @@ function sendForm() {
             } else if (data == "user-exists") {
                 $.notify("This email is already registered", "info");
             } else {
-                $('document').html(data);
+                form.html(data);
             }
         },
         error: function (xhr, str) {
@@ -28,6 +28,9 @@ function sendForm() {
     });
 }
 
+/**
+ * Sign up form validation using jQuery validation plugin.
+ */
 $().ready(function () {
     $.validator.addMethod('passwordRegex', function(value, element)
     {

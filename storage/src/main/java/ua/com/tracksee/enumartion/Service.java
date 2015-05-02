@@ -1,9 +1,5 @@
 package ua.com.tracksee.enumartion;
 
-import ua.com.tracksee.entities.TaxiOrderEntity;
-
-import java.math.BigDecimal;
-
 /**
  * @author Ruslan Gunavardana
  */
@@ -13,11 +9,8 @@ public enum Service {
     CONVEY_CORPORATION_EMPLOYEES,
     GUEST_DELIVERY,
     CARGO_TAXI,
+    TAXI_FOR_LONG_TERM,
     MEET_MY_GUEST,
     CELEBRATION_TAXI,
-    FOODSTUFF_DELIVERY;
-
-    public BigDecimal getPrice(TaxiOrderEntity order) {
-        return new BigDecimal(0);
-    }
+    FOODSTUFF_DELIVERY
 }

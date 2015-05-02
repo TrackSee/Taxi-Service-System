@@ -20,7 +20,7 @@ public class TaxiPriceEntity {
     private Boolean nightTariff;
 
     @Basic
-    @Column(name = "price_per_km")
+    @Column(name = "price_per_km", nullable = false)
     public BigDecimal getPricePerKm() {
         return pricePerKm;
     }
@@ -30,7 +30,7 @@ public class TaxiPriceEntity {
     }
 
     @Basic
-    @Column(name = "price_per_min")
+    @Column(name = "price_per_min", nullable = false)
     public BigDecimal getPricePerMin() {
         return pricePerMin;
     }
@@ -49,7 +49,9 @@ public class TaxiPriceEntity {
         this.carCategory = carCategory;
     }
 
-    public Boolean isWeekend() {
+    @Id
+    @Column(name = "weekend")
+    public Boolean getWeekend() {
         return weekend;
     }
 
@@ -57,7 +59,9 @@ public class TaxiPriceEntity {
         this.weekend = weekend;
     }
 
-    public Boolean isNightTariff() {
+    @Id
+    @Column(name = "night_tariff")
+    public Boolean getNightTariff() {
         return nightTariff;
     }
 

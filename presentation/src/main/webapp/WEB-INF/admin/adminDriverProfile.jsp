@@ -19,10 +19,12 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"
+          rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/dist/css/sb-admin-2.css" rel="stylesheet">
@@ -31,7 +33,8 @@
     <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/admin/css/admin.css">
 
     <!-- Custom Fonts -->
-    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css"
+          rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -46,25 +49,27 @@
 
     <div id="page-wrapper">
         <%--Profile container--%>
-            <div class="placement">
-                <div class="row">
-                    <%--<div class="col-md-5  toppad  pull-right col-md-offset-3 ">--%>
-                        <%--<A href="edit.html" >Edit Profile</A>--%>
+        <div class="placement">
+            <div class="row">
+                <%--<div class="col-md-5  toppad  pull-right col-md-offset-3 ">--%>
+                <%--<A href="edit.html" >Edit Profile</A>--%>
 
-                        <%--<A href="edit.html" >Logout</A>--%>
-                        <%--<br>--%>
-                        <%--<p class=" text-info">May 05,2014,03:00 pm </p>--%>
-                    <%--</div>--%>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+                <%--<A href="edit.html" >Logout</A>--%>
+                <%--<br>--%>
+                <%--<p class=" text-info">May 05,2014,03:00 pm </p>--%>
+                <%--</div>--%>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
 
 
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">${driver.email}</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="<%=application.getContextPath()%>/resources/admin/img/profile.png?sz=100" class="img-circle"> </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">${driver.email}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-3 col-lg-3 " align="center"><img alt="User Pic"
+                                                                                    src="<%=application.getContextPath()%>/resources/admin/img/profile.png?sz=100"
+                                                                                    class="img-circle"></div>
 
                                     <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
                                       <dl>

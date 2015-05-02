@@ -30,7 +30,7 @@ public class TaxiOrderItemEntity {
     }
 
     @Basic
-    @Column(name = "path")
+    @Column(name = "path", nullable = false)
     public PGpath getPath() {
         return path;
     }

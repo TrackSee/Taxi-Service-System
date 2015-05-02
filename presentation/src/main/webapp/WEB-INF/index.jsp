@@ -21,7 +21,7 @@
 </head>
 
 <body>
-<%@include file="parts/header.jsp"%>
+<%@include file="parts/header.jsp" %>
 <%-- start: Slider --%>
 <div id="myCarousel" class="carousel slide">
     <div class="carousel-inner">
@@ -32,8 +32,8 @@
                 <div class="carousel-caption">
                     <div><h1 class="outline">Cab booking online</h1>
 
-                    <p class="lead" ><h3 class="outline">You can book a taxi right now without delay and red tape.</h3> </p>
-                    <a class="btn btn-large btn-success" href="#"><h4 class="outline">Book taxi now</h4></a></div>
+                    <p class="lead"><h3 class="outline">You can book a taxi right now without delay and red tape.</h3></p>
+                    <a class="btn btn-large btn-success" href="order"><h4 class="outline">Book taxi now</h4></a></div>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
 
                     <p class="lead"><h3 class="outline">You can create your own account which simplifies and accelerates
                     the process of ordering a taxi</h3></p>
-                    <a class="btn btn-large btn-success" href="#"><h4 class="outline">Sign up now</h4></a>
+                    <a class="btn btn-large btn-success" href="signup"><h4 class="outline">Sign up now</h4></a>
                 </div>
             </div>
         </div>
@@ -70,12 +70,18 @@
 
 
 <%-- start: Java Script --%>
-<%@include file="parts/scripts.jsp" %>
+<script src="<%=application.getContextPath()%>/resources/js/jquery-1.8.2.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/bootstrap2/bootstrap.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/flexslider.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/jquery.cslider.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/slider.js"></script>
+<script defer="defer" src="<%=application.getContextPath()%>/resources/js/custom.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/notify-combined.min.js"></script>
 
 <%--For slider--%>
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-carousel.js"></script>
 <%-- end: Java Script --%>
 
-<%@include file="parts/footer.jsp"%>
+<%@include file="parts/footer.jsp" %>
 </body>
 </html>

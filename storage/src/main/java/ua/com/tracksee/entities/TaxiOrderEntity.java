@@ -5,6 +5,8 @@ import ua.com.tracksee.enumartion.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 import static javax.persistence.EnumType.STRING;
@@ -17,7 +19,7 @@ import static javax.persistence.EnumType.STRING;
 public class TaxiOrderEntity {
     private Long trackingNumber;
     private OrderStatus status;
-    private Double price;
+    private BigDecimal price;
     private Service service;
     private String description;
     private CarCategory carCategory;
@@ -30,6 +32,29 @@ public class TaxiOrderEntity {
     private Boolean airConditioner;
     private String comment;
     private Integer userId;
+    private Timestamp orderedDate = new Timestamp(System.currentTimeMillis());
+    private Timestamp arriveDate;
+    private Timestamp endDate;
+
+    @Basic
+    @Column(name = "arrive_date")
+    public Timestamp getArriveDate() {
+        return arriveDate;
+    }
+
+    public void setArriveDate(Timestamp arriveDate) {
+        this.arriveDate = arriveDate;
+    }
+
+    @Basic
+    @Column(name="end_date")
+    public Timestamp getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Timestamp endDate) {
+        this.endDate = endDate;
+    }
 
     public TaxiOrderEntity() {
 
@@ -75,11 +100,11 @@ public class TaxiOrderEntity {
 
     @Basic
     @Column(name = "price")
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -169,7 +194,7 @@ public class TaxiOrderEntity {
     }
 
     @Basic
-    @Column(name = "smoking_driver")
+    @Column(name = "non_smoking_driver")
     public Boolean getNonSmokingDriver() {
         return nonSmokingDriver;
     }
@@ -198,6 +223,15 @@ public class TaxiOrderEntity {
         this.comment = comment;
     }
 
+    @Basic
+    @Column(name="ordered_date")
+    public Timestamp getOrderedDate(){
+        return orderedDate;
+    }
+    public void setOrderedDate(Timestamp orderedDate){
+        this.orderedDate = orderedDate;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -212,11 +246,12 @@ public class TaxiOrderEntity {
                 Objects.equals(wayOfPayment, that.wayOfPayment) &&
                 Objects.equals(driverSex, that.driverSex) &&
                 Objects.equals(musicStyle, that.musicStyle) &&
-                Objects.equals(comment, that.comment);
+                Objects.equals(comment, that.comment) &&
+                Objects.equals(orderedDate, that.orderedDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(trackingNumber, status, price, service, carCategory, wayOfPayment, driverSex, musicStyle, comment);
+        return Objects.hash(trackingNumber, status, price, service, carCategory, wayOfPayment, driverSex, musicStyle, comment, orderedDate);
     }
 }

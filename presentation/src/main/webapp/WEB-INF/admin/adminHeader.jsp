@@ -43,6 +43,12 @@
                         <li>
                             <a href="<%=application.getContextPath()%>/admin/createdriver">Create driver account</a>
                         </li>
+                    </ul>
+                </li>
+                <%--Car menu--%>
+                <li>
+                    <a><i class="fa fa-table fa-fw"></i>Cars<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
                         <li>
                             <a href="<%=application.getContextPath()%>/admin/cars">List of cars</a>
                         </li>
@@ -51,6 +57,8 @@
                         </li>
                     </ul>
                 </li>
+                <%--block users account--%>
+                <li><a href="<%=application.getContextPath()%>/admin/block">Block User</a> </li>
                 <%--Logout from page--%>
                 <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
             </ul>

@@ -19,20 +19,28 @@ public interface TaxiOrderDAO {
     void addComment(TaxiOrderEntity taxiOrderEntity);
 
     /**
-     * Adds order to database.
-     *
-     * @param order taxi order entity which will be insert into database
+     * @author Sharaban Sasha
+     * @param order - order entity which will be insert into database
+     * @return tracking number
      */
-    Integer addOrder(TaxiOrderEntity order);
+    Long addOrder(TaxiOrderEntity order);
 
     List<TaxiOrderEntity> getQueuedOrders();
 
-    TaxiOrderEntity getOrder(Integer trackingNumber);
+    TaxiOrderEntity getOrder(Long trackingNumber);
 
     /**
      * @author Vadym Akymov
      * @param partNumber - number of orders portion
      * @return list of order's item
      */
-    List<TaxiOrderEntity> getOrdersPerPage(int partNumber);
+    List<TaxiOrderEntity> getActiveOrdersPerPage(int partNumber);
+    List<TaxiOrderEntity> getOldOrdersPerPage(int partNumber);
+
+    /**
+     * @author Vadym Akymov
+     * @return pages count of taxi order
+     */
+    int getActiveTaxiOrderPagesCount();
+    int getOldTaxiOrderPagesCount();
 }

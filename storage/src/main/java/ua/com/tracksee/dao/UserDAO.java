@@ -34,7 +34,8 @@ public interface UserDAO {
      * Checks if the user with specified userId is activated.
      *
      * @param userId specified user's id
-     * @return if the user is activated.
+     * @return TRUE if the user is activated, FALSE if user is not activated,
+     * and null if user not exists
      */
     Boolean accountIsActivated(Integer userId);
 
@@ -65,6 +66,12 @@ public interface UserDAO {
 
     void updateUser(ServiceUserEntity serviceUserEntity);
 
+    /**
+     * Returns user with the specified email address.
+     *
+     * @param email user's email
+     * @return user with the specified email address or null if user not exists
+     */
     ServiceUserEntity getUserByEmail(String email);
 
     void createUser(ServiceUserEntity serviceUserEntity);
@@ -78,10 +85,7 @@ public interface UserDAO {
 
     ServiceUserEntity getUserById(int id);
 
-
     List<String> getDriversEmails();
-
-    boolean checkUserByEmail(String email);
 
     Integer getUserIdByEmail(String email);
 

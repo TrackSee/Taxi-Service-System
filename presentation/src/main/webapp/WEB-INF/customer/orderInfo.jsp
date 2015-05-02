@@ -50,7 +50,7 @@
                     <div class="title"><h3>Information about order</h3></div>
                     <p>
                         ${successAlert}
-                    <form method="post" action="<c:url value="/orderInfo"/>">
+                    <form method="post" action="<c:url value="/order/info"/>">
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-danger btn-large">Refuse order</button>
