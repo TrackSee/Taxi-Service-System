@@ -64,7 +64,7 @@ public class TestBeanBean {
         int ignoredTimes=user.getIgnoredTimes();
         TaxiOrderEntity order = createOrder(user);
         if (orderDAO.getOrder(order.getTrackingNumber()) != null) {
-            System.out.println("order was created");
+            System.out.println("order was created"+order.getTrackingNumber());
             boolean rez = cancellationBean.cancelOrder(order.getTrackingNumber());
             System.out.println("The order wos deleted?" + rez);
         } else System.out.println("ERROR order DOES NOT added to DB");
@@ -73,7 +73,13 @@ public class TestBeanBean {
         else {System.out.println("ERROR user ignored times false");
         System.out.println("The user ingnored times is "+user.getIgnoredTimes());
         }
-
+//        boolean rez = cancellationBean.cancelOrder(1232164653);
+//        if(rez)logger.error("THE NON EXISTED ORDER WAS REFUSED");
+//        else System.out.println("yapy dont refuse non exisded order");
+//        TaxiOrderEntity orderWhitoutUser=createOrder(new ServiceUserEntity());
+//        rez = cancellationBean.cancelOrder(orderWhitoutUser.getTrackingNumber());
+//        if(rez)logger.error("CANSEL ORDER WHITHOUT USER!!! FUUUUUCK");
+//        else System.out.println("ha if no costumer no order mast beee");
     }
 
     /*

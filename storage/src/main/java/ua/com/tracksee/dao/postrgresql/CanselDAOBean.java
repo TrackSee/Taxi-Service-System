@@ -52,18 +52,18 @@ public class CanselDAOBean {
         return query.executeUpdate();
     }
     public boolean canselOrder(long trackingNumber){
-        EntityTransaction transaction=entityManager.getTransaction();
-        transaction.begin();
+//        EntityTransaction transaction=entityManager.getTransaction();
+//        transaction.begin();
         setRefusedOrder(trackingNumber);
         try {
             incrimentUserIgnoredTimes(trackingNumber);
         } catch (SQLException e) {
             logger.error("something wrong when incriment \"ignored times\" for user ");
             logger.error(e.toString());
-            transaction.rollback();
+//            transaction.rollback();
             return false;
         }
-        transaction.commit();
+//        transaction.commit();
         return true;
     }
 
