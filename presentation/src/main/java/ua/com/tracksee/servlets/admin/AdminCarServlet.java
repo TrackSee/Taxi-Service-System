@@ -31,16 +31,16 @@ public class AdminCarServlet extends HttpServlet {
     private CarDAO carDAO;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("GEEEEEEEEEET");
+
         List<CarEntity> cars = carDAO.getCarsPart(1);
         req.setAttribute("cars", cars);
-        System.out.println("PAGES COUNT" + carDAO.getCarPagesCount());
+
         req.setAttribute("pagesCount", carDAO.getCarPagesCount());
         req.getRequestDispatcher("/WEB-INF/admin/adminCarList.jsp").forward(req, resp);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("POOOOOOOOOOSt");
+
        String pageParam = req.getParameter("pageNumber");
         Integer pageNumber = null;
         //check pageNumber
@@ -54,11 +54,9 @@ public class AdminCarServlet extends HttpServlet {
             pageNumber = 1;
             logger.warn("wrong page was request on /admin/drivers");
         }
- System.out.println("PageNumber" + pageNumber);
         List<CarEntity> cars = carDAO.getCarsPart(pageNumber);
         req.setAttribute("cars", cars);
         req.setAttribute("pagesCount", carDAO.getCarPagesCount());
-  System.out.println("json: " + getJsonFromList(cars));
         resp.getWriter().write(getJsonFromList(cars));
     }
 
