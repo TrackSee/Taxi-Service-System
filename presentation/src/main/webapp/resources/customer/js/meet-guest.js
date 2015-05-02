@@ -1,7 +1,6 @@
 /**
  * author Sharaban Sasha
  */
-
 $(document).ready(function() {
 
     $('#service').on('change', function() {
@@ -12,4 +11,3 @@ $(document).ready(function() {
         }
     });
 });
-
