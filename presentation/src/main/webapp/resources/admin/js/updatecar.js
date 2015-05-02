@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     var data = {};
 
-    $('#updateCar').click(function(){
+    $('#addCar').click(function(){
        // data["carNumber"] = $('input[name = carNumber]', '#updateItCar').val();
         data["carModel"] = $('input[name = carModel]', '#updateItCar').val();
         data["color"] = $('input[name = carColor]', '#updateItCar').val();
