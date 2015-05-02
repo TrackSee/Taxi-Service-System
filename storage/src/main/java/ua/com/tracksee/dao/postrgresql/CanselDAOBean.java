@@ -1,5 +1,9 @@
 package ua.com.tracksee.dao.postrgresql;
 
+import ua.com.tracksee.dao.TaxiOrderDAO;
+import ua.com.tracksee.enumartion.OrderStatus;
+
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,6 +14,8 @@ import javax.persistence.Query;
  */
 @Stateless(name = "CanselDAOBeanEJB")
 public class CanselDAOBean {
+    @EJB
+    TaxiOrderDAO taxiOrderDAO;
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
     private int incrimentUserIgnoredTimes(long orderId){
@@ -30,7 +36,17 @@ public class CanselDAOBean {
         query.setParameter(1,orderId);
         return query.executeUpdate();
     }
-    public void canselOrder(long orderId){
-        incrimentUserIgnoredTimes(orderId);
+    private int setRefusedOrder(long orderId){
+        String sql ="UPDATE taxi_order\n" +
+                "SET status=?1\n" +
+                "WHERE tracking_number=?2";
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1,OrderStatus.REFUSED.toString());
+        query.setParameter(2, orderId);
+        return query.executeUpdate();
+    }
+    public void canselOrder(long trackingNumber){
+        setRefusedOrder(trackingNumber);
+        incrimentUserIgnoredTimes(trackingNumber);
     }
 }

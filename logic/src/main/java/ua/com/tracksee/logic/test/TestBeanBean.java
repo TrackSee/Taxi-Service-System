@@ -61,15 +61,18 @@ public class TestBeanBean {
 //            System.out.println("User email: "+serviceUserEntity.getEmail());
 //        }
         ServiceUserEntity user = createRandomUser();
+        int ignoredTimes=user.getIgnoredTimes();
         TaxiOrderEntity order = createOrder(user);
-        System.out.println("Search for order -" + order.getTrackingNumber());
         if (orderDAO.getOrder(order.getTrackingNumber()) != null) {
-            System.out.println("Try delete order: " + order.getTrackingNumber());
+            System.out.println("order was created");
             boolean rez = cancellationBean.cancelOrder(order.getTrackingNumber());
             System.out.println("The order wos deleted?" + rez);
-        } else System.out.println("The order does not exist");
+        } else System.out.println("ERROR order DOES NOT added to DB");
         user=userDAO.getUserById(order.getUserId());
+        if(user.getIgnoredTimes()==ignoredTimes+1) System.out.println("all normal user ignored times incruased");
+        else {System.out.println("ERROR user ignored times false");
         System.out.println("The user ingnored times is "+user.getIgnoredTimes());
+        }
 
     }
 
