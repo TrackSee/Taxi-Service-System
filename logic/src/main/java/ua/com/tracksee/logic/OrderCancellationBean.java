@@ -26,7 +26,12 @@ public class OrderCancellationBean {
     @EJB
     CanselDAOBean canselDAO;
     public boolean cancelOrder(long trackingNumber) {
+        if(taxiOrderDAO.getOrder(trackingNumber)!=null)
         canselDAO.canselOrder(trackingNumber);
-        return false;
+        else {
+            logger.error("No taxi order whith tracking number="+trackingNumber+" was found");
+            return false;
+        }
+        return true;
     }
 }
