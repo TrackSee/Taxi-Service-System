@@ -18,6 +18,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static ua.com.tracksee.enumartion.OrderStatus.QUEUED;
@@ -59,13 +61,13 @@ public class TestBeanBean {
 //            System.out.println("User email: "+serviceUserEntity.getEmail());
 //        }
         ServiceUserEntity user = createRandomUser();
-//        TaxiOrderEntity order = createOrder(user);
-//        System.out.println("Search for order -" + order.getTrackingNumber());
-//        if (orderDAO.getOrder(order.getTrackingNumber()) != null) {
-//            System.out.println("Try delete order: " + order.getTrackingNumber());
-//            boolean rez = cancellationBean.cancelOrder(order.getTrackingNumber());
-//            System.out.println("The order wos deleted?" + rez);
-//        } else System.out.println("The order does not exist");
+        TaxiOrderEntity order = createOrder(user);
+        System.out.println("Search for order -" + order.getTrackingNumber());
+        if (orderDAO.getOrder(order.getTrackingNumber()) != null) {
+            System.out.println("Try delete order: " + order.getTrackingNumber());
+            boolean rez = cancellationBean.cancelOrder(order.getTrackingNumber());
+            System.out.println("The order wos deleted?" + rez);
+        } else System.out.println("The order does not exist");
 
     }
 
@@ -112,9 +114,18 @@ public class TestBeanBean {
         order.setFreeWifi(true);
         order.setNonSmokingDriver(true);
         order.setAirConditioner(false);
+        Timestamp timestamp = null;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Date parsedDate = dateFormat.parse("1994-12-12 21:32");
+            timestamp = new java.sql.Timestamp(parsedDate.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        order.setArriveDate(timestamp);
+        order.setEndDate(timestamp);
         Long trackingNumber = taxiOrderDAO.addOrder(order);
         order.setTrackingNumber(trackingNumber);
-        order.setArriveDate(new Timestamp(new Date().getTime()));
         return order;
     }
 }
