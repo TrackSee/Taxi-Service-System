@@ -49,6 +49,7 @@ public class AdminCreateCarServlet extends HttpServlet {
         System.out.println("CAR: " + sb.toString());
         ObjectMapper mapper = new ObjectMapper();
         CarEntity car = mapper.readValue(sb.toString(), CarEntity.class);
+        System.out.println("CATEGORY " + car.getCarCategory());
         System.out.println("numb:" + car.getCarNumber());
         administratorBean.createCar(car);
 //

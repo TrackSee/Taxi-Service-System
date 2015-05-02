@@ -44,16 +44,18 @@ public class CarDAOBean implements CarDAO {
 
     @Override
     public void updateCar(CarEntity carEntity) {
-        String sql = "UPDATE car SET car_model = ?, color = ? ,animal_transportation_applicable = ?, " +
+        String sql = "UPDATE car SET car_model = ?, color = ?, car_category = ? ,animal_transportation_applicable = ?, " +
                 "free_wifi = ? , air_conditioner = ? " +
                 " WHERE car_number = ?" ;
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, carEntity.getCarModel());
         query.setParameter(2, carEntity.getColor());
-        query.setParameter(3, carEntity.getAnimalTransportationApplicable());
-        query.setParameter(4, carEntity.getFreeWifi());
-        query.setParameter(5, carEntity.getAirConditioner());
-        query.setParameter(6, carEntity.getCarNumber());
+        query.setParameter(3, carEntity.getCarCategory());
+        query.setParameter(4, carEntity.getAnimalTransportationApplicable());
+        query.setParameter(5, carEntity.getFreeWifi());
+        query.setParameter(6, carEntity.getAirConditioner());
+        query.setParameter(7, carEntity.getCarNumber());
+
         query.executeUpdate();
     }
 
