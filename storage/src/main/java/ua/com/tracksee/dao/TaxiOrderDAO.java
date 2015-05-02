@@ -24,7 +24,7 @@ public interface TaxiOrderDAO {
      *
      * @author Sharaban Sasha
      * @param order - order entity which will be insert into database
-     * @return tracking number
+     * @return tracking number of inserted order
      */
     Long addOrder(TaxiOrderEntity order);
     /**
@@ -49,6 +49,14 @@ public interface TaxiOrderDAO {
 
     List<TaxiOrderEntity> getQueuedOrders();
 
+    /**
+     * This method returns the order by tracking
+     * number.
+     *
+     * @author Sharaban Sasha
+     * @param trackingNumber - the tracking number of which will return the order
+     * @return TaxiOrderEntity which contain information about order
+     */
     TaxiOrderEntity getOrder(Long trackingNumber);
 
     /**

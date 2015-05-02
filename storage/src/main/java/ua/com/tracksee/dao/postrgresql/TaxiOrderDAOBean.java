@@ -48,7 +48,6 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         //TODO insert into taxi items
         //     "INSERT INTO taxi_order_item (tracking_numer, path, ordered_quantity, driver_id) VALUES ()"
 
-        System.out.println("Here "+orderEntity.getArriveDate());
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1,orderEntity.getDescription());
         query.setParameter(2, orderEntity.getStatus().toString());
@@ -94,7 +93,11 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @Override
     public TaxiOrderEntity getOrder(Long trackingNumber) {
-        return null;
+        String sql="SELECT * FROM taxi_order WHERE tracking_number=(?)";
+
+        Query query = entityManager.createNativeQuery(sql,TaxiOrderEntity.class);
+        query.setParameter(1,trackingNumber);
+        return (TaxiOrderEntity)query.getSingleResult();
     }
 
     @Override

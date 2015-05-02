@@ -49,7 +49,7 @@
                                         <a href="<c:url value="/orderComplete"/>">Order</a>
                                     </li>
                                     <li <c:if test="${requestScope.pageName == 'orderInformation'}">class="active"</c:if>>
-                                        <a href="<c:url value="/order/info"/>">Order information</a>
+                                        <a href="<c:url value="/orderInfo"/>">Order information</a>
                                     </li>
                                     <c:if test="${sessionScope.userId == null}">
                                         <li <c:if test="${requestScope.pageName == 'signIn'}">class="active"</c:if>>

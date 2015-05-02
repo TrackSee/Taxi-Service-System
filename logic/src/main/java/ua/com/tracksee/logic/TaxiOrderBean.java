@@ -316,7 +316,7 @@ public class TaxiOrderBean {
      *
      * @author Sharaban Sasha
      * @param date - date in string format
-     * @return date converted from string to Timestemp
+     * @return date converted from string to Timestamp
      * @exception ua.com.tracksee.logic.exception.OrderException
      */
     private Timestamp convertToTimestamp(String date) throws OrderException {
@@ -329,6 +329,13 @@ public class TaxiOrderBean {
             throw new OrderException("Invalid date, cannot be parsed","invalid-date");
         }
         return timestamp;
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see TaxiOrderDAO
+     */
+    public TaxiOrderEntity getAdditionalInfo(long trackingNumber){
+        return taxiOrderDAO.getOrder(trackingNumber);
     }
 
 }
