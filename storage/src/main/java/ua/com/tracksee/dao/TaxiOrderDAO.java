@@ -43,4 +43,12 @@ public interface TaxiOrderDAO {
      */
     int getActiveTaxiOrderPagesCount();
     int getOldTaxiOrderPagesCount();
+
+    /**
+     * @author Oleksandr Kozin
+     * @param orderDateFrom -
+     * @param orderDateTo -
+     * @return list of order's item
+     */
+    int getOrdersByPeriod(String orderDateFrom, String orderDateTo);
 }

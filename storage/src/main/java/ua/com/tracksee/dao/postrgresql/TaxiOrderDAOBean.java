@@ -3,7 +3,6 @@ package ua.com.tracksee.dao.postrgresql;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
-import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 
 import javax.ejb.Stateless;
@@ -11,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.math.BigInteger;
-import java.sql.Date;
 import java.util.List;
 
 /**
@@ -98,6 +96,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(2, (partNumber - 1)*TO_ORDERS_PER_PAGE);
         return query.getResultList();
     }
+
     @Override
     public List<TaxiOrderEntity> getOldOrdersPerPage(int partNumber) {
         if(partNumber <= 0) {
@@ -111,12 +110,22 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(2, (partNumber - 1)*TO_ORDERS_PER_PAGE);
         return query.getResultList();
     }
-
     @Override
     public int getActiveTaxiOrderPagesCount() {
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order WHERE " +
                 "status != 'COMPLETED'");
         BigInteger generalOrderCount = (BigInteger) q.getSingleResult();
         return (int) Math.ceil(generalOrderCount.intValue()/ (double) TO_ORDERS_PER_PAGE);
+    }
+
+    @Override
+    public int getOrdersByPeriod(String dateFrom, String dateTo) {
+//        date format '2015-04-26'
+//        SELECT COUNT(*) FROM taxi_order WHERE ordered_date >= '2015-04-26' AND ordered_date <= '2015-04-29'
+        String sql = "SELECT COUNT(*) FROM taxi_order WHERE ordered_date >= '" + dateFrom + "'" +
+                " AND ordered_date <= '" + dateTo + "'";
+        Query query = entityManager.createNativeQuery(sql);
+        BigInteger count = (BigInteger) query.getSingleResult();
+        return count.intValue();
     }
 }
