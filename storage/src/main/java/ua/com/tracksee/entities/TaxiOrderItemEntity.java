@@ -3,6 +3,7 @@ package ua.com.tracksee.entities;
 import org.postgresql.geometric.PGpath;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -10,15 +11,15 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "taxi_order_item", schema = "public", catalog = "tracksee")
-//@IdClass(TaxiOrderItemEntityPK.class)
-public class TaxiOrderItemEntity {
+@IdClass(TaxiOrderItemEntityPK.class)
+public class TaxiOrderItemEntity implements Serializable {
     private Integer taxiItemId;
     private PGpath path;
-//    private Integer trackingNumber;
-//    private Integer driver_id;
+    private Integer trackingNumber;
+    private Integer driver_id;
     //private BigDecimal orderedQuantity;
-    private ServiceUserEntity driver;
-    private TaxiOrderEntity taxiOrder;
+//    private ServiceUserEntity driver;
+//    private TaxiOrderEntity taxiOrder;
 
     @Id
    // @GeneratedValue
@@ -41,25 +42,25 @@ public class TaxiOrderItemEntity {
         this.path = path;
     }
 
-//    @Basic
-//    @Column(name = "driver_id")
-//    public Integer getDriver_id() {
-//        return driver_id;
-//    }
-//
-//    public void setDriver_id(Integer driver_id) {
-//        this.driver_id = driver_id;
-//    }
-//
-//    @Id
-//    @Column(name = "tracking_numer")
-//    public Integer getTrackingNumber() {
-//        return trackingNumber;
-//    }
-//
-//    public void setTrackingNumber(Integer tracking_number) {
-//        this.trackingNumber = tracking_number;
-//    }
+    @Basic
+    @Column(name = "driver_id")
+    public Integer getDriver_id() {
+        return driver_id;
+    }
+
+    public void setDriver_id(Integer driver_id) {
+        this.driver_id = driver_id;
+    }
+
+    @Id
+    @Column(name = "tracking_numer")
+    public Integer getTrackingNumber() {
+        return trackingNumber;
+    }
+
+    public void setTrackingNumber(Integer tracking_number) {
+        this.trackingNumber = tracking_number;
+    }
 
 //    @Basic
 //    @Column(name = "ordered_quantity")
@@ -85,23 +86,23 @@ public class TaxiOrderItemEntity {
         return Objects.hash(taxiItemId, path);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "driver_id", referencedColumnName = "user_id")
-    public ServiceUserEntity getDriver() {
-        return driver;
-    }
-
-    public void setDriver(ServiceUserEntity serviceUserByDriverId) {
-        this.driver = serviceUserByDriverId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "tracking_numer", referencedColumnName = "tracking_number")
-    public TaxiOrderEntity getTaxiOrder() {
-        return taxiOrder;
-    }
-
-    public void setTaxiOrder(TaxiOrderEntity taxiOrderByTrackingNumer) {
-        this.taxiOrder = taxiOrderByTrackingNumer;
-    }
+//    @ManyToOne
+//    @JoinColumn(name = "driver_id", referencedColumnName = "user_id")
+//    public ServiceUserEntity getDriver() {
+//        return driver;
+//    }
+//
+//    public void setDriver(ServiceUserEntity serviceUserByDriverId) {
+//        this.driver = serviceUserByDriverId;
+//    }
+//
+//    @ManyToOne
+//    @JoinColumn(name = "tracking_numer", referencedColumnName = "tracking_number")
+//    public TaxiOrderEntity getTaxiOrder() {
+//        return taxiOrder;
+//    }
+//
+//    public void setTaxiOrder(TaxiOrderEntity taxiOrderByTrackingNumer) {
+//        this.taxiOrder = taxiOrderByTrackingNumer;
+//    }
 }

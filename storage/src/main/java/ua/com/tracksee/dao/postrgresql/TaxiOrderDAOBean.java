@@ -141,12 +141,10 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         String sql = "SELECT * FROM taxi_order_item " +
                 "INNER JOIN taxi_order " +
                 "ON taxi_order_item.tracking_numer = taxi_order.tracking_number " +
-                "AND tracking_numer = 6";
+                "AND tracking_numer = ?";
         Query query = entityManager.createNativeQuery(sql, TaxiOrderItemEntity.class);
+        query.setParameter(1,taxiOrderEntity.getTrackingNumber());
         return (TaxiOrderItemEntity) query.getSingleResult();
-       // query.setParameter(1,taxiOrderEntity.getTrackingNumber());
-//        PGpath path = (PGpath) query.getSingleResult();
-//        return path;
     }
 
 

@@ -71,26 +71,27 @@ public class DriverOrderBean {
         }
     }
 
-    public Map<Long, String> getStringAddressForList(List<TaxiOrderEntity> taxiOrderEntityList){
-        Map<Long, String> addressMap = new HashMap<Long, String>();
+    public Map<Integer, String> getStringAddressForList(List<TaxiOrderEntity> taxiOrderEntityList){
+        Map<Integer, String> addressMap = new HashMap<Integer, String>();
         for(TaxiOrderEntity taxiOrderEntity : taxiOrderEntityList){
            TaxiOrderItemEntity taxiOrderItemEntity = taxiOrderDao.getPgPath(taxiOrderEntity);
 //            PGpath pGpath = taxiOrderDao.getPgPath(taxiOrderEntity);
-            PGpath pGpath = taxiOrderItemEntity.getPath();
-            List<String> addressList = getAddressList(pGpath);
-            for(String address : addressList){
-                addressMap.put(taxiOrderEntity.getTrackingNumber(), address);
-            }
+//            PGpath pGpath = taxiOrderItemEntity.getPath();
+//            List<String> addressList = getAddressList(pGpath);
+//            for(String address : addressList){
+//                addressMap.put(taxiOrderEntity.getTrackingNumber(), address);
+//            }
         }
         return addressMap;
     }
 
+    //Todo end this method
     public List<String> getAddressList(PGpath pGpath){
-        String path = pGpath.toString();
+        //String path = pGpath.toString();
         String lng;
         String lat;
         List<String> addresses = new ArrayList<String>();
-        addresses.add(path);
+        //addresses.add(path);
         //String address = getAddressByGpsCoordinates(lng, lat);
         return addresses;
     }

@@ -20,7 +20,7 @@ import java.util.Map;
  */
 
 @WebServlet("driver/history-of-orders")
-public class HistoryDriverServlet extends HttpServlet {
+public class HistoryDriverServlet extends HttpServlet{
     private static Logger logger = LogManager.getLogger();
 
     int id = 6;
@@ -31,7 +31,7 @@ public class HistoryDriverServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<TaxiOrderEntity> orders = driverOrderBean.getHistoryOfOrders(id);
-        Map<Long, String> addresses = driverOrderBean.getStringAddressForList(orders);
+        Map<Integer, String> addresses = driverOrderBean.getStringAddressForList(orders);
         req.setAttribute("orders", orders);
         //req.setAttribute("addresses", addresses);
         //req.setAttribute("pagesCount", driverOrderBean.getOrdersPagesCount(id));
