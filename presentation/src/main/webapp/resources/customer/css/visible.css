@@ -1,0 +1,34 @@
+/*
+* author Sharaban Sasha
+*/
+
+#hideTrackingNumber{
+    display: none;
+}
+#hideTrackingNumberSecond{
+    display: none;
+}
+#hideSuccess{
+    display: none;
+}
+#hideSuccessShow{
+    display: inline;
+}
+#hideError{
+    display: none;
+}
+#hideErrorShow{
+    display: inline;
+}
+#hideRefuseSuccess{
+    display: none;
+}
+#hideRefuseSuccessShow{
+    display: inline;
+}
+#hideRefuseError{
+    display: none;
+}
+#hideRefuseErrorShow{
+    display: inline;
+}

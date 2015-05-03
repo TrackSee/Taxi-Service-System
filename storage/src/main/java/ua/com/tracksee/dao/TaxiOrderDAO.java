@@ -3,6 +3,7 @@ package ua.com.tracksee.dao;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 
 import javax.ejb.Local;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -19,14 +20,43 @@ public interface TaxiOrderDAO {
     void addComment(TaxiOrderEntity taxiOrderEntity);
 
     /**
+     * This method insert order into database
+     *
      * @author Sharaban Sasha
      * @param order - order entity which will be insert into database
-     * @return tracking number
+     * @return tracking number of inserted order
      */
     Long addOrder(TaxiOrderEntity order);
+    /**
+     * This method update inserted order by
+     * setting arrive;
+     *
+     * @author Sharaban Sasha
+     * @param arriveDate - arrive date from order
+     * @param trackingNumber - tracking number of inserted order
+     */
+    void addArriveDate(Timestamp arriveDate,long trackingNumber);
+    /**
+     * This method update inserted order by
+     * setting end date;
+     *
+     * @author Sharaban Sasha
+     * @param endDate - end date from order
+     * @param trackingNumber - tracking number of inserted order
+     */
+    void addEndDate(Timestamp endDate,long trackingNumber);
+
 
     List<TaxiOrderEntity> getQueuedOrders();
 
+    /**
+     * This method returns the order by tracking
+     * number.
+     *
+     * @author Sharaban Sasha
+     * @param trackingNumber - the tracking number of which will return the order
+     * @return TaxiOrderEntity which contain information about order
+     */
     TaxiOrderEntity getOrder(Long trackingNumber);
 
     /**
