@@ -58,7 +58,6 @@ public class SignInServlet extends HttpServlet {
             resp.getWriter().append(ERROR);
             return;
         }
-
         session = req.getSession(true);
         session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_INTERVAL);
         session.setAttribute("userId", user.getUserId());
