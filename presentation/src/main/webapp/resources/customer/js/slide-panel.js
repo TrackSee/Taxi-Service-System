@@ -7,9 +7,16 @@
  * author Sharaban Sasha
  */
 
+//if turn status true - panel is hidden
+var turnStatus = true;
 $(document).ready(function () {
-    $("#flip").click(function () {
-        $('#panel').slideDown("slow");
-        $('#flip').hide();
-    });
+    $('#panel').css('display', 'none');
+});
+$('.turnButton').click(function(){
+    if(turnStatus == false) {
+        $('#panel').css('display', 'none');
+    } else {
+        $('#panel').css('display', 'block');
+    }
+    turnStatus = !turnStatus;
 });
