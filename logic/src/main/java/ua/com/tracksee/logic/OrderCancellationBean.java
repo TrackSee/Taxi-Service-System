@@ -27,7 +27,6 @@ public class OrderCancellationBean {
     CanselDAOBean canselDAO;
     public boolean cancelOrder(long trackingNumber) {
         //TODO check is exist order first
-        TaxiOrderEntity order= taxiOrderDAO.getOrder(trackingNumber);
         canselDAO.canselOrder(trackingNumber);
         int refusedTimes= canselDAO.getUserRefusedTimes(trackingNumber);
         if(refusedTimes>2){

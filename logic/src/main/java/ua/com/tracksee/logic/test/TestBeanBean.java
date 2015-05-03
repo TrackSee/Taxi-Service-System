@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
+import ua.com.tracksee.dao.postrgresql.CanselDAOBean;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.enumartion.*;
@@ -48,28 +49,26 @@ public class TestBeanBean {
     TaxiOrderBean taxiOrderBean;
     @EJB
     TaxiOrderDAO orderDAO;
+    @EJB
+    CanselDAOBean canselDAO;
 
     public TestBeanBean() {
     }
 
     @PostConstruct
     public void test() {
-        System.out.println("i AM A TEST!!!!!!!!!!!");
-//        Query query=entityManager.createNativeQuery("SELECT * FROM service_user", ServiceUserEntity.class);
-//        List<ServiceUserEntity> users = query.getResultList();
-//        for (ServiceUserEntity serviceUserEntity :users) {
-//            System.out.println("User email: "+serviceUserEntity.getEmail());
-//        }
         ServiceUserEntity user = createRandomUser();
-        int ignoredTimes=user.getIgnoredTimes();
+        int startIgnoredTimes=user.getIgnoredTimes();
         TaxiOrderEntity order = createOrder(user);
-        if (orderDAO.getOrder(order.getTrackingNumber()) != null) {
-            System.out.println("order was created"+order.getTrackingNumber());
-            boolean rez = cancellationBean.cancelOrder(order.getTrackingNumber());
-            System.out.println("The order wos deleted?" + rez);
-        } else System.out.println("ERROR order DOES NOT added to DB");
-        user=userDAO.getUserById(order.getUserId());
-        if(user.getIgnoredTimes()==ignoredTimes+1) System.out.println("all normal user ignored times incruased");
+        System.out.println("The user "+user.getEmail()+" ingnored times is "+startIgnoredTimes);
+        long trackingNumber=order.getTrackingNumber();
+        if (orderDAO.getOrder(trackingNumber) != null) {
+            System.out.println("order was created"+trackingNumber);
+            boolean rez = cancellationBean.cancelOrder(trackingNumber);
+            System.out.println("The order wos refused?" + rez);
+        } else {System.out.println("ERROR order DOES NOT added to DB");}
+        int endIgnoredTimes=canselDAO.getUserRefusedTimes(order.getTrackingNumber());
+        if(endIgnoredTimes==startIgnoredTimes+1) System.out.println("all normal user ignored times incruased");
         else {System.out.println("ERROR user ignored times false");
         System.out.println("The user ingnored times is "+user.getIgnoredTimes());
         }
@@ -87,17 +86,18 @@ public class TestBeanBean {
      */
     private ServiceUserEntity createRandomUser() {
         ServiceUserEntity user = new ServiceUserEntity();
-        user.setEmail("test" + (int) (Math.random() * 25) + "@gmail.com");
+//        user.setEmail("test" + (int) (Math.random() * 25) + "@gmail.com");
+        user.setEmail("test" + 20 + "@gmail.com");
         user.setPassword("none");
-        checkUserPresent(user);
+        user=checkUserPresent(user);
         System.out.println(user.getUserId() == userDAO.getUserIdByEmail(user.getEmail()));
         return user;
     }
 
     private ServiceUserEntity checkUserPresent(ServiceUserEntity serviceUserEntity) {
         if (userDAO.getUserIdByEmail(serviceUserEntity.getEmail()) != null) {
-            logger.info("User was found");
-            serviceUserEntity.setUserId(userDAO.getUserIdByEmail(serviceUserEntity.getEmail()));
+            System.out.println("User was found");
+            serviceUserEntity=userDAO.getUserByEmail(serviceUserEntity.getEmail());
         } else {
             logger.info("User was not found");
             serviceUserEntity.setActivated(false);

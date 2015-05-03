@@ -82,4 +82,5 @@ public class CanselDAOBean {
         query.setParameter(1,trackingNumber);
         return (Integer)query.getSingleResult();
     }
+
 }
