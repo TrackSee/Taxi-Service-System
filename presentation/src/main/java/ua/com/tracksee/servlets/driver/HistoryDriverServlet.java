@@ -2,6 +2,7 @@ package ua.com.tracksee.servlets.driver;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.logic.driver.DriverOrderBean;
 
@@ -13,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Maria Komar on 20.04.2015.
@@ -30,9 +30,10 @@ public class HistoryDriverServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<TaxiOrderEntity> orders = driverOrderBean.getHistoryOfOrders(id);
-        Map<Integer, String> addresses = driverOrderBean.getStringAddressForList(orders);
+        List<TaxiOrderEntity> orders = driverOrderBean.getHistoryOfOrders(id, 1);
+        //Map<Integer, String> addresses = driverOrderBean.getStringAddressForList(orders);
         req.setAttribute("orders", orders);
+        req.setAttribute("pagesCount", driverOrderBean.getOrdersPagesCount(id));
         //req.setAttribute("addresses", addresses);
         //req.setAttribute("pagesCount", driverOrderBean.getOrdersPagesCount(id));
         req.getRequestDispatcher("/WEB-INF/driver/historyDriverTo.jsp").forward(req,resp);
@@ -40,9 +41,20 @@ public class HistoryDriverServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<TaxiOrderEntity> orders = driverOrderBean.getHistoryOfOrders(id);
+        List<TaxiOrderEntity> orders = driverOrderBean.getHistoryOfOrders(id, 1);
         req.setAttribute("orders", orders);
         req.setAttribute("pagesCount", driverOrderBean.getOrdersPagesCount(id));
         req.getRequestDispatcher("/WEB-INF/driver/historyDriverTo.jsp").forward(req,resp);
+    }
+
+    private String getJsonFromList(List<TaxiOrderEntity> orders){
+        ObjectMapper mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(orders);
+        } catch (IOException e) {
+            json = "";
+        }
+        return json;
     }
 }

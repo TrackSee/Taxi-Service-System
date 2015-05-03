@@ -20,9 +20,9 @@ public interface TaxiOrderDAO {
 
     Integer addOrder(TaxiOrderEntity taxiOrderEntity);
 
-    public List<TaxiOrderEntity> getAvailableOrders(ServiceUserEntity driver);
+    public List<TaxiOrderEntity> getAvailableOrders(ServiceUserEntity driver, int pageNumber);
 
-    public List<TaxiOrderEntity> getHistoryOfOrders(int id);
+    public List<TaxiOrderEntity> getHistoryOfOrders(int id, int pageNumber);
 
     public TaxiOrderEntity getAssignedOrder(int id);
 

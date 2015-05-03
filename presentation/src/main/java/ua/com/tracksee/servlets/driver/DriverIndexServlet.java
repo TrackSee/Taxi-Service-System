@@ -1,6 +1,8 @@
 package servlets.driver;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.dao.postrgresql.UserDAOBean;
+import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.logic.driver.DriverBean;
@@ -36,8 +38,20 @@ public class DriverIndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServiceUserEntity driver = driverBean.getUserById(id);
-        List<TaxiOrderEntity> orders = driverOrderBean.getAvailableOrders(driver);
+        List<TaxiOrderEntity> orders = driverOrderBean.getAvailableOrders(driver, 1);
         req.setAttribute("orders", orders);
+        req.setAttribute("pagesCount", driverOrderBean.getOrdersPagesCount(id));
         req.getRequestDispatcher("/WEB-INF/driver/driverIndex.jsp").forward(req,resp);
+    }
+
+    private String getJsonFromList(List<TaxiOrderEntity> orders){
+        ObjectMapper mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(orders);
+        } catch (IOException e) {
+            json = "";
+        }
+        return json;
     }
 }

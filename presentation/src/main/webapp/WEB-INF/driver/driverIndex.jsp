@@ -96,6 +96,18 @@
                 </c:forEach>
                 </tbody>
               </table>
+              <div class="text-center">
+                <ul class="pagination">
+                  <%--<li class="active"><a href="1">1</a></li>--%>
+                  <c:forEach var="i" begin="1" end="${requestScope.pagesCount}">
+                    <li class="pageLi${i}"><a class="pageButton" href="#">${i}</a></li>
+                  </c:forEach>
+                  <%--<li><a class="pageButton" href="#">2</a></li>--%>
+                  <%--<li><a href="#">3</a></li>--%>
+                  <%--<li><a href="#">4</a></li>--%>
+                  <%--<li><a href="#">5</a></li>--%>
+                </ul>
+              </div>
             </div>
             <!-- /.table-responsive -->
 

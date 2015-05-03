@@ -34,8 +34,8 @@ public class DriverOrderBean {
     @EJB
     private TaxiOrderDAO taxiOrderDao;
 
-    public List<TaxiOrderEntity> getAvailableOrders(ServiceUserEntity driver){
-       return taxiOrderDao.getAvailableOrders(driver);
+    public List<TaxiOrderEntity> getAvailableOrders(ServiceUserEntity driver, int pageNumber){
+       return taxiOrderDao.getAvailableOrders(driver, pageNumber);
     }
 
     public String getAddressByGpsCoordinates(String lng, String lat)
@@ -96,8 +96,8 @@ public class DriverOrderBean {
         return addresses;
     }
 
-    public List<TaxiOrderEntity> getHistoryOfOrders(int id){
-        return taxiOrderDao.getHistoryOfOrders(id);
+    public List<TaxiOrderEntity> getHistoryOfOrders(int id, int pageNumber){
+        return taxiOrderDao.getHistoryOfOrders(id, pageNumber);
     }
 
     public TaxiOrderEntity getAssignedOrder(int id){
