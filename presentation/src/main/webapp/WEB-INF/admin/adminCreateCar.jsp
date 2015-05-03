@@ -77,7 +77,7 @@
         </div>
         <select id="category" class="category form-control" name="category">
             <option value="BUSINESS_CLASS">BUSINESS CLASS</option>
-            <option value="ECONOMY_CLASS">ECONOMY CLASS</option>
+            <option value="ECONOMY_CLASS">ECONOMY_CLASS</option>
             <option value="VAN">VAN</option>
             <option value="USER_CAR">USER_CAR</option>
 

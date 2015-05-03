@@ -3,9 +3,8 @@
  */
 $(document).ready(function () {
 
-    var data = {};
-
     $('#addCar').click(function(){
+        var data = {};
         data["carNumber"] = $('input[name = carNumber]', '#createCar').val();
         data["carModel"] = $('input[name = carModel]', '#createCar').val();
         data["color"] = $('input[name = carColor]', '#createCar').val();
@@ -22,5 +21,6 @@ $(document).ready(function () {
                 window.location.href = 'cars';
             }
         });
+        data = null;
     });
 });

@@ -27,14 +27,13 @@ public class CarDAOBean implements CarDAO {
     //TODO add car_category when db finished
     public void createCar(CarEntity carEntity) {
         String sql = "INSERT INTO car (car_number, car_model , color,  car_category, animal_transportation_applicable ," +
-                " free_wifi, air_conditioner)" +
-//
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                " free_wifi, air_conditioner) " +
+                "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, carEntity.getCarNumber());
         query.setParameter(2, carEntity.getCarModel());
         query.setParameter(3, carEntity.getColor());
-        query.setParameter(4, carEntity.getCarCategory());
+        query.setParameter(4, carEntity.getCarCategory().toString());
         query.setParameter(5, carEntity.getAnimalTransportationApplicable());
         query.setParameter(6, carEntity.getFreeWifi());
         query.setParameter(7, carEntity.getAirConditioner());
