@@ -101,7 +101,7 @@
 <script src="<%=application.getContextPath()%>/resources/admin//bower_components/jquery/dist/jquery.validate.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-<script src="<%=application.getContextPath()%>/resources/admin/js/createcar.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/forcreatecar.js"></script>
 
 
 </body>

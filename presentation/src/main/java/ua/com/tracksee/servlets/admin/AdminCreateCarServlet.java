@@ -31,9 +31,6 @@ public class AdminCreateCarServlet extends HttpServlet {
         req.getRequestDispatcher("/WEB-INF/admin/adminCreateCar.jsp").forward(req, resp);
     }
 
-    /**
-     * Create driver
-     */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         StringBuilder sb = new StringBuilder();
         try {
