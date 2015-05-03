@@ -1,12 +1,10 @@
 package ua.com.tracksee.entities;
 
-import org.postgresql.util.PGmoney;
 import ua.com.tracksee.enumartion.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Objects;
 
 import static javax.persistence.EnumType.STRING;
