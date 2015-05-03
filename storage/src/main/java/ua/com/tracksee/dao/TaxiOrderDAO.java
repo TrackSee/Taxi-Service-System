@@ -1,5 +1,6 @@
 package ua.com.tracksee.dao;
 
+import org.postgresql.geometric.PGpath;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 
@@ -34,4 +35,6 @@ public interface TaxiOrderDAO {
     public void setRefusedOrder(TaxiOrderEntity taxiOrderEntity);
 
     public int getOrdersPagesCount(int id);
+
+    public PGpath getPgPath(TaxiOrderEntity taxiOrderEntity);
 }

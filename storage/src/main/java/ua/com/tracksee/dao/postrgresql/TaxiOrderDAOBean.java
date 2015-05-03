@@ -1,8 +1,10 @@
 package ua.com.tracksee.dao.postrgresql;
 
+import org.postgresql.geometric.PGpath;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
+import ua.com.tracksee.entities.TaxiOrderItemEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -56,7 +58,6 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     @Override
     public List<TaxiOrderEntity> getHistoryOfOrders(int id) {
         String sql = "SELECT * FROM taxi_order " +
-//                "WHERE status = 'Completed'";
                 "INNER JOIN taxi_order_item " +
                 "ON taxi_order.tracking_number = taxi_order_item.tracking_numer" +
                 " AND status = 'Completed' " +
@@ -133,6 +134,17 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
                 "AND taxi_order_item.driver_id = ? AND taxi_order.status = COMPLETED");
         Integer driversCount = ((BigInteger) q.getSingleResult()).intValue();
         return (int) (Math.ceil((double) driversCount / ORDERS_PAGE_SIZE));
+    }
+
+    @Override
+    public PGpath getPgPath(TaxiOrderEntity taxiOrderEntity){
+        String sql = "SELECT path FROM taxi_order_item " +
+                "INNER JOIN taxi_order " +
+                "ON taxi_order_item.tracking_numer = taxi_order.tracking_number " +
+                "AND tracking_numer = 6";
+        Query query = entityManager.createNativeQuery(sql, TaxiOrderItemEntity.class);
+       // query.setParameter(1,taxiOrderEntity.getTrackingNumber());
+        return (PGpath) query.getSingleResult();
     }
 
 

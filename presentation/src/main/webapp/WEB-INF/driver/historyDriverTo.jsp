@@ -81,7 +81,9 @@
                 <tr class="odd gradeX">
                   <td>${order.trackingNumber}</td>
                   <td>${order.carArriveTime}</td>
-                  <td>${"-"}</td>
+                  <td><c:forEach var='adr' items='${addresses}'>
+                  <c:out value='Key=${item.key}, Value=${item.value}'/>
+                </c:forEach></td>
                   <td>${"-"}</td>
                   <td>${order.price}</td>
                   <td>${order.comment}</td>
