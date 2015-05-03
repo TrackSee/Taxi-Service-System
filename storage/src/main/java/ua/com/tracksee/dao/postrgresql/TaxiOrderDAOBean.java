@@ -137,14 +137,16 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     }
 
     @Override
-    public PGpath getPgPath(TaxiOrderEntity taxiOrderEntity){
-        String sql = "SELECT path FROM taxi_order_item " +
+    public TaxiOrderItemEntity getPgPath(TaxiOrderEntity taxiOrderEntity){
+        String sql = "SELECT * FROM taxi_order_item " +
                 "INNER JOIN taxi_order " +
                 "ON taxi_order_item.tracking_numer = taxi_order.tracking_number " +
                 "AND tracking_numer = 6";
         Query query = entityManager.createNativeQuery(sql, TaxiOrderItemEntity.class);
+        return (TaxiOrderItemEntity) query.getSingleResult();
        // query.setParameter(1,taxiOrderEntity.getTrackingNumber());
-        return (PGpath) query.getSingleResult();
+//        PGpath path = (PGpath) query.getSingleResult();
+//        return path;
     }
 
 

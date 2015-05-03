@@ -8,6 +8,7 @@ import org.postgresql.geometric.PGpath;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
+import ua.com.tracksee.entities.TaxiOrderItemEntity;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -73,12 +74,13 @@ public class DriverOrderBean {
     public Map<Long, String> getStringAddressForList(List<TaxiOrderEntity> taxiOrderEntityList){
         Map<Long, String> addressMap = new HashMap<Long, String>();
         for(TaxiOrderEntity taxiOrderEntity : taxiOrderEntityList){
-           // TaxiOrderItemEntity taxiOrderItemEntity = taxiOrderDao.getPgPath(taxiOrderEntity);
-            PGpath pGpath = taxiOrderDao.getPgPath(taxiOrderEntity);
-//            List<String> addressList = getAddressList(pGpath);
-//            for(String address : addressList){
-//                addressMap.put(taxiOrderEntity.getTrackingNumber(), address);
-//            }
+           TaxiOrderItemEntity taxiOrderItemEntity = taxiOrderDao.getPgPath(taxiOrderEntity);
+//            PGpath pGpath = taxiOrderDao.getPgPath(taxiOrderEntity);
+            PGpath pGpath = taxiOrderItemEntity.getPath();
+            List<String> addressList = getAddressList(pGpath);
+            for(String address : addressList){
+                addressMap.put(taxiOrderEntity.getTrackingNumber(), address);
+            }
         }
         return addressMap;
     }

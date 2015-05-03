@@ -1,8 +1,8 @@
 package ua.com.tracksee.dao;
 
-import org.postgresql.geometric.PGpath;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
+import ua.com.tracksee.entities.TaxiOrderItemEntity;
 
 import javax.ejb.Local;
 import java.sql.Timestamp;
@@ -36,5 +36,5 @@ public interface TaxiOrderDAO {
 
     public int getOrdersPagesCount(int id);
 
-    public PGpath getPgPath(TaxiOrderEntity taxiOrderEntity);
+    public TaxiOrderItemEntity getPgPath(TaxiOrderEntity taxiOrderEntity);
 }
