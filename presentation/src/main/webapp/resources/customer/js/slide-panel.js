@@ -8,15 +8,12 @@
  */
 
 //if turn status true - panel is hidden
-var turnStatus = true;
-$(document).ready(function () {
-    $('#panel').css('display', 'none');
-});
+var hiddenStatus = true;
 $('.turnButton').click(function(){
-    if(turnStatus == false) {
+    if(hiddenStatus == false) {
         $('#panel').css('display', 'none');
     } else {
         $('#panel').css('display', 'block');
     }
-    turnStatus = !turnStatus;
+    hiddenStatus = !hiddenStatus;
 });
