@@ -1,5 +1,7 @@
 package ua.com.tracksee.servlets.customer;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.logic.TaxiOrderBean;
@@ -19,15 +21,27 @@ import java.util.List;
  */
 @WebServlet("/customer/get-orders")
 public class GetOrdersPerPage extends HttpServlet {
+    private static final Logger logger = LogManager.getLogger();
     @EJB
     private TaxiOrderBean taxiOrderBean;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String dataType = req.getParameter("type");
         Integer pageNumber = Integer.parseInt(req.getParameter("pageNumber"));
-        List<TaxiOrderEntity> orders = taxiOrderBean.getOrdersPerPage(pageNumber);
-        ObjectMapper mapper = new ObjectMapper();
-        String ordersInJson = mapper.writeValueAsString(orders);
-        resp.getWriter().write(ordersInJson);
+        if ("old".equals(dataType)) {
+            List<TaxiOrderEntity> orders = taxiOrderBean.getOldOrdersPerPage(pageNumber);
+            ObjectMapper mapper = new ObjectMapper();
+            String ordersInJson = mapper.writeValueAsString(orders);
+            resp.getWriter().write(ordersInJson);
+        } else if("active".equals(dataType)){
+            List<TaxiOrderEntity> orders = taxiOrderBean.getActiveOrdersPerPage(pageNumber);
+            ObjectMapper mapper = new ObjectMapper();
+            String ordersInJson = mapper.writeValueAsString(orders);
+            resp.getWriter().write(ordersInJson);
+        } else {
+            logger.warn("wrong parameters in servlet!");
+            throw new IllegalArgumentException("wrong parameters in servlet!");
+        }
     }
 }

@@ -2,8 +2,6 @@ package ua.com.tracksee.logic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.joda.time.DateTimeZone;
-import org.postgresql.util.PGmoney;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.AddressEntity;
@@ -94,24 +92,44 @@ public class TaxiOrderBean {
         TaxiOrderEntity taxiOrderEntity = validateForTaxiOrder(inputData);
         serviceUserEntity=checkUserPresent(serviceUserEntity);
         taxiOrderEntity.setUserId(serviceUserEntity.getUserId());
-        Long trackingNumber = taxiOrderDAO.addOrder(taxiOrderEntity);
-        sendEmail(serviceUserEntity,trackingNumber);
-        return trackingNumber;
+        taxiOrderEntity.setTrackingNumber(taxiOrderDAO.addOrder(taxiOrderEntity));
+        if(taxiOrderEntity.getArriveDate()!=null){
+            taxiOrderDAO.addArriveDate(taxiOrderEntity.getArriveDate(),taxiOrderEntity.getTrackingNumber());
+        }
+        if(taxiOrderEntity.getEndDate()!=null){
+            taxiOrderDAO.addEndDate(taxiOrderEntity.getEndDate(),taxiOrderEntity.getTrackingNumber());
+        }
+        sendEmail(serviceUserEntity,taxiOrderEntity.getTrackingNumber());
+        return taxiOrderEntity.getTrackingNumber();
     }
 
     /**
      * @author Vadym Akymov
      * @see TaxiOrderDAO
      */
-    public List<TaxiOrderEntity> getOrdersPerPage(int pageNumber){
-        return taxiOrderDAO.getOrdersPerPage(pageNumber);
+    public List<TaxiOrderEntity> getActiveOrdersPerPage(int partNumber){
+        return taxiOrderDAO.getActiveOrdersPerPage(partNumber);
     }
     /**
      * @author Vadym Akymov
      * @see TaxiOrderDAO
      */
-    public int getTaxiOrderPagesCount(){
-        return taxiOrderDAO.getTaxiOrderPagesCount();
+    public List<TaxiOrderEntity> getOldOrdersPerPage(int partNumber){
+        return taxiOrderDAO.getOldOrdersPerPage(partNumber);
+    }
+    /**
+     * @author Vadym Akymov
+     * @see TaxiOrderDAO
+     */
+    public int getActiveTaxiOrderPagesCount(){
+        return taxiOrderDAO.getActiveTaxiOrderPagesCount();
+    }
+    /**
+     * @author Vadym Akymov
+     * @see TaxiOrderDAO
+     */
+    public int getOldTaxiOrderPagesCount(){
+        return taxiOrderDAO.getOldTaxiOrderPagesCount();
     }
     /**
      * This method checks whether there is a user who made
@@ -128,15 +146,13 @@ public class TaxiOrderBean {
     private ServiceUserEntity checkUserPresent(ServiceUserEntity serviceUserEntity) {
         if (userDAO.getUserIdByEmail(serviceUserEntity.getEmail()) != null) {
             logger.info("User was found");
-            //TODO working DAO methods
-//            serviceUserEntity.setUserId(userDAO.getUserIdByEmail(serviceUserEntity.getEmail()));
+           serviceUserEntity.setUserId(userDAO.getUserIdByEmail(serviceUserEntity.getEmail()));
         } else {
             logger.info("User was not found");
-            //TODO working DAO methods
-//            serviceUserEntity.setActivated(false);
-//            serviceUserEntity.setUserId(userDAO.addUser(serviceUserEntity));
+            serviceUserEntity.setActivated(false);
+            serviceUserEntity.setPassword("");
+            serviceUserEntity.setUserId(userDAO.addUser(serviceUserEntity));
         }
-        serviceUserEntity.setUserId(32);
         return serviceUserEntity;
     }
 
@@ -152,7 +168,6 @@ public class TaxiOrderBean {
      */
     public void sendEmail(ServiceUserEntity serviceUserEntity, Long trackingNumber)throws MessagingException {
         mailBean.sendOrderConfirmInfo(serviceUserEntity);
-        //TODO check mail send with tracking number and check sending letter
     }
 
     /**
@@ -234,11 +249,16 @@ public class TaxiOrderBean {
         if(!inputData.get("arriveDate").equals("")){
             Timestamp timestamp=convertToTimestamp(inputData.get("arriveDate"));
             taxiOrderEntity.setArriveDate(timestamp);
+        }else{
+            taxiOrderEntity.setArriveDate(null);
         }
         if(!inputData.get("endDate").equals("")){
             Timestamp timestamp=convertToTimestamp(inputData.get("endDate"));
             taxiOrderEntity.setEndDate(timestamp);
+        }else{
+            taxiOrderEntity.setEndDate(null);
         }
+
         if(inputData.get("orderStatus").equals("QUEUED")){
         taxiOrderEntity.setStatus(orderStatus);
         }
@@ -296,7 +316,7 @@ public class TaxiOrderBean {
      *
      * @author Sharaban Sasha
      * @param date - date in string format
-     * @return date converted from string to Timestemp
+     * @return date converted from string to Timestamp
      * @exception ua.com.tracksee.logic.exception.OrderException
      */
     private Timestamp convertToTimestamp(String date) throws OrderException {
@@ -309,6 +329,13 @@ public class TaxiOrderBean {
             throw new OrderException("Invalid date, cannot be parsed","invalid-date");
         }
         return timestamp;
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see TaxiOrderDAO
+     */
+    public TaxiOrderEntity getAdditionalInfo(long trackingNumber){
+        return taxiOrderDAO.getOrder(trackingNumber);
     }
 
 }

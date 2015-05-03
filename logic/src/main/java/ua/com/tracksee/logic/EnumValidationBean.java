@@ -78,6 +78,9 @@ public class EnumValidationBean {
             case "female":
                 enumDriverSex = Sex.F;
                 break;
+            case "anyone":
+                enumDriverSex = Sex.A;
+                break;
             default:
                 enumDriverSex = null;
         }

@@ -16,6 +16,7 @@ import java.util.List;
  * @author Vadym Akymov
  * @author Ruslan Gunavardana
  * @author Katia Stetsiuk
+ * @author Avlasov Sasha
  */
 @Stateless
 public class UserDAOBean implements UserDAO {
@@ -46,6 +47,19 @@ public class UserDAOBean implements UserDAO {
 
         Query query = entityManager.createNativeQuery("SELECT email FROM service_user " +
                 "WHERE driver = TRUE ", String.class);
+        return query.getResultList();
+    }
+
+    /**
+     * @author Katia Stetsiuk
+     * @param email
+     * @return
+     */
+    @Override
+    public List<ServiceUserEntity> getDriverByEmail(String email) {
+        Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
+                "WHERE driver = TRUE and email=?", ServiceUserEntity.class);
+        query.setParameter(1, email);
         return query.getResultList();
     }
 
@@ -211,7 +225,7 @@ public class UserDAOBean implements UserDAO {
         Integer driversCount = ((BigInteger) q.getSingleResult()).intValue();
         return (int) (Math.ceil((double) driversCount / DRIVERS_PAGE_SIZE));
     }
-    
+
     public void deleteUser(int serviceUserId) {
         if(serviceUserId <= 0){
             logger.warn("serviceUserId can't be <= 0");

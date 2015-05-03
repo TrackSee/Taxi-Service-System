@@ -37,17 +37,18 @@ public class TaxiOrderEntity {
     private Timestamp endDate;
 
     @Basic
-    @Column(name = "arrive_date")
+    @Column(name = "arrive_date",nullable = true)
     public Timestamp getArriveDate() {
         return arriveDate;
     }
 
     public void setArriveDate(Timestamp arriveDate) {
         this.arriveDate = arriveDate;
+
     }
 
     @Basic
-    @Column(name="end_date")
+    @Column(name="end_date",nullable = true)
     public Timestamp getEndDate() {
         return endDate;
     }
