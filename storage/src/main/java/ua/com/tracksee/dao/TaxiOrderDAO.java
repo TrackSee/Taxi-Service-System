@@ -17,4 +17,5 @@ public interface TaxiOrderDAO {
     public TaxiOrderEntity getOrder(Integer orderId);
     public int refuseOrder(Integer trackNumber);
     public int updateComment(Integer trackNumber, String comment);
+    public int updateOrder(TaxiOrderEntity entity);
 }

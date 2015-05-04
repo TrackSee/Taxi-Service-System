@@ -37,4 +37,8 @@ public class OrderBean {
     public void updateComment(Integer trackNumber, String comment) {
         taxiOrderDAO.updateComment(trackNumber, comment);
     }
+
+    public void updateOrder(TaxiOrderEntity entity) {
+        taxiOrderDAO.updateOrder(entity);
+    }
 }

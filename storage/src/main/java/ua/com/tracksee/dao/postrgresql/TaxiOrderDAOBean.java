@@ -59,5 +59,21 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         return query.executeUpdate();
     }
 
+    @Override
+    public int updateOrder(TaxiOrderEntity entity) {
+        Query query = entityManager.createNativeQuery("UPDATE taxi_order SET status = ?1," +
+                "driver_sex = ?2, music_style = ?3, animal_transportation = ?4, " +
+                "free_wifi = ?5, smoking_driver = ?6, air_conditioner = ?7 WHERE tracking_number = ?8");
+        query.setParameter(1, entity.getStatus());
+        query.setParameter(2, entity.getDriverSex());
+        query.setParameter(3, entity.getMusicStyle());
+        query.setParameter(4, entity.isAnimalTransportation());
+        query.setParameter(5, entity.isFreeWifi());
+        query.setParameter(6, entity.isSmokingDriver());
+        query.setParameter(7, entity.isAirConditioner());
+        query.setParameter(8, entity.getTrackingNumber());
+        return query.executeUpdate();
+    }
+
 
 }
