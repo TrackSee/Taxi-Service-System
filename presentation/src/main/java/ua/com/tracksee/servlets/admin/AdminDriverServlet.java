@@ -3,7 +3,6 @@ package ua.com.tracksee.servlets.admin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
-import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.logic.admin.AdministratorBean;
 
@@ -25,8 +24,6 @@ public class AdminDriverServlet extends HttpServlet {
 
     @EJB
     private AdministratorBean administratorBean;
-    @EJB
-    private UserDAO userDAO;
 
     /*
      * Get admin page
@@ -35,7 +32,7 @@ public class AdminDriverServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<ServiceUserEntity> drivers = administratorBean.getDrivers(1);
         req.setAttribute("drivers", drivers);
-        req.setAttribute("pagesCount", userDAO.getDriverPagesCount());
+        req.setAttribute("pagesCount", administratorBean.getDriverPagesCount());
         req.getRequestDispatcher("/WEB-INF/admin/adminDriverList.jsp").forward(req, resp);
     }
 
@@ -46,7 +43,7 @@ public class AdminDriverServlet extends HttpServlet {
         //check pageNumber
         try {
             pageNumber = Integer.parseInt(req.getParameter("pageNumber"));
-            if(pageNumber > userDAO.getDriverPagesCount()){
+            if(pageNumber > administratorBean.getDriverPagesCount()){
                 pageNumber = 1;
                 logger.warn("wrong page was request on /admin/drivers");
             }
@@ -54,13 +51,13 @@ public class AdminDriverServlet extends HttpServlet {
             pageNumber = 1;
             logger.warn("wrong page was request on /admin/drivers");
         }
-        System.out.println("PageNumber" + pageNumber);
+//        System.out.println("PageNumber" + pageNumber);
         List<ServiceUserEntity> drivers = administratorBean.getDrivers(pageNumber);
         req.setAttribute("drivers", drivers);
-        req.setAttribute("pagesCount", userDAO.getDriverPagesCount());
-        System.out.println("json: " + getJsonFromList(drivers));
+        req.setAttribute("pagesCount", administratorBean.getDriverPagesCount());
+//        System.out.println("json: " + getJsonFromList(drivers));
         resp.getWriter().write(getJsonFromList(drivers));
-//        resp.setStatus(200);
+
     }
 
     /**

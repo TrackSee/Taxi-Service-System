@@ -35,7 +35,14 @@
 .placement {
     padding-right: 15px;
     padding-left: 15px;
-    margin-right: auto;
-    margin-left: -100px;
-    max-width: 1145px;
+    margin: 0px -30px;
+}
+.carChoose {
+    max-width: 522px;
+    margin: 0px auto;
+    display: none;
+}
+.carButtons {
+    margin-top: 10px;
+    display: block;
 }

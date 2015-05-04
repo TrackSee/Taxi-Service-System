@@ -1,14 +1,30 @@
 package ua.com.tracksee.dao;
 
 import ua.com.tracksee.entities.TaxiPriceEntity;
+import ua.com.tracksee.enumartion.CarCategory;
+
+import javax.ejb.Local;
 
 /**
- * Created by kstes_000 on 23-Apr-15.
+ * @author Ruslan Gunavardana
+ * @author Katia Stetsiuk
  */
+@Local
 public interface TaxiPriceDAO {
+
+    /**
+     * Returns a Taxi Price entity for the specified parameters.
+     *
+     * @param category
+     * @param weekend
+     * @param nightTariff
+     * @return
+     */
+    TaxiPriceEntity getPriceFor(CarCategory category, boolean weekend, boolean nightTariff);
+
     /**
      *
      * @param priceEntity
      */
-    public void updateTariff(TaxiPriceEntity priceEntity);
+    void updateTariff(TaxiPriceEntity priceEntity);
 }

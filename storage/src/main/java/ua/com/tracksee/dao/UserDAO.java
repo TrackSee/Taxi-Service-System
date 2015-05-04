@@ -1,5 +1,6 @@
 package ua.com.tracksee.dao;
 
+import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Local;
@@ -8,14 +9,14 @@ import java.util.List;
 /**
  * @author Vadym Akymov
  * @author Ruslan Gunavardana
- * @author KatiaStetsiuk
+ * @author Katia Stetsiuk
  */
 @Local
 public interface UserDAO {
     //13 drivers per query by default
-    public static final int DRIVERS_LIMIT = 13;
+    int DRIVERS_PAGE_SIZE = 12;
+
     /**
-     * @author Vadym Akymov
      * @param partNumber - number of data part
      * @return list, containing the part of drivers(default size of list is 10)
      */
@@ -33,7 +34,8 @@ public interface UserDAO {
      * Checks if the user with specified userId is activated.
      *
      * @param userId specified user's id
-     * @return if the user is activated.
+     * @return TRUE if the user is activated, FALSE if user is not activated,
+     * and null if user not exists
      */
     Boolean accountIsActivated(Integer userId);
 
@@ -52,23 +54,46 @@ public interface UserDAO {
     Integer addUser(ServiceUserEntity user);
 
     /**
-     * @author Vadym Akymov
      * @return count of driver pages in system
      */
     int getDriverPagesCount();
 
     /**
-     * @author KatiaStetsiuk
+     * @param serviceUserID user_id for deleting
+     * @author Katia Stetsiuk
      */
     void deleteUser(int serviceUserID);
+
     void updateUser(ServiceUserEntity serviceUserEntity);
+
+    /**
+     * Returns user with the specified email address.
+     *
+     * @param email user's email
+     * @return user with the specified email address or null if user not exists
+     */
+    ServiceUserEntity getUserByEmail(String email);
+
     void createUser(ServiceUserEntity serviceUserEntity);
 
     /**
-     * @author Vadym Akymov
      * @throws ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException when there
-     * is no service user with such id
-     *
+     *                                                                                 is no service user with such id
      */
     ServiceUserEntity getDriverByID(int id);
+
+
+    ServiceUserEntity getUserById(int id);
+
+    List<String> getDriversEmails();
+
+
+    List<ServiceUserEntity> getDriverByEmail(String email);
+    Integer getUserIdByEmail(String email);
+
+    /**
+     * @author Vadym Akymov
+     */
+    void assignCar(String carNumber, Integer driverID);
+
 }

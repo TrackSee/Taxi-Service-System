@@ -1,12 +1,8 @@
 package ua.com.tracksee.mailsender;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Igor
- * Date: 17.04.15
- * Time: 19:02
- * To change this template use File | Settings | File Templates.
- */
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -15,18 +11,31 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Map;
 
-import static  ua.com.tracksee.mailsender.SenderSessionSpecificator.GMAIL;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import static ua.com.tracksee.mailsender.SenderSessionSpecificator.GMAIL;
+
+/**
+ * @author Igor Dvorskij
+ */
 public class MailSender {
+
+    private static final Logger logger = LogManager.getLogger();
     private static Session SESSION = GMAIL.getSession();
+
     private static InternetAddress FROM_ADDRESS;
 
     static {
         try {
             FROM_ADDRESS = SenderSessionSpecificator.GMAIL.getInternetAddress();
         } catch (AddressException e) {
-            e.printStackTrace();
+            logger.error("ERROR, can not parse server_email: {1} to getInternetAddress","tracksee.mail@gmail.com");
         }
     }
 
@@ -37,20 +46,16 @@ public class MailSender {
      * @param subject - specifies the mail subject
      * @param body    - specifies the mail body
      */
-    public static void sendEmail(String to, String subject, String body) {
-        try {
-            Message message = new MimeMessage(SESSION);
-            message.setFrom(FROM_ADDRESS);
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(to));
-            message.setSubject(subject);
-            message.setText(body);
+    public static void sendEmail(String to, String subject, String body) throws MessagingException {
 
-            Transport.send(message);
+        Message message = new MimeMessage(SESSION);
+        message.setFrom(FROM_ADDRESS);
+        message.setRecipients(Message.RecipientType.TO,
+                InternetAddress.parse(to));
+        message.setSubject(subject);
+        message.setContent(body, "text/html");
+        Transport.send(message);
 
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -60,24 +65,35 @@ public class MailSender {
      * @param subject    - specifies the mail subject
      * @param body       - specifies the mail body
      */
-    public static void sendEmailToGroup(java.util.List<String> recipients, String subject, String body) {
-        try {
-            Message message = new MimeMessage(SESSION);
-            message.setFrom(FROM_ADDRESS);
+    public static void sendEmailToGroup(java.util.List<String> recipients, String subject, String body) throws MessagingException {
+        Message message = new MimeMessage(SESSION);
+        message.setFrom(FROM_ADDRESS);
 
-            for (String to : recipients) {
-                message.addRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(to));;
-            }
-
-            message.setSubject(subject);
-            message.setText(body);
-
-            Transport.send(message);
-
-        } catch (MessagingException e) {
-            e.printStackTrace();
+        for (String to : recipients) {
+            message.addRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(to));
         }
+        message.setSubject(subject);
+        message.setContent(body, "text/html");
+        Transport.send(message);
+    }
+
+
+    public static void sendTemplatedEmail(String to, String subject,
+                                          String templatePath, Map<String, Object> data) throws IOException, TemplateException, MessagingException {
+        Template template = loadTemplate(templatePath);
+        Writer out = new StringWriter();
+        template.process(data, out);
+        String body = out.toString();
+        out.flush();
+        sendEmail(to, subject, body);
+
+    }
+
+    public static Template loadTemplate(String path) throws IOException {
+        Configuration cfg = new Configuration();
+        return cfg
+                .getTemplate(path);
     }
 
 }

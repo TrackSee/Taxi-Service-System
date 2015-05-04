@@ -7,40 +7,90 @@ import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
 /**
  * @author Vadym Akymov
  * @author Ruslan Gunavardana
+ * @author Katia Stetsiuk
+ * @author Avlasov Sasha
  */
 @Stateless
 public class UserDAOBean implements UserDAO {
     private static final Logger logger = LogManager.getLogger();
-    //10 drivers per query by default
-    public static final int DRIVERS_LIMIT = 10;
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
 
 
     /**
-     * @param partNumber - number of data part (from 1 to driver_count/DRIVERS_LIMIT)
+     * @param partNumber - number of data part (from 1 to driver_count/DRIVERS_PAGE_SIZE)
      * @return list with part of drivers(default size of list if 10)
      */
     @Override
     public List<ServiceUserEntity> getDrivers(int partNumber) {
         if(partNumber <= 0) {
-            logger.error("partNumber can't be <= 0");
-            throw new IllegalArgumentException("partNumber can't be <= 0");
-        }
-        Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
-                "WHERE driver = TRUE LIMIT ?1 OFFSET ?2", ServiceUserEntity.class);
-        query.setParameter(1, DRIVERS_LIMIT);
-        query.setParameter(2, (partNumber-1)*DRIVERS_LIMIT);
+        logger.error("partNumber can't be <= 0");
+        throw new IllegalArgumentException("partNumber can't be <= 0");
+    }
+    Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
+            "WHERE driver = TRUE ORDER BY email LIMIT ?1 OFFSET ?2", ServiceUserEntity.class);
+    query.setParameter(1, DRIVERS_PAGE_SIZE);
+    query.setParameter(2, (partNumber - 1) * DRIVERS_PAGE_SIZE);
+    return query.getResultList();
+}
+
+    @Override
+    public List<String> getDriversEmails() {
+
+        Query query = entityManager.createNativeQuery("SELECT email FROM service_user " +
+                "WHERE driver = TRUE ", String.class);
         return query.getResultList();
+    }
+
+    /**
+     * @author Katia Stetsiuk
+     * @param email
+     * @return
+     */
+    @Override
+    public List<ServiceUserEntity> getDriverByEmail(String email) {
+        Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
+                "WHERE driver = TRUE and email=?", ServiceUserEntity.class);
+        query.setParameter(1, email);
+        return query.getResultList();
+    }
+
+    @Override
+    public Integer getUserIdByEmail(String email) {
+        Query query = entityManager.createNativeQuery("SELECT user_id FROM service_user WHERE email=?1");
+        query.setParameter(1, email);
+        Integer result;
+        try {
+            result = (Integer) query.getSingleResult();
+        } catch (NoResultException e) {
+            result = null;
+        }
+        return result;
+    }
+
+
+    public void assignCar(String carNumber, Integer driverID) {
+        if(carNumber == null){
+            logger.warn("carNumber can't be null");
+            throw new IllegalArgumentException("carNumber can't be null");
+        }
+        if(driverID == null){
+            logger.warn("driverID can't be null");
+            throw new IllegalArgumentException("driverID can't be null");
+        }
+        Query q = entityManager.createNativeQuery("UPDATE service_user SET car_number = ?1 " +
+                "WHERE user_id = ?2");
+        q.setParameter(1, carNumber);
+        q.setParameter(2, driverID);
+        q.executeUpdate();
     }
 
     @Override
@@ -54,68 +104,89 @@ public class UserDAOBean implements UserDAO {
 
     @Override
     public Boolean accountIsActivated(Integer userId) {
-        String sql = "SELECT  FROM service_user WHERE user_id = " + userId;
+        String sql = "SELECT activated FROM service_user WHERE user_id = " + userId;
         Query query = entityManager.createNativeQuery(sql);
-        return (Boolean) query.getSingleResult();
+        Boolean result;
+        try {
+            result = (Boolean) query.getSingleResult();
+        } catch (PersistenceException e) {
+            result = null;
+        }
+
+        return result;
     }
 
     @Override
     public boolean activateAccount(Integer userId) {
         String sql = "UPDATE service_user SET activated = TRUE WHERE user_id = " + userId;
-        Query query = entityManager.createNamedQuery(sql);
+        Query query = entityManager.createNativeQuery(sql);
         return query.executeUpdate() == 0;
     }
 
     @Override
     public Integer addUser(ServiceUserEntity user) {
-//        String sql = "INSERT INTO service_user " +
-//                "(email, password, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date) " +
-//                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
-//                "RETURNING user_id";
-//        Query query = entityManager.createNativeQuery(sql, Integer.class);
-//        query.<String>setParameter(1, user.getEmail());
-//        query.<String>setParameter(2, user.getPassword());
-//        query.<String>setParameter(3, user.getPhone());
-//        query.<Sex>setParameter(4, user.getSex());
-//        query.<Boolean>setParameter(5, user.getDriver());
-//        query.<Boolean>setParameter(6, user.getAdmin());
-//        query.<String>setParameter(7, user.getGroupName());
-//        query.<Integer>setParameter(8, user.getCar() != null? user.getCar().getCarNumber() : null);
-//        query.<String>setParameter(9, user.getDriverLicense());
-//        query.<Integer>setParameter(10, user.getIgnoredTimes());
-//        query.<Boolean>setParameter(11, user.getActivated());
-//        query.<Timestamp>setParameter(12, user.getRegistrationDate());
-//        if (query.executeUpdate() == 0) {
-//            return null;
-//        }
-        entityManager.merge(user);
+        String sql = "INSERT INTO service_user " +
+                "(email, password, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+                "RETURNING user_id";
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1, user.getEmail());
+        query.setParameter(2, user.getPassword());
+        query.setParameter(3, user.getPhone());
+        query.setParameter(4, user.getSex());
+        query.setParameter(5, user.getDriver());
+        query.setParameter(6, user.getAdmin());
+        query.setParameter(7, user.getGroupName());
+        query.setParameter(8, user.getCar() != null? user.getCar().getCarNumber() : null);
+        query.setParameter(9, user.getDriverLicense());
+        query.setParameter(10, user.getIgnoredTimes());
+        query.setParameter(11, user.getActivated());
+        query.setParameter(12, user.getRegistrationDate());
+        try {
+            user.setUserId((Integer)query.getSingleResult());
+        } catch (PersistenceException e) {
+            return null;
+        }
         return user.getUserId();
     }
 
     @Override
     public void updateUser(ServiceUserEntity user) {
-        String sql = "UPDATE service_user SET email = ?, phone = ? " +
+        String sql = "UPDATE service_user SET email = ?, password = ? , phone =?" +
                 "WHERE user_id = " + user.getUserId();
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, user.getEmail());
         query.setParameter(2, user.getPassword());
         query.setParameter(3, user.getPhone());
-        query.setParameter(4, user.getActivated());
         query.executeUpdate();
     }
 
     @Override
+    public ServiceUserEntity getUserByEmail(String email) {
+        String sql = "SELECT * FROM service_user WHERE email = ?";
+        Query query = entityManager.createNativeQuery(sql, ServiceUserEntity.class);
+        query.<String>setParameter(1, email);
+
+        ServiceUserEntity result;
+        try {
+            result = (ServiceUserEntity) query.getSingleResult();
+        } catch (NoResultException e) {
+            result = null;
+        }
+        return result;
+    }
+
     public void createUser(ServiceUserEntity user) {
         String sql = "INSERT INTO service_user " +
-                "(email, password, phone, driver) " +
-                "VALUES (?, ?, ?, ?)";
+                "(email, password, phone, driver, car_number, sex) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, user.getEmail());
         query.setParameter(2, user.getPassword());
         query.setParameter(3, user.getPhone());
         query.setParameter(4, user.getDriver());
-        //  query.setParameter(5, user.getDriver());
-        //query.setParameter(6, user.getAdmin());
+        query.setParameter(5, user.getCar() != null ? user.getCar().getCarNumber() : null);
+        query.setParameter(6, user.getSex());
         query.executeUpdate();
     }
 
@@ -133,14 +204,28 @@ public class UserDAOBean implements UserDAO {
         return driver;
     }
 
+    @Override
+    public ServiceUserEntity getUserById(int id) {
+        if(id <= 0){
+            logger.warn("User id can't be <= 0!");
+            throw new IllegalArgumentException("User id can't be <= 0!");
+        }
+        ServiceUserEntity user = entityManager.find(ServiceUserEntity.class, id);
+        if(user == null){
+            logger.warn("There is no User with such id");
+            throw new ServiceUserNotFoundException("There is no User with such id");
+        }
+        return user;
+    }
+
     //TODO test this method
     @Override
     public int getDriverPagesCount() {
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM service_user WHERE driver = TRUE");
         Integer driversCount = ((BigInteger) q.getSingleResult()).intValue();
-        return (int) (Math.ceil((double) driversCount / DRIVERS_LIMIT));
+        return (int) (Math.ceil((double) driversCount / DRIVERS_PAGE_SIZE));
     }
-    
+
     public void deleteUser(int serviceUserId) {
         if(serviceUserId <= 0){
             logger.warn("serviceUserId can't be <= 0");
@@ -152,4 +237,6 @@ public class UserDAOBean implements UserDAO {
         query.setParameter(1, serviceUserId);
         query.executeUpdate();
     }
+
+
 }

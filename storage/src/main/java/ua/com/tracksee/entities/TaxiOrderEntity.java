@@ -1,9 +1,12 @@
 package ua.com.tracksee.entities;
 
+import org.postgresql.util.PGmoney;
 import ua.com.tracksee.enumartion.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 import static javax.persistence.EnumType.STRING;
@@ -14,28 +17,64 @@ import static javax.persistence.EnumType.STRING;
 @Entity
 @Table(name = "taxi_order", schema = "public", catalog = "tracksee")
 public class TaxiOrderEntity {
-    private Integer trackingNumber;
+    private Long trackingNumber;
     private OrderStatus status;
     private BigDecimal price;
     private Service service;
+    private String description;
     private CarCategory carCategory;
     private WayOfPayment wayOfPayment;
     private Sex driverSex;
-    private String musicStyle;
+    private MusicStyle musicStyle;
     private Boolean animalTransportation;
     private Boolean freeWifi;
-    private Boolean smokingDriver;
+    private Boolean nonSmokingDriver;
     private Boolean airConditioner;
     private String comment;
     private Integer userId;
+    private Timestamp orderedDate = new Timestamp(System.currentTimeMillis());
+    private Timestamp arriveDate;
+    private Timestamp endDate;
+
+    @Basic
+    @Column(name = "arrive_date",nullable = true)
+    public Timestamp getArriveDate() {
+        return arriveDate;
+    }
+
+    public void setArriveDate(Timestamp arriveDate) {
+        this.arriveDate = arriveDate;
+
+    }
+
+    @Basic
+    @Column(name="end_date",nullable = true)
+    public Timestamp getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Timestamp endDate) {
+        this.endDate = endDate;
+    }
+
+    public TaxiOrderEntity() {
+
+    }
+
+    public TaxiOrderEntity(OrderStatus status) {
+        this.status = status;
+    }
 
     @Id
+    @GeneratedValue(generator = "orderSeq")
+    @SequenceGenerator(name = "orderSeq", sequenceName = "taxi_order_tracking_number_seq",
+            allocationSize = 1, initialValue= 1)
     @Column(name = "tracking_number")
-    public Integer getTrackingNumber() {
+    public Long getTrackingNumber() {
         return trackingNumber;
     }
 
-    public void setTrackingNumber(Integer trackingNumber) {
+    public void setTrackingNumber(Long trackingNumber) {
         this.trackingNumber = trackingNumber;
     }
 
@@ -51,7 +90,7 @@ public class TaxiOrderEntity {
 
     @Basic
     @Enumerated(STRING)
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     public OrderStatus getStatus() {
         return status;
     }
@@ -79,6 +118,16 @@ public class TaxiOrderEntity {
 
     public void setService(Service service) {
         this.service = service;
+    }
+
+    @Basic
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Basic
@@ -115,16 +164,19 @@ public class TaxiOrderEntity {
     }
 
     @Basic
+    @Enumerated(STRING)
     @Column(name = "music_style")
-    public String getMusicStyle() {
+    public MusicStyle getMusicStyle() {
         return musicStyle;
     }
 
-    public void setMusicStyle(String musicStyle) {
+    public void setMusicStyle(MusicStyle musicStyle) {
         this.musicStyle = musicStyle;
     }
 
-    public Boolean isAnimalTransportation() {
+    @Basic
+    @Column(name = "animal_transportation")
+    public Boolean getAnimalTransportation() {
         return animalTransportation;
     }
 
@@ -132,7 +184,9 @@ public class TaxiOrderEntity {
         this.animalTransportation = animalTransportation;
     }
 
-    public Boolean isFreeWifi() {
+    @Basic
+    @Column(name = "free_wifi")
+    public Boolean getFreeWifi() {
         return freeWifi;
     }
 
@@ -140,15 +194,19 @@ public class TaxiOrderEntity {
         this.freeWifi = freeWifi;
     }
 
-    public Boolean isSmokingDriver() {
-        return smokingDriver;
+    @Basic
+    @Column(name = "non_smoking_driver")
+    public Boolean getNonSmokingDriver() {
+        return nonSmokingDriver;
     }
 
-    public void setSmokingDriver(Boolean smokingDriver) {
-        this.smokingDriver = smokingDriver;
+    public void setNonSmokingDriver(Boolean smokingDriver) {
+        this.nonSmokingDriver = smokingDriver;
     }
 
-    public Boolean isAirConditioner() {
+    @Basic
+    @Column(name = "air_conditioner")
+    public Boolean getAirConditioner() {
         return airConditioner;
     }
 
@@ -166,6 +224,16 @@ public class TaxiOrderEntity {
         this.comment = comment;
     }
 
+    @Basic
+    @Column(name="ordered_date")
+    public Timestamp getOrderedDate(){
+        return orderedDate;
+    }
+    public void setOrderedDate(Timestamp orderedDate){
+        this.orderedDate = orderedDate;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -179,11 +247,12 @@ public class TaxiOrderEntity {
                 Objects.equals(wayOfPayment, that.wayOfPayment) &&
                 Objects.equals(driverSex, that.driverSex) &&
                 Objects.equals(musicStyle, that.musicStyle) &&
-                Objects.equals(comment, that.comment);
+                Objects.equals(comment, that.comment) &&
+                Objects.equals(orderedDate, that.orderedDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(trackingNumber, status, price, service, carCategory, wayOfPayment, driverSex, musicStyle, comment);
+        return Objects.hash(trackingNumber, status, price, service, carCategory, wayOfPayment, driverSex, musicStyle, comment, orderedDate);
     }
 }

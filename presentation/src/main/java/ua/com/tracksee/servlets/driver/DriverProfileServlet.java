@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by Vadym Akymov on 15.04.15.
  */
-@WebServlet("/order/info")
+@WebServlet("/driver/profile")
 //hello kitty
 public class DriverProfileServlet extends HttpServlet {
     @Override

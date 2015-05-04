@@ -9,6 +9,7 @@ import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.mail.MessagingException;
 
+import static java.lang.Boolean.FALSE;
 import static ua.com.tracksee.logic.exception.RegistrationExceptionType.*;
 
 /**
@@ -22,7 +23,7 @@ public class RegistrationBean {
     private static final int UNACTIVATED_USERS_MAX_DAYS = 30;
 
     private @EJB EmailBean emailBean;
-    private @EJB ValidatorBean validatorBean;
+    private @EJB ValidationBean validationBean;
     private @EJB UserDAO userDAO;
 
     /**
@@ -38,8 +39,7 @@ public class RegistrationBean {
         } catch (NumberFormatException e) {
             throw new RegistrationException("Invalid link.", BAD_LINK);
         }
-
-        if (userDAO.accountIsActivated(userId)) {
+        if (userDAO.accountIsActivated(userId) != FALSE) {
             throw new RegistrationException("User is already activated.", USER_IS_ACTIVE);
         }
 
@@ -57,32 +57,37 @@ public class RegistrationBean {
     public void registerCustomerUser(String email, String password, String phoneNumber)
             throws RegistrationException
     {
-        if (!validatorBean.isValidEmail(email)) {
-            throw new RegistrationException("Invalid email.", BAD_EMAIL);
-        }
-        if (!validatorBean.isValidPassword(password)) {
-            throw new RegistrationException("Invalid password.", BAD_PASSWORD);
-        }
-        if (phoneNumber != null && !validatorBean.isValidPhoneNumber(phoneNumber)) {
-            throw new RegistrationException("Invalid phone number.", BAD_PHONE);
-        }
+        validateRegistrationData(email, password, phoneNumber);
 
         // adding new user
         ServiceUserEntity user = new ServiceUserEntity();
         user.setEmail(email);
-
         user.setPassword(password);
         user.setPhone(phoneNumber);
         Integer generatedId = userDAO.addUser(user);
         if (generatedId == null) {
-            throw new RegistrationException("User is already exists.", USER_EXISTS);
+            throw new RegistrationException("User already exists.", USER_EXISTS);
         }
 
         String userCode = generatedId.toString();
         try {
-            emailBean.sendRegistrationEmail(user, userCode);
+            emailBean.sendRegistrationEmail(email, userCode);
         } catch (MessagingException e) {
             throw new RegistrationException("Failed to send registration email.", EMAIL_SENDING_FAIL);
+        }
+    }
+
+    private void validateRegistrationData(String email, String password, String phoneNumber)
+            throws RegistrationException
+    {
+        if (!validationBean.isValidEmail(email)) {
+            throw new RegistrationException("Invalid email.", BAD_EMAIL);
+        }
+        if (!validationBean.isValidPassword(password)) {
+            throw new RegistrationException("Invalid password.", BAD_PASSWORD);
+        }
+        if (phoneNumber != null && !phoneNumber.equals("") && !validationBean.isValidPhoneNumber(phoneNumber)) {
+            throw new RegistrationException("Invalid phone number.", BAD_PHONE);
         }
     }
 

@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>TaxiService</artifactId>
-        <groupId>com.netcracker.bootcamp.tracksee</groupId>
+        <groupId>ua.com.tracksee</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -29,7 +29,7 @@
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
-            <version>1.5.0</version>
+            <version>1.5.2</version>
         </dependency>
 
         <!--for email validation-->
@@ -46,10 +46,18 @@
             <version>2.7</version>
         </dependency>
 
+        <!-- to resolve problem -->
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
             <version>1.5.2</version>
+        </dependency>
+
+        <!-- for processing email templates -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.20</version>
         </dependency>
 
     </dependencies>
@@ -73,7 +81,7 @@
                 <artifactId>maven-ejb-plugin</artifactId>
                 <version>2.3</version>
                 <configuration>
-                    <ejbVersion>3.1</ejbVersion>
+                    <ejbVersion>3.2</ejbVersion>
                 </configuration>
             </plugin>
             <plugin>

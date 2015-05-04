@@ -1,12 +1,11 @@
 /**
- * Created by Vadym_Akymov on 24.04.15.
+ * Created by Vadym Akymov, Ruslan Gunavardana
  */
 
 $(document).ready(function() {
     $('.pageLi1').addClass('active');
     var pageButton = $('.pageButton').click(function(event){
         var pageNumber = this.innerHTML;
-        console.log("page number: " + pageNumber);
         $('.active').removeClass('active');
         $('.pageLi' + pageNumber).addClass('active');
         $.ajax({
@@ -19,7 +18,7 @@ $(document).ready(function() {
                 var rows = tBody.children;
                 var i;
                 for (i = 0; i < Math.max(rows.length, driversArray.length); i++) {
-                    //add all necessary td (if drivers.length > rows.length)
+                    //add all necessary td (if drivers.length >= rows.length)
                     if (i >= rows.length) {
                         var newTr = document.createElement('tr');
                         //TODO Don't forget to change magic number of attribute tr count
@@ -33,7 +32,8 @@ $(document).ready(function() {
                         //TODO make right inserts
                         //insert driver data
                         rows[i].children[0].innerHTML = '<a href="driver?id=' + driversArray[i].userId + '">'+
-                        driversArray[i].email + '</a>';
+                            driversArray[i].email + '</a>';
+
                         rows[i].children[1].innerHTML = driversArray[i].phone != null? driversArray[i].phone : "-";
                         rows[i].children[2].innerHTML = driversArray[i].sex != null? driversArray[i].sex : "-";
                         rows[i].children[3].innerHTML = driversArray[i].groupName != null? driversArray[i].groupName : "-";
@@ -42,7 +42,6 @@ $(document).ready(function() {
                         tBody.removeChild(rows[i]);
                     }
                 }
-                console.log(data);
             }
         });
     });

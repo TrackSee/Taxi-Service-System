@@ -6,14 +6,14 @@ import javax.ejb.Local;
 import java.util.List;
 
 /**
- * Created by kstes_000 on 23-Apr-15.
+ * @author  Katia Stetsiuk
  */
 @Local
 public interface AddressDAO {
     public void addAddress(AddressEntity address);
     public void deleteAddress(AddressEntity address);
     public void updateAddress(AddressEntity addressEntity);
-    List<AddressEntity> getAddresses(int partNumber);
+    List<AddressEntity> getAddresses();
 
 }
 

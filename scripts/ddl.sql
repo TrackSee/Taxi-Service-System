@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS Address;
 DROP TABLE IF EXISTS Service_User;
 DROP TABLE IF EXISTS Car;
 DROP TABLE IF EXISTS Taxi_Price;
+DROP TABLE IF EXISTS Config;
 
 -- CREATION --
 
@@ -15,8 +16,8 @@ CREATE TABLE IF NOT EXISTS Config
 
 CREATE TABLE IF NOT EXISTS Taxi_Price
 (
-  price_per_km  MONEY NOT NULL,
-  price_per_min MONEY NOT NULL,
+  price_per_km  NUMERIC(10,2) NOT NULL,
+  price_per_min NUMERIC(10,2) NOT NULL,
   car_category  VARCHAR(28),
   weekend       BOOLEAN,
   night_tariff  BOOLEAN,
@@ -38,7 +39,7 @@ CREATE TABLE IF NOT EXISTS Service_User
 (
   user_id           SERIAL PRIMARY KEY,
   email             VARCHAR(254) UNIQUE NOT NULL,
-  password          VARCHAR(28)         NOT NULL,
+  password          VARCHAR(150)         NOT NULL,
   phone             VARCHAR(28),
   sex               CHAR(1),
   driver            BOOLEAN             NOT NULL DEFAULT FALSE,
@@ -62,28 +63,32 @@ CREATE TABLE IF NOT EXISTS Address
 
 CREATE TABLE IF NOT EXISTS Taxi_Order
 (
-  tracking_number       SERIAL PRIMARY KEY,
-  description           VARCHAR(250),
+  tracking_number       BIGSERIAL PRIMARY KEY,
   status                VARCHAR(28) NOT NULL,
-  price                 MONEY,
-  user_id               INT REFERENCES Service_User (user_id) ON DELETE SET NULL,
   service               VARCHAR(28),
+  price                 NUMERIC(10,2) ,
+  user_id               INT REFERENCES Service_User (user_id) ON DELETE SET NULL,
+  description           VARCHAR(250),
   car_category          VARCHAR(28),
   way_of_payment        VARCHAR(28),
   driver_sex            CHAR(1),
+  ordered_date          TIMESTAMP,
+  arrive_date           TIMESTAMP ,
+  end_date              TIMESTAMP ,
   music_style           VARCHAR(50),
   animal_transportation BOOLEAN,
   free_wifi             BOOLEAN,
-  smoking_driver        BOOLEAN,
+  non_smoking_driver    BOOLEAN,
   air_conditioner       BOOLEAN,
   comment               VARCHAR(400)
 );
 
 CREATE TABLE IF NOT EXISTS Taxi_Order_Item
 (
-  taxi_item_id   SERIAL PRIMARY KEY,
-  tracking_numer INT REFERENCES Taxi_Order (tracking_number) ON DELETE CASCADE,
-  path           PATH NOT NULL,
+  taxi_item_id     SERIAL PRIMARY KEY,
+  tracking_numer   INT REFERENCES Taxi_Order (tracking_number) ON DELETE CASCADE,
+  path             PATH NOT NULL,
+  ordered_quantity NUMERIC(15, 1),
   -- need to be checked if this 'user_id' is a driver's id on code layer
-  driver_id      INT REFERENCES Service_User (user_id) ON DELETE SET NULL
+  driver_id        INT REFERENCES Service_User (user_id) ON DELETE SET NULL
 );
