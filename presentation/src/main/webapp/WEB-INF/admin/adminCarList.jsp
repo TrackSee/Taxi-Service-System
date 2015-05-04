@@ -1,10 +1,11 @@
 <%--
   Created by IntelliJ IDEA.
-  User: kstes_000
+  User: Katia Stetsiuk
   Date: 26-Apr-15
   Time: 21:00
   To change this template use File | Settings | File Templates.
 --%>
+
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -22,16 +23,19 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"
+          rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css"
+          rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -61,29 +65,26 @@
             </tr>
             </thead>
             <tbody id="table-body">
-            <c:forEach items="${requestScope.cars}" var="driver">
+            <c:forEach items="${requestScope.cars}" var="car">
                 <tr>
-                    <td>${car.carNumber}</td>
+                    <td><a href="updatecar?carNumber=${car.carNumber}">${car.carNumber}</a></td>
                     <td>${car.carModel}</td>
                     <td>${car.color}</td>
                     <td>${car.carCategory}</td>
-                    <td>${car.animalTransportationApplicable}</td>
-                    <td>${car.freeWifi}</td>
-                    <td>${car.airConditioner}</td>
+                    <td>${car.animalTransportationApplicable==true ? "+" : "-"}</td>
+                    <td>${car.freeWifi==true ? "+" : "-"}</td>
+                    <td>${car.airConditioner==true ? "+" : "-"}</td>
+                    <td><a href="updatecar?carNumber=${car.carNumber}" >Edit</a></td>
+                    <td><a href="deletecar?carNumber=${car.carNumber}">Delete</a></td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
         <div class="text-center">
             <ul class="pagination">
-                <%--<li class="active"><a href="1">1</a></li>--%>
                 <c:forEach var="i" begin="1" end="${requestScope.pagesCount}">
                     <li class="pageLi${i}"><a class="pageButton" href="#">${i}</a></li>
                 </c:forEach>
-                <%--<li><a class="pageButton" href="#">2</a></li>--%>
-                <%--<li><a href="#">3</a></li>--%>
-                <%--<li><a href="#">4</a></li>--%>
-                <%--<li><a href="#">5</a></li>--%>
             </ul>
         </div>
     </div>
@@ -103,10 +104,9 @@
 <!-- Custom Theme JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
 <%--for pagination--%>
-<script src="<%=application.getContextPath()%>/resources/admin/js/pagination-car.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/paginator-car.js"></script>
 
 
 </body>
 
 </html>
-
