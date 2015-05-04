@@ -13,10 +13,10 @@
 <body>
     <form method="post" action="report">
       <label>Date from:
-        <input type="text" name="dateFrom" />
+        <input type="text" name="startDate" />
       </label>  <br />
       <label>Date to:
-        <input type="text" name="dateTo" />
+        <input type="text" name="endDate" />
       </label>  <br />
       <input type="submit" value="Show" />
     </form>

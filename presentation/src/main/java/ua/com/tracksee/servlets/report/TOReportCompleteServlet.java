@@ -32,15 +32,15 @@ public class TOReportCompleteServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        date format '2015-04-26'
+//        String startDate = "2015-04-26";
+//        String endDate = "2015-04-29";
 
-//        String dateFrom = "2015-04-26";
-//        String dateTo = "2015-04-29";
-
-        String dateFrom = request.getParameter("dateFrom");
-        String dateTo = request.getParameter("dateTo");
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
 
         try{
-            int count = toReportBean.getOrdersByPeriod(dateFrom, dateTo);
+            int count = toReportBean.getOrdersByPeriod(startDate, endDate);
 
             request.setAttribute("count", count);
             request.getRequestDispatcher("/WEB-INF/report/reportCount.jsp").forward(request, response);

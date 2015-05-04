@@ -20,13 +20,12 @@ public class TOReportBean {
     TaxiOrderDAO taxiOrderDAO;
 
     /**
-     *
-     * @param dateFrom -
-     * @param dateTo -
-     * @return -
+     * @param startDate start date of the period
+     * @param endDate end date of the period
+     * @return number of orders per period
      */
-    public int getOrdersByPeriod(String dateFrom, String dateTo){
-        return taxiOrderDAO.getOrdersByPeriod(dateFrom, dateTo);
+    public int getOrdersByPeriod(String startDate, String endDate){
+        return taxiOrderDAO.getOrdersByPeriod(startDate, endDate);
     }
 
 

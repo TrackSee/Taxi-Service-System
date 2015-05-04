@@ -46,9 +46,9 @@ public interface TaxiOrderDAO {
 
     /**
      * @author Oleksandr Kozin
-     * @param orderDateFrom -
-     * @param orderDateTo -
-     * @return list of order's item
+     * @param startDate start date of the period
+     * @param endDate end date of the period
+     * @return number of orders per period
      */
-    int getOrdersByPeriod(String orderDateFrom, String orderDateTo);
+    int getOrdersByPeriod(String startDate, String endDate);
 }
