@@ -67,6 +67,7 @@ public class TaxiOrderDAOBeanTest {
         order.setFreeWifi(TRUE);
         order.setDescription("I like to mov it mov it");
 
+
         Long trackingNumber = taxiOrderDAO.addOrder(order);
 
         TaxiOrderEntity databaseOrder = taxiOrderDAO.getOrder(trackingNumber);

@@ -16,8 +16,8 @@ CREATE TABLE IF NOT EXISTS Config
 
 CREATE TABLE IF NOT EXISTS Taxi_Price
 (
-  price_per_km  MONEY NOT NULL,
-  price_per_min MONEY NOT NULL,
+  price_per_km  NUMERIC(10,2) NOT NULL,
+  price_per_min NUMERIC(10,2) NOT NULL,
   car_category  VARCHAR(28),
   weekend       BOOLEAN,
   night_tariff  BOOLEAN,
@@ -66,13 +66,15 @@ CREATE TABLE IF NOT EXISTS Taxi_Order
   tracking_number       BIGSERIAL PRIMARY KEY,
   status                VARCHAR(28) NOT NULL,
   service               VARCHAR(28),
-  price                 numeric(10, 2),
+  price                 NUMERIC(10,2) ,
   user_id               INT REFERENCES Service_User (user_id) ON DELETE SET NULL,
   description           VARCHAR(250),
   car_category          VARCHAR(28),
   way_of_payment        VARCHAR(28),
   driver_sex            CHAR(1),
   ordered_date          TIMESTAMP,
+  arrive_date           TIMESTAMP ,
+  end_date              TIMESTAMP ,
   music_style           VARCHAR(50),
   animal_transportation BOOLEAN,
   free_wifi             BOOLEAN,

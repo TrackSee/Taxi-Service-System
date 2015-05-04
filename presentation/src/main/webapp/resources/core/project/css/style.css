@@ -1,0 +1,48 @@
+.back_color {
+	background-color:  #F5F5F5;
+	padding: 5px;
+}
+.copyright {
+	position: relative;;
+	/*padding-left: 50px;*/
+	left: 20px;
+	top: 5px;
+}
+
+#form_container {
+	margin: 100px auto;
+	max-width: 27%;
+}
+.second_column {
+	margin-left: 40px;
+}
+.form_marg {
+	margin-top: 20px;
+}
+.row1 {
+	display: inline-block;
+	margin: 5px 0px;
+}
+.row2{
+	display: inline-block;
+	margin-left: 40px;
+}
+.button_size {
+	width: 140%;
+}
+.btn_right{
+	margin: 0px auto; 
+}
+.form-control::-moz-placeholder {
+    -  color: #777;
++  color: #999;
+    opacity: 1;
+}
+.form-control:-ms-input-placeholder {
+    -  color: #777;
++  color: #999;
+}
+.form-control::-webkit-input-placeholder {
+    -  color: #777;
++  color: #999;
+}

@@ -32,9 +32,9 @@ $(document).ready(function () {
     });
 
 
-    var data = {};
 
     $('#addDriver').click(function(){
+        var data = {};
         data["email"] = $('input[name = email]', '#createDriver').val();
         data["password"] = calcMD5($('input[name = password]', '#createDriver').val());
         data["phone"] = $('input[name = phone]', '#createDriver').val();
@@ -49,5 +49,6 @@ $(document).ready(function () {
                 window.location.href = 'drivers';
             }
         });
+        data = null;
     });
 });

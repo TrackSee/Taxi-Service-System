@@ -56,6 +56,7 @@ public class AdminUpdateCarServlet extends HttpServlet {
         CarEntity car = mapper.readValue(sb.toString(), CarEntity.class);
         //System.out.println("car number of user in post: " + car.getCarNumber());
         car.setCarNumber(carNumber);
+        System.out.println("CAEGORY " + car.getCarCategory());
         administratorBean.updateCar(car);
         System.out.println("car number of user in post 22: " + car.getCarNumber());
     }

@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: kstes_000
+  User: Katia Stetsiuk
   Date: 27-Apr-15
   Time: 19:28
   To change this template use File | Settings | File Templates.
@@ -56,17 +56,19 @@
 </div>
 <div class="container" style=" width : 500px; ">
 
-    <form class="create-driver" id="createCar" action="<c:url value="/admin/createcar"/>" method="post">
+    <form class="create-car" id="createCar" action="<c:url value="/admin/createcar"/>" method="post">
         <h2 class="form-sign-up-heading">Please enter cars data</h2>
-        <label for="carNumber" class="sr-only">Number</label>
-        <input type="carNumber" id="carNumber" name="carNumber" class="form-control" placeholder="Car Number" required>
+        <%--<label for="carNumber" class="sr-only">Number</label>--%>
+        <%--<input type="carNumber" id="carNumber" name="carNumber" class="form-control" placeholder="Car Number" value="${car.carNumber}">--%>
 
+        <label for="carNumber" class="sr-only">Model</label>
+        <input type="carNumber" id="carNumber" name="carNumber" class="form-control">
         <label for="carModel" class="sr-only">Model</label>
-        <input type="carModel" id="carModel" name="carModel" class="form-control" placeholder="Car Model" required>
+        <input type="carModel" id="carModel" name="carModel" class="form-control">
 
         <label for="carColor" class="sr-only">Color</label>
         <input type="carColor" id="carColor" name="carColor" class="form-control"
-               placeholder="color" required>
+               placeholder="color" >
 
 
         <%--TODO send via ajax!!--%>
@@ -75,14 +77,17 @@
         </div>
         <select id="category" class="category form-control" name="category">
             <option value="BUSINESS_CLASS">BUSINESS CLASS</option>
-            <option value="ECONOMY_CLASS">ECONOMY CLASS</option>
+            <option value="ECONOMY_CLASS">ECONOMY_CLASS</option>
             <option value="VAN">VAN</option>
+            <option value="USER_CAR">USER_CAR</option>
+
         </select>
         <%--<label for="animalTransportationApplicable" class="sr-only">Color</label>--%>
-        <input type="checkbox" id="animalTransportationApplicable" name="animalTransportationApplicable">Animal
-        Transportation Applicable<Br>
+        <input type="checkbox" id="animalTransportationApplicable" name="animalTransportationApplicable"
+              >Animal Transportation Applicable<Br>
         <input type="checkbox" id="freeWifi" name="freeWifi">Free Wifi<Br>
-        <input type="checkbox" id="airConditioner" name="airConditioner">Air Conditioner<Br>
+        <input type="checkbox" id="airConditioner" name="airConditioner">Air
+        Conditioner<Br>
 
         <div>
             <button id="addCar" type="button" class="btn btn-primary">Create</button>
@@ -93,12 +98,10 @@
 </div>
 
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
-<%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.delegate.js"--%>
-<%--type="text/javascript"></script>--%>
 <script src="<%=application.getContextPath()%>/resources/admin//bower_components/jquery/dist/jquery.validate.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-<script src="<%=application.getContextPath()%>/resources/admin/js/createcar.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/forcreatecar.js"></script>
 
 
 </body>

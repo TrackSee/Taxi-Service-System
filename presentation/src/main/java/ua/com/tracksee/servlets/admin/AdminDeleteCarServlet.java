@@ -23,15 +23,8 @@ public class AdminDeleteCarServlet extends HttpServlet {
     private AdministratorBean administratorBean;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("get in delete");
         String carNumber = req.getParameter("carNumber");
-        System.out.println("car num " + carNumber);
         administratorBean.deleteCar(carNumber);
         resp.sendRedirect("cars");
-        }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
     }
 }
