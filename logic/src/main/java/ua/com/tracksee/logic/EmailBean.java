@@ -52,7 +52,7 @@ public class EmailBean {
     private static final String REGISTRATION_TEMPLATE_PATH = "logic/mailtemplates/registration-template.ftl";
 
     private static final String BLOCKING_ACCOUNT_SUBJECT_TEMP_PROP_NAME = "TrackSee Blocking Account";
-    private static final String BLOCKING_ACCOUNT_TEMP_PATH = "logic/src/main/resources/mailtemplates/blockingusertemplate.ftl";
+    private static final String BLOCKING_ACCOUNT_TEMP_PATH = "mailtemplates/blockingusertemplate.ftl";
 
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_TEMP_PATH = "logic/src/main/resources/mailtemplates/changing_to-from-assigned_to_inprogress_template.ftl";
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_SUBJECT_TEMP_PROP_NAME = "TrackSee Order in progress";
