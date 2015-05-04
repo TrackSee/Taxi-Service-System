@@ -41,6 +41,7 @@ public class HistoryDriverServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String pageParam = req.getParameter("pageNumber");
         Integer pageNumber = null;
         //check pageNumber
         try {

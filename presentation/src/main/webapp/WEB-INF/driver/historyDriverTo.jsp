@@ -144,6 +144,9 @@
 <!-- Custom Theme JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/sb-admin-2.js"></script>
 
+<%--for pagination--%>
+<script src="<%=application.getContextPath()%>/resources/driver/js/paginator-orders.js"></script>
+
 </body>
 
 </html>
