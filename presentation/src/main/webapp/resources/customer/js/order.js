@@ -4,7 +4,6 @@
 function calculatePrice() {
 
 }
-
 $.fn.serializeObject = function()
 {
     var o = {};

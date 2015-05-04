@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+
     <!--<security-role>-->
-        <!--<role-name>ADMINISTRATOR</role-name>-->
+        <!--<role-name>ADMIN</role-name>-->
     <!--</security-role>-->
     <!--<security-role>-->
         <!--<role-name>DRIVER</role-name>-->
     <!--</security-role>-->
     <!--<security-role>-->
-        <!--<role-name>CUSTOMER_USER</role-name>-->
+        <!--<role-name>CUSTOMER</role-name>-->
     <!--</security-role>-->
 
     <!--<security-constraint>-->
@@ -21,7 +22,8 @@
             <!--<http-method>GET</http-method>-->
         <!--</web-resource-collection>-->
         <!--<auth-constraint>-->
-            <!--<role-name>CUSTOMER_USER</role-name>-->
+            <!--<role-name>CUSTOMER</role-name>-->
+            <!--<role-name>ADMIN</role-name>-->
         <!--</auth-constraint>-->
     <!--</security-constraint>-->
 
@@ -33,7 +35,7 @@
             <!--<http-method>GET</http-method>-->
         <!--</web-resource-collection>-->
         <!--<auth-constraint>-->
-            <!--<role-name>ADMINISTRATOR</role-name>-->
+            <!--<role-name>ADMIN</role-name>-->
         <!--</auth-constraint>-->
     <!--</security-constraint>-->
 
@@ -46,8 +48,10 @@
         <!--</web-resource-collection>-->
         <!--<auth-constraint>-->
             <!--<role-name>DRIVER</role-name>-->
+            <!--<role-name>ADMIN</role-name>-->
         <!--</auth-constraint>-->
     <!--</security-constraint>-->
+
 
     <!--<login-config>-->
         <!--<auth-method>FORM</auth-method>-->
@@ -56,4 +60,8 @@
             <!--<form-error-page>/signin?error=true</form-error-page>-->
         <!--</form-login-config>-->
     <!--</login-config>-->
+        <error-page>
+            <error-code>403</error-code>
+            <location>/error</location>
+        </error-page>
 </web-app>

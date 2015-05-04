@@ -2,12 +2,8 @@ package ua.com.tracksee.logic;
 
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
-
-import ua.com.tracksee.logic.EmailBean;
-import ua.com.tracksee.logic.ValidationBean;
 import ua.com.tracksee.logic.exception.RegistrationException;
 
-import javax.annotation.security.DeclareRoles;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
@@ -75,7 +71,7 @@ public class RegistrationBean {
 
         String userCode = generatedId.toString();
         try {
-            emailBean.sendRegistrationEmail(user, userCode);
+            emailBean.sendRegistrationEmail(email, userCode);
         } catch (MessagingException e) {
             throw new RegistrationException("Failed to send registration email.", EMAIL_SENDING_FAIL);
         }
@@ -90,7 +86,7 @@ public class RegistrationBean {
         if (!validationBean.isValidPassword(password)) {
             throw new RegistrationException("Invalid password.", BAD_PASSWORD);
         }
-        if (phoneNumber != null && !validationBean.isValidPhoneNumber(phoneNumber)) {
+        if (phoneNumber != null && !phoneNumber.equals("") && !validationBean.isValidPhoneNumber(phoneNumber)) {
             throw new RegistrationException("Invalid phone number.", BAD_PHONE);
         }
     }

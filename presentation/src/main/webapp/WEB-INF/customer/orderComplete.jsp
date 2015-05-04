@@ -22,10 +22,10 @@
           media="screen">
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
           media="screen">
-    <link href='<%=application.getContextPath()%>/resources/customer/css/slide-panel.css' rel='stylesheet'
-          type='text/css'/>
-    <link href='<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css' rel='stylesheet'
-          type='text/css'/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/slide-panel.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
+          type="text/css"/>
 </head>
 <body>
 <%@include file="../parts/header.jsp" %>
@@ -100,7 +100,7 @@
             <div id="flip">
                 <div class="form-group">
                     <p>
-                        <button type="button" class="btn btn-info">Click to see additional options</button>
+                        <button type="button" class="btn btn-info turnButton">Click to see additional options</button>
                     </p>
                 </div>
             </div>
@@ -214,6 +214,7 @@
 
     </div>
 </div>
+<p>d</p>
 <!-- Load jQuery and bootstrap datepicker scripts -->
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/jquery/jquery-1.8.3.min.js"
         charset="UTF-8"></script>

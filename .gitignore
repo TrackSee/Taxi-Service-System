@@ -26,3 +26,4 @@ target/
 storage/src/main/resources/META-INF
 .gitignore
 presentation/src/main/java/ua/com/tracksee/servlets/Test.java
+presentation/src/main/webapp/WEB-INF/web.xml

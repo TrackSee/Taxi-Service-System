@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.dao.postrgresql.CanselDAOBean;
+import ua.com.tracksee.dao.postrgresql.CancelDAOBean;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.EJB;
@@ -23,7 +23,7 @@ public class OrderCancellationBean {
     @EJB
     UserDAO userDAO;
     @EJB
-    CanselDAOBean canselDAO;
+    CancelDAOBean canselDAO;
     public boolean cancelOrder(long trackingNumber) {
         //TODO check is exist order first
         canselDAO.canselOrder(trackingNumber);

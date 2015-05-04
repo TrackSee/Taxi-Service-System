@@ -98,6 +98,10 @@
                                                 <td>${driver.phone != null ? driver.phone : "No phone number"} </td>
                                             </tr>
                                             <tr>
+                                                <td>License</td>
+                                                <td>${driver.driverLicense != null ? driver.driverLicense : "No license"}</td>
+                                            </tr>
+                                            <tr>
                                                 <td>Car number</td>
                                                 <td class="carNumb">${driver.car.carNumber != null ? driver.car.carNumber : "No car"}</td>
                                             </tr>

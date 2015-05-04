@@ -2,11 +2,35 @@
 * author Sharaban Sasha
 */
 
+#hideOrderTrack{
+    display: none;
+}
+#hideOrderTrackShow{
+    display: inline;
+}
+#hideTrackInfo{
+    display: none;
+}
+#hideTrackInfoShow{
+    display: inline;
+}
 #hideTrackingNumber{
     display: none;
 }
 #hideTrackingNumberSecond{
     display: none;
+}
+#hideTrackingNumberThird{
+    display: none;
+}
+#hideTrackingNumberFourth{
+    display: none;
+}
+#hideUnregisteredSuccess{
+    display: none;
+}
+#hideUnregisteredSuccessShow{
+    display: inline;
 }
 #hideSuccess{
     display: none;

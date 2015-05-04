@@ -12,6 +12,8 @@
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
+          type="text/css"/>
 </head>
 <body>
 <%@include file="../parts/header.jsp" %>
@@ -54,8 +56,9 @@
                         <label class="control-label" for="email">E-mail</label>
 
                         <div class="controls">
-                            <input type="email" id="email" name="email" placeholder="Email address"
-                                   class="input-xlarge" required autofocus>
+                            <input type="email" id="email" name="email" class="input-xlarge" required autofocus
+                                   placeholder="user@example.com" >
+                            <span class="red-star">★</span>
                             <%--<p class="help-block">Please provide your E-mail</p>--%>
                         </div>
                     </div>
@@ -65,8 +68,9 @@
                         <label class="control-label" for="password">Password</label>
 
                         <div class="controls">
-                            <input type="password" id="password" name="password" placeholder="Password"
-                                   class="input-xlarge" required>
+                            <input type="password" id="password" class="input-xlarge" name="password" required
+                                   placeholder="6-28 letters and digits">
+                            <span class="red-star">★</span>
                             <%--<p class="help-block">Password should be at least 4 characters</p>--%>
                         </div>
                     </div>
@@ -77,7 +81,8 @@
 
                         <div class="controls">
                             <input type="password" id="repeat-password" name="repeat-password"
-                                   placeholder="Confirm password" class="input-xlarge" required>
+                                   placeholder="Repeat your password" class="input-xlarge" required>
+                            <span class="red-star">★</span>
                             <%--<p class="help-block">Please confirm password</p>--%>
                         </div>
                     </div>
@@ -87,8 +92,8 @@
                         <label class="control-label" for="phone-number">Phone number</label>
 
                         <div class="controls">
-                            <input type="text" id="phone-number" name="phone-number" placeholder="Phone number"
-                                   class="input-xlarge">
+                            <input type="text" id="phone-number" name="phone-number"
+                                   placeholder="" class="input-xlarge">
                             <%--<p class="help-block">Username can contain any letters or numbers, without spaces</p>--%>
                         </div>
                     </div>

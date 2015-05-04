@@ -86,7 +86,7 @@ public class OrderCompleteServlet extends HttpServlet {
                 req.setAttribute("showError", "Show");
             } else {
                 Long trackingNumber = taxiOrderBean.makeOrder(inputData);
-                TaxiOrderEntity taxiOrderEntity = taxiOrderBean.getAdditionalInfo(trackingNumber);
+                TaxiOrderEntity taxiOrderEntity = taxiOrderBean.getOrderInfo(trackingNumber);
                 req.setAttribute("showSuccess", "Show");
                 req.setAttribute("trackingNumber", trackingNumber);
                 req.setAttribute("ArriveDate", "<p>Arrive date: " + taxiOrderEntity.getArriveDate() + "</p>");
