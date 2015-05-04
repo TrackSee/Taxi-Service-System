@@ -34,7 +34,7 @@ public class CarDAOBean implements CarDAO {
         query.setParameter(1, carEntity.getCarNumber());
         query.setParameter(2, carEntity.getCarModel());
         query.setParameter(3, carEntity.getColor());
-        query.setParameter(4, carEntity.getCarCategory());
+        query.setParameter(4, carEntity.getCarCategory().toString());
         query.setParameter(5, carEntity.getAnimalTransportationApplicable());
         query.setParameter(6, carEntity.getFreeWifi());
         query.setParameter(7, carEntity.getAirConditioner());
@@ -50,7 +50,7 @@ public class CarDAOBean implements CarDAO {
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, carEntity.getCarModel());
         query.setParameter(2, carEntity.getColor());
-        query.setParameter(3, carEntity.getCarCategory());
+        query.setParameter(3, carEntity.getCarCategory().toString());
         query.setParameter(4, carEntity.getAnimalTransportationApplicable());
         query.setParameter(5, carEntity.getFreeWifi());
         query.setParameter(6, carEntity.getAirConditioner());

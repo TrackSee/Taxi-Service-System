@@ -2,15 +2,15 @@ $(document).ready(function () {
 
     var data = {};
 
-    $('#addCar').click(function(){
+    $('#getDriver').click(function(){
         data["email"] = $('input[name = email]', '#createCar').val();
 
         $.ajax({
             type: 'POST',
-            url: 'createcar',
+            url: 'searchdriver',
             data: data,
             success: function(data){
-                window.location.href = 'cars';
+                window.location.href = 'driver';
             }
         });
     });

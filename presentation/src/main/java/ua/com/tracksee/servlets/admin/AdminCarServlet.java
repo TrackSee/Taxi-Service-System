@@ -27,15 +27,15 @@ public class AdminCarServlet extends HttpServlet {
     private static Logger logger = LogManager.getLogger();
     @EJB
     private AdministratorBean administratorBean;
-    @EJB
-    private CarDAO carDAO;
+//    @EJB
+//    private CarDAO carDAO;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<CarEntity> cars = carDAO.getCarsPart(1);
+        List<CarEntity> cars = administratorBean.getCarsPart(1);
         req.setAttribute("cars", cars);
 
-        req.setAttribute("pagesCount", carDAO.getCarPagesCount());
+        req.setAttribute("pagesCount", administratorBean.getCarPagesCount());
         req.getRequestDispatcher("/WEB-INF/admin/adminCarList.jsp").forward(req, resp);
     }
 
@@ -46,7 +46,7 @@ public class AdminCarServlet extends HttpServlet {
         //check pageNumber
         try {
             pageNumber = Integer.parseInt(req.getParameter("pageNumber"));
-            if(pageNumber > carDAO.getCarPagesCount()){
+            if(pageNumber > administratorBean.getCarPagesCount()){
                 pageNumber = 1;
                 logger.warn("wrong page was request on /admin/cars");
             }
@@ -54,9 +54,9 @@ public class AdminCarServlet extends HttpServlet {
             pageNumber = 1;
             logger.warn("wrong page was request on /admin/drivers");
         }
-        List<CarEntity> cars = carDAO.getCarsPart(pageNumber);
+        List<CarEntity> cars = administratorBean.getCarsPart(pageNumber);
         req.setAttribute("cars", cars);
-        req.setAttribute("pagesCount", carDAO.getCarPagesCount());
+        req.setAttribute("pagesCount", administratorBean.getCarPagesCount());
         resp.getWriter().write(getJsonFromList(cars));
     }
 
