@@ -77,6 +77,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tbody id="table-body">
                 <c:forEach items="${requestScope.orders}" var="order">
                 <tr class="odd gradeX">
                   <td>${order.trackingNumber}</td>
