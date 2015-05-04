@@ -3,6 +3,7 @@
          xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+
     <security-role>
         <role-name>ADMIN</role-name>
     </security-role>
@@ -59,4 +60,8 @@
             <!--<form-error-page>/signin?error=true</form-error-page>-->
         <!--</form-login-config>-->
     <!--</login-config>-->
+        <error-page>
+            <error-code>403</error-code>
+            <location>/error</location>
+        </error-page>
 </web-app>
