@@ -1,4 +1,4 @@
-package ua.com.tracksee.servlets;
+package ua.com.tracksee.servlets.customer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,12 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Vadym Akymov  on 14.04.15.
+ * Created by Igor on 03.05.2015.
  */
-@WebServlet(urlPatterns = "")
-public class HomeServlet extends HttpServlet {
+@WebServlet("ModifyOrderServlet")
+public class ModifyOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/customer/modifyOrder.jsp").forward(req, resp);
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
     }
 }
