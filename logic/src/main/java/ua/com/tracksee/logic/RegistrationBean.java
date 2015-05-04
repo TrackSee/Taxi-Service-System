@@ -13,6 +13,8 @@ import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.mail.MessagingException;
 
+import java.util.Objects;
+
 import static java.lang.Boolean.FALSE;
 import static ua.com.tracksee.logic.exception.RegistrationExceptionType.*;
 
@@ -74,11 +76,7 @@ public class RegistrationBean {
         }
 
         String userCode = generatedId.toString();
-        try {
-            emailBean.sendRegistrationEmail(user, userCode);
-        } catch (MessagingException e) {
-            throw new RegistrationException("Failed to send registration email.", EMAIL_SENDING_FAIL);
-        }
+        emailBean.sendRegistrationEmail(email, userCode);
     }
 
     private void validateRegistrationData(String email, String password, String phoneNumber)
@@ -90,7 +88,7 @@ public class RegistrationBean {
         if (!validationBean.isValidPassword(password)) {
             throw new RegistrationException("Invalid password.", BAD_PASSWORD);
         }
-        if (phoneNumber != null && !validationBean.isValidPhoneNumber(phoneNumber)) {
+        if (phoneNumber != null && !phoneNumber.equals("") && !validationBean.isValidPhoneNumber(phoneNumber)) {
             throw new RegistrationException("Invalid phone number.", BAD_PHONE);
         }
     }
