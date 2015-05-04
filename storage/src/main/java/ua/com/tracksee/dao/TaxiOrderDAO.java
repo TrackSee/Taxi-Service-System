@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Local
 public interface TaxiOrderDAO {
-    int ORDERS_PAGE_SIZE = 10;
+    int ORDERS_PAGE_SIZE = 2;
 
     public void addComment(TaxiOrderEntity taxiOrderEntity);
 
