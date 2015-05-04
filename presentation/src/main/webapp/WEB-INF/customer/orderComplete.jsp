@@ -100,7 +100,7 @@
             <div id="flip">
                 <div class="form-group">
                     <p>
-                        <button type="button" class="btn btn-info">Click to see additional options</button>
+                        <button type="button" class="btn btn-info turnButton">Click to see additional options</button>
                     </p>
                 </div>
             </div>
