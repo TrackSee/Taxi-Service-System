@@ -7,7 +7,7 @@ package ua.com.tracksee.servlets.group;
 import com.google.gson.Gson;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entity.Group;
-import ua.com.tracksee.entity.Role;
+import ua.com.tracksee.enumartion.Role;
 import ua.com.tracksee.logic.GroupBean;
 import ua.com.tracksee.logic.group.GroupSelectAction;
 import ua.com.tracksee.logic.group.GroupSelectCountAction;
@@ -15,14 +15,12 @@ import ua.com.tracksee.logic.group.GroupUpdateAction;
 
 import javax.ejb.EJB;
 import javax.persistence.EntityExistsException;
-import javax.persistence.EntityNotFoundException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -30,9 +28,6 @@ import java.util.List;
  */
 @WebServlet(name = "GroupServlet", urlPatterns = {"/GroupServlet"})
 public class GroupServlet extends HttpServlet {
-
-    @EJB
-    private GroupBean groupBean;
 
     private static final String SELECT_ACTION_ALIAS = "selectAction";
     private static final String UPDATE_ACTION_ALIAS = "updateAction";
@@ -45,9 +40,9 @@ public class GroupServlet extends HttpServlet {
     private static final String IDS_ALIAS = "ids";
     private static final String UPDATE_ROLE_IDS_ALIAS = "updateRoleIds";
     private static final String ERROR_MESSAGE_ALIAS = "-1";
-
     private static final String SEPARATOR = ",";
-
+    @EJB
+    private GroupBean groupBean;
     private List resList;
 
     @Override

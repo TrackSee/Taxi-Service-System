@@ -2,18 +2,12 @@ package ua.com.tracksee.logic;
 
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
-
-import ua.com.tracksee.logic.EmailBean;
-import ua.com.tracksee.logic.ValidationBean;
 import ua.com.tracksee.logic.exception.RegistrationException;
 
-import javax.annotation.security.DeclareRoles;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.mail.MessagingException;
-
-import java.util.Objects;
 
 import static java.lang.Boolean.FALSE;
 import static ua.com.tracksee.logic.exception.RegistrationExceptionType.*;
@@ -76,7 +70,11 @@ public class RegistrationBean {
         }
 
         String userCode = generatedId.toString();
-        emailBean.sendRegistrationEmail(email, userCode);
+        try {
+            emailBean.sendRegistrationEmail(email, userCode);
+        } catch (MessagingException e) {
+            throw new RegistrationException("Failed to send registration email.", EMAIL_SENDING_FAIL);
+        }
     }
 
     private void validateRegistrationData(String email, String password, String phoneNumber)

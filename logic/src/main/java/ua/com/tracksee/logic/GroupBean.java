@@ -12,16 +12,16 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.GroupDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entity.Group;
-import ua.com.tracksee.entity.Role;
+import ua.com.tracksee.enumartion.Role;
 import ua.com.tracksee.logic.group.GroupSelectAction;
 import ua.com.tracksee.logic.group.GroupSelectCountAction;
 import ua.com.tracksee.logic.group.GroupUpdateAction;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
-import javax.persistence.*;
 import javax.ejb.Stateless;
-
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.ArrayList;
