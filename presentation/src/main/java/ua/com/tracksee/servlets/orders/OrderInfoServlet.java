@@ -2,9 +2,12 @@ package ua.com.tracksee.servlets.orders;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.logic.OrderCancellationBean;
 import ua.com.tracksee.logic.exception.OrderException;
 
+import javax.ejb.EJB;
 import javax.mail.MessagingException;
+import javax.persistence.criteria.Order;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +20,9 @@ import java.io.IOException;
  */
 @WebServlet("/orderInfo")
 public class OrderInfoServlet extends HttpServlet {
+    private
+    @EJB
+    OrderCancellationBean orderCancellationBean;
     private static final Logger logger = LogManager.getLogger();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,13 +32,12 @@ public class OrderInfoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            System.out.println(req.getParameter("trackingNumber"));
             int trackingNumber=Integer.parseInt(req.getParameter("trackingNumber"));
-            // TODO refuse order
-            if(true){
+            boolean state=orderCancellationBean.cancelOrder(trackingNumber);
+            if(state){
                 req.setAttribute("showRefuseSuccess","Show");
             }else{
-            req.setAttribute("showRefuseError","Show");
+                req.setAttribute("showRefuseError","Show");
                 req.setAttribute("trackingNumber",trackingNumber);
             }
             req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
@@ -42,4 +47,4 @@ public class OrderInfoServlet extends HttpServlet {
         }
 
     }
-    }
+}

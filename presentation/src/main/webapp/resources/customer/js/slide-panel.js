@@ -17,3 +17,4 @@ $('.turnButton').click(function(){
     }
     hiddenStatus = !hiddenStatus;
 });
+

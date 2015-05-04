@@ -1,8 +1,11 @@
 package ua.com.tracksee.servlets.orders;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.entities.TaxiOrderEntity;
+import ua.com.tracksee.enumartion.OrderStatus;
+import ua.com.tracksee.enumartion.Sex;
 import ua.com.tracksee.logic.TaxiOrderBean;
 import ua.com.tracksee.logic.exception.OrderException;
 
@@ -15,38 +18,44 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 /**
- * This class return orderComplete.jsp,
- * get data from this page and send it to TaxiOrderBean.
- *
+ * @author Igor Gula
  * @author Sharaban Sasha
  */
-@WebServlet("/orderComplete")
-public class OrderCompleteServlet extends HttpServlet {
+@WebServlet("/updateOrder")
+public class UpdateOrderServlet extends HttpServlet {
+
+    @EJB
+    private TaxiOrderBean taxiOrderBean;
+
+    private static final Logger logger = LogManager.getLogger();
     /**
      * Order status is QUEUED  because
      * the orders received from the page will
      * always have the status QUEUED
      */
     private static final String ORDER_STATUS = "QUEUED";
-    private static final Logger logger = LogManager.getLogger();
-
-    private
-    @EJB
-    TaxiOrderBean taxiOrderBean;
+    private static final String STATUS = "status";
+    private static final String DRIVER_SEX = "driverSex";
+    private static final String MUSIC_STYLE = "musicStyle";
+    private static final String ANIMAL_TRANSPORTATION = "animalTransportation";
+    private static final String WIFI = "wifi";
+    private static final String SMOKING_DRIVER = "smokingDriver";
+    private static final String CONDITIONER = "airConditioner";
+    private static final String TRACKING_NUMBER = "trackingNumber";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("pageName", "orderComplete");
-        req.getRequestDispatcher("/WEB-INF/customer/orderComplete.jsp").forward(req, resp);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("pageName", "orderInformation");
         HashMap<String, String> inputData = new HashMap<String, String>();
         try {
+            inputData.put("trackingNumber", req.getParameter("trackingNumber"));
             inputData.put("phoneNumber", req.getParameter("phoneNumber"));
             inputData.put("email", req.getParameter("email"));
             inputData.put("addressOrigin", req.getParameter("addressOrigin"));
@@ -81,29 +90,9 @@ public class OrderCompleteServlet extends HttpServlet {
 
             inputData.put("description", req.getParameter("description"));
 
-            //TODO black list check
-            if (false) {
-                req.setAttribute("showError", "Show");
-            } else {
-                Long trackingNumber = taxiOrderBean.makeOrder(inputData);
-                TaxiOrderEntity taxiOrderEntity = taxiOrderBean.getOrderInfo(trackingNumber);
-                req.setAttribute("showSuccess", "Show");
-                req.setAttribute("trackingNumber", trackingNumber);
-                req.setAttribute("ArriveDate", "<p>Arrive date: " + taxiOrderEntity.getArriveDate() + "</p>");
-                req.setAttribute("EndDate", "<p>End date: " + taxiOrderEntity.getEndDate() + "</p>");
-                req.setAttribute("service", "<p>Service: " + taxiOrderEntity.getService() + "</p>");
-                req.setAttribute("musicStyle", "<p>Music style: " + taxiOrderEntity.getEndDate() + "</p>");
-                req.setAttribute("driverSex", "<p>Driver sex: " + taxiOrderEntity.getDriverSex() + "</p>");
-                req.setAttribute("carCategory", "<p>Car category: " + taxiOrderEntity.getCarCategory() + "</p>");
-                req.setAttribute("animalTransportation", "<p>Animal transportation: " +
-                        taxiOrderEntity.getAnimalTransportation() + "</p>");
-                req.setAttribute("FreeWifi", "<p>Free wi-fi: " + taxiOrderEntity.getFreeWifi()+"</p>");
-                req.setAttribute("smokingDriver", "<p>Smoking driver: " + taxiOrderEntity.getNonSmokingDriver()+"</p>");
-                req.setAttribute("airConditioner", "<p>Air conditioner: " + taxiOrderEntity.getAirConditioner()+"</p>");
-            }
-
-            req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
-        } catch (OrderException | MessagingException e) {
+            taxiOrderBean.updateOrder(inputData);
+            req.getRequestDispatcher("/WEB-INF/customer/orderTrack.jsp").forward(req, resp);
+        } catch (OrderException  e) {
             logger.error(e.getMessage());
             req.getRequestDispatcher("/WEB-INF/customer/error.jsp").forward(req, resp);
         }
