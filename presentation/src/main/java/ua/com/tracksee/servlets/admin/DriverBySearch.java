@@ -35,9 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by Vadym_Akymov on 21.04.15.
- */
+
 @WebServlet("/admin/driverbysearch")
 public class DriverBySearch extends HttpServlet {
     private static Logger logger = LogManager.getLogger();
