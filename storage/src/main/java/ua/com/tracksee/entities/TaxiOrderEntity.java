@@ -1,11 +1,16 @@
 package ua.com.tracksee.entities;
 
-import ua.com.tracksee.enumartion.*;
+import ua.com.tracksee.enumartion.CarCategory;
+import ua.com.tracksee.enumartion.Sex;
+import ua.com.tracksee.enumartion.WayOfPayment;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import static javax.persistence.EnumType.STRING;
 
@@ -14,7 +19,7 @@ import static javax.persistence.EnumType.STRING;
  */
 @Entity
 @Table(name = "taxi_order", schema = "public", catalog = "tracksee")
-public class TaxiOrderEntity {
+public class TaxiOrderEntity implements Serializable{
     private Integer trackingNumber;
     private String status;
     private BigDecimal price;
@@ -31,6 +36,7 @@ public class TaxiOrderEntity {
     private String comment;
     private Integer userId;
     private Timestamp carArriveTime;
+    private Set<TaxiOrderItemEntity> taxiOrderItemEntitySet = new HashSet<TaxiOrderItemEntity>(0);
 
 
     @Id
@@ -141,7 +147,7 @@ public class TaxiOrderEntity {
 
     @Basic
     @Column(name = "animal_transportation", nullable = false)
-    public Boolean isAnimalTransportation() {
+    public Boolean getAnimalTransportation() {
         return animalTransportation;
     }
 
@@ -151,7 +157,7 @@ public class TaxiOrderEntity {
 
     @Basic
     @Column(name = "free_wifi", nullable = false)
-    public Boolean isFreeWifi() {
+    public Boolean getFreeWifi() {
         return freeWifi;
     }
 
@@ -161,7 +167,7 @@ public class TaxiOrderEntity {
 
     @Basic
     @Column(name = "smoking_driver", nullable = false)
-    public Boolean isSmokingDriver() {
+    public Boolean getSmokingDriver() {
         return smokingDriver;
     }
 
@@ -171,7 +177,7 @@ public class TaxiOrderEntity {
 
     @Basic
     @Column(name = "air_conditioner", nullable = false)
-    public Boolean isAirConditioner() {
+    public Boolean getAirConditioner() {
         return airConditioner;
     }
 
@@ -199,7 +205,7 @@ public class TaxiOrderEntity {
         this.carArriveTime = carArriveTime;
     }
 
-    @Override
+   @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -219,4 +225,15 @@ public class TaxiOrderEntity {
     public int hashCode() {
         return Objects.hash(trackingNumber, status, price, service, carCategory, wayOfPayment, driverSex, musicStyle, comment);
     }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "taxiOrder")
+    public Set<TaxiOrderItemEntity> getTaxiOrderItemEntitySet() {
+        return taxiOrderItemEntitySet;
+    }
+
+    public void setTaxiOrderItemEntitySet(Set<TaxiOrderItemEntity> taxiOrderItemEntitySet) {
+        this.taxiOrderItemEntitySet = taxiOrderItemEntitySet;
+    }
+
+
 }

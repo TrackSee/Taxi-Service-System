@@ -48,8 +48,19 @@
             <version>3.5.6-Final</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate</artifactId>
+            <version>3.2.6.ga</version>
+        </dependency>
 
-        <!--For arquillian integration testing-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.0.1.Final</version>
+        </dependency>
+
+         <!--For arquillian integration testing-->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>

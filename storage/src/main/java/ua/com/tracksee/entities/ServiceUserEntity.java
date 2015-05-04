@@ -1,8 +1,11 @@
 package ua.com.tracksee.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Ruslan Gunavardana
@@ -10,7 +13,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "service_user", schema = "public", catalog = "tracksee")
-public class ServiceUserEntity {
+public class ServiceUserEntity implements Serializable{
     private Integer userId;
     private String email;
     private String password;
@@ -24,6 +27,7 @@ public class ServiceUserEntity {
     private Boolean activated = false;
     private Timestamp registrationDate = new Timestamp(System.currentTimeMillis());
     private CarEntity car;
+    private Set<TaxiOrderItemEntity> taxiOrderItemEntitySet = new HashSet<TaxiOrderItemEntity>(0);
 
     @Id
     @GeneratedValue(generator = "userSeq")
@@ -177,5 +181,14 @@ public class ServiceUserEntity {
 
     public void setCar(CarEntity carByCarNumber) {
         this.car = carByCarNumber;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "taxiOrder")
+    public Set<TaxiOrderItemEntity> getTaxiOrderItemEntitySet() {
+        return taxiOrderItemEntitySet;
+    }
+
+    public void setTaxiOrderItemEntitySet(Set<TaxiOrderItemEntity> taxiOrderItemEntitySet) {
+        this.taxiOrderItemEntitySet = taxiOrderItemEntitySet;
     }
 }

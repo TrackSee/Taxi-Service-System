@@ -10,6 +10,7 @@
         <class>ua.com.tracksee.entities.TaxiOrderEntity</class>
         <class>ua.com.tracksee.entities.TaxiOrderItemEntity</class>
         <class>ua.com.tracksee.entities.TaxiPriceEntity</class>
+        <class>ua.com.tracksee.usertype.PathUserType</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/tracksee"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>

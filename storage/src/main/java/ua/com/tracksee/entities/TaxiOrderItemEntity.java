@@ -1,10 +1,9 @@
 package ua.com.tracksee.entities;
 
-import org.postgresql.geometric.PGpath;
+import org.postgresql.util.PGobject;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * @author Ruslan Gunavardana
@@ -12,12 +11,12 @@ import java.util.Objects;
 @Entity
 @Table(name = "taxi_order_item", schema = "public", catalog = "tracksee")
 //@IdClass(TaxiOrderItemEntityPK.class)
-public class TaxiOrderItemEntity implements Serializable {
+public class TaxiOrderItemEntity extends PGobject implements Serializable{
     private Integer taxiItemId;
-    private PGpath path;
+//    private PGpath path;
     //private Integer trackingNumber;
 //    private Integer driver_id;
-    //private BigDecimal orderedQuantity;
+    private Integer orderedQuantity;
     private ServiceUserEntity driver;
     private TaxiOrderEntity taxiOrder;
 
@@ -32,15 +31,16 @@ public class TaxiOrderItemEntity implements Serializable {
         this.taxiItemId = taxiItemId;
     }
 
-    @Basic
-    @Column(name = "path")
-    public PGpath getPath() {
-        return path;
-    }
-
-    public void setPath(PGpath path) {
-        this.path = path;
-    }
+//    @Basic
+//    @Column(name = "path")
+//    @Type(type = "ua.com.tracksee.usertype.PathUserType")
+//    public PGpath getPath() {
+//        return path;
+//    }
+//
+//    public void setPath(PGpath path) {
+//        this.path = path;
+//    }
 
 //    @Basic
 //    @Column(name = "driver_id")
@@ -62,31 +62,31 @@ public class TaxiOrderItemEntity implements Serializable {
 //        this.trackingNumber = tracking_number;
 //    }
 
-//    @Basic
-//    @Column(name = "ordered_quantity")
-//    public BigDecimal getOrderedQuantity() {
-//        return orderedQuantity;
+    @Basic
+    @Column(name = "ordered_quantity")
+    public Integer getOrderedQuantity() {
+        return orderedQuantity;
+    }
+
+    public void setOrderedQuantity(Integer orderedQuantity) {
+        this.orderedQuantity = orderedQuantity;
+    }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        TaxiOrderItemEntity that = (TaxiOrderItemEntity) o;
+//        return Objects.equals(taxiItemId, that.taxiItemId) &&
+//                Objects.equals(path, that.path);
 //    }
 //
-//    public void setOrderedQuantity(BigDecimal orderedQuantity) {
-//        this.orderedQuantity = orderedQuantity;
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(taxiItemId, path);
 //    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TaxiOrderItemEntity that = (TaxiOrderItemEntity) o;
-        return Objects.equals(taxiItemId, that.taxiItemId) &&
-                Objects.equals(path, that.path);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(taxiItemId, path);
-    }
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver_id", referencedColumnName = "user_id")
     public ServiceUserEntity getDriver() {
         return driver;
@@ -96,7 +96,7 @@ public class TaxiOrderItemEntity implements Serializable {
         this.driver = serviceUserByDriverId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tracking_numer", referencedColumnName = "tracking_number")
     public TaxiOrderEntity getTaxiOrder() {
         return taxiOrder;
@@ -104,5 +104,30 @@ public class TaxiOrderItemEntity implements Serializable {
 
     public void setTaxiOrder(TaxiOrderEntity taxiOrderByTrackingNumer) {
         this.taxiOrder = taxiOrderByTrackingNumer;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TaxiOrderItemEntity)) return false;
+
+        TaxiOrderItemEntity that = (TaxiOrderItemEntity) o;
+
+        if (driver != null ? !driver.equals(that.driver) : that.driver != null) return false;
+        if (orderedQuantity != null ? !orderedQuantity.equals(that.orderedQuantity) : that.orderedQuantity != null)
+            return false;
+        if (taxiItemId != null ? !taxiItemId.equals(that.taxiItemId) : that.taxiItemId != null) return false;
+        if (taxiOrder != null ? !taxiOrder.equals(that.taxiOrder) : that.taxiOrder != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = taxiItemId != null ? taxiItemId.hashCode() : 0;
+        result = 31 * result + (orderedQuantity != null ? orderedQuantity.hashCode() : 0);
+        result = 31 * result + (driver != null ? driver.hashCode() : 0);
+        result = 31 * result + (taxiOrder != null ? taxiOrder.hashCode() : 0);
+        return result;
     }
 }
