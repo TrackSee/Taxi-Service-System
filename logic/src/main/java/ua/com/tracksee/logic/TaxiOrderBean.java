@@ -124,6 +124,20 @@ public class TaxiOrderBean {
     public int getActiveTaxiOrderPagesCount(){
         return taxiOrderDAO.getActiveTaxiOrderPagesCount();
     }
+
+    public void updateOrder(HashMap<String, String> inputData) throws OrderException{
+        TaxiOrderEntity taxiOrderEntity=validateForTaxiOrder(inputData);
+        long trackingNumber=Long.parseLong(inputData.get("trackingNumber"));
+        if(trackingNumber>=0){
+        taxiOrderEntity.setTrackingNumber(trackingNumber);
+        taxiOrderDAO.updateOrder(taxiOrderEntity);
+        }else{
+            throw new OrderException("Invalid tracking number","invalid-track-numb");
+        }
+    }
+    public void updateComment(Integer trackNumber, String comment) {
+        taxiOrderDAO.updateComment(trackNumber, comment);
+    }
     /**
      * @author Vadym Akymov
      * @see TaxiOrderDAO
@@ -334,7 +348,7 @@ public class TaxiOrderBean {
      * @author Sharaban Sasha
      * @see TaxiOrderDAO
      */
-    public TaxiOrderEntity getAdditionalInfo(long trackingNumber){
+    public TaxiOrderEntity getOrderInfo(long trackingNumber){
         return taxiOrderDAO.getOrder(trackingNumber);
     }
 

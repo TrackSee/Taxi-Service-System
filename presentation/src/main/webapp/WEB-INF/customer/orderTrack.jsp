@@ -26,6 +26,8 @@
           type="text/css"/>
     <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
           type="text/css"/>
+    <link href='<%=application.getContextPath()%>/resources/customer/css/visible.css' rel='stylesheet'
+          type='text/css'/>
 </head>
 <body>
 <%@include file="../parts/header.jsp" %>
@@ -38,7 +40,7 @@
         <!-- start: Container -->
         <div class="container">
 
-            <h2><i class="ico-settings ico-white"></i>Order</h2>
+            <h2><i class="ico-settings ico-white"></i>Order tracking</h2>
 
         </div>
         <!-- end: Container  -->
@@ -53,18 +55,21 @@
     <!--start: Container -->
     <div class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
-        <form method="post" action="<c:url value="/orderComplete"/>">
+        <form method="post" action="<c:url value="/updateOrder"/>">
+            <label id="hideTrackingNumberSecond">
+                <input type="text" name="trackingNumber" value="${trackingNumber}" >
+            </label>
             <div class="form-group">
                 <label>Phone number</label>
                 <input type="text" name="phoneNumber" class="form-control" placeholder="Enter phone number:"
-                       required>
+                       value="0936789082" required>
                 <span class="red-star">★</span>
             </div>
 
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" class="form-control" name="email" placeholder="Enter email"
-                       data-error="That email is invalid" required>
+                       value="xmortal@mail.ru" data-error="That email is invalid" required>
                 <span class="red-star">★</span>
             </div>
 
@@ -194,12 +199,18 @@
                 <textarea name="description" id="description" rows="4" cols="50" title=""></textarea>
                 <br/>
             </div>
-
             <div class="form-group">
-                <button type="submit" class="btn btn-success btn-large">Submit</button>
+                <button type="submit" class="btn btn-success btn-large">Change order</button>
             </div>
-
         </form>
+            <form method="post" action="<c:url value="/orderInfo"/>">
+                <label id="hideTrackingNumber">
+                    <input type="text" name="trackingNumber" value="${trackingNumber}" >
+                </label>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger btn-large">Refuse order</button>
+                </div>
+            </form>
     </div>
     </p>
 </div>

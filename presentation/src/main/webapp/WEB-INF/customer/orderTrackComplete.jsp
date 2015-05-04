@@ -26,6 +26,8 @@
           type="text/css"/>
     <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
           type="text/css"/>
+    <link href='<%=application.getContextPath()%>/resources/customer/css/visible.css' rel='stylesheet'
+          type='text/css'/>
 </head>
 <body>
 <%@include file="../parts/header.jsp" %>
@@ -38,7 +40,7 @@
         <!-- start: Container -->
         <div class="container">
 
-            <h2><i class="ico-settings ico-white"></i>Order</h2>
+            <h2><i class="ico-settings ico-white"></i>Order tracking</h2>
 
         </div>
         <!-- end: Container  -->
@@ -53,18 +55,18 @@
     <!--start: Container -->
     <div class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
-        <form method="post" action="<c:url value="/orderComplete"/>">
+
             <div class="form-group">
                 <label>Phone number</label>
                 <input type="text" name="phoneNumber" class="form-control" placeholder="Enter phone number:"
-                       required>
+                       value="0936789082"  required>
                 <span class="red-star">★</span>
             </div>
 
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" class="form-control" name="email" placeholder="Enter email"
-                       data-error="That email is invalid" required>
+                       value="xmortal@mail.ru" data-error="That email is invalid" required>
                 <span class="red-star">★</span>
             </div>
 
@@ -194,9 +196,16 @@
                 <textarea name="description" id="description" rows="4" cols="50" title=""></textarea>
                 <br/>
             </div>
+        <form method="post" action="<c:url value="/addComment"/>">
+            <label id="hideTrackingNumber">
+                <input type="text" name="trackingNumber" value="${trackingNumber}" >
+            </label>
+            Comments:<br/>
+            <textarea name="comment" id="comments" rows="4" cols="50" title=""></textarea>
+            <br/>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-success btn-large">Submit</button>
+                <button type="submit" class="btn btn-success btn-large">Add comments</button>
             </div>
 
         </form>
