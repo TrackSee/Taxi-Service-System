@@ -22,10 +22,10 @@
           media="screen">
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
           media="screen">
-    <link href='<%=application.getContextPath()%>/resources/customer/css/slide-panel.css' rel='stylesheet'
-          type='text/css'/>
-    <link href='<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css' rel='stylesheet'
-          type='text/css'/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/slide-panel.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
+          type="text/css"/>
 </head>
 <body>
 <%@include file="../parts/header.jsp" %>
