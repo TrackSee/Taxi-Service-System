@@ -31,6 +31,14 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
 
+    @Override
+    public int updateComment(Integer trackNumber, String comment) {
+        Query query = entityManager.createNativeQuery(
+                "UPDATE  taxi_order SET comment = ?1 WHERE tracking_number = ?2");
+        query.setParameter(1, comment);
+        query.setParameter(2, trackNumber);
+        return query.executeUpdate();
+    }
 
     @Override
     public void addComment(TaxiOrderEntity entity) {

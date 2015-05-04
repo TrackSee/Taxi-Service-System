@@ -20,6 +20,10 @@ public interface TaxiOrderDAO {
     void addComment(TaxiOrderEntity taxiOrderEntity);
 
     /**
+     *@author Igor Gula
+     */
+    public int updateComment(Integer trackNumber, String comment);
+    /**
      * This method insert order into database
      *
      * @author Sharaban Sasha
