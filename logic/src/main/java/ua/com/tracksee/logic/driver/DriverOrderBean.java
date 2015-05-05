@@ -100,12 +100,14 @@ public class DriverOrderBean {
         return taxiOrderDao.getHistoryOfOrders(id, pageNumber);
     }
 
-    public TaxiOrderEntity getAssignedOrder(int id){
-        return taxiOrderDao.getAssignedOrder(id);
+    public List<TaxiOrderEntity> getAssignedOrders(int id){
+        return taxiOrderDao.getAssignedOrders(id);
     }
 
-    public void setAssignOrder(ServiceUserEntity driver, TaxiOrderEntity taxiOrderEntity, Timestamp carArriveTime){
-        taxiOrderDao.setAssignOrder(driver, taxiOrderEntity, carArriveTime);
+    public void setAssignOrder(int driverId, String trackingNumber, String carArriveTime){
+        int trackingNumberInt = Integer.parseInt(trackingNumber);
+        Timestamp carArriveTimeTimestamp = Timestamp.valueOf(carArriveTime);
+        taxiOrderDao.setAssignOrder(driverId, trackingNumberInt, carArriveTimeTimestamp);
     }
 
     public void setInProgressOrder(TaxiOrderEntity taxiOrderEntity){

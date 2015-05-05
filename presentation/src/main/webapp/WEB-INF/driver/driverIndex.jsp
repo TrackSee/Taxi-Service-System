@@ -90,8 +90,8 @@
                     <td>${"order.smokingDriver"}</td>
                     <td>${"order.musicStyle"}</td>
                     <td>${order.status}</td>
-                    <td><button type="button" class="btn btn-info btn-circle"><i class="fa fa-check"></i>
-                    </button></td>
+                    <td><a href="assigned-order?trackingNumber=${order.trackingNumber}" ><button type="button" id="assignOrder" class="btn btn-info btn-circle"><i class="fa fa-check"></i>
+                    </button></a></td>
                   </tr>
                 </c:forEach>
                 </tbody>

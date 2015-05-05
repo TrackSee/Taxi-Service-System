@@ -1,6 +1,5 @@
 package ua.com.tracksee.dao.postrgresql;
 
-import org.postgresql.geometric.PGpath;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
@@ -72,37 +71,37 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     }
 
     @Override
-    public TaxiOrderEntity getAssignedOrder(int id) {
+    public List<TaxiOrderEntity> getAssignedOrders(int id) {
         String sql = "SELECT * FROM taxi_order INNER JOIN taxi_order_item " +
                 "ON taxi_order.tracking_number = taxi_order_item.tracking_numer " +
                 "AND taxi_order_item.driver_id = ? AND status = 'Assigned'";
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
         query.setParameter(1, id);
-        return (TaxiOrderEntity) query.getSingleResult();
+        return query.getResultList();
     }
 
-    //write transaction
+    //@Todo write transaction, get time
     @Override
-    public void setAssignOrder(ServiceUserEntity driver, TaxiOrderEntity taxiOrderEntity, Timestamp carArriveTime) {
-        try {
-            entityManager.getTransaction().begin();
+    public void setAssignOrder(int driverId, int trackingNumber, Timestamp carArriveTime) {
+//        try {
+            //entityManager.getTransaction().begin();
             Query query = entityManager.createNativeQuery("UPDATE taxi_order_item SET driver_id = ?");
-            query.setParameter(1, driver.getUserId());
-            Query query2 = entityManager.createNativeQuery("UPDATE taxi_order SET status = ASSIGNED, car_arrive_time = ? " +
+            query.setParameter(1, driverId);
+            Query query2 = entityManager.createNativeQuery("UPDATE taxi_order SET status = 'Assigned', ordered_date = ? " +
                     "WHERE tracking_number = ?");
             query2.setParameter(1, carArriveTime);
-            query2.setParameter(2, taxiOrderEntity.getTrackingNumber());
+            query2.setParameter(2, trackingNumber);
             query.executeUpdate();
             query2.executeUpdate();
-            entityManager.getTransaction().commit();
-        }
-        catch (  Exception e) {
-            entityManager.getTransaction().rollback();
-        }
-        if (entityManager != null) {
-            entityManager.close();
-            entityManager=null;
-        }
+            //entityManager.getTransaction().commit();
+//        }
+//        catch (  Exception e) {
+//            entityManager.getTransaction().rollback();
+//        }
+//        if (entityManager != null) {
+//            entityManager.close();
+//            entityManager=null;
+//        }
         }
 
 

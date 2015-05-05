@@ -78,16 +78,18 @@
                 </tr>
                 </thead>
                 <tbody>
+                <c:forEach items="${requestScope.orders}" var="order">
                   <tr>
                       <td>${order.trackingNumber}</td>
                       <td>${order.carArriveTime}</td>
                       <td>${"-"}</td>
                       <td>${"-"}</td>
                       <td>${order.price}</td>
-                      <td><button type="button" class="btn btn-warning">Refuse</button</td>
-                      <td><button type="button" class="btn btn-primary">In progress</button</td>
+                      <td><button type="button" class="btn btn-warning">Refuse</button></td>
+                      <td><button type="button" class="btn btn-primary">In progress</button></td>
                       <td><button type="button" class="btn btn-success">Completed</button></td>
                   </tr>
+                </c:forEach>
                 </tbody>
               </table>
               <div class="text-center">

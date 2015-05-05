@@ -24,9 +24,9 @@ public interface TaxiOrderDAO {
 
     public List<TaxiOrderEntity> getHistoryOfOrders(int id, int pageNumber);
 
-    public TaxiOrderEntity getAssignedOrder(int id);
+    public List<TaxiOrderEntity> getAssignedOrders(int id);
 
-    public void setAssignOrder(ServiceUserEntity driver, TaxiOrderEntity taxiOrderEntity, Timestamp carArriveTime);
+    public void setAssignOrder(int driverId, int trackingNumber, Timestamp carArriveTime);
 
     public void setInProgressOrder(TaxiOrderEntity taxiOrderEntity);
 

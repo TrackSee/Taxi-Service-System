@@ -16,17 +16,23 @@ import java.io.IOException;
  * Created by Maria Komar on 30.04.2015.
  */
 @WebServlet("driver/assigned-order")
-public class AssignedOrderServlet extends HttpServlet {
+public class AssignedOrdersServlet extends HttpServlet {
     private static Logger logger = LogManager.getLogger();
     @EJB
     private DriverOrderBean driverOrderBean;
-
+    String timeCarArrive = "2015-06-25 00:00:00.000000";
+    String trackingNumber;
     int id = 6;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = 6;
-        req.setAttribute("order", driverOrderBean.getAssignedOrder(id));
+        trackingNumber = req.getParameter("trackingNumber");
+        //timeCarArrive = req.getParameter("carArriveTime");
+        if(trackingNumber != null) {
+            driverOrderBean.setAssignOrder(id, trackingNumber, timeCarArrive);
+        }
+        req.setAttribute("orders", driverOrderBean.getAssignedOrders(id));
         req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
     }
 }
