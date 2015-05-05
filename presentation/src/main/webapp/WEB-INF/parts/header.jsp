@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>function getContextPath() { return '${pageContext.request.contextPath}/'; }</script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/sign-out.js"></script>
 <!--start: Header -->
 <header>

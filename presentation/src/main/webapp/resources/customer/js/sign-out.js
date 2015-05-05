@@ -4,7 +4,7 @@
 function signOut() {
     $.ajax({
         type: 'POST',
-        url: 'signout',
+        url: getContextPath() + 'signout',
         success: function (data) {
             updateHeader();
         },

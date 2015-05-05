@@ -10,7 +10,7 @@ function sendForm() {
     var form = $('#form-sign-up');
     $.ajax({
         type: 'POST',
-        url: 'signup',
+        url: getContextPath() + 'signup',
         data: form.serialize(),
         success: function (data) {
             if (data == 'bad-email') {
