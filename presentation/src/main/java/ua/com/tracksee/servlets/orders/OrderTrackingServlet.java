@@ -50,7 +50,7 @@ public class OrderTrackingServlet extends HttpServlet {
             }
         } catch (NullPointerException e) {
             logger.error(e.getMessage());
-            req.getRequestDispatcher("/WEB-INF/customer/error.jsp").forward(req,resp);
+            req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req,resp);
         }
 
     }

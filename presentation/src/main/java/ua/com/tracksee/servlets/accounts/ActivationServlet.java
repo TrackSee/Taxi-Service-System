@@ -24,7 +24,7 @@ public class ActivationServlet extends HttpServlet {
         try {
             registrationBean.activateCustomerUserAccount(req.getParameter("code"));
         } catch (RegistrationException e) {
-            req.getRequestDispatcher("/WEB-INF/customer/error.jsp").forward(req,resp);
+            req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req,resp);
         }
         req.getRequestDispatcher("/WEB-INF/customer/activationSuccess.jsp").forward(req,resp);
     }

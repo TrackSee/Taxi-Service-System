@@ -105,7 +105,7 @@ public class OrderCompleteServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
         } catch (OrderException | MessagingException e) {
             logger.error(e.getMessage());
-            req.getRequestDispatcher("/WEB-INF/customer/error.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
         }
     }
 }

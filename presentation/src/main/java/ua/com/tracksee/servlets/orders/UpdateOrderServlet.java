@@ -94,7 +94,7 @@ public class UpdateOrderServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/customer/orderTrack.jsp").forward(req, resp);
         } catch (OrderException  e) {
             logger.error(e.getMessage());
-            req.getRequestDispatcher("/WEB-INF/customer/error.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
         }
     }
 }

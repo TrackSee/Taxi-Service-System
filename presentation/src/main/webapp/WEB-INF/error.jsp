@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%@include file="../parts/meta.jsp" %>
+    <%@include file="parts/meta.jsp" %>
     <meta http-equiv="refresh" content="3;url=." />
 
     <!-- background adaptive image -->
