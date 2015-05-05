@@ -11,14 +11,20 @@
     <title>New orders per period</title>
 </head>
 <body>
-    <form method="post" action="report">
-      <label>Date from:
-        <input type="text" name="startDate" />
-      </label>  <br />
-      <label>Date to:
-        <input type="text" name="endDate" />
-      </label>  <br />
-      <input type="submit" value="Show" />
-    </form>
+<form method="post" action="report">
+    <label>Date from:
+        <input type="text" name="startDate"/>
+    </label> <br/>
+    <label>Date to:
+        <input type="text" name="endDate"/>
+    </label> <br/>
+    <label>Year:
+        <input type="text" name="year"/>
+    </label> <br/>
+    <label>Month:
+        <input type="text" name="month"/>
+    </label> <br/>
+    <input type="submit" value="Show"/>
+</form>
 </body>
 </html>

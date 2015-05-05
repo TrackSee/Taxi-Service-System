@@ -2,6 +2,7 @@ package ua.com.tracksee.servlets.report;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.entities.ProfitEntity;
 import ua.com.tracksee.report.TOReportBean;
 
 import javax.ejb.EJB;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created on 02.05.2015
@@ -32,17 +34,19 @@ public class TOReportCompleteServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        date format '2015-04-26'
-//        String startDate = "2015-04-26";
-//        String endDate = "2015-04-29";
 
+//        date format "2015-04-26";
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
+        String year = request.getParameter("year");
+        String month = request.getParameter("month");
 
         try{
             int count = toReportBean.getOrdersByPeriod(startDate, endDate);
+            List<ProfitEntity> profit = toReportBean.serviceProfitByMonth(year, month);
 
             request.setAttribute("count", count);
+            request.setAttribute("profit", profit);
             request.getRequestDispatcher("/WEB-INF/report/reportCount.jsp").forward(request, response);
         } catch (Exception e){
             logger.error(e.getMessage());
