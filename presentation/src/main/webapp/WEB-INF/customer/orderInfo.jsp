@@ -185,13 +185,13 @@
         <%--</div>--%>
         <!-- end: Wrapper  -->
         <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
-        <script type="text/javascript" src="<%=application.getContextPath()%>/resources/jquery/jquery-1.8.3.min.js"
+        <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
                 charset="UTF-8"></script>
 
         <%@include file="../parts/scripts.jsp" %>
         <%@include file="../parts/footer.jsp" %>
         <!-- Load jQuery and bootstrap datepicker scripts -->
-        <script type="text/javascript" src="<%=application.getContextPath()%>/resources/jquery/jquery-1.8.3.min.js"
+        <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
                 charset="UTF-8"></script>
         <script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"
