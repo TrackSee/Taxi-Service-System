@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.AddressDAO;
 import ua.com.tracksee.entities.AddressEntity;
-import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -24,7 +23,7 @@ public class AddressDAOBean implements AddressDAO {
 
     @Override
     public void addAddress(AddressEntity address) {
-        String sql = "INSERT INTO address name, user_id, string representation, location" +
+        String sql = "INSERT INTO address (name, user_id, string_representation, location)" +
                 " VALUES (?,?,?,?)";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, address.getName());
