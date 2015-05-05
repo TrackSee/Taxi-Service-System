@@ -26,6 +26,19 @@
 #hideTrackingNumberFourth{
     display: none;
 }
+
+#hideSuccessUpdate{
+    display: none;
+}
+#hideSuccessUpdateShow{
+    display: inline;
+}
+#hideSuccessAddComments{
+    display: none;
+}
+#hideSuccessAddCommentsShow{
+    display: inline;
+}
 #hideUnregisteredSuccess{
     display: none;
 }

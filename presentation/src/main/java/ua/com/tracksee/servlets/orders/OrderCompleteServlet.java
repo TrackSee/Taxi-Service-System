@@ -86,20 +86,18 @@ public class OrderCompleteServlet extends HttpServlet {
                 req.setAttribute("showError", "Show");
             } else {
                 Long trackingNumber = taxiOrderBean.makeOrder(inputData);
-                TaxiOrderEntity taxiOrderEntity = taxiOrderBean.getOrderInfo(trackingNumber);
+               // TaxiOrderEntity taxiOrderEntity = taxiOrderBean.getOrderInfo(trackingNumber);
                 req.setAttribute("showSuccess", "Show");
+                req.setAttribute("hideOrderTrack", "hidden=\"hidden\"");
                 req.setAttribute("trackingNumber", trackingNumber);
-                req.setAttribute("ArriveDate", "<p>Arrive date: " + taxiOrderEntity.getArriveDate() + "</p>");
-                req.setAttribute("EndDate", "<p>End date: " + taxiOrderEntity.getEndDate() + "</p>");
-                req.setAttribute("service", "<p>Service: " + taxiOrderEntity.getService() + "</p>");
-                req.setAttribute("musicStyle", "<p>Music style: " + taxiOrderEntity.getEndDate() + "</p>");
-                req.setAttribute("driverSex", "<p>Driver sex: " + taxiOrderEntity.getDriverSex() + "</p>");
-                req.setAttribute("carCategory", "<p>Car category: " + taxiOrderEntity.getCarCategory() + "</p>");
-                req.setAttribute("animalTransportation", "<p>Animal transportation: " +
-                        taxiOrderEntity.getAnimalTransportation() + "</p>");
-                req.setAttribute("FreeWifi", "<p>Free wi-fi: " + taxiOrderEntity.getFreeWifi()+"</p>");
-                req.setAttribute("smokingDriver", "<p>Smoking driver: " + taxiOrderEntity.getNonSmokingDriver()+"</p>");
-                req.setAttribute("airConditioner", "<p>Air conditioner: " + taxiOrderEntity.getAirConditioner()+"</p>");
+
+//                req.setAttribute("ArriveDate", "<p>Arrive date: " + inputData.get("arriveDate") + "</p>");
+//                req.setAttribute("EndDate", "<p>End date: " + inputData.get("arriveDate") + "</p>");
+//                req.setAttribute("service", "<p>Service: " + inputData.get("arriveDate") + "</p>");
+//                req.setAttribute("musicStyle", "<p>Music style: " + inputData.get("arriveDate") + "</p>");
+//                req.setAttribute("driverSex", "<p>Driver sex: " + inputData.get("arriveDate") + "</p>");
+//                req.setAttribute("carCategory", "<p>Car category: " + inputData.get("arriveDate") + "</p>");
+//                req.setAttribute("Choosed options",inputData.get("animalTransportation")+inputData.get("freeWifi") ):
             }
 
             req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);

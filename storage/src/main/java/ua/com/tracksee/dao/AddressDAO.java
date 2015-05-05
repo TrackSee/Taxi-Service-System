@@ -15,5 +15,10 @@ public interface AddressDAO {
     public void updateAddress(AddressEntity addressEntity);
     List<AddressEntity> getAddresses();
 
+    /**
+     * @author  Sharaban Sasha
+     */
+    AddressEntity getAddressByUserId(int id);
+
 }
 

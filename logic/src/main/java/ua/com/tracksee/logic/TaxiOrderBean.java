@@ -2,6 +2,7 @@ package ua.com.tracksee.logic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.dao.AddressDAO;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.AddressEntity;
@@ -11,21 +12,16 @@ import ua.com.tracksee.enumartion.*;
 import ua.com.tracksee.json.TaxiOrderDTO;
 import ua.com.tracksee.logic.exception.OrderException;
 
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.*;
 import javax.mail.MessagingException;
 import java.math.BigDecimal;
-import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import static javax.ejb.LockType.WRITE;
 import static ua.com.tracksee.enumartion.OrderStatus.QUEUED;
 
 /**
@@ -41,6 +37,8 @@ public class TaxiOrderBean {
 
     private @EJB TaxiOrderDAO taxiOrderDAO;
     private @EJB UserDAO userDAO;
+    private @EJB
+    AddressDAO addressDAO;
     private @EJB EmailBean mailBean;
     private @EJB ValidationBean validationBean;
     private @EJB PriceCalculatorBean priceCalculatorBean;
@@ -235,10 +233,7 @@ public class TaxiOrderBean {
      */
     private AddressEntity validateForDestinationAddress(HashMap<String, String> inputData) throws OrderException {
         AddressEntity addressEntityDestination = new AddressEntity();
-        System.out.println(inputData.get("addressDestination"));
-        System.out.println("addressDestination before");
         addressEntityDestination.setStringRepresentation(inputData.get("addressDestination"));
-        System.out.println("add");
         return addressEntityDestination;
     }
 
@@ -270,7 +265,7 @@ public class TaxiOrderBean {
             Timestamp timestamp=convertToTimestamp(inputData.get("endDate"));
             taxiOrderEntity.setEndDate(timestamp);
         }else{
-            taxiOrderEntity.setEndDate(null);
+            taxiOrderEntity.setArriveDate(null);
         }
 
         if(inputData.get("orderStatus").equals("QUEUED")){
@@ -346,10 +341,27 @@ public class TaxiOrderBean {
     }
     /**
      * @author Sharaban Sasha
-     * @see TaxiOrderDAO
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
      */
     public TaxiOrderEntity getOrderInfo(long trackingNumber){
         return taxiOrderDAO.getOrder(trackingNumber);
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.UserDAO
+     */
+    public ServiceUserEntity getUserInfo(int id){
+
+        return userDAO.getUserById(id);
+    }
+
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.AddressDAO
+     */
+    public AddressEntity getAddressInfo(int userId){
+
+        return  addressDAO.getAddressByUserId(userId);
     }
 
 }

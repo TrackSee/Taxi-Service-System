@@ -7,14 +7,18 @@
  * author Sharaban Sasha
  */
 
-//if turn status true - panel is hidden
-var hiddenStatus = true;
-$('.turnButton').click(function(){
-    if(hiddenStatus == false) {
-        $('#panel').css('display', 'none');
-    } else {
-        $('#panel').css('display', 'block');
-    }
-    hiddenStatus = !hiddenStatus;
-});
+////if turn status true - panel is hidden
+//var hiddenStatus = true;
+//$('.turnButton').click(function(){
+//    if(hiddenStatus == false) {
+//        $('#panel').css('display', 'none');
+//    } else {
+//        $('#panel').css('display', 'block');
+//    }
+//    hiddenStatus = !hiddenStatus;
+//});
 
+    $("#flip").click(function () {
+        $('#panel').slideDown("slow");
+        $('#flip').hide();
+    });
