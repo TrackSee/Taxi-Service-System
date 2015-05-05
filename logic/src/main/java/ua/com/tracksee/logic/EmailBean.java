@@ -1,5 +1,6 @@
 package ua.com.tracksee.logic;
 
+import freemarker.template.TemplateException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
@@ -34,7 +35,6 @@ public class EmailBean {
     private @EJB UserDAO userDAO;
 
     private static final Logger logger = LogManager.getLogger();
-
     // website
     private static final String WEBSITE_SHORT = "tracksee.team.com/TaxiService";
     private static final String WEBSITE_FULL = "http://localhost:8080/TaxiService/";
@@ -43,12 +43,11 @@ public class EmailBean {
 
     //TODO
     private static final String REGISTRATION_URL = "c";
-
     // template properties
     private static final String SITE_ADDRESS_TEMP_PROP_NAME = "siteadress";
 
     private static final String BLOCKING_ACCOUNT_SUBJECT_TEMP_PROP_NAME = "TrackSee Blocking Account";
-    private static final String BLOCKING_ACCOUNT_TEMP_PATH = CONFIG_LOCATION + "blockingusertemplate.ftl";
+    private static final String BLOCKING_ACCOUNT_TEMP_PATH = "logic/src/main/resources/mailtemplates/blockingusertemplate.ftl";
 
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_TEMP_PATH = CONFIG_LOCATION + "changing_to-from-assigned_to_inprogress_template.ftl";
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_SUBJECT_TEMP_PROP_NAME = "TrackSee Order in progress";
@@ -59,32 +58,8 @@ public class EmailBean {
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_TEMP_PATH = CONFIG_LOCATION + "changing_to-from-assigned_to_refused.ftl";
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_SUBJECT_TEMP_PROP_NAME = "TrackSee Order refused";
 
-    private static final String REGISTRATION_TEMP_PATH = CONFIG_LOCATION + "registration_template.ftl";
-    private static final String REGISTRATION_SUBJECT_TEMP_PROP_NAME = "TrackSee: Confirm User Registration";
-
-
-//    @Asynchronous
-//    public void sendRegistrationEmail(ServiceUserEntity user, String userCode) throws MessagingException {
-//        MimeMessage message = new MimeMessage(getEmailSession());
-//        message.setFrom(new InternetAddress(SERVER_EMAIL));
-//        message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
-//        message.setSubject("Registration at " + WEBSITE_SHORT);
-//        message.setText(getMessageText(userCode));
-//        Transport.send(message);
-////        Map<String, Object> data = new HashMap<>();
-////        data.put("activationLink", WEBSITE_FULL + "activation?code=" + userCode);
-////        sendTemplatedEmail(user.getEmail(), REGISTRATION_EMAIL_SUBJECT,
-////                REGISTRATION_TEMPLATE_PATH, data);
-//        logger.debug("Sent message successfully to {}", user.getEmail());
-//    }
-//
-//    private String getMessageText(String userCode) {
-//        return "Hi, \n"
-//                + "Your email address was used for registration at "
-//                + WEBSITE_SHORT
-//                + "\nPlease click the confirmation link to complete registration: "
-//                + WEBSITE_FULL + "activation?code=" + userCode;
-//    }
+    private static final String REGISTRATION_TEMPLATE_PATH = CONFIG_LOCATION + "registration_template.ftl";
+    private static final String REGISTRATION_EMAIL_SUBJECT = "Registration at TrackSee";
 
     /**
      * @param email
@@ -98,7 +73,7 @@ public class EmailBean {
         data.put("website_short", WEBSITE_SHORT);
         data.put("userCode", userCode);
         try {
-            sendTemplatedEmail(email, REGISTRATION_SUBJECT_TEMP_PROP_NAME, REGISTRATION_TEMP_PATH, data);
+            sendTemplatedEmail(email, REGISTRATION_EMAIL_SUBJECT, REGISTRATION_TEMPLATE_PATH, data);
         } catch (MessagingException e) {
             logger.warn("Sending email to {} failed. Message: {}", email, e.getMessage());
         }

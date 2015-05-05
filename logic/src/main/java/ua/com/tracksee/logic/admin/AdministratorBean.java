@@ -79,6 +79,7 @@ public class AdministratorBean {
     public void deleteUser(int id){
         userDAO.deleteUser(id);
     }
+    public List<ServiceUserEntity> getDriverByEmail(String email){return userDAO.getDriverByEmail(email);};
 
     /**
      * @author Vadym Akymov
@@ -94,6 +95,8 @@ public class AdministratorBean {
     public void createCar(CarEntity carEntity){carDAO.createCar(carEntity);}
     public void updateCar(CarEntity carEntity){carDAO.updateCar(carEntity);}
     public void deleteCar(String carNumber) {carDAO.deleteCar(carNumber);}
+    public List<CarEntity> getCarsPart(int partNumber) {return carDAO.getCarsPart(partNumber);}
+    public int getCarPagesCount(){return carDAO.getCarPagesCount();}
 
 
     /**
@@ -120,5 +123,5 @@ public class AdministratorBean {
     public Collection<? extends ServiceUserEntity> getAll(int start, int countPerPage) {
         return serviceUserDaoBeen.getAll(start, countPerPage);
     }
-    
+
 }

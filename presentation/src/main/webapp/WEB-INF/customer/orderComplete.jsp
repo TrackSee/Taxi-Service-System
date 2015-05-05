@@ -214,6 +214,7 @@
 
     </div>
 </div>
+<p>d</p>
 <!-- Load jQuery and bootstrap datepicker scripts -->
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/jquery/jquery-1.8.3.min.js"
         charset="UTF-8"></script>

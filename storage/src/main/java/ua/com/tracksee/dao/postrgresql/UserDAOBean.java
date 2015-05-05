@@ -58,8 +58,8 @@ public class UserDAOBean implements UserDAO {
     @Override
     public List<ServiceUserEntity> getDriverByEmail(String email) {
         Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
-                "WHERE driver = TRUE and email=?", ServiceUserEntity.class);
-        query.setParameter(1, email);
+                "WHERE driver = TRUE and email LIKE ? ", ServiceUserEntity.class);
+        query.setParameter(1 ,"%" + email + "%");
         return query.getResultList();
     }
 

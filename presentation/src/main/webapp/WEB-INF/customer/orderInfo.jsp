@@ -35,42 +35,70 @@
     <!--start: Container -->
     <div class="container">
 
-                    <div class="title"><h3>Information about order</h3></div>
-                    <div id="hideSuccess${showSuccess}">
-        <div class="alert alert-success" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span></button><h3>
-        Your order accepted for further processing successfully and you was assigned to such tracking number:
-        ${trackingNumber}
-            <div id="flip">
-                <div class="form-group">
-                    <p>
-                        <button type="button" class="btn btn-info">Click to see additional options</button>
-                    </p>
-                </div>
-            </div>
-            <div id="panel">
-                ${arriveDate}
-                ${endDate}
-                ${service}
-                ${musicStyle}
-                ${driverSex}
-                ${carCategory}
-                ${animalTransportation}
-                ${FreeWifi}
-                ${smokingDriver}
-                ${airConditioner}
-            </div>
-        </h3></div>
-                    <form method="post" action="<c:url value="/orderInfo"/>">
-                        <label id="hideTrackingNumber">
-                            <input type="text" name="trackingNumber" value="${trackingNumber}" >
-                        </label>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-danger btn-large">Refuse order</button>
-                        </div>
-                    </form>
+        <div class="title"><h3>Information about order</h3></div>
+
+        <div id="hideUnregisteredSuccess${showUnregisteredSuccess}">
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button><h3>
+                Your order accepted for further processing successfully and you was assigned to such tracking number:
+                ${trackingNumber}
+                <div id="flip">
+                    <div class="form-group">
+                        <p>
+                            <button type="button" class="btn btn-info">Click to see additional options</button>
+                        </p>
                     </div>
+                </div>
+                <div id="panel">
+                    ${arriveDate}
+                    ${endDate}
+                    ${service}
+                    ${musicStyle}
+                    ${driverSex}
+                    ${carCategory}
+                    ${animalTransportation}
+                    ${FreeWifi}
+                    ${smokingDriver}
+                    ${airConditioner}
+                </div>
+            </h3></div>
+        </div>
+        <div id="hideSuccess${showSuccess}">
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button><h3>
+                Your order accepted for further processing successfully and you was assigned to such tracking number:
+                ${trackingNumber}
+                <div id="flip">
+                    <div class="form-group">
+                        <p>
+                            <button type="button" class="btn btn-info">Click to see additional options</button>
+                        </p>
+                    </div>
+                </div>
+                <div id="panel">
+                    ${arriveDate}
+                    ${endDate}
+                    ${service}
+                    ${musicStyle}
+                    ${driverSex}
+                    ${carCategory}
+                    ${animalTransportation}
+                    ${FreeWifi}
+                    ${smokingDriver}
+                    ${airConditioner}
+                </div>
+            </h3></div>
+            <form method="post" action="<c:url value="/orderInfo"/>">
+                <label id="hideTrackingNumber">
+                    <input type="text" name="trackingNumber" value="${trackingNumber}" >
+                </label>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger btn-large">Refuse order</button>
+                </div>
+            </form>
+        </div>
 
         <div id="hideError${showError}">
             <div class="alert alert-danger" role="alert">
@@ -84,7 +112,7 @@
             <div class="alert alert-success" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button><h3>
-                Your order has been canceled!
+                Your order has been refused!
             </h3></div>
         </div>
         <div id="hideRefuseError${showRefuseError}">
@@ -103,41 +131,91 @@
                 </div>
             </form>
         </div>
-</div>
+        <div id="${hideOrderTrack}">
+            <div class="form-group">
+                <form method="post" action="<c:url value="/orderTracking"/>">
+                    <label>You can track your order</label>
+                    <input type="text" id="origin" class="form-control" name="orderTrackingNumber"
+                           placeholder="Enter your tracking number">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-danger btn-large">Track your order</button>
+                    </div>
+                </form>
+            </div>
+            <%--<form method="post" action="<c:url value="/report"/>">--%>
+            <%--<label>--%>
+            <%--</label>--%>
+            <%--<div class="form-group">--%>
+            <%--<button type="submit" class="btn btn-danger btn-large">Get report</button>--%>
+            <%--</div>--%>
+            <%--</form>--%>
+        </div>
+        <p></p>
 
-<!-- end: Wrapper  -->
-    <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
-    <script type="text/javascript" src="<%=application.getContextPath()%>/resources/jquery/jquery-1.8.3.min.js"
-            charset="UTF-8"></script>
+        <%--<div id="hideTrackInfo${showTrackInfo}">--%>
+            <%--<h3>--%>
+                <%--Tracking number: ${trackingNumber}--%>
+                <%--${arriveDate}--%>
+                <%--${endDate}--%>
+                <%--${service}--%>
+                <%--${musicStyle}--%>
+                <%--${driverSex}--%>
+                <%--${carCategory}--%>
+                <%--${animalTransportation}--%>
+                <%--${FreeWifi}--%>
+                <%--${smokingDriver}--%>
+                <%--${airConditioner}--%>
+            <%--</h3>--%>
+            <%--<form method="post" action="<c:url value="/orderInfo"/>">--%>
+                <%--<label id="hideTrackingNumberThird">--%>
+                    <%--<input type="text" name="trackingNumber" value="${trackingNumber}" >--%>
+                <%--</label>--%>
+                <%--<div class="form-group">--%>
+                    <%--<button type="submit" class="btn btn-danger btn-large">Refuse order</button>--%>
+                <%--</div>--%>
+            <%--</form>--%>
+            <%--<form method="post" >--%>
+                <%--<label id="hideTrackingNumberFourth">--%>
+                    <%--<input type="text" name="trackingNumber" value="${trackingNumber}" >--%>
+                <%--</label>--%>
+                <%--<div class="form-group">--%>
+                    <%--<button type="submit" class="btn btn-danger btn-large">Change order</button>--%>
+                <%--</div>--%>
+            <%--</form>--%>
+        <%--</div>--%>
+        <!-- end: Wrapper  -->
+        <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
+        <script type="text/javascript" src="<%=application.getContextPath()%>/resources/jquery/jquery-1.8.3.min.js"
+                charset="UTF-8"></script>
 
-<%@include file="../parts/scripts.jsp" %>
-<%@include file="../parts/footer.jsp" %>
-    <!-- Load jQuery and bootstrap datepicker scripts -->
-    <script type="text/javascript" src="<%=application.getContextPath()%>/resources/jquery/jquery-1.8.3.min.js"
-            charset="UTF-8"></script>
-    <script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"
-            charset="UTF-8"></script>
-    <script type="text/javascript"
-            src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
-            charset="UTF-8"></script>
-    <script type="text/javascript"
-            src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
-            charset="UTF-8"></script>
-    <script type="text/javascript"
-            src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"
-            charset="UTF-8"></script>
-    <script src="<%=application.getContextPath()%>http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <%--end jQuery and bootstrap datepicker scripts--%>
+        <%@include file="../parts/scripts.jsp" %>
+        <%@include file="../parts/footer.jsp" %>
+        <!-- Load jQuery and bootstrap datepicker scripts -->
+        <script type="text/javascript" src="<%=application.getContextPath()%>/resources/jquery/jquery-1.8.3.min.js"
+                charset="UTF-8"></script>
+        <script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"
+                charset="UTF-8"></script>
+        <script type="text/javascript"
+                src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
+                charset="UTF-8"></script>
+        <script type="text/javascript"
+                src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
+                charset="UTF-8"></script>
+        <script type="text/javascript"
+                src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"
+                charset="UTF-8"></script>
+        <script src="<%=application.getContextPath()%>http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <%--end jQuery and bootstrap datepicker scripts--%>
 
-    <%--Google maps scripts--%>
-    <script src="<%=application.getContextPath()%>/resources/customer/js/google-maps.js"></script>
-    <%--end google maps scripts--%>
+        <%--Google maps scripts--%>
+        <script src="<%=application.getContextPath()%>/resources/customer/js/google-maps.js"></script>
+        <%--end google maps scripts--%>
 
-    <%-- Order page scripts --%>
-    <script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
-    <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
-    <%--end order oage scripts--%>
+        <%-- Order page scripts --%>
+        <script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
+        <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
+        <%--end order oage scripts--%>
 
 </body>
 </html>
