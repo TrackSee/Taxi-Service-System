@@ -4,62 +4,63 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-    <!--<security-role>-->
-        <!--<role-name>ADMIN</role-name>-->
-    <!--</security-role>-->
-    <!--<security-role>-->
-        <!--<role-name>DRIVER</role-name>-->
-    <!--</security-role>-->
-    <!--<security-role>-->
-        <!--<role-name>CUSTOMER</role-name>-->
-    <!--</security-role>-->
+    <security-role>
+        <role-name>ADMIN</role-name>
+    </security-role>
+    <security-role>
+        <role-name>DRIVER</role-name>
+    </security-role>
+    <security-role>
+        <role-name>CUSTOMER</role-name>
+    </security-role>
 
-    <!--<security-constraint>-->
-        <!--<web-resource-collection>-->
-            <!--<web-resource-name>Customer user pages</web-resource-name>-->
-            <!--<url-pattern>/customer/*</url-pattern>-->
-            <!--<http-method>POST</http-method>-->
-            <!--<http-method>GET</http-method>-->
-        <!--</web-resource-collection>-->
-        <!--<auth-constraint>-->
-            <!--<role-name>CUSTOMER</role-name>-->
-            <!--<role-name>ADMIN</role-name>-->
-        <!--</auth-constraint>-->
-    <!--</security-constraint>-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Customer user pages</web-resource-name>
+            <url-pattern>/customer/*</url-pattern>
+            <http-method>POST</http-method>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>CUSTOMER</role-name>
+            <role-name>DRIVER</role-name>
+            <role-name>ADMIN</role-name>
+        </auth-constraint>
+    </security-constraint>
 
-    <!--<security-constraint>-->
-        <!--<web-resource-collection>-->
-            <!--<web-resource-name>Admin pages</web-resource-name>-->
-            <!--<url-pattern>/admin/*</url-pattern>-->
-            <!--<http-method>POST</http-method>-->
-            <!--<http-method>GET</http-method>-->
-        <!--</web-resource-collection>-->
-        <!--<auth-constraint>-->
-            <!--<role-name>ADMIN</role-name>-->
-        <!--</auth-constraint>-->
-    <!--</security-constraint>-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Admin pages</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+            <http-method>POST</http-method>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ADMIN</role-name>
+        </auth-constraint>
+    </security-constraint>
 
-    <!--<security-constraint>-->
-        <!--<web-resource-collection>-->
-            <!--<web-resource-name>Driver pages</web-resource-name>-->
-            <!--<url-pattern>/driver/*</url-pattern>-->
-            <!--<http-method>POST</http-method>-->
-            <!--<http-method>GET</http-method>-->
-        <!--</web-resource-collection>-->
-        <!--<auth-constraint>-->
-            <!--<role-name>DRIVER</role-name>-->
-            <!--<role-name>ADMIN</role-name>-->
-        <!--</auth-constraint>-->
-    <!--</security-constraint>-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Driver pages</web-resource-name>
+            <url-pattern>/driver/*</url-pattern>
+            <http-method>POST</http-method>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>DRIVER</role-name>
+            <role-name>ADMIN</role-name>
+        </auth-constraint>
+    </security-constraint>
 
 
-    <!--<login-config>-->
-        <!--<auth-method>FORM</auth-method>-->
-        <!--<form-login-config>-->
-            <!--<form-login-page>/signin</form-login-page>-->
-            <!--<form-error-page>/signin?error=true</form-error-page>-->
-        <!--</form-login-config>-->
-    <!--</login-config>-->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/signin</form-login-page>
+            <form-error-page>/signin?error=true</form-error-page>
+        </form-login-config>
+    </login-config>
         <error-page>
             <error-code>403</error-code>
             <location>/error</location>

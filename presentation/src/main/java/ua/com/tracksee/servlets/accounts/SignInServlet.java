@@ -49,8 +49,8 @@ public class SignInServlet extends HttpServlet {
             req.login(email, password);
         } catch (ServletException e) {
             logger.warn(e.getMessage());
-            //TODO uncomment with JAAS: resp.getWriter().append(ERROR);
-            //TODO uncomment with JAAS: return;
+            resp.getWriter().append(ERROR);
+            return;
         }
 
         ServiceUserEntity user = userDAO.getUserByEmail(email);
