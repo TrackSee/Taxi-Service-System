@@ -52,13 +52,26 @@
 
         <!-- other plugin versions -->
         <version.compiler.plugin>3.1</version.compiler.plugin>
-        <version.surefire.plugin>2.16</version.surefire.plugin>
+        <version.surefire.plugin>2.17</version.surefire.plugin>
         <version.war.plugin>2.5</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.7</maven.compiler.target>
         <maven.compiler.source>1.7</maven.compiler.source>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>1.1.8.Final</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
 
         <!-- First declare the APIs we depend on and need for compilation. All 
@@ -72,14 +85,6 @@
         <!--<scope>provided</scope>-->
         <!--</dependency>-->
 
-        <!-- Needed for running tests (you may also use TestNG) -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-            <version>4.12</version>
-        </dependency>
-
 
         <!--for Java EE7-->
         <dependency>
@@ -88,6 +93,7 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+
 
 
         <!--for logging-->
@@ -107,16 +113,12 @@
             <version>2.2</version>
         </dependency>
 
-        <!--for JSON parsing-->
+        <!-- Needed for running tests (you may also use TestNG) -->
         <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.8.5</version>
-        </dependency>
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+            <version>4.12</version>
         </dependency>
 
         <!--For arquillian integration testing-->
@@ -159,12 +161,20 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.1-901-1.jdbc4</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
         <!-- Maven will append the version to the finalName (which is the name 
             given to the generated war, and hence the context root) -->
         <finalName>${project.artifactId}</finalName>
+
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
@@ -197,6 +207,8 @@
                     <!--enforce Java 7-->
                     <source>1.7</source>
                     <target>1.7</target>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
         </plugins>
@@ -220,9 +232,9 @@
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>2.17</version>
-                        <!--<configuration>-->
-                        <!--<skip>true</skip>-->
-                        <!--</configuration>-->
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
