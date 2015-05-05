@@ -120,8 +120,10 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @Override
     public int getOrdersByPeriod(String startDate, String endDate) {
-        String sql = "SELECT COUNT(*) FROM taxi_order WHERE ordered_date >= '" + startDate + "'" +
-                " AND ordered_date <= '" + endDate + "'";
+        String sql = "SELECT COUNT(*) FROM taxi_order" +
+                " WHERE ordered_date" +
+                " BETWEEN '" + startDate + "'" +
+                " AND '" + endDate + "'";
         Query query = entityManager.createNativeQuery(sql);
         BigInteger quantity = (BigInteger) query.getSingleResult();
         return quantity.intValue();
