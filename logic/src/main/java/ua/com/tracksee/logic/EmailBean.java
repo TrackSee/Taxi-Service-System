@@ -39,22 +39,39 @@ public class EmailBean {
     private static final String WEBSITE_FULL = "http://localhost:8080/TaxiService/";
     private static final String REGISTRATION_URL = "c";
     // template properties
+
+    private final String MAIL_TEMPLATES_PATH_TO = getClass().getResource("/mailtemplates/").toString();
+
     private static final String SITE_ADDRESS_TEMP_PROP_NAME = "siteadress";
     private static final String REGISTRATION_EMAIL_SUBJECT = "Registration at TrackSee";
-    private static final String REGISTRATION_TEMPLATE_PATH = "logic/mailtemplates/registration-template.ftl";
+    // private static final String REGISTRATION_TEMPLATE_PATH = "logic/mailtemplates/registration-template.ftl";
+    private final String REGISTRATION_TEMPLATE_PATH = MAIL_TEMPLATES_PATH_TO + "registration-template.ftl";
+
     private static final String BLOCKING_ACCOUNT_SUBJECT_TEMP_PROP_NAME = "TrackSee Blocking Account";
 
-    private static final String BLOCKING_ACCOUNT_TEMP_PATHSTRING = "mailtemplates/blockingusertemplate.ftl";
+    //private static final String BLOCKING_ACCOUNT_TEMP_PATHSTRING = "mailtemplates/blockingusertemplate.ftl";
+    private final String BLOCKING_ACCOUNT_TEMP_PATHSTRING = MAIL_TEMPLATES_PATH_TO + "blockingusertemplate.ftl";
 
-    private static final String BLOCKING_ACCOUNT_TEMP_PATH = "logic/src/main/resources/mailtemplates/blockingusertemplate.ftl";
+    //private static final String BLOCKING_ACCOUNT_TEMP_PATH = "logic/src/main/resources/mailtemplates/blockingusertemplate.ftl";
+    private final String BLOCKING_ACCOUNT_TEMP_PATH = MAIL_TEMPLATES_PATH_TO + "blockingusertemplate.ftl";
 
-    private static final String CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_TEMP_PATH = "logic/src/main/resources/mailtemplates/changing_to-from-assigned_to_inprogress_template.ftl";
+    //private static final String CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_TEMP_PATH = "logic/src/main/resources/mailtemplates/changing_to-from-assigned_to_inprogress_template.ftl";
+    private final String CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_TEMP_PATH = MAIL_TEMPLATES_PATH_TO + "changing_to-from-assigned_to_inprogress_template.ftl";
+
+
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_SUBJECT_TEMP_PROP_NAME = "TrackSee Order in progress";
-    private static final String CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_TEMP_PATH = "logic/src/main/resources/mailtemplates/changing_to-from-inprogress_to_copleted_template.ftl";
+    //private static final String CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_TEMP_PATH = "logic/src/main/resources/mailtemplates/changing_to-from-inprogress_to_copleted_template.ftl";
+    private final String CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_TEMP_PATH = MAIL_TEMPLATES_PATH_TO + "changing_to-from-inprogress_to_copleted_template.ftl";
+
     private static final String CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_SUBJECT_TEMP_PROP_NAME = "TrackSee Order completed";
-    private static final String CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_TEMP_PATH = "logic/src/main/resources/mailtemplates/changing_to-from-assigned_to_refused.ftl";
+    //private static final String CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_TEMP_PATH = "logic/src/main/resources/mailtemplates/changing_to-from-assigned_to_refused.ftl";
+    private final String CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_TEMP_PATH = MAIL_TEMPLATES_PATH_TO + "changing_to-from-assigned_to_refused.ftl";
+
+
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_SUBJECT_TEMP_PROP_NAME = "TrackSee Order refused";
-    private static final String REGISTRATION_TEMP_PATH = "logic/src/main/resources/mailtemplates/registration_template.ftl";
+
+    //private static final String REGISTRATION_TEMP_PATH = "logic/src/main/resources/mailtemplates/registration_template.ftl";
+    private final String REGISTRATION_TEMP_PATH = MAIL_TEMPLATES_PATH_TO + "registration_template.ftl";
     private static final String REGISTRATION_SUBJECT_TEMP_PROP_NAME = "TrackSee Confirm User Registration";
     private
     @EJB
@@ -90,6 +107,7 @@ public class EmailBean {
      */
     @Asynchronous
     public void sendRegistration(ServiceUserEntity user, String userCode) throws TemplateException, IOException, MessagingException {
+        getClass().getResource("/mailsender/").getPath();
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
         data.put("website_full", WEBSITE_FULL);
