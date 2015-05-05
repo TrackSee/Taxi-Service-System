@@ -35,6 +35,9 @@
   <!-- Custom Fonts -->
   <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+  <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
+        media="screen">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -84,14 +87,31 @@
                   <tr class="odd gradeX">
                     <td>${order.trackingNumber}</td>
                     <td>${order.carArriveTime}</td>
-                    <td>${"-"}</td>
-                    <td>${"-"}</td>
-                    <td>${"order.price"}</td>
-                    <td>${"order.smokingDriver"}</td>
-                    <td>${"order.musicStyle"}</td>
-                    <td>${order.status}</td>
-                    <td><a href="assigned-order?trackingNumber=${order.trackingNumber}" ><button type="button" id="assignOrder" class="btn btn-info btn-circle"><i class="fa fa-check"></i>
-                    </button></a></td>
+                    <td>
+                      <div id="panel">
+                        <label for="arriveDate" class="sr-only">Arrive date</label>
+
+                        <div class="controls input-append date form_datetime" data-date="1979-09-16T05:25:07Z"
+                             data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                          <span class="add-on"><i class="icon-th"></i></span>
+                          <span class="add-on"><i class="icon-remove"></i></span>
+                          <input size="16" type="text" value="" id="arriveDate" name="arriveDate" readonly>
+                          <input type="hidden" id="dtp_input1" value=""/><br/>
+
+                        </div>
+                        <label for="endDate" class="sr-only">End date</label>
+
+                        <div class="controls input-append date form_datetime" data-date="1979-09-16T05:25:07Z"
+                             data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                          <span class="add-on"><i class="icon-th"></i></span>
+                          <span class="add-on"><i class="icon-remove"></i></span>
+                          <input size="16" type="text" value="" id="endDate" name="endDate" readonly>
+                          <input type="hidden" id="dtp_input2" value=""/><br/>
+                        </div>
+                    </td>
+                    <td>
+                      <a href="#" id="test" data-type="text" data-placement="right" data-title="Enter Something">Dummy Text</a>
+                    <td>
                   </tr>
                 </c:forEach>
                 </tbody>
@@ -127,16 +147,31 @@
 </div>
 <!-- /#wrapper -->
 
-<!-- jQuery Version 1.11.2 -->
-<script src="<%=application.getContextPath()%>/resources/js/jquery-1.11.2.min.js"></script>
+<!-- jQuery Version 1.11.2
+<script src="<%=application.getContextPath()%>/resources/js/jquery-1.11.2.min.js"></script> -->
 <!--
 <script src="../../../resources/js/jquery-1.11.2.js"></script>
 <script src="../../../resources/js/jquery.min.js"></script>
 <script type="text/javascript" language="javascript" src="../../../resources/js/jquery.js"></script>
 -->
 
+<!-- jQuery -->
+<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
+
 <!-- Bootstrap Core JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap2/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"
+        charset="UTF-8"></script>
+<script type="text/javascript"
+        src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
+        charset="UTF-8"></script>
+<script type="text/javascript"
+        src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
+        charset="UTF-8"></script>
+<script type="text/javascript"
+        src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"
+        charset="UTF-8"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/metisMenu.min.js"></script>
@@ -148,6 +183,13 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/sb-admin-2.js"></script>
+
+<!-- Bootstrap editable JavaScript-->
+<script src="<%=application.getContextPath()%>/resources/js/bootstrap-editable.js"></script>
+
+<script src="<%=application.getContextPath()%>/resources/js/moment.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/combodate.js"></script>
+
 
 </body>
 

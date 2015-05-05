@@ -27,12 +27,11 @@
   <!-- Custom CSS -->
   <link href="<%=application.getContextPath()%>/resources/admin/dist/css/sb-admin-2.css" rel="stylesheet">
 
-  <%--My resources--%>
-  <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/admin/css/admin.css">
-  <script href="<%=application.getContextPath()%>/resources/admin/js/admin.js"></script>
-
   <!-- Custom Fonts -->
   <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Bootstrap editable-->
+  <link href="<%=application.getContextPath()%>/resources/css/bootstrap-editable.css" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -129,7 +128,7 @@
 -->
 
 <!-- Bootstrap Core JavaScript -->
-<script src="<%=application.getContextPath()%>/resources/js/bootstrap2/bootstrap.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/bootstrap3/bootstrap.min.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/metisMenu.min.js"></script>
@@ -141,6 +140,9 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/sb-admin-2.js"></script>
+
+<!-- Bootstrap editable JavaScript-->
+<script src="<%=application.getContextPath()%>/resources/js/bootstrap-editable.js"></script>
 
 </body>
 

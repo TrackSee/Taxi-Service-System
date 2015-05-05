@@ -28,10 +28,6 @@
   <!-- Custom CSS -->
   <link href="<%=application.getContextPath()%>/resources/admin/dist/css/sb-admin-2.css" rel="stylesheet">
 
-  <%--My resources--%>
-  <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/admin/css/admin.css">
-  <script href="<%=application.getContextPath()%>/resources/admin/js/admin.js"></script>
-
   <!-- Custom Fonts -->
   <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -68,7 +64,7 @@
               <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                 <thead>
                 <tr>
-                  <th>Tracking number</th>
+                  <th>#</th>
                   <th>Order time</th>
                   <th>Start address</th>
                   <th>Finish address</th>
@@ -76,7 +72,6 @@
                   <th>User comment</th>
                 </tr>
                 </thead>
-                <tbody>
                 <tbody id="table-body">
                 <c:forEach items="${requestScope.orders}" var="order">
                 <tr class="odd gradeX">
@@ -132,7 +127,7 @@
 -->
 
 <!-- Bootstrap Core JavaScript -->
-<script src="<%=application.getContextPath()%>/resources/js/bootstrap2/bootstrap.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/bootstrap3/bootstrap.min.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/metisMenu.min.js"></script>
