@@ -1,7 +1,6 @@
 package ua.com.tracksee.dao.postrgresql;
 
 import ua.com.tracksee.dao.TaxiPriceDAO;
-import ua.com.tracksee.entities.ProfitEntity;
 import ua.com.tracksee.entities.TaxiPriceEntity;
 import ua.com.tracksee.enumartion.CarCategory;
 
@@ -10,8 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Ruslan Gunavardana
@@ -38,7 +38,7 @@ public class TaxiPriceDAOBean implements TaxiPriceDAO {
     }
 
     @Override
-    public List<ProfitEntity> serviceProfitByMonth(String year, String month){
+    public Map<String, Double> serviceProfitByMonth(String year, String month){
         String yearMonth = year + "-" + month;
         String sql = "SELECT service, SUM(price) FROM taxi_order" +
                 " WHERE ordered_date" +
@@ -47,14 +47,12 @@ public class TaxiPriceDAOBean implements TaxiPriceDAO {
                 " GROUP BY service";
         Query query = entityManager.createNativeQuery(sql);
         List<Object[]> list = query.getResultList();
-        List<ProfitEntity> profitList = new ArrayList<>();
-        ProfitEntity pe;
+        Map<String, Double> map = new HashMap<>();
         for (Object[] objects : list) {
-            String s = (String) objects[0];
+            String service = (String) objects[0];
             BigDecimal b = (BigDecimal) objects[1];
-            pe = new ProfitEntity(s, b.doubleValue());
-            profitList.add(pe);
+            map.put(service, b.doubleValue());
         }
-        return profitList;
+        return map;
     }
 }

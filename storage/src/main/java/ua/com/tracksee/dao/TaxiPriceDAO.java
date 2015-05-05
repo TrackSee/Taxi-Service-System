@@ -1,11 +1,10 @@
 package ua.com.tracksee.dao;
 
-import ua.com.tracksee.entities.ProfitEntity;
 import ua.com.tracksee.entities.TaxiPriceEntity;
 import ua.com.tracksee.enumartion.CarCategory;
 
 import javax.ejb.Local;
-import java.util.List;
+import java.util.Map;
 
 /**
  * @author Ruslan Gunavardana
@@ -34,7 +33,7 @@ public interface TaxiPriceDAO {
      * @author Oleksandr Kozin
      * @param year year of report
      * @param month month of report
-     * @return list with sum of prices grouped by service for all orders
+     * @return map with sum of prices grouped by service for all orders
      */
-    List<ProfitEntity> serviceProfitByMonth(String year, String month);
+    Map<String, Double> serviceProfitByMonth(String year, String month);
 }

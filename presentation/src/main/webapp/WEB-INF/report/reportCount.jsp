@@ -20,7 +20,7 @@
     <h3>Service profitability by month:</h3>
     <ol>
         <c:forEach items="${requestScope.profit}" var="profit">
-            <li>${profit.service} - ${profit.price}</li>
+            <li>${profit.key} - ${profit.value}</li>
         </c:forEach>
     </ol>
     <a href="report">New Report</a>

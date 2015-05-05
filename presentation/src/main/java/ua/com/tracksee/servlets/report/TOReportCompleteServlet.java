@@ -2,7 +2,6 @@ package ua.com.tracksee.servlets.report;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.com.tracksee.entities.ProfitEntity;
 import ua.com.tracksee.report.TOReportBean;
 
 import javax.ejb.EJB;
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created on 02.05.2015
@@ -43,7 +42,7 @@ public class TOReportCompleteServlet extends HttpServlet {
 
         try{
             int count = toReportBean.getOrdersByPeriod(startDate, endDate);
-            List<ProfitEntity> profit = toReportBean.serviceProfitByMonth(year, month);
+            Map<String, Double> profit = toReportBean.serviceProfitByMonth(year, month);
 
             request.setAttribute("count", count);
             request.setAttribute("profit", profit);
