@@ -4,6 +4,7 @@ import ua.com.tracksee.entities.TaxiOrderEntity;
 
 import javax.ejb.Local;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Interface for persisting and accessing taxi order data.
@@ -51,4 +52,10 @@ public interface TaxiOrderDAO {
      * @return number of orders per period
      */
     int getOrdersByPeriod(String startDate, String endDate);
+
+    /**
+     * @author Oleksandr Kozin
+     * @return map with most popular additional car options overall
+     */
+    Map<String, Integer> mostPopularAdditionalCarOptOverall();
 }

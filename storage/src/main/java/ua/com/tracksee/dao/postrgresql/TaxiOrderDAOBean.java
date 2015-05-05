@@ -10,7 +10,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>Postgresql database implementation of
@@ -124,8 +126,34 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
                 " WHERE ordered_date" +
                 " BETWEEN '" + startDate + "'" +
                 " AND '" + endDate + "'";
+        return getInteger(sql);
+    }
+
+    @Override
+    public Map<String, Integer> mostPopularAdditionalCarOptOverall() {
+        Map<String, Integer> map = new HashMap<>();
+//        SELECT COUNT(*) FROM taxi_order
+//        WHERE free_wifi = TRUE
+        String sql = "SELECT COUNT(*) FROM taxi_order";
+        Integer integer = getInteger(sql);
+        map.put("all_orders", integer);
+        String[] options = {"free_wifi", "animal_transportation", "non_smoking_driver", "air_conditioner"};
+        for (int i = 0; i < options.length; i++) {
+            Integer amount = getAmount(options[i]);
+            map.put(options[i], amount);
+        }
+        return map;
+    }
+
+    private Integer getAmount(String option) {
+        String sql = "SELECT COUNT(*) FROM taxi_order" +
+                " WHERE " + option + " = TRUE";
+        return getInteger(sql);
+    }
+
+    private Integer getInteger(String sql) {
         Query query = entityManager.createNativeQuery(sql);
-        BigInteger quantity = (BigInteger) query.getSingleResult();
-        return quantity.intValue();
+        BigInteger bigInteger = (BigInteger) query.getSingleResult();
+        return bigInteger.intValue();
     }
 }
