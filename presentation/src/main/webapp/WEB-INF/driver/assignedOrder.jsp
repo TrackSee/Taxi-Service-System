@@ -82,10 +82,18 @@
                       <td>${order.trackingNumber}</td>
                       <td>${order.carArriveTime}</td>
                       <td>${"-"}</td>
-                      <td>${"-"}</td>
+                      <td>
+                        <div class="form-group" id="orderStatusGroup">
+                        <select class="form-control order_priority" name="orderStatus">
+                          <option value="Refused">Refuse</option>
+                          <option value="In progress">In progress</option>
+                          <option value="Completed">Completed</option>
+                        </select>
+                      </div>
+                      </td>
                       <td>${order.price}</td>
-                      <td><button type="button" class="btn btn-warning">Refuse</button></td>
                       <td><button type="button" class="btn btn-primary">In progress</button></td>
+                      <td><button type="button" class="btn btn-warning">Refuse</button></td>
                       <td><button type="button" class="btn btn-success">Completed</button></td>
                   </tr>
                 </c:forEach>

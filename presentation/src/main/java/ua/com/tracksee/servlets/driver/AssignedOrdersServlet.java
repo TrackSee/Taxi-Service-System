@@ -2,6 +2,8 @@ package ua.com.tracksee.servlets.driver;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
+import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.logic.driver.DriverOrderBean;
 
 import javax.ejb.EJB;
@@ -10,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
@@ -34,5 +37,24 @@ public class AssignedOrdersServlet extends HttpServlet {
         }
         req.setAttribute("orders", driverOrderBean.getAssignedOrders(id));
         req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        StringBuilder sb = new StringBuilder();
+        try {
+            BufferedReader reader = req.getReader();
+            String line;
+            do {
+                line = reader.readLine();
+                sb.append(line).append("\n");
+            } while (line != null);
+        } catch (IOException e){
+            logger.warn("Cannot get json from post /driver/assigned-order");
+        }
+        System.out.println("data: " + sb.toString());
+        ObjectMapper mapper = new ObjectMapper();
+        TaxiOrderEntity orderEntity = mapper.readValue(sb.toString(), TaxiOrderEntity.class);
+
     }
 }

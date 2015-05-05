@@ -88,30 +88,25 @@
                     <td>${order.trackingNumber}</td>
                     <td>${order.carArriveTime}</td>
                     <td>
-                      <div id="panel">
-                        <label for="arriveDate" class="sr-only">Arrive date</label>
+                      <label for="arriveDate" class="sr-only">Arrive date</label>
 
-                        <div class="controls input-append date form_datetime" data-date="1979-09-16T05:25:07Z"
-                             data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                          <span class="add-on"><i class="icon-th"></i></span>
-                          <span class="add-on"><i class="icon-remove"></i></span>
-                          <input size="16" type="text" value="" id="arriveDate" name="arriveDate" readonly>
-                          <input type="hidden" id="dtp_input1" value=""/><br/>
+                      <div class="controls input-append date form_datetime" data-date="2014-09-16T05:25:07Z"
+                           data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                        <span class="add-on"><i class="icon-th"></i></span>
+                        <span class="add-on"><i class="icon-remove"></i></span>
+                        <input size="16" type="text" value="" id="arriveDate" name="arriveDate" readonly>
+                        <input type="hidden" id="dtp_input1" value=""/><br/>
 
-                        </div>
-                        <label for="endDate" class="sr-only">End date</label>
-
-                        <div class="controls input-append date form_datetime" data-date="1979-09-16T05:25:07Z"
-                             data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                          <span class="add-on"><i class="icon-th"></i></span>
-                          <span class="add-on"><i class="icon-remove"></i></span>
-                          <input size="16" type="text" value="" id="endDate" name="endDate" readonly>
-                          <input type="hidden" id="dtp_input2" value=""/><br/>
-                        </div>
+                      </div>
                     </td>
-                    <td>
-                      <a href="#" id="test" data-type="text" data-placement="right" data-title="Enter Something">Dummy Text</a>
-                    <td>
+                    <td></td>
+                    <td>${order.price}</td>
+                    <td>${order.smokingDriver==true ? "+" : "-"}</td>
+                    <td>${order.musicStyle}</td>
+                    <td>${order.status}</td>
+                    <td><a href="assigned-order?trackingNumber=${order.trackingNumber}" >
+                      <button type="button" id="assignOrder" class="btn btn-info btn-circle">
+                        <i class="fa fa-check"></i> </button></a></td>
                   </tr>
                 </c:forEach>
                 </tbody>
