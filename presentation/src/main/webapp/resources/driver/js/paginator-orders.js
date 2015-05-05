@@ -11,7 +11,7 @@ $(document).ready(function () {
             type: 'POST',
             data: 'pageNumber=' + pageNumber,
 
-            url: 'orders',
+            url: 'history-of-orders',
 
             success: function (data) {
                 ;

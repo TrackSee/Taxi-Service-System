@@ -22,7 +22,7 @@ $(document).ready(function () {
                     if (i >= rows.length) {
                         var newTr = document.createElement('tr');
                         //TODO Don't forget to change magic number of attribute tr count
-                        for (var j = 0; j <9 ; j++) {
+                        for (var j = 0; j <6 ; j++) {
                             newTr.appendChild(document.createElement('td'));
                         }
                         tBody.appendChild(newTr);
