@@ -70,11 +70,7 @@ public class RegistrationBean {
         }
 
         String userCode = generatedId.toString();
-        try {
-            emailBean.sendRegistrationEmail(email, userCode);
-        } catch (MessagingException e) {
-            throw new RegistrationException("Failed to send registration email.", EMAIL_SENDING_FAIL);
-        }
+        emailBean.sendRegistrationEmail(email, userCode);
     }
 
     private void validateRegistrationData(String email, String password, String phoneNumber)
