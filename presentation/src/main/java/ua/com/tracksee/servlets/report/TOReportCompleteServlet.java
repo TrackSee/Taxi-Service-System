@@ -43,9 +43,11 @@ public class TOReportCompleteServlet extends HttpServlet {
         try{
             int count = toReportBean.getOrdersByPeriod(startDate, endDate);
             Map<String, Double> profit = toReportBean.serviceProfitByMonth(year, month);
+            Map<String, Integer> popOptOverall = toReportBean.mostPopularAdditionalCarOptOverall();
 
             request.setAttribute("count", count);
             request.setAttribute("profit", profit);
+            request.setAttribute("popOptOverall", popOptOverall);
             request.getRequestDispatcher("/WEB-INF/report/reportCount.jsp").forward(request, response);
         } catch (Exception e){
             logger.error(e.getMessage());

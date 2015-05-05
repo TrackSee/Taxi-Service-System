@@ -37,4 +37,11 @@ public class TOReportBean {
     public Map<String, Double> serviceProfitByMonth(String year, String month) {
         return taxiPriceDAO.serviceProfitByMonth(year, month);
     }
+
+    /**
+     * @return map with most popular additional car options overall
+     */
+    public Map<String, Integer> mostPopularAdditionalCarOptOverall() {
+        return  taxiOrderDAO.mostPopularAdditionalCarOptOverall();
+    }
 }

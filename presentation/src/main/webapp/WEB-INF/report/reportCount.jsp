@@ -23,6 +23,13 @@
             <li>${profit.key} - ${profit.value}</li>
         </c:forEach>
     </ol>
+    
+    <h3>Most popular additional car options overall:</h3>
+    <ol>
+        <c:forEach items="${requestScope.popOptOverall}" var="popOptOverall">
+            <li>${popOptOverall.key} - ${popOptOverall.value}</li>
+        </c:forEach>
+    </ol>
     <a href="report">New Report</a>
 </form>
 </body>
