@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.MostPopularOption;
 //import ua.com.tracksee.entities.ServiceProfitable;
+import ua.com.tracksee.entities.ServiceProfitable;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.TaxiOrderItemEntity;
 
@@ -12,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -134,29 +136,31 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         return (int) Math.ceil(generalOrderCount.intValue() / (double) TO_ORDERS_PER_PAGE);
     }
 
-//    /**
-//     * @author Katia Stetsiuk
-//     */
-//    @Override
-//    public List<ServiceProfitable> getProfitByService(String startDate, String endDate) {
-//        String sql = "SELECT service, SUM(price)\n" +
-//                "FROM taxi_order\n " +
-//                "WHERE ORDERED_DATE BETWEEN '" + startDate + "'" +
-//                " AND '" + endDate + "'" +
-//                "GROUP BY service";
-//        Query query = entityManager.createNativeQuery(sql);
-//        List<Object[]> list = query.getResultList();
-//        List<ServiceProfitable> profitList = new ArrayList<>();
-//        ServiceProfitable pe;
-//        for (Object[] objects : list) {
-//            String s = (String) objects[0];
-//            BigDecimal b = (BigDecimal) objects[1];
-//            pe = new ServiceProfitable(s, b.doubleValue());
-//            profitList.add(pe);
-//        }
-//        return profitList;
-//        // return query.getResultList();
-//    }
+
+
+    /**
+     * @author Katia Stetsiuk
+     */
+    @Override
+    public List<ServiceProfitable> getProfitByService(String startDate, String endDate) {
+        String sql = "SELECT service, SUM(price)\n" +
+                "FROM taxi_order\n " +
+                "WHERE ORDERED_DATE BETWEEN '" + startDate + "'" +
+                " AND '" + endDate + "'" +
+                "GROUP BY service";
+        Query query = entityManager.createNativeQuery(sql);
+        List<Object[]> list = query.getResultList();
+        List<ServiceProfitable> profitList = new ArrayList<>();
+        ServiceProfitable pe;
+        for (Object[] objects : list) {
+            String s = (String) objects[0];
+            BigDecimal b = (BigDecimal) objects[1];
+            pe = new ServiceProfitable(s, b.doubleValue());
+            profitList.add(pe);
+        }
+        return profitList;
+        // return query.getResultList();
+    }
 
     /**
      * @author Katia Stetsiuk

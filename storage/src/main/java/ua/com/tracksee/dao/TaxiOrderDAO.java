@@ -2,6 +2,7 @@ package ua.com.tracksee.dao;
 
 import ua.com.tracksee.entities.MostPopularOption;
 //import ua.com.tracksee.entities.ServiceProfitable;
+import ua.com.tracksee.entities.ServiceProfitable;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 
 import javax.ejb.Local;
@@ -92,7 +93,7 @@ public interface TaxiOrderDAO {
      * @return
      */
 
-    //List<ServiceProfitable> getProfitByService(String startDate, String endDate);
+    List<ServiceProfitable> getProfitByService(String startDate, String endDate);
     BigInteger getCountOptionalChar(String option, Integer userId);
     List<MostPopularOption> getMostPopularOptionsForUser(Integer userId);
     BigInteger getCountOptionalBool(String option, Integer userId);
