@@ -86,9 +86,15 @@
                           ${order.status}
                       </td>
                       <td>${order.price}</td>
-                      <td><a href="assigned-order?trackingNumber=${order.trackingNumber}&orderStatus=${"Completed"}" ><button type="button" class="btn btn-success">Complete</button></td>
+                      <td>
+                        <form action="" method="post">
+                          <button name="orderStatus" value="In progress">Upvote</button>
+                        </form>
+                        <a href="assigned-order?trackingNumber=${order.trackingNumber}&orderStatus=${"Completed"}" ><button type="button" class="btn btn-success">Complete</button>
+                      </td>
                       <td><a href="assigned-order?trackingNumber=${order.trackingNumber}&orderStatus=${"Refused"}" ><button type="button" class="btn btn-success">Refuse</button></td>
                       <td><a href="assigned-order?trackingNumber=${order.trackingNumber}&orderStatus=${"In progress"}" ><button type="button" class="btn btn-success">In progress</button></td>
+
                   </tr>
                 </c:forEach>
                 </tbody>

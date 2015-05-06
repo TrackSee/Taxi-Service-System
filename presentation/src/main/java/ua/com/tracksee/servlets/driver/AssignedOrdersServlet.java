@@ -22,12 +22,13 @@ public class AssignedOrdersServlet extends HttpServlet {
     private DriverOrderBean driverOrderBean;
     String timeCarArrive = "2015-06-25 00:00:00.000000";
     String trackingNumber;
+    String orderStatus;
     int id = 6;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         trackingNumber = req.getParameter("trackingNumber");
-        String orderStatus = req.getParameter("orderStatus");
+        orderStatus = req.getParameter("orderStatus");
         if(orderStatus != null) {
             if(orderStatus.equals("Refused")){
                 driverOrderBean.setRefusedOrder(trackingNumber);
@@ -44,6 +45,14 @@ public class AssignedOrdersServlet extends HttpServlet {
             }
         req.setAttribute("orders", driverOrderBean.getAssignedOrders(id));
         req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        trackingNumber = req.getParameter("trackingNumber");
+        orderStatus = req.getParameter("orderStatus");
+        System.out.print(trackingNumber);
+        System.out.print(orderStatus);
     }
 
 }
