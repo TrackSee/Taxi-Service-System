@@ -33,6 +33,7 @@ public class SignUpServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String phoneNumber = req.getParameter("phone-number");
+        phoneNumber = phoneNumber.equals("") ? null : phoneNumber;
 
         try {
             controller.registerCustomerUser(email, password, phoneNumber);
