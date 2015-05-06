@@ -78,15 +78,20 @@ public class TaxiOrderBean {
      * @author Sharaban Sasha
      * @author Avlasov Sasha
      * @param inputData- input data about user and his order
-     * @exception javax.mail.MessagingException
      * @exception ua.com.tracksee.logic.exception.OrderException
      * @return Integer - tracking number of user order
      */
     public TaxiOrderEntity makeOrder(HashMap<String, String> inputData) throws OrderException {
-        ServiceUserEntity serviceUserEntity = validateForUser(inputData);
+        String email = inputData.get("email");
+        String phone = inputData.get("phoneNumber");
+        validateForUser(email, phone);
+        ServiceUserEntity user = new ServiceUserEntity();
+        user.setEmail(email);
+        user.setPhone(phone);
+
         TaxiOrderEntity taxiOrderEntity = validateForTaxiOrder(inputData);
-        serviceUserEntity=checkUserPresent(serviceUserEntity);
-        taxiOrderEntity.setUserId(serviceUserEntity.getUserId());
+        user = checkUserPresent(user);
+        taxiOrderEntity.setUserId(user.getUserId());
         taxiOrderEntity.setTrackingNumber(taxiOrderDAO.addOrder(taxiOrderEntity));
         if(taxiOrderEntity.getArriveDate() != null){
             taxiOrderDAO.addArriveDate(taxiOrderEntity.getArriveDate(),taxiOrderEntity.getTrackingNumber());
@@ -94,7 +99,7 @@ public class TaxiOrderBean {
         if(taxiOrderEntity.getEndDate() != null){
             taxiOrderDAO.addEndDate(taxiOrderEntity.getEndDate(),taxiOrderEntity.getTrackingNumber());
         }
-        sendEmail(serviceUserEntity,taxiOrderEntity.getTrackingNumber());
+        sendEmail(user,taxiOrderEntity.getTrackingNumber());
         return taxiOrderEntity;
     }
 
@@ -184,28 +189,19 @@ public class TaxiOrderBean {
      * address and insert it into AddressEntity object.
      *
      * @author Sharaban Sasha
-     * @param inputData - input data from the client
-     * @return AddressEntity object that contain checked origin address
-     * @exception ua.com.tracksee.logic.exception.OrderException
-     *
+     * @author Ruslan Gunavardana
+     * @param email - client's email
+     * @param phone - client's phone number
+     * @exception ua.com.tracksee.logic.exception.OrderException     *
      */
-//TODO rename or split method. Validation must only validate
-    private ServiceUserEntity validateForUser(HashMap<String, String> inputData) throws OrderException {
-        ServiceUserEntity serviceUserEntity = new ServiceUserEntity();
-
-        if (validationBean.isValidEmail(inputData.get("email"))) {
-            serviceUserEntity.setEmail(inputData.get("email"));
-        } else {
+    private void validateForUser(String email, String phone) throws OrderException {
+        if (!validationBean.isValidEmail(email)) {
             throw new OrderException("Invalid email.", "wrong-email");
         }
 
-        if (validationBean.isValidPhoneNumber(inputData.get("phoneNumber"))) {
-            serviceUserEntity.setPhone(inputData.get("phoneNumber"));
-        } else {
+        if (!validationBean.isValidPhoneNumber(phone)) {
             throw new OrderException("Invalid phone number.", "wrong-phone");
         }
-
-        return serviceUserEntity;
     }
     /**
      * This method checks incoming origin
@@ -358,8 +354,7 @@ public class TaxiOrderBean {
      * @author Sharaban Sasha
      * @see ua.com.tracksee.dao.AddressDAO
      */
-    public AddressEntity getAddressInfo(int userId){
-
+    public AddressEntity getAddressInfo(int userId) {
         return  addressDAO.getAddressByUserId(userId);
     }
 
