@@ -157,18 +157,21 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         return (int) Math.ceil(generalOrderCount.intValue()/ (double) TO_ORDERS_PER_PAGE);
     }
     @Override
-    public int updateOrder(TaxiOrderEntity entity) {
-        Query query = entityManager.createNativeQuery("UPDATE taxi_order SET status = ?1," +
-                "driver_sex = ?2, music_style = ?3, animal_transportation = ?4, " +
-                "free_wifi = ?5, non_smoking_driver = ?6, air_conditioner = ?7 WHERE tracking_number = ?8");
-        query.setParameter(1, entity.getStatus().toString());
-        query.setParameter(2, entity.getDriverSex().toString());
-        query.setParameter(3, entity.getMusicStyle().toString());
-        query.setParameter(4, entity.getAnimalTransportation());
-        query.setParameter(5, entity.getFreeWifi());
-        query.setParameter(6, entity.getNonSmokingDriver());
-        query.setParameter(7, entity.getAirConditioner());
-        query.setParameter(8, entity.getTrackingNumber());
-        return query.executeUpdate();
+    public void updateOrder(TaxiOrderEntity entity) {
+        Query query = entityManager.createNativeQuery("UPDATE taxi_order SET " +
+                "ordered_date=?1,service=?2,car_category=?3,driver_sex = ?4, music_style = ?5, animal_transportation = ?6, " +
+                "free_wifi = ?7, non_smoking_driver = ?8, air_conditioner = ?9,description=?10 WHERE tracking_number = ?11");
+        query.setParameter(1, entity.getOrderedDate());
+        query.setParameter(2, entity.getService().toString());
+        query.setParameter(3, entity.getCarCategory().toString());
+        query.setParameter(4, entity.getDriverSex().toString());
+        query.setParameter(5, entity.getMusicStyle().toString());
+        query.setParameter(6, entity.getAnimalTransportation());
+        query.setParameter(7, entity.getFreeWifi());
+        query.setParameter(8, entity.getNonSmokingDriver());
+        query.setParameter(9, entity.getAirConditioner());
+        query.setParameter(10, entity.getDescription());
+        query.setParameter(11, entity.getTrackingNumber());
+        query.executeUpdate();
     }
 }

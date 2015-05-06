@@ -32,6 +32,9 @@ public class EnumValidationBean {
             case "van":
                 enumCarCategory = CarCategory.VAN;
                 break;
+            case "userCar":
+                enumCarCategory = CarCategory.USER_CAR;
+                break;
             default:
                 enumCarCategory = null;
         }

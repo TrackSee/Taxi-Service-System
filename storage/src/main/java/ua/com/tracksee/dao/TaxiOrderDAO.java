@@ -26,7 +26,7 @@ public interface TaxiOrderDAO {
     /**
      *@author Igor Gula
      */
-    public int updateOrder(TaxiOrderEntity entity);
+    public void updateOrder(TaxiOrderEntity entity);
     /**
      * This method insert order into database
      *

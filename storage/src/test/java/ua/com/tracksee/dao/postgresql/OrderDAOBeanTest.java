@@ -73,7 +73,6 @@ public class OrderDAOBeanTest {
         long trackNumb=4;
         entity.setTrackingNumber(trackNumb);
         entity.setAirConditioner(Boolean.FALSE);
-        int i = taxiOrderDAO.updateOrder(entity);
-        assertTrue(i == 1);
+        taxiOrderDAO.updateOrder(entity);
     }
 }
