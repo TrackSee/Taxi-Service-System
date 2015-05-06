@@ -42,6 +42,17 @@ public class UserDAOBean implements UserDAO {
     return query.getResultList();
 }
 
+    /**
+     * @author KatiaStetsiul
+     * @return
+     */
+    @Override
+    public List<ServiceUserEntity> getUsers() {
+        Query query = entityManager.createNativeQuery("SELECT * FROM service_user "
+                , ServiceUserEntity.class);
+        return query.getResultList();
+    }
+
     @Override
     public List<String> getDriversEmails() {
 

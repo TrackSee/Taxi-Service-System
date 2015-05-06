@@ -51,7 +51,7 @@
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/pie.js"></script>
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>
-<script src="<%=application.getContextPath()%>/resources/admin/reports/js/reportScript.js"/>
+<script src="<%=application.getContextPath()%>/resources/admin/reports/js/z.js"/>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
