@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.AddressEntity;
+import ua.com.tracksee.entities.ServiceProfitable;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.enumartion.*;
@@ -45,6 +46,8 @@ public class TaxiOrderBean {
     private @EJB ValidationBean validationBean;
     private @EJB PriceCalculatorBean priceCalculatorBean;
     private @EJB EnumValidationBean enumValidationBean;
+
+    public List<ServiceProfitable> getProfitByService(String startDate, String endDate){return taxiOrderDAO.getProfitByService(startDate, endDate);}
 
     /**
      * Creates taxi order for authorised user.

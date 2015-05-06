@@ -1,5 +1,6 @@
 package ua.com.tracksee.dao;
 
+import ua.com.tracksee.entities.ServiceProfitable;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 
 import javax.ejb.Local;
@@ -81,4 +82,5 @@ public interface TaxiOrderDAO {
      */
     int getActiveTaxiOrderPagesCount();
     int getOldTaxiOrderPagesCount();
+    List<ServiceProfitable> getProfitByService(String startDate, String endDate);
 }
