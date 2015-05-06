@@ -22,6 +22,7 @@ public interface UserDAO {
      * @return list, containing the part of drivers(default size of list is 10)
      */
     List<ServiceUserEntity> getDrivers(int partNumber);
+    List<ServiceUserEntity> getUsers();
 
     /**
      * Method clears any unactivated users that exist more than

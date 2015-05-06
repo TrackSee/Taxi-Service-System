@@ -28,10 +28,16 @@ public class AdministratorBean {
     private ServiceUserDaoBeen serviceUserDaoBeen;
 
     /**
+     * @author Katia Stetsiuk
+     * @return
+     */
+    public List<ServiceUserEntity> getUsers(){return userDAO.getUsers();}
+    /**
      * @author Vadym_Akymov
      * @param partNumber - number of part which is neeeded
      * This method return part of drivers
      */
+
     public List<ServiceUserEntity> getDrivers(int partNumber){
         return userDAO.getDrivers(partNumber);
     }
