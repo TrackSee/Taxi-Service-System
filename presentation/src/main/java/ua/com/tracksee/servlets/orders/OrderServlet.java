@@ -102,15 +102,15 @@ public class OrderServlet extends HttpServlet {
             inputData.put("airConditioner","false");
             inputData.put("description","");
 
-            TaxiOrderEntity order = taxiOrderBean.makeOrder(inputData);
+          //  TaxiOrderEntity order = taxiOrderBean.makeOrder(inputData);
 
-            req.setAttribute("successAlert", "<div class=\"alert alert-success\" role=\"alert\"  >" +
-                    "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
-                    "  <span aria-hidden=\"true\">&times;</span></button><h3>Your order accepted for further " +
-                    "processing successfully and you was assigned to such tracking number:"
-                    + order.getTrackingNumber() + "</h3></div>");
+//            req.setAttribute("successAlert", "<div class=\"alert alert-success\" role=\"alert\"  >" +
+//                    "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
+//                    "  <span aria-hidden=\"true\">&times;</span></button><h3>Your order accepted for further " +
+//                    "processing successfully and you was assigned to such tracking number:"
+//                    + order.getTrackingNumber() + "</h3></div>");
             req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
-        } catch (OrderException | NullPointerException e) {
+        } catch ( NullPointerException e) {
             logger.error(e.getMessage());
             req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req,resp);
         }

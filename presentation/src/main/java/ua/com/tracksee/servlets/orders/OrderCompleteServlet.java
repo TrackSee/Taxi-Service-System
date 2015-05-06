@@ -87,7 +87,7 @@ public class OrderCompleteServlet extends HttpServlet {
             if (orderCancellationBean.checkBlackListByUserEmail(inputData.get("email"))) {
                 req.setAttribute("showError", "Show");
             } else {
-                Long trackingNumber = taxiOrderBean.makeOrder(inputData).getTrackingNumber();
+                Long trackingNumber = taxiOrderBean.makeOrder(inputData);
                 req.setAttribute("showSuccess", "Show");
                 req.setAttribute("hideOrderTrack", "hidden=\"hidden\"");
                 req.setAttribute("trackingNumber", trackingNumber);

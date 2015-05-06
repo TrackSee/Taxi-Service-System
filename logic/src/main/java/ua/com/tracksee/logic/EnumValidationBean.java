@@ -15,9 +15,9 @@ public class EnumValidationBean {
      * This method checks there is the such
      * enum  and return it if it exists.
      *
+     * @author Sharaban Sasha
      * @param carCategory - string representation of car category
      * @return car category enum
-     * @author Sharaban Sasha
      */
 
     public CarCategory setEnumCarCategory(String carCategory) {
@@ -41,9 +41,9 @@ public class EnumValidationBean {
      * This method checks there is the such
      * enum and return it if it exists.
      *
+     * @author Sharaban Sasha
      * @param wayOfPayment - string representation of way of payment
      * @return way of payment enum
-     * @author Sharaban Sasha
      */
     public WayOfPayment setEnumWayOfPayment(String wayOfPayment) {
         WayOfPayment enumWayOfPayment;
@@ -63,9 +63,9 @@ public class EnumValidationBean {
      * This method checks there is the such
      * enum and return it if it exists.
      *
+     * @author Sharaban Sasha
      * @param driverSex - string representation of driver sex
      * @return driver sex enum
-     * @author Sharaban Sasha
      */
     public Sex setEnumDriverSex(String driverSex) {
         Sex enumDriverSex;
@@ -88,9 +88,9 @@ public class EnumValidationBean {
      * This method checks there is the such
      * enum and return it if it exists.
      *
+     * @author Sharaban Sasha
      * @param service - string representation of service
      * @return service enum
-     * @author Sharaban Sasha
      */
 
     public Service setEnumService(String service) {
@@ -134,11 +134,10 @@ public class EnumValidationBean {
      * This method checks there is the such
      * enum and return it if it exists.
      *
+     * @author Sharaban Sasha
      * @param musicStyle - string representation of music style
      * @return music style enum
-     * @author Sharaban Sasha
      */
-
     public MusicStyle setEnumMusicStyle(String musicStyle) {
         MusicStyle enumMusicStyle;
         switch (musicStyle) {
@@ -171,6 +170,15 @@ public class EnumValidationBean {
         }
         return enumMusicStyle;
     }
+    /**
+     * This method return string
+     * representation of music
+     * style enum value
+     *
+     * @author Sharaban Sasha
+     * @param enumMusicStyle - enum value of music style
+     * @return string name of option that must be selected
+     */
     public String getFromEnumMusicStyle(MusicStyle enumMusicStyle){
         String musicStyle=null;
         if(enumMusicStyle== MusicStyle.BLUES){
@@ -199,6 +207,15 @@ public class EnumValidationBean {
         }
         return musicStyle;
     }
+    /**
+     * This method return string
+     * representation of service
+     * enum value
+     *
+     * @author Sharaban Sasha
+     * @param enumService - enum value of service
+     * @return string name of option that must be selected
+     */
     public String getFromEnumService(Service enumService){
         String service=null;
         if (enumService == Service.CARGO_TAXI) {
@@ -230,6 +247,15 @@ public class EnumValidationBean {
         }
         return service;
     }
+    /**
+     * This method return string
+     * representation of car category
+     * enum value
+     *
+     * @author Sharaban Sasha
+     * @param enumCarCategory - enum value of car category
+     * @return string name of option that must be selected
+     */
     public String getFromEnumCarCategory(CarCategory enumCarCategory){
         String carCategory=null;
         if (enumCarCategory == CarCategory.BUSINESS_CLASS) {
@@ -242,6 +268,15 @@ public class EnumValidationBean {
             carCategory = "van";}
     return carCategory;
     }
+    /**
+     * This method return string
+     * representation of driver
+     * sex enum value
+     *
+     * @author Sharaban Sasha
+     * @param enumDriverSex - enum value of driver sex
+     * @return string name of option that must be selected
+     */
     public String getFromEnumDriverSex(Sex enumDriverSex){
         String driverSex=null;
         if (enumDriverSex == Sex.A) {
@@ -255,6 +290,15 @@ public class EnumValidationBean {
         }
         return driverSex;
     }
+    /**
+     * This method return string
+     * representation of way of payment
+     * enum value
+     *
+     * @author Sharaban Sasha
+     * @param enumWayOfPayment - enum value of way of payment
+     * @return string name of option that must be selected
+     */
     public String getFromEnumWayOfPayment(WayOfPayment enumWayOfPayment){
         String wayOfPayment=null;
         if (enumWayOfPayment == WayOfPayment.CASH) {

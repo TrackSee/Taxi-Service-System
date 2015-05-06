@@ -81,7 +81,7 @@ public class TaxiOrderBean {
      * @exception ua.com.tracksee.logic.exception.OrderException
      * @return Integer - tracking number of user order
      */
-    public TaxiOrderEntity makeOrder(HashMap<String, String> inputData) throws OrderException {
+    public Long makeOrder(HashMap<String, String> inputData) throws OrderException {
         String email = inputData.get("email");
         String phone = inputData.get("phoneNumber");
         validateForUser(email, phone);
@@ -100,7 +100,7 @@ public class TaxiOrderBean {
             taxiOrderDAO.addEndDate(taxiOrderEntity.getEndDate(),taxiOrderEntity.getTrackingNumber());
         }
         sendEmail(user,taxiOrderEntity.getTrackingNumber());
-        return taxiOrderEntity;
+        return taxiOrderEntity.getTrackingNumber();
     }
 
     /**
