@@ -4,11 +4,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
+import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -224,5 +224,12 @@ public class UserDAOBean implements UserDAO {
         query.executeUpdate();
     }
 
+    public CarEntity getDriversCar(ServiceUserEntity driver){
+        String sql = "SELECT * FROM car INNER JOIN service_user ON car.car_number = service_user.car_number " +
+                "AND user_id = ?";
+        Query query = entityManager.createNativeQuery(sql, CarEntity.class);
+        query.setParameter(1, driver.getUserId());
+        return (CarEntity) query.getSingleResult();
+    }
 
 }

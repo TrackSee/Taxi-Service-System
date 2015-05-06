@@ -94,4 +94,5 @@ public interface UserDAO {
      */
     void assignCar(String carNumber, Integer driverID);
 
+    public CarEntity getDriversCar(ServiceUserEntity driver);
 }
