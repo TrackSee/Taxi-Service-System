@@ -37,7 +37,7 @@
   <jsp:include page="adminHeader.jsp"/>
 
   <div id="page-wrapper">
-    <h3>Driver category popularity</h3>
+    <h3>Driver sex popularity</h3>
     <div id="driverDiv"></div>
     <h3>Car category popularity</h3>
     <div id="carDiv"></div>

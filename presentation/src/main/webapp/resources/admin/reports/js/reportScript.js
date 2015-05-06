@@ -1,7 +1,7 @@
 /*author Vadym Akymov*/
 
 //for driver category report
-var chart = AmCharts.makeChart( "driverDiv", {
+var driverChart = AmCharts.makeChart( "driverDiv", {
     "type": "pie",
     "theme": "light",
     "legend": {
@@ -11,13 +11,13 @@ var chart = AmCharts.makeChart( "driverDiv", {
         "autoMargins": false
     },
     "dataProvider": [ {
-        "sex": "M",
+        "sex": "Male",
         "ordersCount": 15000
     }, {
-        "sex": "F",
+        "sex": "Female",
         "ordersCount": 10000
     }, {
-        "sex": "Germany",
+        "sex": "Nevermind",
         "ordersCount": 25000
     }],
     "valueField": "ordersCount",
@@ -32,9 +32,8 @@ var chart = AmCharts.makeChart( "driverDiv", {
 } );
 
 
-
 //For car report
-var chart = AmCharts.makeChart( "chartdiv", {
+var carChart = AmCharts.makeChart( "carDiv", {
     "type": "pie",
     "theme": "light",
     "legend": {
@@ -44,29 +43,20 @@ var chart = AmCharts.makeChart( "chartdiv", {
         "autoMargins": false
     },
     "dataProvider": [ {
-        "country": "Czech Republic",
-        "litres": 256.9
+        "car category": "Business class",
+        "ordersCount": 15000
     }, {
-        "country": "Ireland",
-        "litres": 131.1
+        "car category": "Economy class",
+        "ordersCount": 75000
     }, {
-        "country": "Germany",
-        "litres": 115.8
+        "car category": "VAN",
+        "ordersCount": 5000
     }, {
-        "country": "Australia",
-        "litres": 109.9
-    }, {
-        "country": "Austria",
-        "litres": 108.3
-    }, {
-        "country": "UK",
-        "litres": 65
-    }, {
-        "country": "Belgium",
-        "litres": 40
-    } ],
-    "valueField": "litres",
-    "titleField": "country",
+        "car category": "User car",
+        "ordersCount": 19000
+    }],
+    "valueField": "ordersCount",
+    "titleField": "car category",
     "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
     "export": {
         "enabled": true,
