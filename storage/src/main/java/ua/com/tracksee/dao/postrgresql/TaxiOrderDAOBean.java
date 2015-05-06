@@ -3,7 +3,6 @@ package ua.com.tracksee.dao.postrgresql;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
-import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 
 import javax.ejb.Stateless;
@@ -11,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.math.BigInteger;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -49,14 +47,11 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     }
     @Override
     public Long addOrder(TaxiOrderEntity orderEntity) {
-        String sql="INSERT INTO taxi_order (description,status,price,user_id,service,car_category,way_of_payment,driver_sex," +
+        String orderSql="INSERT INTO taxi_order " +
+                "(description,status,price,user_id,service,car_category,way_of_payment,driver_sex," +
                 "music_style,animal_transportation,free_wifi,non_smoking_driver,air_conditioner,ordered_date) " +
                 "VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14) RETURNING tracking_number";
-
-        //TODO insert into taxi items
-        //     "INSERT INTO taxi_order_item (tracking_numer, path, ordered_quantity, driver_id) VALUES ()"
-
-        Query query = entityManager.createNativeQuery(sql);
+        Query query = entityManager.createNativeQuery(orderSql);
         query.setParameter(1,orderEntity.getDescription());
         query.setParameter(2, orderEntity.getStatus().toString());
         query.setParameter(3, orderEntity.getPrice());
@@ -65,6 +60,8 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(6, orderEntity.getCarCategory().toString());
         query.setParameter(7, orderEntity.getWayOfPayment().toString());
         query.setParameter(8, orderEntity.getDriverSex().toString());
+        System.out.println("DB" + orderEntity.getAnimalTransportation() + orderEntity.getFreeWifi() + orderEntity.getAirConditioner() +
+                orderEntity.getNonSmokingDriver());
         query.setParameter(9, orderEntity.getMusicStyle().toString());
         query.setParameter(10, orderEntity.getAnimalTransportation());
         query.setParameter(11, orderEntity.getFreeWifi());
@@ -73,6 +70,15 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(14,orderEntity.getOrderedDate());
 
         BigInteger trackingNumber=(BigInteger)query.getSingleResult();
+        //TODO -допилить
+//        String orderItemSql = "";
+//        for (int i = 0; i < orderEntity.getItems().size(); i++) {
+//            orderItemSql += "INSERT INTO taxi_order_item " +
+//                    "(tracking_numer, path, ordered_quantity, driver_id) " +
+//                    "VALUES (?1, ?2, ?3, ?4)";
+//        }
+
+
         return trackingNumber.longValue();
     }
     @Override

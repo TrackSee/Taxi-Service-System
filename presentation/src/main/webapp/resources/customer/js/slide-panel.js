@@ -6,19 +6,18 @@
  *
  * author Sharaban Sasha
  */
+var visibleState = false;
+$("#flip").click(function () {
+    if(visibleState==false){
+    $('#panel').slideDown("slow");
+        visibleState=true;
+    }else
+    if(visibleState==true){
+        $('#panel').slideUp("slow");
+        visibleState=false;
+    }
+    //$('#flip').hide();
+});
 
-////if turn status true - panel is hidden
-//var hiddenStatus = true;
-//$('.turnButton').click(function(){
-//    if(hiddenStatus == false) {
-//        $('#panel').css('display', 'none');
-//    } else {
-//        $('#panel').css('display', 'block');
-//    }
-//    hiddenStatus = !hiddenStatus;
-//});
 
-    $("#flip").click(function () {
-        $('#panel').slideDown("slow");
-        $('#flip').hide();
-    });
+

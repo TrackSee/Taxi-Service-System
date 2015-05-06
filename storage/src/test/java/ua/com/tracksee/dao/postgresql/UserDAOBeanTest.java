@@ -12,9 +12,11 @@ import org.postgresql.geometric.PGpoint;
 import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.postrgresql.UserDAOBean;
+import ua.com.tracksee.dao.postrgresql.exceptions.CarNotFoundException;
 import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.enumartion.Sex;
+import ua.com.tracksee.error.PersistError;
 
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
@@ -44,6 +46,8 @@ public class UserDAOBeanTest {
                 .addAsLibraries(log4jCore)
                 .addAsLibraries(hibernateLib)
                 .addPackage(PGpoint.class.getPackage())
+                .addPackage(PersistError.class.getPackage())
+                .addPackage(CarNotFoundException.class.getPackage())
                 .addPackage(PGBinaryObject.class.getPackage())
                 .addPackage(ServiceUserEntity.class.getPackage())
                 .addPackage(UserDAOBean.class.getPackage())

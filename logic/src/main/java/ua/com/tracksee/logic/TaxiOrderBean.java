@@ -81,7 +81,7 @@ public class TaxiOrderBean {
      * @exception ua.com.tracksee.logic.exception.OrderException
      * @return Integer - tracking number of user order
      */
-    public TaxiOrderEntity makeOrder(HashMap<String, String> inputData) throws OrderException {
+    public Long makeOrder(HashMap<String, String> inputData) throws OrderException {
         String email = inputData.get("email");
         String phone = inputData.get("phoneNumber");
         validateForUser(email, phone);
@@ -100,7 +100,7 @@ public class TaxiOrderBean {
             taxiOrderDAO.addEndDate(taxiOrderEntity.getEndDate(),taxiOrderEntity.getTrackingNumber());
         }
         sendEmail(user,taxiOrderEntity.getTrackingNumber());
-        return taxiOrderEntity;
+        return taxiOrderEntity.getTrackingNumber();
     }
 
     /**
@@ -297,10 +297,10 @@ public class TaxiOrderBean {
         } else {
             throw new OrderException("Invalid musicStyle enum value", "invalid-musicStyle");
         }
-        taxiOrderEntity.setAnimalTransportation(Boolean.parseBoolean(inputData.get("animalTransportation")));
-        taxiOrderEntity.setFreeWifi(Boolean.parseBoolean(inputData.get("freeWifi")));
-        taxiOrderEntity.setNonSmokingDriver(Boolean.parseBoolean(inputData.get("smokingDriver")));
-        taxiOrderEntity.setAirConditioner(Boolean.parseBoolean(inputData.get("airConditioner")));
+        taxiOrderEntity.setAnimalTransportation(convertCheckBox(inputData.get("animalTransportation")));
+        taxiOrderEntity.setFreeWifi(convertCheckBox(inputData.get("freeWifi")));
+        taxiOrderEntity.setNonSmokingDriver(convertCheckBox(inputData.get("smokingDriver")));
+        taxiOrderEntity.setAirConditioner(convertCheckBox(inputData.get("airConditioner")));
         try {
             int distance=Integer.parseInt(inputData.get("distance"));
             taxiOrderEntity.setPrice(new BigDecimal(priceCalculatorBean.simpleCalculatePrice(distance)));
@@ -357,5 +357,11 @@ public class TaxiOrderBean {
     public AddressEntity getAddressInfo(int userId) {
         return  addressDAO.getAddressByUserId(userId);
     }
-
+    private boolean convertCheckBox(String checkBoxState){
+        boolean booleanCheckBoxState=false;
+        if(checkBoxState.equals("on")){
+            booleanCheckBoxState=true;
+        }
+        return booleanCheckBoxState;
+    }
 }

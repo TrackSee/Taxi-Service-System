@@ -23,6 +23,7 @@
   <!-- Custom Fonts -->
   <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css"
         rel="stylesheet" type="text/css">
+  <link href="<%=application.getContextPath()%>/resources/admin/reports/css/report.css" type="text/css" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,8 +37,10 @@
   <jsp:include page="adminHeader.jsp"/>
 
   <div id="page-wrapper">
-    <p>Report</p>
-    <div id="chartdiv"></div>
+    <h3>Driver sex popularity</h3>
+    <div id="driverDiv"></div>
+    <h3>Car category popularity</h3>
+    <div id="carDiv"></div>
   </div>
 </div>
 

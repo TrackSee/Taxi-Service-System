@@ -57,25 +57,6 @@
                     <span aria-hidden="true">&times;</span></button><h3>
                 Your order accepted for further processing successfully and you was assigned to such tracking number:
                 ${trackingNumber}
-                <div id="flip">
-                    <div class="form-group">
-                        <p>
-                            <button type="button" class="btn btn-info">Short information about order</button>
-                        </p>
-                    </div>
-                </div>
-                <div id="panel">
-                    ${arriveDate}
-                    ${endDate}
-                    ${service}
-                    ${musicStyle}
-                    ${driverSex}
-                    ${carCategory}
-                    ${animalTransportation}
-                    ${FreeWifi}
-                    ${smokingDriver}
-                    ${airConditioner}
-                </div>
             </h3>
                 <a class="btn btn-large btn-success" href="orderInfo"><h4 >Track your taxi order</h4></a>
             </div>
@@ -86,25 +67,6 @@
                     <span aria-hidden="true">&times;</span></button><h3>
                 Your order accepted for further processing successfully and you was assigned to such tracking number:
                 ${trackingNumber}
-                <div id="flip">
-                    <div class="form-group">
-                        <p>
-                            <button type="button" class="btn btn-info">Short information about order</button>
-                        </p>
-                    </div>
-                </div>
-                <div id="panel">
-                    ${arriveDate}
-                    ${endDate}
-                    ${service}
-                    ${musicStyle}
-                    ${driverSex}
-                    ${carCategory}
-                    ${animalTransportation}
-                    ${FreeWifi}
-                    ${smokingDriver}
-                    ${airConditioner}
-                </div>
             </h3>
             <a class="btn btn-large btn-success" href="orderInfo"><h4 >Track your taxi order</h4></a>
             </div>

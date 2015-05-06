@@ -98,7 +98,7 @@
             <div id="flip">
                 <div class="form-group">
                     <p>
-                        <button type="button" class="btn btn-info turnButton">Click to see additional options</button>
+                        <button type="button" class="btn btn-info turnButton">Additional options</button>
                     </p>
                 </div>
             </div>
@@ -113,9 +113,9 @@
                         <option value="meetMyGuest"${meetMyGuest}>Service "Meet my guest"</option>
                         <option value="celebrationTaxi"${celebrationTaxi}> Service "Celebration taxi"</option>
                         <option value="foodStuffDelivery"${foodStuffDelivery}>Service "Foodstuff delivery"</option>
-                        <option value="foodStuffDelivery"${conveyCorporationEmployees}>
+                        <option value="conveyCorporationEmployees"${conveyCorporationEmployees}>
                             Service "Convey corporation employees"</option>
-                        <option value="foodStuffDelivery"${taxiForLongTerm}>
+                        <option value="taxiForLongTerm"${taxiForLongTerm}>
                             Service "Taxi for long term"</option>
                     </select>
                 </div>
@@ -151,11 +151,11 @@
                         <option value="default" ${default}>Default</option>
                         <option value="blues" ${blues}>Blues</option>
                         <option value="classicalMusic" ${classicMusic}>Classical music</option>
-                        <option value="rock"${rock}>Rock</option>
-                        <option value="jazz"${jazz}>Jazz</option>
-                        <option value="danceMusic"${danceMusic}>Dance music</option>
-                        <option value="electronicMusic"${electronicMusic}>Electronic music</option>
-                        <option value="hipHop"${hipHop}>Hip Hop</option>
+                        <option value="rock" ${rock}>Rock</option>
+                        <option value="jazz" ${jazz}>Jazz</option>
+                        <option value="danceMusic" ${danceMusic}>Dance music</option>
+                        <option value="electronicMusic" ${electronicMusic}>Electronic music</option>
+                        <option value="hipHop" ${hipHop}>Hip Hop</option>
                     </select>
                 </div>
 
@@ -249,6 +249,7 @@
 <script src="<%=application.getContextPath()%>/resources/customer/js/food-delivery.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/other-services.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/longTerm.js"></script>
 <%--end order oage scripts--%>
 
 <%@include file="../parts/scripts.jsp" %>
