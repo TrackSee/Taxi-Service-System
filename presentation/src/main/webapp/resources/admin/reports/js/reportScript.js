@@ -1,4 +1,5 @@
 /*author Vadym Akymov*/
+
 //for driver category report
 var chart = AmCharts.makeChart( "chartdiv", {
     "type": "pie",
