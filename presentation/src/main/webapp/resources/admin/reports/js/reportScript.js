@@ -1,7 +1,7 @@
 /*author Vadym Akymov*/
 
 //for driver category report
-var chart = AmCharts.makeChart( "chartdiv", {
+var chart = AmCharts.makeChart( "driverDiv", {
     "type": "pie",
     "theme": "light",
     "legend": {
@@ -11,29 +11,17 @@ var chart = AmCharts.makeChart( "chartdiv", {
         "autoMargins": false
     },
     "dataProvider": [ {
-        "country": "Czech Republic",
-        "litres": 256.9
+        "sex": "M",
+        "ordersCount": 15000
     }, {
-        "country": "Ireland",
-        "litres": 131.1
+        "sex": "F",
+        "ordersCount": 10000
     }, {
-        "country": "Germany",
-        "litres": 115.8
-    }, {
-        "country": "Australia",
-        "litres": 109.9
-    }, {
-        "country": "Austria",
-        "litres": 108.3
-    }, {
-        "country": "UK",
-        "litres": 65
-    }, {
-        "country": "Belgium",
-        "litres": 40
-    } ],
-    "valueField": "litres",
-    "titleField": "country",
+        "sex": "Germany",
+        "ordersCount": 25000
+    }],
+    "valueField": "ordersCount",
+    "titleField": "sex",
     "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
     "export": {
         "enabled": true,
