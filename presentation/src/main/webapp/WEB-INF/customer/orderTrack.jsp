@@ -123,22 +123,24 @@
                 <label for="arriveDate" class="sr-only">Arrive date</label>
 
                 <div class="controls input-append date form_datetime" data-date="1979-09-16T05:25:07Z"
-                     data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1" >
+                     data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
                     <span class="add-on"><i class="icon-th"></i></span>
                     <span class="add-on"><i class="icon-remove"></i></span>
-                    <input size="16" type="text" value="${arriveDate}" id="arriveDate" name="arriveDate" disabled>
-                    <input type="hidden" value=""/><br/>
+                    <input size="16" type="text" value="${arriveDate}" id="arriveDate" name="arriveDate" readonly>
+                    <input type="hidden" id="dtp_input1" value=""/><br/>
 
                 </div>
-                <label for="endDate" class="sr-only">End date</label>
+                <div id="endDateBlock">
+                    <label  class="sr-only">End date</label>
 
-                <div class="controls input-append date form_datetime" data-date="1979-09-16T05:25:07Z"
-                     data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1" >
-                    <span class="add-on"><i class="icon-th"></i></span>
-                    <span class="add-on"><i class="icon-remove"></i></span>
-                    <input size="16" type="text" value="${endDate}" id="endDate" name="endDate" disabled>
-                    <input type="hidden"  value=""/><br/>
-                </div>
+                    <div class="controls input-append date form_datetime" data-date="1979-09-16T05:25:07Z"
+                         data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                        <span class="add-on"><i class="icon-th"></i></span>
+                        <span class="add-on"><i class="icon-remove"></i></span>
+                        <input size="16" type="text" value="${endDate}" id="endDate" name="endDate" readonly>
+                        <input type="hidden" id="dtp_input2" value=""/><br/>
+                    </div>
+                    </div>
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>
                     <select class="form-control order_priority" name="carCategory">

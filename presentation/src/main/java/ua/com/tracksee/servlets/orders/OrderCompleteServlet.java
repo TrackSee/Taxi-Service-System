@@ -59,7 +59,6 @@ public class OrderCompleteServlet extends HttpServlet {
             inputData.put("arriveDate", req.getParameter("arriveDate"));
             inputData.put("endDate", req.getParameter("endDate"));
 
-            //if it's sober driver - company doesn't provide car to customer
             if (req.getParameter("service").equals("soberDriver")) {
                 inputData.put("service", "soberDriver");
                 inputData.put("carCategory", "userCar");

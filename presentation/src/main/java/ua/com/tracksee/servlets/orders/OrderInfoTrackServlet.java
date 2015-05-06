@@ -8,6 +8,7 @@ import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.enumartion.*;
 import ua.com.tracksee.logic.EnumValidationBean;
 import ua.com.tracksee.logic.TaxiOrderBean;
+import ua.com.tracksee.logic.ValidationBean;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -28,6 +29,9 @@ public class OrderInfoTrackServlet extends HttpServlet {
     private
     @EJB
     EnumValidationBean enumValidationBean;
+    private
+    @EJB
+    ValidationBean validationBean;
     private static final Logger logger = LogManager.getLogger();
 
     @Override
@@ -52,8 +56,8 @@ public class OrderInfoTrackServlet extends HttpServlet {
             req.setAttribute("addressOrigin", addresses[0]);
             req.setAttribute("addressDestination", addresses[1]);
 
-            req.setAttribute("arriveDate", taxiOrderEntity.getArriveDate());
-            req.setAttribute("endDate", taxiOrderEntity.getEndDate());
+            req.setAttribute("arriveDate",validationBean.convertDateForShow(taxiOrderEntity.getArriveDate()));
+            req.setAttribute("endDate", validationBean.convertDateForShow(taxiOrderEntity.getEndDate()));
 
             req.setAttribute("description", taxiOrderEntity.getDescription());
             if (taxiOrderEntity.getComment() != null) {

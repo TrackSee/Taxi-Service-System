@@ -36,15 +36,15 @@ public class UpdateOrderServlet extends HttpServlet {
      * the orders received from the page will
      * always have the status QUEUED
      */
-    private static final String ORDER_STATUS = "QUEUED";
-    private static final String STATUS = "status";
-    private static final String DRIVER_SEX = "driverSex";
-    private static final String MUSIC_STYLE = "musicStyle";
-    private static final String ANIMAL_TRANSPORTATION = "animalTransportation";
-    private static final String WIFI = "wifi";
-    private static final String SMOKING_DRIVER = "smokingDriver";
-    private static final String CONDITIONER = "airConditioner";
-    private static final String TRACKING_NUMBER = "trackingNumber";
+//    private static final String ORDER_STATUS = "QUEUED";
+//    private static final String STATUS = "status";
+//    private static final String DRIVER_SEX = "driverSex";
+//    private static final String MUSIC_STYLE = "musicStyle";
+//    private static final String ANIMAL_TRANSPORTATION = "animalTransportation";
+//    private static final String WIFI = "wifi";
+//    private static final String SMOKING_DRIVER = "smokingDriver";
+//    private static final String CONDITIONER = "airConditioner";
+//    private static final String TRACKING_NUMBER = "trackingNumber";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -56,21 +56,13 @@ public class UpdateOrderServlet extends HttpServlet {
         HashMap<String, String> inputData = new HashMap<String, String>();
         try {
             inputData.put("trackingNumber", req.getParameter("trackingNumber"));
-            inputData.put("phoneNumber", req.getParameter("phoneNumber"));
-            inputData.put("email", req.getParameter("email"));
             inputData.put("addressOrigin", req.getParameter("addressOrigin"));
             inputData.put("addressDestination", req.getParameter("addressDestination"));
-            inputData.put("orderStatus", ORDER_STATUS);
             //TODO calculationg distance, now for test it's 10
             inputData.put("distance", "10");
 
-            if(req.getParameter("arriveDate")==null){
-            inputData.put("arriveDate", "");
-            }else{ inputData.put("arriveDate", req.getParameter("arriveDate"));}
-
-            if(req.getParameter("endDate")==null) {
-                inputData.put("endDate", "");
-            }else{    inputData.put("endDate", req.getParameter("endDate"));}
+                inputData.put("arriveDate", req.getParameter("arriveDate"));
+                inputData.put("endDate", req.getParameter("endDate"));
 
 
             if (req.getParameter("service").equals("soberDriver")) {
@@ -99,7 +91,7 @@ public class UpdateOrderServlet extends HttpServlet {
             taxiOrderBean.updateOrder(inputData);
             req.setAttribute("successUpdate","Show");
             req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
-        } catch (OrderException  e) {
+        } catch (Exception  e) {
             logger.error(e.getMessage());
             req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
         }

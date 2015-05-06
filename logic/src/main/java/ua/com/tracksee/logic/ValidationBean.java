@@ -4,6 +4,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 import javax.ejb.Stateless;
 
+import java.sql.Timestamp;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,5 +51,10 @@ public class ValidationBean {
             }
         }
         return digitCount > 4 & digitCount < 16 & phoneNumber.matches(PHONE_NUMBER_REGEXP);
+    }
+    public String convertDateForShow(Timestamp timestamp){
+        String date=timestamp.toString();
+        String[] dateParts=date.split(":00");
+        return dateParts[0];
     }
 }

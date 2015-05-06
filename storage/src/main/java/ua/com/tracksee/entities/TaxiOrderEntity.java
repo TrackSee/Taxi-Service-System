@@ -5,6 +5,7 @@ import ua.com.tracksee.enumartion.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,7 +36,7 @@ public class TaxiOrderEntity {
     private Timestamp orderedDate = new Timestamp(System.currentTimeMillis());
     private Timestamp arriveDate;
     private Timestamp endDate;
-    private List<TaxiOrderItemEntity> itemList;
+    private List<TaxiOrderItemEntity> itemList = new ArrayList<>();
 
     @Basic
     @Column(name = "arrive_date",nullable = true)
