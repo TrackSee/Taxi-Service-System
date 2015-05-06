@@ -1,15 +1,15 @@
 package ua.com.tracksee.entities;
 
-import org.postgresql.util.PGmoney;
 import ua.com.tracksee.enumartion.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import static javax.persistence.EnumType.STRING;
+import static javax.persistence.FetchType.*;
 
 /**
  * @author Ruslan Gunavardana
@@ -35,6 +35,7 @@ public class TaxiOrderEntity {
     private Timestamp orderedDate = new Timestamp(System.currentTimeMillis());
     private Timestamp arriveDate;
     private Timestamp endDate;
+    private List<TaxiOrderItemEntity> itemList;
 
     @Basic
     @Column(name = "arrive_date",nullable = true)
@@ -229,10 +230,19 @@ public class TaxiOrderEntity {
     public Timestamp getOrderedDate(){
         return orderedDate;
     }
+
     public void setOrderedDate(Timestamp orderedDate){
         this.orderedDate = orderedDate;
     }
 
+    @OneToMany(fetch = EAGER, mappedBy = "taxiOrder")
+    public List<TaxiOrderItemEntity> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<TaxiOrderItemEntity> itemList) {
+        this.itemList = itemList;
+    }
 
     @Override
     public boolean equals(Object o) {

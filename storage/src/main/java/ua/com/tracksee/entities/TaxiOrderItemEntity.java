@@ -19,7 +19,9 @@ public class TaxiOrderItemEntity {
     private TaxiOrderEntity taxiOrder;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "orderItemSeq")
+    @SequenceGenerator(name = "orderItemSeq", sequenceName = "taxi_order_item_taxi_item_id_seq",
+            allocationSize = 1, initialValue= 1)
     @Column(name = "taxi_item_id")
     public Integer getTaxiItemId() {
         return taxiItemId;
@@ -49,20 +51,6 @@ public class TaxiOrderItemEntity {
         this.orderedQuantity = orderedQuantity;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TaxiOrderItemEntity that = (TaxiOrderItemEntity) o;
-        return Objects.equals(taxiItemId, that.taxiItemId) &&
-                Objects.equals(path, that.path);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(taxiItemId, path);
-    }
-
     @ManyToOne
     @JoinColumn(name = "driver_id", referencedColumnName = "user_id")
     public ServiceUserEntity getDriver() {
@@ -83,4 +71,17 @@ public class TaxiOrderItemEntity {
         this.taxiOrder = taxiOrderByTrackingNumer;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TaxiOrderItemEntity that = (TaxiOrderItemEntity) o;
+        return Objects.equals(taxiItemId, that.taxiItemId) &&
+                Objects.equals(path, that.path);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(taxiItemId, path);
+    }
 }
