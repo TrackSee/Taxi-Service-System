@@ -26,34 +26,35 @@ public class CarDAOBean implements CarDAO {
     @Override
     //TODO add car_category when db finished
     public void createCar(CarEntity carEntity) {
-        String sql = "INSERT INTO car (car_number, car_model , color, animal_transportation_applicable ," +
-                " free_wifi, air_conditioner)" +
-//
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO car (car_number, car_model , color,  car_category, animal_transportation_applicable ," +
+                " free_wifi, air_conditioner) " +
+                "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, carEntity.getCarNumber());
         query.setParameter(2, carEntity.getCarModel());
         query.setParameter(3, carEntity.getColor());
-        query.setParameter(4, carEntity.getAnimalTransportationApplicable());
-        query.setParameter(5, carEntity.getFreeWifi());
-        query.setParameter(6, carEntity.getAirConditioner());
-        // query.setParameter(7, carEntity.getCarCategory());
+        query.setParameter(4, carEntity.getCarCategory().toString());
+        query.setParameter(5, carEntity.getAnimalTransportationApplicable());
+        query.setParameter(6, carEntity.getFreeWifi());
+        query.setParameter(7, carEntity.getAirConditioner());
         query.executeUpdate();
 
     }
 
     @Override
     public void updateCar(CarEntity carEntity) {
-        String sql = "UPDATE car SET car_model = ?, color = ? ,animal_transportation_applicable = ?, " +
+        String sql = "UPDATE car SET car_model = ?, color = ?, car_category = ? ,animal_transportation_applicable = ?, " +
                 "free_wifi = ? , air_conditioner = ? " +
                 " WHERE car_number = ?" ;
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, carEntity.getCarModel());
         query.setParameter(2, carEntity.getColor());
-        query.setParameter(3, carEntity.getAnimalTransportationApplicable());
-        query.setParameter(4, carEntity.getFreeWifi());
-        query.setParameter(5, carEntity.getAirConditioner());
-        query.setParameter(6, carEntity.getCarNumber());
+        query.setParameter(3, carEntity.getCarCategory().toString());
+        query.setParameter(4, carEntity.getAnimalTransportationApplicable());
+        query.setParameter(5, carEntity.getFreeWifi());
+        query.setParameter(6, carEntity.getAirConditioner());
+        query.setParameter(7, carEntity.getCarNumber());
+
         query.executeUpdate();
     }
 

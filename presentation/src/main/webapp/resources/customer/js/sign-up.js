@@ -1,29 +1,32 @@
 /**
  * Created by Ruslan Gunavardana
  */
+$('#password').focus(function() {
+    $(this).notify('Please, use at least 1 digit, 1 uppercase and 1 lowercase letter ' +
+    '\nfor making your password safe', 'info')
+});
+
 function sendForm() {
     var form = $('#form-sign-up');
     $.ajax({
         type: 'POST',
-        url: 'signup',
+        url: getContextPath() + 'signup',
         data: form.serialize(),
         success: function (data) {
-            if (data == "bad-email") {
-                $.notify("Invalid email!", "error");
-            } else if (data == "bad-password") {
-                $.notify("Invalid password", "error");
-            } else if (data == "bad-phone") {
-                $.notify("Invalid phone number", "error");
-            } else if (data == "send-fail") {
-                $.notify("Email sending failed", "error");
-            } else if (data == "user-exists") {
-                $.notify("This email is already registered", "info");
+            if (data == 'bad-email') {
+                $('#email').notify('Invalid email!', 'error');
+            } else if (data == 'bad-password') {
+                $('#password').notify('Invalid password', 'error');
+            } else if (data == 'bad-phone') {
+                $('#phone-number').notify('Invalid phone number', 'error');
+            } else if (data == 'user-exists') {
+                $('#email').notify('This email is already registered', 'info');
             } else {
                 form.html(data);
             }
         },
         error: function (xhr, str) {
-            $.notify("Internal server error occurred.", "warn");
+            $.notify('Internal server error occurred.', 'warn');
         }
     });
 }

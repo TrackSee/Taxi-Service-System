@@ -1,4 +1,7 @@
 /**
+ * This script hide fields that unnecessary
+ * when select service "Foodstuff delivery"
+ *
  * author Sharaban Sasha
  */
 

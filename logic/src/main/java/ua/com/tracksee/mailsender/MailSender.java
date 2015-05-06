@@ -11,9 +11,11 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -65,7 +67,9 @@ public class MailSender {
      * @param subject    - specifies the mail subject
      * @param body       - specifies the mail body
      */
-    public static void sendEmailToGroup(java.util.List<String> recipients, String subject, String body) throws MessagingException {
+    public static void sendEmailToGroup(List<String> recipients,
+                                        String subject, String body) throws MessagingException
+    {
         Message message = new MimeMessage(SESSION);
         message.setFrom(FROM_ADDRESS);
 
@@ -80,20 +84,25 @@ public class MailSender {
 
 
     public static void sendTemplatedEmail(String to, String subject,
-                                          String templatePath, Map<String, Object> data) throws IOException, TemplateException, MessagingException {
-        Template template = loadTemplate(templatePath);
-        Writer out = new StringWriter();
-        template.process(data, out);
-        String body = out.toString();
-        out.flush();
+                                          String templatePath, Map<String, Object> data) throws MessagingException
+    {
+        String body;
+        try {
+            Template template = loadTemplate(templatePath);
+            Writer out = new StringWriter();
+            template.process(data, out);
+            body = out.toString();
+            out.flush();
+        } catch (TemplateException | IOException e) {
+            throw new MessagingException("Unable to create template due: " + e.getMessage());
+        }
         sendEmail(to, subject, body);
 
     }
 
     public static Template loadTemplate(String path) throws IOException {
         Configuration cfg = new Configuration();
-        return cfg
-                .getTemplate(path);
+        return cfg.getTemplate(path);
     }
 
 }

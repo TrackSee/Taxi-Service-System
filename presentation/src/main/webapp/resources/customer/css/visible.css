@@ -1,0 +1,71 @@
+/*
+* author Sharaban Sasha
+*/
+
+#hideOrderTrack{
+    display: none;
+}
+#hideOrderTrackShow{
+    display: inline;
+}
+#hideTrackInfo{
+    display: none;
+}
+#hideTrackInfoShow{
+    display: inline;
+}
+#hideTrackingNumber{
+    display: none;
+}
+#hideTrackingNumberSecond{
+    display: none;
+}
+#hideTrackingNumberThird{
+    display: none;
+}
+#hideTrackingNumberFourth{
+    display: none;
+}
+
+#hideSuccessUpdate{
+    display: none;
+}
+#hideSuccessUpdateShow{
+    display: inline;
+}
+#hideSuccessAddComments{
+    display: none;
+}
+#hideSuccessAddCommentsShow{
+    display: inline;
+}
+#hideUnregisteredSuccess{
+    display: none;
+}
+#hideUnregisteredSuccessShow{
+    display: inline;
+}
+#hideSuccess{
+    display: none;
+}
+#hideSuccessShow{
+    display: inline;
+}
+#hideError{
+    display: none;
+}
+#hideErrorShow{
+    display: inline;
+}
+#hideRefuseSuccess{
+    display: none;
+}
+#hideRefuseSuccessShow{
+    display: inline;
+}
+#hideRefuseError{
+    display: none;
+}
+#hideRefuseErrorShow{
+    display: inline;
+}

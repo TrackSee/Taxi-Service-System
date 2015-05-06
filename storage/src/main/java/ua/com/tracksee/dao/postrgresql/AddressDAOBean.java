@@ -84,4 +84,11 @@ public class AddressDAOBean implements AddressDAO {
         Query query = entityManager.createNativeQuery(sql, AddressEntity.class);
         return query.getResultList();
     }
+    @Override
+    public AddressEntity getAddressByUserId(int id){
+        String sql = "SELECT * FROM address WHERE user_id=(?)";
+        Query query = entityManager.createNativeQuery(sql, AddressEntity.class);
+        query.setParameter(1, id);
+        return (AddressEntity)query.getSingleResult();
+    }
 }

@@ -3,6 +3,7 @@ package ua.com.tracksee.dao.postrgresql;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
+import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 
 import javax.ejb.Stateless;
@@ -10,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.math.BigInteger;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +33,14 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
 
+    @Override
+    public int updateComment(Integer trackNumber, String comment) {
+        Query query = entityManager.createNativeQuery(
+                "UPDATE  taxi_order SET comment = ?1 WHERE tracking_number = ?2");
+        query.setParameter(1, comment);
+        query.setParameter(2, trackNumber);
+        return query.executeUpdate();
+    }
 
     @Override
     public void addComment(TaxiOrderEntity entity) {
@@ -41,8 +52,8 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     @Override
     public Long addOrder(TaxiOrderEntity orderEntity) {
         String sql="INSERT INTO taxi_order (description,status,price,user_id,service,car_category,way_of_payment,driver_sex," +
-                "music_style,animal_transportation,free_wifi,non_smoking_driver,air_conditioner,arrive_date,end_date) " +
-                "VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15) RETURNING tracking_number";
+                "music_style,animal_transportation,free_wifi,non_smoking_driver,air_conditioner,ordered_date) " +
+                "VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14) RETURNING tracking_number";
 
         //TODO insert into taxi items
         //     "INSERT INTO taxi_order_item (tracking_numer, path, ordered_quantity, driver_id) VALUES ()"
@@ -61,12 +72,30 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(11, orderEntity.getFreeWifi());
         query.setParameter(12, orderEntity.getNonSmokingDriver());
         query.setParameter(13,orderEntity.getAirConditioner());
-        query.setParameter(14,orderEntity.getArriveDate());
-        query.setParameter(15,orderEntity.getEndDate());
+        query.setParameter(14,orderEntity.getOrderedDate());
 
         BigInteger trackingNumber=(BigInteger)query.getSingleResult();
         return trackingNumber.longValue();
     }
+    @Override
+    public void addArriveDate(Timestamp arriveDate,long trackingNumber) {
+        String sql="UPDATE taxi_order SET arrive_date=(?1) WHERE tracking_number=(?2)";
+
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1,arriveDate);
+        query.setParameter(2,trackingNumber);
+        query.executeUpdate();
+    }
+    @Override
+    public void addEndDate(Timestamp endDate,long trackingNumber) {
+        String sql="UPDATE taxi_order SET end_date=(?1) WHERE tracking_number=(?2)";
+
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1,endDate);
+        query.setParameter(2,trackingNumber);
+        query.executeUpdate();
+    }
+
     @Override
     public List<TaxiOrderEntity> getQueuedOrders() {
         return null;
@@ -74,7 +103,11 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @Override
     public TaxiOrderEntity getOrder(Long trackingNumber) {
-        return null;
+        String sql="SELECT * FROM taxi_order WHERE tracking_number=(?)";
+
+        Query query = entityManager.createNativeQuery(sql,TaxiOrderEntity.class);
+        query.setParameter(1,trackingNumber);
+        return (TaxiOrderEntity)query.getSingleResult();
     }
 
     @Override
@@ -112,12 +145,28 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(2, (partNumber - 1)*TO_ORDERS_PER_PAGE);
         return query.getResultList();
     }
+
     @Override
     public int getActiveTaxiOrderPagesCount() {
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order WHERE " +
                 "status != 'COMPLETED'");
         BigInteger generalOrderCount = (BigInteger) q.getSingleResult();
         return (int) Math.ceil(generalOrderCount.intValue()/ (double) TO_ORDERS_PER_PAGE);
+    }
+    @Override
+    public int updateOrder(TaxiOrderEntity entity) {
+        Query query = entityManager.createNativeQuery("UPDATE taxi_order SET status = ?1," +
+                "driver_sex = ?2, music_style = ?3, animal_transportation = ?4, " +
+                "free_wifi = ?5, non_smoking_driver = ?6, air_conditioner = ?7 WHERE tracking_number = ?8");
+        query.setParameter(1, entity.getStatus().toString());
+        query.setParameter(2, entity.getDriverSex().toString());
+        query.setParameter(3, entity.getMusicStyle().toString());
+        query.setParameter(4, entity.getAnimalTransportation());
+        query.setParameter(5, entity.getFreeWifi());
+        query.setParameter(6, entity.getNonSmokingDriver());
+        query.setParameter(7, entity.getAirConditioner());
+        query.setParameter(8, entity.getTrackingNumber());
+        return query.executeUpdate();
     }
 
     @Override
@@ -132,8 +181,6 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     @Override
     public Map<String, Integer> mostPopularAdditionalCarOptOverall() {
         Map<String, Integer> map = new HashMap<>();
-//        SELECT COUNT(*) FROM taxi_order
-//        WHERE free_wifi = TRUE
         String sql = "SELECT COUNT(*) FROM taxi_order";
         Integer integer = getInteger(sql);
         map.put("all_orders", integer);

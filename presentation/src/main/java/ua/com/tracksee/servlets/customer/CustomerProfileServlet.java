@@ -30,8 +30,10 @@ public class CustomerProfileServlet extends HttpServlet {
         //old TO are on page by default
         if(dataType == null || dataType.isEmpty()){
             dataType = "old";
+            System.out.println("default!");
         }
         System.out.println("dataType: "  + dataType);
+        request.setAttribute("type", dataType);
         if ("old".equals(dataType)) {
             List<TaxiOrderEntity> orders = taxiOrderBean.getOldOrdersPerPage(1);
             request.setAttribute("pagesCount", taxiOrderBean.getOldTaxiOrderPagesCount());

@@ -1,4 +1,7 @@
 /**
+ * This script hide fields that unnecessary
+ * when select service "Cargo taxi"
+ *
  * author Sharaban Sasha
  */
 

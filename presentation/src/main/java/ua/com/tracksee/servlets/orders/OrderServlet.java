@@ -101,9 +101,7 @@ public class OrderServlet extends HttpServlet {
             inputData.put("airConditioner","false");
             inputData.put("description","");
 
-            logger.error("before trackNumb");
             Long trackingNumber = taxiOrderBean.makeOrder(inputData);
-            logger.error("after trackNumb"+trackingNumber);
 
             req.setAttribute("successAlert", "<div class=\"alert alert-success\" role=\"alert\"  >" +
                     "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
@@ -113,7 +111,7 @@ public class OrderServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
         } catch (OrderException | MessagingException| NullPointerException e) {
             logger.error(e.getMessage());
-            req.getRequestDispatcher("/WEB-INF/customer/error.jsp").forward(req,resp);
+            req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req,resp);
         }
     }
 }

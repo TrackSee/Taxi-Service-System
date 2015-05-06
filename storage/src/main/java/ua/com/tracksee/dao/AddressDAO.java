@@ -16,8 +16,10 @@ public interface AddressDAO {
     List getAllAddressesByUserId(AddressEntity address);
     List<AddressEntity> getAddresses();
 
-    AddressEntity getAddressByUserId(Integer userId, String name);
-    List<AddressEntity> getAllAddressesByUserId(Integer userId);
+    /**
+     * @author  Sharaban Sasha
+     */
+    AddressEntity getAddressByUserId(int id);
 
 }
 

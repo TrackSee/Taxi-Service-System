@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>TaxiService</artifactId>
-        <groupId>com.netcracker.bootcamp.tracksee</groupId>
+        <groupId>ua.com.tracksee</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>presentation</artifactId>
     <version>${project.parent.version}</version>
     <packaging>war</packaging>
+
 
     <dependencies>
 
@@ -31,16 +32,24 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+
+        <!--for JSON parsing-->
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.9.13</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.3.1</version>
+        </dependency>
 
     </dependencies>
 
+
     <build>
-        <!-- Maven will append the version to the finalName (which is the name 
+        <!-- Maven will append the version to the finalName (which is the name
             given to the generated war, and hence the context root) -->
         <finalName>${project.parent.artifactId}</finalName>
 

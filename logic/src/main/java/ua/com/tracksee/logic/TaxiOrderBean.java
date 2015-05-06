@@ -2,8 +2,7 @@ package ua.com.tracksee.logic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.joda.time.DateTimeZone;
-import org.postgresql.util.PGmoney;
+import ua.com.tracksee.dao.AddressDAO;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.AddressEntity;
@@ -13,21 +12,16 @@ import ua.com.tracksee.enumartion.*;
 import ua.com.tracksee.json.TaxiOrderDTO;
 import ua.com.tracksee.logic.exception.OrderException;
 
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.*;
 import javax.mail.MessagingException;
 import java.math.BigDecimal;
-import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import static javax.ejb.LockType.WRITE;
 import static ua.com.tracksee.enumartion.OrderStatus.QUEUED;
 
 /**
@@ -43,6 +37,8 @@ public class TaxiOrderBean {
 
     private @EJB TaxiOrderDAO taxiOrderDAO;
     private @EJB UserDAO userDAO;
+    private @EJB
+    AddressDAO addressDAO;
     private @EJB EmailBean mailBean;
     private @EJB ValidationBean validationBean;
     private @EJB PriceCalculatorBean priceCalculatorBean;
@@ -94,9 +90,15 @@ public class TaxiOrderBean {
         TaxiOrderEntity taxiOrderEntity = validateForTaxiOrder(inputData);
         serviceUserEntity=checkUserPresent(serviceUserEntity);
         taxiOrderEntity.setUserId(serviceUserEntity.getUserId());
-        Long trackingNumber = taxiOrderDAO.addOrder(taxiOrderEntity);
-        sendEmail(serviceUserEntity,trackingNumber);
-        return trackingNumber;
+        taxiOrderEntity.setTrackingNumber(taxiOrderDAO.addOrder(taxiOrderEntity));
+        if(taxiOrderEntity.getArriveDate()!=null){
+            taxiOrderDAO.addArriveDate(taxiOrderEntity.getArriveDate(),taxiOrderEntity.getTrackingNumber());
+        }
+        if(taxiOrderEntity.getEndDate()!=null){
+            taxiOrderDAO.addEndDate(taxiOrderEntity.getEndDate(),taxiOrderEntity.getTrackingNumber());
+        }
+        sendEmail(serviceUserEntity,taxiOrderEntity.getTrackingNumber());
+        return taxiOrderEntity.getTrackingNumber();
     }
 
     /**
@@ -119,6 +121,20 @@ public class TaxiOrderBean {
      */
     public int getActiveTaxiOrderPagesCount(){
         return taxiOrderDAO.getActiveTaxiOrderPagesCount();
+    }
+
+    public void updateOrder(HashMap<String, String> inputData) throws OrderException{
+        TaxiOrderEntity taxiOrderEntity=validateForTaxiOrder(inputData);
+        long trackingNumber=Long.parseLong(inputData.get("trackingNumber"));
+        if(trackingNumber>=0){
+        taxiOrderEntity.setTrackingNumber(trackingNumber);
+        taxiOrderDAO.updateOrder(taxiOrderEntity);
+        }else{
+            throw new OrderException("Invalid tracking number","invalid-track-numb");
+        }
+    }
+    public void updateComment(Integer trackNumber, String comment) {
+        taxiOrderDAO.updateComment(trackNumber, comment);
     }
     /**
      * @author Vadym Akymov
@@ -217,10 +233,7 @@ public class TaxiOrderBean {
      */
     private AddressEntity validateForDestinationAddress(HashMap<String, String> inputData) throws OrderException {
         AddressEntity addressEntityDestination = new AddressEntity();
-        System.out.println(inputData.get("addressDestination"));
-        System.out.println("addressDestination before");
         addressEntityDestination.setStringRepresentation(inputData.get("addressDestination"));
-        System.out.println("add");
         return addressEntityDestination;
     }
 
@@ -245,11 +258,16 @@ public class TaxiOrderBean {
         if(!inputData.get("arriveDate").equals("")){
             Timestamp timestamp=convertToTimestamp(inputData.get("arriveDate"));
             taxiOrderEntity.setArriveDate(timestamp);
+        }else{
+            taxiOrderEntity.setArriveDate(null);
         }
         if(!inputData.get("endDate").equals("")){
             Timestamp timestamp=convertToTimestamp(inputData.get("endDate"));
             taxiOrderEntity.setEndDate(timestamp);
+        }else{
+            taxiOrderEntity.setArriveDate(null);
         }
+
         if(inputData.get("orderStatus").equals("QUEUED")){
         taxiOrderEntity.setStatus(orderStatus);
         }
@@ -307,7 +325,7 @@ public class TaxiOrderBean {
      *
      * @author Sharaban Sasha
      * @param date - date in string format
-     * @return date converted from string to Timestemp
+     * @return date converted from string to Timestamp
      * @exception ua.com.tracksee.logic.exception.OrderException
      */
     private Timestamp convertToTimestamp(String date) throws OrderException {
@@ -320,6 +338,30 @@ public class TaxiOrderBean {
             throw new OrderException("Invalid date, cannot be parsed","invalid-date");
         }
         return timestamp;
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     */
+    public TaxiOrderEntity getOrderInfo(long trackingNumber){
+        return taxiOrderDAO.getOrder(trackingNumber);
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.UserDAO
+     */
+    public ServiceUserEntity getUserInfo(int id){
+
+        return userDAO.getUserById(id);
+    }
+
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.AddressDAO
+     */
+    public AddressEntity getAddressInfo(int userId){
+
+        return  addressDAO.getAddressByUserId(userId);
     }
 
 }

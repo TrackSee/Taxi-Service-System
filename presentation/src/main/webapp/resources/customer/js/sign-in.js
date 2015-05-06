@@ -5,7 +5,7 @@ function sendForm() {
     var msg = $('#form-sign-in').serialize();
     $.ajax({
         type: 'POST',
-        url: 'signin',
+        url: getContextPath() + 'signin',
         data: msg,
         success: function (data) {
             console.log('success' == data);

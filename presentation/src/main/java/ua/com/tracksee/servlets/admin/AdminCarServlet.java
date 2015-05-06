@@ -11,6 +11,8 @@ import ua.com.tracksee.logic.admin.AdministratorBean;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.HttpConstraint;
+import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,26 +29,26 @@ public class AdminCarServlet extends HttpServlet {
     private static Logger logger = LogManager.getLogger();
     @EJB
     private AdministratorBean administratorBean;
-    @EJB
-    private CarDAO carDAO;
+//    @EJB
+//    private CarDAO carDAO;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("GEEEEEEEEEET");
-        List<CarEntity> cars = carDAO.getCarsPart(1);
+
+        List<CarEntity> cars = administratorBean.getCarsPart(1);
         req.setAttribute("cars", cars);
-        System.out.println("PAGES COUNT" + carDAO.getCarPagesCount());
-        req.setAttribute("pagesCount", carDAO.getCarPagesCount());
+
+        req.setAttribute("pagesCount", administratorBean.getCarPagesCount());
         req.getRequestDispatcher("/WEB-INF/admin/adminCarList.jsp").forward(req, resp);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("POOOOOOOOOOSt");
+
        String pageParam = req.getParameter("pageNumber");
         Integer pageNumber = null;
         //check pageNumber
         try {
             pageNumber = Integer.parseInt(req.getParameter("pageNumber"));
-            if(pageNumber > carDAO.getCarPagesCount()){
+            if(pageNumber > administratorBean.getCarPagesCount()){
                 pageNumber = 1;
                 logger.warn("wrong page was request on /admin/cars");
             }
@@ -54,11 +56,9 @@ public class AdminCarServlet extends HttpServlet {
             pageNumber = 1;
             logger.warn("wrong page was request on /admin/drivers");
         }
- System.out.println("PageNumber" + pageNumber);
-        List<CarEntity> cars = carDAO.getCarsPart(pageNumber);
+        List<CarEntity> cars = administratorBean.getCarsPart(pageNumber);
         req.setAttribute("cars", cars);
-        req.setAttribute("pagesCount", carDAO.getCarPagesCount());
-  System.out.println("json: " + getJsonFromList(cars));
+        req.setAttribute("pagesCount", administratorBean.getCarPagesCount());
         resp.getWriter().write(getJsonFromList(cars));
     }
 

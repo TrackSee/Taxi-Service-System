@@ -16,7 +16,7 @@
 
     <%--For slider--%>
     <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/css/carousel.css">
-    <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/css/textOutline.css">
+    <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/customer/css/textOutline.css">
     <link rel="shortcut icon" href="<%=application.getContextPath()%>/resources/img/icons/cab.png" type="image/png">
 </head>
 
@@ -57,8 +57,8 @@
                 <div class="carousel-caption">
                     <h1 class="outline">Additional information</h1>
 
-                    <p class="lead" ><h3 class="outline">Our company is young and promising</h3></p>
-                    <a class="btn btn-large btn-success" href="#"><h4 class="outline">Read about us</h4></a>
+                    <p class="lead" ><h3 class="outline">You can track your order and see all information about it</h3></p>
+                    <a class="btn btn-large btn-success" href="orderInfo"><h4 class="outline">Track your taxi order</h4></a>
                 </div>
             </div>
         </div>
