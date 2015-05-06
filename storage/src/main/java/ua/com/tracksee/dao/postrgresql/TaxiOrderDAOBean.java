@@ -3,7 +3,6 @@ package ua.com.tracksee.dao.postrgresql;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
-import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 
 import javax.ejb.Stateless;
@@ -11,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.math.BigInteger;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -128,7 +126,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
                 "'COMPLETED' " +
                 "ORDER BY ordered_date DESC LIMIT ?1 OFFSET ?2", TaxiOrderEntity.class);
         query.setParameter(1, TO_ORDERS_PER_PAGE);
-        query.setParameter(2, (partNumber - 1)*TO_ORDERS_PER_PAGE);
+        query.setParameter(2, (partNumber - 1) * TO_ORDERS_PER_PAGE);
         return query.getResultList();
     }
 
@@ -151,7 +149,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order WHERE " +
                 "status != 'COMPLETED'");
         BigInteger generalOrderCount = (BigInteger) q.getSingleResult();
-        return (int) Math.ceil(generalOrderCount.intValue()/ (double) TO_ORDERS_PER_PAGE);
+        return (int) Math.ceil(generalOrderCount.intValue() / (double) TO_ORDERS_PER_PAGE);
     }
     @Override
     public int updateOrder(TaxiOrderEntity entity) {
@@ -192,12 +190,23 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         return map;
     }
 
+    /**
+     * It counts the number of orders from this additional option
+     * @author Oleksandr Kozin
+     * @param option the name of an additional option
+     * @return number of orders with this additional option
+     */
     private Integer getAmount(String option) {
         String sql = "SELECT COUNT(*) FROM taxi_order" +
                 " WHERE " + option + " = TRUE";
         return getInteger(sql);
     }
 
+    /**
+     * @author Oleksandr Kozin
+     * @param sql query to count the number of orders with an additional option
+     * @return number of orders with this additional option
+     */
     private Integer getInteger(String sql) {
         Query query = entityManager.createNativeQuery(sql);
         BigInteger bigInteger = (BigInteger) query.getSingleResult();

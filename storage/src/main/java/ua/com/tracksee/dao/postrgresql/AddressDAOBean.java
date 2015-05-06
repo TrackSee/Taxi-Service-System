@@ -69,21 +69,22 @@ public class AddressDAOBean implements AddressDAO {
         return query.getResultList();
     }
 
-    @Override
-    public AddressEntity getAddressByUserId(Integer userId, String name) {
-//        String sql = "SELECT * FROM address WHERE name = " + name + " AND user_id = " + userId;
+//    @Override
+//    public AddressEntity getAddressByUserId(Integer userId, String name) {
+////        String sql = "SELECT * FROM address WHERE name = " + name + " AND user_id = " + userId;
+////        Query query = entityManager.createNativeQuery(sql, AddressEntity.class);
+//
+//        AddressEntity address = entityManager.find(AddressEntity.class, name);
+//        return address;
+//    }
+
+//    @Override
+//    public List<AddressEntity> getAllAddressesByUserId(Integer userId) {
+//        String sql = "SELECT * FROM address WHERE user_id = " + userId;
 //        Query query = entityManager.createNativeQuery(sql, AddressEntity.class);
+//        return query.getResultList();
+//    }
 
-        AddressEntity address = entityManager.find(AddressEntity.class, name);
-        return address;
-    }
-
-    @Override
-    public List<AddressEntity> getAllAddressesByUserId(Integer userId) {
-        String sql = "SELECT * FROM address WHERE user_id = " + userId;
-        Query query = entityManager.createNativeQuery(sql, AddressEntity.class);
-        return query.getResultList();
-    }
     @Override
     public AddressEntity getAddressByUserId(int id){
         String sql = "SELECT * FROM address WHERE user_id=(?)";
