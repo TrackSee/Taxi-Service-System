@@ -15,6 +15,7 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -160,23 +161,22 @@ public class EmailBean {
     }
 
 
-    public void sendOrderConfirmation(ServiceUserEntity user) {
-//TODO empty method?
-    }
-
-
     @Asynchronous
-    public void sendOrderConfirmInfo(ServiceUserEntity user) throws MessagingException {
+    public void sendOrderConfirmation(ServiceUserEntity user, Long trackingNumber) {
+//TODO use trackingNumber and use template
         MimeMessage message = new MimeMessage(EmailUtils.getEmailSession());
-        message.setFrom(new InternetAddress(EmailUtils.SERVER_EMAIL));
-        message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
-        message.setSubject("Order Taxi " + WEBSITE_SHORT);
-        message.setText(getOrderConfirmMessageText(user.getUserId()));
-        Transport.send(message);
-        logger.debug("Sent message successfully to {1}", user.getEmail());
+        try {
+            message.setFrom(new InternetAddress(EmailUtils.SERVER_EMAIL));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
+            message.setSubject("Order Taxi " + WEBSITE_SHORT);
+            message.setText(getOrderConfirmMessageText(user.getUserId()));
+            Transport.send(message);
+            logger.debug("Order confirmation email sent successfully to {}", user.getEmail());
+        } catch (MessagingException e) {
+            logger.warn("Order confirmation email sending to {} failed", user.getEmail());
+        }
     }
 
-    //TODO why not template?
     private String getOrderConfirmMessageText(int id) {
         return "Hello! \n"
                 + "Order taxi confirm message! "

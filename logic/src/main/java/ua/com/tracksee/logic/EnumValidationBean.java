@@ -1,15 +1,13 @@
 package ua.com.tracksee.logic;
 
-import org.apache.commons.validator.routines.EmailValidator;
 import ua.com.tracksee.enumartion.*;
 
 import javax.ejb.Stateless;
 
-import static java.lang.Character.isDigit;
-
 /**
  * @author Sharaban Sasha
  */
+//TODO no sense in convertation workaround, while we have Enum.valueOf()
 @Stateless
 public class EnumValidationBean {
 

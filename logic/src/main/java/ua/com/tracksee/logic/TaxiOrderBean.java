@@ -13,7 +13,6 @@ import ua.com.tracksee.json.TaxiOrderDTO;
 import ua.com.tracksee.logic.exception.OrderException;
 
 import javax.ejb.*;
-import javax.mail.MessagingException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -37,8 +36,7 @@ public class TaxiOrderBean {
 
     private @EJB TaxiOrderDAO taxiOrderDAO;
     private @EJB UserDAO userDAO;
-    private @EJB
-    AddressDAO addressDAO;
+    private @EJB AddressDAO addressDAO;
     private @EJB EmailBean mailBean;
     private @EJB ValidationBean validationBean;
     private @EJB PriceCalculatorBean priceCalculatorBean;
@@ -50,7 +48,6 @@ public class TaxiOrderBean {
      * @param userId id of authorised customer user
      * @param orderDTO basic information about the order
      */
-   // @RolesAllowed("customer")
     public Long createAuthorisedOrder(Integer userId, TaxiOrderDTO orderDTO) {
         TaxiOrderEntity order = new TaxiOrderEntity();
         order.setUserId(userId);
@@ -77,6 +74,7 @@ public class TaxiOrderBean {
      * tracking number, also tracking number returns to be shown to
      * user.
      *
+     * @author Ruslan Gunavardana
      * @author Sharaban Sasha
      * @author Avlasov Sasha
      * @param inputData- input data about user and his order
@@ -84,21 +82,20 @@ public class TaxiOrderBean {
      * @exception ua.com.tracksee.logic.exception.OrderException
      * @return Integer - tracking number of user order
      */
-    public Long makeOrder(HashMap<String, String> inputData) throws OrderException,MessagingException {
-
+    public TaxiOrderEntity makeOrder(HashMap<String, String> inputData) throws OrderException {
         ServiceUserEntity serviceUserEntity = validateForUser(inputData);
         TaxiOrderEntity taxiOrderEntity = validateForTaxiOrder(inputData);
         serviceUserEntity=checkUserPresent(serviceUserEntity);
         taxiOrderEntity.setUserId(serviceUserEntity.getUserId());
         taxiOrderEntity.setTrackingNumber(taxiOrderDAO.addOrder(taxiOrderEntity));
-        if(taxiOrderEntity.getArriveDate()!=null){
+        if(taxiOrderEntity.getArriveDate() != null){
             taxiOrderDAO.addArriveDate(taxiOrderEntity.getArriveDate(),taxiOrderEntity.getTrackingNumber());
         }
-        if(taxiOrderEntity.getEndDate()!=null){
+        if(taxiOrderEntity.getEndDate() != null){
             taxiOrderDAO.addEndDate(taxiOrderEntity.getEndDate(),taxiOrderEntity.getTrackingNumber());
         }
         sendEmail(serviceUserEntity,taxiOrderEntity.getTrackingNumber());
-        return taxiOrderEntity.getTrackingNumber();
+        return taxiOrderEntity;
     }
 
     /**
@@ -178,8 +175,8 @@ public class TaxiOrderBean {
      * @param trackingNumber- tracking number of made order
      * @exception javax.mail.MessagingException
      */
-    public void sendEmail(ServiceUserEntity serviceUserEntity, Long trackingNumber)throws MessagingException {
-        mailBean.sendOrderConfirmInfo(serviceUserEntity);
+    public void sendEmail(ServiceUserEntity serviceUserEntity, Long trackingNumber) {
+        mailBean.sendOrderConfirmation(serviceUserEntity, trackingNumber);
     }
 
     /**
@@ -192,6 +189,7 @@ public class TaxiOrderBean {
      * @exception ua.com.tracksee.logic.exception.OrderException
      *
      */
+//TODO rename or split method. Validation must only validate
     private ServiceUserEntity validateForUser(HashMap<String, String> inputData) throws OrderException {
         ServiceUserEntity serviceUserEntity = new ServiceUserEntity();
 
@@ -200,6 +198,7 @@ public class TaxiOrderBean {
         } else {
             throw new OrderException("Invalid email.", "wrong-email");
         }
+
         if (validationBean.isValidPhoneNumber(inputData.get("phoneNumber"))) {
             serviceUserEntity.setPhone(inputData.get("phoneNumber"));
         } else {
