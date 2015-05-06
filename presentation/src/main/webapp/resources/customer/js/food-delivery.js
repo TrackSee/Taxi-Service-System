@@ -14,6 +14,7 @@ $(document).ready(function() {
             $('#freeWifiCh').slideUp("slow");
             $('#smokingDriverCh').slideUp("slow");
             $('#airConditionerCh').slideUp("slow");
+
         }
     });
 });

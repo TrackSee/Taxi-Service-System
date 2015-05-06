@@ -297,10 +297,10 @@ public class TaxiOrderBean {
         } else {
             throw new OrderException("Invalid musicStyle enum value", "invalid-musicStyle");
         }
-        taxiOrderEntity.setAnimalTransportation(Boolean.parseBoolean(inputData.get("animalTransportation")));
-        taxiOrderEntity.setFreeWifi(Boolean.parseBoolean(inputData.get("freeWifi")));
-        taxiOrderEntity.setNonSmokingDriver(Boolean.parseBoolean(inputData.get("smokingDriver")));
-        taxiOrderEntity.setAirConditioner(Boolean.parseBoolean(inputData.get("airConditioner")));
+        taxiOrderEntity.setAnimalTransportation(convertCheckBox(inputData.get("animalTransportation")));
+        taxiOrderEntity.setFreeWifi(convertCheckBox(inputData.get("freeWifi")));
+        taxiOrderEntity.setNonSmokingDriver(convertCheckBox(inputData.get("smokingDriver")));
+        taxiOrderEntity.setAirConditioner(convertCheckBox(inputData.get("airConditioner")));
         try {
             int distance=Integer.parseInt(inputData.get("distance"));
             taxiOrderEntity.setPrice(new BigDecimal(priceCalculatorBean.simpleCalculatePrice(distance)));
@@ -357,5 +357,11 @@ public class TaxiOrderBean {
     public AddressEntity getAddressInfo(int userId) {
         return  addressDAO.getAddressByUserId(userId);
     }
-
+    private boolean convertCheckBox(String checkBoxState){
+        boolean booleanCheckBoxState=false;
+        if(checkBoxState.equals("on")){
+            booleanCheckBoxState=true;
+        }
+        return booleanCheckBoxState;
+    }
 }

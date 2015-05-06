@@ -10,6 +10,7 @@ import java.util.List;
  * @author Vadym Akymov
  * @author Ruslan Gunavardana
  * @author Katia Stetsiuk
+ * @author Sharaban Sasha
  */
 @Local
 public interface UserDAO {
@@ -95,5 +96,9 @@ public interface UserDAO {
      * @author Vadym Akymov
      */
     void assignCar(String carNumber, Integer driverID);
+    /**
+     * @author Sharaban Sasha
+     */
+    int checkBlackListUserByEmail(String email);
 
 }

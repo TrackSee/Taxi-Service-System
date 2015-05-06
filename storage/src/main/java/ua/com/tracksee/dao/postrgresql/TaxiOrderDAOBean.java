@@ -65,6 +65,8 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(6, orderEntity.getCarCategory().toString());
         query.setParameter(7, orderEntity.getWayOfPayment().toString());
         query.setParameter(8, orderEntity.getDriverSex().toString());
+        System.out.println("DB"+orderEntity.getAnimalTransportation()+ orderEntity.getFreeWifi()+orderEntity.getAirConditioner()+
+                orderEntity.getNonSmokingDriver());
         query.setParameter(9, orderEntity.getMusicStyle().toString());
         query.setParameter(10, orderEntity.getAnimalTransportation());
         query.setParameter(11, orderEntity.getFreeWifi());

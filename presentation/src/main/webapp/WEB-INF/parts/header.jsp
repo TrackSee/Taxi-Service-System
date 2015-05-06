@@ -43,9 +43,6 @@
                                     <li <c:if test="${requestScope.pageName == 'index'}">class="active"</c:if>>
                                         <a href="<c:url value="/"/>">Home</a>
                                     </li>
-                                    <li <c:if test="${requestScope.pageName == 'order'}">class="active"</c:if>>
-                                        <a href="<c:url value="/order"/>">Fast Order</a>
-                                    </li>
                                     <%--TODO make link to client dashboard--%>
                                     <%--<li <c:if test="${requestScope.pageName == 'customerProfile'}">class="active"</c:if>>--%>
                                         <%--<a href="<c:url value="/customer/dashboard?type=old"/>">Client Dashboard</a>--%>
