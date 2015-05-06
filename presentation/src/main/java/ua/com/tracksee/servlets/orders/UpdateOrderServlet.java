@@ -64,8 +64,14 @@ public class UpdateOrderServlet extends HttpServlet {
             //TODO calculationg distance, now for test it's 10
             inputData.put("distance", "10");
 
-            inputData.put("arriveDate", req.getParameter("arriveDate"));
-            inputData.put("endDate", req.getParameter("endDate"));
+            if(req.getParameter("arriveDate")==null){
+            inputData.put("arriveDate", "");
+            }else{ inputData.put("arriveDate", req.getParameter("arriveDate"));}
+
+            if(req.getParameter("endDate")==null) {
+                inputData.put("endDate", "");
+            }else{    inputData.put("endDate", req.getParameter("endDate"));}
+
 
             if (req.getParameter("service").equals("soberDriver")) {
                 inputData.put("service", "soberDriver");
@@ -91,10 +97,11 @@ public class UpdateOrderServlet extends HttpServlet {
             inputData.put("description", req.getParameter("description"));
 
             taxiOrderBean.updateOrder(inputData);
-            req.getRequestDispatcher("/WEB-INF/customer/orderTrack.jsp").forward(req, resp);
+            req.setAttribute("successUpdate","Show");
+            req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
         } catch (OrderException  e) {
             logger.error(e.getMessage());
-            req.getRequestDispatcher("/WEB-INF/customer/error.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
         }
     }
 }

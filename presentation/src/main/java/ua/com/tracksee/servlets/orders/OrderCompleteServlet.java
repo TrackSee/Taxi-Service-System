@@ -2,12 +2,10 @@ package ua.com.tracksee.servlets.orders;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.com.tracksee.entities.TaxiOrderEntity;
+import ua.com.tracksee.logic.OrderCancellationBean;
 import ua.com.tracksee.logic.TaxiOrderBean;
-import ua.com.tracksee.logic.exception.OrderException;
 
 import javax.ejb.EJB;
-import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,6 +33,9 @@ public class OrderCompleteServlet extends HttpServlet {
     private
     @EJB
     TaxiOrderBean taxiOrderBean;
+    private
+    @EJB
+    OrderCancellationBean orderCancellationBean;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -58,6 +59,7 @@ public class OrderCompleteServlet extends HttpServlet {
             inputData.put("arriveDate", req.getParameter("arriveDate"));
             inputData.put("endDate", req.getParameter("endDate"));
 
+            //if it's sober driver - company doesn't provide car to customer
             if (req.getParameter("service").equals("soberDriver")) {
                 inputData.put("service", "soberDriver");
                 inputData.put("carCategory", "userCar");
@@ -81,31 +83,21 @@ public class OrderCompleteServlet extends HttpServlet {
 
             inputData.put("description", req.getParameter("description"));
 
-            //TODO black list check
-            if (false) {
+
+            if (orderCancellationBean.checkBlackListByUserEmail(inputData.get("email"))) {
                 req.setAttribute("showError", "Show");
             } else {
                 Long trackingNumber = taxiOrderBean.makeOrder(inputData);
-                TaxiOrderEntity taxiOrderEntity = taxiOrderBean.getOrderInfo(trackingNumber);
                 req.setAttribute("showSuccess", "Show");
+                req.setAttribute("hideOrderTrack", "hidden=\"hidden\"");
                 req.setAttribute("trackingNumber", trackingNumber);
-                req.setAttribute("ArriveDate", "<p>Arrive date: " + taxiOrderEntity.getArriveDate() + "</p>");
-                req.setAttribute("EndDate", "<p>End date: " + taxiOrderEntity.getEndDate() + "</p>");
-                req.setAttribute("service", "<p>Service: " + taxiOrderEntity.getService() + "</p>");
-                req.setAttribute("musicStyle", "<p>Music style: " + taxiOrderEntity.getEndDate() + "</p>");
-                req.setAttribute("driverSex", "<p>Driver sex: " + taxiOrderEntity.getDriverSex() + "</p>");
-                req.setAttribute("carCategory", "<p>Car category: " + taxiOrderEntity.getCarCategory() + "</p>");
-                req.setAttribute("animalTransportation", "<p>Animal transportation: " +
-                        taxiOrderEntity.getAnimalTransportation() + "</p>");
-                req.setAttribute("FreeWifi", "<p>Free wi-fi: " + taxiOrderEntity.getFreeWifi()+"</p>");
-                req.setAttribute("smokingDriver", "<p>Smoking driver: " + taxiOrderEntity.getNonSmokingDriver()+"</p>");
-                req.setAttribute("airConditioner", "<p>Air conditioner: " + taxiOrderEntity.getAirConditioner()+"</p>");
             }
 
             req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
-        } catch (OrderException | MessagingException e) {
+        } catch (Exception e){
             logger.error(e.getMessage());
-            req.getRequestDispatcher("/WEB-INF/customer/error.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
         }
+
     }
 }

@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.ObjectMapper;
+import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.json.TaxiOrderDTO;
 import ua.com.tracksee.logic.PriceCalculatorBean;
 import ua.com.tracksee.logic.TaxiOrderBean;
@@ -101,17 +102,17 @@ public class OrderServlet extends HttpServlet {
             inputData.put("airConditioner","false");
             inputData.put("description","");
 
-            Long trackingNumber = taxiOrderBean.makeOrder(inputData);
+          //  TaxiOrderEntity order = taxiOrderBean.makeOrder(inputData);
 
-            req.setAttribute("successAlert", "<div class=\"alert alert-success\" role=\"alert\"  >" +
-                    "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
-                    "  <span aria-hidden=\"true\">&times;</span></button><h3>Your order accepted for further " +
-                    "processing successfully and you was assigned to such tracking number:"
-                    + trackingNumber + "</h3></div>");
+//            req.setAttribute("successAlert", "<div class=\"alert alert-success\" role=\"alert\"  >" +
+//                    "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
+//                    "  <span aria-hidden=\"true\">&times;</span></button><h3>Your order accepted for further " +
+//                    "processing successfully and you was assigned to such tracking number:"
+//                    + order.getTrackingNumber() + "</h3></div>");
             req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
-        } catch (OrderException | MessagingException| NullPointerException e) {
+        } catch ( NullPointerException e) {
             logger.error(e.getMessage());
-            req.getRequestDispatcher("/WEB-INF/customer/error.jsp").forward(req,resp);
+            req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req,resp);
         }
     }
 }

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>function getContextPath() { return '${pageContext.request.contextPath}/'; }</script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/sign-out.js"></script>
 <!--start: Header -->
 <header>
@@ -41,9 +42,6 @@
                                 <ul class="nav" id="button-list">
                                     <li <c:if test="${requestScope.pageName == 'index'}">class="active"</c:if>>
                                         <a href="<c:url value="/"/>">Home</a>
-                                    </li>
-                                    <li <c:if test="${requestScope.pageName == 'order'}">class="active"</c:if>>
-                                        <a href="<c:url value="/order"/>">Fast Order</a>
                                     </li>
                                     <%--TODO make link to client dashboard--%>
                                     <%--<li <c:if test="${requestScope.pageName == 'customerProfile'}">class="active"</c:if>>--%>

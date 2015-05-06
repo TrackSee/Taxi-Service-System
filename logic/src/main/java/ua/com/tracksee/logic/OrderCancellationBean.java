@@ -11,7 +11,8 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
- * Created by Sasha on 5/1/2015.
+ * @author Sasha Avlasov
+ * @author Sharaban Sasha
  */
 @Stateless(name = "OrderCancellationBeanEJB")
 public class OrderCancellationBean {
@@ -39,5 +40,18 @@ and cand make more order whith this email
  */
     private void sendNotification(ServiceUserEntity trackingNumber) {
         //TODO complete mail send
+    }
+
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.AddressDAO
+     */
+    public boolean checkBlackListByUserEmail(String email){
+        boolean blackListPresent=false;
+        int ignoredTimes=userDAO.checkBlackListUserByEmail(email);
+        if(ignoredTimes>3){
+        blackListPresent=true;
+        }
+        return blackListPresent;
     }
 }

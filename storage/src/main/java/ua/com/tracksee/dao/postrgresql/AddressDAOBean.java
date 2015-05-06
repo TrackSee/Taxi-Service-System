@@ -62,4 +62,11 @@ public class AddressDAOBean implements AddressDAO {
 //        query.setParameter(2, (partNumber - 1) * ADDRESSES_LIMIT);
         return query.getResultList();
     }
+    @Override
+    public AddressEntity getAddressByUserId(int id){
+        String sql = "SELECT * FROM address WHERE user_id=(?)";
+        Query query = entityManager.createNativeQuery(sql, AddressEntity.class);
+        query.setParameter(1, id);
+        return (AddressEntity)query.getSingleResult();
+    }
 }

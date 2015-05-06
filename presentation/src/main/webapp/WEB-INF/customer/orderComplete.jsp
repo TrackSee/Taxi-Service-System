@@ -81,7 +81,7 @@
                 <input type="text" id="destination" class="form-control" value="${addressDestination}"
                        name="addressDestination" data-error="That address is invalid"
                        required onblur="updateRoute()">
-                <span class="red-star">★</span>
+                <span class="red-star" id="importanceAddressDestination">★</span>
             </div>
             <div class="form-group">
                 <label class="control-label">Way of payment</label>
@@ -100,11 +100,25 @@
             <div id="flip">
                 <div class="form-group">
                     <p>
-                        <button type="button" class="btn btn-info turnButton">Click to see additional options</button>
+                        <button type="button" class="btn btn-info turnButton">Additional options</button>
                     </p>
                 </div>
             </div>
             <div id="panel">
+                <div class="form-group">
+                    <label class="control-label">Service</label>
+                    <select class="form-control order_priority" name="service" id="service">
+                        <option value="default">Simple taxi</option>
+                        <option value="soberDriver">Service "Sober driver"</option>
+                        <option value="guestDelivery">Service "Guest delivery"</option>
+                        <option value="cargoTaxi">Service "Cargo taxi"</option>
+                        <option value="meetMyGuest">Service "Meet my guest"</option>
+                        <option value="celebrationTaxi"> Service "Celebration taxi"</option>
+                        <option value="foodStuffDelivery">Service "Foodstuff delivery"</option>
+                        <option value="conveyCorporation">Service "Convey corporation employees"</option>
+                        <option value="taxiForlongTerm">Service "Taxi for long term"</option>
+                    </select>
+                </div>
                 <label for="arriveDate" class="sr-only">Arrive date</label>
 
                 <div class="controls input-append date form_datetime" data-date="1979-09-16T05:25:07Z"
@@ -115,7 +129,8 @@
                     <input type="hidden" id="dtp_input1" value=""/><br/>
 
                 </div>
-                <label for="endDate" class="sr-only">End date</label>
+                <div id="endDateBlock">
+                <label  class="sr-only">End date</label>
 
                 <div class="controls input-append date form_datetime" data-date="1979-09-16T05:25:07Z"
                      data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
@@ -124,18 +139,7 @@
                     <input size="16" type="text" value="" id="endDate" name="endDate" readonly>
                     <input type="hidden" id="dtp_input2" value=""/><br/>
                 </div>
-                <div class="form-group">
-                    <label class="control-label">Service</label>
-                    <select class="form-control order_priority" name="service" id="service">
-                        <option value="default">Default</option>
-                        <option value="soberDriver">Service "Sober driver"</option>
-                        <option value="guestDelivery">Service "Guest delivery"</option>
-                        <option value="cargoTaxi">Service "Cargo taxi"</option>
-                        <option value="meetMyGuest">Service "Meet my guest"</option>
-                        <option value="celebrationTaxi">Service "Celebration taxi"</option>
-                        <option value="foodStuffDelivery">Service "Foodstuff delivery"</option>
-                    </select>
-                </div>
+                    </div>
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>
                     <select class="form-control order_priority" name="carCategory">
@@ -216,7 +220,7 @@
 </div>
 <p>d</p>
 <!-- Load jQuery and bootstrap datepicker scripts -->
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/jquery/jquery-1.8.3.min.js"
+<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
         charset="UTF-8"></script>
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"
@@ -245,6 +249,7 @@
 <script src="<%=application.getContextPath()%>/resources/customer/js/food-delivery.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/other-services.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/longTerm.js"></script>
 <%--end order oage scripts--%>
 
 <%@include file="../parts/scripts.jsp" %>

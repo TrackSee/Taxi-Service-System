@@ -25,7 +25,7 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("pageName", "signUp");
-        req.getRequestDispatcher("/WEB-INF/customer/registration.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/accounts/signUp.jsp").forward(req, resp);
     }
 
     @Override
@@ -43,6 +43,6 @@ public class SignUpServlet extends HttpServlet {
         }
 
         logger.info("Successful sign up. User: {}", email);
-        req.getRequestDispatcher("/WEB-INF/customer/checkEmail.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/accounts/checkEmail.jsp").forward(req, resp);
     }
 }

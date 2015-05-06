@@ -32,7 +32,7 @@ public class SignInServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("pageName", "signIn");
-        req.getRequestDispatcher("/WEB-INF/customer/login.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/accounts/signIn.jsp").forward(req, resp);
     }
 
     @Override
@@ -49,8 +49,8 @@ public class SignInServlet extends HttpServlet {
             req.login(email, password);
         } catch (ServletException e) {
             logger.warn(e.getMessage());
-            //TODO uncomment with JAAS: resp.getWriter().append(ERROR);
-            //TODO uncomment with JAAS: return;
+            resp.getWriter().append(ERROR);
+            return;
         }
 
         ServiceUserEntity user = userDAO.getUserByEmail(email);

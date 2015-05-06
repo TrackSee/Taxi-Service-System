@@ -1,5 +1,7 @@
+/*author Vadym Akymov*/
 
-var chart = AmCharts.makeChart( "chartdiv", {
+//for driver category report
+var driverChart = AmCharts.makeChart( "driverDiv", {
     "type": "pie",
     "theme": "light",
     "legend": {
@@ -9,29 +11,52 @@ var chart = AmCharts.makeChart( "chartdiv", {
         "autoMargins": false
     },
     "dataProvider": [ {
-        "country": "Czech Republic",
-        "litres": 256.9
+        "sex": "Male",
+        "ordersCount": 15000
     }, {
-        "country": "Ireland",
-        "litres": 131.1
+        "sex": "Female",
+        "ordersCount": 10000
     }, {
-        "country": "Germany",
-        "litres": 115.8
+        "sex": "Nevermind",
+        "ordersCount": 25000
+    }],
+    "valueField": "ordersCount",
+    "titleField": "sex",
+    "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+    "export": {
+        "enabled": true,
+        "libs": {
+            "path": "http://www.amcharts.com/lib/3/plugins/export/libs/"
+        }
+    }
+} );
+
+
+//For car report
+var carChart = AmCharts.makeChart( "carDiv", {
+    "type": "pie",
+    "theme": "light",
+    "legend": {
+        "markerType": "circle",
+        "position": "right",
+        "marginRight": 80,
+        "autoMargins": false
+    },
+    "dataProvider": [ {
+        "car category": "Business class",
+        "ordersCount": 15000
     }, {
-        "country": "Australia",
-        "litres": 109.9
+        "car category": "Economy class",
+        "ordersCount": 75000
     }, {
-        "country": "Austria",
-        "litres": 108.3
+        "car category": "VAN",
+        "ordersCount": 5000
     }, {
-        "country": "UK",
-        "litres": 65
-    }, {
-        "country": "Belgium",
-        "litres": 40
-    } ],
-    "valueField": "litres",
-    "titleField": "country",
+        "car category": "User car",
+        "ordersCount": 19000
+    }],
+    "valueField": "ordersCount",
+    "titleField": "car category",
     "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
     "export": {
         "enabled": true,

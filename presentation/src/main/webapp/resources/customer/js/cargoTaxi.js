@@ -14,6 +14,7 @@ $(document).ready(function() {
             $('#smokingDriverCh').slideUp("slow");
             $('#airConditionerCh').slideUp("slow");
             $('#animalTransportationCh').slideDown("slow");
+
         }
     });
 });

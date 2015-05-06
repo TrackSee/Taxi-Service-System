@@ -10,7 +10,7 @@ function sendForm() {
     var form = $('#form-sign-up');
     $.ajax({
         type: 'POST',
-        url: 'signup',
+        url: getContextPath() + 'signup',
         data: form.serialize(),
         success: function (data) {
             if (data == 'bad-email') {
@@ -19,8 +19,6 @@ function sendForm() {
                 $('#password').notify('Invalid password', 'error');
             } else if (data == 'bad-phone') {
                 $('#phone-number').notify('Invalid phone number', 'error');
-            } else if (data == 'send-fail') {
-                $('#email').notify('Email sending failed', 'error');
             } else if (data == 'user-exists') {
                 $('#email').notify('This email is already registered', 'info');
             } else {

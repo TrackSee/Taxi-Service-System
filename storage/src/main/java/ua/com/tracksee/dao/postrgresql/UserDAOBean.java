@@ -248,6 +248,15 @@ public class UserDAOBean implements UserDAO {
         query.setParameter(1, serviceUserId);
         query.executeUpdate();
     }
+    @Override
+    public int checkBlackListUserByEmail(String email){
+            String sql = "SELECT * FROM service_user WHERE email = ?";
+        // TODO normal select ignored_times from database
+            Query query = entityManager.createNativeQuery(sql, ServiceUserEntity.class);
+            query.setParameter(1, email);
+            ServiceUserEntity serviceUserEntity=(ServiceUserEntity)query.getSingleResult();
+        return serviceUserEntity.getIgnoredTimes();
+    }
 
 
 }
