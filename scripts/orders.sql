@@ -13,18 +13,18 @@ INSERT INTO public.taxi_order (tracking_number, status, service, price, user_id,
 
 
 
-INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, path, ordered_quantity, driver_id) VALUES (1, 1, ((-122.36,-122.343)), null, 1);
-INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, path, ordered_quantity, driver_id) VALUES (2, 2, ((-122.35,-142.343)), null, 1);
-INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, path, ordered_quantity, driver_id) VALUES (3, 3, ((-122.36,-122.343)), null, 1);
-INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, path, ordered_quantity, driver_id) VALUES (4, 4, ((-122.36,-122.343)), null, 1);
-INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, path, ordered_quantity, driver_id) VALUES (5, 5, ((-122.36,-122.343)), null, 1);
-INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, path, ordered_quantity, driver_id) VALUES (6, 6, ((-122.36,-122.343)), null, 1);
-INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, path, ordered_quantity, driver_id) VALUES (7, 7, ((-122.36,-122.343)), null, 1);
-INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, path, ordered_quantity, driver_id) VALUES (8, 8, ((-122.36,-122.343)), null, 1);
-INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, path, ordered_quantity, driver_id) VALUES (9, 9, ((-122.36,-122.343)), null, 1);
-INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, path, ordered_quantity, driver_id) VALUES (10, 10, ((-122.36,-122.343)), null, 1);
-INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, path, ordered_quantity, driver_id) VALUES (11, 10, ((-122.36,-122.343)), null, 1);
-INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, path, ordered_quantity, driver_id) VALUES (12, 10, ((-122.36,-122.343)), null, 1);
-INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, path, ordered_quantity, driver_id) VALUES (13, 10, ((-122.36,-122.343)), null, 1);
-INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, path, ordered_quantity, driver_id) VALUES (14, 11, ((-122.36,-122.343)), null, 1);
-INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, path, ordered_quantity, driver_id) VALUES (15, 12, ((-122.36,-122.343)), null, 1);
+INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, ordered_quantity, driver_id) VALUES (1, 1, null, 1);
+INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, ordered_quantity, driver_id) VALUES (2, 2, null, 1);
+INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, ordered_quantity, driver_id) VALUES (3, 3, null, 1);
+INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, ordered_quantity, driver_id) VALUES (4, 4, null, 1);
+INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, ordered_quantity, driver_id) VALUES (5, 5, null, 1);
+INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, ordered_quantity, driver_id) VALUES (6, 6, null, 1);
+INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, ordered_quantity, driver_id) VALUES (7, 7, null, 1);
+INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, ordered_quantity, driver_id) VALUES (8, 8, null, 1);
+INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, ordered_quantity, driver_id) VALUES (9, 9, null, 1);
+INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, ordered_quantity, driver_id) VALUES (10, 10, null, 1);
+INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, ordered_quantity, driver_id) VALUES (11, 10, null, 1);
+INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, ordered_quantity, driver_id) VALUES (12, 10, null, 1);
+INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, ordered_quantity, driver_id) VALUES (13, 10, null, 1);
+INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, ordered_quantity, driver_id) VALUES (14, 11, null, 1);
+INSERT INTO public.taxi_order_item (taxi_item_id, tracking_numer, ordered_quantity, driver_id) VALUES (15, 12, null, 1);

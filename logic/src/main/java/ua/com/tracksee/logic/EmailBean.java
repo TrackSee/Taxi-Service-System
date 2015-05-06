@@ -15,7 +15,6 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,36 +31,27 @@ import static ua.com.tracksee.mailsender.MailSender.sendTemplatedEmail;
 @Stateless
 public class EmailBean {
 
-    private @EJB UserDAO userDAO;
-
     private static final Logger logger = LogManager.getLogger();
-
     // website
     private static final String WEBSITE_SHORT = "tracksee.team.com/TaxiService";
     private static final String WEBSITE_FULL = "http://localhost:8080/TaxiService/";
     private static final String CONFIG_LOCATION = getProperty("jboss.server.data.dir")
             + separatorChar + "mailtemplates" + separatorChar;
-
     //TODO
     private static final String REGISTRATION_URL = "c";
-
     // template properties
     private static final String SITE_ADDRESS_TEMP_PROP_NAME = "siteadress";
-
     private static final String BLOCKING_ACCOUNT_SUBJECT_TEMP_PROP_NAME = "TrackSee Blocking Account";
     private static final String BLOCKING_ACCOUNT_TEMP_PATH = CONFIG_LOCATION + "blockingusertemplate.ftl";
-
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_TEMP_PATH = CONFIG_LOCATION + "changing_to-from-assigned_to_inprogress_template.ftl";
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_SUBJECT_TEMP_PROP_NAME = "TrackSee Order in progress";
-
     private static final String CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_TEMP_PATH = CONFIG_LOCATION + "changing_to-from-inprogress_to_copleted_template.ftl";
     private static final String CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_SUBJECT_TEMP_PROP_NAME = "TrackSee Order completed";
-
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_TEMP_PATH = CONFIG_LOCATION + "changing_to-from-assigned_to_refused.ftl";
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_SUBJECT_TEMP_PROP_NAME = "TrackSee Order refused";
-
     private static final String REGISTRATION_TEMP_PATH = CONFIG_LOCATION + "registration_template.ftl";
     private static final String REGISTRATION_SUBJECT_TEMP_PROP_NAME = "TrackSee: Confirm User Registration";
+    private @EJB UserDAO userDAO;
 
 
 //    @Asynchronous
@@ -177,6 +167,7 @@ public class EmailBean {
         }
     }
 
+    //TODO why not template?
     private String getOrderConfirmMessageText(int id) {
         return "Hello! \n"
                 + "Order taxi confirm message! "

@@ -2,14 +2,10 @@ package ua.com.tracksee.servlets.orders;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.com.tracksee.dao.postrgresql.CancelDAOBean;
-import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.logic.OrderCancellationBean;
 import ua.com.tracksee.logic.TaxiOrderBean;
-import ua.com.tracksee.logic.exception.OrderException;
 
 import javax.ejb.EJB;
-import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -63,6 +59,7 @@ public class OrderCompleteServlet extends HttpServlet {
             inputData.put("arriveDate", req.getParameter("arriveDate"));
             inputData.put("endDate", req.getParameter("endDate"));
 
+            //if it's sober driver - company doesn't provide car to customer
             if (req.getParameter("service").equals("soberDriver")) {
                 inputData.put("service", "soberDriver");
                 inputData.put("carCategory", "userCar");
@@ -79,10 +76,6 @@ public class OrderCompleteServlet extends HttpServlet {
                 inputData.put("freeWifi", req.getParameter("freeWifi"));
                 inputData.put("smokingDriver", req.getParameter("smokingDriver"));
                 inputData.put("airConditioner", req.getParameter("airConditioner"));
-                System.out.println(inputData.get("animalTransportation"));
-                System.out.println(inputData.get("freeWifi"));
-                System.out.println(inputData.get("smokingDriver"));
-                System.out.println(inputData.get("airConditioner"));
             }
             inputData.put("wayOfPayment", req.getParameter("wayOfPayment"));
             inputData.put("driverSex", req.getParameter("driverSex"));
@@ -94,7 +87,7 @@ public class OrderCompleteServlet extends HttpServlet {
             if (orderCancellationBean.checkBlackListByUserEmail(inputData.get("email"))) {
                 req.setAttribute("showError", "Show");
             } else {
-                Long trackingNumber = taxiOrderBean.makeOrder(inputData);
+                Long trackingNumber = taxiOrderBean.makeOrder(inputData).getTrackingNumber();
                 req.setAttribute("showSuccess", "Show");
                 req.setAttribute("hideOrderTrack", "hidden=\"hidden\"");
                 req.setAttribute("trackingNumber", trackingNumber);
