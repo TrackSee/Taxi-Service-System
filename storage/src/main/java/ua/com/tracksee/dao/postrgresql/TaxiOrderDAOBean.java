@@ -74,7 +74,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     public List<TaxiOrderEntity> getAssignedOrders(int id) {
         String sql = "SELECT * FROM taxi_order INNER JOIN taxi_order_item " +
                 "ON taxi_order.tracking_number = taxi_order_item.tracking_numer " +
-                "AND taxi_order_item.driver_id = ? AND status = 'Assigned'";
+                "AND taxi_order_item.driver_id = ? AND status = 'Assigned' OR status ='In progress'";
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
         query.setParameter(1, id);
         return query.getResultList();
@@ -106,26 +106,26 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
 
     @Override
-    public void setInProgressOrder(TaxiOrderEntity taxiOrderEntity) {
-        String sql = "UPDATE taxi_order SET status = INPROGRESS WHERE tracking_number = ?";
+    public void setInProgressOrder(int trackingNumber) {
+        String sql = "UPDATE taxi_order SET status = 'In progress' WHERE tracking_number = ?";
         Query query = entityManager.createNativeQuery(sql);
-        query.setParameter(1, taxiOrderEntity.getTrackingNumber());
+        query.setParameter(1, trackingNumber);
         query.executeUpdate();
     }
 
     @Override
-    public void setCompletedOrder(TaxiOrderEntity taxiOrderEntity) {
-        String sql = "UPDATE taxi_order SET status = COMPLETED WHERE tracking_number = ?";
+    public void setCompletedOrder(int trackingNumber) {
+        String sql = "UPDATE taxi_order SET status = 'Completed' WHERE tracking_number = ?";
         Query query = entityManager.createNativeQuery(sql);
-        query.setParameter(1, taxiOrderEntity.getTrackingNumber());
+        query.setParameter(1, trackingNumber);
         query.executeUpdate();
     }
 
     @Override
-    public void setRefusedOrder(TaxiOrderEntity taxiOrderEntity) {
-        String sql = "UPDATE taxi_order SET status = REFUSED WHERE tracking_number = ?";
+    public void setRefusedOrder(int trackingNumber) {
+        String sql = "UPDATE taxi_order SET status = 'Refused' WHERE tracking_number = ?";
         Query query = entityManager.createNativeQuery(sql);
-        query.setParameter(1, taxiOrderEntity.getTrackingNumber());
+        query.setParameter(1, trackingNumber);
         query.executeUpdate();
     }
 

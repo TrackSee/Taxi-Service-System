@@ -28,11 +28,11 @@ public interface TaxiOrderDAO {
 
     public void setAssignOrder(int driverId, int trackingNumber, Timestamp carArriveTime);
 
-    public void setInProgressOrder(TaxiOrderEntity taxiOrderEntity);
+    public void setInProgressOrder(int trackingNumber);
 
-    public void setCompletedOrder(TaxiOrderEntity taxiOrderEntity);
+    public void setCompletedOrder(int trackingNumber);
 
-    public void setRefusedOrder(TaxiOrderEntity taxiOrderEntity);
+    public void setRefusedOrder(int trackingNumber);
 
     public int getOrdersPagesCount(int id);
 

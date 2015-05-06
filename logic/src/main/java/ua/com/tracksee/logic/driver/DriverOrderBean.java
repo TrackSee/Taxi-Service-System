@@ -110,16 +110,19 @@ public class DriverOrderBean {
         taxiOrderDao.setAssignOrder(driverId, trackingNumberInt, carArriveTimeTimestamp);
     }
 
-    public void setInProgressOrder(TaxiOrderEntity taxiOrderEntity){
-        taxiOrderDao.setInProgressOrder(taxiOrderEntity);
+    public void setInProgressOrder(String trackingNumber){
+        int trackingNumberInt = Integer.parseInt(trackingNumber);
+        taxiOrderDao.setInProgressOrder(trackingNumberInt);
     }
 
-    public void setCompletedOrder(TaxiOrderEntity taxiOrderEntity){
-        taxiOrderDao.setCompletedOrder(taxiOrderEntity);
+    public void setCompletedOrder(String trackingNumber){
+        int trackingNumberInt = Integer.parseInt(trackingNumber);
+        taxiOrderDao.setCompletedOrder(trackingNumberInt);
     }
 
-    public void setRefusedOrder(TaxiOrderEntity taxiOrderEntity){
-        taxiOrderDao.setRefusedOrder(taxiOrderEntity);
+    public void setRefusedOrder(String trackingNumber){
+        int trackingNumberInt = Integer.parseInt(trackingNumber);
+        taxiOrderDao.setRefusedOrder(trackingNumberInt);
     }
 
     public int getOrdersPagesCount(int id){
