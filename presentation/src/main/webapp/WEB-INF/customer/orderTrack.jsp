@@ -122,7 +122,7 @@
                 </div>
                 <label for="arriveDate" class="sr-only">Arrive date</label>
 
-                <div class="controls input-append date form_datetime" data-date="1979-09-16T05:25:07Z"
+                <div class="controls input-append date form_datetime"
                      data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
                     <span class="add-on"><i class="icon-th"></i></span>
                     <span class="add-on"><i class="icon-remove"></i></span>
@@ -133,7 +133,7 @@
                 <div id="endDateBlock">
                     <label  class="sr-only">End date</label>
 
-                    <div class="controls input-append date form_datetime" data-date="1979-09-16T05:25:07Z"
+                    <div class="controls input-append date form_datetime"
                          data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
                         <span class="add-on"><i class="icon-th"></i></span>
                         <span class="add-on"><i class="icon-remove"></i></span>

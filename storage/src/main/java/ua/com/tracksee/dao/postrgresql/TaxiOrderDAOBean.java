@@ -91,8 +91,8 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
             Integer driverId = item.getDriver() != null ? item.getDriver().getUserId() : null;
             query.setParameter(++i, driverId);
         }
-
-        return (Long) query.getSingleResult();
+        BigInteger trackingNumber= (BigInteger)query.getSingleResult();
+        return  trackingNumber.longValue();
     }
 
     @Override
