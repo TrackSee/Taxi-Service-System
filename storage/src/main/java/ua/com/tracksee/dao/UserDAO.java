@@ -102,4 +102,7 @@ public interface UserDAO {
      */
     int checkBlackListUserByEmail(String email);
 
+
+
+    List<ServiceUserEntity> getCustomersByEmail(String email);
 }

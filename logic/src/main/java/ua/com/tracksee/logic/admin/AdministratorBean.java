@@ -86,6 +86,7 @@ public class AdministratorBean {
         userDAO.deleteUser(id);
     }
     public List<ServiceUserEntity> getDriverByEmail(String email){return userDAO.getDriverByEmail(email);};
+    public List<ServiceUserEntity> getCustomersByEmail(String email){return userDAO.getCustomersByEmail(email);};
 
     /**
      * @author Vadym Akymov
@@ -129,5 +130,6 @@ public class AdministratorBean {
     public Collection<? extends ServiceUserEntity> getAll(int start, int countPerPage) {
         return serviceUserDaoBeen.getAll(start, countPerPage);
     }
+
 
 }

@@ -44,10 +44,10 @@ public class MostPopularAddOptionsServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer userId = Integer.parseInt(request.getParameter("userId"));
-        //List<MostPopularOption> listOptions = taxiOrderBean.getMostPopularOptionsForUser(userId);
-        //request.setAttribute("listOptions", listOptions);
-        //System.out.println("listOptions JSON" + getJsonFromList(listOptions));
-        //response.getWriter().write(getJsonFromList(listOptions));
+        List<MostPopularOption> listOptions = taxiOrderBean.getMostPopularOptionsForUser(userId);
+        request.setAttribute("listOptions", listOptions);
+        System.out.println("listOptions JSON" + getJsonFromList(listOptions));
+        response.getWriter().write(getJsonFromList(listOptions));
     }
 
     private String getJsonFromList(List<MostPopularOption> listOptions) {
