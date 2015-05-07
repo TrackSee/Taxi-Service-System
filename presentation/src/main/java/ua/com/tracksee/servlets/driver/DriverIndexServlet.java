@@ -38,6 +38,8 @@ public class DriverIndexServlet extends HttpServlet {
         ServiceUserEntity driver = driverBean.getUserById(id);
         List<TaxiOrderEntity> orders = driverOrderBean.getAvailableOrders(driver, 1);
         req.setAttribute("orders", orders);
+        System.out.println("=======================================================================");
+        System.out.println(orders);
         req.setAttribute("pagesCount", driverOrderBean.getOrdersPagesCount(id));
         req.getRequestDispatcher("/WEB-INF/driver/driverIndex.jsp").forward(req,resp);
     }

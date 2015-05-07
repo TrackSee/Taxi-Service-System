@@ -44,6 +44,29 @@
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
+
+  <script>
+
+    function setTimeTD() {
+      var trs = $("#tbody").getElementsByTagName("tr");
+      for (var i in trs) {
+        var time = i.getElementsByTagName("td")[1];
+        if ((time == null) || (time == '')) {
+          time.replaceWith('<td>' +
+          '<label for="arriveDate" class="sr-only">Arrive date</label>' +
+          '<div class="controls input-append date form_datetime" data-date="2015-04-16T05:25:07Z" ' +
+          'data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1"><span class="add-on">' +
+          '<i class="icon-th"></i></span><span class="add-on"><i class="icon-remove"></i></span>' +
+          '<input size="16" type="text" value=2015-04-02 02:05 id="arriveDate" name="arriveDate" readonly>' +
+          '<input type="hidden" id="dtp_input1" value=""/>' +
+          '<br/>' +
+          '</div>' +
+          '</td>');
+        }
+      }
+    }
+  </script>
+
 </head>
 <body>
 <div id="wrapper">
@@ -82,22 +105,10 @@
                   <th>Assign order</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbody">
                 <c:forEach items="${requestScope.orders}" var="order">
                   <tr class="odd gradeX">
                     <td>${order.trackingNumber}</td>
-                    <td>
-                      <label for="arriveDate" class="sr-only">Arrive date</label>
-
-                      <div class="controls input-append date form_datetime" data-date="2015-04-16T05:25:07Z"
-                           data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                        <span class="add-on"><i class="icon-th"></i></span>
-                        <span class="add-on"><i class="icon-remove"></i></span>
-                        <input size="16" type="text" value=2015-04-02 02:05 id="arriveDate" name="arriveDate" readonly>
-                        <input type="hidden" id="dtp_input1" value=""/><br/>
-
-                      </div>
-                    </td>
                     <td>
                         ${order.orderedDate}
                     </td>
