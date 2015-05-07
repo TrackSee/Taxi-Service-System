@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.entities.AddressEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
-import ua.com.tracksee.enumartion.*;
+import ua.com.tracksee.enumartion.OrderStatus;
 import ua.com.tracksee.logic.EnumValidationBean;
 import ua.com.tracksee.logic.TaxiOrderBean;
 import ua.com.tracksee.logic.ValidationBean;

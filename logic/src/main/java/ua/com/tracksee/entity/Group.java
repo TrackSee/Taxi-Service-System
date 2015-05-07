@@ -1,7 +1,5 @@
 package ua.com.tracksee.entity;
 
-import java.math.BigInteger;
-
 /**
  * Created by Igor Gula on 20.04.2015.
  */

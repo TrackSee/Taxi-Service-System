@@ -1,7 +1,6 @@
 package ua.com.tracksee.logic;
 
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeConstants;
 import ua.com.tracksee.dao.TaxiPriceDAO;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.TaxiOrderItemEntity;

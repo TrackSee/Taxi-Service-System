@@ -2,16 +2,12 @@ package ua.com.tracksee.servlets.orders;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.ObjectMapper;
-import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.json.TaxiOrderDTO;
 import ua.com.tracksee.logic.PriceCalculatorBean;
 import ua.com.tracksee.logic.TaxiOrderBean;
-import ua.com.tracksee.logic.exception.OrderException;
 
 import javax.ejb.EJB;
-import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

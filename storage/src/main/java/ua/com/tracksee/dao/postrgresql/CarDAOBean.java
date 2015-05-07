@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.CarDAO;
 import ua.com.tracksee.dao.postrgresql.exceptions.CarNotFoundException;
 import ua.com.tracksee.entities.CarEntity;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

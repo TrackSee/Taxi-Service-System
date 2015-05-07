@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.MostPopularOption;
-//import ua.com.tracksee.entities.ServiceProfitable;
 import ua.com.tracksee.entities.ServiceProfitable;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.TaxiOrderItemEntity;
@@ -18,6 +17,8 @@ import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
+//import ua.com.tracksee.entities.ServiceProfitable;
 
 /**
  * <p>Postgresql database implementation of

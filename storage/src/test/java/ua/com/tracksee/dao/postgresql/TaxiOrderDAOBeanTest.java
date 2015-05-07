@@ -11,18 +11,15 @@ import org.junit.runner.RunWith;
 import org.postgresql.geometric.PGpoint;
 import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.TaxiOrderDAO;
-import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.enumartion.Sex;
 
 import javax.ejb.EJB;
 import java.io.File;
-import java.util.List;
 
 import static java.lang.Boolean.TRUE;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static ua.com.tracksee.enumartion.OrderStatus.QUEUED;
 
 /**

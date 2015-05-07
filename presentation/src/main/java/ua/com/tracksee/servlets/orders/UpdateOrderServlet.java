@@ -1,16 +1,10 @@
 package ua.com.tracksee.servlets.orders;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.com.tracksee.entities.TaxiOrderEntity;
-import ua.com.tracksee.enumartion.OrderStatus;
-import ua.com.tracksee.enumartion.Sex;
 import ua.com.tracksee.logic.TaxiOrderBean;
-import ua.com.tracksee.logic.exception.OrderException;
 
 import javax.ejb.EJB;
-import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.NoSuchElementException;
 
 /**
  * @author Igor Gula

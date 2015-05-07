@@ -10,7 +10,8 @@ import ua.com.tracksee.enumartion.*;
 import ua.com.tracksee.json.TaxiOrderDTO;
 import ua.com.tracksee.logic.exception.OrderException;
 
-import javax.ejb.*;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static javax.persistence.EnumType.STRING;
-import static javax.persistence.FetchType.*;
+import static javax.persistence.FetchType.EAGER;
 
 /**
  * @author Ruslan Gunavardana

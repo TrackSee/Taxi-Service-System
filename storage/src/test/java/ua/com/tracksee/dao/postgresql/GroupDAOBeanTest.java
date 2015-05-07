@@ -1,6 +1,5 @@
 package ua.com.tracksee.dao.postgresql;
 
-import org.hibernate.jpa.internal.TransactionImpl;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -17,11 +16,8 @@ import ua.com.tracksee.dao.postrgresql.UserDAOBean;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.persistence.EntityTransaction;
 import java.io.File;
-import java.sql.SQLException;
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 

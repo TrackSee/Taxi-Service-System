@@ -4,7 +4,6 @@ import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Local;
 import javax.persistence.EntityManager;
-import java.math.BigInteger;
 import java.util.List;
 
 /**

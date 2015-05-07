@@ -1,6 +1,5 @@
 package ua.com.tracksee.dao.postgresql;
 
-import static org.junit.Assert.assertTrue;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -23,6 +22,8 @@ import javax.persistence.EntityManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by byte on 4/25/15.

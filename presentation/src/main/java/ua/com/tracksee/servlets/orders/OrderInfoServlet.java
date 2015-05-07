@@ -3,11 +3,8 @@ package ua.com.tracksee.servlets.orders;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.logic.OrderCancellationBean;
-import ua.com.tracksee.logic.exception.OrderException;
 
 import javax.ejb.EJB;
-import javax.mail.MessagingException;
-import javax.persistence.criteria.Order;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

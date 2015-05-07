@@ -7,7 +7,6 @@ import ua.com.tracksee.logic.exception.RegistrationException;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
-import javax.mail.MessagingException;
 
 import static java.lang.Boolean.FALSE;
 import static ua.com.tracksee.logic.exception.RegistrationExceptionType.*;

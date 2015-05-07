@@ -2,7 +2,6 @@ package ua.com.tracksee.enumartion;
 
 
 import java.util.HashMap;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 

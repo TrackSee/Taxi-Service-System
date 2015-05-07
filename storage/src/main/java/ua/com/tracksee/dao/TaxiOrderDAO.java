@@ -1,7 +1,6 @@
 package ua.com.tracksee.dao;
 
 import ua.com.tracksee.entities.MostPopularOption;
-//import ua.com.tracksee.entities.ServiceProfitable;
 import ua.com.tracksee.entities.ServiceProfitable;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 
@@ -9,6 +8,8 @@ import javax.ejb.Local;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.List;
+
+//import ua.com.tracksee.entities.ServiceProfitable;
 
 /**
  * Interface for persisting and accessing taxi order data.

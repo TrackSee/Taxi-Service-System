@@ -1,7 +1,8 @@
 package ua.com.tracksee.config;
 
-import java.util.ResourceBundle;
 import ua.com.tracksee.config.error.ManagerError;
+
+import java.util.ResourceBundle;
 
 /**
  * Created by byte on 4/24/15.

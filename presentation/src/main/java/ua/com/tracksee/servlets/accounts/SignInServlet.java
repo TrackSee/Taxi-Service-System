@@ -1,9 +1,9 @@
 package ua.com.tracksee.servlets.accounts;
 
-import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entities.ServiceUserEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.dao.UserDAO;
+import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;

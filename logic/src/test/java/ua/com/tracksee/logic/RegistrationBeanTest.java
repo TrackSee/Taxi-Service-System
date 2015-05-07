@@ -24,8 +24,6 @@ import ua.com.tracksee.logic.exception.RegistrationException;
 import ua.com.tracksee.logic.group.GroupUpdateAction;
 
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
-
 import java.io.File;
 
 import static org.junit.Assert.assertFalse;

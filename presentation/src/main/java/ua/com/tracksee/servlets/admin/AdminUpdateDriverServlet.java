@@ -3,7 +3,6 @@ package ua.com.tracksee.servlets.admin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
-import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.logic.admin.AdministratorBean;
 

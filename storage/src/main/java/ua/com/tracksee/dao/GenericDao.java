@@ -1,7 +1,6 @@
 package ua.com.tracksee.dao;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 
 /**

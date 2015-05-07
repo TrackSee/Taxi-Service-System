@@ -8,7 +8,6 @@ import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 

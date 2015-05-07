@@ -1,11 +1,8 @@
 package ua.com.tracksee.servlets.admin.reports;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import ua.com.tracksee.dao.postrgresql.TaxiOrderDAOBean;
 import ua.com.tracksee.entities.ServiceProfitable;
-import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.logic.TaxiOrderBean;
-import ua.com.tracksee.logic.admin.AdministratorBean;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;

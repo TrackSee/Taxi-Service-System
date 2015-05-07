@@ -3,10 +3,7 @@ package ua.com.tracksee.entities;
 import ua.com.tracksee.enumartion.CarCategory;
 
 import javax.persistence.*;
-import javax.ws.rs.Encoded;
 import java.util.Objects;
-
-import static javax.persistence.EnumType.STRING;
 
 /**
  * @author Ruslan Gunavardana
