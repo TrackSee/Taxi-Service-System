@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * Created by Maria Komar on 30.04.2015.
@@ -28,26 +29,24 @@ public class AssignedOrderServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        trackingNumber = req.getParameter("trackingNumber");
-//        orderStatus = req.getParameter("orderStatus");
-//        if(orderStatus != null) {
-//            if(orderStatus.equals("Refused")){
-//                driverOrderBean.setRefusedOrder(trackingNumber);
-//            } else if(orderStatus.equals("In progress")){
-//                driverOrderBean.setInProgressOrder(trackingNumber);
-//            }
-//            else if(orderStatus.equals("Completed")){
-//                driverOrderBean.setCompletedOrder(trackingNumber);
-//            }
-//        }
-        //timeCarArrive = req.getParameter("carArriveTime");
-//        if(trackingNumber != null) {
-//            driverOrderBean.setAssignOrder(id, trackingNumber, timeCarArrive);
-//        }
-//        req.setAttribute("orders", driverOrderBean.getAssignedOrders(id));
-//        req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
-
-        Gson gson = new Gson();
+        trackingNumber = req.getParameter("trackingNumber");
+        orderStatus = req.getParameter("orderStatus");
+        if(orderStatus != null) {
+            if(orderStatus.equals("Refused")){
+                driverOrderBean.setRefusedOrder(trackingNumber);
+            } else if(orderStatus.equals("In progress")){
+                driverOrderBean.setInProgressOrder(trackingNumber);
+            }
+            else if(orderStatus.equals("Completed")){
+                driverOrderBean.setCompletedOrder(trackingNumber);
+            }
+        }
+        timeCarArrive = req.getParameter("carArriveTime");
+        if(trackingNumber != null) {
+            driverOrderBean.setAssignOrder(id, trackingNumber, timeCarArrive);
+        }
+        req.setAttribute("orders", driverOrderBean.getAssignedOrders(id));
+        req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
 
     }
 

@@ -1,6 +1,5 @@
 package ua.com.tracksee.entities;
 
-import org.postgresql.util.PGmoney;
 import ua.com.tracksee.enumartion.*;
 
 import javax.persistence.*;
@@ -230,5 +229,9 @@ public class TaxiOrderEntity {
     @Override
     public int hashCode() {
         return Objects.hash(trackingNumber, status, price, service, carCategory, wayOfPayment, driverSex, musicStyle, comment, orderedDate);
+    }
+
+    public String toString(){
+        return trackingNumber + "";
     }
 }

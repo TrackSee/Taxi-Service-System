@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Maria Komar on 20.04.2015.
@@ -31,7 +32,7 @@ public class HistoryDriverServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<TaxiOrderEntity> orders = driverOrderBean.getHistoryOfOrders(id, 1);
-        //Map<Integer, String> addresses = driverOrderBean.getStringAddressForList(orders);
+        Map<Integer, String> addresses = driverOrderBean.getStringAddressForList(orders);
         req.setAttribute("orders", orders);
         req.setAttribute("pagesCount", driverOrderBean.getOrdersPagesCount(id));
         //req.setAttribute("addresses", addresses);
