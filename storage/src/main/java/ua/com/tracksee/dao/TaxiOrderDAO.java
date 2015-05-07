@@ -1,10 +1,9 @@
 package ua.com.tracksee.dao;
 
-import ua.com.tracksee.entities.ServiceUserEntity;
-import ua.com.tracksee.entities.TaxiOrderEntity;
-import ua.com.tracksee.entities.TaxiOrderItemEntity;
+import ua.com.tracksee.entities.*;
 
 import javax.ejb.Local;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -22,15 +21,52 @@ public interface TaxiOrderDAO {
 
     void addComment(TaxiOrderEntity taxiOrderEntity);
 
+
     /**
-     * Adds order to database.
+     *@author Igor Gula
+     */
+    public int updateComment(Integer trackNumber, String comment);
+    /**
+     *@author Igor Gula
+     */
+    public void updateOrder(TaxiOrderEntity entity);
+    /**
+     * This method insert order into database
      *
-     * @param order taxi order entity which will be insert into database
+     * @author Sharaban Sasha
+     * @param order - order entity which will be insert into database
+     * @return tracking number of inserted order
      */
     Long addOrder(TaxiOrderEntity order);
+    /**
+     * This method update inserted order by
+     * setting arrive;
+     *
+     * @author Sharaban Sasha
+     * @param arriveDate - arrive date from order
+     * @param trackingNumber - tracking number of inserted order
+     */
+    void addArriveDate(Timestamp arriveDate,long trackingNumber);
+    /**
+     * This method update inserted order by
+     * setting end date;
+     *
+     * @author Sharaban Sasha
+     * @param endDate - end date from order
+     * @param trackingNumber - tracking number of inserted order
+     */
+    void addEndDate(Timestamp endDate,long trackingNumber);
 
     List<TaxiOrderEntity> getQueuedOrders();
 
+    /**
+     * This method returns the order by tracking
+     * number.
+     *
+     * @author Sharaban Sasha
+     * @param trackingNumber - the tracking number of which will return the order
+     * @return TaxiOrderEntity which contain information about order
+     */
     TaxiOrderEntity getOrder(Long trackingNumber);
 
     /**
@@ -39,6 +75,28 @@ public interface TaxiOrderDAO {
      * @return list of order's item
      */
     List<TaxiOrderEntity> getOrdersPerPage(int partNumber);
+
+    List<TaxiOrderEntity> getActiveOrdersPerPage(int partNumber);
+    List<TaxiOrderEntity> getOldOrdersPerPage(int partNumber);
+
+    /**
+     * @author Vadym Akymov
+     * @return pages count of taxi order
+     */
+    int getActiveTaxiOrderPagesCount();
+    int getOldTaxiOrderPagesCount();
+
+    /**
+     * @author Katia Stetsiuk
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+
+    List<ServiceProfitable> getProfitByService(String startDate, String endDate);
+    BigInteger getCountOptionalChar(String option, Integer userId);
+    List<MostPopularOption> getMostPopularOptionsForUser(Integer userId);
+    BigInteger getCountOptionalBool(String option, Integer userId);
 
     public List<TaxiOrderEntity> getAvailableOrders(ServiceUserEntity driver, int pageNumber);
 
