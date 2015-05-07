@@ -1,232 +1,169 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
-  User: Vadym Akymov
-  Date: 15.04.15
-  Time: 23:20
+  User: Maria Komar
+  Date: 19.04.2015
+  Time: 21:06
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="en">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<html>
 <head>
 
-    <!-- start: Meta -->
-    <meta charset="utf-8">
-    <title>TrackSee</title>
-    <!-- end: Meta -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- start: Mobile Specific -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!-- end: Mobile Specific -->
+  <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
-    <!-- start: Facebook Open Graph -->
-    <meta property="og:title" content=""/>
-    <meta property="og:description" content=""/>
-    <meta property="og:type" content=""/>
-    <meta property="og:url" content=""/>
-    <meta property="og:image" content=""/>
-    <!-- end: Facebook Open Graph -->
+  <!-- Bootstrap Core CSS -->
+  <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- start: CSS -->
-    <link href="<%=application.getContextPath()%>/resources/css/bootstrap2/bootstrap.css" rel="stylesheet">
-    <link href="<%=application.getContextPath()%>/resources/css/bootstrap2/bootstrap-responsive.css" rel="stylesheet">
-    <link href="<%=application.getContextPath()%>/resources/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans:400,700">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Serif">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Boogaloo">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Economica:700,400italic">
-    <!-- end: CSS -->
+  <!-- MetisMenu CSS -->
+  <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+  <!-- Custom CSS -->
+  <link href="<%=application.getContextPath()%>/resources/admin/dist/css/sb-admin-2.css" rel="stylesheet">
 
+  <%--My resources--%>
+  <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/admin/css/admin.css">
+  <script href="<%=application.getContextPath()%>/resources/admin/js/admin.js"></script>
+
+  <!-- Custom Fonts -->
+  <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
 </head>
 <body>
-
-<header>
-
-    <!--start: Container -->
-    <div class="container">
-
-        <!--start: Row -->
-        <div class="row">
-
-            <!--start: Logo -->
-            <div class="logo span3">
-
-                <a class="brand" href="#"><img src="<%=application.getContextPath()%>/resources/img/logo.png"
-                                               alt="Logo"></a>
-
-            </div>
-            <!--end: Logo -->
-
-            <!--start: Navigation -->
-            <div class="span9">
-
-                <div class="navbar navbar-inverse">
-                    <div class="navbar-inner">
-                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </a>
-
-                        <div class="nav-collapse collapse">
-                            <ul class="nav">
-                                <li><a href="<%=application.getContextPath()%>">Order</a></li>
-                                <li class="active"><a href="">Order information</a></li>
-                                <li><a href="<c:url value="/signin"/>">Login</a></li>
-                                <li><a href="<c:url value="/signup"/>">Registration</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!--end: Navigation -->
-
-        </div>
-        <!--end: Row -->
-
-    </div>
-    <!--end: Container-->
-
-</header>
-
-<!-- start: Page Title -->
-<div id="page-title">
-
-    <div id="page-title-inner">
-
-        <!-- start: Container -->
-        <div class="container">
-
-            <h2><i class="ico-stats ico-white"></i>Order information</h2>
-
-        </div>
-        <!-- end: Container  -->
-
-    </div>
-
-</div>
-<!-- end: Page Title -->
-
-<!--start: Wrapper-->
 <div id="wrapper">
+  <jsp:include page="driverHeader.jsp"/>
 
-    <!--start: Container -->
-    <div class="container">
-
-        <!--start: Row -->
-        <div class="row">
-
-            <div class="span8">
-
-                <!-- start: About Us -->
-                <div id="about">
-                    <div class="title"><h3>Information about order</h3></div>
-                    <p>
-
-                    </p>
-                </div>
-                <!-- end: About Us -->
-
-                <!-- start: Team -->
-                <div id="team">
-
-                    <div class="title"><h3>Information about assigned driver</h3></div>
-
-                    <!-- start: Row -->
-                    <div class="row">
-
-                        <!-- start: About Member -->
-                        <div class="span4">
-                            <div class="avatar view-team">
-                                <img src="<%=application.getContextPath()%>/resources/img/team_member.jpg"
-                                     alt="team member">
-
-                                <div class="mask">
-                                    <h2>About driver</h2>
-
-                                    <p>
-                                        Information about driver.Information about driver.Information about
-                                        driver.Information about driver.Information about driver.Information about
-                                        driver.Information about driver.Information about driver.Information about
-                                        driver.Information about driver.Information about driver.Information about
-                                        driver.
-                                    </p>
-                                    <a href="#" class="info">Some additional information on another page</a>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                            <div class="team-name">Bill Budrov <span> / Taxi drover</span></div>
-                        </div>
-                        <!-- end: About Member -->
-                        <!-- end: About Member -->
-
-                    </div>
-                    <!-- end: Row -->
-
-                </div>
-                <!-- end: Team -->
-
-
-            </div>
-
-            <div class="span4">
-
-                <!-- start: Sidebar -->
-                <div id="sidebar">
-
-                    <!-- start: Skills -->
-                    <div class="title"><h3>Information about ....</h3></div>
-                    <ul class="progress-bar">
-                        <li>
-                            <h5>Some information ( 40% )</h5>
-
-                            <div class="meter"><span style="width: 40%"></span></div>
-                            <!-- Edite width here -->
-                        </li>
-                        <li>
-                            <h5>Some information ( 80% )</h5>
-
-                            <div class="meter"><span style="width: 80%"></span></div>
-                            <!-- Edite width here -->
-                        </li>
-                        <li>
-                            <h5>Some information ( 100% )</h5>
-
-                            <div class="meter"><span style="width: 100%"></span></div>
-                            <!-- Edite width here -->
-                        </li>
-                        <li>
-                            <h5>Some information ( 60% )</h5>
-
-                            <div class="meter"><span style="width: 60%"></span></div>
-                            <!-- Edite width here -->
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+  <div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="page-header">Driver dashboard</h1>
+      </div>
+      <!-- /.col-lg-12 -->
     </div>
+
+
+    <%--Profile container--%>
+    <div class="placement">
+      <div class="row">
+        <%--<div class="col-md-5  toppad  pull-right col-md-offset-3 ">--%>
+        <%--<A href="edit.html" >Edit Profile</A>--%>
+
+        <%--<A href="edit.html" >Logout</A>--%>
+        <%--<br>--%>
+        <%--<p class=" text-info">May 05,2014,03:00 pm </p>--%>
+        <%--</div>--%>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+
+
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">${driver.email}</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center">  </div>
+
+                <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
+                  <dl>
+                    <dt>DEPARTMENT:</dt>
+                    <dd>Administrator</dd>
+                    <dt>HIRE DATE</dt>
+                    <dd>11/12/2013</dd>
+                    <dt>DATE OF BIRTH</dt>
+                       <dd>11/12/2013</dd>
+                    <dt>GENDER</dt>
+                    <dd>Male</dd>
+                  </dl>
+                </div>-->
+                <div class=" col-md-9 col-lg-9 ">
+                  <table class="table table-user-information">
+                    <tbody>
+                    <tr>
+                      <td>Email</td>
+                      <td>${driver.email}</td>
+                    </tr>
+                    <tr>
+                      <td>Sex</td>
+                      <td>${driver.sex}</td>
+                    </tr>
+                    <td>Phone Number</td>
+                    <td>${driver.phone != null ? driver.phone : "No phone number"} </td>
+                    </tr>
+                    <tr>
+                      <td>Car number</td>
+                      <td>${driver.car.carNumber != null ? driver.car.carNumber : "No car"}</td>
+                    </tr>
+                    <tr>
+                      <td>Driver license</td>
+                      <td>${driver.driverLicense != null ? driver.driverLicense : "No driver license"}</td>
+                    </tr>
+
+                    <%--<tr>--%>
+                    <tr>
+                      <td>Group</td>
+                      <td>${driver.groupName != null ? driver.groupName : "No group"}</td>
+                    </tr>
+                    <tr>
+                      <td>Registration Date</td>
+                      <td><fmt:formatDate pattern="dd-MM-yyyy" value="${driver.registrationDate}"/> </td>
+                    </tr>
+
+                    </tbody>
+                  </table>
+
+                  <%--<a href="#" class="btn btn-primary">Edit profile</a>--%>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <%--End profile container--%>
+
+
+  </div>
+  <!-- /#page-wrapper -->
+
 </div>
-<!-- end: Wrapper  -->
+<!-- /#wrapper -->
 
+<!-- jQuery Version 1.11.2 -->
+<script src="<%=application.getContextPath()%>/resources/js/jquery-1.11.2.min.js"></script>
+<!--
+<script src="../../../resources/js/jquery-1.11.2.js"></script>
+<script src="../../../resources/js/jquery.min.js"></script>
+<script type="text/javascript" language="javascript" src="../../../resources/js/jquery.js"></script>
+-->
 
-<!-- start: Java Script -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="<%=application.getContextPath()%>/resources/js/jquery-1.8.2.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/bootstrap2/bootstrap.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/flexslider.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/carousel.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/jquery.cslider.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/slider.js"></script>
-<script def src="<%=application.getContextPath()%>/resources/js/custom.js"></script>
-<!-- end: Java Script -->
+<!-- Bootstrap Core JavaScript -->
+<script src="<%=application.getContextPath()%>/resources/js/bootstrap2/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="<%=application.getContextPath()%>/resources/js/metisMenu.min.js"></script>
+
+<!-- Morris Charts JavaScript -->
+<script src="<%=application.getContextPath()%>/resources/js/raphael-min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/morris.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/morris-data.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="<%=application.getContextPath()%>/resources/js/sb-admin-2.js"></script>
 
 </body>
+
 </html>

@@ -101,4 +101,6 @@ public interface UserDAO {
      */
     int checkBlackListUserByEmail(String email);
 
+    public CarEntity getDriversCar(ServiceUserEntity driver);
+
 }
