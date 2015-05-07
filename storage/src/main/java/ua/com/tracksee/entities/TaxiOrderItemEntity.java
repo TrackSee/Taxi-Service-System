@@ -1,7 +1,5 @@
 package ua.com.tracksee.entities;
 
-import org.postgresql.geometric.PGpath;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -13,7 +11,7 @@ import java.util.Objects;
 @Table(name = "taxi_order_item", schema = "public", catalog = "tracksee")
 public class TaxiOrderItemEntity {
     private Integer taxiItemId;
-    private PGpath path;
+    private String path;
     private BigDecimal orderedQuantity;
     private ServiceUserEntity driver;
     private TaxiOrderEntity taxiOrder;
@@ -31,11 +29,11 @@ public class TaxiOrderItemEntity {
 
     @Basic
     @Column(name = "path", nullable = false)
-    public PGpath getPath() {
+    public String getPath() {
         return path;
     }
 
-    public void setPath(PGpath path) {
+    public void setPath(String path) {
         this.path = path;
     }
 

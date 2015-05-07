@@ -123,6 +123,7 @@
                 </c:forEach>
                 </tbody>
               </table>
+
               <div class="text-center">
                 <ul class="pagination">
                   <%--not ready
