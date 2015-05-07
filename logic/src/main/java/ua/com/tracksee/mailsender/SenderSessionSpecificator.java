@@ -2,8 +2,7 @@ package ua.com.tracksee.mailsender;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
-
-import javax.mail.*;
+import javax.mail.Session;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.util.Properties;

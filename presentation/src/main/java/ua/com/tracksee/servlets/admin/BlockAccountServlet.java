@@ -2,13 +2,13 @@ package ua.com.tracksee.servlets.admin;
 
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.config.manager.been.ConfigManagerBean;
 import ua.com.tracksee.config.manager.been.MessageManagerBean;
-import ua.com.tracksee.dao.postrgresql.ServiceUserDaoBeen;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.error.PersistError;
 import ua.com.tracksee.logic.admin.AdministratorBean;
-import org.apache.logging.log4j.Logger;
+
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

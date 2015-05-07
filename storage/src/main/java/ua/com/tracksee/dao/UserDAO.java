@@ -105,4 +105,6 @@ public interface UserDAO {
 
 
     List<ServiceUserEntity> getCustomersByEmail(String email);
+    public CarEntity getDriversCar(ServiceUserEntity driver);
+
 }

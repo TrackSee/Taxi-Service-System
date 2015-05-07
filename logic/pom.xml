@@ -59,11 +59,12 @@
             <artifactId>freemarker</artifactId>
             <version>2.3.20</version>
         </dependency>
+
+        <!--for Excel reports-->
         <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-core</artifactId>
-            <version>1.1.8.Final</version>
-            <scope>test</scope>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.12-beta1</version>
         </dependency>
 
     </dependencies>

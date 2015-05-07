@@ -85,9 +85,9 @@ CREATE TABLE IF NOT EXISTS Taxi_Order
 
 CREATE TABLE IF NOT EXISTS Taxi_Order_Item
 (
-  taxi_item_id     SERIAL PRIMARY KEY,
-  tracking_numer   INT REFERENCES Taxi_Order (tracking_number) ON DELETE CASCADE,
-  path             PATH NOT NULL,
+  taxi_item_id     BIGSERIAL PRIMARY KEY,
+  tracking_numer   INT NOT NULL REFERENCES Taxi_Order (tracking_number) ON DELETE CASCADE,
+  path             PATH,
   ordered_quantity NUMERIC(15, 1),
   -- need to be checked if this 'user_id' is a driver's id on code layer
   driver_id        INT REFERENCES Service_User (user_id) ON DELETE SET NULL

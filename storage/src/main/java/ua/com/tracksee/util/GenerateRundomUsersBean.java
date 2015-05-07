@@ -1,9 +1,13 @@
 package ua.com.tracksee.util;
 
 
-import javax.annotation.PostConstruct;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import ua.com.tracksee.entities.ServiceUserEntity;
+
 import javax.ejb.Singleton;
-import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.BufferedReader;
@@ -12,13 +16,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Timestamp;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import ua.com.tracksee.entities.ServiceUserEntity;
-import ua.com.tracksee.enumartion.Sex;
 
 
 /**

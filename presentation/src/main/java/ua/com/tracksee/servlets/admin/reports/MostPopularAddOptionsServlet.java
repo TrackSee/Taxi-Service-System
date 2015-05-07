@@ -7,7 +7,6 @@ package ua.com.tracksee.servlets.admin.reports;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.MostPopularOption;
-//import ua.com.tracksee.entities.ServiceProfitable;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.logic.TaxiOrderBean;
 import ua.com.tracksee.logic.admin.AdministratorBean;
@@ -19,11 +18,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+//import ua.com.tracksee.entities.ServiceProfitable;
 
 @WebServlet("/admin/report/mostpopularopt")
 public class MostPopularAddOptionsServlet extends HttpServlet {

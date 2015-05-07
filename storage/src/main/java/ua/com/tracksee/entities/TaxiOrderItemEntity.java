@@ -12,7 +12,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "taxi_order_item", schema = "public", catalog = "tracksee")
 public class TaxiOrderItemEntity {
-    private Integer taxiItemId;
+    private Long taxiItemId;
     private PGpath path;
     private BigDecimal orderedQuantity;
     private ServiceUserEntity driver;
@@ -23,16 +23,16 @@ public class TaxiOrderItemEntity {
     @SequenceGenerator(name = "orderItemSeq", sequenceName = "taxi_order_item_taxi_item_id_seq",
             allocationSize = 1, initialValue= 1)
     @Column(name = "taxi_item_id")
-    public Integer getTaxiItemId() {
+    public Long getTaxiItemId() {
         return taxiItemId;
     }
 
-    public void setTaxiItemId(Integer taxiItemId) {
+    public void setTaxiItemId(Long taxiItemId) {
         this.taxiItemId = taxiItemId;
     }
 
     @Basic
-    @Column(name = "path", nullable = false)
+    @Column(name = "path")
     public PGpath getPath() {
         return path;
     }
@@ -62,7 +62,7 @@ public class TaxiOrderItemEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "tracking_numer", referencedColumnName = "tracking_number")
+    @JoinColumn(name = "tracking_numer", referencedColumnName = "tracking_number", nullable = false)
     public TaxiOrderEntity getTaxiOrder() {
         return taxiOrder;
     }

@@ -18,9 +18,7 @@ import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.enumartion.Sex;
 
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import java.io.File;
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 

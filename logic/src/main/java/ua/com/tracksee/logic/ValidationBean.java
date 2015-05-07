@@ -3,10 +3,7 @@ package ua.com.tracksee.logic;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import javax.ejb.Stateless;
-
 import java.sql.Timestamp;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static java.lang.Character.isDigit;
 
