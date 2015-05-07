@@ -1,12 +1,14 @@
-<?xml	version="1.0"	encoding="UTF-8"?>
-<arquillian	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns="http://jboss.org/schema/arquillian"
-               xsi:schemaLocation="http://jboss.org/schema/arquillian
+<?xml version="1.0" encoding="UTF-8"?>
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://jboss.org/schema/arquillian"
+            xsi:schemaLocation="http://jboss.org/schema/arquillian
         http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
-    <container	qualifier="jboss" default="true">
+    <container qualifier="jboss" default="true">
         <configuration>
             <property name="managementAddress">localhost</property>
             <property name="managementPort">9990</property>
+            <property name="jbossHome">C://wildfly-8.2.0.Final</property>
+            <property name="javaHome"> C://Program Files//Java//jdk1.8.0_31</property>
         </configuration>
     </container>
 </arquillian>

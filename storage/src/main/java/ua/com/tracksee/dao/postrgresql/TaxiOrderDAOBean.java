@@ -136,8 +136,6 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         return (int) Math.ceil(generalOrderCount.intValue() / (double) TO_ORDERS_PER_PAGE);
     }
 
-
-
     /**
      * @author Katia Stetsiuk
      */
