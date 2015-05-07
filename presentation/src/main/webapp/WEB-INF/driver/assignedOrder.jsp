@@ -18,6 +18,23 @@
 
   <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script>
+    function changeStatus(el) {
+      alert(el.parentNode.parentNode.getElementsByTagName("input"));
+      var inputs = el.parentNode.parentNode.getElementsByTagName("input");
+      var trackingNumber = inputs[0];
+      var status = inputs[1];
+      alert(trackingNumber.value + " trackingNumber");
+      alert(status.value + " status");
+      //$.post("assigned-order", {trackingNumber: trackingNumber, orderStatus: status});
+
+    }
+
+    function getOrders() {
+      $.get("assigned-order");
+    }
+  </script>
   <!-- Bootstrap Core CSS -->
   <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -53,6 +70,13 @@
       <!-- /.col-lg-12 -->
     </div>
 
+    <form>
+      <a href="javascript:;">
+        <button type="button" class="btn btn-success" onclick="changeStatus(this)">Refuse</button></a>
+      <input type="hidden" name="trackingNumber" value=${order.trackingNumber}/>
+      <input type="hidden" name="orderStatus" value="Refused"/>
+    </form>
+
     <!-- /.row -->
     <div class="row">
       <div class="col-lg-12">
@@ -87,12 +111,18 @@
                       </td>
                       <td>${order.price}</td>
                     <td>
-                      <form action="assigned-order" method="post">
-                        <a href="javascript:;" onclick="parentNode.submit();">
-                          <button type="button" class="btn btn-success">Refuse</button></a>
-                        <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
-                        <input type="hidden" name="orderStatus" value="Refused">
-                      </form>
+                      <%--<form action="assigned-order" method="post">--%>
+                        <%--<a href="javascript:;" onclick="parentNode.submit();">--%>
+                          <%--<button type="button" class="btn btn-success">Refuse</button></a>--%>
+                        <%--<input type="hidden" name="trackingNumber" value=${order.trackingNumber}>--%>
+                        <%--<input type="hidden" name="orderStatus" value="Refused">--%>
+                      <%--</form>--%>
+                        <form>
+                          <a href="javascript:;">
+                            <button type="button" class="btn btn-success" onclick="changeStatus(this)">Refuse</button></a>
+                          <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
+                          <input type="hidden" name="orderStatus" value="Refused">
+                        </form>
                     </td>
                     <td>
                       <c:set var="inputDisplay" value="IN_PROGRESS" />
@@ -101,9 +131,15 @@
                           <button type="button" class="btn btn-warning">In progress</button>
                         </c:when>
                         <c:otherwise>
-                          <form action="assigned-order" method="post">
-                            <a href="javascript:;" onclick="parentNode.submit();">
-                              <button type="button" class="btn btn-success">In progress</button></a>
+                          <%--<form action="assigned-order" method="post">--%>
+                            <%--<a href="javascript:;" onclick="parentNode.submit();">--%>
+                              <%--<button type="button" class="btn btn-success">In progress</button></a>--%>
+                            <%--<input type="hidden" name="trackingNumber" value=${order.trackingNumber}>--%>
+                            <%--<input type="hidden" name="orderStatus" value="In progress">--%>
+                          <%--</form>--%>
+                          <form>
+                            <a href="javascript:;">
+                              <button type="button" class="btn btn-success" onclick="changeStatus(this)">In progress</button></a>
                             <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
                             <input type="hidden" name="orderStatus" value="In progress">
                           </form>
@@ -111,12 +147,18 @@
                       </c:choose>
                     </td>
                     <td>
-                      <form action="assigned-order" method="post">
-                        <a href="javascript:;" onclick="parentNode.submit();">
-                          <button type="button" class="btn btn-success">Complete</button></a>
-                        <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
-                        <input type="hidden" name="orderStatus" value="Completed">
-                      </form>
+                      <%--<form action="assigned-order" method="post">--%>
+                        <%--<a href="javascript:;" onclick="parentNode.submit();">--%>
+                          <%--<button type="button" class="btn btn-success">Complete</button></a>--%>
+                        <%--<input type="hidden" name="trackingNumber" value=${order.trackingNumber}>--%>
+                        <%--<input type="hidden" name="orderStatus" value="Completed">--%>
+                      <%--</form>--%>
+                        <form>
+                          <a href="javascript:;">
+                            <button type="button" class="btn btn-success" onclick="changeStatus(this)">Complete</button></a>
+                          <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
+                          <input type="hidden" name="orderStatus" value="Completed">
+                        </form>
                     </td>
 
                   </tr>
@@ -149,6 +191,7 @@
   <!-- /#page-wrapper -->
 
 </div>
+
 <!-- /#wrapper -->
 
 <!-- jQuery Version 1.11.2 -->

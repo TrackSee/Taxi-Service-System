@@ -1,5 +1,6 @@
 package ua.com.tracksee.servlets.driver;
 
+import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.logic.driver.DriverOrderBean;
@@ -27,24 +28,27 @@ public class AssignedOrderServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        trackingNumber = req.getParameter("trackingNumber");
-        orderStatus = req.getParameter("orderStatus");
-        if(orderStatus != null) {
-            if(orderStatus.equals("Refused")){
-                driverOrderBean.setRefusedOrder(trackingNumber);
-            } else if(orderStatus.equals("In progress")){
-                driverOrderBean.setInProgressOrder(trackingNumber);
-            }
-            else if(orderStatus.equals("Completed")){
-                driverOrderBean.setCompletedOrder(trackingNumber);
-            }
-        }
+//        trackingNumber = req.getParameter("trackingNumber");
+//        orderStatus = req.getParameter("orderStatus");
+//        if(orderStatus != null) {
+//            if(orderStatus.equals("Refused")){
+//                driverOrderBean.setRefusedOrder(trackingNumber);
+//            } else if(orderStatus.equals("In progress")){
+//                driverOrderBean.setInProgressOrder(trackingNumber);
+//            }
+//            else if(orderStatus.equals("Completed")){
+//                driverOrderBean.setCompletedOrder(trackingNumber);
+//            }
+//        }
         //timeCarArrive = req.getParameter("carArriveTime");
-        if(trackingNumber != null) {
-            driverOrderBean.setAssignOrder(id, trackingNumber, timeCarArrive);
-        }
-        req.setAttribute("orders", driverOrderBean.getAssignedOrders(id));
-        req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
+//        if(trackingNumber != null) {
+//            driverOrderBean.setAssignOrder(id, trackingNumber, timeCarArrive);
+//        }
+//        req.setAttribute("orders", driverOrderBean.getAssignedOrders(id));
+//        req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
+
+        Gson gson = new Gson();
+
     }
 
     @Override
