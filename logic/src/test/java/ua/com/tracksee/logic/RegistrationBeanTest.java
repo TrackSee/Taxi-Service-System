@@ -1,5 +1,6 @@
 package ua.com.tracksee.logic;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -15,11 +16,15 @@ import ua.com.tracksee.dao.postrgresql.UserDAOBean;
 import ua.com.tracksee.dao.postrgresql.exceptions.CarNotFoundException;
 import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entity.Group;
 import ua.com.tracksee.enumartion.Sex;
 import ua.com.tracksee.error.PersistError;
+import ua.com.tracksee.json.TaxiOrderDTO;
 import ua.com.tracksee.logic.exception.RegistrationException;
+import ua.com.tracksee.logic.group.GroupUpdateAction;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 
 import java.io.File;
 
@@ -50,10 +55,15 @@ public class RegistrationBeanTest {
                 .addPackage(PGBinaryObject.class.getPackage())
                 .addPackage(ServiceUserEntity.class.getPackage())
                 .addPackage(UserDAOBean.class.getPackage())
+                .addPackage(Group.class.getPackage())
                 .addClass(ServiceUserNotFoundException.class)
                 .addPackage(Sex.class.getPackage())
                 .addPackage(UserDAO.class.getPackage())
                 .addPackage(RegistrationBean.class.getPackage())
+                .addPackage(RegistrationException.class.getPackage())
+                .addPackage(GroupUpdateAction.class.getPackage())
+                .addPackage(TaxiOrderDTO.class.getPackage())
+                .addPackage(EmailValidator.class.getPackage())
                 .addAsResource("META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
