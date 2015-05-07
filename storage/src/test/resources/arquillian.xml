@@ -7,8 +7,6 @@
         <configuration>
             <property name="managementAddress">localhost</property>
             <property name="managementPort">9990</property>
-            <property name="jbossHome">C://wildfly-8.2.0.Final</property>
-            <property name="javaHome"> C://Program Files//Java//jdk1.8.0_31</property>
         </configuration>
     </container>
 </arquillian>
