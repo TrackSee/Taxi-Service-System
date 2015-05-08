@@ -37,13 +37,11 @@ public class SignUpServlet extends HttpServlet {
 
         try {
             controller.registerCustomerUser(email, password, phoneNumber);
+            logger.info("Successful sign up. User: {}", email);
+            req.getRequestDispatcher("/WEB-INF/accounts/checkEmail.jsp").forward(req, resp);
         } catch (RegistrationException e) {
             logger.warn(e.getMessage());
             resp.getWriter().append(e.getErrorType());
-            return;
         }
-
-        logger.info("Successful sign up. User: {}", email);
-        req.getRequestDispatcher("/WEB-INF/accounts/checkEmail.jsp").forward(req, resp);
     }
 }

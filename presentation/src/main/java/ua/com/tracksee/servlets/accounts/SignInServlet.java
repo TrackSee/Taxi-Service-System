@@ -2,6 +2,7 @@ package ua.com.tracksee.servlets.accounts;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.AttributeNames;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
@@ -16,6 +17,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 import static java.lang.Boolean.TRUE;
+import static ua.com.tracksee.AttributeNames.USER_EMAIL;
+import static ua.com.tracksee.AttributeNames.USER_ID;
 
 /**
  * @author Ruslan Gunavardana
@@ -43,15 +46,7 @@ public class SignInServlet extends HttpServlet {
         }
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-
         logger.debug("User attempts to authorise {}", email);
-        try {
-            req.login(email, password);
-        } catch (ServletException e) {
-            logger.warn(e.getMessage());
-            resp.getWriter().append(ERROR);
-            return;
-        }
 
         ServiceUserEntity user = userDAO.getUserByEmail(email);
         if (user == null || !Objects.equals(user.getPassword(), password) || user.getActivated() != TRUE) {
@@ -60,7 +55,14 @@ public class SignInServlet extends HttpServlet {
         }
         session = req.getSession(true);
         session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_INTERVAL);
-        session.setAttribute("userId", user.getUserId());
-        session.setAttribute("email", email);
+        session.setAttribute(USER_ID, user.getUserId());
+        session.setAttribute(USER_EMAIL, email);
+
+        try {
+            req.login(email, password);
+        } catch (ServletException e) {
+            logger.warn(e.getMessage());
+            resp.getWriter().append(ERROR);
+        }
     }
 }
