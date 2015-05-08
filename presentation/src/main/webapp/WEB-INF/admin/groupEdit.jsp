@@ -33,17 +33,19 @@
 
 </head>
 <body class="container">
-
-<%--<jsp:include page="menu.jsp"/>--%>
+<div id="wrapper">
+    <jsp:include page="adminHeader.jsp"/>
+    <%--<jsp:include page="menu.jsp"/>--%>
+</div>
 
 <%--<div id="alert-danger-group-name" class="alert alert-danger alert-dismissible" role="alert"></div>--%>
 <div id="wrapper">
 
-    <jsp:include page="<%=application.getContextPath()%>/WEB-INF/parts/header.jsp"/>
+    <%--<jsp:include page='<%=application.getContextPath()%>/WEB-INF/parts/header.jsp'/>--%>
 
     <div class="form-group" id="search">
         <input id="input1" type="text" class="form-control" placeholder="Search"
-               oninput="getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'),
+               oninput="getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_GROUPS'),
           SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), pageNumber)">
     </div>
 
@@ -64,13 +66,13 @@
         <ul class="pager">
             <li>
                 <button id="nextPage" type="submit" class="btn btn-default"
-                        onclick="getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'),
+                        onclick="getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_GROUPS'),
                  SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), --pageNumber)">PREVIOUS
                 </button>
             </li>
             <li>
                 <button id="previousPage" type="submit" class="btn btn-default"
-                        onclick="getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'),
+                        onclick="getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_GROUPS'),
                  SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), ++pageNumber)">NEXT
                 </button>
             </li>
@@ -95,7 +97,7 @@
                     <h3 id="labelGroupName"></h3>
 
                     <input id="inputEmail" type="text" class="form-control" placeholder="Search"
-                           oninput="getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, $('#inputEmail').val(), 1);"/>
+                           oninput="getUsersByInput()"/>
 
                     <input id="groupNameInput" type="text" class="form-control" placeholder="Name"/>
 
@@ -132,13 +134,13 @@
                             <ul class="pager">
                                 <li>
                                     <button id="nextPageUsers" type="submit" class="btn btn-default"
-                                            onclick="getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, $('#inputEmail').val(), --pageNumber)">
+                                            onclick="getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, $('#inputEmail').val(), --pageNumber)">
                                         PREVIOUS
                                     </button>
                                 </li>
                                 <li>
                                     <button id="previousPageUsers" type="submit" class="btn btn-default"
-                                            onclick="getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, $('#inputEmail').val(), ++pageNumber)">
+                                            onclick="getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, $('#inputEmail').val(), ++pageNumber)">
                                         NEXT
                                     </button>
                                 </li>
@@ -156,16 +158,16 @@
             </div>
         </div>
     </div>
-</div>
 
-<jsp:include page="<%=application.getContextPath()%>/WEB-INF/parts/footer.jsp"/>
+<%--<jsp:include page="<%=application.getContextPath()%>/WEB-INF/parts/footer.jsp"/>--%>
 
 <script type="text/javascript"></script>
 <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap3/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/groupEdit.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/groupEdit.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
 
 </body>
 

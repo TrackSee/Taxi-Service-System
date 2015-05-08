@@ -55,7 +55,7 @@ var USER_ATTRIBUTES = (function() {
         'PASSWORD': 'password',
         'PHONE':'phone',
         'SEX': 'sex',
-        'IS_DRIVER': 'isDriver',
+        'IS_DRIVER': 'driver',
         'IS_ADMIN': 'admin',
         'GROUP_NAME': 'groupName',
         'DRIVER_LICENSE': 'driverLicense',
@@ -71,13 +71,27 @@ var USER_ATTRIBUTES = (function() {
     };
 })();
 
+var SERVLETS = (function() {
+    var private = {
+        'GROUP_EDIT_SERVLET': 'group',
+        'GROUP_COUNT_SERVLET': 'groupCount',
+        'GROUP_EXIST_SERVLET': 'groupExist'
+    };
+    return {
+        get: function (name) {
+            return private[name];
+        }
+    };
+})();
+
 var COLOR_CHOSEN = "#0044cc";
 var COLOR_NOT_CHOSEN = "dimgrey";
-var SERVLET_NAME = "GroupServlet";
-var GET_MAX_SIZE = '-1';
+var COUNT = "count";
+var EXIST = "exist";
 var FADE_OUT = 5000;
+var DELAY = 150;
 
-var INPUT_NAME_MESSAGE = "Please input name of the group!";
+var INPUT_NAME_MESSAGE = "Please input correct name of the group!(2 - 30 chars)";
 var NOT_FREE_NAME_MESSAGE = "This group name is not free!";
 var ASSIGN_USERS_MESSAGE = "Please assing user for group!";
 
@@ -92,6 +106,17 @@ var role = "";
 var arrUpdateRoles = [];
 
 var countGroupsBeforeAdd;
+
+var currentdate = new Date();
+
+$(document).ready(function () {
+    $("#alert-danger").hide();
+    $("#alert-danger-group-name").hide();
+    getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_GROUPS'), SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), "", "", 1);
+});
+$(document).ready(function () {
+    $("#removeGroups").hide();
+});
 
 function getPageNum(pageSize1, pageMaxNumber1, pageNumber1) {
     if (pageMaxNumber1 === 0) {
@@ -108,6 +133,23 @@ function getPageNum(pageSize1, pageMaxNumber1, pageNumber1) {
         pageNumber = pageNumber1;
         return pageNumber;
     }
+}
+
+function addGroup() {
+    $.get(SERVLETS.get('GROUP_EXIST_SERVLET'), {groupName : groupName}, function (responseJson) {
+        $.each(responseJson, function (key, value) {
+            if (value[EXIST] == true) {
+                $("#alert-danger").html(NOT_FREE_NAME_MESSAGE);
+                $("#alert-danger").show();
+                $("#alert-danger").fadeOut(FADE_OUT);
+                groupName = "";
+            } else {
+                manageGroups(SERVLETS.get('GROUP_EDIT_SERVLET'), pageNumber, UPDATE_CONSTANTS.get("ADD_GROUP"),
+                    SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), userIds);
+                location.reload();
+            }
+        });
+    });
 }
 
 function manageGroups(servletName1, pageNumber1, updateAction,  selectAction, selectCountAction, ids1) {
@@ -139,32 +181,24 @@ function getUsers(responseJson) {
         var table2 = $("#usersTable");
         var previousUserGroup;
         $.each(responseJson, function (key, value) {
-            if (value[USER_ATTRIBUTES.get('EMAIL')] !== "") {
-                var rowNew = $("<tr class='active'><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
-                var currentId = value[USER_ATTRIBUTES.get('USER_ID')];
-                rowNew.children().eq(0).text(currentId);
-                rowNew.children().eq(1).text(value[USER_ATTRIBUTES.get('EMAIL')]);
-                rowNew.children().eq(2).text(value[USER_ATTRIBUTES.get('PHONE')]);
+            var rowNew = $("<tr class='active'><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
+            var currentId = value[USER_ATTRIBUTES.get('USER_ID')];
+            rowNew.children().eq(0).text(currentId);
+            rowNew.children().eq(1).text(value[USER_ATTRIBUTES.get('EMAIL')]);
+            rowNew.children().eq(2).text(value[USER_ATTRIBUTES.get('PHONE')]);
 
-                var isDriver = value[USER_ATTRIBUTES.get('IS_DRIVER')];
-                var isAdmin = value[USER_ATTRIBUTES.get('IS_ADMIN')];
-                rowNew.children().eq(3).html(selectRole(isDriver, currentId, 'isDriver'));
-                rowNew.children().eq(4).html(selectRole(isAdmin, currentId, 'isAdmin'));
+            var isDriver = value[USER_ATTRIBUTES.get('IS_DRIVER')];
+            var isAdmin = value[USER_ATTRIBUTES.get('IS_ADMIN')];
 
-                var currentUserGroup = value[USER_ATTRIBUTES.get('GROUP_NAME')];
-                rowNew.children().eq(5).text(currentUserGroup);
+            rowNew.children().eq(3).html(selectRole(isDriver, currentId, 'isDriver'));
+            rowNew.children().eq(4).html(selectRole(isAdmin, currentId, 'isAdmin'));
 
-                rowNew.children().eq(6).html(selectActionForUser(currentId, currentUserGroup));
+            var currentUserGroup = value[USER_ATTRIBUTES.get('GROUP_NAME')];
+            rowNew.children().eq(5).text(currentUserGroup);
 
-                rowNew.appendTo(table2);
-            } else {
-                pageMaxNumber = value[USER_ATTRIBUTES.get('USER_ID')];
-                //if (value[USER_ATTRIBUTES.get('USER_ID')] === GET_MAX_SIZE) {
-                //    $("#alert-danger").show();
-                //} else {
-                //      pageMaxNumber = value[USER_ATTRIBUTES.get('USER_ID')];
-                //}
-            }
+            rowNew.children().eq(6).html(selectActionForUser(currentId, currentUserGroup));
+
+            rowNew.appendTo(table2);
         });
     }
 }
@@ -185,32 +219,32 @@ function selectActionForUser(id, group) {
 }
 
 function selectRole(el, id, action) {
+    var unselected = "<input type='checkbox' onchange='updateRolesIds(this)'>";
+    var selected = "<input type='checkbox' onchange='updateRolesIds(this)' checked>";
     for (var o in arrUpdateRoles) {
         var obj = arrUpdateRoles[o];
-        if (obj['id'] === ("" + id)) {
-            if (obj[action] === ("" + true)) {
-                return "<select class='form-control' data-style='btn-success' onchange='updateRolesIds(this)'><option value='true'>true</option><option value='false'>false</option></select>";
+        if (obj['id'] == id) {
+            if (obj[action] == true) {
+                return selected;
             } else {
-                return "<select class='form-control' data-style='btn-success' onchange='updateRolesIds(this)'><option value='false'>false</option><option value='true'>true</option></select>";
+                return unselected;
             }
         }
     }
-    if (el === true) {
-        return "<select class='form-control' data-style='btn-success' onchange='updateRolesIds(this)'><option value='true'>true</option><option value='false'>false</option></select>";
+    if (el == true) {
+        return selected;
     } else {
-        return "<select class='form-control' data-style='btn-success' onchange='updateRolesIds(this)'><option value='false'>false</option><option value='true'>true</option></select>";
+        return unselected;
     }
 }
 
 function updateRolesIds(el) {
     var id = el.parentNode.parentNode.getElementsByTagName("td")[0].innerHTML;
-    var buf = el.parentNode.parentNode.getElementsByTagName("td")[4].getElementsByTagName("select")[0];
-    var isAdmin = buf.options[buf.selectedIndex].value;
-    buf = el.parentNode.parentNode.getElementsByTagName("td")[3].getElementsByTagName("select")[0];
-    var isDriver = buf.options[buf.selectedIndex].value;
+    var isAdmin = el.parentNode.parentNode.getElementsByTagName("td")[4].getElementsByTagName("input")[0].checked;
+    var isDriver = el.parentNode.parentNode.getElementsByTagName("td")[3].getElementsByTagName("input")[0].checked;
     for (var o in arrUpdateRoles) {
         var obj = arrUpdateRoles[o];
-        if (obj['id'] === ("" + id)) {
+        if (obj['id'] ==  id) {
             obj['isAdmin'] = isAdmin;
             obj['isDriver'] = isDriver;
         }
@@ -239,20 +273,17 @@ function getGroups(responseJson) {
         $("#groupsTable").find("tr:gt(0)").remove();
         var table1 = $("#groupsTable");
         $.each(responseJson, function (key, value) {
-            if (value[GROUP_ATTRIBUTES.get('GROUP_NAME')] != "") {
-                var index = groupIds.indexOf(value[GROUP_ATTRIBUTES.get('GROUP_NAME')]);
-                if (index >= 0) {
-                    var rowNew = $("<tr style='color: #0044cc' onclick='onClickGroup(this)'><td></td><td></td><td></td></tr>");
-                } else {
-                    var rowNew = $("<tr style='color: dimgrey' onclick='onClickGroup(this)'><td></td><td></td><td></td></tr>");
-                }
-                rowNew.children().eq(0).text(value[GROUP_ATTRIBUTES.get('GROUP_NAME')]);
-                rowNew.children().eq(1).text(value[GROUP_ATTRIBUTES.get('COUNT_USERS')]);
-                rowNew.children().eq(2).html('<button id="editGroup" class="btn btn-primary" onclick="onClickEditGroup(this)" data-toggle="modal" data-target="#largeModal" >Edit</button>');
-                rowNew.appendTo(table1);
+            var index = groupIds.indexOf(value[GROUP_ATTRIBUTES.get('GROUP_NAME')]);
+            if (index >= 0) {
+                var rowNew = $("<tr style='color: #0044cc' onclick='onClickGroup(this)'><td></td><td></td><td></td></tr>");
             } else {
-                pageMaxNumber = value['countUsers'];
+                var rowNew = $("<tr style='color: dimgrey' onclick='onClickGroup(this)'><td></td><td></td><td></td></tr>");
             }
+            rowNew.children().eq(0).text(value[GROUP_ATTRIBUTES.get('GROUP_NAME')]);
+            rowNew.children().eq(1).text(value[GROUP_ATTRIBUTES.get('COUNT_USERS')]);
+            rowNew.children().eq(2).html('<button id="editGroup" class="btn btn-primary" onclick="onClickEditGroup(this)"' +
+                ' data-toggle="modal" data-target="#largeModal" >Edit</button>');
+            rowNew.appendTo(table1);
         });
     }
 }
@@ -260,8 +291,14 @@ function getGroups(responseJson) {
 function getGroupUserData(servletName, selectAction, selectCountAction, groupName, userEmail, pageNumber1) {
     if ((pageSize > 0) && (pageNumber > 0)) {
         pageNumber1 = getPageNum(pageSize, pageMaxNumber, pageNumber);
+        $.get(SERVLETS.get('GROUP_COUNT_SERVLET'), {groupName: groupName, userEmail: userEmail,
+            selectCountAction: selectCountAction}, function (responseJson) {
+            $.each(responseJson, function (key, value) {
+                pageMaxNumber = value[COUNT];
+            });
+        });
         $.get(servletName, {pageSize: pageSize, pageNumber: pageNumber1, groupName: groupName, userEmail: userEmail,
-            selectAction: selectAction, selectCountAction: selectCountAction}, function (responseJson) {
+            selectAction: selectAction}, function (responseJson) {
             if (selectAction === SELECT_CONSTANTS.get('SELECT_GROUPS')) {
                 getGroups(responseJson);
             } else if (selectAction === SELECT_CONSTANTS.get('SELECT_USERS')) {
@@ -274,15 +311,6 @@ function getGroupUserData(servletName, selectAction, selectCountAction, groupNam
     }
 }
 
-$(document).ready(function () {
-    $("#alert-danger").hide();
-    $("#alert-danger-group-name").hide();
-    getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'), SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), "", "", 1);
-});
-$(document).ready(function () {
-    $("#removeGroups").hide();
-});
-
 function onClickEditGroup(el) {
     pageNumber = 1;
     groupName = el.parentNode.parentNode.getElementsByTagName("td")[0].innerHTML;
@@ -291,7 +319,7 @@ function onClickEditGroup(el) {
     $("#labelGroupName").text("Group: " + groupName);
     $("#labelGroupName").show();
     $("#groupNameInput").hide();
-    getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, '', 1);
+    getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, '', 1);
 }
 
 function onClickGroup(el) {
@@ -312,7 +340,7 @@ function onClickGroup(el) {
 }
 
 function removeGroups() {
-    manageGroups(SERVLET_NAME, pageNumber, UPDATE_CONSTANTS.get("REMOVE_GROUPS"),
+    manageGroups(SERVLETS.get('GROUP_EDIT_SERVLET'), pageNumber, UPDATE_CONSTANTS.get("REMOVE_GROUPS"),
         SELECT_CONSTANTS.get('SELECT_GROUPS'), SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), groupIds);
 }
 
@@ -321,7 +349,7 @@ function onClickAddGroup() {
     $("#labelGroupName").hide();
     $("#groupNameInput").show();
     $("#groupRole").show();
-    getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, '', 1);
+    getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, '', 1);
     countGroupsBeforeAdd = pageMaxNumber;
 }
 
@@ -335,35 +363,25 @@ function onCansel() {
     userIds = [];
     arrUpdateRoles = [];
     pageNumber = 1;
-    getGroupUserData(SERVLET_NAME, SELECT_CONSTANTS.get('SELECT_GROUPS'),
+    getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_GROUPS'),
         SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), pageNumber);
 }
 
 function saveChanges() {
     if (userIds.length > 0) {
-        if (groupName === "") {
+        if (groupName == "") {
             groupName = $("#groupNameInput").val();
-            if (groupName !== "") {
-                manageGroups(SERVLET_NAME, pageNumber, UPDATE_CONSTANTS.get("ADD_GROUP"),
-                    SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), userIds);
-                location.reload();
-                //onCansel();
-                //$("#largeModal").hide();
-                //if (countGroupsBeforeAdd >= pageMaxNumber ) {
-                //    $("#alert-danger").html(NOT_FREE_NAME_MESSAGE);
-                //    $("#alert-danger").show();
-                //    $("#alert-danger").fadeOut(1000);
-                //}
+            if ((groupName.length > 1) && (groupName.length < 30)) {
+                addGroup();
             } else {
                 $("#alert-danger").html(INPUT_NAME_MESSAGE);
                 $("#alert-danger").show();
                 $("#alert-danger").fadeOut(FADE_OUT);
+                groupName = "";
             }
         } else {
-            manageGroups(SERVLET_NAME, pageNumber, UPDATE_CONSTANTS.get("UPDATE_GROUP"),
+            manageGroups(SERVLETS.get('GROUP_EDIT_SERVLET'), pageNumber, UPDATE_CONSTANTS.get("UPDATE_GROUP"),
                 SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), userIds);
-            //onCansel();
-            //$("#largeModal").hide();
             location.reload();
         }
     } else {
@@ -372,11 +390,18 @@ function saveChanges() {
             $("#alert-danger").show();
             $("#alert-danger").fadeOut(FADE_OUT);
         } else {
-            manageGroups(SERVLET_NAME, pageNumber, UPDATE_CONSTANTS.get("UPDATE_GROUP"),
+            manageGroups(SERVLETS.get('GROUP_EDIT_SERVLET'), pageNumber, UPDATE_CONSTANTS.get("UPDATE_GROUP"),
                 SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), userIds);
             location.reload();
-            //onCansel();
-            //$("#largeModal").hide();
         }
     }
+}
+
+function getUsersByInput() {
+    var inputStart = $('#inputEmail').val();
+    var date = new Date();
+    if (date - currentdate > DELAY) {
+        getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, inputStart, 1);
+    }
+    currentdate = new Date();
 }
