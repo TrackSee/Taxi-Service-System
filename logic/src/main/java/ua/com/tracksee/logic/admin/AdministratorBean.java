@@ -2,7 +2,7 @@ package ua.com.tracksee.logic.admin;
 
 import ua.com.tracksee.dao.CarDAO;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.dao.postrgresql.ServiceUserDaoBeen;
+import ua.com.tracksee.dao.implementation.ServiceUserDaoBeen;
 import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.error.PersistError;
