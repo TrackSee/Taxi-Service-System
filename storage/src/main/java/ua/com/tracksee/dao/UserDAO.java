@@ -79,7 +79,7 @@ public interface UserDAO {
     void createUser(ServiceUserEntity serviceUserEntity);
 
     /**
-     * @throws ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException when there
+     * @throws ua.com.tracksee.dao.implementation.exceptions.ServiceUserNotFoundException when there
      *                                                                                 is no service user with such id
      */
     ServiceUserEntity getDriverByID(int id);
