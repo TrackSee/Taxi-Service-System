@@ -91,9 +91,9 @@ var EXIST = "exist";
 var FADE_OUT = 5000;
 var DELAY = 150;
 
-var INPUT_NAME_MESSAGE = "Please input correct name of the group!(2 - 30 chars)";
-var NOT_FREE_NAME_MESSAGE = "This group name is not free!";
-var ASSIGN_USERS_MESSAGE = "Please assing user for group!";
+var INPUT_NAME_MESSAGE = "Please input correct name of the group(2 - 30 characters)";
+var NOT_FREE_NAME_MESSAGE = "This group name is not free";
+var ASSIGN_USERS_MESSAGE = "Please assing user for group";
 
 var pageNumber = 1;
 var pageSize = 5;
