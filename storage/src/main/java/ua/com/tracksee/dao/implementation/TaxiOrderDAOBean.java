@@ -1,13 +1,9 @@
-package ua.com.tracksee.dao.postrgresql;
+package ua.com.tracksee.dao.implementation;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
-import ua.com.tracksee.entities.MostPopularOption;
-import ua.com.tracksee.entities.ServiceProfitable;
-import ua.com.tracksee.entities.ServiceUserEntity;
-import ua.com.tracksee.entities.TaxiOrderEntity;
-import ua.com.tracksee.entities.TaxiOrderItemEntity;
+import ua.com.tracksee.entities.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -201,30 +197,32 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     }
 
     @Override
-    public List<TaxiOrderEntity> getActiveOrdersPerPage(int partNumber) {
-        if (partNumber <= 0) {
-            logger.error("partNumber can't be <= 0");
-            throw new IllegalArgumentException("partNumber can't be <= 0");
+    public List<TaxiOrderEntity> getCustomerActiveOrdersPerPage(int userID, int partNumber) {
+        if (partNumber <= 0 || userID < 0) {
+            logger.error("One of params is wrong!");
+            throw new IllegalArgumentException("One of params is wrong!");
         }
-        Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order WHERE status != " +
+        Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order WHERE user_id =?1 AND status != " +
                 "'COMPLETED' " +
-                "ORDER BY ordered_date DESC LIMIT ?1 OFFSET ?2", TaxiOrderEntity.class);
-        query.setParameter(1, TO_ORDERS_PER_PAGE);
-        query.setParameter(2, (partNumber - 1) * TO_ORDERS_PER_PAGE);
+                "ORDER BY ordered_date DESC LIMIT ?2 OFFSET ?3", TaxiOrderEntity.class);
+        query.setParameter(1, userID);
+        query.setParameter(2, TO_ORDERS_PER_PAGE);
+        query.setParameter(3, (partNumber - 1) * TO_ORDERS_PER_PAGE);
         return query.getResultList();
     }
 
     @Override
-    public List<TaxiOrderEntity> getOldOrdersPerPage(int partNumber) {
-        if (partNumber <= 0) {
-            logger.error("partNumber can't be <= 0");
-            throw new IllegalArgumentException("partNumber can't be <= 0");
+    public List<TaxiOrderEntity> getCustomerOldOrdersPerPage(int userID, int partNumber) {
+        if (partNumber <= 0 || userID < 0) {
+            logger.error("One of params is wrong!");
+            throw new IllegalArgumentException("One of params is wrong!");
         }
-        Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order WHERE status = " +
+        Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order WHERE user_id=?1 AND status = " +
                 "'COMPLETED' " +
-                "ORDER BY ordered_date DESC LIMIT ?1 OFFSET ?2", TaxiOrderEntity.class);
-        query.setParameter(1, TO_ORDERS_PER_PAGE);
-        query.setParameter(2, (partNumber - 1) * TO_ORDERS_PER_PAGE);
+                "ORDER BY ordered_date DESC LIMIT ?2 OFFSET ?3", TaxiOrderEntity.class);
+        query.setParameter(1, userID);
+        query.setParameter(2, TO_ORDERS_PER_PAGE);
+        query.setParameter(3, (partNumber - 1) * TO_ORDERS_PER_PAGE);
         return query.getResultList();
     }
 

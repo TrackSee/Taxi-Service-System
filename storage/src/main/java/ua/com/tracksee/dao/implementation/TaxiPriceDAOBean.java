@@ -1,4 +1,4 @@
-package ua.com.tracksee.dao.postrgresql;
+package ua.com.tracksee.dao.implementation;
 
 import ua.com.tracksee.dao.TaxiPriceDAO;
 import ua.com.tracksee.entities.TaxiPriceEntity;

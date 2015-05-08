@@ -13,7 +13,7 @@ $(document).ready(function () {
             var email = value;
             keyUpTimeout = setTimeout(function() { $.ajax({
                 type: 'POST',
-                url: 'searchdriver',
+                url: 'customerbysearch',
                 data: {email: email},
                 success: function(data){
                     var usersArray = JSON.parse(data);

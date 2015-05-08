@@ -76,8 +76,8 @@ public interface TaxiOrderDAO {
      */
     List<TaxiOrderEntity> getOrdersPerPage(int partNumber);
 
-    List<TaxiOrderEntity> getActiveOrdersPerPage(int partNumber);
-    List<TaxiOrderEntity> getOldOrdersPerPage(int partNumber);
+    List<TaxiOrderEntity> getCustomerActiveOrdersPerPage(int userID, int partNumber);
+    List<TaxiOrderEntity> getCustomerOldOrdersPerPage(int userID, int partNumber);
 
     /**
      * @author Vadym Akymov

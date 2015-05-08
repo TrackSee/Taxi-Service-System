@@ -1,9 +1,9 @@
-package ua.com.tracksee.dao.postrgresql;
+package ua.com.tracksee.dao.implementation;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
+import ua.com.tracksee.dao.implementation.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
@@ -43,7 +43,7 @@ public class UserDAOBean implements UserDAO {
 }
 
     /**
-     * @author KatiaStetsiul
+     * @author KatiaStetsiuk
      * @return
      */
     @Override
@@ -58,6 +58,14 @@ public class UserDAOBean implements UserDAO {
 
         Query query = entityManager.createNativeQuery("SELECT email FROM service_user " +
                 "WHERE driver = TRUE ", String.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<ServiceUserEntity> getCustomersByEmail(String email) {
+        Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
+                "WHERE driver = FALSE and email LIKE ? ", ServiceUserEntity.class);
+        query.setParameter(1 ,"%" + email + "%");
         return query.getResultList();
     }
 

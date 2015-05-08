@@ -2,7 +2,7 @@ package ua.com.tracksee.logic.admin;
 
 import ua.com.tracksee.dao.CarDAO;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.dao.postrgresql.ServiceUserDaoBeen;
+import ua.com.tracksee.dao.implementation.ServiceUserDaoBeen;
 import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.error.PersistError;
@@ -86,6 +86,7 @@ public class AdministratorBean {
         userDAO.deleteUser(id);
     }
     public List<ServiceUserEntity> getDriverByEmail(String email){return userDAO.getDriverByEmail(email);};
+    public List<ServiceUserEntity> getCustomersByEmail(String email){return userDAO.getCustomersByEmail(email);};
 
     /**
      * @author Vadym Akymov
@@ -129,5 +130,6 @@ public class AdministratorBean {
     public Collection<? extends ServiceUserEntity> getAll(int start, int countPerPage) {
         return serviceUserDaoBeen.getAll(start, countPerPage);
     }
+
 
 }

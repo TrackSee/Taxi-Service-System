@@ -122,16 +122,16 @@ public class TaxiOrderBean {
      * @author Vadym Akymov
      * @see TaxiOrderDAO
      */
-    public List<TaxiOrderEntity> getActiveOrdersPerPage(int partNumber) {
-        return taxiOrderDAO.getActiveOrdersPerPage(partNumber);
+    public List<TaxiOrderEntity> getActiveOrdersPerPage(int userID, int partNumber) {
+        return taxiOrderDAO.getCustomerActiveOrdersPerPage(userID, partNumber);
     }
 
     /**
      * @author Vadym Akymov
      * @see TaxiOrderDAO
      */
-    public List<TaxiOrderEntity> getOldOrdersPerPage(int partNumber) {
-        return taxiOrderDAO.getOldOrdersPerPage(partNumber);
+    public List<TaxiOrderEntity> getOldOrdersPerPage(int userID, int partNumber) {
+        return taxiOrderDAO.getCustomerOldOrdersPerPage(userID, partNumber);
     }
 
     /**

@@ -1,4 +1,4 @@
-package ua.com.tracksee.dao.postrgresql.exceptions;
+package ua.com.tracksee.dao.implementation.exceptions;
 
 /**
  * Created by Katia Stetsiuk on 28-Apr-15.
