@@ -16,37 +16,21 @@
     <meta name="author" content="">
 
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
-
-    <!-- Bootstrap Core CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
           rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"
           rel="stylesheet">
-
-    <!-- Custom CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/dist/css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css"
           rel="stylesheet" type="text/css">
-
-
 </head>
-
 <body>
-
-
-
 <div id="wrapper">
     <jsp:include page="adminHeader.jsp"/>
-
     <div id="page-wrapper">
         <div>
             <input type="text" id="search" name="search" class="form-control" placeholder="search">
-
-        </div>
+         </div>
         <table class="table">
             <thead>
             <tr>
@@ -59,7 +43,7 @@
             <tbody id="table-body">
             <c:forEach items="${requestScope.drivers}" var="driver">
                 <tr>
-                    <%--TODO add reference on DASHBOARD --%>
+                        <%--TODO add reference on DASHBOARD --%>
                     <td><a href="driver?id=${driver.userId}">${driver.email}</a></td>
                     <td>${driver.phone != null? driver.phone : "-"}</td>
                     <td>${driver.sex}</td>
@@ -68,29 +52,12 @@
             </c:forEach>
             </tbody>
         </table>
-
-    </div>
-    <!-- /#page-wrapper -->
+        </div>
 </div>
-<!-- /#wrapper -->
-
-<!-- jQuery -->
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-<!-- Metis Menu Plugin JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
-<%--for pagination--%>
-<%--<script src="<%=application.getContextPath()%>/resources/admin/js/search.js"></script>--%>
 <script src="<%=application.getContextPath()%>/resources/admin/js/keyup.js"></script>
-
-
-
 </body>
-
 </html>

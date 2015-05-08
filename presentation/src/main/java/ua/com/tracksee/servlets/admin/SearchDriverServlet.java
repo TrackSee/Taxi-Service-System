@@ -1,7 +1,7 @@
 package ua.com.tracksee.servlets.admin;
 
 /**
- * Created by kstes_000 on 03-May-15.
+ * Created by Katia Stetsiuk
  */
 
 import org.apache.logging.log4j.LogManager;
@@ -20,34 +20,38 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet("/admin/driverbysearch")
-public class DriverBySearch extends HttpServlet {
-    private static Logger logger = LogManager.getLogger();
+@WebServlet("/admin/searchdriver")
+public class SearchDriverServlet extends HttpServlet {
+    private String drivers = "drivers";
+    private String email= "email";
 
     @EJB
     private AdministratorBean administratorBean;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String dr = req.getParameter("drivers");
-        req.getRequestDispatcher("/WEB-INF/admin/driverbysearch.jsp").forward(req, resp);
-
+        req.getRequestDispatcher("/WEB-INF/admin/searchDriver.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String email = req.getParameter("email");
-        req.setAttribute("email", email);
-        List<ServiceUserEntity> drivers = administratorBean.getDriverByEmail(email);
-        req.setAttribute("drivers", drivers);
-        resp.getWriter().write(getJsonFromList(drivers));
+        String driverEmail = req.getParameter(email);
+        req.setAttribute(email, driverEmail);
+        List<ServiceUserEntity> driverList = administratorBean.getDriverByEmail(driverEmail);
+        req.setAttribute(drivers, driverList);
+        resp.getWriter().write(getJsonFromList(driverList));
     }
 
-    private String getJsonFromList(List<ServiceUserEntity> drivers) {
+    /**
+     *
+     * @param driverList list od drivers to convert into JSON
+     * @return String of JSON
+     */
+    private String getJsonFromList(List<ServiceUserEntity> driverList) {
         ObjectMapper mapper = new ObjectMapper();
         String json = null;
         try {
-            json = mapper.writeValueAsString(drivers);
+            json = mapper.writeValueAsString(driverList);
         } catch (IOException e) {
             json = "";
         }
