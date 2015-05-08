@@ -32,14 +32,14 @@ public class CustomerProfileServlet extends HttpServlet {
             dataType = "old";
             System.out.println("default!");
         }
-        System.out.println("dataType: "  + dataType);
+        Integer userID = (Integer) request.getSession().getAttribute("userId");
         request.setAttribute("type", dataType);
         if ("old".equals(dataType)) {
-            List<TaxiOrderEntity> orders = taxiOrderBean.getOldOrdersPerPage(1);
+            List<TaxiOrderEntity> orders = taxiOrderBean.getOldOrdersPerPage(userID, 1);
             request.setAttribute("pagesCount", taxiOrderBean.getOldTaxiOrderPagesCount());
             request.setAttribute("orders", orders);
         } else if("active".equals(dataType)){
-            List<TaxiOrderEntity> orders = taxiOrderBean.getActiveOrdersPerPage(1);
+            List<TaxiOrderEntity> orders = taxiOrderBean.getActiveOrdersPerPage(userID, 1);
             request.setAttribute("pagesCount", taxiOrderBean.getActiveTaxiOrderPagesCount());
             request.setAttribute("orders", orders);
         } else {

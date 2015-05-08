@@ -29,13 +29,14 @@ public class GetOrdersPerPage extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String dataType = req.getParameter("type");
         Integer pageNumber = Integer.parseInt(req.getParameter("pageNumber"));
+        Integer userID = (Integer) req.getSession().getAttribute("userId");
         if ("old".equals(dataType)) {
-            List<TaxiOrderEntity> orders = taxiOrderBean.getOldOrdersPerPage(pageNumber);
+            List<TaxiOrderEntity> orders = taxiOrderBean.getOldOrdersPerPage(userID, pageNumber);
             ObjectMapper mapper = new ObjectMapper();
             String ordersInJson = mapper.writeValueAsString(orders);
             resp.getWriter().write(ordersInJson);
         } else if("active".equals(dataType)){
-            List<TaxiOrderEntity> orders = taxiOrderBean.getActiveOrdersPerPage(pageNumber);
+            List<TaxiOrderEntity> orders = taxiOrderBean.getActiveOrdersPerPage(userID, pageNumber);
             ObjectMapper mapper = new ObjectMapper();
             String ordersInJson = mapper.writeValueAsString(orders);
             resp.getWriter().write(ordersInJson);
