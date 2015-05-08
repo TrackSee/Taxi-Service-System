@@ -33,27 +33,13 @@ import static ua.com.tracksee.enumartion.OrderStatus.QUEUED;
 public class TaxiOrderBean {
     private static final Logger logger = LogManager.getLogger();
 
-    private
-    @EJB
-    TaxiOrderDAO taxiOrderDAO;
-    private
-    @EJB
-    UserDAO userDAO;
-    private
-    @EJB
-    AddressDAO addressDAO;
-    private
-    @EJB
-    EmailBean mailBean;
-    private
-    @EJB
-    ValidationBean validationBean;
-    private
-    @EJB
-    PriceCalculatorBean priceCalculatorBean;
-    private
-    @EJB
-    EnumValidationBean enumValidationBean;
+    private @EJB TaxiOrderDAO taxiOrderDAO;
+    private @EJB UserDAO userDAO;
+    private @EJB AddressDAO addressDAO;
+    private @EJB EmailBean mailBean;
+    private @EJB ValidationBean validationBean;
+    private @EJB PriceCalculatorBean priceCalculatorBean;
+    private @EJB EnumValidationBean enumValidationBean;
 
     public List<ServiceProfitable> getProfitByService(String startDate, String endDate){return taxiOrderDAO.getProfitByService(startDate, endDate);}
     public List<MostPopularOption> getMostPopularOptionsForUser(Integer userId){return taxiOrderDAO.getMostPopularOptionsForUser(userId);}
@@ -383,14 +369,6 @@ public class TaxiOrderBean {
     public ServiceUserEntity getUserInfo(int id) {
 
         return userDAO.getUserById(id);
-    }
-
-    /**
-     * @author Sharaban Sasha
-     * @see ua.com.tracksee.dao.AddressDAO
-     */
-    public AddressEntity getAddressInfo(int userId) {
-        return addressDAO.getAddressByUserId(userId);
     }
 
     /**
