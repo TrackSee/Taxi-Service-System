@@ -16,7 +16,7 @@ import java.io.IOException;
 /**
  * Created by Igor on 08.05.2015.
  */
-@WebServlet("groupCount")
+@WebServlet("admin/groupCount")
 public class GroupCountServlet extends HttpServlet implements GroupConstants{
     @EJB
     private GroupBean groupBean;

@@ -114,9 +114,7 @@ $(document).ready(function () {
     $("#alert-danger-group-name").hide();
     getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_GROUPS'), SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), "", "", 1);
 });
-$(document).ready(function () {
-    $("#removeGroups").hide();
-});
+$("#removeGroups").hide();
 
 function getPageNum(pageSize1, pageMaxNumber1, pageNumber1) {
     if (pageMaxNumber1 === 0) {

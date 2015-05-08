@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Created by Igor Gula on 19.04.2015.
  */
-@WebServlet("group")
+@WebServlet("admin/group")
 public class GroupEditServlet extends HttpServlet implements GroupConstants {
 
     @EJB

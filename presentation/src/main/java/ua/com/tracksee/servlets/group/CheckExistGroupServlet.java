@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * Created by Igor on 27.04.2015.
  */
-@WebServlet("groupExist")
+@WebServlet("admin/groupExist")
 public class CheckExistGroupServlet extends HttpServlet implements GroupConstants{
     @EJB
     private GroupBean groupBean;

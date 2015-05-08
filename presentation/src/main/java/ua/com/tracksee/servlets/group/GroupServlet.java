@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by Igor Gula on 04.05.2015.
  */
-@WebServlet("groups")
+@WebServlet("admin/groups")
 public class GroupServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
