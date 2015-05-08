@@ -5,6 +5,7 @@ import ua.com.tracksee.logic.TaxiOrderBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.List;
 
 /**
  * @author Ruslan Gunavardana
@@ -13,7 +14,11 @@ import javax.ejb.Stateless;
 public class OrderFacade {
     private @EJB TaxiOrderBean taxiOrderBean;
 
-    public void placeOrder(TaxiOrderEntity order) {
-        //taxiOrderBean.makeOrder(order);
+    public List<TaxiOrderEntity> getOrdersFor(int userId) {
+        return null; //TODO
+    }
+
+    public void placeOrder(TaxiOrderEntity order, String email, String phone) {
+        //taxiOrderBean.makeOrder(order, email, phone);
     }
 }
