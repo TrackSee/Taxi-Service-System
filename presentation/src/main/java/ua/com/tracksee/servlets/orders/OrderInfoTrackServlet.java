@@ -23,15 +23,9 @@ import java.io.IOException;
  */
 @WebServlet("/orderTracking")
 public class OrderInfoTrackServlet extends HttpServlet {
-    private
-    @EJB
-    TaxiOrderBean taxiOrderBean;
-    private
-    @EJB
-    EnumValidationBean enumValidationBean;
-    private
-    @EJB
-    ValidationBean validationBean;
+    private @EJB TaxiOrderBean taxiOrderBean;
+    private @EJB EnumValidationBean enumValidationBean;
+    private @EJB ValidationBean validationBean;
     private static final Logger logger = LogManager.getLogger();
 
     @Override
@@ -46,15 +40,12 @@ public class OrderInfoTrackServlet extends HttpServlet {
 
             TaxiOrderEntity taxiOrderEntity = taxiOrderBean.getOrderInfo(trackingNumber);
             ServiceUserEntity serviceUserEntity = taxiOrderBean.getUserInfo(taxiOrderEntity.getUserId());
-            AddressEntity addressEntity = taxiOrderBean.getAddressInfo(taxiOrderEntity.getUserId());
 
             req.setAttribute("trackingNumber", trackingNumber);
             req.setAttribute("phoneNumber", serviceUserEntity.getPhone());
             req.setAttribute("email", serviceUserEntity.getEmail());
 
-            String[] addresses = addressEntity.getStringRepresentation().split("-");
-            req.setAttribute("addressOrigin", addresses[0]);
-            req.setAttribute("addressDestination", addresses[1]);
+            //TODO addresses
 
             req.setAttribute("arriveDate",validationBean.convertDateForShow(taxiOrderEntity.getArriveDate()));
             req.setAttribute("endDate", validationBean.convertDateForShow(taxiOrderEntity.getEndDate()));
