@@ -1,7 +1,7 @@
 /**
  * Created by Ruslan Gunavardana
  */
-function calculatePrice() {
+function calc() {
 
 }
 $.fn.serializeObject = function()
