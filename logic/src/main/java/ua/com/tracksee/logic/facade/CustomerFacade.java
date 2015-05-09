@@ -1,7 +1,10 @@
 package ua.com.tracksee.logic.facade;
 
+import org.postgresql.geometric.PGpoint;
 import ua.com.tracksee.dao.AddressDAO;
 import ua.com.tracksee.entities.AddressEntity;
+import ua.com.tracksee.json.FavoritePlaceDTO;
+import ua.com.tracksee.json.LocationDTO;
 import ua.com.tracksee.logic.RegistrationBean;
 import ua.com.tracksee.logic.exception.RegistrationException;
 
@@ -23,10 +26,39 @@ public class CustomerFacade {
         registrationBean.registerCustomerUser(email, password, phoneNumber);
     }
 
+    public void activateUser(String userCode) throws RegistrationException {
+        registrationBean.activateCustomerUserAccount(userCode);
+    }
+
     /**
-     * Returns a list of user's favourite addresses.
+     * Returns a list of customer user's favourite addresses.
      */
-    public List<AddressEntity> getFavouritePlacesFor(int userId) {
+    public List<AddressEntity> getFavoritePlacesFor(int userId) {
         return addressDAO.getAddressesByUserId(userId);
+    }
+
+    /**
+     * Saves favorite place for customer user.
+     *
+     * @param userId customer user id
+     * @param favoritePlaceDto favorite place to save
+     * @return true if successfully saved, false if not
+     */
+    public boolean addFavoritePlaceFor(Integer userId, FavoritePlaceDTO favoritePlaceDto) {
+        String name = favoritePlaceDto.getName();
+        LocationDTO locationDTO = favoritePlaceDto.getLocation();
+        PGpoint location = new PGpoint(locationDTO.getLat(), locationDTO.getLng());
+        return addressDAO.addAddress(new AddressEntity(name, userId, location));
+    }
+
+    /**
+     * Removes favourite place for customer user.
+     *
+     * @param userId customer user id
+     * @param name
+     * @return
+     */
+    public boolean removeFavouritePlaceFor(Integer userId, String name) {
+        return addressDAO.deleteAddress(new AddressEntity(name, userId));
     }
 }
