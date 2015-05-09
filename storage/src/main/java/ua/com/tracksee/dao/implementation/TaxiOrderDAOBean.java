@@ -13,7 +13,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>Postgresql database implementation of
@@ -89,6 +91,50 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         }
         BigInteger trackingNumber= (BigInteger)query.getSingleResult();
         return  trackingNumber.longValue();
+    }
+
+    @Override
+    public int getOrdersByPeriod(String startDate, String endDate) {
+        String sql = "SELECT COUNT(*) FROM taxi_order" +
+                " WHERE ordered_date" +
+                " BETWEEN '" + startDate + "'" +
+                " AND '" + endDate + "'";
+        return getInteger(sql);
+    }
+    /**
+     * @author Oleksandr Kozin
+     * @param sql query to count the number of orders with an additional option
+     * @return number of orders with this additional option
+     */
+    private Integer getInteger(String sql) {
+        Query query = entityManager.createNativeQuery(sql);
+        BigInteger bigInteger = (BigInteger) query.getSingleResult();
+        return bigInteger.intValue();
+    }
+    @Override
+    public Map<String, Integer> mostPopularAdditionalCarOptOverall() {
+        Map<String, Integer> map = new HashMap<>();
+        String sql = "SELECT COUNT(*) FROM taxi_order";
+        Integer integer = getInteger(sql);
+        map.put("all_orders", integer);
+        String[] options = {"free_wifi", "animal_transportation", "non_smoking_driver", "air_conditioner"};
+        for (int i = 0; i < options.length; i++) {
+            Integer amount = getAmount(options[i]);
+            map.put(options[i], amount);
+        }
+        return map;
+    }
+
+    /**
+     * It counts the number of orders from this additional option
+     * @author Oleksandr Kozin
+     * @param option the name of an additional option
+     * @return number of orders with this additional option
+     */
+    private Integer getAmount(String option) {
+        String sql = "SELECT COUNT(*) FROM taxi_order" +
+                " WHERE " + option + " = TRUE";
+        return getInteger(sql);
     }
 
     @Override

@@ -282,13 +282,13 @@ public class TaxiOrderBean {
         MusicStyle musicStyle;
         OrderStatus orderStatus = OrderStatus.QUEUED;
 
-        if (!inputData.get("arriveDate").equals("")) {
+        if (inputData.get("arriveDate")!=null) {
             Timestamp timestamp = convertToTimestamp(inputData.get("arriveDate"));
             taxiOrderEntity.setArriveDate(timestamp);
         } else {
             taxiOrderEntity.setArriveDate(null);
         }
-        if (!inputData.get("endDate").equals("")) {
+        if (inputData.get("endDate")!=null) {
             Timestamp timestamp = convertToTimestamp(inputData.get("endDate"));
             taxiOrderEntity.setEndDate(timestamp);
         } else {

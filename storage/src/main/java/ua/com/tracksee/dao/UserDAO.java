@@ -67,7 +67,10 @@ public interface UserDAO {
     void deleteUser(int serviceUserID);
 
     void updateUser(ServiceUserEntity serviceUserEntity);
-
+    /**
+     * @author Sharaban Sasha
+     */
+    public List<ServiceUserEntity> getUnregisteredUsers();
     /**
      * Returns user with the specified email address.
      *

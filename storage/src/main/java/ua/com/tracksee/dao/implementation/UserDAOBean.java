@@ -54,6 +54,13 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
+    public List<ServiceUserEntity> getUnregisteredUsers() {
+        Query query = entityManager.createNativeQuery("SELECT * FROM service_user WHERE activated=FALSE "
+                , ServiceUserEntity.class);
+        return query.getResultList();
+    }
+
+    @Override
     public List<String> getDriversEmails() {
 
         Query query = entityManager.createNativeQuery("SELECT email FROM service_user " +

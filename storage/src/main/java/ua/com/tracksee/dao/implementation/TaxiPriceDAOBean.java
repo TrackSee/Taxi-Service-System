@@ -8,6 +8,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Ruslan Gunavardana
@@ -31,5 +35,23 @@ public class TaxiPriceDAOBean implements TaxiPriceDAO {
     @Override
     public void updateTariff(TaxiPriceEntity priceEntity) {
         entityManager.refresh(priceEntity);
+    }
+    @Override
+    public Map<String, Double> serviceProfitByMonth(String year, String month){
+        String yearMonth = year + "-" + month;
+        String sql = "SELECT service, SUM(price) FROM taxi_order" +
+                " WHERE ordered_date" +
+                " BETWEEN '" + yearMonth + "-01'" +
+                " AND '" + yearMonth + "-30'" +
+                " GROUP BY service";
+        Query query = entityManager.createNativeQuery(sql);
+        List<Object[]> list = query.getResultList();
+        Map<String, Double> map = new HashMap<>();
+        for (Object[] objects : list) {
+            String service = (String) objects[0];
+            BigDecimal b = (BigDecimal) objects[1];
+            map.put(service, b.doubleValue());
+        }
+        return map;
     }
 }
