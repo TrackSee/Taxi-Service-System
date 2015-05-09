@@ -19,6 +19,11 @@ import java.util.List;
 
 @WebServlet("/admin/report/profitableservice")
 public class MostProfitableServiceServlet extends HttpServlet {
+
+    private String dateStart = "startDate";
+    private String dateEnd = "endDate";
+    private String listProfit = "listProfit";
+
     @EJB
     private TaxiOrderBean taxiOrderBean;
 
@@ -26,26 +31,21 @@ public class MostProfitableServiceServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/report/mostProfitableService.jsp").forward(request, response);
-        System.out.println("GET");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("POST");
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        System.out.println("stD: " + startDate);
-        System.out.println("endD: " + endDate);
-         List<ServiceProfitable> listProfit = taxiOrderBean.getProfitByService(startDate, endDate);
-        request.setAttribute("listProfit", listProfit);
-        System.out.println("LIST JSON" + getJsonFromList(listProfit));
-        response.getWriter().write(getJsonFromList(listProfit));
+        String startDate = request.getParameter(dateStart);
+        String endDate = request.getParameter(dateEnd);
+        List<ServiceProfitable>  listServiceProfit = taxiOrderBean.getProfitByService(startDate, endDate);
+        request.setAttribute(listProfit, listServiceProfit);
+        response.getWriter().write(getJsonFromList(listServiceProfit));
     }
 
-    private String getJsonFromList(List<ServiceProfitable> listProfit){
+    private String getJsonFromList(List<ServiceProfitable> listServiceProfit){
         ObjectMapper mapper = new ObjectMapper();
         String json = null;
         try {
-            json = mapper.writeValueAsString(listProfit);
+            json = mapper.writeValueAsString(listServiceProfit);
         } catch (IOException e) {
             json = "";
         }

@@ -23,6 +23,9 @@ import java.util.List;
 
 @WebServlet("/admin/report/mostpopularopt")
 public class MostPopularAddOptionsServlet extends HttpServlet {
+    private String users = "users";
+    private String idUser = "userId";
+    private String optionList = "listOptions";
     @EJB
     private AdministratorBean administratorBean;
 
@@ -31,18 +34,15 @@ public class MostPopularAddOptionsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<ServiceUserEntity> users = administratorBean.getUsers();
-        request.setAttribute("users", users);
+        List<ServiceUserEntity> userList = administratorBean.getUsers();
+        request.setAttribute(users, userList);
         request.getRequestDispatcher("/WEB-INF/report/popularOptions.jsp").forward(request, response);
-
-
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer userId = Integer.parseInt(request.getParameter("userId"));
+        Integer userId = Integer.parseInt(request.getParameter(idUser));
         List<MostPopularOption> listOptions = taxiOrderBean.getMostPopularOptionsForUser(userId);
-        request.setAttribute("listOptions", listOptions);
-        System.out.println("listOptions JSON" + getJsonFromList(listOptions));
+        request.setAttribute(optionList, listOptions);
         response.getWriter().write(getJsonFromList(listOptions));
     }
 
