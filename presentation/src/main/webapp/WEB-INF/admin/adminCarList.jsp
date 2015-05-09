@@ -104,7 +104,7 @@
 <!-- Custom Theme JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
 <%--for pagination--%>
-<script src="<%=application.getContextPath()%>/resources/admin/js/paginator-car.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/paginatorforcar.js"></script>
 
 
 </body>

@@ -39,7 +39,6 @@ $(document).ready(function () {
         data["password"] = calcMD5($('input[name = password]', '#createDriver').val());
         data["phone"] = $('input[name = phone]', '#createDriver').val();
         data["sex"] = $('select option:selected').val();
-        //$('select option:selected').val() ;
         data = JSON.stringify(data);
         $.ajax({
             type: 'POST',

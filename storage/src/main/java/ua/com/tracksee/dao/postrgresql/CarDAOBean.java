@@ -25,7 +25,6 @@ public class CarDAOBean implements CarDAO {
 
 
     @Override
-    //TODO add car_category when db finished
     public void createCar(CarEntity carEntity) {
         String sql = "INSERT INTO car (car_number, car_model , color,  car_category, animal_transportation_applicable ," +
                 " free_wifi, air_conditioner) " +
@@ -39,7 +38,6 @@ public class CarDAOBean implements CarDAO {
         query.setParameter(6, carEntity.getFreeWifi());
         query.setParameter(7, carEntity.getAirConditioner());
         query.executeUpdate();
-
     }
 
     @Override

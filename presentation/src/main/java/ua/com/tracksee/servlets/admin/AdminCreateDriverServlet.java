@@ -5,8 +5,9 @@ import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.logic.admin.AdministratorBean;
+        import ua.com.tracksee.logic.exception.CreateException;
 
-import javax.ejb.EJB;
+        import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,15 +44,19 @@ public class AdminCreateDriverServlet extends HttpServlet {
                 sb.append(line).append("\n");
             } while (line != null);
         } catch (IOException e){
-            logger.warn("Cannot get json from post /admin/updatedriver");
+            logger.warn("Cannot get json from post /admin/createdriver");
         }
         ObjectMapper mapper = new ObjectMapper();
         ServiceUserEntity user = mapper.readValue(sb.toString(), ServiceUserEntity.class);
         user.setDriver(true);
-        //activate driver (he is created by admin)
         user.setActivated(true);
         user.setSex(user.getSex().substring(0, 1));
-        administratorBean.createUser(user);
-        resp.sendRedirect("drivers");
+        try {
+            administratorBean.createUser(user);
+        } catch (CreateException e) {
+            logger.warn(e.getMessage());
+            resp.getWriter().append(e.getErrorType());
+            return;
+        }
     }
 }

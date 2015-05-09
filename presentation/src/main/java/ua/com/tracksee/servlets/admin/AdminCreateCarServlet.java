@@ -42,7 +42,6 @@ public class AdminCreateCarServlet extends HttpServlet {
         } catch (IOException e){
             logger.warn("Cannot get json from post /admin/createcar");
         }
-        System.out.println("CAR: " + sb.toString());
         ObjectMapper mapper = new ObjectMapper();
         CarEntity car = mapper.readValue(sb.toString(), CarEntity.class);
         administratorBean.createCar(car);

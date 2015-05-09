@@ -58,16 +58,16 @@
             <%--<input type="carNumber" id="carNumber" name="carNumber" class="form-control" placeholder="Car Number" value="${car.carNumber}">--%>
 
             <label for="carNumber" class="sr-only">Model</label>
-            <input type="carNumber" id="carNumber" name="carNumber" class="form-control">
+            <input type="carNumber" id="carNumber" name="carNumber" class="form-control"
+                   placeholder="Car Number" >
             <label for="carModel" class="sr-only">Model</label>
-            <input type="carModel" id="carModel" name="carModel" class="form-control">
+            <input type="carModel" id="carModel" name="carModel" class="form-control"
+                   placeholder="Car Model">
 
             <label for="carColor" class="sr-only">Color</label>
             <input type="carColor" id="carColor" name="carColor" class="form-control"
-                   placeholder="color" >
+                   placeholder="Color" >
 
-
-            <%--TODO send via ajax!!--%>
             <div>
                 <label>Category</label>
             </div>

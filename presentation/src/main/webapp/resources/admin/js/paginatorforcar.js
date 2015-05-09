@@ -1,4 +1,8 @@
+/**
+ * Created by KatiaStetsiuk
+ */
 $(document).ready(function () {
+    alert("he");
     $('.pageLi1').addClass('active');
     var pageButton = $('.pageButton').click(function (event) {
         var pageNumber = this.innerHTML;
@@ -7,11 +11,10 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             data: 'pageNumber=' + pageNumber,
-
             url: 'cars',
 
             success: function (data) {
-                ;
+                alert("ge");
                 var carsArray = JSON.parse(data);
                 var tBody = document.getElementById('table-body');
                 var rows = tBody.children;
@@ -34,7 +37,7 @@ $(document).ready(function () {
                             carsArray[i].carNumber + '</a>';
                         rows[i].children[1].innerHTML = carsArray[i].carModel != null ? carsArray[i].carModel : "-";
                         rows[i].children[2].innerHTML = carsArray[i].color != null ? carsArray[i].color : "-";
-
+                        rows[i].children[3].innerHTML = carsArray[i].carCategory!= null ? carsArray[i].carCategory : "-";
                         rows[i].children[4].innerHTML = carsArray[i].animalTransportationApplicable == true ? "+" : "-";
                         rows[i].children[5].innerHTML = carsArray[i].freeWifi == true ? "+" : "-";
                         rows[i].children[6].innerHTML = carsArray[i].airConditioner == true ? "+" : "-";
@@ -49,3 +52,6 @@ $(document).ready(function () {
         });
     });
 });
+/**
+ * Created by kstes_000 on 09-May-15.
+ */

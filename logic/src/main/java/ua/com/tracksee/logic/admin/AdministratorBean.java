@@ -6,6 +6,9 @@ import ua.com.tracksee.dao.postrgresql.ServiceUserDaoBeen;
 import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.error.PersistError;
+import ua.com.tracksee.logic.ValidationBean;
+import ua.com.tracksee.logic.exception.CreateException;
+import static ua.com.tracksee.logic.exception.CreateExceptionType.*;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -19,6 +22,9 @@ import java.util.List;
 public class AdministratorBean {
 
     @EJB
+    private ValidationBean validationBean;
+
+    @EJB
     private UserDAO userDAO;
 
     @EJB
@@ -26,6 +32,23 @@ public class AdministratorBean {
 
     @EJB
     private ServiceUserDaoBeen serviceUserDaoBeen;
+
+    private void validateRegistrationData(ServiceUserEntity user)
+            throws CreateException
+
+    {
+        System.out.println("begin");
+        if (!validationBean.isValidEmail(user.getEmail())) {
+            throw new CreateException("Invalid email.", BAD_EMAIL);
+        }
+        if (!validationBean.isValidPassword(user.getPassword())) {
+            throw new CreateException("Invalid password.", BAD_PASSWORD);
+        }
+        if (user.getPhone() != null && !user.getPhone().equals("") && !validationBean.isValidPhoneNumber(user.getPhone())) {
+            throw new CreateException("Invalid phone number.", BAD_PHONE);
+        }
+    }
+
 
     /**
      * @author Katia Stetsiuk
@@ -50,7 +73,11 @@ public class AdministratorBean {
      */
     public void  updateUser(ServiceUserEntity user) { userDAO.updateUser(user);}
 
-    public void createUser(ServiceUserEntity user) {userDAO.createUser(user);}
+    public void createUser(ServiceUserEntity user) throws CreateException {
+        validateRegistrationData(user);
+
+        userDAO.createUser(user);
+    }
 
     public void getDriverById(int driverId) {
         userDAO.getDriverByID(driverId);
