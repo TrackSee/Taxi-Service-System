@@ -1,7 +1,7 @@
 package ua.com.tracksee.servlets.admin;
 
 /**
- * Created by Katia Stetsiuk
+ * @author Katia Stetsiuk
  */
 
 import org.apache.logging.log4j.LogManager;
@@ -37,14 +37,14 @@ public class SearchDriverServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String driverEmail = req.getParameter(email);
         req.setAttribute(email, driverEmail);
-        List<ServiceUserEntity> driverList = administratorBean.getDriverByEmail(driverEmail);
+        List<ServiceUserEntity> driverList = administratorBean.getDriversByEmail(driverEmail);
         req.setAttribute(drivers, driverList);
         resp.getWriter().write(getJsonFromList(driverList));
     }
 
     /**
      *
-     * @param driverList list od drivers to convert into JSON
+     * @param driverList list of drivers to convert into JSON
      * @return String of JSON
      */
     private String getJsonFromList(List<ServiceUserEntity> driverList) {

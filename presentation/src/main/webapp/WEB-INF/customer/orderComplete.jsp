@@ -1,5 +1,4 @@
 <%--
-
   author: Sharaban Sasha
   Date: 19.04.15
   Time: 20:37
@@ -56,7 +55,7 @@
         <form method="post" action="<c:url value="/orderComplete"/>">
             <div class="form-group">
                 <label>Phone number</label>
-                <input type="text" name="phoneNumber" class="form-control" placeholder="Enter phone number:"
+                <input type="number" name="phoneNumber" class="form-control" placeholder="Enter phone number:"
                        required>
                 <span class="red-star">★</span>
             </div>
@@ -122,13 +121,13 @@
                 <label for="arriveDate" class="sr-only">Arrive date</label>
 
                 <div class="controls input-append date form_datetime"
-                     data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                    <span class="add-on"><i class="icon-th"></i></span>
-                    <span class="add-on"><i class="icon-remove"></i></span>
-                    <input size="16" type="text" value="" id="arriveDate" name="arriveDate" readonly>
-                    <input type="hidden" id="dtp_input1" value=""/><br/>
+                       data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                <span class="add-on"><i class="icon-th"></i></span>
+                <span class="add-on"><i class="icon-remove"></i></span>
+                <input size="16" type="text" value="" id="arriveDate" name="arriveDate" readonly>
+                <input type="hidden" id="dtp_input1" value=""/><br/>
 
-                </div>
+            </div>
                 <div id="endDateBlock">
                 <label  class="sr-only">End date</label>
 
@@ -218,7 +217,6 @@
 
     </div>
 </div>
-<p>d</p>
 <!-- Load jQuery and bootstrap datepicker scripts -->
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
         charset="UTF-8"></script>

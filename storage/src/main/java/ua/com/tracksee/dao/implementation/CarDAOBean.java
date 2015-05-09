@@ -1,9 +1,9 @@
-package ua.com.tracksee.dao.postrgresql;
+package ua.com.tracksee.dao.implementation;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.CarDAO;
-import ua.com.tracksee.dao.postrgresql.exceptions.CarNotFoundException;
+import ua.com.tracksee.dao.implementation.exceptions.CarNotFoundException;
 import ua.com.tracksee.entities.CarEntity;
 
 import javax.ejb.Stateless;
@@ -25,7 +25,6 @@ public class CarDAOBean implements CarDAO {
 
 
     @Override
-    //TODO add car_category when db finished
     public void createCar(CarEntity carEntity) {
         String sql = "INSERT INTO car (car_number, car_model , color,  car_category, animal_transportation_applicable ," +
                 " free_wifi, air_conditioner) " +
@@ -39,7 +38,6 @@ public class CarDAOBean implements CarDAO {
         query.setParameter(6, carEntity.getFreeWifi());
         query.setParameter(7, carEntity.getAirConditioner());
         query.executeUpdate();
-
     }
 
     @Override

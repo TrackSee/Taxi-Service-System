@@ -10,6 +10,7 @@ import ua.com.tracksee.entities.MostPopularOption;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.logic.TaxiOrderBean;
 import ua.com.tracksee.logic.admin.AdministratorBean;
+import ua.com.tracksee.logic.reports.ReportChartBean;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -20,30 +21,29 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-//import ua.com.tracksee.entities.ServiceProfitable;
 
 @WebServlet("/admin/report/mostpopularopt")
 public class MostPopularAddOptionsServlet extends HttpServlet {
+    private String users = "users";
+    private String idUser = "userId";
+    private String optionList = "listOptions";
     @EJB
     private AdministratorBean administratorBean;
 
     @EJB
-    private TaxiOrderBean taxiOrderBean;
+    private ReportChartBean reportChartBean;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<ServiceUserEntity> users = administratorBean.getUsers();
-        request.setAttribute("users", users);
+        List<ServiceUserEntity> userList = administratorBean.getUsers();
+        request.setAttribute(users, userList);
         request.getRequestDispatcher("/WEB-INF/report/popularOptions.jsp").forward(request, response);
-
-
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer userId = Integer.parseInt(request.getParameter("userId"));
-        List<MostPopularOption> listOptions = taxiOrderBean.getMostPopularOptionsForUser(userId);
-        request.setAttribute("listOptions", listOptions);
-        System.out.println("listOptions JSON" + getJsonFromList(listOptions));
+        Integer userId = Integer.parseInt(request.getParameter(idUser));
+        List<MostPopularOption> listOptions = reportChartBean.getMostPopularOptionsForUser(userId);
+        request.setAttribute(optionList, listOptions);
         response.getWriter().write(getJsonFromList(listOptions));
     }
 

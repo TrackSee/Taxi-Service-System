@@ -100,8 +100,8 @@
             <div class="form-group">
                 <form method="post" action="<c:url value="/orderTracking"/>">
                     <label>Tracking number</label>
-                    <input type="text" id="origin" class="form-control" name="orderTrackingNumber"
-                           placeholder="Enter your tracking number">
+                    <input type="number" id="origin" class="form-control" name="orderTrackingNumber"
+                           placeholder="Enter your tracking number" required>
                     <div class="form-group">
                         <button type="submit" class="btn btn-danger btn-large">Track your order</button>
                     </div>

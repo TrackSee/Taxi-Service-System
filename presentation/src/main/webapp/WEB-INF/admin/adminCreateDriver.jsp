@@ -83,16 +83,12 @@
             <button id="addDriver" type="button" class="btn btn-primary">Create</button>
         </div>
 
-
     </form>
 </div>
 
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
-<%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.delegate.js"--%>
-<%--type="text/javascript"></script>--%>
 <script src="<%=application.getContextPath()%>/resources/admin//bower_components/jquery/dist/jquery.validate.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
 <script src="<%=application.getContextPath()%>/resources/admin/js/createdriver.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/js/hsps.js"></script>
 

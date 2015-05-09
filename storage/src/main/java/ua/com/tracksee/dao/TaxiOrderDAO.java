@@ -6,6 +6,7 @@ import javax.ejb.Local;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Interface for persisting and accessing taxi order data.
@@ -70,14 +71,26 @@ public interface TaxiOrderDAO {
     TaxiOrderEntity getOrder(Long trackingNumber);
 
     /**
+     * This method search for
+     *  order that the user is
+     *  looking for by tracking
+     *  number
+     *
+     * @author Sharaban Sasha
+     * @param trackingNumber - the tracking number of order that user looking for
+     * @return state of the order search, if it exist it will be true
+     */
+    boolean checkOrderPresent(Long trackingNumber);
+
+    /**
      * @author Vadym Akymov
      * @param partNumber - number of orders portion
      * @return list of order's item
      */
     List<TaxiOrderEntity> getOrdersPerPage(int partNumber);
 
-    List<TaxiOrderEntity> getActiveOrdersPerPage(int partNumber);
-    List<TaxiOrderEntity> getOldOrdersPerPage(int partNumber);
+    List<TaxiOrderEntity> getCustomerActiveOrdersPerPage(int userID, int partNumber);
+    List<TaxiOrderEntity> getCustomerOldOrdersPerPage(int userID, int partNumber);
 
     /**
      * @author Vadym Akymov
@@ -85,7 +98,19 @@ public interface TaxiOrderDAO {
      */
     int getActiveTaxiOrderPagesCount();
     int getOldTaxiOrderPagesCount();
+    /**
+     * @author Oleksandr Kozin
+     * @param startDate start date of the period
+     * @param endDate end date of the period
+     * @return number of orders per period
+     */
+    int getOrdersByPeriod(String startDate, String endDate);
 
+    /**
+     * @author Oleksandr Kozin
+     * @return map with most popular additional car options overall
+     */
+    Map<String, Integer> mostPopularAdditionalCarOptOverall();
     /**
      * @author Katia Stetsiuk
      * @param startDate

@@ -84,7 +84,7 @@
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
 <%--for pagination--%>
 <%--<script src="<%=application.getContextPath()%>/resources/admin/js/search.js"></script>--%>
-<script src="<%=application.getContextPath()%>/resources/admin/js/keyupcustomer.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/keyupforcustomer.js"></script>
 
 
 

@@ -32,8 +32,8 @@
     </tr>
     </tbody>
 </table>
-<script src="webjars/angularjs/1.3.15/angular.min.js"></script>
-<script src="webjars/angularjs/1.3.15/angular-resource.min.js"></script>
-<script src="webjars/angularjs/1.3.15/angular-route.min.js"></script>
-<script src="webjars/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
+<script src="<c:url value="/webjars/angularjs/1.3.15/angular.min.js"/>"></script>
+<script src="<c:url value="/webjars/angularjs/1.3.15/angular-resource.min.js"/>"></script>
+<script src="<c:url value="/webjars/angularjs/1.3.15/angular-route.min.js"/>"></script>
+<script src="<c:url value="/webjars/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"/>"></script>
 </body>

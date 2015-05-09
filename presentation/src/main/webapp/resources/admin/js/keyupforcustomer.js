@@ -23,7 +23,6 @@ $(document).ready(function () {
                     for (i = 0; i < Math.max(rows.length, usersArray.length); i++) {
                         if (i >= rows.length) {
                             var newTr = document.createElement('tr');
-                            //TODO Don't forget to change magic number of attribute tr count
                             for(var j = 0; j < 4; j++){
                                 newTr.appendChild(document.createElement('td'));
                             }

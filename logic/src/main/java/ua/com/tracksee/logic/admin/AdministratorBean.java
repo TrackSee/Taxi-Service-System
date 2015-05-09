@@ -2,21 +2,29 @@ package ua.com.tracksee.logic.admin;
 
 import ua.com.tracksee.dao.CarDAO;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.dao.postrgresql.ServiceUserDaoBeen;
+import ua.com.tracksee.dao.implementation.ServiceUserDaoBeen;
 import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.error.PersistError;
+import ua.com.tracksee.logic.ValidationBean;
+import ua.com.tracksee.logic.exception.CreateException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.Collection;
 import java.util.List;
 
+import static ua.com.tracksee.logic.exception.CreateExceptionType.BAD_EMAIL;
+import static ua.com.tracksee.logic.exception.CreateExceptionType.BAD_PHONE;
+
 /**
  * Created by Vadym_Akymov on 22.04.15.
  */
 @Stateless
 public class AdministratorBean {
+
+    @EJB
+    private ValidationBean validationBean;
 
     @EJB
     private UserDAO userDAO;
@@ -26,6 +34,23 @@ public class AdministratorBean {
 
     @EJB
     private ServiceUserDaoBeen serviceUserDaoBeen;
+
+    private void validateRegistrationData(ServiceUserEntity user)
+            throws CreateException
+
+    {
+        System.out.println("begin");
+        if (!validationBean.isValidEmail(user.getEmail())) {
+            throw new CreateException("Invalid email.", BAD_EMAIL);
+        }
+//        if (!validationBean.isValidPassword(user.getPassword())) {
+//            throw new CreateException("Invalid password.", BAD_PASSWORD);
+//        }
+        if (user.getPhone() != null && !user.getPhone().equals("") && !validationBean.isValidPhoneNumber(user.getPhone())) {
+            throw new CreateException("Invalid phone number.", BAD_PHONE);
+        }
+    }
+
 
     /**
      * @author Katia Stetsiuk
@@ -46,11 +71,17 @@ public class AdministratorBean {
 
     /**
      * @author Katia Stetsiuk
-     * @param user entity for creating and updating
+     * @param user entity for updating
      */
     public void  updateUser(ServiceUserEntity user) { userDAO.updateUser(user);}
-
-    public void createUser(ServiceUserEntity user) {userDAO.createUser(user);}
+    /**
+     * @author Katia Stetsiuk
+     * @param user entity for creating
+     */
+    public void createUser(ServiceUserEntity user) throws CreateException {
+        validateRegistrationData(user);
+        userDAO.createUser(user);
+    }
 
     public void getDriverById(int driverId) {
         userDAO.getDriverByID(driverId);
@@ -85,7 +116,7 @@ public class AdministratorBean {
     public void deleteUser(int id){
         userDAO.deleteUser(id);
     }
-    public List<ServiceUserEntity> getDriverByEmail(String email){return userDAO.getDriverByEmail(email);};
+    public List<ServiceUserEntity> getDriversByEmail(String email){return userDAO.getDriversByEmail(email);};
     public List<ServiceUserEntity> getCustomersByEmail(String email){return userDAO.getCustomersByEmail(email);};
 
     /**
@@ -97,12 +128,31 @@ public class AdministratorBean {
 
     /**
      * @author Katia Stetsiuk
-     * @param carEntity entity for updating, creating, deleting
+     * @param carEntity entity  creating
      */
     public void createCar(CarEntity carEntity){carDAO.createCar(carEntity);}
+    /**
+     * @author Katia Stetsiuk
+     * @param carEntity entity for updating
+     */
     public void updateCar(CarEntity carEntity){carDAO.updateCar(carEntity);}
+    /**
+     * @author Katia Stetsiuk
+     * @param carNumber car number for deleting
+     */
     public void deleteCar(String carNumber) {carDAO.deleteCar(carNumber);}
+
+    /**
+     * @author Katia Stetsiuk
+     * @param partNumber number of part to review
+     * @return
+     */
     public List<CarEntity> getCarsPart(int partNumber) {return carDAO.getCarsPart(partNumber);}
+
+    /**
+     *
+     * @return number of pages for review driver list
+     */
     public int getCarPagesCount(){return carDAO.getCarPagesCount();}
 
 
@@ -130,6 +180,4 @@ public class AdministratorBean {
     public Collection<? extends ServiceUserEntity> getAll(int start, int countPerPage) {
         return serviceUserDaoBeen.getAll(start, countPerPage);
     }
-
-
 }

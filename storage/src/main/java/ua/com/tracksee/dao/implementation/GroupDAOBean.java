@@ -1,4 +1,4 @@
-package ua.com.tracksee.dao.postrgresql;
+package ua.com.tracksee.dao.implementation;
 
 import ua.com.tracksee.dao.GroupDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;

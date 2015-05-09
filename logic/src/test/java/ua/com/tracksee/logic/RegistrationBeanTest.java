@@ -12,9 +12,9 @@ import org.junit.runner.RunWith;
 import org.postgresql.geometric.PGpoint;
 import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.dao.postrgresql.UserDAOBean;
-import ua.com.tracksee.dao.postrgresql.exceptions.CarNotFoundException;
-import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
+import ua.com.tracksee.dao.implementation.UserDAOBean;
+import ua.com.tracksee.dao.implementation.exceptions.CarNotFoundException;
+import ua.com.tracksee.dao.implementation.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entity.Group;
 import ua.com.tracksee.enumartion.Sex;
@@ -36,8 +36,10 @@ import static org.junit.Assert.assertTrue;
 @RunWith(Arquillian.class)
 public class RegistrationBeanTest {
 
-    private @EJB
-    RegistrationBean registrationBean;
+    private static final String TEST_EMAIL = "rusan.rus@gmail.com";
+    private static final String TEST_PASSWORD = "very@Secure";
+    private static final String TEST_PHONE = "+380635005050";
+    private @EJB RegistrationBean registrationBean;
     private @EJB UserDAO userDAO;
 
     @Deployment
@@ -75,10 +77,6 @@ public class RegistrationBeanTest {
         return Maven.resolver().resolve(groupId + ":" + artifactId + ":" + version)
                 .withTransitivity().asFile();
     }
-
-    private static final String TEST_EMAIL = "rusan.rus@gmail.com";
-    private static final String TEST_PASSWORD = "very@Secure";
-    private static final String TEST_PHONE = "+380635005050";
 
     @Test(expected = RegistrationException.class)
     public void testRegisterBadCustomerUser() throws Exception {
