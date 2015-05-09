@@ -51,7 +51,7 @@ public class AddressEntity {
     }
 
     @Basic
-    @Column(name = "location")
+    @Column(name = "location", columnDefinition = "bytea")
     public PGpoint getLocation() {
         return location;
     }
