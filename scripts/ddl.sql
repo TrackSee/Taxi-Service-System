@@ -28,11 +28,12 @@ CREATE TABLE IF NOT EXISTS Car
 (
   car_number                       VARCHAR(55) PRIMARY KEY,
   car_model                        VARCHAR(55) NOT NULL,
-  color                            VARCHAR(28),
-  car_category                     VARCHAR(28),
-  animal_transportation_applicable BOOLEAN,
-  free_wifi                        BOOLEAN,
-  air_conditioner                  BOOLEAN
+  color                            VARCHAR(28) NOT NULL,
+  car_category                     VARCHAR(28) NOT NULL,
+  accepts_visa                     BOOLEAN NOT NULL,
+  animal_transportation_applicable BOOLEAN NOT NULL,
+  free_wifi                        BOOLEAN NOT NULL,
+  air_conditioner                  BOOLEAN NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Service_User
