@@ -56,7 +56,6 @@ CREATE TABLE IF NOT EXISTS Address
 (
   name                  VARCHAR(120) NOT NULL,
   user_id               INT          NOT NULL REFERENCES Service_User (user_id) ON DELETE CASCADE,
-  string_representation VARCHAR(250),
   location              POINT,
   PRIMARY KEY (name, user_id)
 );

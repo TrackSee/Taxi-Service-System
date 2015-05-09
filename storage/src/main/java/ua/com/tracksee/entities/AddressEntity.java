@@ -14,8 +14,21 @@ import java.util.Objects;
 public class AddressEntity {
     private String name;
     private Integer userId;
-    private String stringRepresentation;
     private PGpoint location;
+
+    public AddressEntity() {
+    }
+
+    public AddressEntity(String name, Integer userId) {
+        this.name = name;
+        this.userId = userId;
+    }
+
+    public AddressEntity(String name, Integer userId, PGpoint location) {
+        this.name = name;
+        this.userId = userId;
+        this.location = location;
+    }
 
     @Id
     @Column(name = "name")
@@ -38,16 +51,6 @@ public class AddressEntity {
     }
 
     @Basic
-    @Column(name = "string_representation")
-    public String getStringRepresentation() {
-        return stringRepresentation;
-    }
-
-    public void setStringRepresentation(String stringRepresentation) {
-        this.stringRepresentation = stringRepresentation;
-    }
-
-    @Basic
     @Column(name = "location")
     public PGpoint getLocation() {
         return location;
@@ -64,12 +67,11 @@ public class AddressEntity {
         AddressEntity that = (AddressEntity) o;
         return Objects.equals(name, that.name) &&
                 Objects.equals(userId, that.userId) &&
-                Objects.equals(stringRepresentation, that.stringRepresentation) &&
                 Objects.equals(location, that.location);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, userId, stringRepresentation, location);
+        return Objects.hash(name, userId, location);
     }
 }
