@@ -1,4 +1,5 @@
-package ua.com.tracksee.dao.postgresql;
+package ua.com.tracksee.dao.implementation;
+
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -8,15 +9,20 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.postgresql.geometric.PGpath;
 import org.postgresql.geometric.PGpoint;
 import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.TaxiOrderDAO;
+import ua.com.tracksee.dao.implementation.exceptions.CarNotFoundException;
 import ua.com.tracksee.dao.implementation.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.TaxiOrderEntity;
+import ua.com.tracksee.entities.TaxiOrderItemEntity;
 import ua.com.tracksee.enumartion.Sex;
+import ua.com.tracksee.error.PersistError;
 
 import javax.ejb.EJB;
 import java.io.File;
+import java.util.List;
 
 import static java.lang.Boolean.TRUE;
 import static org.junit.Assert.assertEquals;
@@ -28,7 +34,8 @@ import static ua.com.tracksee.enumartion.OrderStatus.QUEUED;
 @RunWith(Arquillian.class)
 public class TaxiOrderDAOBeanTest {
 
-    private @EJB TaxiOrderDAO taxiOrderDAO;
+    private @EJB
+    TaxiOrderDAOBean taxiOrderDAO;
 
     @Deployment
     public	static WebArchive createTestArchive(){
@@ -42,7 +49,10 @@ public class TaxiOrderDAOBeanTest {
                 .addPackage(PGpoint.class.getPackage())
                 .addPackage(PGBinaryObject.class.getPackage())
                 .addPackage(TaxiOrderEntity.class.getPackage())
+                .addPackage(TaxiOrderDAOBean.class.getPackage())
                 .addPackage(TaxiOrderDAO.class.getPackage())
+                .addPackage(CarNotFoundException.class.getPackage())
+                .addPackage(PersistError.class.getPackage())
                 .addClass(ServiceUserNotFoundException.class)
                 .addPackage(Sex.class.getPackage())
                 .addAsResource("META-INF/persistence.xml")
@@ -72,5 +82,14 @@ public class TaxiOrderDAOBeanTest {
         assertEquals(databaseOrder.getNonSmokingDriver(), order.getNonSmokingDriver());
         assertEquals(databaseOrder.getFreeWifi(), order.getFreeWifi());
         assertEquals(databaseOrder.getStatus(), order.getStatus());
+    }
+    @Test
+    public void testGetOrder(){
+        TaxiOrderEntity order = taxiOrderDAO.getOrder(Long.valueOf(3));
+        List<TaxiOrderItemEntity> items = order.getItemList();
+        for(int i = 0; i < items.size(); i++){
+            PGpath path = items.get(i).getPath();
+            System.out.println(path);
+        }
     }
 }

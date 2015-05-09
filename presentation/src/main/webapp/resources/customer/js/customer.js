@@ -6,11 +6,11 @@ var dataType = $('.active').val();
 console.log('dataType value: ' + dataType);
 
 //click on old button
-$('.old').click(function(){
-    window.location.href = 'dashboard?type=old';
+$('.completed').click(function(){
+    window.location.href = 'dashboard?type=completed';
 });
 //click on active button
-$('.act').click(function(){
+$('.active').click(function(){
     window.location.href = 'dashboard?type=active';
 });
 
