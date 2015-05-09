@@ -14,7 +14,7 @@ import java.util.List;
 @Stateless
 public class ReportChartBean {
     @EJB
-    ReportDAO reportDAO;
+    private ReportDAO reportDAO;
     /**
         * @author Katia Stetsiuk
       * @param startDate start date to get the most profitable service
