@@ -84,8 +84,8 @@ var SERVLETS = (function() {
     };
 })();
 
-var COLOR_CHOSEN = "#0044cc";
-var COLOR_NOT_CHOSEN = "dimgrey";
+var COLOR_CHOSEN = "#00b3ee";
+var COLOR_NOT_CHOSEN = "white";
 var COUNT = "count";
 var EXIST = "exist";
 var FADE_OUT = 5000;
@@ -273,9 +273,11 @@ function getGroups(responseJson) {
         $.each(responseJson, function (key, value) {
             var index = groupIds.indexOf(value[GROUP_ATTRIBUTES.get('GROUP_NAME')]);
             if (index >= 0) {
-                var rowNew = $("<tr style='color: #0044cc' onclick='onClickGroup(this)'><td></td><td></td><td></td></tr>");
+                //var rowNew = $("<tr style='color: #0044cc' onclick='onClickGroup(this)'><td></td><td></td><td></td></tr>");
+                var rowNew = $("<tr style='background-color: #00b3ee; color: black' onclick='onClickGroup(this)'><td></td><td></td><td></td></tr>");
             } else {
-                var rowNew = $("<tr style='color: dimgrey' onclick='onClickGroup(this)'><td></td><td></td><td></td></tr>");
+                //var rowNew = $("<tr style='color: dimgrey' onclick='onClickGroup(this)'><td></td><td></td><td></td></tr>");
+                var rowNew = $("<tr style='color: white; color: black' onclick='onClickGroup(this)'><td></td><td></td><td></td></tr>");
             }
             rowNew.children().eq(0).text(value[GROUP_ATTRIBUTES.get('GROUP_NAME')]);
             rowNew.children().eq(1).text(value[GROUP_ATTRIBUTES.get('COUNT_USERS')]);
@@ -325,10 +327,12 @@ function onClickGroup(el) {
     var index = groupIds.indexOf(elem);
     if (index >= 0) {
         groupIds.splice( index, 1 );
-        el.style.color = COLOR_NOT_CHOSEN;
+        el.style.backgroundColor = COLOR_NOT_CHOSEN;
+        //el.style.color = COLOR_NOT_CHOSEN;
     } else {
         groupIds.push(elem);
-        el.style.color = COLOR_CHOSEN;
+        //el.style.color = COLOR_CHOSEN;
+        el.style.backgroundColor = COLOR_CHOSEN;
     }
     if (groupIds.length > 0) {
         $("#removeGroups").show();
@@ -396,10 +400,10 @@ function saveChanges() {
 }
 
 function getUsersByInput() {
-    var inputStart = $('#inputEmail').val();
-    var date = new Date();
-    if (date - currentdate > DELAY) {
+    //var inputStart = $('#inputEmail').val();
+    //var date = new Date();
+    //if (date - currentdate > DELAY) {
         getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, inputStart, 1);
-    }
-    currentdate = new Date();
+    //}
+    //currentdate = new Date();
 }
