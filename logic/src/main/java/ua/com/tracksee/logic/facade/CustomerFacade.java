@@ -3,29 +3,26 @@ package ua.com.tracksee.logic.facade;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
-import ua.com.tracksee.entities.TaxiOrderEntity;
-=======
-import org.postgresql.geometric.PGpoint;
-import ua.com.tracksee.dao.AddressDAO;
 import ua.com.tracksee.entities.AddressEntity;
-import ua.com.tracksee.entities.AddressEntityPK;
+import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.json.FavoritePlaceDTO;
-import ua.com.tracksee.json.LocationDTO;
 import ua.com.tracksee.logic.customer.FavoritePlacesBean;
 import ua.com.tracksee.logic.customer.RegistrationBean;
 import ua.com.tracksee.logic.exception.RegistrationException;
->>>>>>> origin/usermanagement
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.List;
 
 /**
- * Created by Vadym Akymov on 09.05.15.
+ * @author Vadym Akymov, Ruslan Gunavardana on 09.05.15.
  * Session Facade for customer bean
  */
 @Stateless
 public class CustomerFacade {
+    private static final Logger logger = LogManager.getLogger();
+
+    private @EJB TaxiOrderDAO taxiOrderDAO;
     private @EJB RegistrationBean registrationBean;
     private @EJB FavoritePlacesBean favoritePlacesBean;
 
@@ -87,6 +84,5 @@ public class CustomerFacade {
      */
     public boolean updateFavoritePlaceFor(Integer userId, String oldName, FavoritePlaceDTO newData) {
         return favoritePlacesBean.updateFavoritePlaceFor(userId, oldName, newData);
->>>>>>> origin/usermanagement
     }
 }
