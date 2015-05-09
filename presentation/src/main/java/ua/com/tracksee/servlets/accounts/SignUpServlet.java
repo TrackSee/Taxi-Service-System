@@ -2,7 +2,6 @@ package ua.com.tracksee.servlets.accounts;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.com.tracksee.logic.RegistrationBean;
 import ua.com.tracksee.logic.exception.RegistrationException;
 import ua.com.tracksee.logic.facade.CustomerFacade;
 

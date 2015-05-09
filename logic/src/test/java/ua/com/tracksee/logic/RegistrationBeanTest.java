@@ -20,6 +20,7 @@ import ua.com.tracksee.entity.Group;
 import ua.com.tracksee.enumartion.Sex;
 import ua.com.tracksee.error.PersistError;
 import ua.com.tracksee.json.TaxiOrderDTO;
+import ua.com.tracksee.logic.customer.RegistrationBean;
 import ua.com.tracksee.logic.exception.RegistrationException;
 import ua.com.tracksee.logic.group.GroupUpdateAction;
 
@@ -35,7 +36,8 @@ import static org.junit.Assert.assertTrue;
 @RunWith(Arquillian.class)
 public class RegistrationBeanTest {
 
-    private @EJB RegistrationBean registrationBean;
+    private @EJB
+    RegistrationBean registrationBean;
     private @EJB UserDAO userDAO;
 
     @Deployment
