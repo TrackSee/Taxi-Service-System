@@ -1,6 +1,5 @@
 package ua.com.tracksee.rest;
 
-import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.json.TaxiOrderDTO;
 import ua.com.tracksee.logic.facade.OrderFacade;
 
@@ -14,7 +13,7 @@ import javax.ws.rs.core.Response;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.Response.Status.CREATED;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
-import static ua.com.tracksee.AttributeNames.USER_ID;
+import static ua.com.tracksee.servlets.AttributeNames.USER_ID;
 
 /**
  * @author Ruslan Gunavardana
