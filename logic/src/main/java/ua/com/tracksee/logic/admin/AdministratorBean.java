@@ -8,12 +8,14 @@ import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.error.PersistError;
 import ua.com.tracksee.logic.ValidationBean;
 import ua.com.tracksee.logic.exception.CreateException;
-import static ua.com.tracksee.logic.exception.CreateExceptionType.*;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.Collection;
 import java.util.List;
+
+import static ua.com.tracksee.logic.exception.CreateExceptionType.BAD_EMAIL;
+import static ua.com.tracksee.logic.exception.CreateExceptionType.BAD_PHONE;
 
 /**
  * Created by Vadym_Akymov on 22.04.15.
@@ -178,6 +180,4 @@ public class AdministratorBean {
     public Collection<? extends ServiceUserEntity> getAll(int start, int countPerPage) {
         return serviceUserDaoBeen.getAll(start, countPerPage);
     }
-
-
 }

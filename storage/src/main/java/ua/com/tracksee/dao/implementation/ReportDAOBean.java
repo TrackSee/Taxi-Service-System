@@ -1,4 +1,4 @@
-package ua.com.tracksee.dao.postrgresql;
+package ua.com.tracksee.dao.implementation;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
