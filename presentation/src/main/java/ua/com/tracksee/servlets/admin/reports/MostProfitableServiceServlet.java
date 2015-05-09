@@ -3,6 +3,8 @@ package ua.com.tracksee.servlets.admin.reports;
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.ServiceProfitable;
 import ua.com.tracksee.logic.TaxiOrderBean;
+import ua.com.tracksee.logic.reports.ReportBean;
+import ua.com.tracksee.logic.reports.ReportChartBean;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -25,7 +27,7 @@ public class MostProfitableServiceServlet extends HttpServlet {
     private String listProfit = "listProfit";
 
     @EJB
-    private TaxiOrderBean taxiOrderBean;
+    private ReportChartBean reportChartBean;
 
 
     @Override
@@ -36,7 +38,7 @@ public class MostProfitableServiceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String startDate = request.getParameter(dateStart);
         String endDate = request.getParameter(dateEnd);
-        List<ServiceProfitable>  listServiceProfit = taxiOrderBean.getProfitByService(startDate, endDate);
+        List<ServiceProfitable>  listServiceProfit = reportChartBean.getProfitByService(startDate, endDate);
         request.setAttribute(listProfit, listServiceProfit);
         response.getWriter().write(getJsonFromList(listServiceProfit));
     }

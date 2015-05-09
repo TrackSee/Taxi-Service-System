@@ -3,7 +3,19 @@
  * Created  Katia Stetsiukon 25-Apr-15.
  */
 $(document).ready(function () {
-
+    alert("hi");
+    $('#createCar').validate({
+        rules: {
+            carNumber: {
+                required: true,
+                minlength:3
+            },
+            carModel: {
+                required: true,
+                minlength:3
+            }
+        }
+    });
     var data = {};
 
     $('#addCar').click(function(){

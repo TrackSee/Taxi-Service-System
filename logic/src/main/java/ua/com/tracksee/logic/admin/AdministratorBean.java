@@ -69,13 +69,15 @@ public class AdministratorBean {
 
     /**
      * @author Katia Stetsiuk
-     * @param user entity for creating and updating
+     * @param user entity for updating
      */
     public void  updateUser(ServiceUserEntity user) { userDAO.updateUser(user);}
-
+    /**
+     * @author Katia Stetsiuk
+     * @param user entity for creating
+     */
     public void createUser(ServiceUserEntity user) throws CreateException {
         validateRegistrationData(user);
-
         userDAO.createUser(user);
     }
 

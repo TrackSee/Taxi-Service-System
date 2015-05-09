@@ -55,20 +55,6 @@ public class TaxiOrderBean {
     @EJB
     EnumValidationBean enumValidationBean;
 
-    /**
-     * @author Katia Stetsiuk
-     * @param startDate start date to get the most profitable service
-     * @param endDate end date to get the most profitable service
-     * @return list object with statistic data
-     */
-    public List<ServiceProfitable> getProfitByService(String startDate, String endDate){return taxiOrderDAO.getProfitByService(startDate, endDate);}
-
-    /**
-     * @author Katia Stetsiuk
-     * @param userId user id for whom getting statistic about popular options
-     * @return list object with statistic data
-     */
-    public List<MostPopularOption> getMostPopularOptionsForUser(Integer userId){return taxiOrderDAO.getMostPopularOptionsForUser(userId);}
 
 
 

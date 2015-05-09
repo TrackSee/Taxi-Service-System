@@ -2,7 +2,6 @@
  * Created by KatiaStetsiuk
  */
 $(document).ready(function () {
-    alert("he");
     $('.pageLi1').addClass('active');
     var pageButton = $('.pageButton').click(function (event) {
         var pageNumber = this.innerHTML;

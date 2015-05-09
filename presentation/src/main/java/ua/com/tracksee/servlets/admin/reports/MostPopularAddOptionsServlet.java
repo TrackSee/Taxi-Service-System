@@ -10,6 +10,7 @@ import ua.com.tracksee.entities.MostPopularOption;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.logic.TaxiOrderBean;
 import ua.com.tracksee.logic.admin.AdministratorBean;
+import ua.com.tracksee.logic.reports.ReportChartBean;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -30,7 +31,7 @@ public class MostPopularAddOptionsServlet extends HttpServlet {
     private AdministratorBean administratorBean;
 
     @EJB
-    private TaxiOrderBean taxiOrderBean;
+    private ReportChartBean reportChartBean;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,7 +42,7 @@ public class MostPopularAddOptionsServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer userId = Integer.parseInt(request.getParameter(idUser));
-        List<MostPopularOption> listOptions = taxiOrderBean.getMostPopularOptionsForUser(userId);
+        List<MostPopularOption> listOptions = reportChartBean.getMostPopularOptionsForUser(userId);
         request.setAttribute(optionList, listOptions);
         response.getWriter().write(getJsonFromList(listOptions));
     }
