@@ -87,15 +87,24 @@ public interface TaxiOrderDAO {
     int getOldTaxiOrderPagesCount();
 
     /**
-     * @author Katia Stetsiuk
-     * @param startDate
-     * @param endDate
-     * @return
+     * @author Katia Stetisuk
+     * @param startDate start date to get the most profitable service
+     * @param endDate end date to get the most profitable service
+     * @return list object with statistic data
      */
 
     List<ServiceProfitable> getProfitByService(String startDate, String endDate);
-    BigInteger getCountOptionalChar(String option, Integer userId);
+
+    /**
+     * @author Katia Stetsiuk
+     * @param userId user id for whom getting statistic about popular options
+     * @return list object with statistic data
+     */
     List<MostPopularOption> getMostPopularOptionsForUser(Integer userId);
+
+    BigInteger getCountOptionalChar(String option, Integer userId);
+
+
     BigInteger getCountOptionalBool(String option, Integer userId);
 
     public List<TaxiOrderEntity> getAvailableOrders(ServiceUserEntity driver, int pageNumber);

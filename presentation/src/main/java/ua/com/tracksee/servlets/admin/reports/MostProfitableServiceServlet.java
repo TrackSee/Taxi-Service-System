@@ -41,6 +41,11 @@ public class MostProfitableServiceServlet extends HttpServlet {
         response.getWriter().write(getJsonFromList(listServiceProfit));
     }
 
+    /**
+     *
+     * @param listServiceProfit
+     * @return
+     */
     private String getJsonFromList(List<ServiceProfitable> listServiceProfit){
         ObjectMapper mapper = new ObjectMapper();
         String json = null;
