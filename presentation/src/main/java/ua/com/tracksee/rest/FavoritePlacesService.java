@@ -1,6 +1,5 @@
 package ua.com.tracksee.rest;
 
-import ua.com.tracksee.entities.AddressEntity;
 import ua.com.tracksee.json.FavoritePlaceDTO;
 import ua.com.tracksee.logic.facade.CustomerFacade;
 
@@ -13,49 +12,68 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
+import static javax.ws.rs.core.Response.Status.*;
 import static ua.com.tracksee.AttributeNames.USER_ID;
 
 /**
  * @author Ruslan Gunavardana
  */
 @Path("/places")
-@Produces(APPLICATION_JSON)
 @RequestScoped
 public class FavoritePlacesService {
+
     private @EJB CustomerFacade customerFacade;
+    private @Context HttpServletRequest request;
+
+    private Integer getUserId() {
+        HttpSession session = request.getSession(false);
+        return session != null ? (Integer) session.getAttribute(USER_ID) : null;
+    }
 
     @GET
-    public Response getPlaces(@Context HttpServletRequest req) {
-        HttpSession session = req.getSession(false);
-        if (session == null) {
+    @Produces(APPLICATION_JSON)
+    public Response getPlaces() {
+        Integer userId = getUserId();
+        if (userId == null) {
             return Response.status(UNAUTHORIZED).build();
         }
-        Integer userId = (Integer) session.getAttribute(USER_ID);
         return Response.ok(customerFacade.getFavoritePlacesFor(userId)).build();
     }
 
     @POST
     @Consumes(APPLICATION_JSON)
-    public Response addPlace(@Context HttpServletRequest req, FavoritePlaceDTO place) {
-        HttpSession session = req.getSession(false);
-        if (session == null) {
+    public Response addPlace(FavoritePlaceDTO place) {
+        Integer userId = getUserId();
+        if (userId == null) {
             return Response.status(UNAUTHORIZED).build();
         }
-        Integer userId = (Integer) session.getAttribute(USER_ID);
-        customerFacade.addFavoritePlaceFor(userId, place);
-        return Response.ok(customerFacade.getFavoritePlacesFor(userId)).build();
+        String name = place.getName();
+        return customerFacade.addFavoritePlaceFor(userId, place) ? Response.status(CREATED).entity(name).build()
+                                                                 : Response.status(BAD_REQUEST).build();
+    }
+
+    @PUT
+    @Consumes(APPLICATION_JSON)
+    @Path("{name}")
+    public Response updatePlace(@PathParam("name") String name, FavoritePlaceDTO newValue) {
+        Integer userId = getUserId();
+        if (userId == null) {
+            return Response.status(UNAUTHORIZED).build();
+        }
+        return customerFacade.removeFavoritePlaceFor(userId, name)
+                ? Response.status(NO_CONTENT).build()
+                : Response.status(BAD_REQUEST).build();
     }
 
     @DELETE
-    @Consumes(APPLICATION_JSON)
-    public Response removePlace(@Context HttpServletRequest req, FavoritePlaceDTO place) {
-        HttpSession session = req.getSession(false);
-        if (session == null) {
+    @Path("{name}")
+    public Response removePlace(@PathParam("name") String name) {
+        Integer userId = getUserId();
+        if (userId == null) {
             return Response.status(UNAUTHORIZED).build();
         }
-        Integer userId = (Integer) session.getAttribute(USER_ID);
-        customerFacade.removeFavouritePlaceFor(userId, place.getName());
-        return Response.ok(customerFacade.getFavoritePlacesFor(userId)).build();
+        return customerFacade.removeFavoritePlaceFor(userId, name)
+                ? Response.status(NO_CONTENT).build()
+                : Response.status(BAD_REQUEST).build();
     }
 }

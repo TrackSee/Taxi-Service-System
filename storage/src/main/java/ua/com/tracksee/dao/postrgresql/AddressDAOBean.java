@@ -41,13 +41,12 @@ public class AddressDAOBean implements AddressDAO {
     @Override
     public boolean addAddress(AddressEntity address) {
         String sql = "INSERT INTO Address " +
-                "(name, user_id, string_representation, location) " +
-                "VALUES (?,?,?,?)";
+                "(name, user_id, location) " +
+                "VALUES (?1, ?2, ?3)";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, address.getName());
         query.setParameter(2, address.getUserId());
-        query.setParameter(3, address.getStringRepresentation());
-        query.setParameter(4, address.getLocation());
+        query.setParameter(3, address.getLocation());
         try {
             query.executeUpdate();
             return true;
@@ -57,37 +56,30 @@ public class AddressDAOBean implements AddressDAO {
     }
 
     @Override
-    public boolean deleteAddress(AddressEntity address) {
+    public boolean deleteAddress(AddressEntityPK addressPK) {
         String sql = "DELETE FROM address " +
                 "WHERE user_id = ?1 AND name = ?2";
         Query query = entityManager.createNativeQuery(sql);
-        query.setParameter(1, address.getUserId());
-        query.setParameter(2, address.getName());
+        query.setParameter(1, addressPK.getUserId());
+        query.setParameter(2, addressPK.getName());
         return query.executeUpdate() == 1;
     }
 
     @Override
-    public boolean updateLocation(AddressEntity addressEntity) {
+    public boolean updateAddress(AddressEntityPK pk, AddressEntity newValue) {
         String sql = "UPDATE address SET " +
-                "string_representation = ?1, location = ?2 " +
-                "WHERE user_id = ?3 AND name = ?4";
+                "user_id = ?1, name = ?2, location = ?3 " +
+                "WHERE user_id = ?4 AND name = ?5";
         Query query = entityManager.createNativeQuery(sql);
-        query.setParameter(1, addressEntity.getStringRepresentation());
-        query.setParameter(2, addressEntity.getLocation());
-        query.setParameter(3, addressEntity.getUserId());
-        query.setParameter(4, addressEntity.getName());
-        return query.executeUpdate() == 1;
-    }
-
-    @Override
-    public boolean updateName(AddressEntity addressEntity, String newName) {
-        String sql = "UPDATE address SET " +
-                "name = ?1" +
-                "WHERE user_id = ?2 AND name = ?3";
-        Query query = entityManager.createNativeQuery(sql);
-        query.setParameter(1, newName);
-        query.setParameter(2, addressEntity.getUserId());
-        query.setParameter(3, addressEntity.getName());
-        return query.executeUpdate() == 1;
+        query.setParameter(1, newValue.getLocation());
+        query.setParameter(2, newValue.getName());
+        query.setParameter(3, newValue.getLocation());
+        query.setParameter(4, pk.getUserId());
+        query.setParameter(5, pk.getName());
+        try {
+            return query.executeUpdate() == 1;
+        } catch (PersistenceException e) {
+            return false;
+        }
     }
 }

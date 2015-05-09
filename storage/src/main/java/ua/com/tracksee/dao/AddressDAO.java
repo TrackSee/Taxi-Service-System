@@ -11,15 +11,10 @@ import java.util.List;
  */
 @Local
 public interface AddressDAO {
-
     AddressEntity getAddress(AddressEntityPK pk);
     List getAddressesByUserId(int id);
-
     boolean addAddress(AddressEntity address);
-    boolean updateLocation(AddressEntity addressEntity);
-
-    boolean updateName(AddressEntity addressEntity, String newName);
-
-    boolean deleteAddress(AddressEntity address);
+    boolean updateAddress(AddressEntityPK pk, AddressEntity newValue);
+    boolean deleteAddress(AddressEntityPK address);
 }
 
