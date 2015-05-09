@@ -486,4 +486,7 @@ public class TaxiOrderBean {
         }
         return taxiOrderEntity;
     }
+    public boolean checkOrderPresent(long trackingNumber){
+        return taxiOrderDAO.checkOrderPresent(trackingNumber);
+    }
 }

@@ -42,8 +42,10 @@ public class OrderInfoTrackServlet extends HttpServlet {
         String carCategory = null;
         String wayOfPayment = null;
         try {
+
             int trackingNumber = Integer.parseInt(req.getParameter("orderTrackingNumber"));
 
+            if(taxiOrderBean.checkOrderPresent(trackingNumber)){
             TaxiOrderEntity taxiOrderEntity = taxiOrderBean.getOrderInfo(trackingNumber);
             ServiceUserEntity serviceUserEntity = taxiOrderBean.getUserInfo(taxiOrderEntity.getUserId());
             AddressEntity addressEntity = taxiOrderBean.getAddressInfo(taxiOrderEntity.getUserId());
@@ -92,15 +94,16 @@ public class OrderInfoTrackServlet extends HttpServlet {
             if (taxiOrderEntity.getAirConditioner()) {
                 req.setAttribute("airConditioner", "checked=\"checked\"");
             }
-
-       //     if(!taxiOrderBean.checkOrderPresent(trackingNumber)) {
                 if (taxiOrderEntity.getStatus() == OrderStatus.REFUSED || taxiOrderEntity.getStatus() == OrderStatus.COMPLETED) {
 
                     req.getRequestDispatcher("/WEB-INF/customer/orderTrackComplete.jsp").forward(req, resp);
                 } else {
                     req.getRequestDispatcher("/WEB-INF/customer/orderTrack.jsp").forward(req, resp);
                 }
-         //   }
+            }else{
+                req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
+            }
+
 
         } catch (Exception e) {
             logger.error(e.getMessage());

@@ -56,7 +56,7 @@
         <form method="post" action="<c:url value="/orderComplete"/>">
             <div class="form-group">
                 <label>Phone number</label>
-                <input type="text" name="phoneNumber" class="form-control" placeholder="Enter phone number:"
+                <input type="number" name="phoneNumber" class="form-control" placeholder="Enter phone number:"
                        required>
                 <span class="red-star">★</span>
             </div>

@@ -7,6 +7,7 @@ import ua.com.tracksee.entities.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.math.BigDecimal;
@@ -169,6 +170,23 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
         query.setParameter(1, trackingNumber);
         return (TaxiOrderEntity) query.getSingleResult();
+    }
+
+    @Override
+    public boolean checkOrderPresent(Long trackingNumber) {
+        boolean state=false;
+        String sql = "SELECT * FROM taxi_order WHERE tracking_number=(?)";
+
+        Query query = entityManager.createNativeQuery(sql,TaxiOrderEntity.class);
+        query.setParameter(1,trackingNumber);
+        try{
+        if(query.getSingleResult()!=null){
+            state=true;
+        }
+        }catch (NoResultException e) {
+            logger.error("Order with such tracking number: "+trackingNumber+" was not found "+e);
+        }
+        return state;
     }
 
     @Override

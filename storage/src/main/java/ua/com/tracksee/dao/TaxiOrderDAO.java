@@ -71,6 +71,18 @@ public interface TaxiOrderDAO {
     TaxiOrderEntity getOrder(Long trackingNumber);
 
     /**
+     * This method search for
+     *  order that the user is
+     *  looking for by tracking
+     *  number
+     *
+     * @author Sharaban Sasha
+     * @param trackingNumber - the tracking number of order that user looking for
+     * @return state of the order search, if it exist it will be true
+     */
+    boolean checkOrderPresent(Long trackingNumber);
+
+    /**
      * @author Vadym Akymov
      * @param partNumber - number of orders portion
      * @return list of order's item
