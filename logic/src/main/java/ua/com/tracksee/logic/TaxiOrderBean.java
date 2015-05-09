@@ -33,27 +33,13 @@ import static ua.com.tracksee.enumartion.OrderStatus.QUEUED;
 public class TaxiOrderBean {
     private static final Logger logger = LogManager.getLogger();
 
-    private
-    @EJB
-    TaxiOrderDAO taxiOrderDAO;
-    private
-    @EJB
-    UserDAO userDAO;
-    private
-    @EJB
-    AddressDAO addressDAO;
-    private
-    @EJB
-    EmailBean mailBean;
-    private
-    @EJB
-    ValidationBean validationBean;
-    private
-    @EJB
-    PriceCalculatorBean priceCalculatorBean;
-    private
-    @EJB
-    EnumValidationBean enumValidationBean;
+    private @EJB TaxiOrderDAO taxiOrderDAO;
+    private @EJB UserDAO userDAO;
+    private @EJB AddressDAO addressDAO;
+    private @EJB EmailBean mailBean;
+    private @EJB ValidationBean validationBean;
+    private @EJB PriceCalculatorBean priceCalculatorBean;
+    private @EJB EnumValidationBean enumValidationBean;
 
     public List<ServiceProfitable> getProfitByService(String startDate, String endDate){return taxiOrderDAO.getProfitByService(startDate, endDate);}
     public List<MostPopularOption> getMostPopularOptionsForUser(Integer userId){return taxiOrderDAO.getMostPopularOptionsForUser(userId);}
@@ -245,7 +231,6 @@ public class TaxiOrderBean {
      */
     private AddressEntity validateForOriginAddress(HashMap<String, String> inputData) throws OrderException {
         AddressEntity addressEntityOrigin = new AddressEntity();
-        addressEntityOrigin.setStringRepresentation(inputData.get("addressOrigin"));
         return addressEntityOrigin;
     }
 
@@ -260,7 +245,6 @@ public class TaxiOrderBean {
      */
     private AddressEntity validateForDestinationAddress(HashMap<String, String> inputData) throws OrderException {
         AddressEntity addressEntityDestination = new AddressEntity();
-        addressEntityDestination.setStringRepresentation(inputData.get("addressDestination"));
         return addressEntityDestination;
     }
 
@@ -386,14 +370,6 @@ public class TaxiOrderBean {
     }
 
     /**
-     * @author Sharaban Sasha
-     * @see ua.com.tracksee.dao.AddressDAO
-     */
-    public AddressEntity getAddressInfo(int userId) {
-        return addressDAO.getAddressByUserId(userId);
-    }
-
-    /**
      * This method convert string
      * representation of checkbox state
      * to boolean
@@ -485,5 +461,8 @@ public class TaxiOrderBean {
             taxiOrderEntity.setDescription("");
         }
         return taxiOrderEntity;
+    }
+    public boolean checkOrderPresent(long trackingNumber){
+        return taxiOrderDAO.checkOrderPresent(trackingNumber);
     }
 }

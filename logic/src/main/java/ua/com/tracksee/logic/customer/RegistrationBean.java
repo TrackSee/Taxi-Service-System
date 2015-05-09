@@ -1,7 +1,9 @@
-package ua.com.tracksee.logic;
+package ua.com.tracksee.logic.customer;
 
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.logic.EmailBean;
+import ua.com.tracksee.logic.ValidationBean;
 import ua.com.tracksee.logic.exception.RegistrationException;
 
 import javax.ejb.EJB;
@@ -86,7 +88,6 @@ public class RegistrationBean {
         }
     }
 
-    @Schedule(dayOfMonth = "1", hour = "4")
     public void clearUnactivatedRegistrations() {
         userDAO.clearUnactivatedAccounts(UNACTIVATED_USERS_MAX_DAYS);
     }

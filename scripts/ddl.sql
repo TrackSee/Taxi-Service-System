@@ -28,18 +28,20 @@ CREATE TABLE IF NOT EXISTS Car
 (
   car_number                       VARCHAR(55) PRIMARY KEY,
   car_model                        VARCHAR(55) NOT NULL,
-  color                            VARCHAR(28),
-  car_category                     VARCHAR(28),
-  animal_transportation_applicable BOOLEAN,
-  free_wifi                        BOOLEAN,
-  air_conditioner                  BOOLEAN
+  color                            VARCHAR(28) NOT NULL,
+  car_category                     VARCHAR(28) NOT NULL,
+  accepts_visa                     BOOLEAN NOT NULL,
+  animal_transportation_applicable BOOLEAN NOT NULL,
+  free_wifi                        BOOLEAN NOT NULL,
+  air_conditioner                  BOOLEAN NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Service_User
 (
   user_id           SERIAL PRIMARY KEY,
   email             VARCHAR(254) UNIQUE NOT NULL,
-  password          VARCHAR(150)         NOT NULL,
+  password          VARCHAR(150)        NOT NULL,
+  salt              CHAR(8)             NOT NULL,
   phone             VARCHAR(28),
   sex               CHAR(1),
   driver            BOOLEAN             NOT NULL DEFAULT FALSE,
@@ -56,7 +58,6 @@ CREATE TABLE IF NOT EXISTS Address
 (
   name                  VARCHAR(120) NOT NULL,
   user_id               INT          NOT NULL REFERENCES Service_User (user_id) ON DELETE CASCADE,
-  string_representation VARCHAR(250),
   location              POINT,
   PRIMARY KEY (name, user_id)
 );

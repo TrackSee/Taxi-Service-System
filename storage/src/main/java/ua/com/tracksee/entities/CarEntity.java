@@ -15,6 +15,7 @@ public class CarEntity {
     private String carModel;
     private String color;
     private CarCategory carCategory;
+    private Boolean acceptsVisa;
     private Boolean animalTransportationApplicable;
     private Boolean freeWifi;
     private Boolean airConditioner;
@@ -58,6 +59,16 @@ public class CarEntity {
 
     public void setCarCategory(CarCategory carCategory) {
         this.carCategory = carCategory;
+    }
+
+    @Basic
+    @Column(name = "accepts_visa")
+    public Boolean getAcceptsVisa() {
+        return acceptsVisa;
+    }
+
+    public void setAcceptsVisa(Boolean acceptsVisa) {
+        this.acceptsVisa = acceptsVisa;
     }
 
     @Basic

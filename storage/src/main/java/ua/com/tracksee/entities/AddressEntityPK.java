@@ -12,6 +12,14 @@ public class AddressEntityPK implements Serializable {
     private String name;
     private Integer userId;
 
+    public AddressEntityPK() {
+    }
+
+    public AddressEntityPK(String name, Integer userId) {
+        this.name = name;
+        this.userId = userId;
+    }
+
     @Column(name = "name")
     @Id
     public String getName() {

@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 import static java.lang.Boolean.TRUE;
+import static ua.com.tracksee.servlets.AttributeNames.USER_EMAIL;
+import static ua.com.tracksee.servlets.AttributeNames.USER_ID;
 
 /**
  * @author Ruslan Gunavardana
@@ -23,7 +25,6 @@ import static java.lang.Boolean.TRUE;
 @WebServlet("/signin")
 public class SignInServlet extends HttpServlet {
     private static final int SESSION_MAX_INACTIVE_INTERVAL = 60 * 60;
-    private static final String SUCCESS = "success";
     private static final String ERROR = "error";
     private static final Logger logger = LogManager.getLogger();
 
@@ -31,7 +32,6 @@ public class SignInServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("pageName", "signIn");
         req.getRequestDispatcher("/WEB-INF/accounts/signIn.jsp").forward(req, resp);
     }
 
@@ -41,26 +41,28 @@ public class SignInServlet extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
+        req.logout();
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-
         logger.debug("User attempts to authorise {}", email);
-        try {
-            req.login(email, password);
-        } catch (ServletException e) {
-            logger.warn(e.getMessage());
-            resp.getWriter().append(ERROR);
-            return;
-        }
 
         ServiceUserEntity user = userDAO.getUserByEmail(email);
         if (user == null || !Objects.equals(user.getPassword(), password) || user.getActivated() != TRUE) {
             resp.getWriter().append(ERROR);
             return;
         }
+
+        // using JAAS to login
+        try {
+            req.login(email, password);
+        } catch (ServletException e) {
+            logger.warn(e.getMessage());
+            resp.getWriter().append(ERROR);
+        }
+
         session = req.getSession(true);
         session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_INTERVAL);
-        session.setAttribute("userId", user.getUserId());
-        session.setAttribute("email", email);
+        session.setAttribute(USER_ID, user.getUserId());
+        session.setAttribute(USER_EMAIL, email);
     }
 }

@@ -40,33 +40,32 @@
 
                             <div class="nav-collapse collapse">
                                 <ul class="nav" id="button-list">
-                                    <li <c:if test="${requestScope.pageName == 'index'}">class="active"</c:if>>
+                                    <c:set var="uri" value="${pageContext.request.requestURI}" scope="page"/>
+                                    <li <c:if test="${pageScope.uri.endsWith('/index.jsp')}">class="active"</c:if>>
                                         <a href="<c:url value="/"/>">Home</a>
                                     </li>
                                     <%--TODO make link to client dashboard--%>
                                     <%--<li <c:if test="${requestScope.pageName == 'customerProfile'}">class="active"</c:if>>--%>
                                         <%--<a href="<c:url value="/customer/dashboard?type=old"/>">Client Dashboard</a>--%>
                                     <%--</li>--%>
-                                    <li <c:if test="${requestScope.pageName == 'orderComplete'}">class="active"</c:if>>
+                                    <li <c:if test="${pageScope.uri.endsWith('/orderComplete.jsp')}">class="active"</c:if>>
                                         <a href="<c:url value="/orderComplete"/>">Order</a>
                                     </li>
-                                    <li <c:if test="${requestScope.pageName == 'orderInformation'}">class="active"</c:if>>
+                                    <li <c:if test="${pageScope.uri.endsWith('/orderInfo.jsp')}">class="active"</c:if>>
                                         <a href="<c:url value="/orderInfo"/>">Order information</a>
                                     </li>
                                     <c:if test="${sessionScope.userId == null}">
-                                        <li <c:if test="${requestScope.pageName == 'signIn'}">class="active"</c:if>>
+                                        <li <c:if test="${pageScope.uri.endsWith('/signIn.jsp')}">
+                                                    class="active"</c:if>>
                                             <a href="<c:url value="/signin"/>">Sign in</a>
                                         </li>
-                                        <li <c:if test="${requestScope.pageName == 'signUp'}">class="active"</c:if>>
+                                        <li <c:if test="${pageScope.uri.endsWith('/signUp.jsp')}">class="active"</c:if>>
                                             <a href="<c:url value="/signup"/>">Sign up</a>
                                         </li>
                                     </c:if>
                                     <c:if test="${sessionScope.userId != null}">
-                                        <li <c:if test="${requestScope.pageName == 'signOut'}">class="active"</c:if>
-                                                id="signout">
-                                            <a href="<c:url value="#"/>" onclick="signOut()">
-                                                Sign out
-                                            </a>
+                                        <li id="signout">
+                                            <a href="<c:url value="#"/>" onclick="signOut()">Sign out</a>
                                         </li>
                                     </c:if>
                                 </ul>

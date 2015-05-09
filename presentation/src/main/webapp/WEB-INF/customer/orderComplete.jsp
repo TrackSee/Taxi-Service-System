@@ -1,5 +1,4 @@
 <%--
-
   author: Sharaban Sasha
   Date: 19.04.15
   Time: 20:37
@@ -56,7 +55,7 @@
         <form method="post" action="<c:url value="/orderComplete"/>">
             <div class="form-group">
                 <label>Phone number</label>
-                <input type="text" name="phoneNumber" class="form-control" placeholder="Enter phone number:"
+                <input type="number" name="phoneNumber" class="form-control" placeholder="Enter phone number:"
                        required>
                 <span class="red-star">★</span>
             </div>
@@ -218,7 +217,6 @@
 
     </div>
 </div>
-<p>d</p>
 <!-- Load jQuery and bootstrap datepicker scripts -->
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
         charset="UTF-8"></script>

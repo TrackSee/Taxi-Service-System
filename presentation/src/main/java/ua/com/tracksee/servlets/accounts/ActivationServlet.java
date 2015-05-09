@@ -1,7 +1,7 @@
 package ua.com.tracksee.servlets.accounts;
 
-import ua.com.tracksee.logic.RegistrationBean;
 import ua.com.tracksee.logic.exception.RegistrationException;
+import ua.com.tracksee.logic.facade.CustomerFacade;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -16,13 +16,12 @@ import java.io.IOException;
  */
 @WebServlet("/activation")
 public class ActivationServlet extends HttpServlet {
-    @EJB
-    private RegistrationBean registrationBean;
+    private @EJB CustomerFacade customerFacade;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            registrationBean.activateCustomerUserAccount(req.getParameter("code"));
+            customerFacade.activateUser(req.getParameter("code"));
         } catch (RegistrationException e) {
             req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req,resp);
         }

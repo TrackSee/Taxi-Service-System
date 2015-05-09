@@ -1,24 +1,20 @@
 package ua.com.tracksee.dao;
 
 import ua.com.tracksee.entities.AddressEntity;
+import ua.com.tracksee.entities.AddressEntityPK;
 
 import javax.ejb.Local;
 import java.util.List;
 
 /**
- * @author  Katia Stetsiuk
+ * @author Ruslan Gunavardana
  */
 @Local
 public interface AddressDAO {
-    public void addAddress(AddressEntity address);
-    public void deleteAddress(AddressEntity address);
-    public void updateAddress(AddressEntity addressEntity);
-    List<AddressEntity> getAddresses();
-
-    /**
-     * @author  Sharaban Sasha
-     */
-    AddressEntity getAddressByUserId(int id);
-
+    AddressEntity getAddress(AddressEntityPK pk);
+    List getAddressesByUserId(int id);
+    boolean addAddress(AddressEntity address);
+    boolean updateAddress(AddressEntityPK pk, AddressEntity newValue);
+    boolean deleteAddress(AddressEntityPK address);
 }
 
