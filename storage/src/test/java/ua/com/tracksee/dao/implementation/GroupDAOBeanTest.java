@@ -1,4 +1,4 @@
-package ua.com.tracksee.dao.postgresql;
+package ua.com.tracksee.dao.implementation;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -12,7 +12,6 @@ import org.postgresql.geometric.PGpoint;
 import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.GroupDAO;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.dao.implementation.UserDAOBean;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
 import javax.ejb.EJB;

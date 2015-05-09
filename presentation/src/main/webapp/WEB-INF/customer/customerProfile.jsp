@@ -31,8 +31,8 @@
     <div class="container">
       <h2><i class="ico-settings ico-whiteeclipse"></i>Client Dashboard</h2>
       <div class="btn-group btn-group-lg group" role="group" aria-label="Large button group">
-        <button type="button" class="btn btn-default old <%=request.getAttribute("type").equals("old") ? "active" : ""%>" value="old">Old TOs</button>
-        <button type="button" class="btn btn-default act <%=request.getAttribute("type").equals("active") ? "active" : ""%>" value="active">Active TOs</button>
+        <button type="button" class="btn btn-default completed <%=request.getAttribute("type").equals("completed") ? "active" : ""%>" value="old">Old TOs</button>
+        <button type="button" class="btn btn-default active <%=request.getAttribute("type").equals("active") ? "active" : ""%>" value="active">Active TOs</button>
       </div>
     </div>
     <!-- end: Container  -->

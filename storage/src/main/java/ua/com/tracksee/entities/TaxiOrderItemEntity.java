@@ -32,7 +32,7 @@ public class TaxiOrderItemEntity {
     }
 
     @Basic
-    @Column(name = "path")
+    @Column(name = "path", columnDefinition = "bytea")
     public PGpath getPath() {
         return path;
     }

@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static javax.persistence.EnumType.STRING;
-import static javax.persistence.FetchType.EAGER;
 
 /**
  * @author Ruslan Gunavardana
@@ -38,6 +37,14 @@ public class TaxiOrderEntity {
     private Timestamp endDate;
     private List<TaxiOrderItemEntity> itemList = new ArrayList<>();
 
+    public TaxiOrderEntity() {
+
+    }
+
+    public TaxiOrderEntity(OrderStatus status) {
+        this.status = status;
+    }
+
     @Basic
     @Column(name = "arrive_date",nullable = true)
     public Timestamp getArriveDate() {
@@ -57,14 +64,6 @@ public class TaxiOrderEntity {
 
     public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
-    }
-
-    public TaxiOrderEntity() {
-
-    }
-
-    public TaxiOrderEntity(OrderStatus status) {
-        this.status = status;
     }
 
     @Id
@@ -236,7 +235,7 @@ public class TaxiOrderEntity {
         this.orderedDate = orderedDate;
     }
 
-    @OneToMany(fetch = EAGER, mappedBy = "taxiOrder")
+    @OneToMany(mappedBy = "taxiOrder")
     public List<TaxiOrderItemEntity> getItemList() {
         return itemList;
     }

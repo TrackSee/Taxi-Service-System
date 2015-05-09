@@ -1,11 +1,11 @@
 package ua.com.tracksee.logic.facade;
 
-import org.postgresql.geometric.PGpoint;
-import ua.com.tracksee.dao.AddressDAO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.AddressEntity;
-import ua.com.tracksee.entities.AddressEntityPK;
+import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.json.FavoritePlaceDTO;
-import ua.com.tracksee.json.LocationDTO;
 import ua.com.tracksee.logic.customer.FavoritePlacesBean;
 import ua.com.tracksee.logic.customer.RegistrationBean;
 import ua.com.tracksee.logic.exception.RegistrationException;
@@ -15,13 +15,26 @@ import javax.ejb.Stateless;
 import java.util.List;
 
 /**
- * @author Ruslan Gunavardana
+ * @author Vadym Akymov, Ruslan Gunavardana on 09.05.15.
+ * Session Facade for customer bean
  */
 @Stateless
 public class CustomerFacade {
+    private static final Logger logger = LogManager.getLogger();
+
+    private @EJB TaxiOrderDAO taxiOrderDAO;
     private @EJB RegistrationBean registrationBean;
     private @EJB FavoritePlacesBean favoritePlacesBean;
 
+    public List<TaxiOrderEntity> getOrdersPerPage(OrderStatusBO orderStatus, int userID, int pageNumber){
+        switch (orderStatus){
+            case ACTIVE: return taxiOrderDAO.getCustomerActiveOrdersPerPage(userID, pageNumber);
+            case COMPLETED: return taxiOrderDAO.getCustomerOldOrdersPerPage(userID, pageNumber);
+            default:
+                logger.warn("wrong order status param");
+                throw new IllegalArgumentException("wrong order status param");
+        }
+    }
     /** Registers new account with the specified credentials. */
     public void registerUser(String email, String password, String phoneNumber)
             throws RegistrationException

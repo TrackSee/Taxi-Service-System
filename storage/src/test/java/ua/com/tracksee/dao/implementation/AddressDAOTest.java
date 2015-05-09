@@ -1,4 +1,4 @@
-package ua.com.tracksee.dao.postgresql;
+package ua.com.tracksee.dao.implementation;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
