@@ -231,7 +231,6 @@ public class TaxiOrderBean {
      */
     private AddressEntity validateForOriginAddress(HashMap<String, String> inputData) throws OrderException {
         AddressEntity addressEntityOrigin = new AddressEntity();
-        addressEntityOrigin.setStringRepresentation(inputData.get("addressOrigin"));
         return addressEntityOrigin;
     }
 
@@ -246,7 +245,6 @@ public class TaxiOrderBean {
      */
     private AddressEntity validateForDestinationAddress(HashMap<String, String> inputData) throws OrderException {
         AddressEntity addressEntityDestination = new AddressEntity();
-        addressEntityDestination.setStringRepresentation(inputData.get("addressDestination"));
         return addressEntityDestination;
     }
 
