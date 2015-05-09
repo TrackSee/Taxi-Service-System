@@ -179,6 +179,68 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         return (int) Math.ceil(generalOrderCount.intValue() / (double) TO_ORDERS_PER_PAGE);
     }
 
+    /**
+     * @author Katia Stetsiuk
+     */
+    @Override
+    public List<ServiceProfitable> getProfitByService(String startDate, String endDate) {
+        String sql = "SELECT service, SUM(price)\n" +
+                "FROM taxi_order\n " +
+                "WHERE ORDERED_DATE BETWEEN '" + startDate + "'" +
+                " AND '" + endDate + "'" +
+                "GROUP BY service";
+        Query query = entityManager.createNativeQuery(sql);
+        List<Object[]> list = query.getResultList();
+        List<ServiceProfitable> profitList = new ArrayList<>();
+        ServiceProfitable pe;
+        for (Object[] objects : list) {
+            String s = (String) objects[0];
+            BigDecimal b = (BigDecimal) objects[1];
+            pe = new ServiceProfitable(s, b.doubleValue());
+            profitList.add(pe);
+        }
+        return profitList;
+        // return query.getResultList();
+    }
+
+    /**
+     * @author Katia Stetsiuk
+     */
+    public List<MostPopularOption> getMostPopularOptionsForUser(Integer userId) {
+        String options[] = {"AnimalTransportation", "MusicStyle", "FreeWifi", "NonSmokingDriver",
+                "AirConditioner", "DriverSex", "WayOfPayment", "carCategory"};
+        BigInteger counts[] = {getCountOptionalBool("animal_transportation", userId), getCountOptionalChar("music_style", userId),
+                getCountOptionalBool("free_wifi", userId), getCountOptionalBool("non_smoking_driver", userId),
+                getCountOptionalBool("air_conditioner", userId), getCountOptionalChar("driver_sex", userId),
+                getCountOptionalChar("way_of_payment", userId), getCountOptionalChar("car_category", userId)};
+        List<MostPopularOption> listOptions = new ArrayList<>();
+        for (int i = 0; i < options.length; i++) {
+            listOptions.add(new MostPopularOption(options[i], counts[i]));
+        }
+        return listOptions;
+    }
+
+    /**
+     * @author Katia Stetsiuk
+     */
+    public BigInteger getCountOptionalBool(String option, Integer userId) {
+        String sql = "select count(*) from taxi_order where " + option + " = true " +
+                "and user_id = ?";
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1, userId);
+        return (BigInteger) query.getSingleResult();
+    }
+
+    /**
+     * @author Katia Stetsiuk
+     */
+    public BigInteger getCountOptionalChar(String option, Integer userId) {
+        String sql = "select count(*) from taxi_order where " + option + " is not null " +
+                "and user_id = ?";
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1, userId);
+        return (BigInteger) query.getSingleResult();
+    }
 
     @Override
     public List<TaxiOrderEntity> getCustomerActiveOrdersPerPage(int userID, int partNumber) {

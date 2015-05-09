@@ -55,9 +55,8 @@ public class TaxiOrderBean {
     @EJB
     EnumValidationBean enumValidationBean;
 
-
-
-
+    public List<ServiceProfitable> getProfitByService(String startDate, String endDate){return taxiOrderDAO.getProfitByService(startDate, endDate);}
+    public List<MostPopularOption> getMostPopularOptionsForUser(Integer userId){return taxiOrderDAO.getMostPopularOptionsForUser(userId);}
     /**
      * Creates taxi order for authorised user.
      *

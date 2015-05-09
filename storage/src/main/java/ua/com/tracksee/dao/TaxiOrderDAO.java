@@ -6,6 +6,7 @@ import javax.ejb.Local;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Interface for persisting and accessing taxi order data.
@@ -76,8 +77,8 @@ public interface TaxiOrderDAO {
      */
     List<TaxiOrderEntity> getOrdersPerPage(int partNumber);
 
-    List<TaxiOrderEntity> getActiveOrdersPerPage(int partNumber);
-    List<TaxiOrderEntity> getOldOrdersPerPage(int partNumber);
+    List<TaxiOrderEntity> getCustomerActiveOrdersPerPage(int userID, int partNumber);
+    List<TaxiOrderEntity> getCustomerOldOrdersPerPage(int userID, int partNumber);
 
     /**
      * @author Vadym Akymov
@@ -85,7 +86,30 @@ public interface TaxiOrderDAO {
      */
     int getActiveTaxiOrderPagesCount();
     int getOldTaxiOrderPagesCount();
+    /**
+     * @author Oleksandr Kozin
+     * @param startDate start date of the period
+     * @param endDate end date of the period
+     * @return number of orders per period
+     */
+    int getOrdersByPeriod(String startDate, String endDate);
 
+    /**
+     * @author Oleksandr Kozin
+     * @return map with most popular additional car options overall
+     */
+    Map<String, Integer> mostPopularAdditionalCarOptOverall();
+    /**
+     * @author Katia Stetsiuk
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+
+    List<ServiceProfitable> getProfitByService(String startDate, String endDate);
+    BigInteger getCountOptionalChar(String option, Integer userId);
+    List<MostPopularOption> getMostPopularOptionsForUser(Integer userId);
+    BigInteger getCountOptionalBool(String option, Integer userId);
 
     public List<TaxiOrderEntity> getAvailableOrders(ServiceUserEntity driver, int pageNumber);
 

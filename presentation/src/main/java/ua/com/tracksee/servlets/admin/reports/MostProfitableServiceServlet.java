@@ -3,7 +3,6 @@ package ua.com.tracksee.servlets.admin.reports;
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.ServiceProfitable;
 import ua.com.tracksee.logic.TaxiOrderBean;
-import ua.com.tracksee.logic.reports.ReportBean;
 import ua.com.tracksee.logic.reports.ReportChartBean;
 
 import javax.ejb.EJB;
