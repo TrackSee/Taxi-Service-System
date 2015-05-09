@@ -90,7 +90,7 @@ public interface UserDAO {
     List<String> getDriversEmails();
 
 
-    List<ServiceUserEntity> getDriverByEmail(String email);
+
     Integer getUserIdByEmail(String email);
 
     /**
@@ -103,8 +103,20 @@ public interface UserDAO {
     int checkBlackListUserByEmail(String email);
 
 
-
+    /**
+     * @author Katia Stetsiuk
+     * @param email to get customers with such email
+     * @return
+     */
     List<ServiceUserEntity> getCustomersByEmail(String email);
+
+    /**
+     * @author Katia Stetsiuk
+     * @param email to get drivers with such email
+     * @return
+     */
+    List<ServiceUserEntity> getDriversByEmail(String email);
+
     public CarEntity getDriversCar(ServiceUserEntity driver);
 
 }

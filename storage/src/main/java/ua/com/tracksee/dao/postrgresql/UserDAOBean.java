@@ -43,8 +43,8 @@ public class UserDAOBean implements UserDAO {
 }
 
     /**
-     * @author KatiaStetsiuk
-     * @return
+     * @author Katia Stetsiuk
+     * @return list of users in system
      */
     @Override
     public List<ServiceUserEntity> getUsers() {
@@ -61,6 +61,11 @@ public class UserDAOBean implements UserDAO {
         return query.getResultList();
     }
 
+    /**
+     * @author Katia Stetsiuk
+     * @param email to customers drivers with such email
+     * @return
+     */
     @Override
     public List<ServiceUserEntity> getCustomersByEmail(String email) {
         Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
@@ -71,11 +76,11 @@ public class UserDAOBean implements UserDAO {
 
     /**
      * @author Katia Stetsiuk
-     * @param email
+     * @param email to get drivers with such email
      * @return
      */
     @Override
-    public List<ServiceUserEntity> getDriverByEmail(String email) {
+    public List<ServiceUserEntity> getDriversByEmail(String email) {
         Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
                 "WHERE driver = TRUE and email LIKE ? ", ServiceUserEntity.class);
         query.setParameter(1 ,"%" + email + "%");

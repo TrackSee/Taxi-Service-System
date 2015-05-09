@@ -85,7 +85,7 @@ public class AdministratorBean {
     public void deleteUser(int id){
         userDAO.deleteUser(id);
     }
-    public List<ServiceUserEntity> getDriverByEmail(String email){return userDAO.getDriverByEmail(email);};
+    public List<ServiceUserEntity> getDriversByEmail(String email){return userDAO.getDriversByEmail(email);};
     public List<ServiceUserEntity> getCustomersByEmail(String email){return userDAO.getCustomersByEmail(email);};
 
     /**
@@ -97,12 +97,31 @@ public class AdministratorBean {
 
     /**
      * @author Katia Stetsiuk
-     * @param carEntity entity for updating, creating, deleting
+     * @param carEntity entity  creating
      */
     public void createCar(CarEntity carEntity){carDAO.createCar(carEntity);}
+    /**
+     * @author Katia Stetsiuk
+     * @param carEntity entity for updating
+     */
     public void updateCar(CarEntity carEntity){carDAO.updateCar(carEntity);}
+    /**
+     * @author Katia Stetsiuk
+     * @param carNumber car number for deleting
+     */
     public void deleteCar(String carNumber) {carDAO.deleteCar(carNumber);}
+
+    /**
+     * @author Katia Stetsiuk
+     * @param partNumber number of part to review
+     * @return
+     */
     public List<CarEntity> getCarsPart(int partNumber) {return carDAO.getCarsPart(partNumber);}
+
+    /**
+     *
+     * @return number of pages for review driver list
+     */
     public int getCarPagesCount(){return carDAO.getCarPagesCount();}
 
 

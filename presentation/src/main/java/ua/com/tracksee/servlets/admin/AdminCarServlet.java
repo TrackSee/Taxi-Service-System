@@ -24,23 +24,16 @@ public class AdminCarServlet extends HttpServlet {
     private static Logger logger = LogManager.getLogger();
     @EJB
     private AdministratorBean administratorBean;
-//    @EJB
-//    private CarDAO carDAO;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         List<CarEntity> cars = administratorBean.getCarsPart(1);
         req.setAttribute("cars", cars);
-
         req.setAttribute("pagesCount", administratorBean.getCarPagesCount());
         req.getRequestDispatcher("/WEB-INF/admin/adminCarList.jsp").forward(req, resp);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-       String pageParam = req.getParameter("pageNumber");
         Integer pageNumber = null;
-        //check pageNumber
         try {
             pageNumber = Integer.parseInt(req.getParameter("pageNumber"));
             if(pageNumber > administratorBean.getCarPagesCount()){
@@ -57,7 +50,11 @@ public class AdminCarServlet extends HttpServlet {
         resp.getWriter().write(getJsonFromList(cars));
     }
 
-
+    /**
+     *
+     * @param cars list of cars to convert into JSON
+     * @return String of JSON
+     */
     private String getJsonFromList(List<CarEntity> cars){
         ObjectMapper mapper = new ObjectMapper();
         String json = null;
