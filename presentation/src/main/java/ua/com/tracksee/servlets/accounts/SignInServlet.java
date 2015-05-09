@@ -26,7 +26,6 @@ import static ua.com.tracksee.AttributeNames.USER_ID;
 @WebServlet("/signin")
 public class SignInServlet extends HttpServlet {
     private static final int SESSION_MAX_INACTIVE_INTERVAL = 60 * 60;
-    private static final String SUCCESS = "success";
     private static final String ERROR = "error";
     private static final Logger logger = LogManager.getLogger();
 
@@ -53,16 +52,18 @@ public class SignInServlet extends HttpServlet {
             resp.getWriter().append(ERROR);
             return;
         }
-        session = req.getSession(true);
-        session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_INTERVAL);
-        session.setAttribute(USER_ID, user.getUserId());
-        session.setAttribute(USER_EMAIL, email);
 
+        // using JAAS to login
         try {
             req.login(email, password);
         } catch (ServletException e) {
             logger.warn(e.getMessage());
             resp.getWriter().append(ERROR);
         }
+
+        session = req.getSession(true);
+        session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_INTERVAL);
+        session.setAttribute(USER_ID, user.getUserId());
+        session.setAttribute(USER_EMAIL, email);
     }
 }
