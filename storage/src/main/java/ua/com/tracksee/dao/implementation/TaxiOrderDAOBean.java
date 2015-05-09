@@ -1,13 +1,9 @@
-package ua.com.tracksee.dao.postrgresql;
+package ua.com.tracksee.dao.implementation;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
-import ua.com.tracksee.entities.MostPopularOption;
-import ua.com.tracksee.entities.ServiceProfitable;
-import ua.com.tracksee.entities.ServiceUserEntity;
-import ua.com.tracksee.entities.TaxiOrderEntity;
-import ua.com.tracksee.entities.TaxiOrderItemEntity;
+import ua.com.tracksee.entities.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,7 +13,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>Postgresql database implementation of
@@ -96,6 +94,50 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     }
 
     @Override
+    public int getOrdersByPeriod(String startDate, String endDate) {
+        String sql = "SELECT COUNT(*) FROM taxi_order" +
+                " WHERE ordered_date" +
+                " BETWEEN '" + startDate + "'" +
+                " AND '" + endDate + "'";
+        return getInteger(sql);
+    }
+    /**
+     * @author Oleksandr Kozin
+     * @param sql query to count the number of orders with an additional option
+     * @return number of orders with this additional option
+     */
+    private Integer getInteger(String sql) {
+        Query query = entityManager.createNativeQuery(sql);
+        BigInteger bigInteger = (BigInteger) query.getSingleResult();
+        return bigInteger.intValue();
+    }
+    @Override
+    public Map<String, Integer> mostPopularAdditionalCarOptOverall() {
+        Map<String, Integer> map = new HashMap<>();
+        String sql = "SELECT COUNT(*) FROM taxi_order";
+        Integer integer = getInteger(sql);
+        map.put("all_orders", integer);
+        String[] options = {"free_wifi", "animal_transportation", "non_smoking_driver", "air_conditioner"};
+        for (int i = 0; i < options.length; i++) {
+            Integer amount = getAmount(options[i]);
+            map.put(options[i], amount);
+        }
+        return map;
+    }
+
+    /**
+     * It counts the number of orders from this additional option
+     * @author Oleksandr Kozin
+     * @param option the name of an additional option
+     * @return number of orders with this additional option
+     */
+    private Integer getAmount(String option) {
+        String sql = "SELECT COUNT(*) FROM taxi_order" +
+                " WHERE " + option + " = TRUE";
+        return getInteger(sql);
+    }
+
+    @Override
     public void addArriveDate(Timestamp arriveDate, long trackingNumber) {
         String sql = "UPDATE taxi_order SET arrive_date=(?1) WHERE tracking_number=(?2)";
 
@@ -139,30 +181,32 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
 
     @Override
-    public List<TaxiOrderEntity> getActiveOrdersPerPage(int partNumber) {
-        if (partNumber <= 0) {
-            logger.error("partNumber can't be <= 0");
-            throw new IllegalArgumentException("partNumber can't be <= 0");
+    public List<TaxiOrderEntity> getCustomerActiveOrdersPerPage(int userID, int partNumber) {
+        if (partNumber <= 0 || userID < 0) {
+            logger.error("One of params is wrong!");
+            throw new IllegalArgumentException("One of params is wrong!");
         }
-        Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order WHERE status != " +
+        Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order WHERE user_id =?1 AND status != " +
                 "'COMPLETED' " +
-                "ORDER BY ordered_date DESC LIMIT ?1 OFFSET ?2", TaxiOrderEntity.class);
-        query.setParameter(1, TO_ORDERS_PER_PAGE);
-        query.setParameter(2, (partNumber - 1) * TO_ORDERS_PER_PAGE);
+                "ORDER BY ordered_date DESC LIMIT ?2 OFFSET ?3", TaxiOrderEntity.class);
+        query.setParameter(1, userID);
+        query.setParameter(2, TO_ORDERS_PER_PAGE);
+        query.setParameter(3, (partNumber - 1) * TO_ORDERS_PER_PAGE);
         return query.getResultList();
     }
 
     @Override
-    public List<TaxiOrderEntity> getOldOrdersPerPage(int partNumber) {
-        if (partNumber <= 0) {
-            logger.error("partNumber can't be <= 0");
-            throw new IllegalArgumentException("partNumber can't be <= 0");
+    public List<TaxiOrderEntity> getCustomerOldOrdersPerPage(int userID, int partNumber) {
+        if (partNumber <= 0 || userID < 0) {
+            logger.error("One of params is wrong!");
+            throw new IllegalArgumentException("One of params is wrong!");
         }
-        Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order WHERE status = " +
+        Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order WHERE user_id=?1 AND status = " +
                 "'COMPLETED' " +
-                "ORDER BY ordered_date DESC LIMIT ?1 OFFSET ?2", TaxiOrderEntity.class);
-        query.setParameter(1, TO_ORDERS_PER_PAGE);
-        query.setParameter(2, (partNumber - 1) * TO_ORDERS_PER_PAGE);
+                "ORDER BY ordered_date DESC LIMIT ?2 OFFSET ?3", TaxiOrderEntity.class);
+        query.setParameter(1, userID);
+        query.setParameter(2, TO_ORDERS_PER_PAGE);
+        query.setParameter(3, (partNumber - 1) * TO_ORDERS_PER_PAGE);
         return query.getResultList();
     }
 

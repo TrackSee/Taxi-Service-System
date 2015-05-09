@@ -14,9 +14,9 @@ import java.util.ArrayList;
  */
 @Stateless
 public class ExcelReporterBean {
-    public HSSFWorkbook  getExcelFile(ArrayList<String> titles,ArrayList<ArrayList<String>> dataArray){
+    public HSSFWorkbook  getExcelFile(ArrayList<String> titles,ArrayList<ArrayList<String>> dataArray,String reportTitle){
         HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet worksheet = workbook.createSheet("Report");
+        HSSFSheet worksheet = workbook.createSheet(reportTitle);
         HSSFCellStyle cellStyle;
 
         cellStyle = workbook.createCellStyle();

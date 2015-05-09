@@ -1,9 +1,9 @@
-package ua.com.tracksee.dao.postrgresql;
+package ua.com.tracksee.dao.implementation;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException;
+import ua.com.tracksee.dao.implementation.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 
@@ -49,6 +49,13 @@ public class UserDAOBean implements UserDAO {
     @Override
     public List<ServiceUserEntity> getUsers() {
         Query query = entityManager.createNativeQuery("SELECT * FROM service_user "
+                , ServiceUserEntity.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<ServiceUserEntity> getUnregisteredUsers() {
+        Query query = entityManager.createNativeQuery("SELECT * FROM service_user WHERE activated=FALSE "
                 , ServiceUserEntity.class);
         return query.getResultList();
     }

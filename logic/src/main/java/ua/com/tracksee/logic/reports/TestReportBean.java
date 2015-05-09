@@ -10,7 +10,16 @@ import java.util.ArrayList;
  * @author Sharaban Sasha
  */
 @Stateless
-public class ReportBean {
+public class TestReportBean {
+    private String reportTitle="simpleReport";
+
+    public String getReportTitle() {
+        return reportTitle;
+    }
+
+    public void setReportTitle(String reportTitle) {
+        this.reportTitle = reportTitle;
+    }
     public ArrayList<String> getTitles(){
        ArrayList<String> titles=new ArrayList<String>();
         titles.add("title1");

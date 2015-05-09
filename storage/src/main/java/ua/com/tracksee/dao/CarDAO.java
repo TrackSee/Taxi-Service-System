@@ -43,7 +43,7 @@ public interface CarDAO {
     List<CarEntity> getCarsPart(int partNumber);
 
     /**
-     * @throws ua.com.tracksee.dao.postrgresql.exceptions.CarNotFoundException when there
+     * @throws ua.com.tracksee.dao.implementation.exceptions.CarNotFoundException when there
      *                                                                         is no car with such carNumber
      * @author Katia Stetsiuk
      */

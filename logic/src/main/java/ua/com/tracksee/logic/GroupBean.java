@@ -18,6 +18,7 @@ import ua.com.tracksee.logic.group.GroupSelectCountAction;
 import ua.com.tracksee.logic.group.GroupUpdateAction;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityExistsException;
@@ -39,7 +40,7 @@ public class GroupBean {
 
     private void addGroup(String groupName, Role role, String[] userIds, Integer[] userIdsUpdateRole,
                           boolean[] idAdmins, boolean[] isDrivers) throws SQLException{
-        if (!groupDAO.existsGroup(groupName)) {
+        if (!existsGroup(groupName)) {
             for (Integer id : stringsToIntegers(userIds)) {
                 groupDAO.addUserToGroup(groupName, id);
                 groupDAO.setRoleToUser(role.getName(), id);
@@ -126,15 +127,18 @@ public class GroupBean {
     }
 
     public void executeUpdate(GroupUpdateAction action, String groupName, String[] ids, Role role,
-                              String[] userIdsStrings, boolean[] idAdmins, boolean[] isDrivers)
-            throws EntityExistsException {
+                                String[] userIdsStrings, boolean[] idAdmins, boolean[] isDrivers) {
         Integer[] userIds = null;
         if (userIdsStrings != null) {
             userIds = stringsToIntegers(userIdsStrings);
         }
         if (action == GroupUpdateAction.ADD_GROUP) {
             try {
-                addGroup(groupName, role, ids, userIds, idAdmins, isDrivers);
+                try {
+                    addGroup(groupName, role, ids, userIds, idAdmins, isDrivers);
+                } catch (EntityExistsException|EJBException e) {
+                    logger.error("This group exist! " + e);
+                }
             } catch (SQLException e) {
                 logger.error(e);
             }
@@ -183,6 +187,10 @@ public class GroupBean {
         for (int i = 0; i < userIds.length; i++) {
             groupDAO.updateUserRoles(userIds[i], isDrivers[i], isAdmins[i]);
         }
+    }
+
+    public boolean existsGroup(String groupName) {
+        return groupDAO.existsGroup(groupName);
     }
 
     private Integer[] stringsToIntegers(String[] strings) {

@@ -123,16 +123,16 @@ public class TaxiOrderBean {
      * @author Vadym Akymov
      * @see TaxiOrderDAO
      */
-    public List<TaxiOrderEntity> getActiveOrdersPerPage(int partNumber) {
-        return taxiOrderDAO.getActiveOrdersPerPage(partNumber);
+    public List<TaxiOrderEntity> getActiveOrdersPerPage(int userID, int partNumber) {
+        return taxiOrderDAO.getCustomerActiveOrdersPerPage(userID, partNumber);
     }
 
     /**
      * @author Vadym Akymov
      * @see TaxiOrderDAO
      */
-    public List<TaxiOrderEntity> getOldOrdersPerPage(int partNumber) {
-        return taxiOrderDAO.getOldOrdersPerPage(partNumber);
+    public List<TaxiOrderEntity> getOldOrdersPerPage(int userID, int partNumber) {
+        return taxiOrderDAO.getCustomerOldOrdersPerPage(userID, partNumber);
     }
 
     /**
@@ -283,13 +283,13 @@ public class TaxiOrderBean {
         MusicStyle musicStyle;
         OrderStatus orderStatus = OrderStatus.QUEUED;
 
-        if (!inputData.get("arriveDate").equals("")) {
+        if (inputData.get("arriveDate")!=null) {
             Timestamp timestamp = convertToTimestamp(inputData.get("arriveDate"));
             taxiOrderEntity.setArriveDate(timestamp);
         } else {
             taxiOrderEntity.setArriveDate(null);
         }
-        if (!inputData.get("endDate").equals("")) {
+        if (inputData.get("endDate")!=null) {
             Timestamp timestamp = convertToTimestamp(inputData.get("endDate"));
             taxiOrderEntity.setEndDate(timestamp);
         } else {

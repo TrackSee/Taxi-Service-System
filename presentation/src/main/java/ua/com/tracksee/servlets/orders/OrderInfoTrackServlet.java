@@ -93,13 +93,15 @@ public class OrderInfoTrackServlet extends HttpServlet {
                 req.setAttribute("airConditioner", "checked=\"checked\"");
             }
 
+       //     if(!taxiOrderBean.checkOrderPresent(trackingNumber)) {
+                if (taxiOrderEntity.getStatus() == OrderStatus.REFUSED || taxiOrderEntity.getStatus() == OrderStatus.COMPLETED) {
 
-            if (taxiOrderEntity.getStatus() == OrderStatus.REFUSED || taxiOrderEntity.getStatus() == OrderStatus.COMPLETED) {
+                    req.getRequestDispatcher("/WEB-INF/customer/orderTrackComplete.jsp").forward(req, resp);
+                } else {
+                    req.getRequestDispatcher("/WEB-INF/customer/orderTrack.jsp").forward(req, resp);
+                }
+         //   }
 
-                req.getRequestDispatcher("/WEB-INF/customer/orderTrackComplete.jsp").forward(req, resp);
-            } else {
-                req.getRequestDispatcher("/WEB-INF/customer/orderTrack.jsp").forward(req, resp);
-            }
         } catch (Exception e) {
             logger.error(e.getMessage());
             req.getRequestDispatcher("/WEB-INF/customer/error.jsp").forward(req, resp);

@@ -67,7 +67,10 @@ public interface UserDAO {
     void deleteUser(int serviceUserID);
 
     void updateUser(ServiceUserEntity serviceUserEntity);
-
+    /**
+     * @author Sharaban Sasha
+     */
+    public List<ServiceUserEntity> getUnregisteredUsers();
     /**
      * Returns user with the specified email address.
      *
@@ -79,7 +82,7 @@ public interface UserDAO {
     void createUser(ServiceUserEntity serviceUserEntity);
 
     /**
-     * @throws ua.com.tracksee.dao.postrgresql.exceptions.ServiceUserNotFoundException when there
+     * @throws ua.com.tracksee.dao.implementation.exceptions.ServiceUserNotFoundException when there
      *                                                                                 is no service user with such id
      */
     ServiceUserEntity getDriverByID(int id);

@@ -4,6 +4,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+
     <security-role>
         <role-name>ADMIN</role-name>
     </security-role>
@@ -13,6 +14,7 @@
     <security-role>
         <role-name>CUSTOMER</role-name>
     </security-role>
+
 
     <security-constraint>
         <web-resource-collection>
@@ -28,6 +30,7 @@
         </auth-constraint>
     </security-constraint>
 
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Admin pages</web-resource-name>
@@ -39,6 +42,7 @@
             <role-name>ADMIN</role-name>
         </auth-constraint>
     </security-constraint>
+
 
     <security-constraint>
         <web-resource-collection>
@@ -54,6 +58,8 @@
     </security-constraint>
 
 
+
+
     <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
@@ -61,8 +67,8 @@
             <form-error-page>/signin?error=true</form-error-page>
         </form-login-config>
     </login-config>
-        <error-page>
-            <error-code>403</error-code>
-            <location>/error</location>
-        </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error</location>
+    </error-page>
 </web-app>

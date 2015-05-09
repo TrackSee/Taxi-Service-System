@@ -59,6 +59,8 @@
                 </li>
                 <%--block users account--%>
                 <li><a href="<%=application.getContextPath()%>/admin/block">Block User</a> </li>
+                <%--groups edit--%>
+                <li><a href="<%=application.getContextPath()%>/admin/groups">Groups and roles</a> </li>
                 <li><a href="<%=application.getContextPath()%>/admin/report/driver-car"><i class="fa fa-sign-out fa-fw"></i> Reports</a></li>
                 <%--Logout from page--%>
                 <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
