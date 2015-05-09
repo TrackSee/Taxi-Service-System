@@ -23,7 +23,6 @@ public class OrderInfoServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("pageName", "orderInformation");
         req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req,resp);
     }
     @Override
