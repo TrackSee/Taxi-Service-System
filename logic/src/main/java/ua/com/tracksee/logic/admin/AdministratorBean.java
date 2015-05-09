@@ -41,9 +41,9 @@ public class AdministratorBean {
         if (!validationBean.isValidEmail(user.getEmail())) {
             throw new CreateException("Invalid email.", BAD_EMAIL);
         }
-        if (!validationBean.isValidPassword(user.getPassword())) {
-            throw new CreateException("Invalid password.", BAD_PASSWORD);
-        }
+//        if (!validationBean.isValidPassword(user.getPassword())) {
+//            throw new CreateException("Invalid password.", BAD_PASSWORD);
+//        }
         if (user.getPhone() != null && !user.getPhone().equals("") && !validationBean.isValidPhoneNumber(user.getPhone())) {
             throw new CreateException("Invalid phone number.", BAD_PHONE);
         }
