@@ -161,7 +161,7 @@
                 <div class="form-group" id="musicStyleGroup">
                     <label class="control-label">Music style</label>
                     <select class="form-control order_priority" name="musicStyle" >
-                        <option value="ANYONE" ${ANYONE}>Anyone</option>
+                        <option value="ANY" ${ANY}>Any</option>
                         <option value="BLUES" ${BLUES}>Blues</option>
                         <option value="CLASSICAL_MUSIC" ${CLASSICAL_MUSIC}>Classical music</option>
                         <option value="ROCK" ${ROCK}>Rock</option>
