@@ -6,10 +6,7 @@ import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.*;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
@@ -54,6 +51,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @Override
     public Long addOrder(TaxiOrderEntity order) {
+        BigInteger trackingNumber;
         List<TaxiOrderItemEntity> itemList = order.getItemList();
         StringBuilder sql = new StringBuilder("INSERT INTO taxi_order " +
                 "(description,status,price,user_id,service,car_category,way_of_payment,driver_sex," +
@@ -65,7 +63,6 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
                     "(tracking_numer, path, ordered_quantity, driver_id)" +
                     "VALUES (lastval(), ?, ?, ?); ");
         }
-
         Query query = entityManager.createNativeQuery(sql.toString());
         query.setParameter(1, order.getDescription());
         query.setParameter(2, order.getStatus().toString());
@@ -90,7 +87,11 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
             Integer driverId = item.getDriver() != null ? item.getDriver().getUserId() : null;
             query.setParameter(++i, driverId);
         }
-        BigInteger trackingNumber= (BigInteger)query.getSingleResult();
+        try {
+            trackingNumber= (BigInteger)query.getSingleResult();
+        } catch (PersistenceException e) {
+            return null;
+        }
         return  trackingNumber.longValue();
     }
 

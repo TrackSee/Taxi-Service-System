@@ -151,9 +151,9 @@
                 <div class="form-group">
                     <label class="control-label">Driver sex</label>
                     <select class="form-control order_priority" name="driverSex">
-                        <option value="ANYONE">Anyone</option>
-                        <option value="MALE">Male</option>
-                        <option value="FEMALE">Female</option>
+                        <option value="A">Anyone</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
                     </select>
                 </div>
                 <div class="form-group" id="musicStyleGroup">
