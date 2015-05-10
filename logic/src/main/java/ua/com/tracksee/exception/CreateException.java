@@ -1,4 +1,4 @@
-package ua.com.tracksee.logic.exception;
+package ua.com.tracksee.exception;
 
 /**
  * Created by kstes_000 on 09-May-15.

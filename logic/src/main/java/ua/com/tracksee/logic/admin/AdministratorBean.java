@@ -7,15 +7,15 @@ import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.error.PersistError;
 import ua.com.tracksee.logic.ValidationBean;
-import ua.com.tracksee.logic.exception.CreateException;
+import ua.com.tracksee.exception.CreateException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.Collection;
 import java.util.List;
 
-import static ua.com.tracksee.logic.exception.CreateExceptionType.BAD_EMAIL;
-import static ua.com.tracksee.logic.exception.CreateExceptionType.BAD_PHONE;
+import static ua.com.tracksee.exception.CreateExceptionType.BAD_EMAIL;
+import static ua.com.tracksee.exception.CreateExceptionType.BAD_PHONE;
 
 /**
  * Created by Vadym_Akymov on 22.04.15.

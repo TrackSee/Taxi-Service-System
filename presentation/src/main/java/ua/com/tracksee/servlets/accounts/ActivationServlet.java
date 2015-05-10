@@ -1,6 +1,6 @@
 package ua.com.tracksee.servlets.accounts;
 
-import ua.com.tracksee.logic.exception.RegistrationException;
+import ua.com.tracksee.exception.RegistrationException;
 import ua.com.tracksee.logic.facade.CustomerFacade;
 
 import javax.ejb.EJB;

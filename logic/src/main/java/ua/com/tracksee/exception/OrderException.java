@@ -1,4 +1,4 @@
-package ua.com.tracksee.logic.exception;
+package ua.com.tracksee.exception;
 
 /**
  * @author Sharaban Sasha

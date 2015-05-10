@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.logic.admin.AdministratorBean;
-        import ua.com.tracksee.logic.exception.CreateException;
+        import ua.com.tracksee.exception.CreateException;
 
         import javax.ejb.EJB;
 import javax.servlet.ServletException;

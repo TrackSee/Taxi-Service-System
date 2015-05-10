@@ -20,8 +20,8 @@ import ua.com.tracksee.entity.Group;
 import ua.com.tracksee.enumartion.Sex;
 import ua.com.tracksee.error.PersistError;
 import ua.com.tracksee.json.TaxiOrderDTO;
-import ua.com.tracksee.logic.customer.RegistrationBean;
-import ua.com.tracksee.logic.exception.RegistrationException;
+import ua.com.tracksee.logic.customer.AccountManagementBean;
+import ua.com.tracksee.exception.RegistrationException;
 import ua.com.tracksee.logic.group.GroupUpdateAction;
 
 import javax.ejb.EJB;
@@ -34,12 +34,13 @@ import static org.junit.Assert.assertTrue;
  * @author Ruslan Gunavardana
  */
 @RunWith(Arquillian.class)
-public class RegistrationBeanTest {
+public class AccountManagementBeanTest {
 
     private static final String TEST_EMAIL = "rusan.rus@gmail.com";
     private static final String TEST_PASSWORD = "very@Secure";
     private static final String TEST_PHONE = "+380635005050";
-    private @EJB RegistrationBean registrationBean;
+    private @EJB
+    AccountManagementBean accountManagementBean;
     private @EJB UserDAO userDAO;
 
     @Deployment
@@ -61,7 +62,7 @@ public class RegistrationBeanTest {
                 .addClass(ServiceUserNotFoundException.class)
                 .addPackage(Sex.class.getPackage())
                 .addPackage(UserDAO.class.getPackage())
-                .addPackage(RegistrationBean.class.getPackage())
+                .addPackage(AccountManagementBean.class.getPackage())
                 .addPackage(RegistrationException.class.getPackage())
                 .addPackage(GroupUpdateAction.class.getPackage())
                 .addPackage(TaxiOrderDTO.class.getPackage())
@@ -80,13 +81,13 @@ public class RegistrationBeanTest {
 
     @Test(expected = RegistrationException.class)
     public void testRegisterBadCustomerUser() throws Exception {
-        registrationBean.registerCustomerUser("badmail@", "nonsecurepassword", null);
+        accountManagementBean.registerCustomerUser("badmail@", "nonsecurepassword", null);
     }
 
     @Test
     public void testRegisterGoodCustomerUser() throws Exception {
         clearUserIfExists(TEST_EMAIL);
-        registrationBean.registerCustomerUser(TEST_EMAIL, TEST_PASSWORD, TEST_PHONE);
+        accountManagementBean.registerCustomerUser(TEST_EMAIL, TEST_PASSWORD, TEST_PHONE);
         ServiceUserEntity newUser = userDAO.getUserByEmail(TEST_EMAIL);
         assertFalse(newUser.getActivated());
         userDAO.deleteUser(newUser.getUserId());
@@ -98,11 +99,11 @@ public class RegistrationBeanTest {
         ServiceUserEntity activatedUser;
 
         clearUserIfExists(TEST_EMAIL);
-        registrationBean.registerCustomerUser(TEST_EMAIL, TEST_PASSWORD, TEST_PHONE);
+        accountManagementBean.registerCustomerUser(TEST_EMAIL, TEST_PASSWORD, TEST_PHONE);
         unactivatedUser = userDAO.getUserByEmail(TEST_EMAIL);
         assertFalse(unactivatedUser.getActivated());
 
-        registrationBean.activateCustomerUserAccount(unactivatedUser.getUserId().toString());
+        accountManagementBean.activateCustomerUserAccount(unactivatedUser.getUserId().toString());
         activatedUser = userDAO.getUserByEmail(TEST_EMAIL);
         assertTrue(activatedUser.getActivated());
     }

@@ -8,7 +8,7 @@ import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.*;
 import ua.com.tracksee.enumartion.*;
 import ua.com.tracksee.json.TaxiOrderDTO;
-import ua.com.tracksee.logic.exception.OrderException;
+import ua.com.tracksee.exception.OrderException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -80,7 +80,7 @@ public class TaxiOrderBean {
      * @author Avlasov Sasha
      * @param inputData- input data about user and his order
      * @return Integer - tracking number of user order
-     * @throws ua.com.tracksee.logic.exception.OrderException
+     * @throws ua.com.tracksee.exception.OrderException
      */
     public Long makeOrder(HashMap<String, String> inputData) throws OrderException {
         String email = inputData.get("email");
@@ -208,7 +208,7 @@ public class TaxiOrderBean {
      * @author Ruslan Gunavardana
      * @param email - client's email
      * @param phone - client's phone number
-     * @throws ua.com.tracksee.logic.exception.OrderException *
+     * @throws ua.com.tracksee.exception.OrderException *
      */
     private void validateForUser(String email, String phone) throws OrderException {
         if (!validationBean.isValidEmail(email)) {
@@ -227,7 +227,7 @@ public class TaxiOrderBean {
      * @author Sharaban Sasha
      * @param inputData - input data from the client
      * @return AddressEntity object that contain checked origin address
-     * @throws ua.com.tracksee.logic.exception.OrderException
+     * @throws ua.com.tracksee.exception.OrderException
      */
     private AddressEntity validateForOriginAddress(HashMap<String, String> inputData) throws OrderException {
         AddressEntity addressEntityOrigin = new AddressEntity();
@@ -241,7 +241,7 @@ public class TaxiOrderBean {
      * @author Sharaban Sasha
      * @param inputData - input data from the client
      * @return AddressEntity object that contain checked destination address
-     * @throws ua.com.tracksee.logic.exception.OrderException
+     * @throws ua.com.tracksee.exception.OrderException
      */
     private AddressEntity validateForDestinationAddress(HashMap<String, String> inputData) throws OrderException {
         AddressEntity addressEntityDestination = new AddressEntity();
@@ -255,7 +255,7 @@ public class TaxiOrderBean {
      * @author Sharaban Sasha
      * @param inputData - input data from the client
      * @return TaxiOrderEntity object that contain checked values
-     * @throws ua.com.tracksee.logic.exception.OrderException
+     * @throws ua.com.tracksee.exception.OrderException
      */
     private TaxiOrderEntity validateForTaxiOrder(HashMap<String, String> inputData) throws OrderException {
         TaxiOrderEntity taxiOrderEntity = new TaxiOrderEntity();
@@ -338,7 +338,7 @@ public class TaxiOrderBean {
      * @author Sharaban Sasha
      * @param date - date in string format
      * @return date converted from string to Timestamp
-     * @throws ua.com.tracksee.logic.exception.OrderException
+     * @throws ua.com.tracksee.exception.OrderException
      */
     private Timestamp convertToTimestamp(String date) throws OrderException {
         Timestamp timestamp = null;
@@ -397,7 +397,7 @@ public class TaxiOrderBean {
      * @author Sharaban Sasha
      * @param inputData - input data from the client
      * @return TaxiOrderEntity object that contain checked values
-     * @throws ua.com.tracksee.logic.exception.OrderException
+     * @throws ua.com.tracksee.exception.OrderException
      */
     private TaxiOrderEntity validateForUpdateTaxiOrder(HashMap<String, String> inputData) throws OrderException {
         TaxiOrderEntity taxiOrderEntity = new TaxiOrderEntity();

@@ -1,9 +1,9 @@
-package ua.com.tracksee.logic.exception;
+package ua.com.tracksee.exception;
 
 /**
- * Created by kstes_000 on 09-May-15.
+ * @author Ruslan Gunavardana
  */
-public enum CreateExceptionType {
+public enum RegistrationExceptionType {
     BAD_PASSWORD("bad-password"),
     BAD_PHONE("bad-phone"),
     BAD_EMAIL("bad-email"),
@@ -13,7 +13,7 @@ public enum CreateExceptionType {
 
     private String code;
 
-    CreateExceptionType(String code) {
+    RegistrationExceptionType(String code) {
         this.code = code;
     }
 
