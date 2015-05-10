@@ -1,5 +1,7 @@
 package ua.com.tracksee.entities;
 
+import com.vividsolutions.jts.geom.LineString;
+import org.hibernate.annotations.Type;
 import org.postgresql.geometric.PGpath;
 
 import javax.persistence.*;
@@ -13,7 +15,7 @@ import java.util.Objects;
 @Table(name = "taxi_order_item", schema = "public", catalog = "tracksee")
 public class TaxiOrderItemEntity {
     private Long taxiItemId;
-    private PGpath path;
+    private LineString path;
     private BigDecimal orderedQuantity;
     private UserEntity driver;
     private TaxiOrderEntity taxiOrder;
@@ -32,12 +34,13 @@ public class TaxiOrderItemEntity {
     }
 
     @Basic
-    @Column(name = "path", columnDefinition = "bytea")
-    public PGpath getPath() {
+    @Type(type="org.hibernate.spatial.GeometryType")
+    @Column(name = "path", columnDefinition = "geometry")
+    public LineString getPath() {
         return path;
     }
 
-    public void setPath(PGpath path) {
+    public void setPath(LineString path) {
         this.path = path;
     }
 

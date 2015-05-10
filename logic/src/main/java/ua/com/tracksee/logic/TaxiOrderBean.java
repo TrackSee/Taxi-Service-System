@@ -33,27 +33,14 @@ import static ua.com.tracksee.enumartion.OrderStatus.QUEUED;
 public class TaxiOrderBean {
     private static final Logger logger = LogManager.getLogger();
 
-    private
-    @EJB
-    TaxiOrderDAO taxiOrderDAO;
-    private
-    @EJB
-    UserDAO userDAO;
-    private
-    @EJB
+    private @EJB TaxiOrderDAO taxiOrderDAO;
+    private @EJB UserDAO userDAO;
+    private @EJB
     FavoritePlaceDAO favoritePlaceDAO;
-    private
-    @EJB
-    EmailBean mailBean;
-    private
-    @EJB
-    ValidationBean validationBean;
-    private
-    @EJB
-    PriceCalculatorBean priceCalculatorBean;
-    private
-    @EJB
-    EnumValidationBean enumValidationBean;
+    private @EJB EmailBean mailBean;
+    private @EJB ValidationBean validationBean;
+    private @EJB PriceCalculatorBean priceCalculatorBean;
+    private @EJB EnumValidationBean enumValidationBean;
 
     public List<ServiceProfitable> getProfitByService(String startDate, String endDate) {
         return taxiOrderDAO.getProfitByService(startDate, endDate);
@@ -95,12 +82,12 @@ public class TaxiOrderBean {
      * tracking number, also tracking number returns to be shown to
      * user.
      *
-     * @param inputData- input data about user and his order
-     * @return Integer - tracking number of user order
-     * @throws ua.com.tracksee.exception.OrderException
      * @author Ruslan Gunavardana
      * @author Sharaban Sasha
      * @author Avlasov Sasha
+     * @param inputData- input data about user and his order
+     * @return Integer - tracking number of user order
+     * @throws ua.com.tracksee.exception.OrderException
      */
     public Long makeOrder(HashMap<String, String> inputData) throws OrderException {
         String email = inputData.get("email");
@@ -190,10 +177,10 @@ public class TaxiOrderBean {
      * Password and salt are set by default as empty
      * string for unregistered user.
      *
-     * @param userEntity - data about the user
-     * @return ServiceUserEntity object that contain checked
      * @author Sharaban Sasha
      * @author Avlasov Sasha
+     * @param userEntity - data about the user
+     * @return ServiceUserEntity object that contain checked
      */
     private UserEntity checkUserPresent(UserEntity userEntity) {
         if (userDAO.getUserIdByEmail(userEntity.getEmail()) != null) {
@@ -213,11 +200,11 @@ public class TaxiOrderBean {
      * This method send confirmation letter with
      * tracking number to the user who made the order
      *
-     * @param userEntity-     the user who made the order
-     * @param trackingNumber- tracking number of made order
-     * @throws javax.mail.MessagingException
      * @author Sharaban Sasha
      * @author Avlasov Sasha
+     * @param userEntity- the user who made the order
+     * @param trackingNumber-    tracking number of made order
+     * @throws javax.mail.MessagingException
      */
     public void sendEmail(UserEntity userEntity, Long trackingNumber) {
         mailBean.sendOrderConfirmation(userEntity, trackingNumber);
@@ -227,11 +214,11 @@ public class TaxiOrderBean {
      * This method checks incoming origin
      * address and insert it into AddressEntity object.
      *
+     * @author Sharaban Sasha
+     * @author Ruslan Gunavardana
      * @param email - client's email
      * @param phone - client's phone number
      * @throws ua.com.tracksee.exception.OrderException *
-     * @author Sharaban Sasha
-     * @author Ruslan Gunavardana
      */
     private void validateForUser(String email, String phone) throws OrderException {
         if (!validationBean.isValidEmail(email)) {
@@ -247,10 +234,10 @@ public class TaxiOrderBean {
      * This method checks incoming values and
      * insert it into TaxiOrderEntity object.
      *
+     * @author Sharaban Sasha
      * @param inputData - input data from the client
      * @return TaxiOrderEntity object that contain checked values
      * @throws ua.com.tracksee.exception.OrderException
-     * @author Sharaban Sasha
      */
     private TaxiOrderEntity validateForTaxiOrder(HashMap<String, String> inputData) throws OrderException {
         TaxiOrderEntity taxiOrderEntity = new TaxiOrderEntity();
@@ -301,10 +288,10 @@ public class TaxiOrderBean {
      * This method convert date from
      * string to Timestamp
      *
+     * @author Sharaban Sasha
      * @param date - date in string format
      * @return date converted from string to Timestamp
      * @throws ua.com.tracksee.exception.OrderException
-     * @author Sharaban Sasha
      */
     private Timestamp convertToTimestamp(String date) throws OrderException {
         Timestamp timestamp;
@@ -341,9 +328,9 @@ public class TaxiOrderBean {
      * representation of checkbox state
      * to boolean
      *
+     * @author Sharaban Sasha
      * @param checkBoxState - string representation of checkbox state
      * @return checkbox boolean state
-     * @author Sharaban Sasha
      */
     private boolean convertCheckBoxToBoolean(String checkBoxState) {
         boolean booleanCheckBoxState = false;
@@ -360,10 +347,10 @@ public class TaxiOrderBean {
      * insert it into TaxiOrderEntity object
      * it is used for updating taxi order
      *
+     * @author Sharaban Sasha
      * @param inputData - input data from the client
      * @return TaxiOrderEntity object that contain checked values
      * @throws ua.com.tracksee.exception.OrderException
-     * @author Sharaban Sasha
      */
     private TaxiOrderEntity validateForUpdateTaxiOrder(HashMap<String, String> inputData) throws OrderException {
         TaxiOrderEntity taxiOrderEntity = new TaxiOrderEntity();
@@ -372,7 +359,7 @@ public class TaxiOrderBean {
         Sex driverSex;
         Service service;
         MusicStyle musicStyle;
-
+        
 
         Timestamp arriveTimestamp = convertToTimestamp(inputData.get("arriveDate"));
         taxiOrderEntity.setArriveDate(arriveTimestamp);

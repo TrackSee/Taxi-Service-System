@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Vadym_Akymov on 26.04.15.
  */
-@WebServlet("/customer/dashboard")
+@WebServlet("/customer")
 public class CustomerProfileServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
 
@@ -26,27 +26,17 @@ public class CustomerProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String dataType = request.getParameter("type").toUpperCase();
+        String dataType = request.getParameter("type");
         //old TO are on page by default
         if(dataType == null || dataType.isEmpty()){
-            dataType = "COMPLETED";
+            dataType = "completed";
         }
+        dataType = dataType.toUpperCase();
         Integer userID = (Integer) request.getSession().getAttribute("userId");
         request.setAttribute("type", dataType.toLowerCase());
         OrderStatusBO orderStatusBO = Enum.valueOf(OrderStatusBO.class, dataType);
         List<TaxiOrderEntity> orders = customerFacade.getOrdersPerPage(orderStatusBO, userID, 1);
         request.setAttribute("orders", orders);
-//        if ("old".equals(dataType)) {
-//            List<TaxiOrderEntity> orders = taxiOrderBean.getOldOrdersPerPage(userID, 1);
-//            request.setAttribute("pagesCount", taxiOrderBean.getOldTaxiOrderPagesCount());
-//        } else if("active".equals(dataType)){
-//            List<TaxiOrderEntity> orders = taxiOrderBean.getActiveOrdersPerPage(userID, 1);
-//            request.setAttribute("pagesCount", taxiOrderBean.getActiveTaxiOrderPagesCount());
-//            request.setAttribute("orders", orders);
-//        } else {
-//            logger.warn("wrong servlet params!");
-//            throw new IllegalArgumentException("wrong servlet params!");
-//        }
         request.setAttribute("pageNumber", 1);
         request.getRequestDispatcher("/WEB-INF/customer/customerProfile.jsp").forward(request, response);
     }

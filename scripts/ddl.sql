@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS Taxi_Order_Item;
 DROP TABLE IF EXISTS Favorite_Place;
-DROP TABLE IF EXISTS Address;
+DROP TABLE IF EXISTS Taxi_Order;
 DROP TABLE IF EXISTS Service_User;
 DROP TABLE IF EXISTS Car;
 DROP TABLE IF EXISTS Taxi_Price;
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS Taxi_Order_Item
 (
   taxi_item_id     BIGSERIAL PRIMARY KEY,
   tracking_numer   INT NOT NULL REFERENCES Taxi_Order (tracking_number) ON DELETE CASCADE,
-  path             PATH,
+  path             GEOMETRY,
   ordered_quantity NUMERIC(15, 1),
   -- need to be checked if this 'user_id' is a driver's id on code layer
   driver_id        INT REFERENCES Service_User (user_id) ON DELETE SET NULL

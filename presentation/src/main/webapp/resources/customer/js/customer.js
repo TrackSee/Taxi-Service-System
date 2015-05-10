@@ -10,7 +10,7 @@ $('.completed').click(function(){
     window.location.href = 'dashboard?type=completed';
 });
 //click on active button
-$('.active').click(function(){
+$('.act').click(function(){
     window.location.href = 'dashboard?type=active';
 });
 

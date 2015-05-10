@@ -5,7 +5,6 @@
   User: Vadym_Akymov
   Date: 26.04.15
   Time: 14:01
-  To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -32,7 +31,7 @@
       <h2><i class="ico-settings ico-whiteeclipse"></i>Client Dashboard</h2>
       <div class="btn-group btn-group-lg group" role="group" aria-label="Large button group">
         <button type="button" class="btn btn-default completed <%=request.getAttribute("type").equals("completed") ? "active" : ""%>" value="old">Old TOs</button>
-        <button type="button" class="btn btn-default active <%=request.getAttribute("type").equals("active") ? "active" : ""%>" value="active">Active TOs</button>
+        <button type="button" class="btn btn-default act <%=request.getAttribute("type").equals("active") ? "active" : ""%>" value="active">Active TOs</button>
       </div>
     </div>
     <!-- end: Container  -->
