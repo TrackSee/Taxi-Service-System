@@ -53,7 +53,7 @@ public class FavoritePlaceEntity {
 
     @Basic
     @Type(type="org.hibernate.spatial.GeometryType")
-    @Column(name = "location")
+    @Column(name = "location", columnDefinition = "geometry")
     public Point getLocation() {
         return location;
     }
