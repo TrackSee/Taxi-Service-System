@@ -5,9 +5,12 @@ import ua.com.tracksee.enumartion.*;
 import javax.ejb.Stateless;
 
 /**
+ * This session bean converts enum
+ * to a string and back as well,
+ * and specify every thrown exception.
+ *
  * @author Sharaban Sasha
  */
-//TODO no sense in convertation workaround, while we have Enum.valueOf()
 @Stateless
 public class EnumValidationBean {
 
@@ -22,21 +25,15 @@ public class EnumValidationBean {
 
     public CarCategory setEnumCarCategory(String carCategory) {
         CarCategory enumCarCategory;
-        switch (carCategory) {
-            case "businessClass":
-                enumCarCategory = CarCategory.BUSINESS_CLASS;
-                break;
-            case "economyClass":
-                enumCarCategory = CarCategory.ECONOMY_CLASS;
-                break;
-            case "van":
-                enumCarCategory = CarCategory.VAN;
-                break;
-            case "userCar":
-                enumCarCategory = CarCategory.USER_CAR;
-                break;
-            default:
-                enumCarCategory = null;
+        try {
+            enumCarCategory = CarCategory.valueOf(carCategory);
+        }catch (NullPointerException e){
+            throw new NullPointerException("EnumValidationBean.setEnumCarCategory: car category value is null," +
+                    " error message: "+e);
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("EnumValidationBean.setEnumCarCategory: car category value is illegal: "
+                    +carCategory
+                    +", error message: "+e);
         }
         return enumCarCategory;
     }
@@ -50,15 +47,14 @@ public class EnumValidationBean {
      */
     public WayOfPayment setEnumWayOfPayment(String wayOfPayment) {
         WayOfPayment enumWayOfPayment;
-        switch (wayOfPayment) {
-            case "cash":
-                enumWayOfPayment = WayOfPayment.CASH;
-                break;
-            case "visaCard":
-                enumWayOfPayment = WayOfPayment.VISA_CARD;
-                break;
-            default:
-                enumWayOfPayment = null;
+        try {
+            enumWayOfPayment = WayOfPayment.valueOf(wayOfPayment);
+        }catch (NullPointerException e){
+            throw new NullPointerException("EnumValidationBean.setEnumWayOfPayment: way of payment value is null," +
+                    " error message: "+e);
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("EnumValidationBean.setEnumWayOfPayment: way of payment value is " +
+                    "illegal:"+wayOfPayment+", error message: "+e);
         }
         return enumWayOfPayment;
     }
@@ -72,18 +68,14 @@ public class EnumValidationBean {
      */
     public Sex setEnumDriverSex(String driverSex) {
         Sex enumDriverSex;
-        switch (driverSex) {
-            case "male":
-                enumDriverSex = Sex.M;
-                break;
-            case "female":
-                enumDriverSex = Sex.F;
-                break;
-            case "anyone":
-                enumDriverSex = Sex.A;
-                break;
-            default:
-                enumDriverSex = null;
+        try {
+            enumDriverSex = Sex.valueOf(driverSex);
+        }catch (NullPointerException e){
+            throw new NullPointerException("EnumValidationBean.setEnumDriverSex: driver sex value is null," +
+                    " error message: "+e);
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("EnumValidationBean.setEnumDriverSex: driver sex value is " +
+                    "illegal:"+driverSex+", error message: "+e);
         }
         return enumDriverSex;
     }
@@ -98,37 +90,14 @@ public class EnumValidationBean {
 
     public Service setEnumService(String service) {
         Service enumService;
-        switch (service) {
-            case "default":
-                enumService = Service.SIMPLE_TAXI;
-                break;
-            case "soberDriver":
-                enumService = Service.SOBER_DRIVER;
-                break;
-            case "guestDelivery":
-                enumService = Service.GUEST_DELIVERY;
-                break;
-            case "cargoTaxi":
-                enumService = Service.CARGO_TAXI;
-                break;
-            case "meetMyGuest":
-                enumService = Service.MEET_MY_GUEST;
-                break;
-            case "celebrationTaxi":
-                enumService = Service.CELEBRATION_TAXI;
-                break;
-            case "foodStuffDelivery":
-                enumService = Service.FOODSTUFF_DELIVERY;
-                break;
-            case "conveyCorporationEmployees":
-                enumService = Service.CONVEY_CORPORATION_EMPLOYEES;
-                break;
-            case "taxiForLongTerm":
-                enumService = Service.TAXI_FOR_LONG_TERM;
-                break;
-            default:
-                enumService = null;
-
+        try {
+            enumService = Service.valueOf(service);
+        }catch (NullPointerException e){
+            throw new NullPointerException("EnumValidationBean.setEnumService: service value is null," +
+                    " error message: "+e);
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("EnumValidationBean.setEnumService: service value is " +
+                    "illegal:"+service+", error message: "+e);
         }
         return enumService;
     }
@@ -143,33 +112,14 @@ public class EnumValidationBean {
      */
     public MusicStyle setEnumMusicStyle(String musicStyle) {
         MusicStyle enumMusicStyle;
-        switch (musicStyle) {
-            case "default":
-                enumMusicStyle = MusicStyle.DEFAULT;
-                break;
-            case "blues":
-                enumMusicStyle = MusicStyle.BLUES;
-                break;
-            case "classicalMusic":
-                enumMusicStyle = MusicStyle.CLASSICAL_MUSIC;
-                break;
-            case "rock":
-                enumMusicStyle = MusicStyle.ROCK;
-                break;
-            case "jazz":
-                enumMusicStyle = MusicStyle.JAZZ;
-                break;
-            case "danceMusic":
-                enumMusicStyle = MusicStyle.DANCE_MUSIC;
-                break;
-            case "electronicMusic":
-                enumMusicStyle = MusicStyle.ELECTRONIC_MUSIC;
-                break;
-            case "hipHop":
-                enumMusicStyle = MusicStyle.HIP_HOP;
-                break;
-            default:
-                enumMusicStyle = null;
+        try {
+            enumMusicStyle = MusicStyle.valueOf(musicStyle);
+        }catch (NullPointerException e){
+            throw new NullPointerException("EnumValidationBean.setEnumMusicStyle: music style value is null," +
+                    " error message: "+e);
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("EnumValidationBean.setEnumMusicStyle: music style value is " +
+                    "illegal:"+musicStyle+", error message: "+e);
         }
         return enumMusicStyle;
     }
@@ -183,30 +133,12 @@ public class EnumValidationBean {
      * @return string name of option that must be selected
      */
     public String getFromEnumMusicStyle(MusicStyle enumMusicStyle){
-        String musicStyle=null;
-        if(enumMusicStyle== MusicStyle.BLUES){
-            musicStyle="blues";
-        }
-        if(enumMusicStyle== MusicStyle.CLASSICAL_MUSIC){
-            musicStyle="classicalMusic";
-        }
-        if(enumMusicStyle== MusicStyle.DANCE_MUSIC){
-            musicStyle="danceMusic";
-        }
-        if(enumMusicStyle== MusicStyle.DEFAULT){
-            musicStyle="default";
-        }
-        if(enumMusicStyle== MusicStyle.ELECTRONIC_MUSIC){
-            musicStyle="electronicMusic";
-        }
-        if(enumMusicStyle== MusicStyle.HIP_HOP){
-            musicStyle="hiHop";
-        }
-        if(enumMusicStyle== MusicStyle.JAZZ){
-            musicStyle="jazz";
-        }
-        if(enumMusicStyle== MusicStyle.ROCK){
-            musicStyle="rock";
+        String musicStyle;
+        try {
+            musicStyle = enumMusicStyle.toString();
+        }catch (NullPointerException e){
+            throw new NullPointerException("EnumValidationBean.getFromEnumMusicStyle: music style enum is null, " +
+                    " error message: "+e);
         }
         return musicStyle;
     }
@@ -220,33 +152,12 @@ public class EnumValidationBean {
      * @return string name of option that must be selected
      */
     public String getFromEnumService(Service enumService){
-        String service=null;
-        if (enumService == Service.CARGO_TAXI) {
-            service = "cargoTaxi";
-        }
-        if (enumService == Service.CELEBRATION_TAXI) {
-            service = "celebrationTaxi";
-        }
-        if (enumService == Service.CONVEY_CORPORATION_EMPLOYEES) {
-            service = "conveyCorporationEmployees";
-        }
-        if (enumService == Service.FOODSTUFF_DELIVERY) {
-            service = "foodStuffDelivery";
-        }
-        if (enumService == Service.GUEST_DELIVERY) {
-            service = "guestDelivery";
-        }
-        if (enumService == Service.MEET_MY_GUEST) {
-            service = "meetMyGuest";
-        }
-        if (enumService == Service.SIMPLE_TAXI) {
-            service = "simpleTaxi";
-        }
-        if (enumService == Service.SOBER_DRIVER) {
-            service = "soberDriver";
-        }
-        if (enumService == Service.TAXI_FOR_LONG_TERM) {
-            service = "taxiForLongTerm";
+        String service;
+        try {
+            service=enumService.toString();
+        }catch (NullPointerException e){
+            throw new NullPointerException("EnumValidationBean.getFromEnumService: service enum is null, " +
+                    " error message: "+e);
         }
         return service;
     }
@@ -260,15 +171,13 @@ public class EnumValidationBean {
      * @return string name of option that must be selected
      */
     public String getFromEnumCarCategory(CarCategory enumCarCategory){
-        String carCategory=null;
-        if (enumCarCategory == CarCategory.BUSINESS_CLASS) {
-            carCategory = "businessClass";
+        String carCategory;
+        try {
+            carCategory=enumCarCategory.toString();
+        }catch (NullPointerException e){
+            throw new NullPointerException("EnumValidationBean.getFromEnumCarCategory: car category enum is null, " +
+                    " error message: "+e);
         }
-        if (enumCarCategory == CarCategory.ECONOMY_CLASS) {
-            carCategory = "economyClass";
-        }
-        if (enumCarCategory == CarCategory.VAN) {
-            carCategory = "van";}
     return carCategory;
     }
     /**
@@ -281,15 +190,12 @@ public class EnumValidationBean {
      * @return string name of option that must be selected
      */
     public String getFromEnumDriverSex(Sex enumDriverSex){
-        String driverSex=null;
-        if (enumDriverSex == Sex.A) {
-            driverSex = "anyone";
-        }
-        if (enumDriverSex== Sex.M) {
-            driverSex = "male";
-        }
-        if (enumDriverSex == Sex.F) {
-            driverSex = "female";
+        String driverSex;
+        try {
+            driverSex=enumDriverSex.toString();
+        }catch (NullPointerException e){
+            throw new NullPointerException("EnumValidationBean.getFromEnumDriverSex: driver sex enum is null, " +
+                    " error message: "+e);
         }
         return driverSex;
     }
@@ -304,11 +210,11 @@ public class EnumValidationBean {
      */
     public String getFromEnumWayOfPayment(WayOfPayment enumWayOfPayment){
         String wayOfPayment=null;
-        if (enumWayOfPayment == WayOfPayment.CASH) {
-            wayOfPayment = "cash";
-        }
-        if (enumWayOfPayment == WayOfPayment.VISA_CARD) {
-            wayOfPayment = "visaCard";
+        try {
+            wayOfPayment=enumWayOfPayment.toString();
+        }catch (NullPointerException e){
+            throw new NullPointerException("EnumValidationBean.getFromEnumWayOfPayment: enum way of payment is null, " +
+                    " error message: "+e);
         }
         return wayOfPayment;
     }
