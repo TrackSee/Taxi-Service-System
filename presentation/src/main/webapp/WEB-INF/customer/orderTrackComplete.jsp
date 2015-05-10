@@ -106,16 +106,16 @@
                 <div class="form-group">
                     <label class="control-label">Service</label>
                     <select class="form-control order_priority" name="service" id="service" disabled>
-                        <option value="default"${simpleTaxi}>Simple taxi</option>
-                        <option value="soberDriver"${soberDriver}>Service "Sober driver"</option>
-                        <option value="guestDelivery"${guestDelivery}>Service "Guest delivery"</option>
-                        <option value="cargoTaxi"${cargoTaxi}>Service "Cargo taxi"</option>
-                        <option value="meetMyGuest"${meetMyGuest}>Service "Meet my guest"</option>
-                        <option value="celebrationTaxi"${celebrationTaxi}> Service "Celebration taxi"</option>
-                        <option value="foodStuffDelivery"${foodStuffDelivery}>Service "Foodstuff delivery"</option>
-                        <option value="conveyCorporationEmployees"${conveyCorporationEmployees}>
+                        <option value="SIMPLE_TAXI"${SIMPLE_TAXI}>Simple taxi</option>
+                        <option value="SOBER_DRIVER"${SOBER_DRIVER}>Service "Sober driver"</option>
+                        <option value="GUEST_DELIVERY"${GUEST_DELIVERY}>Service "Guest delivery"</option>
+                        <option value="CARGO_TAXI"${CARGO_TAXI}>Service "Cargo taxi"</option>
+                        <option value="MEET_MY_GUEST"${MEET_MY_GUEST}>Service "Meet my guest"</option>
+                        <option value="CELEBRATION_TAXI"${CELEBRATION_TAXI}> Service "Celebration taxi"</option>
+                        <option value="foodStuffDelivery"${FOODSTUFF_DELIVERY}>Service "Foodstuff delivery"</option>
+                        <option value="CONVEY_CORPORATION_EMPLOYEES"${CONVEY_CORPORATION_EMPLOYEES}>
                             Service "Convey corporation employees"</option>
-                        <option value="taxiForLongTerm"${taxiForLongTerm}>
+                        <option value="TAXI_FOR_LONG_TERM"${TAXI_FOR_LONG_TERM}>
                             Service "Taxi for long term"</option>
                     </select>
                 </div>
@@ -131,31 +131,32 @@
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>
                     <select class="form-control order_priority" name="carCategory" disabled>
-                        <option value="economyClass" ${economyClass}>Economy class</option>
-                        <option value="businessClass" ${businessClass}>Business class</option>
-                        <option value="van" ${van}>Van</option>
+                        <option value="ECONOMY_CLASS" ${ECONOMY_CLASS}>Economy class</option>
+                        <option value="BUSINESS_CLASS" ${BUSINESS_CLASS}}>Business class</option>
+                        <option value="VAN" ${VAN}>Van</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label">Driver sex</label>
                     <select class="form-control order_priority" name="driverSex" disabled>
-                        <option value="anyone" ${anyone}>Anyone</option>
-                        <option value="male" ${male}>Male</option>
-                        <option value="female" ${female}>Female</option>
+                        <option value="ANYONE" ${ANYONE}>Anyone</option>
+                        <option value="MALE" ${MALE}>Male</option>
+                        <option value="FEMALE" ${FEMALE}>Female</option>
                     </select>
                 </div>
                 <div class="form-group" id="musicStyleGroup">
                     <label class="control-label">Music style</label>
                     <select class="form-control order_priority" name="musicStyle" disabled>
-                        <option value="default" ${default}>Default</option>
-                        <option value="blues" ${blues}>Blues</option>
-                        <option value="classicalMusic" ${classicMusic}>Classical music</option>
-                        <option value="rock" ${rock}>Rock</option>
-                        <option value="jazz" ${jazz}>Jazz</option>
-                        <option value="danceMusic" ${danceMusic}>Dance music</option>
-                        <option value="electronicMusic" ${electronicMusic}>Electronic music</option>
-                        <option value="hipHop" ${hipHop}>Hip Hop</option>
+                        <option value="ANYONE" ${ANYONE}>Anyone</option>
+                        <option value="BLUES" ${BLUES}>Blues</option>
+                        <option value="CLASSICAL_MUSIC" ${CLASSICAL_MUSIC}>Classical music</option>
+                        <option value="ROCK" ${ROCK}>Rock</option>
+                        <option value="JAZZ" ${JAZZ}>Jazz</option>
+                        <option value="DANCE_MUSIC" ${DANCE_MUSIC}>Dance music</option>
+                        <option value="ELECTRONIC_MUSIC" ${ELECTRONIC_MUSIC}>Electronic music</option>
+                        <option value="HIP_HOP" ${HIP_HOP}>Hip Hop</option>
+                        <option value="OTHER" ${Other}>Other</option>
                     </select>
                 </div>
 
