@@ -1,6 +1,7 @@
 package ua.com.tracksee.dao.implementation;
 
 
+import com.vividsolutions.jts.geom.LineString;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -88,7 +89,7 @@ public class TaxiOrderDAOBeanTest {
         TaxiOrderEntity order = taxiOrderDAO.getOrder(Long.valueOf(3));
         List<TaxiOrderItemEntity> items = order.getItemList();
         for(int i = 0; i < items.size(); i++){
-            PGpath path = items.get(i).getPath();
+            LineString path = items.get(i).getPath();
             System.out.println(path);
         }
     }
