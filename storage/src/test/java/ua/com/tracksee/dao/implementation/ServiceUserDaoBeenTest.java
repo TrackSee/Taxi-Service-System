@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import org.postgresql.geometric.PGpoint;
 import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.enumartion.Sex;
 import ua.com.tracksee.error.PersistError;
 
@@ -46,7 +46,7 @@ public class ServiceUserDaoBeenTest {
                 .addAsLibraries(hibernateLib)
                 .addPackage(PGpoint.class.getPackage())
                 .addPackage(PGBinaryObject.class.getPackage())
-                .addPackage(ServiceUserEntity.class.getPackage())
+                .addPackage(UserEntity.class.getPackage())
                 .addPackage(UserDAOBean.class.getPackage())
                 .addPackage(Sex.class.getPackage())
                 .addPackage(PersistError.class.getPackage())
@@ -67,12 +67,12 @@ public class ServiceUserDaoBeenTest {
 
     @Test
     public void testServiceUserDaoGetUsersById() throws Exception {
-        List<ServiceUserEntity> entities = daoBeen.getAll();
+        List<UserEntity> entities = daoBeen.getAll();
         List<Integer> usersId = new ArrayList<>();
-        for (ServiceUserEntity serviceUserEntity:entities){
-            usersId.add(serviceUserEntity.getUserId());
+        for (UserEntity userEntity :entities){
+            usersId.add(userEntity.getUserId());
         }
-        List<ServiceUserEntity> entityList = daoBeen.getAllById(usersId);
+        List<UserEntity> entityList = daoBeen.getAllById(usersId);
         assertTrue(entityList.size() == usersId.size());
     }
 }

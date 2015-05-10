@@ -13,7 +13,7 @@ import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.implementation.exceptions.CarNotFoundException;
 import ua.com.tracksee.dao.implementation.exceptions.ServiceUserNotFoundException;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.enumartion.Sex;
 import ua.com.tracksee.error.PersistError;
 
@@ -48,7 +48,7 @@ public class UserDAOBeanTest {
                 .addPackage(PersistError.class.getPackage())
                 .addPackage(CarNotFoundException.class.getPackage())
                 .addPackage(PGBinaryObject.class.getPackage())
-                .addPackage(ServiceUserEntity.class.getPackage())
+                .addPackage(UserEntity.class.getPackage())
                 .addPackage(UserDAOBean.class.getPackage())
                 .addClass(ServiceUserNotFoundException.class)
                 .addPackage(Sex.class.getPackage())
@@ -69,9 +69,9 @@ public class UserDAOBeanTest {
     @Test
     public void testGetDrivers() throws Exception {
         //get first part of drivers
-        List<ServiceUserEntity> drivers = userDAO.getDrivers(2);
+        List<UserEntity> drivers = userDAO.getDrivers(2);
         assertEquals(drivers.size(), UserDAO.DRIVERS_PAGE_SIZE);
-        for (ServiceUserEntity driver : drivers) {
+        for (UserEntity driver : drivers) {
             assertTrue(driver.getDriver());
         }
     }
@@ -79,6 +79,6 @@ public class UserDAOBeanTest {
     @Test(expected = EJBException.class)
     public void testGetDriversException() throws Exception{
         //negative param
-        List<ServiceUserEntity> drivers = userDAO.getDrivers(-1);
+        List<UserEntity> drivers = userDAO.getDrivers(-1);
     }
 }

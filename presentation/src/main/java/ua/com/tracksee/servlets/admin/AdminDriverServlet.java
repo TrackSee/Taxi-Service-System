@@ -3,7 +3,7 @@ package ua.com.tracksee.servlets.admin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.admin.AdministratorBean;
 
 import javax.ejb.EJB;
@@ -30,7 +30,7 @@ public class AdminDriverServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<ServiceUserEntity> drivers = administratorBean.getDrivers(1);
+        List<UserEntity> drivers = administratorBean.getDrivers(1);
         req.setAttribute("drivers", drivers);
         req.setAttribute("pagesCount", administratorBean.getDriverPagesCount());
         req.getRequestDispatcher("/WEB-INF/admin/adminDriverList.jsp").forward(req, resp);
@@ -52,7 +52,7 @@ public class AdminDriverServlet extends HttpServlet {
             logger.warn("wrong page was request on /admin/drivers");
         }
 //        System.out.println("PageNumber" + pageNumber);
-        List<ServiceUserEntity> drivers = administratorBean.getDrivers(pageNumber);
+        List<UserEntity> drivers = administratorBean.getDrivers(pageNumber);
         req.setAttribute("drivers", drivers);
         req.setAttribute("pagesCount", administratorBean.getDriverPagesCount());
 //        System.out.println("json: " + getJsonFromList(drivers));
@@ -65,7 +65,7 @@ public class AdminDriverServlet extends HttpServlet {
      * @param drivers - list of drivers
      * @return json representation of drivers list
      */
-    private String getJsonFromList(List<ServiceUserEntity> drivers){
+    private String getJsonFromList(List<UserEntity> drivers){
         ObjectMapper mapper = new ObjectMapper();
         String json = null;
         try {

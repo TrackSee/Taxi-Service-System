@@ -3,7 +3,7 @@ package ua.com.tracksee.logic.facade;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.json.FavoritePlaceDTO;
 import ua.com.tracksee.logic.customer.FavoritePlacesBean;
@@ -41,7 +41,7 @@ public class CustomerFacade {
         }
     }
 
-    public ServiceUserEntity getUserByLoginCredentials(String email, String password) {
+    public UserEntity getUserByLoginCredentials(String email, String password) {
         return accountManagementBean.getUserByLoginCredentials(email, password);
     }
 

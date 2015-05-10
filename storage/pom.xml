@@ -38,7 +38,7 @@
             </exclusions>
         </dependency>
 
-        <!--for Hibernate features provided by WildFly-->
+        <!--for Hibernate features-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-spatial</artifactId>

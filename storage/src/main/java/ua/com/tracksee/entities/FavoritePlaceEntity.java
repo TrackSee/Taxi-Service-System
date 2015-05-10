@@ -10,22 +10,22 @@ import java.util.Objects;
  * @author Ruslan Gunavardana
  */
 @Entity
-@Table(name = "address", schema = "public", catalog = "tracksee")
-@IdClass(AddressEntityPK.class)
-public class AddressEntity {
+@Table(name = "Favorite_Place", schema = "public", catalog = "tracksee")
+@IdClass(FavoritePlaceEntityPK.class)
+public class FavoritePlaceEntity {
     private String name;
     private Integer userId;
     private Point location;
 
-    public AddressEntity() {
+    public FavoritePlaceEntity() {
     }
 
-    public AddressEntity(String name, Integer userId) {
+    public FavoritePlaceEntity(String name, Integer userId) {
         this.name = name;
         this.userId = userId;
     }
 
-    public AddressEntity(String name, Integer userId, Point location) {
+    public FavoritePlaceEntity(String name, Integer userId, Point location) {
         this.name = name;
         this.userId = userId;
         this.location = location;
@@ -66,7 +66,7 @@ public class AddressEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AddressEntity that = (AddressEntity) o;
+        FavoritePlaceEntity that = (FavoritePlaceEntity) o;
         return Objects.equals(name, that.name) &&
                 Objects.equals(userId, that.userId) &&
                 Objects.equals(location, that.location);

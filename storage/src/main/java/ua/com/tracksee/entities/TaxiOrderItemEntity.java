@@ -15,7 +15,7 @@ public class TaxiOrderItemEntity {
     private Long taxiItemId;
     private PGpath path;
     private BigDecimal orderedQuantity;
-    private ServiceUserEntity driver;
+    private UserEntity driver;
     private TaxiOrderEntity taxiOrder;
 
     @Id
@@ -53,11 +53,11 @@ public class TaxiOrderItemEntity {
 
     @ManyToOne
     @JoinColumn(name = "driver_id", referencedColumnName = "user_id")
-    public ServiceUserEntity getDriver() {
+    public UserEntity getDriver() {
         return driver;
     }
 
-    public void setDriver(ServiceUserEntity serviceUserByDriverId) {
+    public void setDriver(UserEntity serviceUserByDriverId) {
         this.driver = serviceUserByDriverId;
     }
 

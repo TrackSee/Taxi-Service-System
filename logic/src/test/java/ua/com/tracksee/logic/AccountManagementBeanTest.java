@@ -15,7 +15,7 @@ import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.implementation.UserDAOBean;
 import ua.com.tracksee.dao.implementation.exceptions.CarNotFoundException;
 import ua.com.tracksee.dao.implementation.exceptions.ServiceUserNotFoundException;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.entity.Group;
 import ua.com.tracksee.enumartion.Sex;
 import ua.com.tracksee.error.PersistError;
@@ -56,7 +56,7 @@ public class AccountManagementBeanTest {
                 .addPackage(PersistError.class.getPackage())
                 .addPackage(CarNotFoundException.class.getPackage())
                 .addPackage(PGBinaryObject.class.getPackage())
-                .addPackage(ServiceUserEntity.class.getPackage())
+                .addPackage(UserEntity.class.getPackage())
                 .addPackage(UserDAOBean.class.getPackage())
                 .addPackage(Group.class.getPackage())
                 .addClass(ServiceUserNotFoundException.class)
@@ -88,15 +88,15 @@ public class AccountManagementBeanTest {
     public void testRegisterGoodCustomerUser() throws Exception {
         clearUserIfExists(TEST_EMAIL);
         accountManagementBean.registerCustomerUser(TEST_EMAIL, TEST_PASSWORD, TEST_PHONE);
-        ServiceUserEntity newUser = userDAO.getUserByEmail(TEST_EMAIL);
+        UserEntity newUser = userDAO.getUserByEmail(TEST_EMAIL);
         assertFalse(newUser.getActivated());
         userDAO.deleteUser(newUser.getUserId());
     }
 
     @Test
     public void testRegisterAndActivate() throws Exception {
-        ServiceUserEntity unactivatedUser;
-        ServiceUserEntity activatedUser;
+        UserEntity unactivatedUser;
+        UserEntity activatedUser;
 
         clearUserIfExists(TEST_EMAIL);
         accountManagementBean.registerCustomerUser(TEST_EMAIL, TEST_PASSWORD, TEST_PHONE);
@@ -109,7 +109,7 @@ public class AccountManagementBeanTest {
     }
 
     private void clearUserIfExists(String email) {
-        ServiceUserEntity oldUser = userDAO.getUserByEmail(email);
+        UserEntity oldUser = userDAO.getUserByEmail(email);
         if (oldUser != null) {
             userDAO.deleteUser(oldUser.getUserId());
         }

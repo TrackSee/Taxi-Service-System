@@ -1,9 +1,8 @@
 package ua.com.tracksee.logic.customer;
 
-import org.postgresql.geometric.PGpoint;
-import ua.com.tracksee.dao.AddressDAO;
-import ua.com.tracksee.entities.AddressEntity;
-import ua.com.tracksee.entities.AddressEntityPK;
+import ua.com.tracksee.dao.FavoritePlaceDAO;
+import ua.com.tracksee.entities.FavoritePlaceEntity;
+import ua.com.tracksee.entities.FavoritePlaceEntityPK;
 import ua.com.tracksee.json.FavoritePlaceDTO;
 import ua.com.tracksee.json.LocationDTO;
 
@@ -20,17 +19,18 @@ import static ua.com.tracksee.util.GeometryConverter.toPoint;
  */
 @Stateless
 public class FavoritePlacesBean {
-    private @EJB AddressDAO addressDAO;
+    private @EJB
+    FavoritePlaceDAO favoritePlaceDAO;
 
     /**
      * Returns a list of customer user's favourite addresses.
      */
     public List<FavoritePlaceDTO> getFavoritePlacesFor(int userId) {
-        List<AddressEntity> entities = addressDAO.getAddressesByUserId(userId);
+        List<FavoritePlaceEntity> entities = favoritePlaceDAO.getAddressesByUserId(userId);
         List<FavoritePlaceDTO> dtoList = new ArrayList<>(entities.size());
 
         // filling dtoList
-        for (AddressEntity entity : entities) {
+        for (FavoritePlaceEntity entity : entities) {
             LocationDTO locationDTO = toLocationDTO(entity.getLocation());
             FavoritePlaceDTO placeDTO = new FavoritePlaceDTO(entity.getName(), locationDTO);
             dtoList.add(placeDTO);
@@ -49,7 +49,7 @@ public class FavoritePlacesBean {
     public boolean addFavoritePlaceFor(Integer userId, FavoritePlaceDTO favoritePlaceDto) {
         String name = favoritePlaceDto.getName();
         LocationDTO loc = favoritePlaceDto.getLocation();
-        return addressDAO.addAddress(new AddressEntity(name, userId, toPoint(loc)));
+        return favoritePlaceDAO.addAddress(new FavoritePlaceEntity(name, userId, toPoint(loc)));
     }
 
     /**
@@ -60,7 +60,7 @@ public class FavoritePlacesBean {
      * @return true if successfully removed, false if not
      */
     public boolean removeFavoritePlaceFor(Integer userId, String name) {
-        return addressDAO.deleteAddress(new AddressEntityPK(name, userId));
+        return favoritePlaceDAO.deleteAddress(new FavoritePlaceEntityPK(name, userId));
     }
 
     /**
@@ -73,7 +73,7 @@ public class FavoritePlacesBean {
      */
     public boolean updateFavoritePlaceFor(Integer userId, String oldName, FavoritePlaceDTO newData) {
         LocationDTO loc = newData.getLocation();
-        AddressEntity newEntity = new AddressEntity(newData.getName(), userId, toPoint(loc));
-        return addressDAO.updateAddress(new AddressEntityPK(oldName, userId), newEntity);
+        FavoritePlaceEntity newEntity = new FavoritePlaceEntity(newData.getName(), userId, toPoint(loc));
+        return favoritePlaceDAO.updateAddress(new FavoritePlaceEntityPK(oldName, userId), newEntity);
     }
 }

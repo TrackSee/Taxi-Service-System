@@ -9,14 +9,15 @@ import java.util.Objects;
  */
 
 @Entity
-@Table(name = "service_user", schema = "public", catalog = "tracksee")
+@Table(name = "service_user", schema = "public", catalog = "tracksee",
+        uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 @NamedQueries({
-        @NamedQuery(name = "getAll", query = "SELECT user from ServiceUserEntity  user"),
-        @NamedQuery(name = "getAllById", query = "SELECT user from ServiceUserEntity user WHERE userId in:usersId"),
-        @NamedQuery(name = "blockAll", query = "UPDATE ServiceUserEntity user SET user.ignoredTimes=:ignoredTimes WHERE user.userId in :userIds"),
-        @NamedQuery(name = "usersSize", query = "SELECT count (user) from ServiceUserEntity user")
+        @NamedQuery(name = "getAll", query = "SELECT user from UserEntity  user"),
+        @NamedQuery(name = "getAllById", query = "SELECT user from UserEntity user WHERE userId in:usersId"),
+        @NamedQuery(name = "blockAll", query = "UPDATE UserEntity user SET user.ignoredTimes=:ignoredTimes WHERE user.userId in :userIds"),
+        @NamedQuery(name = "usersSize", query = "SELECT count (user) from UserEntity user")
 })
-public class ServiceUserEntity {
+public class UserEntity {
     private Integer userId;
     private String email;
     private String password;
@@ -169,7 +170,7 @@ public class ServiceUserEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ServiceUserEntity entity = (ServiceUserEntity) o;
+        UserEntity entity = (UserEntity) o;
         return Objects.equals(userId, entity.userId) &&
                 Objects.equals(email, entity.email) &&
                 Objects.equals(password, entity.password) &&

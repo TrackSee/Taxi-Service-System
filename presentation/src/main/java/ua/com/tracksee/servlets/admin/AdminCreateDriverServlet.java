@@ -3,7 +3,7 @@ package ua.com.tracksee.servlets.admin;
         import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.admin.AdministratorBean;
         import ua.com.tracksee.exception.CreateException;
 
@@ -47,7 +47,7 @@ public class AdminCreateDriverServlet extends HttpServlet {
             logger.warn("Cannot get json from post /admin/createdriver");
         }
         ObjectMapper mapper = new ObjectMapper();
-        ServiceUserEntity user = mapper.readValue(sb.toString(), ServiceUserEntity.class);
+        UserEntity user = mapper.readValue(sb.toString(), UserEntity.class);
         user.setDriver(true);
         user.setActivated(true);
         user.setSex(user.getSex().substring(0, 1));

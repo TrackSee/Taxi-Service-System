@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS Taxi_Order_Item;
-DROP TABLE IF EXISTS Taxi_Order;
+DROP TABLE IF EXISTS Favorite_Place;
 DROP TABLE IF EXISTS Address;
 DROP TABLE IF EXISTS Service_User;
 DROP TABLE IF EXISTS Car;
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS Service_User
   registration_date TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS Address
+CREATE TABLE IF NOT EXISTS Favorite_Place
 (
   name                  VARCHAR(120) NOT NULL,
   user_id               INT          NOT NULL REFERENCES Service_User (user_id) ON DELETE CASCADE,

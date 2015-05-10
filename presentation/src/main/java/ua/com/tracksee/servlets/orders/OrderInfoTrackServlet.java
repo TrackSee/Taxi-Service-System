@@ -2,8 +2,7 @@ package ua.com.tracksee.servlets.orders;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.com.tracksee.entities.AddressEntity;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.enumartion.OrderStatus;
 import ua.com.tracksee.logic.EnumValidationBean;
@@ -41,11 +40,11 @@ public class OrderInfoTrackServlet extends HttpServlet {
 
             if (taxiOrderBean.checkOrderPresent(trackingNumber)) {
                 TaxiOrderEntity taxiOrderEntity = taxiOrderBean.getOrderInfo(trackingNumber);
-                ServiceUserEntity serviceUserEntity = taxiOrderBean.getUserInfo(taxiOrderEntity.getUserId());
+                UserEntity userEntity = taxiOrderBean.getUserInfo(taxiOrderEntity.getUserId());
 
                 req.setAttribute("trackingNumber", trackingNumber);
-                req.setAttribute("phoneNumber", serviceUserEntity.getPhone());
-                req.setAttribute("email", serviceUserEntity.getEmail());
+                req.setAttribute("phoneNumber", userEntity.getPhone());
+                req.setAttribute("email", userEntity.getEmail());
 
                //TODO addresses
 

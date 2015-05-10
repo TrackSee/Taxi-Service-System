@@ -1,7 +1,7 @@
 package ua.com.tracksee.dao;
 
 import ua.com.tracksee.entities.CarEntity;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -21,8 +21,8 @@ public interface UserDAO {
      * @param partNumber - number of data part
      * @return list, containing the part of drivers(default size of list is 10)
      */
-    List<ServiceUserEntity> getDrivers(int partNumber);
-    List<ServiceUserEntity> getUsers();
+    List<UserEntity> getDrivers(int partNumber);
+    List<UserEntity> getUsers();
 
     /**
      * Method clears any unactivated users that exist more than
@@ -53,7 +53,7 @@ public interface UserDAO {
      *
      * @param user
      */
-    Integer addUser(ServiceUserEntity user);
+    Integer addUser(UserEntity user);
 
     /**
      * @return count of driver pages in system
@@ -66,29 +66,29 @@ public interface UserDAO {
      */
     void deleteUser(int serviceUserID);
 
-    void updateUser(ServiceUserEntity serviceUserEntity);
+    void updateUser(UserEntity userEntity);
     /**
      * @author Sharaban Sasha
      */
-    public List<ServiceUserEntity> getUnregisteredUsers();
+    public List<UserEntity> getUnregisteredUsers();
     /**
      * Returns user with the specified email address.
      *
      * @param email user's email
      * @return user with the specified email address or null if user not exists
      */
-    ServiceUserEntity getUserByEmail(String email);
+    UserEntity getUserByEmail(String email);
 
-    void createUser(ServiceUserEntity serviceUserEntity);
+    void createUser(UserEntity userEntity);
 
     /**
      * @throws ua.com.tracksee.dao.implementation.exceptions.ServiceUserNotFoundException when there
      *                                                                                 is no service user with such id
      */
-    ServiceUserEntity getDriverByID(int id);
+    UserEntity getDriverByID(int id);
 
 
-    ServiceUserEntity getUserById(int id);
+    UserEntity getUserById(int id);
 
     List<String> getDriversEmails();
 
@@ -111,15 +111,15 @@ public interface UserDAO {
      * @param email to get customers with such email
      * @return
      */
-    List<ServiceUserEntity> getCustomersByEmail(String email);
+    List<UserEntity> getCustomersByEmail(String email);
 
     /**
      * @author Katia Stetsiuk
      * @param email to get drivers with such email
      * @return
      */
-    List<ServiceUserEntity> getDriversByEmail(String email);
+    List<UserEntity> getDriversByEmail(String email);
 
-    public CarEntity getDriversCar(ServiceUserEntity driver);
+    public CarEntity getDriversCar(UserEntity driver);
 
 }

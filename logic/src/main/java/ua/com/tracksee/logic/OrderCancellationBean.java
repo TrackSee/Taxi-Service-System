@@ -2,10 +2,11 @@ package ua.com.tracksee.logic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.dao.FavoritePlaceDAO;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.implementation.CancelDAOBean;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -17,14 +18,10 @@ import javax.ejb.Stateless;
 @Stateless(name = "OrderCancellationBeanEJB")
 public class OrderCancellationBean {
     private static final Logger logger = LogManager.getLogger();
-    @EJB
-    CancelDAOBean canselDAO;
-    private
-    @EJB
-    TaxiOrderDAO taxiOrderDAO;
-    private
-    @EJB
-    UserDAO userDAO;
+
+    private @EJB CancelDAOBean canselDAO;
+    private @EJB TaxiOrderDAO taxiOrderDAO;
+    private @EJB UserDAO userDAO;
 
     public boolean cancelOrder(long trackingNumber) {
         canselDAO.canselOrder(trackingNumber);
@@ -38,13 +35,13 @@ public class OrderCancellationBean {
 method send mail thet user refuse more then 2 order,
 and cand make more order whith this email
  */
-    private void sendNotification(ServiceUserEntity trackingNumber) {
+    private void sendNotification(UserEntity trackingNumber) {
         //TODO complete mail send
     }
 
     /**
      * @author Sharaban Sasha
-     * @see ua.com.tracksee.dao.AddressDAO
+     * @see FavoritePlaceDAO
      */
     public boolean checkBlackListByUserEmail(String email){
         return userDAO.checkBlackListUserByEmail(email);

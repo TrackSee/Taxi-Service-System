@@ -3,7 +3,7 @@ package ua.com.tracksee.servlets.admin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.admin.AdministratorBean;
 
 import javax.ejb.EJB;
@@ -50,7 +50,7 @@ public class AdminUpdateDriverServlet extends HttpServlet {
         }
         System.out.println("data: " + sb.toString());
         ObjectMapper mapper = new ObjectMapper();
-        ServiceUserEntity user = mapper.readValue(sb.toString(), ServiceUserEntity.class);
+        UserEntity user = mapper.readValue(sb.toString(), UserEntity.class);
         user.setUserId(id);
         user.setDriver(true);
         administratorBean.updateUser(user);

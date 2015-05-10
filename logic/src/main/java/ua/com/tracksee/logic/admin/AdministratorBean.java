@@ -4,7 +4,7 @@ import ua.com.tracksee.dao.CarDAO;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.implementation.ServiceUserDaoBeen;
 import ua.com.tracksee.entities.CarEntity;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.error.PersistError;
 import ua.com.tracksee.logic.ValidationBean;
 import ua.com.tracksee.exception.CreateException;
@@ -35,7 +35,7 @@ public class AdministratorBean {
     @EJB
     private ServiceUserDaoBeen serviceUserDaoBeen;
 
-    private void validateRegistrationData(ServiceUserEntity user)
+    private void validateRegistrationData(UserEntity user)
             throws CreateException
 
     {
@@ -56,29 +56,29 @@ public class AdministratorBean {
      * @author Katia Stetsiuk
      * @return
      */
-    public List<ServiceUserEntity> getUsers(){return userDAO.getUsers();}
+    public List<UserEntity> getUsers(){return userDAO.getUsers();}
     /**
      * @author Vadym_Akymov
      * @param partNumber - number of part which is neeeded
      * This method return part of drivers
      */
 
-    public List<ServiceUserEntity> getDrivers(int partNumber){
+    public List<UserEntity> getDrivers(int partNumber){
         return userDAO.getDrivers(partNumber);
     }
 
-    public Integer addUser(ServiceUserEntity user) {return  userDAO.addUser(user);}
+    public Integer addUser(UserEntity user) {return  userDAO.addUser(user);}
 
     /**
      * @author Katia Stetsiuk
      * @param user entity for updating
      */
-    public void  updateUser(ServiceUserEntity user) { userDAO.updateUser(user);}
+    public void  updateUser(UserEntity user) { userDAO.updateUser(user);}
     /**
      * @author Katia Stetsiuk
      * @param user entity for creating
      */
-    public void createUser(ServiceUserEntity user) throws CreateException {
+    public void createUser(UserEntity user) throws CreateException {
         validateRegistrationData(user);
         userDAO.createUser(user);
     }
@@ -107,7 +107,7 @@ public class AdministratorBean {
     /**
      * @author Vadym Akymov
      */
-    public ServiceUserEntity getDriverByID(int id){
+    public UserEntity getDriverByID(int id){
         return userDAO.getDriverByID(id);
     }
     /**
@@ -116,8 +116,8 @@ public class AdministratorBean {
     public void deleteUser(int id){
         userDAO.deleteUser(id);
     }
-    public List<ServiceUserEntity> getDriversByEmail(String email){return userDAO.getDriversByEmail(email);};
-    public List<ServiceUserEntity> getCustomersByEmail(String email){return userDAO.getCustomersByEmail(email);};
+    public List<UserEntity> getDriversByEmail(String email){return userDAO.getDriversByEmail(email);};
+    public List<UserEntity> getCustomersByEmail(String email){return userDAO.getCustomersByEmail(email);};
 
     /**
      * @author Vadym Akymov
@@ -164,7 +164,7 @@ public class AdministratorBean {
         return userDAO.getDriverPagesCount();
     }
 
-    public List<ServiceUserEntity> getAllUsersById(List<Integer> integers){
+    public List<UserEntity> getAllUsersById(List<Integer> integers){
         return serviceUserDaoBeen.getAllById(integers);
     }
 
@@ -177,7 +177,7 @@ public class AdministratorBean {
         return serviceUserDaoBeen.getUsersCount();
     }
 
-    public Collection<? extends ServiceUserEntity> getAll(int start, int countPerPage) {
+    public Collection<? extends UserEntity> getAll(int start, int countPerPage) {
         return serviceUserDaoBeen.getAll(start, countPerPage);
     }
 }

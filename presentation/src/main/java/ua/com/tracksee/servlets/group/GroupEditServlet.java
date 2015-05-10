@@ -5,16 +5,12 @@ package ua.com.tracksee.servlets.group;
  */
 
 import com.google.gson.Gson;
-import ua.com.tracksee.entities.ServiceUserEntity;
-import ua.com.tracksee.entity.Group;
 import ua.com.tracksee.enumartion.Role;
 import ua.com.tracksee.logic.GroupBean;
 import ua.com.tracksee.logic.group.GroupSelectAction;
-import ua.com.tracksee.logic.group.GroupSelectCountAction;
 import ua.com.tracksee.logic.group.GroupUpdateAction;
 
 import javax.ejb.EJB;
-import javax.persistence.EntityExistsException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
