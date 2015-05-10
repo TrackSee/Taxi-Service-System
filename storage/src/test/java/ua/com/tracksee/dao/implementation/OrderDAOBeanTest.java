@@ -66,7 +66,7 @@ public class OrderDAOBeanTest {
     @Test
     public void updateOrder() throws Exception {
         TaxiOrderEntity entity = new TaxiOrderEntity();
-        entity.setDriverSex(Sex.M);
+        entity.setDriverSex(Sex.MALE);
         long trackNumb=4;
         entity.setTrackingNumber(trackNumb);
         entity.setAirConditioner(Boolean.FALSE);

@@ -107,15 +107,15 @@
                 <div class="form-group">
                     <label class="control-label">Service</label>
                     <select class="form-control order_priority" name="service" id="service">
-                        <option value="default">Simple taxi</option>
-                        <option value="soberDriver">Service "Sober driver"</option>
-                        <option value="guestDelivery">Service "Guest delivery"</option>
-                        <option value="cargoTaxi">Service "Cargo taxi"</option>
-                        <option value="meetMyGuest">Service "Meet my guest"</option>
-                        <option value="celebrationTaxi"> Service "Celebration taxi"</option>
-                        <option value="foodStuffDelivery">Service "Foodstuff delivery"</option>
-                        <option value="conveyCorporation">Service "Convey corporation employees"</option>
-                        <option value="taxiForlongTerm">Service "Taxi for long term"</option>
+                        <option value="SIMPLE_TAXI">Simple taxi</option>
+                        <option value="SOBER_DRIVER">Service "Sober driver"</option>
+                        <option value="GUEST DELIVERY">Service "Guest delivery"</option>
+                        <option value="CARGO_TAXI">Service "Cargo taxi"</option>
+                        <option value="MEET_MY_GUEST">Service "Meet my guest"</option>
+                        <option value="CELEBRATION_TAXI"> Service "Celebration taxi"</option>
+                        <option value="FOODSTUFF_DELIVERY">Service "Foodstuff delivery"</option>
+                        <option value="CONVEY_CORPORATION_EMPLOYEES">Service "Convey corporation employees"</option>
+                        <option value="TAXI_FOR_LONG_TERM">Service "Taxi for long term"</option>
                     </select>
                 </div>
                 <label for="arriveDate" class="sr-only">Arrive date</label>
@@ -142,31 +142,32 @@
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>
                     <select class="form-control order_priority" name="carCategory">
-                        <option value="economyClass">Economy class</option>
-                        <option value="businessClass">Business class</option>
-                        <option value="van">Van</option>
+                        <option value="ECONOMY_CLASS">Economy class</option>
+                        <option value="BUSINESS_CLASS">Business class</option>
+                        <option value="VAN">Van</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label">Driver sex</label>
                     <select class="form-control order_priority" name="driverSex">
-                        <option value="anyone">Anyone</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
+                        <option value="ANYONE">Anyone</option>
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
                     </select>
                 </div>
                 <div class="form-group" id="musicStyleGroup">
                     <label class="control-label">Music style</label>
                     <select class="form-control order_priority" name="musicStyle">
-                        <option value="default">Default</option>
-                        <option value="blues">Blues</option>
-                        <option value="classicalMusic">Classical music</option>
-                        <option value="rock">Rock</option>
-                        <option value="jazz">Jazz</option>
-                        <option value="danceMusic">Dance music</option>
-                        <option value="electronicMusic">Electronic music</option>
-                        <option value="hipHop">Hip Hop</option>
+                        <option value="ANY">Any</option>
+                        <option value="BLUES">Blues</option>
+                        <option value="CLASSICAL_MUSIC">Classical music</option>
+                        <option value="ROCK">Rock</option>
+                        <option value="JAZZ">Jazz</option>
+                        <option value="DANCE_MUSIC">Dance music</option>
+                        <option value="ELECTRONIC_MUSIC">Electronic music</option>
+                        <option value="HIP_HOP">Hip Hop</option>
+                        <option value="OTHER">Other</option>
                     </select>
                 </div>
 
