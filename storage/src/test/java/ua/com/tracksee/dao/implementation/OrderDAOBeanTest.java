@@ -12,8 +12,8 @@ import org.postgresql.geometric.PGpoint;
 import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.enumartion.Sex;
 
 import javax.ejb.EJB;
@@ -66,7 +66,7 @@ public class OrderDAOBeanTest {
     @Test
     public void updateOrder() throws Exception {
         TaxiOrderEntity entity = new TaxiOrderEntity();
-        entity.setDriverSex(Sex.MALE);
+        entity.setDriverSex(Sex.M);
         long trackNumb=4;
         entity.setTrackingNumber(trackNumb);
         entity.setAirConditioner(Boolean.FALSE);
