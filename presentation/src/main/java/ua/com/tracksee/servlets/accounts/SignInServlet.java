@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.logic.facade.CustomerFacade;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -28,7 +29,7 @@ public class SignInServlet extends HttpServlet {
     private static final String ERROR = "error";
     private static final Logger logger = LogManager.getLogger();
 
-    private @EJB UserDAO userDAO;
+    private @EJB CustomerFacade customerFacade;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -46,15 +47,16 @@ public class SignInServlet extends HttpServlet {
         String password = req.getParameter("password");
         logger.debug("User attempts to authorise {}", email);
 
-        ServiceUserEntity user = userDAO.getUserByEmail(email);
-        if (user == null || !Objects.equals(user.getPassword(), password) || user.getActivated() != TRUE) {
+        // for getting salt and calculating hash
+        ServiceUserEntity user = customerFacade.getUserByLoginCredentials(email, password);
+        if (user == null) {
             resp.getWriter().append(ERROR);
             return;
         }
 
         // using JAAS to login
         try {
-            req.login(email, password);
+            req.login(email, user.getPassword());
         } catch (ServletException e) {
             logger.warn(e.getMessage());
             resp.getWriter().append(ERROR);

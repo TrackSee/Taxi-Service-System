@@ -20,6 +20,7 @@ public class ServiceUserEntity {
     private Integer userId;
     private String email;
     private String password;
+    private String salt;
     private String phone;
     private Boolean driver = false;
     private Boolean admin = false;
@@ -62,6 +63,16 @@ public class ServiceUserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Basic
+    @Column(name = "salt", nullable = false, length = 8)
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     @Basic

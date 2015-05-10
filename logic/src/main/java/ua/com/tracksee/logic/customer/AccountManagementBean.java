@@ -4,14 +4,17 @@ import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.logic.EmailBean;
 import ua.com.tracksee.logic.ValidationBean;
-import ua.com.tracksee.logic.exception.RegistrationException;
+import ua.com.tracksee.exception.RegistrationException;
+import ua.com.tracksee.logic.encryption.HashGenerator;
+import ua.com.tracksee.logic.encryption.PasswordUtils;
 
 import javax.ejb.EJB;
-import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 
 import static java.lang.Boolean.FALSE;
-import static ua.com.tracksee.logic.exception.RegistrationExceptionType.*;
+import static ua.com.tracksee.exception.RegistrationExceptionType.*;
+import static ua.com.tracksee.logic.encryption.HashGenerator.getHash;
+import static ua.com.tracksee.logic.encryption.PasswordUtils.generatePassword;
 
 /**
  * Bean provides account registration and activation
@@ -20,12 +23,27 @@ import static ua.com.tracksee.logic.exception.RegistrationExceptionType.*;
  * @author Ruslan Gunavardana
 */
 @Stateless
-public class RegistrationBean {
+public class AccountManagementBean {
+
+    //TODO redirect these to configs
     private static final int UNACTIVATED_USERS_MAX_DAYS = 30;
+    private static final int SALT_SIZE = 8;
 
     private @EJB EmailBean emailBean;
     private @EJB ValidationBean validationBean;
     private @EJB UserDAO userDAO;
+
+    public ServiceUserEntity getUserByLoginCredentials(String email, String loginPassword) {
+        ServiceUserEntity user = userDAO.getUserByEmail(email);
+        String hashedLoginPassword = getHashedPassword(loginPassword, user.getSalt());
+
+        // hash code of login and database passwords must be equal
+        if (hashedLoginPassword.equals(user.getPassword())) {
+            return user;
+        }
+
+        return null;
+    }
 
     /**
      * Activates registered user's account.
@@ -60,10 +78,16 @@ public class RegistrationBean {
     {
         validateRegistrationData(email, password, phoneNumber);
 
+        // hashing the password
+        String salt = generateSalt();
+        String hashedPassword = getHashedPassword(password, salt);
+
+
         // adding new user
         ServiceUserEntity user = new ServiceUserEntity();
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(hashedPassword);
+        user.setSalt(salt);
         user.setPhone(phoneNumber);
         Integer generatedId = userDAO.addUser(user);
         if (generatedId == null) {
@@ -86,6 +110,14 @@ public class RegistrationBean {
         if (phoneNumber != null && !phoneNumber.equals("") && !validationBean.isValidPhoneNumber(phoneNumber)) {
             throw new RegistrationException("Invalid phone number.", BAD_PHONE);
         }
+    }
+
+    private String generateSalt() {
+        return generatePassword(SALT_SIZE, true, true, true, true);
+    }
+
+    private String getHashedPassword(String password, String salt) {
+        return getHash(salt + password + salt);
     }
 
     public void clearUnactivatedRegistrations() {

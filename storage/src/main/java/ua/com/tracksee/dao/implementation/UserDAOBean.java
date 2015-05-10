@@ -157,22 +157,23 @@ public class UserDAOBean implements UserDAO {
     @Override
     public Integer addUser(ServiceUserEntity user) {
         String sql = "INSERT INTO service_user " +
-                "(email, password, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+                "(email, password, salt, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date) " +
+                "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13) " +
                 "RETURNING user_id";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, user.getEmail());
         query.setParameter(2, user.getPassword());
-        query.setParameter(3, user.getPhone());
-        query.setParameter(4, user.getSex());
-        query.setParameter(5, user.getDriver());
-        query.setParameter(6, user.getAdmin());
-        query.setParameter(7, user.getGroupName());
-        query.setParameter(8, user.getCar() != null? user.getCar().getCarNumber() : null);
-        query.setParameter(9, user.getDriverLicense());
-        query.setParameter(10, user.getIgnoredTimes());
-        query.setParameter(11, user.getActivated());
-        query.setParameter(12, user.getRegistrationDate());
+        query.setParameter(3, user.getSalt());
+        query.setParameter(4, user.getPhone());
+        query.setParameter(5, user.getSex());
+        query.setParameter(6, user.getDriver());
+        query.setParameter(7, user.getAdmin());
+        query.setParameter(8, user.getGroupName());
+        query.setParameter(9, user.getCar() != null? user.getCar().getCarNumber() : null);
+        query.setParameter(10, user.getDriverLicense());
+        query.setParameter(11, user.getIgnoredTimes());
+        query.setParameter(12, user.getActivated());
+        query.setParameter(13, user.getRegistrationDate());
         try {
             user.setUserId((Integer)query.getSingleResult());
         } catch (PersistenceException e) {

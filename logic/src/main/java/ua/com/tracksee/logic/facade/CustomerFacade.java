@@ -3,16 +3,15 @@ package ua.com.tracksee.logic.facade;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
-import ua.com.tracksee.entities.AddressEntity;
+import ua.com.tracksee.entities.ServiceUserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.json.FavoritePlaceDTO;
 import ua.com.tracksee.logic.customer.FavoritePlacesBean;
-import ua.com.tracksee.logic.customer.RegistrationBean;
+import ua.com.tracksee.logic.customer.AccountManagementBean;
 import ua.com.tracksee.exception.RegistrationException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +27,8 @@ public class CustomerFacade {
     private static final Logger logger = LogManager.getLogger();
 
     private @EJB TaxiOrderDAO taxiOrderDAO;
-    private @EJB RegistrationBean registrationBean;
+    private @EJB
+    AccountManagementBean accountManagementBean;
     private @EJB FavoritePlacesBean favoritePlacesBean;
 
     public List<TaxiOrderEntity> getOrdersPerPage(OrderStatusBO orderStatus, int userID, int pageNumber){
@@ -40,16 +40,21 @@ public class CustomerFacade {
                 throw new IllegalArgumentException("wrong order status param");
         }
     }
+
+    public ServiceUserEntity getUserByLoginCredentials(String email, String password) {
+        return accountManagementBean.getUserByLoginCredentials(email, password);
+    }
+
     /** Registers new account with the specified credentials. */
     public void registerUser(String email, String password, String phoneNumber)
             throws RegistrationException
     {
-        registrationBean.registerCustomerUser(email, password, phoneNumber);
+        accountManagementBean.registerCustomerUser(email, password, phoneNumber);
     }
 
     /** Activates user account with the specified code. */
     public void activateUser(String userCode) throws RegistrationException {
-        registrationBean.activateCustomerUserAccount(userCode);
+        accountManagementBean.activateCustomerUserAccount(userCode);
     }
 
     /** Returns a list of customer user's favourite addresses. */
