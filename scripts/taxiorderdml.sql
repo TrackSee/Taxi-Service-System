@@ -13,7 +13,7 @@ VALUES
 INSERT INTO service_user
 (user_id, email, password, salt, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date)
 VALUES
-  (123456, 'rusan.rus1@gmail.com1', '4ac43da9f1ad1d755e29e0aef184ef8c140f655d8d65229f6c6de3b47224a8d4', 'badbad2A', '+380635293836', 'M', true, false, null, null, 'A, B, C', 0, true, '2015-05-09 21:37:19.145000');
+  (123456, 'rusan.rus1@gmail.com', '4ac43da9f1ad1d755e29e0aef184ef8c140f655d8d65229f6c6de3b47224a8d4', 'badbad2A', '+380635293836', 'M', true, false, null, null, 'A, B, C', 0, true, '2015-05-09 21:37:19.145000');
 
 
 INSERT INTO taxi_order
