@@ -91,12 +91,7 @@ $('.prevButton').click(function(){
 
 $('.track').click(function(){
     var trackingNumber = $('.trackingNumber').val();
-    alert("AJAX!!!");
-    $.ajax({
-       type: 'POST',
-        url: 'orderTracking',
-        data: 'orderTrackingNumber=' + trackingNumber
-    });
+    alert("GET doesn't allowed!!")
 });
 
 function formatDate(d) {

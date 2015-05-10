@@ -17,10 +17,11 @@ import java.io.IOException;
  */
 @WebServlet("/orderInfo")
 public class OrderInfoServlet extends HttpServlet {
+    private static final Logger logger = LogManager.getLogger();
     private
     @EJB
     OrderCancellationBean orderCancellationBean;
-    private static final Logger logger = LogManager.getLogger();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req,resp);
@@ -29,6 +30,7 @@ public class OrderInfoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             int trackingNumber=Integer.parseInt(req.getParameter("trackingNumber"));
+            //TODO code_review(by vadym_akymov) why cancelOrder ????????????? What is it ?
             boolean state=orderCancellationBean.cancelOrder(trackingNumber);
             if(state){
                 req.setAttribute("showRefuseSuccess","Show");
