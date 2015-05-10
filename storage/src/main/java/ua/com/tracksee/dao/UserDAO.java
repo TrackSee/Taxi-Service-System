@@ -56,6 +56,18 @@ public interface UserDAO {
     Integer addUser(UserEntity user);
 
     /**
+     * This method adds record in
+     * database about user that
+     * make order but which is
+     * not registered.
+     *
+     * @author Sharaban Sasha
+     * @param user - entity that contain information about user that made order
+     * @return id the added record
+     */
+    Integer addUnregisteredUser(UserEntity user);
+
+    /**
      * @return count of driver pages in system
      */
     int getDriverPagesCount();

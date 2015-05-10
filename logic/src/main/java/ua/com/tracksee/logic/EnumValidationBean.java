@@ -3,6 +3,7 @@ package ua.com.tracksee.logic;
 import ua.com.tracksee.enumartion.*;
 
 import javax.ejb.Stateless;
+import javax.persistence.criteria.Order;
 
 /**
  * This session bean converts enum
@@ -79,6 +80,7 @@ public class EnumValidationBean {
         }
         return enumDriverSex;
     }
+
     /**
      * This method checks there is the such
      * enum and return it if it exists.
@@ -87,7 +89,6 @@ public class EnumValidationBean {
      * @param service - string representation of service
      * @return service enum
      */
-
     public Service setEnumService(String service) {
         Service enumService;
         try {
@@ -209,7 +210,7 @@ public class EnumValidationBean {
      * @return string name of option that must be selected
      */
     public String getFromEnumWayOfPayment(WayOfPayment enumWayOfPayment){
-        String wayOfPayment=null;
+        String wayOfPayment;
         try {
             wayOfPayment=enumWayOfPayment.toString();
         }catch (NullPointerException e){
@@ -217,5 +218,46 @@ public class EnumValidationBean {
                     " error message: "+e);
         }
         return wayOfPayment;
+    }
+
+    /**
+     * This method checks there is the such
+     * enum and return it if it exists.
+     *
+     * @author Sharaban Sasha
+     * @param orderStatus - string representation of order status
+     * @return order status enum
+     */
+    public OrderStatus setEnumOrderStatus(String orderStatus) {
+        OrderStatus enumOrderStatus;
+        try {
+            enumOrderStatus = OrderStatus.valueOf(orderStatus);
+        }catch (NullPointerException e){
+            throw new NullPointerException("EnumValidationBean.setEnumOrderStatus: order status value is null," +
+                    " error message: "+e);
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("EnumValidationBean.setEnumOrderStatus: order status value is " +
+                    "illegal:"+orderStatus+", error message: "+e);
+        }
+        return enumOrderStatus;
+    }
+    /**
+     * This method return string
+     * representation of order status
+     * enum value
+     *
+     * @author Sharaban Sasha
+     * @param enumOrderStatus - enum value of order status
+     * @return string name of option that must be selected
+     */
+    public String  getFromEnumOrderStatus(OrderStatus enumOrderStatus) {
+        String orderStatus;
+        try {
+            orderStatus=enumOrderStatus.toString();
+        }catch (NullPointerException e){
+            throw new NullPointerException("EnumValidationBean.getFromEnumOrderStatus: enum order status is null, " +
+                    " error message: "+e);
+        }
+        return orderStatus;
     }
 }
