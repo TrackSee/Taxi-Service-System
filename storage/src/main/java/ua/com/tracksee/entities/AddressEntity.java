@@ -1,6 +1,7 @@
 package ua.com.tracksee.entities;
 
-import org.postgresql.geometric.PGpoint;
+import com.vividsolutions.jts.geom.Point;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -14,7 +15,7 @@ import java.util.Objects;
 public class AddressEntity {
     private String name;
     private Integer userId;
-    private PGpoint location;
+    private Point location;
 
     public AddressEntity() {
     }
@@ -24,7 +25,7 @@ public class AddressEntity {
         this.userId = userId;
     }
 
-    public AddressEntity(String name, Integer userId, PGpoint location) {
+    public AddressEntity(String name, Integer userId, Point location) {
         this.name = name;
         this.userId = userId;
         this.location = location;
@@ -51,12 +52,13 @@ public class AddressEntity {
     }
 
     @Basic
+    @Type(type="org.hibernate.spatial.GeometryType")
     @Column(name = "location")
-    public PGpoint getLocation() {
+    public Point getLocation() {
         return location;
     }
 
-    public void setLocation(PGpoint location) {
+    public void setLocation(Point location) {
         this.location = location;
     }
 

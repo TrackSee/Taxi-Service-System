@@ -9,6 +9,14 @@ public class FavoritePlaceDTO {
     private String name;
     private LocationDTO location;
 
+    public FavoritePlaceDTO() {
+    }
+
+    public FavoritePlaceDTO(String name, LocationDTO location) {
+        this.name = name;
+        this.location = location;
+    }
+
     public String getName() {
         return name;
     }

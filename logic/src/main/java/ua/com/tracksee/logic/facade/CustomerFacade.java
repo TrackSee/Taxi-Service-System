@@ -8,15 +8,20 @@ import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.json.FavoritePlaceDTO;
 import ua.com.tracksee.logic.customer.FavoritePlacesBean;
 import ua.com.tracksee.logic.customer.RegistrationBean;
-import ua.com.tracksee.logic.exception.RegistrationException;
+import ua.com.tracksee.exception.RegistrationException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Vadym Akymov, Ruslan Gunavardana on 09.05.15.
- * Session Facade for customer bean
+ * Session Facade Bean for customer user subsystem.
+ * Used to access any taxi service system functionality
+ * for customer users.
+ *
+ * @author Ruslan Gunavardana
+ * @author Vadym Akymov
  */
 @Stateless
 public class CustomerFacade {
@@ -48,7 +53,7 @@ public class CustomerFacade {
     }
 
     /** Returns a list of customer user's favourite addresses. */
-    public List<AddressEntity> getFavoritePlacesFor(int userId) {
+    public List<FavoritePlaceDTO> getFavoritePlacesFor(int userId) {
         return favoritePlacesBean.getFavoritePlacesFor(userId);
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
 
-    <persistence-unit name="HibernatePU">
+    <persistence-unit name="HibernatePU" transaction-type="JTA">
         <jta-data-source>java:jboss/datasources/trackseeDS</jta-data-source>
         <class>ua.com.tracksee.entities.AddressEntity</class>
         <class>ua.com.tracksee.entities.CarEntity</class>
@@ -15,9 +15,10 @@
             <property name="hibernate.connection.useUnicode" value="true" />
             <property name="hibernate.connection.characterEncoding" value="UTF-8" />
             <property name="hibernate.archive.autodetection" value="class"/>
-            <!--<property name="hibernate.show_sql" value="true"/>-->
-            <!--<property name="hibernate.format_sql" value="true"/>-->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.dialect" value="org.hibernate.spatial.dialect.postgis.PostgisDialect"/>
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>-->
         </properties>
     </persistence-unit>
 </persistence>

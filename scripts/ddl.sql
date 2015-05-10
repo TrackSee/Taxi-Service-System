@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS Address
 (
   name                  VARCHAR(120) NOT NULL,
   user_id               INT          NOT NULL REFERENCES Service_User (user_id) ON DELETE CASCADE,
-  location              POINT,
+  location              GEOMETRY,
   PRIMARY KEY (name, user_id)
 );
 
