@@ -37,6 +37,17 @@ public class OrderCompleteServlet extends HttpServlet {
     @EJB
     OrderCancellationBean orderCancellationBean;
 
+
+    private String alertBeginAndType="<div class=\"alert alert-success\"";
+    private String alertBody = " role=\"alert\">\n" +
+            "                <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
+            "                    <span aria-hidden=\"true\">&times;</span></button><h3>";
+    private String alertTrackButton="</h3><a class=\"btn btn-large btn-success\" href=\"orderInfo\"><h4>" +
+            "Track your taxi order</h4></a>";
+    private String alertSuccessMessage=" Your order accepted for further processing successfully and you was assigned" +
+            " to such tracking number:";
+    private String alertEnd = "</div>";
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/customer/orderComplete.jsp").forward(req, resp);
@@ -86,13 +97,14 @@ public class OrderCompleteServlet extends HttpServlet {
                 req.setAttribute("showError", "Show");
             } else {
                 Long trackingNumber = taxiOrderBean.makeOrder(inputData);
-                req.setAttribute("showSuccess", "Show");
-                req.setAttribute("hideOrderTrack", "hidden=\"hidden\"");
                 req.setAttribute("trackingNumber", trackingNumber);
+                req.setAttribute("showSuccess",alertBeginAndType+alertBody+alertSuccessMessage+alertTrackButton+alertEnd);
+                req.setAttribute("hideOrderTrack", "hidden=\"hidden\"");
+
             }
 
             req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage());
             req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
         }

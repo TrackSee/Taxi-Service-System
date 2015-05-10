@@ -61,16 +61,7 @@
                 <a class="btn btn-large btn-success" href="orderInfo"><h4 >Track your taxi order</h4></a>
             </div>
         </div>
-        <div id="hideSuccess${showSuccess}">
-            <div class="alert alert-success" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button><h3>
-                Your order accepted for further processing successfully and you was assigned to such tracking number:
-                ${trackingNumber}
-            </h3>
-            <a class="btn btn-large btn-success" href="orderInfo"><h4 >Track your taxi order</h4></a>
-            </div>
-        </div>
+       ${showSuccess}
 
         <div id="hideError${showError}">
             <div class="alert alert-danger" role="alert">

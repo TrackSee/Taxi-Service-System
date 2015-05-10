@@ -45,12 +45,7 @@
 #hideUnregisteredSuccessShow{
     display: inline;
 }
-#hideSuccess{
-    display: none;
-}
-#hideSuccessShow{
-    display: inline;
-}
+
 #hideError{
     display: none;
 }

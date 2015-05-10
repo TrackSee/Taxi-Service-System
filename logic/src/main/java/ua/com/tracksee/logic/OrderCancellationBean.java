@@ -27,7 +27,6 @@ public class OrderCancellationBean {
     UserDAO userDAO;
 
     public boolean cancelOrder(long trackingNumber) {
-        //TODO check is exist order first
         canselDAO.canselOrder(trackingNumber);
         int refusedTimes= canselDAO.getUserRefusedTimes(trackingNumber);
         if(refusedTimes>2){
@@ -48,6 +47,7 @@ and cand make more order whith this email
      * @see ua.com.tracksee.dao.AddressDAO
      */
     public boolean checkBlackListByUserEmail(String email){
+        logger.error("email "+email);
         boolean blackListPresent=false;
         int ignoredTimes=userDAO.checkBlackListUserByEmail(email);
         if(ignoredTimes>3){

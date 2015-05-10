@@ -270,13 +270,16 @@ public class UserDAOBean implements UserDAO {
         query.executeUpdate();
     }
     @Override
-    public int checkBlackListUserByEmail(String email){
-            String sql = "SELECT * FROM service_user WHERE email = ?";
-        // TODO normal select ignored_times from database
-            Query query = entityManager.createNativeQuery(sql, ServiceUserEntity.class);
-            query.setParameter(1, email);
-            ServiceUserEntity serviceUserEntity=(ServiceUserEntity)query.getSingleResult();
-        return serviceUserEntity.getIgnoredTimes();
+    public Integer checkBlackListUserByEmail(String email){
+        Query query = entityManager.createNativeQuery("SELECT ignored_times FROM service_user WHERE email=?1");
+        query.setParameter(1, email);
+        Integer result;
+        try {
+            result = (Integer) query.getSingleResult();
+        } catch (NoResultException e) {
+            result = null;
+        }
+        return result;
     }
 
     public CarEntity getDriversCar(ServiceUserEntity driver){
