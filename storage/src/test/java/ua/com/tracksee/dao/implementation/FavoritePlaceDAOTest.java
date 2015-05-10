@@ -8,7 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ua.com.tracksee.entities.AddressEntity;
+import ua.com.tracksee.entities.FavoritePlaceEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -16,7 +16,7 @@ import javax.persistence.Query;
 /**
  * @author Ruslan Gunavardana
  */
-public class AddressDAOTest {
+public class FavoritePlaceDAOTest {
     private static EntityManager em;
 
     private String TEST_ADDRESS_NAME = "HOME";
@@ -32,7 +32,7 @@ public class AddressDAOTest {
     public void setUp() throws Exception {
         TEST_POINT = (Point) wktToGeometry("POINT(10 5)");
         em.getTransaction().begin();
-        em.createNativeQuery("DELETE FROM address").executeUpdate();
+        em.createNativeQuery("DELETE FROM Favorite_Place").executeUpdate();
         em.getTransaction().commit();
     }
 
@@ -50,7 +50,7 @@ public class AddressDAOTest {
     @Test
     public void testAdd() throws Exception {
         em.getTransaction().begin();
-        String sql = "INSERT INTO address (name, user_id, location) VALUES (?1, ?2, ?3)";
+        String sql = "INSERT INTO Favorite_Place (name, user_id, location) VALUES (?1, ?2, ?3)";
         Query query = em.createNativeQuery(sql);
         query.setParameter(1, TEST_ADDRESS_NAME);
         query.setParameter(2, TEST_USER_ID);
@@ -67,11 +67,11 @@ public class AddressDAOTest {
             // If happens, than constraint violation happened.
             // This means, that the row already exists, just as we need!
         }
-        String sql = "SELECT * FROM address WHERE user_id = ?1 AND name = ?2";
-        Query query = em.createNativeQuery(sql, AddressEntity.class);
+        String sql = "SELECT * FROM Favorite_Place WHERE user_id = ?1 AND name = ?2";
+        Query query = em.createNativeQuery(sql, FavoritePlaceEntity.class);
         query.setParameter(1, TEST_USER_ID);
         query.setParameter(2, TEST_ADDRESS_NAME);
-        AddressEntity address = (AddressEntity) query.getSingleResult();
+        FavoritePlaceEntity address = (FavoritePlaceEntity) query.getSingleResult();
         Assert.assertEquals(TEST_POINT, address.getLocation());
     }
 }

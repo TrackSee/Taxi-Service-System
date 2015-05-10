@@ -332,7 +332,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     }
 
     @Override
-    public List<TaxiOrderEntity> getAvailableOrders(ServiceUserEntity driver, int pageNumber){
+    public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
 
         String sql = "SELECT * FROM taxi_order WHERE " +
                 "status = 'QUEUED' OR status = 'UPDATED' " +

@@ -1,7 +1,7 @@
 package ua.com.tracksee.dao.implementation;
 
 import ua.com.tracksee.dao.GenericDao;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.error.PersistError;
 
 import javax.ejb.Stateless;
@@ -15,7 +15,7 @@ import java.util.List;
  * Created by byte on 4/21/15.
  */
 @Stateless(name = "ServiceUserDaoEJB")
-public class ServiceUserDaoBeen extends GenericDao<ServiceUserEntity, Integer> {
+public class ServiceUserDaoBeen extends GenericDao<UserEntity, Integer> {
 
 
     @PersistenceContext(unitName = "HibernatePU")
@@ -30,24 +30,24 @@ public class ServiceUserDaoBeen extends GenericDao<ServiceUserEntity, Integer> {
     }
 
     @Override
-    public Class<ServiceUserEntity> getType() {
-        return ServiceUserEntity.class;
+    public Class<UserEntity> getType() {
+        return UserEntity.class;
     }
 
-    public List<ServiceUserEntity> getAll(){
-        TypedQuery<ServiceUserEntity> fd = em.createNamedQuery("getAll", getType());
+    public List<UserEntity> getAll(){
+        TypedQuery<UserEntity> fd = em.createNamedQuery("getAll", getType());
         return fd.getResultList();
     }
 
-    public List<ServiceUserEntity> getAll(int start, int count){
-        TypedQuery<ServiceUserEntity> namedQuery = em.createNamedQuery("getAll", getType());
+    public List<UserEntity> getAll(int start, int count){
+        TypedQuery<UserEntity> namedQuery = em.createNamedQuery("getAll", getType());
         namedQuery.setFirstResult(start);
         namedQuery.setMaxResults(count);
         return namedQuery.getResultList();
     }
 
-    public List<ServiceUserEntity> getAllById(List<Integer> integers){
-        TypedQuery<ServiceUserEntity> typedQuery = em.createNamedQuery("getAllById", getType());
+    public List<UserEntity> getAllById(List<Integer> integers){
+        TypedQuery<UserEntity> typedQuery = em.createNamedQuery("getAllById", getType());
         typedQuery.setParameter("usersId", integers);
         return typedQuery.getResultList();
     }

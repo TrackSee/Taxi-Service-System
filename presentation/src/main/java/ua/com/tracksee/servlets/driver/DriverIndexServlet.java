@@ -1,7 +1,7 @@
 package  ua.com.tracksee.servlets.driver;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.logic.driver.DriverBean;
 import ua.com.tracksee.logic.driver.DriverOrderBean;
@@ -35,7 +35,7 @@ public class DriverIndexServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ServiceUserEntity driver = driverBean.getUserById(id);
+        UserEntity driver = driverBean.getUserById(id);
         List<TaxiOrderEntity> orders = driverOrderBean.getAvailableOrders(driver, 1);
         req.setAttribute("orders", orders);
         req.setAttribute("pagesCount", driverOrderBean.getOrdersPagesCount(id));

@@ -4,10 +4,8 @@ package ua.com.tracksee.servlets.admin;
  * @author Katia Stetsiuk
  */
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.admin.AdministratorBean;
 
 import javax.ejb.EJB;
@@ -37,7 +35,7 @@ public class SearchDriverServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String driverEmail = req.getParameter(email);
         req.setAttribute(email, driverEmail);
-        List<ServiceUserEntity> driverList = administratorBean.getDriversByEmail(driverEmail);
+        List<UserEntity> driverList = administratorBean.getDriversByEmail(driverEmail);
         req.setAttribute(drivers, driverList);
         resp.getWriter().write(getJsonFromList(driverList));
     }
@@ -47,7 +45,7 @@ public class SearchDriverServlet extends HttpServlet {
      * @param driverList list of drivers to convert into JSON
      * @return String of JSON
      */
-    private String getJsonFromList(List<ServiceUserEntity> driverList) {
+    private String getJsonFromList(List<UserEntity> driverList) {
         ObjectMapper mapper = new ObjectMapper();
         String json = null;
         try {

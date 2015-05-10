@@ -2,8 +2,7 @@ package ua.com.tracksee.servlets.accounts;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.facade.CustomerFacade;
 
 import javax.ejb.EJB;
@@ -14,9 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Objects;
 
-import static java.lang.Boolean.TRUE;
 import static ua.com.tracksee.servlets.AttributeNames.USER_EMAIL;
 import static ua.com.tracksee.servlets.AttributeNames.USER_ID;
 
@@ -48,7 +45,7 @@ public class SignInServlet extends HttpServlet {
         logger.debug("User attempts to authorise {}", email);
 
         // for getting salt and calculating hash
-        ServiceUserEntity user = customerFacade.getUserByLoginCredentials(email, password);
+        UserEntity user = customerFacade.getUserByLoginCredentials(email, password);
         if (user == null) {
             resp.getWriter().append(ERROR);
             return;

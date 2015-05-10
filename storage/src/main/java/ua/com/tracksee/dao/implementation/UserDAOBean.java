@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.implementation.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.CarEntity;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
@@ -30,13 +30,13 @@ public class UserDAOBean implements UserDAO {
      * @return list with part of drivers(default size of list if 10)
      */
     @Override
-    public List<ServiceUserEntity> getDrivers(int partNumber) {
+    public List<UserEntity> getDrivers(int partNumber) {
         if(partNumber <= 0) {
         logger.error("partNumber can't be <= 0");
         throw new IllegalArgumentException("partNumber can't be <= 0");
     }
     Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
-            "WHERE driver = TRUE ORDER BY email LIMIT ?1 OFFSET ?2", ServiceUserEntity.class);
+            "WHERE driver = TRUE ORDER BY email LIMIT ?1 OFFSET ?2", UserEntity.class);
     query.setParameter(1, DRIVERS_PAGE_SIZE);
     query.setParameter(2, (partNumber - 1) * DRIVERS_PAGE_SIZE);
     return query.getResultList();
@@ -47,16 +47,16 @@ public class UserDAOBean implements UserDAO {
      * @return list of users in system
      */
     @Override
-    public List<ServiceUserEntity> getUsers() {
+    public List<UserEntity> getUsers() {
         Query query = entityManager.createNativeQuery("SELECT * FROM service_user "
-                , ServiceUserEntity.class);
+                , UserEntity.class);
         return query.getResultList();
     }
 
     @Override
-    public List<ServiceUserEntity> getUnregisteredUsers() {
+    public List<UserEntity> getUnregisteredUsers() {
         Query query = entityManager.createNativeQuery("SELECT * FROM service_user WHERE activated=FALSE "
-                , ServiceUserEntity.class);
+                , UserEntity.class);
         return query.getResultList();
     }
 
@@ -74,9 +74,9 @@ public class UserDAOBean implements UserDAO {
      * @return
      */
     @Override
-    public List<ServiceUserEntity> getCustomersByEmail(String email) {
+    public List<UserEntity> getCustomersByEmail(String email) {
         Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
-                "WHERE driver = FALSE and email LIKE ? ", ServiceUserEntity.class);
+                "WHERE driver = FALSE and email LIKE ? ", UserEntity.class);
         query.setParameter(1 ,"%" + email + "%");
         return query.getResultList();
     }
@@ -87,9 +87,9 @@ public class UserDAOBean implements UserDAO {
      * @return
      */
     @Override
-    public List<ServiceUserEntity> getDriversByEmail(String email) {
+    public List<UserEntity> getDriversByEmail(String email) {
         Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
-                "WHERE driver = TRUE and email LIKE ? ", ServiceUserEntity.class);
+                "WHERE driver = TRUE and email LIKE ? ", UserEntity.class);
         query.setParameter(1 ,"%" + email + "%");
         return query.getResultList();
     }
@@ -155,7 +155,7 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
-    public Integer addUser(ServiceUserEntity user) {
+    public Integer addUser(UserEntity user) {
         String sql = "INSERT INTO service_user " +
                 "(email, password, salt, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date) " +
                 "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13) " +
@@ -183,7 +183,7 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
-    public void updateUser(ServiceUserEntity user) {
+    public void updateUser(UserEntity user) {
         String sql = "UPDATE service_user SET email = ?, password = ? , phone =?" +
                 "WHERE user_id = " + user.getUserId();
         Query query = entityManager.createNativeQuery(sql);
@@ -194,21 +194,21 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
-    public ServiceUserEntity getUserByEmail(String email) {
+    public UserEntity getUserByEmail(String email) {
         String sql = "SELECT * FROM service_user WHERE email = ?";
-        Query query = entityManager.createNativeQuery(sql, ServiceUserEntity.class);
+        Query query = entityManager.createNativeQuery(sql, UserEntity.class);
         query.<String>setParameter(1, email);
 
-        ServiceUserEntity result;
+        UserEntity result;
         try {
-            result = (ServiceUserEntity) query.getSingleResult();
+            result = (UserEntity) query.getSingleResult();
         } catch (NoResultException e) {
             result = null;
         }
         return result;
     }
 
-    public void createUser(ServiceUserEntity user) {
+    public void createUser(UserEntity user) {
         String sql = "INSERT INTO service_user " +
                 "(email, password, phone, driver, car_number, sex) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
@@ -223,12 +223,12 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
-    public ServiceUserEntity getDriverByID(int id) {
+    public UserEntity getDriverByID(int id) {
         if(id <= 0){
             logger.warn("Driver id can't be <= 0!");
             throw new IllegalArgumentException("Driver id can't be <= 0!");
         }
-        ServiceUserEntity driver = entityManager.find(ServiceUserEntity.class, id);
+        UserEntity driver = entityManager.find(UserEntity.class, id);
         if(driver == null){
             logger.warn("There is no driver with such id");
             throw new ServiceUserNotFoundException("There is no driver with such id");
@@ -237,12 +237,12 @@ public class UserDAOBean implements UserDAO {
     }
 
     @Override
-    public ServiceUserEntity getUserById(int id) {
+    public UserEntity getUserById(int id) {
         if(id <= 0){
             logger.warn("User id can't be <= 0!");
             throw new IllegalArgumentException("User id can't be <= 0!");
         }
-        ServiceUserEntity user = entityManager.find(ServiceUserEntity.class, id);
+        UserEntity user = entityManager.find(UserEntity.class, id);
         if(user == null){
             logger.warn("There is no User with such id");
             throw new ServiceUserNotFoundException("There is no User with such id");
@@ -282,7 +282,7 @@ public class UserDAOBean implements UserDAO {
         return result;
     }
 
-    public CarEntity getDriversCar(ServiceUserEntity driver){
+    public CarEntity getDriversCar(UserEntity driver){
         String sql = "SELECT * FROM car INNER JOIN service_user ON car.car_number = service_user.car_number " +
                 "AND user_id = ?";
         Query query = entityManager.createNativeQuery(sql, CarEntity.class);

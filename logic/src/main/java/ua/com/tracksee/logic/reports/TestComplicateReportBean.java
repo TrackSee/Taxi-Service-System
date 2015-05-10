@@ -1,8 +1,7 @@
 package ua.com.tracksee.logic.reports;
 
-import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -43,14 +42,14 @@ public class TestComplicateReportBean {
         ArrayList<ArrayList<String>> dataArray=new ArrayList<ArrayList<String>>();
         ArrayList<String> data;
 
-        List<ServiceUserEntity> serviceUserEntityList= userDAO.getUnregisteredUsers();
-        for (int i = 0; i <serviceUserEntityList.size() ; i++) {
+        List<UserEntity> userEntityList = userDAO.getUnregisteredUsers();
+        for (int i = 0; i < userEntityList.size() ; i++) {
             data=new ArrayList<String>();
-            data.add(String.valueOf(serviceUserEntityList.get(i).getUserId()));
-            data.add(serviceUserEntityList.get(i).getPhone());
-            data.add(serviceUserEntityList.get(i).getEmail());
-            data.add(String.valueOf(serviceUserEntityList.get(i).getIgnoredTimes()));
-            data.add(String.valueOf(serviceUserEntityList.get(i).getActivated()));
+            data.add(String.valueOf(userEntityList.get(i).getUserId()));
+            data.add(userEntityList.get(i).getPhone());
+            data.add(userEntityList.get(i).getEmail());
+            data.add(String.valueOf(userEntityList.get(i).getIgnoredTimes()));
+            data.add(String.valueOf(userEntityList.get(i).getActivated()));
             dataArray.add(data);
         }
         return dataArray;

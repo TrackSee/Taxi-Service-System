@@ -1,7 +1,7 @@
 package ua.com.tracksee.dao.implementation;
 
 import ua.com.tracksee.dao.GroupDAO;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -39,7 +39,7 @@ public class GroupDAOBean implements GroupDAO {
     }
 
     @Override
-    public List<ServiceUserEntity> getGroupMembers(String groupName, String userEmail, int pageNumber, int pageSize) {
+    public List<UserEntity> getGroupMembers(String groupName, String userEmail, int pageNumber, int pageSize) {
         Query query;
         String queryString = "";
         if ((!userEmail.equals("")) && (!groupName.equals(""))) {
@@ -47,16 +47,16 @@ public class GroupDAOBean implements GroupDAO {
                     "UNION ALL SELECT * FROM service_user  u WHERE u.group_name IS NULL  AND u.email LIKE ?2 " +
                     "UNION ALL SELECT * FROM service_user u " +
                     "WHERE u.group_name <> ?1 AND u.email LIKE ?2";
-            query = entityManager.createNativeQuery(queryString, ServiceUserEntity.class);
+            query = entityManager.createNativeQuery(queryString, UserEntity.class);
             query.setParameter(1, groupName);
             query.setParameter(2, "%" + userEmail + "%");
         } else if (!groupName.equals("")) {
             queryString = "SELECT * FROM service_user u WHERE u.group_name = ?";
-            query = entityManager.createNativeQuery(queryString, ServiceUserEntity.class);
+            query = entityManager.createNativeQuery(queryString, UserEntity.class);
             query.setParameter(1, groupName);
         } else {
             queryString = "SELECT * FROM service_user u WHERE u.email LIKE ?1";
-            query = entityManager.createNativeQuery(queryString, ServiceUserEntity.class);
+            query = entityManager.createNativeQuery(queryString, UserEntity.class);
             query.setParameter(1, "%" + userEmail + "%");
         }
         query.setFirstResult((pageNumber - 1) * pageSize);

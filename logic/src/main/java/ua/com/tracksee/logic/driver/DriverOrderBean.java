@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.postgresql.geometric.PGpath;
 import ua.com.tracksee.dao.TaxiOrderDAO;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.TaxiOrderItemEntity;
 
@@ -34,7 +34,7 @@ public class DriverOrderBean {
     @EJB
     private TaxiOrderDAO taxiOrderDao;
 
-    public List<TaxiOrderEntity> getAvailableOrders(ServiceUserEntity driver, int pageNumber){
+    public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
         return taxiOrderDao.getAvailableOrders(driver, pageNumber);
     }
 

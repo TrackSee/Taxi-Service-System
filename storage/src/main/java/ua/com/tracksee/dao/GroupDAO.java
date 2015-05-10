@@ -1,6 +1,6 @@
 package ua.com.tracksee.dao;
 
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 
 import javax.ejb.Local;
 import javax.persistence.EntityManager;
@@ -56,7 +56,7 @@ public interface GroupDAO {
      * @param pageSize - count of groups to return
      * @return list users
      */
-    public List<ServiceUserEntity> getGroupMembers(String groupName, String userEmail, int pageNumber, int pageSize);
+    public List<UserEntity> getGroupMembers(String groupName, String userEmail, int pageNumber, int pageSize);
     /**
      * This method returns all users with name 'groupName'.
      *

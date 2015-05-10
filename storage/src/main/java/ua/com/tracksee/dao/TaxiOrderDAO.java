@@ -123,7 +123,7 @@ public interface TaxiOrderDAO {
     List<MostPopularOption> getMostPopularOptionsForUser(Integer userId);
     BigInteger getCountOptionalBool(String option, Integer userId);
 
-    public List<TaxiOrderEntity> getAvailableOrders(ServiceUserEntity driver, int pageNumber);
+    public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber);
 
     public List<TaxiOrderEntity> getHistoryOfOrders(int id, int pageNumber);
 

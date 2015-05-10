@@ -1,12 +1,10 @@
 package ua.com.tracksee.logic.customer;
 
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.EmailBean;
 import ua.com.tracksee.logic.ValidationBean;
 import ua.com.tracksee.exception.RegistrationException;
-import ua.com.tracksee.logic.encryption.HashGenerator;
-import ua.com.tracksee.logic.encryption.PasswordUtils;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -33,16 +31,19 @@ public class AccountManagementBean {
     private @EJB ValidationBean validationBean;
     private @EJB UserDAO userDAO;
 
-    public ServiceUserEntity getUserByLoginCredentials(String email, String loginPassword) {
-        ServiceUserEntity user = userDAO.getUserByEmail(email);
-        String hashedLoginPassword = getHashedPassword(loginPassword, user.getSalt());
+    public UserEntity getUserByLoginCredentials(String email, String loginPassword) {
+        UserEntity user = userDAO.getUserByEmail(email);
 
-        // hash code of login and database passwords must be equal
-        if (hashedLoginPassword.equals(user.getPassword())) {
-            return user;
+        if (user != null) {
+            String hashedLoginPassword = getHashedPassword(loginPassword, user.getSalt());
+
+            // hash code of login and database passwords must be equal
+            if (!hashedLoginPassword.equals(user.getPassword())) {
+                user = null;
+            }
         }
 
-        return null;
+        return user;
     }
 
     /**
@@ -84,7 +85,7 @@ public class AccountManagementBean {
 
 
         // adding new user
-        ServiceUserEntity user = new ServiceUserEntity();
+        UserEntity user = new UserEntity();
         user.setEmail(email);
         user.setPassword(hashedPassword);
         user.setSalt(salt);

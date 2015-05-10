@@ -2,7 +2,7 @@ package ua.com.tracksee.logic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.com.tracksee.dao.AddressDAO;
+import ua.com.tracksee.dao.FavoritePlaceDAO;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.*;
@@ -35,7 +35,8 @@ public class TaxiOrderBean {
 
     private @EJB TaxiOrderDAO taxiOrderDAO;
     private @EJB UserDAO userDAO;
-    private @EJB AddressDAO addressDAO;
+    private @EJB
+    FavoritePlaceDAO favoritePlaceDAO;
     private @EJB EmailBean mailBean;
     private @EJB ValidationBean validationBean;
     private @EJB PriceCalculatorBean priceCalculatorBean;
@@ -86,7 +87,7 @@ public class TaxiOrderBean {
         String email = inputData.get("email");
         String phone = inputData.get("phoneNumber");
         validateForUser(email, phone);
-        ServiceUserEntity user = new ServiceUserEntity();
+        UserEntity user = new UserEntity();
         user.setEmail(email);
         user.setPhone(phone);
 
@@ -170,20 +171,20 @@ public class TaxiOrderBean {
      *
      * @author Sharaban Sasha
      * @author Avlasov Sasha
-     * @param serviceUserEntity - data about the user
+     * @param userEntity - data about the user
      * @return ServiceUserEntity object that contain checked
      */
-    private ServiceUserEntity checkUserPresent(ServiceUserEntity serviceUserEntity) {
-        if (userDAO.getUserIdByEmail(serviceUserEntity.getEmail()) != null) {
+    private UserEntity checkUserPresent(UserEntity userEntity) {
+        if (userDAO.getUserIdByEmail(userEntity.getEmail()) != null) {
             logger.info("User was found");
-            serviceUserEntity.setUserId(userDAO.getUserIdByEmail(serviceUserEntity.getEmail()));
+            userEntity.setUserId(userDAO.getUserIdByEmail(userEntity.getEmail()));
         } else {
             logger.info("User was not found");
-            serviceUserEntity.setActivated(false);
-            serviceUserEntity.setPassword("");
-            serviceUserEntity.setUserId(userDAO.addUser(serviceUserEntity));
+            userEntity.setActivated(false);
+            userEntity.setPassword("");
+            userEntity.setUserId(userDAO.addUser(userEntity));
         }
-        return serviceUserEntity;
+        return userEntity;
     }
 
     /**
@@ -192,12 +193,12 @@ public class TaxiOrderBean {
      *
      * @author Sharaban Sasha
      * @author Avlasov Sasha
-     * @param serviceUserEntity- the user who made the order
+     * @param userEntity- the user who made the order
      * @param trackingNumber-    tracking number of made order
      * @throws javax.mail.MessagingException
      */
-    public void sendEmail(ServiceUserEntity serviceUserEntity, Long trackingNumber) {
-        mailBean.sendOrderConfirmation(serviceUserEntity, trackingNumber);
+    public void sendEmail(UserEntity userEntity, Long trackingNumber) {
+        mailBean.sendOrderConfirmation(userEntity, trackingNumber);
     }
 
     /**
@@ -218,34 +219,6 @@ public class TaxiOrderBean {
         if (!validationBean.isValidPhoneNumber(phone)) {
             throw new OrderException("Invalid phone number.", "wrong-phone");
         }
-    }
-
-    /**
-     * This method checks incoming origin
-     * address and insert it into AddressEntity object.
-     *
-     * @author Sharaban Sasha
-     * @param inputData - input data from the client
-     * @return AddressEntity object that contain checked origin address
-     * @throws ua.com.tracksee.exception.OrderException
-     */
-    private AddressEntity validateForOriginAddress(HashMap<String, String> inputData) throws OrderException {
-        AddressEntity addressEntityOrigin = new AddressEntity();
-        return addressEntityOrigin;
-    }
-
-    /**
-     * This method checks incoming destination
-     * address and insert it into AddressEntity object.
-     *
-     * @author Sharaban Sasha
-     * @param inputData - input data from the client
-     * @return AddressEntity object that contain checked destination address
-     * @throws ua.com.tracksee.exception.OrderException
-     */
-    private AddressEntity validateForDestinationAddress(HashMap<String, String> inputData) throws OrderException {
-        AddressEntity addressEntityDestination = new AddressEntity();
-        return addressEntityDestination;
     }
 
     /**
@@ -364,7 +337,7 @@ public class TaxiOrderBean {
      * @author Sharaban Sasha
      * @see ua.com.tracksee.dao.UserDAO
      */
-    public ServiceUserEntity getUserInfo(int id) {
+    public UserEntity getUserInfo(int id) {
 
         return userDAO.getUserById(id);
     }

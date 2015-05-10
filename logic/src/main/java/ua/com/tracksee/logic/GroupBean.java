@@ -10,7 +10,7 @@ package ua.com.tracksee.logic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.GroupDAO;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.entity.Group;
 import ua.com.tracksee.enumartion.Role;
 import ua.com.tracksee.logic.group.GroupSelectAction;
@@ -65,7 +65,7 @@ public class GroupBean {
         }
     }
 
-    private List<ServiceUserEntity> getGroupMembers(String groupName, String userEmail,
+    private List<UserEntity> getGroupMembers(String groupName, String userEmail,
                                                     Integer pageNumber, Integer pageSize) {
         return groupDAO.getGroupMembers(groupName, userEmail, pageNumber, pageSize);
     }

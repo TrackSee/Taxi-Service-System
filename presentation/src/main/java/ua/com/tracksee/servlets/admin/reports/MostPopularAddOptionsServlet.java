@@ -7,8 +7,7 @@ package ua.com.tracksee.servlets.admin.reports;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.MostPopularOption;
-import ua.com.tracksee.entities.ServiceUserEntity;
-import ua.com.tracksee.logic.TaxiOrderBean;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.admin.AdministratorBean;
 import ua.com.tracksee.logic.reports.ReportChartBean;
 
@@ -35,7 +34,7 @@ public class MostPopularAddOptionsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<ServiceUserEntity> userList = administratorBean.getUsers();
+        List<UserEntity> userList = administratorBean.getUsers();
         request.setAttribute(users, userList);
         request.getRequestDispatcher("/WEB-INF/report/popularOptions.jsp").forward(request, response);
     }

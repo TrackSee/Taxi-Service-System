@@ -12,7 +12,7 @@ import org.postgresql.geometric.PGpoint;
 import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.enumartion.Sex;
 
@@ -40,7 +40,7 @@ public class OrderDAOBeanTest {
                 .addAsLibraries(hibernateLib)
                 .addPackage(PGpoint.class.getPackage())
                 .addPackage(PGBinaryObject.class.getPackage())
-                .addPackage(ServiceUserEntity.class.getPackage())
+                .addPackage(UserEntity.class.getPackage())
                 .addPackage(UserDAOBean.class.getPackage())
                 .addPackage(UserDAO.class.getPackage())
                 .addAsResource("META-INF/persistence.xml")

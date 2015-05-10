@@ -1,8 +1,7 @@
 package ua.com.tracksee.servlets.admin;
 
-import org.apache.log4j.LogManager;
 import org.codehaus.jackson.map.ObjectMapper;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.admin.AdministratorBean;
 
 import javax.ejb.EJB;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
 * @author Katia Stetsiuk
@@ -35,7 +33,7 @@ public class CustomerSearchServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userEmail = req.getParameter(email);
         req.setAttribute(email, userEmail);
-        List<ServiceUserEntity> userList = administratorBean.getCustomersByEmail(userEmail);
+        List<UserEntity> userList = administratorBean.getCustomersByEmail(userEmail);
         req.setAttribute(users, userList);
         resp.getWriter().write(getJsonFromList(userList));
     }
@@ -45,7 +43,7 @@ public class CustomerSearchServlet extends HttpServlet {
      * @param userList list of drivers to convert into JSON
      * @return String of JSON
      */
-    private String getJsonFromList(List<ServiceUserEntity> userList) {
+    private String getJsonFromList(List<UserEntity> userList) {
         ObjectMapper mapper = new ObjectMapper();
         String json = null;
         try {

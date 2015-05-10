@@ -8,14 +8,14 @@ import java.util.Objects;
 /**
  * @author Ruslan Gunavardana
  */
-public class AddressEntityPK implements Serializable {
+public class FavoritePlaceEntityPK implements Serializable {
     private String name;
     private Integer userId;
 
-    public AddressEntityPK() {
+    public FavoritePlaceEntityPK() {
     }
 
-    public AddressEntityPK(String name, Integer userId) {
+    public FavoritePlaceEntityPK(String name, Integer userId) {
         this.name = name;
         this.userId = userId;
     }
@@ -44,7 +44,7 @@ public class AddressEntityPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AddressEntityPK that = (AddressEntityPK) o;
+        FavoritePlaceEntityPK that = (FavoritePlaceEntityPK) o;
         return Objects.equals(name, that.name) &&
                 Objects.equals(userId, that.userId);
     }

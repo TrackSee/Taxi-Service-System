@@ -3,10 +3,10 @@
 
     <persistence-unit name="HibernatePU" transaction-type="RESOURCE_LOCAL">
         <jta-data-source>java:jboss/datasources/trackseeDS</jta-data-source>
-        <class>ua.com.tracksee.entities.AddressEntity</class>
+        <class>ua.com.tracksee.entities.FavoritePlaceEntity</class>
         <class>ua.com.tracksee.entities.CarEntity</class>
         <class>ua.com.tracksee.entities.ConfigEntity</class>
-        <class>ua.com.tracksee.entities.ServiceUserEntity</class>
+        <class>ua.com.tracksee.entities.UserEntity</class>
         <class>ua.com.tracksee.entities.TaxiOrderEntity</class>
         <class>ua.com.tracksee.entities.TaxiOrderItemEntity</class>
         <class>ua.com.tracksee.entities.TaxiPriceEntity</class>

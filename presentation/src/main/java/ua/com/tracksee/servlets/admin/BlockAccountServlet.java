@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.config.manager.been.ConfigManagerBean;
 import ua.com.tracksee.config.manager.been.MessageManagerBean;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.error.PersistError;
 import ua.com.tracksee.logic.admin.AdministratorBean;
 
@@ -64,7 +64,7 @@ public class BlockAccountServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         logger.debug("blockAccount, Get method");
-        List<ServiceUserEntity> list = new LinkedList<>();
+        List<UserEntity> list = new LinkedList<>();
 
         int countPerPage = getIntParam(req, "countPerPage", COUNT_PER_PAGE);
         int firstRecord = getIntParam(req, "page", 1) - 1;

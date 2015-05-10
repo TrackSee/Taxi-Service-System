@@ -3,7 +3,7 @@ package ua.com.tracksee.logic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.entities.TaxiOrderItemEntity;
 import ua.com.tracksee.util.EmailUtils;
 
@@ -99,7 +99,7 @@ public class EmailBean {
      * @param user
      */
     @Asynchronous
-    public void sendBlockingUserEmail(ua.com.tracksee.entities.ServiceUserEntity user) throws MessagingException {
+    public void sendBlockingUserEmail(UserEntity user) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
         sendTemplatedEmail(user.getEmail(), BLOCKING_ACCOUNT_SUBJECT_TEMP_PROP_NAME, BLOCKING_ACCOUNT_TEMP_PATH, data);
@@ -152,7 +152,7 @@ public class EmailBean {
 
 
     @Asynchronous
-    public void sendOrderConfirmation(ServiceUserEntity user, Long trackingNumber) {
+    public void sendOrderConfirmation(UserEntity user, Long trackingNumber) {
 //TODO use trackingNumber and use template
         MimeMessage message = new MimeMessage(EmailUtils.getEmailSession());
         try {

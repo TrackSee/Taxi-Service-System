@@ -5,7 +5,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import ua.com.tracksee.entities.ServiceUserEntity;
+import ua.com.tracksee.entities.UserEntity;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
@@ -51,7 +51,7 @@ public class GenerateRundomUsersBean {
             for (Object aJsonArray : jsonArray) {
                 JSONObject jsonObject1 = (JSONObject) aJsonArray;
                 JSONObject userJsonObject = (JSONObject) jsonObject1.get("user");
-                ServiceUserEntity userEntity = new ServiceUserEntity();
+                UserEntity userEntity = new UserEntity();
                 userEntity.setEmail((String) userJsonObject.get("email"));
                 userEntity.setPhone((String) userJsonObject.get("phone"));
                 userEntity.setPassword((String) userJsonObject.get("password"));
