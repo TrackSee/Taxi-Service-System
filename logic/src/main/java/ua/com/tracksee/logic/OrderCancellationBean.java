@@ -44,12 +44,6 @@ and cand make more order whith this email
      * @see FavoritePlaceDAO
      */
     public boolean checkBlackListByUserEmail(String email){
-        logger.error("email "+email);
-        boolean blackListPresent=false;
-        int ignoredTimes=userDAO.checkBlackListUserByEmail(email);
-        if(ignoredTimes>3){
-        blackListPresent=true;
-        }
-        return blackListPresent;
+        return userDAO.checkBlackListUserByEmail(email);
     }
 }

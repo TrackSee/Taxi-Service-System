@@ -270,16 +270,20 @@ public class UserDAOBean implements UserDAO {
         query.executeUpdate();
     }
     @Override
-    public Integer checkBlackListUserByEmail(String email){
+    public boolean checkBlackListUserByEmail(String email){
+        boolean blackListPresent=false;
         Query query = entityManager.createNativeQuery("SELECT ignored_times FROM service_user WHERE email=?1");
         query.setParameter(1, email);
         Integer result;
         try {
             result = (Integer) query.getSingleResult();
-        } catch (NoResultException e) {
-            result = null;
+            if(result>3){
+                blackListPresent=true;
+            }
+        } catch (NoResultException|NullPointerException e) {
+            blackListPresent=false;
         }
-        return result;
+        return blackListPresent;
     }
 
     public CarEntity getDriversCar(UserEntity driver){

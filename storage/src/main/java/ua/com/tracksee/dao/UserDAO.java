@@ -103,7 +103,7 @@ public interface UserDAO {
     /**
      * @author Sharaban Sasha
      */
-    Integer checkBlackListUserByEmail(String email);
+    boolean checkBlackListUserByEmail(String email);
 
 
     /**

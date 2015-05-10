@@ -42,8 +42,14 @@ public class TaxiOrderBean {
     private @EJB PriceCalculatorBean priceCalculatorBean;
     private @EJB EnumValidationBean enumValidationBean;
 
-    public List<ServiceProfitable> getProfitByService(String startDate, String endDate){return taxiOrderDAO.getProfitByService(startDate, endDate);}
-    public List<MostPopularOption> getMostPopularOptionsForUser(Integer userId){return taxiOrderDAO.getMostPopularOptionsForUser(userId);}
+    public List<ServiceProfitable> getProfitByService(String startDate, String endDate) {
+        return taxiOrderDAO.getProfitByService(startDate, endDate);
+    }
+
+    public List<MostPopularOption> getMostPopularOptionsForUser(Integer userId) {
+        return taxiOrderDAO.getMostPopularOptionsForUser(userId);
+    }
+
     /**
      * Creates taxi order for authorised user.
      *
@@ -239,18 +245,11 @@ public class TaxiOrderBean {
         MusicStyle musicStyle;
         OrderStatus orderStatus = OrderStatus.QUEUED;
 
-        if (inputData.get("arriveDate")!=null) {
-            Timestamp timestamp = convertToTimestamp(inputData.get("arriveDate"));
-            taxiOrderEntity.setArriveDate(timestamp);
-        } else {
-            taxiOrderEntity.setArriveDate(null);
-        }
-        if (inputData.get("endDate")!=null) {
-            Timestamp timestamp = convertToTimestamp(inputData.get("endDate"));
-            taxiOrderEntity.setEndDate(timestamp);
-        } else {
-            taxiOrderEntity.setArriveDate(null);
-        }
+            Timestamp arriveTimestamp = convertToTimestamp(inputData.get("arriveDate"));
+            taxiOrderEntity.setArriveDate(arriveTimestamp);
+           Timestamp endTimestamp = convertToTimestamp(inputData.get("endDate"));
+            taxiOrderEntity.setEndDate(endTimestamp);
+   
 
         if (inputData.get("orderStatus").equals("QUEUED")) {
             taxiOrderEntity.setStatus(orderStatus);
@@ -314,13 +313,14 @@ public class TaxiOrderBean {
      * @throws ua.com.tracksee.exception.OrderException
      */
     private Timestamp convertToTimestamp(String date) throws OrderException {
-        Timestamp timestamp = null;
+        Timestamp timestamp;
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             Date parsedDate = dateFormat.parse(date);
             timestamp = new java.sql.Timestamp(parsedDate.getTime());
         } catch (ParseException e) {
-            throw new OrderException("Invalid date, cannot be parsed", "invalid-date");
+            logger.info("Invalid or missing date, cannot be parsed");
+            timestamp=null;
         }
         return timestamp;
     }
@@ -353,10 +353,9 @@ public class TaxiOrderBean {
      */
     private boolean convertCheckBoxToBoolean(String checkBoxState) {
         boolean booleanCheckBoxState = false;
-        if (checkBoxState==null) {
+        if (checkBoxState == null) {
             booleanCheckBoxState = false;
-        }else
-        if(checkBoxState.equals("on")){
+        } else if (checkBoxState.equals("on")) {
             booleanCheckBoxState = true;
         }
         return booleanCheckBoxState;
@@ -379,19 +378,13 @@ public class TaxiOrderBean {
         Sex driverSex;
         Service service;
         MusicStyle musicStyle;
+        
 
-        if (inputData.get("arriveDate")!=null) {
-            Timestamp timestamp = convertToTimestamp(inputData.get("arriveDate"));
-            taxiOrderEntity.setArriveDate(timestamp);
-        } else {
-            taxiOrderEntity.setArriveDate(null);
-        }
-        if (inputData.get("endDate")!=null) {
-            Timestamp timestamp = convertToTimestamp(inputData.get("endDate"));
-            taxiOrderEntity.setEndDate(timestamp);
-        } else {
-            taxiOrderEntity.setArriveDate(null);
-        }
+        Timestamp arriveTimestamp = convertToTimestamp(inputData.get("arriveDate"));
+        taxiOrderEntity.setArriveDate(arriveTimestamp);
+
+        Timestamp endTimestamp = convertToTimestamp(inputData.get("endDate"));
+        taxiOrderEntity.setEndDate(endTimestamp);
 
         carCategory = enumValidationBean.setEnumCarCategory(inputData.get("carCategory"));
         if (carCategory != null) {
@@ -435,7 +428,8 @@ public class TaxiOrderBean {
         }
         return taxiOrderEntity;
     }
-    public boolean checkOrderPresent(long trackingNumber){
+
+    public boolean checkOrderPresent(long trackingNumber) {
         return taxiOrderDAO.checkOrderPresent(trackingNumber);
     }
 }

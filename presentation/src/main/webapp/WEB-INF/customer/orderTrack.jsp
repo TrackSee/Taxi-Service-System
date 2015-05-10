@@ -87,8 +87,8 @@
             <div class="form-group">
                 <label class="control-label">Way of payment</label>
                 <select class="form-control order_priority" name="wayOfPayment">
-                    <option value="cash" ${cash}>Cash</option>
-                    <option value="visaCard" ${visaCard}>Visa card</option>
+                    <option value="CASH" ${CASH}>Cash</option>
+                    <option value="VISA_CARD" ${VISA_CARD}>Visa card</option>
                 </select>
             </div>
             <div class="form-group">
