@@ -7,17 +7,24 @@ console.log('dataType value: ' + dataType);
 
 //click on old button
 $('.completed').click(function(){
-    window.location.href = 'dashboard?type=completed';
+    window.location.href = '?type=completed';
 });
 //click on active button
 $('.act').click(function(){
-    window.location.href = 'dashboard?type=active';
+    window.location.href = '?type=active';
 });
 
+var pageNumber = $('.pageNumber').val();
+console.log(pageNumber);
+var pagesCount = $('.pagesCount').val();
+console.log(pagesCount);
+
+if(pagesCount == 1){
+    $('.nextButton').attr('disabled','disabled');
+    $('.prevButton').attr('disabled','disabled');
+}
 $('.nextButton').click(function(){
     console.log('dataType ' + dataType);
-    var pageNumber = $('.pageNumber').val();
-    var pagesCount = $('.pagesCount').val();
     if((++pageNumber) >= pagesCount){
         $('.nextButton').attr('disabled','disabled');
     } else {
@@ -79,6 +86,16 @@ $('.prevButton').click(function(){
                 $('.date' + i).html('<b>DATE:</b> ' + formatDate(orderedDate));
             }
         }
+    });
+});
+
+$('.track').click(function(){
+    var trackingNumber = $('.trackingNumber').val();
+    alert("AJAX!!!");
+    $.ajax({
+       type: 'POST',
+        url: 'orderTracking',
+        data: 'orderTrackingNumber=' + trackingNumber
     });
 });
 

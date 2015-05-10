@@ -96,8 +96,8 @@ public interface TaxiOrderDAO {
      * @author Vadym Akymov
      * @return pages count of taxi order
      */
-    int getActiveTaxiOrderPagesCount();
-    int getOldTaxiOrderPagesCount();
+    int getActiveTaxiOrderPagesCount(int userID);
+    int getOldTaxiOrderPagesCount(int userID);
     /**
      * @author Oleksandr Kozin
      * @param startDate start date of the period

@@ -27,7 +27,7 @@ public class CustomerProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String dataType = request.getParameter("type");
-        //old TO are on page by default
+        //completed TO are on page by default
         if(dataType == null || dataType.isEmpty()){
             dataType = "completed";
         }
@@ -38,6 +38,7 @@ public class CustomerProfileServlet extends HttpServlet {
         List<TaxiOrderEntity> orders = customerFacade.getOrdersPerPage(orderStatusBO, userID, 1);
         request.setAttribute("orders", orders);
         request.setAttribute("pageNumber", 1);
+        request.setAttribute("pagesCount", customerFacade.getOrdersPagesCount(userID, orderStatusBO));
         request.getRequestDispatcher("/WEB-INF/customer/customerProfile.jsp").forward(request, response);
     }
 }

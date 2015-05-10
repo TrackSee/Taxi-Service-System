@@ -53,7 +53,8 @@
       <div class="span4">
         <div class="icons-box orderBody">
           <i class="ico-shopping-cart circle big"></i>
-          <div class="title"><h3 class="order<%=i%>">Order № ${order.trackingNumber}</h3></div>
+          <a class="track" href="<%=application.getContextPath()%>/orderTracking"><div class="title"><h3 class="order<%=i%>">Order № ${order.trackingNumber}</h3></div></a>
+          <input type="hidden" class="trackingNumber" value="${order.trackingNumber}">
           <div>
             <p class="service<%=i%>"><b>SERVICE:</b> ${order.service}</p>
           </div>

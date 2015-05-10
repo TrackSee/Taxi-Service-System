@@ -190,9 +190,14 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     }
 
     @Override
-    public int getOldTaxiOrderPagesCount() {
+    public int getOldTaxiOrderPagesCount(int userID) {
+        if(userID < 0){
+            logger.warn("userID can't be < 0");
+            throw new IllegalArgumentException("userID can't be < 0");
+        }
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order WHERE " +
-                "status = 'COMPLETED'");
+                "status = 'COMPLETED' and user_id = ?1");
+        q.setParameter(1, userID);
         BigInteger generalOrderCount = (BigInteger) q.getSingleResult();
         return (int) Math.ceil(generalOrderCount.intValue() / (double) TO_ORDERS_PER_PAGE);
     }
@@ -291,9 +296,14 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     }
 
     @Override
-    public int getActiveTaxiOrderPagesCount() {
+    public int getActiveTaxiOrderPagesCount(int userID) {
+        if(userID < 0){
+            logger.warn("userID can't be < 0");
+            throw new IllegalArgumentException("userID can't be < 0");
+        }
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order WHERE " +
-                "status != 'COMPLETED'");
+                "status != 'COMPLETED' and user_id = ?1");
+        q.setParameter(1, userID);
         BigInteger generalOrderCount = (BigInteger) q.getSingleResult();
         return (int) Math.ceil(generalOrderCount.intValue() / (double) TO_ORDERS_PER_PAGE);
     }

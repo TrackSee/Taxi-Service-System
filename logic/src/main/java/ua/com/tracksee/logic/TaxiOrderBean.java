@@ -2,13 +2,15 @@ package ua.com.tracksee.logic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.com.tracksee.dao.FavoritePlaceDAO;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entities.*;
+import ua.com.tracksee.entities.MostPopularOption;
+import ua.com.tracksee.entities.ServiceProfitable;
+import ua.com.tracksee.entities.TaxiOrderEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.enumartion.*;
-import ua.com.tracksee.json.TaxiOrderDTO;
 import ua.com.tracksee.exception.OrderException;
+import ua.com.tracksee.json.TaxiOrderDTO;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -129,8 +131,8 @@ public class TaxiOrderBean {
      * @author Vadym Akymov
      * @see TaxiOrderDAO
      */
-    public int getActiveTaxiOrderPagesCount() {
-        return taxiOrderDAO.getActiveTaxiOrderPagesCount();
+    public int getActiveTaxiOrderPagesCount(int userID) {
+        return taxiOrderDAO.getActiveTaxiOrderPagesCount(userID);
     }
 
     /**
@@ -162,8 +164,8 @@ public class TaxiOrderBean {
      * @author Vadym Akymov
      * @see TaxiOrderDAO
      */
-    public int getOldTaxiOrderPagesCount() {
-        return taxiOrderDAO.getOldTaxiOrderPagesCount();
+    public int getOldTaxiOrderPagesCount(int userID) {
+        return taxiOrderDAO.getOldTaxiOrderPagesCount(userID);
     }
 
     /**
