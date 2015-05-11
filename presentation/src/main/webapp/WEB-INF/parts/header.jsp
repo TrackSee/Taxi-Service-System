@@ -44,12 +44,11 @@
                                     <li <c:if test="${pageScope.uri.endsWith('/index.jsp')}">class="active"</c:if>>
                                         <a href="<c:url value="/"/>">Home</a>
                                     </li>
-                                    <%--TODO make link to client dashboard--%>
                                     <%--<li <c:if test="${requestScope.pageName == 'customerProfile'}">class="active"</c:if>>--%>
-                                        <%--<a href="<c:url value="/customer/dashboard?type=old"/>">Client Dashboard</a>--%>
+                                        <%--<a href="<c:url value="/customerProfile"/>">Client Dashboard</a>--%>
                                     <%--</li>--%>
                                     <li <c:if test="${pageScope.uri.endsWith('/orderComplete.jsp')}">class="active"</c:if>>
-                                        <a href="<c:url value="/orderComplete"/>">Order</a>
+                                        <a href="<c:url value="/order"/>">Order</a>
                                     </li>
                                     <li <c:if test="${pageScope.uri.endsWith('/orderInfo.jsp')}">class="active"</c:if>>
                                         <a href="<c:url value="/orderInfo"/>">Order information</a>

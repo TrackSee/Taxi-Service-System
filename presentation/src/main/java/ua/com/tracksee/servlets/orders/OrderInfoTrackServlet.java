@@ -36,7 +36,7 @@ public class OrderInfoTrackServlet extends HttpServlet {
         String wayOfPayment = null;
         try {
 
-            int trackingNumber = Integer.parseInt(req.getParameter("orderTrackingNumber"));
+            long trackingNumber = Integer.parseInt(req.getParameter("orderTrackingNumber"));
 
             if (taxiOrderBean.checkOrderPresent(trackingNumber)) {
                 TaxiOrderEntity taxiOrderEntity = taxiOrderBean.getOrderInfo(trackingNumber);
