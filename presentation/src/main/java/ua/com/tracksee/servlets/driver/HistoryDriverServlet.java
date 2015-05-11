@@ -30,6 +30,7 @@ public class HistoryDriverServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        id = (int) req.getSession().getAttribute("userId");
         List<TaxiOrderEntity> orders = driverOrderBean.getHistoryOfOrders(id, 1);
         //Map<Integer, String> addresses = driverOrderBean.getStringAddressForList(orders);
         req.setAttribute("orders", orders);
@@ -41,6 +42,7 @@ public class HistoryDriverServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        id = (int) req.getSession().getAttribute("userId");
         String pageParam = req.getParameter("pageNumber");
         Integer pageNumber = null;
         //check pageNumber

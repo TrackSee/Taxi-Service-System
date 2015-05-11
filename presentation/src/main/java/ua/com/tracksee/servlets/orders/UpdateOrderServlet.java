@@ -3,6 +3,7 @@ package ua.com.tracksee.servlets.orders;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.logic.TaxiOrderBean;
+import ua.com.tracksee.logic.facade.OrderFacade;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -20,8 +21,7 @@ import java.util.HashMap;
 @WebServlet("/updateOrder")
 public class UpdateOrderServlet extends HttpServlet {
 
-    @EJB
-    private TaxiOrderBean taxiOrderBean;
+    private @EJB OrderFacade orderFacade;
 
     private static final Logger logger = LogManager.getLogger();
     /**
@@ -39,10 +39,6 @@ public class UpdateOrderServlet extends HttpServlet {
 //    private static final String CONDITIONER = "airConditioner";
 //    private static final String TRACKING_NUMBER = "trackingNumber";
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -81,7 +77,7 @@ public class UpdateOrderServlet extends HttpServlet {
 
             inputData.put("description", req.getParameter("description"));
 
-            taxiOrderBean.updateOrder(inputData);
+            orderFacade.updateOrder(inputData);
             req.setAttribute("successUpdate","Show");
             req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
         } catch (Exception  e) {

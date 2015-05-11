@@ -1,8 +1,8 @@
 package  ua.com.tracksee.servlets.driver;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.driver.DriverBean;
 import ua.com.tracksee.logic.driver.DriverOrderBean;
 
@@ -21,6 +21,7 @@ import java.util.List;
 
 @WebServlet("/driver/free-orders")
 public class DriverIndexServlet extends HttpServlet {
+
     int id = 6;
 
     @EJB
@@ -35,6 +36,7 @@ public class DriverIndexServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        id = (int) req.getSession().getAttribute("userId");
         UserEntity driver = driverBean.getUserById(id);
         List<TaxiOrderEntity> orders = driverOrderBean.getAvailableOrders(driver, 1);
         req.setAttribute("orders", orders);

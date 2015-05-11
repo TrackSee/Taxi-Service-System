@@ -41,7 +41,6 @@ public class AdminTariffServlet extends HttpServlet {
         Boolean weekend = Boolean.valueOf(req.getParameter("weekend").trim());
         Boolean nightTariff = Boolean.valueOf(req.getParameter("nightTariff").trim());
         String priceType = req.getParameter("priceType").trim();
-        //TODO try/catch
         if(newPrice == null || "".equals(newPrice)){
             String errMsg = "Server log: invalid data type";
             resp.setContentType("text/plain");
