@@ -14,30 +14,34 @@ $('.act').click(function(){
     window.location.href = '?type=active';
 });
 
-var pageNumber = $('.pageNumber').val();
-console.log(pageNumber);
-var pagesCount = $('.pagesCount').val();
-console.log(pagesCount);
+//temporary
+var pNumber = $('.pageNumber').val();
+console.log("pageNumber: " + pNumber);
+var pCount = $('.pagesCount').val();
+console.log("pageCount: " + pCount);
 
-if(pagesCount == 1){
+//if there is one page of orders
+if(pCount == 1){
     $('.nextButton').attr('disabled','disabled');
     $('.prevButton').attr('disabled','disabled');
 }
+
 $('.nextButton').click(function(){
-    console.log('dataType ' + dataType);
-    if((++pageNumber) >= pagesCount){
+    var pageNumber = $('.pageNumber').val();
+    var pagesCount = $('.pagesCount').val();
+    if((pageNumber + 1) >= pagesCount){
         $('.nextButton').attr('disabled','disabled');
     } else {
         $('.nextButton').removeAttr('disabled');
     }
-    if((--pageNumber) < 1){
+    if((pageNumber - 1) < 1){
         $('.prevButton').attr('disabled','disabled');
     } else {
         $('.prevButton').removeAttr('disabled');
     }
     $.ajax({
         type: 'GET',
-        url: 'get-orders',
+        url: 'customer/get-orders',
         data: 'pageNumber=' + (++pageNumber) + '&type=' + dataType,
         success: function(data){
             $('.pageNumber').val(pageNumber);
@@ -60,19 +64,19 @@ $('.prevButton').click(function(){
     console.log('dataType ' + dataType);
     var pageNumber = $('.pageNumber').val();
     var pagesCount = $('.pagesCount').val();
-    if((--pageNumber) <= 1){
+    if((pageNumber - 1) <= 1){
         $('.prevButton').attr('disabled','disabled');
     } else {
         $('.prevButton').removeAttr('disabled');
     }
-    if((++pageNumber) > pagesCount){
+    if((pageNumber + 1) > pagesCount){
         $('.nextButton').attr('disabled','disabled');
     } else {
         $('.nextButton').removeAttr('disabled');
     }
     $.ajax({
         type: 'GET',
-        url: 'get-orders',
+        url: 'customer/get-orders',
         data: 'pageNumber=' + (--pageNumber) + '&type=' + dataType,
         success: function(data){
             $('.pageNumber').val(pageNumber);
@@ -89,6 +93,7 @@ $('.prevButton').click(function(){
     });
 });
 
+//tracking number href
 $('.track').click(function(){
     var trackingNumber = $('.trackingNumber').val();
     alert("GET doesn't allowed!!")

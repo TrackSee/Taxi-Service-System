@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Vadym_Akymov on 26.04.15.
  */
-@WebServlet("/customerProfile")
+@WebServlet("/customer")
 public class CustomerProfileServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
 
@@ -29,7 +29,7 @@ public class CustomerProfileServlet extends HttpServlet {
         String dataType = request.getParameter("type");
         //completed TO are on page by default
         if(dataType == null || dataType.isEmpty()){
-            dataType = "completed";
+            dataType = "active";
         }
         dataType = dataType.toUpperCase();
         Integer userID = (Integer) request.getSession().getAttribute("userId");

@@ -4,7 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.TaxiOrderEntity;
-import ua.com.tracksee.logic.TaxiOrderBean;
+import ua.com.tracksee.logic.facade.CustomerFacade;
+import ua.com.tracksee.logic.facade.OrderStatusBO;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -22,27 +23,17 @@ import java.util.List;
 @WebServlet("/customer/get-orders")
 public class GetOrdersPerPage extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
-    @EJB
-    private TaxiOrderBean taxiOrderBean;
+    private @EJB CustomerFacade customerFacade;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String dataType = req.getParameter("type");
+        OrderStatusBO orderStatusBO = Enum.valueOf(OrderStatusBO.class, dataType.toUpperCase());
         Integer pageNumber = Integer.parseInt(req.getParameter("pageNumber"));
         Integer userID = (Integer) req.getSession().getAttribute("userId");
-        if ("old".equals(dataType)) {
-            List<TaxiOrderEntity> orders = taxiOrderBean.getOldOrdersPerPage(userID, pageNumber);
-            ObjectMapper mapper = new ObjectMapper();
-            String ordersInJson = mapper.writeValueAsString(orders);
-            resp.getWriter().write(ordersInJson);
-        } else if("active".equals(dataType)){
-            List<TaxiOrderEntity> orders = taxiOrderBean.getActiveOrdersPerPage(userID, pageNumber);
-            ObjectMapper mapper = new ObjectMapper();
-            String ordersInJson = mapper.writeValueAsString(orders);
-            resp.getWriter().write(ordersInJson);
-        } else {
-            logger.warn("wrong parameters in servlet!");
-            throw new IllegalArgumentException("wrong parameters in servlet!");
-        }
+        List<TaxiOrderEntity> orders = customerFacade.getOrdersPerPage(orderStatusBO, userID, pageNumber);
+        ObjectMapper mapper = new ObjectMapper();
+        String ordersInJson = mapper.writeValueAsString(orders);
+        resp.getWriter().write(ordersInJson);
     }
 }
