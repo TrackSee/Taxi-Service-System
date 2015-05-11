@@ -25,7 +25,7 @@ import java.util.HashMap;
  * @author Sharaban Sasha
  * @author Ruslan Gunavardana
  */
-@WebServlet("/orderComplete")
+@WebServlet("/order")
 public class OrderServlet extends HttpServlet {
     /**
      * Order status is QUEUED  because

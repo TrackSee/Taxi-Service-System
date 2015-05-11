@@ -2,6 +2,7 @@ package ua.com.tracksee.logic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.dao.FavoritePlaceDAO;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.MostPopularOption;
