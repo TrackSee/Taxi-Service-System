@@ -62,7 +62,6 @@
                                         </li>
                                     </c:if>
 
-                                    //TODO hiding dashboard after sign out
                                     <c:if test="${sessionScope.userId != null}">
                                         <li id="customerProfile"
                                                 <c:if test="${pageScope.uri.endsWith('/customerProfile.jsp')}">
