@@ -273,7 +273,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
             throw new IllegalArgumentException("One of params is wrong!");
         }
         Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order WHERE user_id =?1 AND status != " +
-                "'COMPLETED' " +
+                "'COMPLETED' AND status != 'REFUSED' " +
                 "ORDER BY ordered_date DESC LIMIT ?2 OFFSET ?3", TaxiOrderEntity.class);
         query.setParameter(1, userID);
         query.setParameter(2, TO_ORDERS_PER_PAGE);
@@ -288,7 +288,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
             throw new IllegalArgumentException("One of params is wrong!");
         }
         Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order WHERE user_id=?1 AND status = " +
-                "'COMPLETED' " +
+                "'COMPLETED' or status = 'REFUSED' " +
                 "ORDER BY ordered_date DESC LIMIT ?2 OFFSET ?3", TaxiOrderEntity.class);
         query.setParameter(1, userID);
         query.setParameter(2, TO_ORDERS_PER_PAGE);
