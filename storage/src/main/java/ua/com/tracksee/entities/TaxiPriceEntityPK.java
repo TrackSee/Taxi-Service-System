@@ -1,6 +1,10 @@
 package ua.com.tracksee.entities;
 
+import ua.com.tracksee.enumartion.CarCategory;
+
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
@@ -9,15 +13,16 @@ import java.util.Objects;
  * @author Ruslan Gunavardana
  */
 public class TaxiPriceEntityPK implements Serializable {
-    private String carCategory;
+    private CarCategory carCategory;
 
     @Column(name = "car_category")
+    @Enumerated(EnumType.STRING)
     @Id
-    public String getCarCategory() {
+    public CarCategory getCarCategory() {
         return carCategory;
     }
 
-    public void setCarCategory(String carCategory) {
+    public void setCarCategory(CarCategory carCategory) {
         this.carCategory = carCategory;
     }
 

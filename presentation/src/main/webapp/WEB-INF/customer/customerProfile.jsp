@@ -47,10 +47,10 @@
   <div class="container">
 
     <!-- start: Row -->
-    <div class="row">
+    <div class="row orderRow">
     <%!int i = 0;%>
     <c:forEach items="${requestScope.orders}" var="order">
-      <div class="span4">
+      <div class="span4 orderSpan<%=i%>">
         <div class="icons-box orderBody">
           <i class="ico-shopping-cart circle big"></i>
           <a class="track" href="<%=application.getContextPath()%>/orderTracking"><div class="title"><h3 class="order<%=i%>">Order № ${order.trackingNumber}</h3></div></a>
