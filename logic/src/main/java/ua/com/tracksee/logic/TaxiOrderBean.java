@@ -78,7 +78,7 @@ public class TaxiOrderBean {
     }
 
     /**
-     * This method check input data,insert order in database.
+     * Checks input data,insert order in database.
      * Also it insert user in database if he doesn't have  record
      * about him in database. And it send conformation letter with
      * tracking number, also tracking number returns to be shown to
@@ -138,8 +138,11 @@ public class TaxiOrderBean {
     }
 
     /**
+     * Updates order.
+     *
      * @author Sharaban Sasha
      * @author Igor Gula
+     * @param inputData information about changed order
      */
     public void updateOrder(HashMap<String, String> inputData) throws OrderException {
         TaxiOrderEntity taxiOrderEntity = validateForUpdateTaxiOrder(inputData);
@@ -158,7 +161,8 @@ public class TaxiOrderBean {
         }
     }
 
-    public void updateComment(Integer trackNumber, String comment) {
+
+    public void updateComment(long trackNumber, String comment) {
         taxiOrderDAO.updateComment(trackNumber, comment);
     }
 
@@ -317,8 +321,13 @@ public class TaxiOrderBean {
     }
 
     /**
+     * Returns object that contain
+     * information about user with
+     * such user id.
+     *
      * @author Sharaban Sasha
-     * @see ua.com.tracksee.dao.UserDAO
+     * @param id id number of user record
+     * @return object that contain all information about user
      */
     public UserEntity getUserInfo(int id) {
 
@@ -392,7 +401,10 @@ public class TaxiOrderBean {
         }
         return taxiOrderEntity;
     }
-
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     */
     public boolean checkOrderPresent(long trackingNumber) {
         return taxiOrderDAO.checkOrderPresent(trackingNumber);
     }

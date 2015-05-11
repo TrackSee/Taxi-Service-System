@@ -205,7 +205,7 @@
                 <button type="submit" class="btn btn-success btn-large">Change order</button>
             </div>
         </form>
-            <form method="post" action="<c:url value="/orderInfo"/>">
+            <form method="post" action="<c:url value="/orderRefuse"/>">
                 <label id="hideTrackingNumber">
                     <input type="text" name="trackingNumber" value="${trackingNumber}" >
                 </label>
