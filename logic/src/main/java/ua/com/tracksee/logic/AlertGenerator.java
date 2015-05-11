@@ -14,6 +14,7 @@ import javax.ejb.Local;
  */
 
 public interface AlertGenerator {
+    //TODO Decide about using this interface Sharaban Sasha
     /**
      * Parts of popup alert and
      * different alert types.
