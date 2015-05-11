@@ -4,6 +4,7 @@ import ua.com.tracksee.entities.TaxiPriceEntity;
 import ua.com.tracksee.enumartion.CarCategory;
 
 import javax.ejb.Local;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,4 +36,11 @@ public interface TaxiPriceDAO {
      * @return map with sum of prices grouped by service for all orders
      */
     Map<String, Double> serviceProfitByMonth(String year, String month);
+
+    /**
+     * @author Vitalii Diravka
+     */
+    List<TaxiPriceEntity> getAllPrices();
+    void updatePricePerKm(TaxiPriceEntity newPriceEntity);
+    void updatePricePerMin(TaxiPriceEntity newPriceEntity);
 }

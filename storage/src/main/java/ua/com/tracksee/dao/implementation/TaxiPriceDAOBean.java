@@ -16,6 +16,7 @@ import java.util.Map;
 /**
  * @author Ruslan Gunavardana
  * @author Katia Stetsiuk
+ * @author Vitalii Diravka
  */
 @Stateless
 public class TaxiPriceDAOBean implements TaxiPriceDAO {
@@ -53,5 +54,44 @@ public class TaxiPriceDAOBean implements TaxiPriceDAO {
             map.put(service, b.doubleValue());
         }
         return map;
+    }
+    @Override
+    public void updatePricePerKm(TaxiPriceEntity newPriceEntity) {
+        String sql = "UPDATE taxi_price " +
+                "SET price_per_km =  ?1 " +
+                "where car_category = ?3 " +
+                "and weekend = ?4 " +
+                "and night_tariff = ?5";
+        Query query = entityManager.createNativeQuery(sql, TaxiPriceEntity.class);
+        query.setParameter(1, newPriceEntity.getPricePerKm());
+        query.setParameter(3, newPriceEntity.getCarCategory().toString());
+        query.setParameter(4, newPriceEntity.getWeekend());
+        query.setParameter(5, newPriceEntity.getNightTariff());
+        query.executeUpdate();
+    }
+
+    @Override
+    public void updatePricePerMin(TaxiPriceEntity newPriceEntity) {
+        String sql = "UPDATE taxi_price " +
+                "SET price_per_min = ?2 " +
+                "where car_category = ?3 " +
+                "and weekend = ?4 " +
+                "and night_tariff = ?5";
+        Query query = entityManager.createNativeQuery(sql, TaxiPriceEntity.class);
+        query.setParameter(2, newPriceEntity.getPricePerMin());
+        query.setParameter(3, newPriceEntity.getCarCategory().toString());
+        query.setParameter(4, newPriceEntity.getWeekend());
+        query.setParameter(5, newPriceEntity.getNightTariff());
+        query.executeUpdate();
+    }
+
+
+    @Override
+    public List<TaxiPriceEntity> getAllPrices() {
+        String sql = "SELECT price_per_km, price_per_min, car_category, weekend, night_tariff " +
+                "FROM taxi_price " +
+                "ORDER BY car_category, weekend, night_tariff";
+        Query query = entityManager.createNativeQuery(sql, TaxiPriceEntity.class);
+        return query.getResultList();
     }
 }

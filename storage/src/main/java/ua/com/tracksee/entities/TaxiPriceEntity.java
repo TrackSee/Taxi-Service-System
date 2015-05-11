@@ -41,6 +41,7 @@ public class TaxiPriceEntity {
 
     @Id
     @Column(name = "car_category")
+    @Enumerated(EnumType.STRING)
     public CarCategory getCarCategory() {
         return carCategory;
     }
