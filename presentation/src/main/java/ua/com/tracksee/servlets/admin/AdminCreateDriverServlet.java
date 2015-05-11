@@ -51,10 +51,8 @@ public class AdminCreateDriverServlet extends HttpServlet {
         user.setDriver(true);
         user.setActivated(true);
         user.setSex(user.getSex().substring(0, 1));
-        //user.setSalt("12432");
         try {
             administratorBean.createUser(user);
-            System.out.println("SALT" + user.getSalt());
         } catch (CreateException e) {
             logger.warn(e.getMessage());
             resp.getWriter().append(e.getErrorType());

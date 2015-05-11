@@ -59,6 +59,7 @@
                 <th>Car Model</th>
                 <th>Color</th>
                 <th>Car Category</th>
+                <th>Way Of Payment</th>
                 <th>Animal Transportation</th>
                 <th>Free WiFi</th>
                 <th>Air Conditioner</th>
@@ -71,6 +72,7 @@
                     <td>${car.carModel}</td>
                     <td>${car.color}</td>
                     <td>${car.carCategory}</td>
+                    <td>${car.acceptsVisa==true ? "+" : "-"}</td>
                     <td>${car.animalTransportationApplicable==true ? "+" : "-"}</td>
                     <td>${car.freeWifi==true ? "+" : "-"}</td>
                     <td>${car.airConditioner==true ? "+" : "-"}</td>

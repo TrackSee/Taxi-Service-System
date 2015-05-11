@@ -21,6 +21,8 @@ import java.io.IOException;
 @WebServlet("/admin/updatedriver")
 public class AdminUpdateDriverServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
+    private String userId = "userId";
+    private String driver = "driver";
 
     private  Integer id;
     @EJB
@@ -28,9 +30,8 @@ public class AdminUpdateDriverServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        id = Integer.parseInt(req.getParameter("userId"));
-        req.setAttribute("driver", administratorBean.getDriverByID(id));
-        System.out.println("USER Id" + administratorBean.getDriverByID(id).getEmail());
+        id = Integer.parseInt(req.getParameter(userId));
+        req.setAttribute(driver, administratorBean.getDriverByID(id));
         req.getRequestDispatcher("/WEB-INF/admin/adminUpdateDriver.jsp").forward(req, resp);
 
     }
@@ -48,7 +49,6 @@ public class AdminUpdateDriverServlet extends HttpServlet {
         } catch (IOException e){
             logger.warn("Cannot get json from post /admin/updatedriver");
         }
-        System.out.println("data: " + sb.toString());
         ObjectMapper mapper = new ObjectMapper();
         UserEntity user = mapper.readValue(sb.toString(), UserEntity.class);
         user.setUserId(id);

@@ -27,8 +27,8 @@ public class CarDAOBean implements CarDAO {
     @Override
     public void createCar(CarEntity carEntity) {
         String sql = "INSERT INTO car (car_number, car_model , color,  car_category, animal_transportation_applicable ," +
-                " free_wifi, air_conditioner) " +
-                "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)";
+                " free_wifi, air_conditioner, accepts_visa) " +
+                "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, carEntity.getCarNumber());
         query.setParameter(2, carEntity.getCarModel());
@@ -37,13 +37,14 @@ public class CarDAOBean implements CarDAO {
         query.setParameter(5, carEntity.getAnimalTransportationApplicable());
         query.setParameter(6, carEntity.getFreeWifi());
         query.setParameter(7, carEntity.getAirConditioner());
+        query.setParameter(8, carEntity.getAcceptsVisa());
         query.executeUpdate();
     }
 
     @Override
     public void updateCar(CarEntity carEntity) {
         String sql = "UPDATE car SET car_model = ?, color = ?, car_category = ? ,animal_transportation_applicable = ?, " +
-                "free_wifi = ? , air_conditioner = ? " +
+                "free_wifi = ? , air_conditioner = ? , accepts_visa = ?" +
                 " WHERE car_number = ?" ;
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, carEntity.getCarModel());
@@ -52,7 +53,8 @@ public class CarDAOBean implements CarDAO {
         query.setParameter(4, carEntity.getAnimalTransportationApplicable());
         query.setParameter(5, carEntity.getFreeWifi());
         query.setParameter(6, carEntity.getAirConditioner());
-        query.setParameter(7, carEntity.getCarNumber());
+        query.setParameter(7, carEntity.getAcceptsVisa());
+        query.setParameter(8, carEntity.getCarNumber());
 
         query.executeUpdate();
     }
