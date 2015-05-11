@@ -31,6 +31,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     private static final Logger logger = LogManager.getLogger();
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
+    private static final String IS_DRIVER_GENDER_NULL = "'A'";
 
     @Override
     public int updateComment(Integer trackNumber, String comment) {
@@ -344,23 +345,65 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @Override
     public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
+        boolean isNullFreeWifi = false;
+        boolean isNullAnimalTransp = false;
+        boolean isNullConditioner = false;
+        StringBuffer sql = new StringBuffer("SELECT * FROM taxi_order WHERE (status =" +
+                " 'QUEUED' OR status = 'UPDATED') AND car_category = ? " +
+                "AND (driver_sex = ? OR driver_sex = " + IS_DRIVER_GENDER_NULL + ") ");
+        if (driver.getCar().getAnimalTransportationApplicable() == false) {
+            sql.append("AND animal_transportation = ? ");
+            isNullAnimalTransp = true;
+        }
+        if (driver.getCar().getFreeWifi() == false) {
+            sql.append("AND free_wifi = ? ");
+            isNullFreeWifi = true;
+        }
+        if (driver.getCar().getAirConditioner() == false) {
+            sql.append("AND air_conditioner = ? ");
+            isNullConditioner = true;
+        }
+        sql.append("LIMIT ? OFFSET ?");
+        System.out.println(sql.toString());
 
-        String sql = "SELECT * FROM taxi_order WHERE " +
-                "status = 'QUEUED' OR status = 'UPDATED' " +
-                "AND car_category = ? " +
-                "AND driver_sex = ?" +
-                "AND animal_transportation = ? AND free_wifi = ?" +
-                "AND air_conditioner = ? LIMIT ? OFFSET ?";
-        Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
+        Query query = entityManager.createNativeQuery(sql.toString(), TaxiOrderEntity.class);
         query.setParameter(1,driver.getCar().getCarCategory().toString());
-        query.<Boolean>setParameter(2, driver.getSex());
-        query.<Boolean>setParameter(3,driver.getCar().getAnimalTransportationApplicable());
-        query.<Boolean>setParameter(4,driver.getCar().getFreeWifi());
-        query.<Boolean>setParameter(5,driver.getCar().getAirConditioner());
-        query.setParameter(6, ORDERS_PAGE_SIZE);
-        query.setParameter(7, (pageNumber - 1) * ORDERS_PAGE_SIZE);
+        query.setParameter(2, driver.getSex());
+        int i = 3;
+        if (isNullAnimalTransp) {
+            query.setParameter(i++,driver.getCar().getAnimalTransportationApplicable());
+        }
+        if (isNullFreeWifi) {
+            query.setParameter(i++,driver.getCar().getFreeWifi());
+        }
+        if (isNullConditioner) {
+            query.setParameter(i++,driver.getCar().getAirConditioner());
+        }
+        query.setParameter(i++, ORDERS_PAGE_SIZE);
+        query.setParameter(i, (pageNumber - 1) * ORDERS_PAGE_SIZE);
+
         return query.getResultList();
     }
+
+//    @Override
+//    public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
+//
+//        String sql = "SELECT * FROM taxi_order WHERE " +
+//                "status = 'QUEUED' OR status = 'UPDATED' " +
+//                "AND car_category = ? " +
+//                "AND driver_sex = ?" +
+//                "AND animal_transportation = ? AND free_wifi = ?" +
+//                "AND air_conditioner = ? LIMIT ? OFFSET ?";
+//        Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
+//        query.setParameter(1,driver.getCar().getCarCategory().toString());
+//        query.<Boolean>setParameter(2, driver.getSex());
+//        query.<Boolean>setParameter(3,driver.getCar().getAnimalTransportationApplicable());
+//        query.<Boolean>setParameter(4,driver.getCar().getFreeWifi());
+//        query.<Boolean>setParameter(5,driver.getCar().getAirConditioner());
+//        query.setParameter(6, ORDERS_PAGE_SIZE);
+//        query.setParameter(7, (pageNumber - 1) * ORDERS_PAGE_SIZE);
+//        return query.getResultList();
+//    }
 
     @Override
     public List<TaxiOrderEntity> getHistoryOfOrders(int id, int pageNumber) {
