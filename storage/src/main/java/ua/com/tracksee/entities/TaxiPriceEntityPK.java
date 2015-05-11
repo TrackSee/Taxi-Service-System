@@ -14,6 +14,8 @@ import java.util.Objects;
  */
 public class TaxiPriceEntityPK implements Serializable {
     private CarCategory carCategory;
+    private Boolean weekend;
+    private Boolean nightTariff;
 
     @Column(name = "car_category")
     @Enumerated(EnumType.STRING)
@@ -24,6 +26,26 @@ public class TaxiPriceEntityPK implements Serializable {
 
     public void setCarCategory(CarCategory carCategory) {
         this.carCategory = carCategory;
+    }
+
+    @Column(name = "weekend")
+    @Id
+    public Boolean getWeekend() {
+        return weekend;
+    }
+
+    public void setWeekend(Boolean weekend) {
+        this.weekend = weekend;
+    }
+
+    @Column(name = "night_tariff")
+    @Id
+    public Boolean getNightTariff() {
+        return nightTariff;
+    }
+
+    public void setNightTariff(Boolean nightTariff) {
+        this.nightTariff = nightTariff;
     }
 
     @Override
