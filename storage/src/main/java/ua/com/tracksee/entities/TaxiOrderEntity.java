@@ -1,5 +1,6 @@
 package ua.com.tracksee.entities;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import ua.com.tracksee.enumartion.*;
 
 import javax.persistence.*;
@@ -236,6 +237,7 @@ public class TaxiOrderEntity {
     }
 
     @OneToMany(mappedBy = "taxiOrder")
+    @JsonIgnore
     public List<TaxiOrderItemEntity> getItemList() {
         return itemList;
     }

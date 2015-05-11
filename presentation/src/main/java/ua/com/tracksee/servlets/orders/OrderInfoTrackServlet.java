@@ -8,6 +8,7 @@ import ua.com.tracksee.enumartion.OrderStatus;
 import ua.com.tracksee.logic.EnumValidationBean;
 import ua.com.tracksee.logic.TaxiOrderBean;
 import ua.com.tracksee.logic.ValidationBean;
+import ua.com.tracksee.logic.facade.OrderFacade;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -22,34 +23,27 @@ import java.io.IOException;
  */
 @WebServlet("/orderTracking")
 public class OrderInfoTrackServlet extends HttpServlet {
-    private @EJB TaxiOrderBean taxiOrderBean;
-    private @EJB EnumValidationBean enumValidationBean;
-    private @EJB ValidationBean validationBean;
+    private @EJB OrderFacade orderFacade;
     private static final Logger logger = LogManager.getLogger();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String service = null;
-        String musicStyle = null;
-        String driverSex = null;
-        String carCategory = null;
-        String wayOfPayment = null;
         try {
 
             long trackingNumber = Integer.parseInt(req.getParameter("orderTrackingNumber"));
 
-            if (taxiOrderBean.checkOrderPresent(trackingNumber)) {
-                TaxiOrderEntity taxiOrderEntity = taxiOrderBean.getOrderInfo(trackingNumber);
-                UserEntity userEntity = taxiOrderBean.getUserInfo(taxiOrderEntity.getUserId());
+            if (orderFacade.checkOrderPresent(trackingNumber)) {
+                TaxiOrderEntity taxiOrderEntity = orderFacade.getOrderInfo(trackingNumber);
+                UserEntity userEntity = orderFacade.getUserInfo(taxiOrderEntity.getUserId());
 
                 req.setAttribute("trackingNumber", trackingNumber);
                 req.setAttribute("phoneNumber", userEntity.getPhone());
                 req.setAttribute("email", userEntity.getEmail());
 
-               //TODO addresses
+               //TODO addresses and price
 
-                req.setAttribute("arriveDate", validationBean.convertDateForShow(taxiOrderEntity.getArriveDate()));
-                req.setAttribute("endDate", validationBean.convertDateForShow(taxiOrderEntity.getEndDate()));
+                req.setAttribute("arriveDate", orderFacade.convertDateForShow(taxiOrderEntity.getArriveDate()));
+                req.setAttribute("endDate", orderFacade.convertDateForShow(taxiOrderEntity.getEndDate()));
 
                 req.setAttribute("description", taxiOrderEntity.getDescription());
                 if (taxiOrderEntity.getComment() != null) {
@@ -58,18 +52,19 @@ public class OrderInfoTrackServlet extends HttpServlet {
                     req.setAttribute("buttonCommentsHide", "hidden=\"hidden\"");
 
                 }
-                req.setAttribute(enumValidationBean.getFromEnumWayOfPayment(taxiOrderEntity.getWayOfPayment()), "selected=\"selected\"");
-
-                req.setAttribute(enumValidationBean.getFromEnumService(taxiOrderEntity.getService()),
+                req.setAttribute(orderFacade.getFromEnumWayOfPayment(taxiOrderEntity.getWayOfPayment()),
                         "selected=\"selected\"");
 
-                req.setAttribute(enumValidationBean.getFromEnumMusicStyle(taxiOrderEntity.getMusicStyle()),
+                req.setAttribute(orderFacade.getFromEnumService(taxiOrderEntity.getService()),
                         "selected=\"selected\"");
 
-                req.setAttribute(enumValidationBean.getFromEnumDriverSex(taxiOrderEntity.getDriverSex()),
+                req.setAttribute(orderFacade.getFromEnumMusicStyle(taxiOrderEntity.getMusicStyle()),
                         "selected=\"selected\"");
 
-                req.setAttribute(enumValidationBean.getFromEnumCarCategory(taxiOrderEntity.getCarCategory()),
+                req.setAttribute(orderFacade.getFromEnumDriverSex(taxiOrderEntity.getDriverSex()),
+                        "selected=\"selected\"");
+
+                req.setAttribute(orderFacade.getFromEnumCarCategory(taxiOrderEntity.getCarCategory()),
                         "selected=\"selected\"");
 
                 if (taxiOrderEntity.getAnimalTransportation()) {
@@ -93,8 +88,6 @@ public class OrderInfoTrackServlet extends HttpServlet {
             } else {
                 req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
             }
-
-
         }catch (NumberFormatException e){
             logger.error("invalid tracking number "+e);
             req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);

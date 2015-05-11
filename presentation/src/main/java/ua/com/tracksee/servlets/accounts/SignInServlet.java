@@ -46,6 +46,12 @@ public class SignInServlet extends HttpServlet {
 
         // for getting salt and calculating hash
         UserEntity user = customerFacade.getUserByLoginCredentials(email, password);
+
+        //if user wasn't activated
+        if(!user.getActivated()){
+            resp.getWriter().append(ERROR);
+            return;
+        }
         if (user == null) {
             resp.getWriter().append(ERROR);
             return;

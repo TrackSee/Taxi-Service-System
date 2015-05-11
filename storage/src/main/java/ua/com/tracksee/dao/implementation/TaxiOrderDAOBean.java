@@ -20,21 +20,19 @@ import java.util.Map;
  * {@link TaxiOrderDAO} interface.</p>
  * <p>Used for persisting and accessing taxi order data.</p>
  *
- * @see ua.com.tracksee.dao.TaxiOrderDAO
  * @author kstes_000
  * @author Ruslan Gunavardana
  * @author Sharaban Sasha
- * * @see ua.com.tracksee.dao.TaxiOrderDAO
+ * @see ua.com.tracksee.dao.TaxiOrderDAO
  */
 @Stateless
 public class TaxiOrderDAOBean implements TaxiOrderDAO {
     private static final Logger logger = LogManager.getLogger();
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
-    private static final String IS_DRIVER_GENDER_NULL = "'A'";
 
     @Override
-    public int updateComment(Integer trackNumber, String comment) {
+    public int updateComment(long trackNumber, String comment) {
         Query query = entityManager.createNativeQuery(
                 "UPDATE  taxi_order SET comment = ?1 WHERE tracking_number = ?2");
         query.setParameter(1, comment);
@@ -88,12 +86,8 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
             Integer driverId = item.getDriver() != null ? item.getDriver().getUserId() : null;
             query.setParameter(++i, driverId);
         }
-        try {
-            trackingNumber= (BigInteger)query.getSingleResult();
-        } catch (PersistenceException e) {
-            return null;
-        }
-        return  trackingNumber.longValue();
+        trackingNumber = (BigInteger) query.getSingleResult();
+        return trackingNumber.longValue();
     }
 
     @Override
@@ -104,16 +98,18 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
                 " AND '" + endDate + "'";
         return getInteger(sql);
     }
+
     /**
-     * @author Oleksandr Kozin
      * @param sql query to count the number of orders with an additional option
      * @return number of orders with this additional option
+     * @author Oleksandr Kozin
      */
     private Integer getInteger(String sql) {
         Query query = entityManager.createNativeQuery(sql);
         BigInteger bigInteger = (BigInteger) query.getSingleResult();
         return bigInteger.intValue();
     }
+
     @Override
     public Map<String, Integer> mostPopularAdditionalCarOptOverall() {
         Map<String, Integer> map = new HashMap<>();
@@ -130,9 +126,10 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     /**
      * It counts the number of orders from this additional option
-     * @author Oleksandr Kozin
+     *
      * @param option the name of an additional option
      * @return number of orders with this additional option
+     * @author Oleksandr Kozin
      */
     private Integer getAmount(String option) {
         String sql = "SELECT COUNT(*) FROM taxi_order" +
@@ -176,29 +173,29 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @Override
     public boolean checkOrderPresent(Long trackingNumber) {
-        boolean state=false;
+        boolean state = false;
         String sql = "SELECT * FROM taxi_order WHERE tracking_number=(?)";
 
-        Query query = entityManager.createNativeQuery(sql,TaxiOrderEntity.class);
-        query.setParameter(1,trackingNumber);
-        try{
-        if(query.getSingleResult()!=null){
-            state=true;
-        }
-        }catch (NoResultException e) {
-            logger.error("Order with such tracking number: "+trackingNumber+" was not found "+e);
+        Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
+        query.setParameter(1, trackingNumber);
+        try {
+            if (query.getSingleResult() != null) {
+                state = true;
+            }
+        } catch (NoResultException e) {
+            logger.error("Order with such tracking number: " + trackingNumber + " was not found " + e);
         }
         return state;
     }
 
     @Override
     public int getOldTaxiOrderPagesCount(int userID) {
-        if(userID < 0){
+        if (userID < 0) {
             logger.warn("userID can't be < 0");
             throw new IllegalArgumentException("userID can't be < 0");
         }
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order WHERE " +
-                "status = 'COMPLETED' and user_id = ?1");
+                "status = 'COMPLETED' AND user_id = ?1");
         q.setParameter(1, userID);
         BigInteger generalOrderCount = (BigInteger) q.getSingleResult();
         return (int) Math.ceil(generalOrderCount.intValue() / (double) TO_ORDERS_PER_PAGE);
@@ -274,7 +271,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
             throw new IllegalArgumentException("One of params is wrong!");
         }
         Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order WHERE user_id =?1 AND status != " +
-                "'COMPLETED' " +
+                "'COMPLETED' AND status != 'REFUSED' " +
                 "ORDER BY ordered_date DESC LIMIT ?2 OFFSET ?3", TaxiOrderEntity.class);
         query.setParameter(1, userID);
         query.setParameter(2, TO_ORDERS_PER_PAGE);
@@ -289,7 +286,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
             throw new IllegalArgumentException("One of params is wrong!");
         }
         Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order WHERE user_id=?1 AND status = " +
-                "'COMPLETED' " +
+                "'COMPLETED' or status = 'REFUSED' " +
                 "ORDER BY ordered_date DESC LIMIT ?2 OFFSET ?3", TaxiOrderEntity.class);
         query.setParameter(1, userID);
         query.setParameter(2, TO_ORDERS_PER_PAGE);
@@ -299,12 +296,12 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @Override
     public int getActiveTaxiOrderPagesCount(int userID) {
-        if(userID < 0){
+        if (userID < 0) {
             logger.warn("userID can't be < 0");
             throw new IllegalArgumentException("userID can't be < 0");
         }
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order WHERE " +
-                "status != 'COMPLETED' and user_id = ?1");
+                "status != 'COMPLETED' AND user_id = ?1");
         q.setParameter(1, userID);
         BigInteger generalOrderCount = (BigInteger) q.getSingleResult();
         return (int) Math.ceil(generalOrderCount.intValue() / (double) TO_ORDERS_PER_PAGE);
@@ -332,78 +329,36 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @Override
     public List<TaxiOrderEntity> getOrdersPerPage(int partNumber) {
-        if(partNumber <= 0) {
+        if (partNumber <= 0) {
             logger.error("partNumber can't be <= 0");
             throw new IllegalArgumentException("partNumber can't be <= 0");
         }
         Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order " +
                 "ORDER BY ordered_date LIMIT ?1 OFFSET ?2", TaxiOrderEntity.class);
         query.setParameter(1, TO_ORDERS_PER_PAGE);
-        query.setParameter(2, (partNumber - 1)*TO_ORDERS_PER_PAGE);
+        query.setParameter(2, (partNumber - 1) * TO_ORDERS_PER_PAGE);
         return query.getResultList();
     }
 
     @Override
-    public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
-        boolean isNullFreeWifi = false;
-        boolean isNullAnimalTransp = false;
-        boolean isNullConditioner = false;
-        StringBuffer sql = new StringBuffer("SELECT * FROM taxi_order WHERE (status =" +
-                " 'QUEUED' OR status = 'UPDATED') AND car_category = ? " +
-                "AND (driver_sex = ? OR driver_sex = " + IS_DRIVER_GENDER_NULL + ") ");
-        if (driver.getCar().getAnimalTransportationApplicable() == false) {
-            sql.append("AND animal_transportation = ? ");
-            isNullAnimalTransp = true;
-        }
-        if (driver.getCar().getFreeWifi() == false) {
-            sql.append("AND free_wifi = ? ");
-            isNullFreeWifi = true;
-        }
-        if (driver.getCar().getAirConditioner() == false) {
-            sql.append("AND air_conditioner = ? ");
-            isNullConditioner = true;
-        }
-        sql.append("LIMIT ? OFFSET ?");
-        System.out.println(sql.toString());
+    public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber) {
 
-        Query query = entityManager.createNativeQuery(sql.toString(), TaxiOrderEntity.class);
-        query.setParameter(1,driver.getCar().getCarCategory().toString());
-        query.setParameter(2, driver.getSex());
-        int i = 3;
-        if (isNullAnimalTransp) {
-            query.setParameter(i++,driver.getCar().getAnimalTransportationApplicable());
-        }
-        if (isNullFreeWifi) {
-            query.setParameter(i++,driver.getCar().getFreeWifi());
-        }
-        if (isNullConditioner) {
-            query.setParameter(i++,driver.getCar().getAirConditioner());
-        }
-        query.setParameter(i++, ORDERS_PAGE_SIZE);
-        query.setParameter(i, (pageNumber - 1) * ORDERS_PAGE_SIZE);
-
+        String sql = "SELECT * FROM taxi_order WHERE " +
+                "status = 'QUEUED' OR status = 'UPDATED' " +
+                "AND car_category = ? " +
+                "AND driver_sex = ?" +
+                "AND animal_transportation = ? AND free_wifi = ?" +
+                "AND air_conditioner = ? LIMIT ? OFFSET ?";
+        Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
+        query.setParameter(1, driver.getCar().getCarCategory().toString());
+        query.<Boolean>setParameter(2, driver.getSex());
+        query.<Boolean>setParameter(3, driver.getCar().getAnimalTransportationApplicable());
+        query.<Boolean>setParameter(4, driver.getCar().getFreeWifi());
+        query.<Boolean>setParameter(5, driver.getCar().getAirConditioner());
+        query.setParameter(6, ORDERS_PAGE_SIZE);
+        query.setParameter(7, (pageNumber - 1) * ORDERS_PAGE_SIZE);
         return query.getResultList();
     }
-
-//    @Override
-//    public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
-//
-//        String sql = "SELECT * FROM taxi_order WHERE " +
-//                "status = 'QUEUED' OR status = 'UPDATED' " +
-//                "AND car_category = ? " +
-//                "AND driver_sex = ?" +
-//                "AND animal_transportation = ? AND free_wifi = ?" +
-//                "AND air_conditioner = ? LIMIT ? OFFSET ?";
-//        Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
-//        query.setParameter(1,driver.getCar().getCarCategory().toString());
-//        query.<Boolean>setParameter(2, driver.getSex());
-//        query.<Boolean>setParameter(3,driver.getCar().getAnimalTransportationApplicable());
-//        query.<Boolean>setParameter(4,driver.getCar().getFreeWifi());
-//        query.<Boolean>setParameter(5,driver.getCar().getAirConditioner());
-//        query.setParameter(6, ORDERS_PAGE_SIZE);
-//        query.setParameter(7, (pageNumber - 1) * ORDERS_PAGE_SIZE);
-//        return query.getResultList();
-//    }
 
     @Override
     public List<TaxiOrderEntity> getHistoryOfOrders(int id, int pageNumber) {
@@ -413,7 +368,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
                 " AND status = 'COMPLETED' " +
                 "AND driver_id = ? LIMIT ? OFFSET ?";
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
-        query.setParameter(1,id);
+        query.setParameter(1, id);
         query.setParameter(2, ORDERS_PAGE_SIZE);
         query.setParameter(3, (pageNumber - 1) * ORDERS_PAGE_SIZE);
         return query.getResultList();
@@ -491,13 +446,13 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     }
 
     @Override
-    public TaxiOrderItemEntity getPgPath(TaxiOrderEntity taxiOrderEntity){
+    public TaxiOrderItemEntity getPgPath(TaxiOrderEntity taxiOrderEntity) {
         String sql = "SELECT * FROM taxi_order_item " +
                 "INNER JOIN taxi_order " +
                 "ON taxi_order_item.tracking_numer = taxi_order.tracking_number " +
                 "AND tracking_numer = ?";
         Query query = entityManager.createNativeQuery(sql, TaxiOrderItemEntity.class);
-        query.setParameter(1,taxiOrderEntity.getTrackingNumber());
+        query.setParameter(1, taxiOrderEntity.getTrackingNumber());
         return (TaxiOrderItemEntity) query.getSingleResult();
     }
 }

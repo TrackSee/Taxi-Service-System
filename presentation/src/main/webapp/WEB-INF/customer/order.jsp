@@ -52,7 +52,7 @@
     <!--start: Container -->
     <div class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
-        <form method="post" action="<c:url value="/orderComplete"/>">
+        <form method="post" action="<c:url value="/order"/>">
             <div class="form-group">
                 <label>Phone number</label>
                 <input type="number" name="phoneNumber" class="form-control" placeholder="Enter phone number:"

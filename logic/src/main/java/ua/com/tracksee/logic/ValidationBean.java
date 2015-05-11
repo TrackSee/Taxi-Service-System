@@ -49,6 +49,16 @@ public class ValidationBean {
         }
         return digitCount > 4 & digitCount < 16 & phoneNumber.matches(PHONE_NUMBER_REGEXP);
     }
+    /**
+     * Returns date converted from
+     * Timestamp to string with small
+     * changes that needed for showing
+     * on web page.
+     *
+     * @author Sharaban Sasha
+     * @param timestamp - date in Timestamp format
+     * @return date in string format ready for showing on web page
+     */
     public String convertDateForShow(Timestamp timestamp){
         if(timestamp!=null){
             String date= timestamp.toString();

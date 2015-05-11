@@ -1,5 +1,6 @@
 package ua.com.tracksee.dao.implementation;
 
+import com.sun.corba.se.impl.presentation.rmi.ExceptionHandlerImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
@@ -31,20 +32,20 @@ public class UserDAOBean implements UserDAO {
      */
     @Override
     public List<UserEntity> getDrivers(int partNumber) {
-        if(partNumber <= 0) {
-        logger.error("partNumber can't be <= 0");
-        throw new IllegalArgumentException("partNumber can't be <= 0");
+        if (partNumber <= 0) {
+            logger.error("partNumber can't be <= 0");
+            throw new IllegalArgumentException("partNumber can't be <= 0");
+        }
+        Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
+                "WHERE driver = TRUE ORDER BY email LIMIT ?1 OFFSET ?2", UserEntity.class);
+        query.setParameter(1, DRIVERS_PAGE_SIZE);
+        query.setParameter(2, (partNumber - 1) * DRIVERS_PAGE_SIZE);
+        return query.getResultList();
     }
-    Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
-            "WHERE driver = TRUE ORDER BY email LIMIT ?1 OFFSET ?2", UserEntity.class);
-    query.setParameter(1, DRIVERS_PAGE_SIZE);
-    query.setParameter(2, (partNumber - 1) * DRIVERS_PAGE_SIZE);
-    return query.getResultList();
-}
 
     /**
-     * @author Katia Stetsiuk
      * @return list of users in system
+     * @author Katia Stetsiuk
      */
     @Override
     public List<UserEntity> getUsers() {
@@ -69,28 +70,28 @@ public class UserDAOBean implements UserDAO {
     }
 
     /**
-     * @author Katia Stetsiuk
      * @param email to customers drivers with such email
      * @return
+     * @author Katia Stetsiuk
      */
     @Override
     public List<UserEntity> getCustomersByEmail(String email) {
         Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
-                "WHERE driver = FALSE and email LIKE ? ", UserEntity.class);
-        query.setParameter(1 ,"%" + email + "%");
+                "WHERE driver = FALSE AND email LIKE ? ", UserEntity.class);
+        query.setParameter(1, "%" + email + "%");
         return query.getResultList();
     }
 
     /**
-     * @author Katia Stetsiuk
      * @param email to get drivers with such email
      * @return
+     * @author Katia Stetsiuk
      */
     @Override
     public List<UserEntity> getDriversByEmail(String email) {
         Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
-                "WHERE driver = TRUE and email LIKE ? ", UserEntity.class);
-        query.setParameter(1 ,"%" + email + "%");
+                "WHERE driver = TRUE AND email LIKE ? ", UserEntity.class);
+        query.setParameter(1, "%" + email + "%");
         return query.getResultList();
     }
 
@@ -109,11 +110,11 @@ public class UserDAOBean implements UserDAO {
 
 
     public void assignCar(String carNumber, Integer driverID) {
-        if(carNumber == null){
+        if (carNumber == null) {
             logger.warn("carNumber can't be null");
             throw new IllegalArgumentException("carNumber can't be null");
         }
-        if(driverID == null){
+        if (driverID == null) {
             logger.warn("driverID can't be null");
             throw new IllegalArgumentException("driverID can't be null");
         }
@@ -169,18 +170,19 @@ public class UserDAOBean implements UserDAO {
         query.setParameter(6, user.getDriver());
         query.setParameter(7, user.getAdmin());
         query.setParameter(8, user.getGroupName());
-        query.setParameter(9, user.getCar() != null? user.getCar().getCarNumber() : null);
+        query.setParameter(9, user.getCar() != null ? user.getCar().getCarNumber() : null);
         query.setParameter(10, user.getDriverLicense());
         query.setParameter(11, user.getIgnoredTimes());
         query.setParameter(12, user.getActivated());
         query.setParameter(13, user.getRegistrationDate());
         try {
-            user.setUserId((Integer)query.getSingleResult());
+            user.setUserId((Integer) query.getSingleResult());
         } catch (PersistenceException e) {
             return null;
         }
         return user.getUserId();
     }
+
     @Override
     public Integer addUnregisteredUser(UserEntity user) {
         String sql = "INSERT INTO service_user " +
@@ -193,12 +195,7 @@ public class UserDAOBean implements UserDAO {
         query.setParameter(3, user.getActivated());
         query.setParameter(4, user.getPassword());
         query.setParameter(5, user.getSalt());
-        try {
-            user.setUserId((Integer)query.getSingleResult());
-
-        } catch (PersistenceException e) {
-            return null;
-        }
+        user.setUserId((Integer) query.getSingleResult());
         return user.getUserId();
     }
 
@@ -244,12 +241,12 @@ public class UserDAOBean implements UserDAO {
 
     @Override
     public UserEntity getDriverByID(int id) {
-        if(id <= 0){
+        if (id <= 0) {
             logger.warn("Driver id can't be <= 0!");
             throw new IllegalArgumentException("Driver id can't be <= 0!");
         }
         UserEntity driver = entityManager.find(UserEntity.class, id);
-        if(driver == null){
+        if (driver == null) {
             logger.warn("There is no driver with such id");
             throw new ServiceUserNotFoundException("There is no driver with such id");
         }
@@ -258,12 +255,12 @@ public class UserDAOBean implements UserDAO {
 
     @Override
     public UserEntity getUserById(int id) {
-        if(id <= 0){
+        if (id <= 0) {
             logger.warn("User id can't be <= 0!");
             throw new IllegalArgumentException("User id can't be <= 0!");
         }
         UserEntity user = entityManager.find(UserEntity.class, id);
-        if(user == null){
+        if (user == null) {
             logger.warn("There is no User with such id");
             throw new ServiceUserNotFoundException("There is no User with such id");
         }
@@ -279,34 +276,35 @@ public class UserDAOBean implements UserDAO {
     }
 
     public void deleteUser(int serviceUserId) {
-        if(serviceUserId <= 0){
+        if (serviceUserId <= 0) {
             logger.warn("serviceUserId can't be <= 0");
             throw new IllegalArgumentException("serviceUserId can't be <= 0");
         }
-        String sql = "DELETE from service_user " +
-                "where user_id = ?1";
+        String sql = "DELETE FROM service_user " +
+                "WHERE user_id = ?1";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, serviceUserId);
         query.executeUpdate();
     }
+
     @Override
-    public boolean checkBlackListUserByEmail(String email){
-        boolean blackListPresent=false;
+    public boolean checkBlackListUserByEmail(String email) {
+        boolean blackListPresent = false;
         Query query = entityManager.createNativeQuery("SELECT ignored_times FROM service_user WHERE email=?1");
         query.setParameter(1, email);
         Integer result;
         try {
             result = (Integer) query.getSingleResult();
-            if(result>3){
-                blackListPresent=true;
+            if (result > 3) {
+                blackListPresent = true;
             }
-        } catch (NoResultException|NullPointerException e) {
-            blackListPresent=false;
+        } catch (NoResultException | NullPointerException e) {
+            blackListPresent = false;
         }
         return blackListPresent;
     }
 
-    public CarEntity getDriversCar(UserEntity driver){
+    public CarEntity getDriversCar(UserEntity driver) {
         String sql = "SELECT * FROM car INNER JOIN service_user ON car.car_number = service_user.car_number " +
                 "AND user_id = ?";
         Query query = entityManager.createNativeQuery(sql, CarEntity.class);
