@@ -16,24 +16,24 @@ import java.io.IOException;
  * @author Sharaban Sasha
  */
 @WebServlet("/orderRefuse")
-public class OrderRefuseServlet extends HttpServlet {
+public class OrderRefuseServlet extends HttpServlet implements OrderAttributes {
     private @EJB OrderFacade orderFacade;
     private static final Logger logger = LogManager.getLogger();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            int trackingNumber=Integer.parseInt(req.getParameter("trackingNumber"));
+            long trackingNumber=Long.parseLong(req.getParameter(TRACKING_NUMBER));
             if(orderFacade.refuseOrder(trackingNumber)){
-                req.setAttribute("showRefuseSuccess","Show");
+                req.setAttribute(REFUSE_SUCCESS,orderFacade.getSuccessAlert(REFUSE_SUCCESS_MESSAGE));
             }else{
-                req.setAttribute("showRefuseError","Show");
-                req.setAttribute("trackingNumber",trackingNumber);
+                req.setAttribute(REFUSE_WARNING,orderFacade.getWarningAlert(REFUSE_WARNING_MESSAGE));
+                req.setAttribute(TRACKING_NUMBER,trackingNumber);
             }
-            req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
+            req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
         } catch (NullPointerException e) {
             logger.error(e.getMessage());
-            req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req,resp);
+            req.getRequestDispatcher(ERROR_PAGE).forward(req,resp);
         }
 
     }
