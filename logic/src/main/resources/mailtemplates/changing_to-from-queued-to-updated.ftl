@@ -36,8 +36,72 @@
                     <div  style = "width:80%;  margin:10px; text-align: left;">
                         <br>
                         Hi!
-                        <p/>Sorry, but our cooperation have become impossible from now. Have a nice day!
-                        <br>    .
+                        <table>
+                            <tr>
+                                <td>
+                                    Path
+                                </td>
+                                <td>
+                                    path
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Car category
+                                </td>
+                                <td>
+                                ${carCat}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Way of payment
+                                </td>
+                                <td>
+                                ${wayOfPay}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Is animal transported?
+                                </td>
+                                <td>
+                                    <img style = "width : 10%;" src = "http://cs311228.vk.me/v311228353/333a/gdY5Fs0b404.jpg"></img>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Is wifi available?
+                                </td>
+                                <td>
+                                ${wifi}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Is 'smoking driver'?
+                                </td>
+                                <td>
+                                ${smoking}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Is air condition available?
+                                </td>
+                                <td>
+                                ${cond}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Preferable music
+                                </td>
+                                <td>
+                                ${music}
+                                </td>
+                            </tr>
+                        </table>
                     </div></div>
             </center>
 
