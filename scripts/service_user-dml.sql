@@ -1,4 +1,5 @@
 DELETE FROM service_user;
+
 -- password3A --
 INSERT INTO public.service_user (user_id, email, password, salt, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date) VALUES (12345,  'vadimka2995@gmail.com',         '64bf867e6ce4a9706b5e4dfd445820712e74099db9271a0271866c410f0030e1', 'badbad2A', '+38063111111',  NULL,  FALSE, TRUE,  null, null, null,      0, TRUE, '2015-05-09 21:37:19.145000');
 -- password2A --

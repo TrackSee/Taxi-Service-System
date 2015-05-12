@@ -2,7 +2,6 @@ package ua.com.tracksee.entities;
 
 import com.vividsolutions.jts.geom.LineString;
 import org.hibernate.annotations.Type;
-import org.postgresql.geometric.PGpath;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -24,7 +23,7 @@ public class TaxiOrderItemEntity {
     @GeneratedValue(generator = "orderItemSeq")
     @SequenceGenerator(name = "orderItemSeq", sequenceName = "taxi_order_item_taxi_item_id_seq",
             allocationSize = 1, initialValue= 1)
-    @Column(name = "taxi_item_id")
+    @Column(name = "taxi_item_id" , columnDefinition = "int8")
     public Long getTaxiItemId() {
         return taxiItemId;
     }
@@ -65,7 +64,8 @@ public class TaxiOrderItemEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "tracking_numer", referencedColumnName = "tracking_number", nullable = false)
+    @JoinColumn(name = "tracking_numer", referencedColumnName = "tracking_number",
+            nullable = false, columnDefinition = "int8")
     public TaxiOrderEntity getTaxiOrder() {
         return taxiOrder;
     }

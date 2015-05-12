@@ -12,6 +12,7 @@ import ua.com.tracksee.entities.FavoritePlaceEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.List;
 
 /**
  * @author Ruslan Gunavardana
@@ -20,7 +21,7 @@ public class FavoritePlaceDAOTest {
     private static EntityManager em;
 
     private String TEST_ADDRESS_NAME = "HOME";
-    private Integer TEST_USER_ID = 34;
+    private Integer TEST_USER_ID = 12345;
     private Point TEST_POINT;
 
     @BeforeClass
@@ -73,5 +74,13 @@ public class FavoritePlaceDAOTest {
         query.setParameter(2, TEST_ADDRESS_NAME);
         FavoritePlaceEntity address = (FavoritePlaceEntity) query.getSingleResult();
         Assert.assertEquals(TEST_POINT, address.getLocation());
+    }
+
+    @Test
+    public void testGetAll() throws Exception {
+        String sql = "SELECT * FROM Favorite_Place WHERE user_id = ?1";
+        Query query = em.createNativeQuery(sql, FavoritePlaceEntity.class);
+        query.setParameter(1, TEST_USER_ID);
+        List<FavoritePlaceEntity> list = query.getResultList();
     }
 }

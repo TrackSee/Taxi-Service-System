@@ -9,7 +9,6 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.postgresql.geometric.PGpoint;
-import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.implementation.exceptions.CarNotFoundException;
 import ua.com.tracksee.dao.implementation.exceptions.ServiceUserNotFoundException;
@@ -47,7 +46,6 @@ public class UserDAOBeanTest {
                 .addPackage(PGpoint.class.getPackage())
                 .addPackage(PersistError.class.getPackage())
                 .addPackage(CarNotFoundException.class.getPackage())
-                .addPackage(PGBinaryObject.class.getPackage())
                 .addPackage(UserEntity.class.getPackage())
                 .addPackage(UserDAOBean.class.getPackage())
                 .addClass(ServiceUserNotFoundException.class)

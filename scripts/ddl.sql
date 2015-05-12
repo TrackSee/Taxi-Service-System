@@ -16,8 +16,8 @@ CREATE TABLE IF NOT EXISTS Config
 
 CREATE TABLE IF NOT EXISTS Taxi_Price
 (
-  price_per_km  NUMERIC(10,2) NOT NULL,
-  price_per_min NUMERIC(10,2) NOT NULL,
+  price_per_km  NUMERIC(10, 2) NOT NULL,
+  price_per_min NUMERIC(10, 2) NOT NULL,
   car_category  VARCHAR(28),
   weekend       BOOLEAN,
   night_tariff  BOOLEAN,
@@ -30,17 +30,17 @@ CREATE TABLE IF NOT EXISTS Car
   car_model                        VARCHAR(55) NOT NULL,
   color                            VARCHAR(28) NOT NULL,
   car_category                     VARCHAR(28) NOT NULL,
-  accepts_visa                     BOOLEAN NOT NULL,
-  animal_transportation_applicable BOOLEAN NOT NULL,
-  free_wifi                        BOOLEAN NOT NULL,
-  air_conditioner                  BOOLEAN NOT NULL
+  accepts_visa                     BOOLEAN     NOT NULL,
+  animal_transportation_applicable BOOLEAN     NOT NULL,
+  free_wifi                        BOOLEAN     NOT NULL,
+  air_conditioner                  BOOLEAN     NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Service_User
 (
   user_id           SERIAL PRIMARY KEY,
   email             VARCHAR(254) UNIQUE NOT NULL,
-  password          VARCHAR(150)        NOT NULL,
+  password          CHAR(64)            NOT NULL,
   salt              CHAR(8)             NOT NULL,
   phone             VARCHAR(28),
   sex               CHAR(1),
@@ -56,9 +56,9 @@ CREATE TABLE IF NOT EXISTS Service_User
 
 CREATE TABLE IF NOT EXISTS Favorite_Place
 (
-  name                  VARCHAR(120) NOT NULL,
-  user_id               INT          NOT NULL REFERENCES Service_User (user_id) ON DELETE CASCADE,
-  location              GEOMETRY,
+  name     VARCHAR(120) NOT NULL,
+  user_id  INT          NOT NULL REFERENCES Service_User (user_id) ON DELETE CASCADE,
+  location GEOMETRY,
   PRIMARY KEY (name, user_id)
 );
 
@@ -67,15 +67,15 @@ CREATE TABLE IF NOT EXISTS Taxi_Order
   tracking_number       BIGSERIAL PRIMARY KEY,
   status                VARCHAR(28) NOT NULL,
   service               VARCHAR(28),
-  price                 NUMERIC(10,2) ,
+  price                 NUMERIC(10, 2),
   user_id               INT REFERENCES Service_User (user_id) ON DELETE SET NULL,
   description           VARCHAR(250),
   car_category          VARCHAR(28),
   way_of_payment        VARCHAR(28),
   driver_sex            CHAR(1),
   ordered_date          TIMESTAMP,
-  arrive_date           TIMESTAMP ,
-  end_date              TIMESTAMP ,
+  arrive_date           TIMESTAMP,
+  end_date              TIMESTAMP,
   music_style           VARCHAR(50),
   animal_transportation BOOLEAN,
   free_wifi             BOOLEAN,

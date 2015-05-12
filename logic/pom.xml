@@ -25,11 +25,20 @@
             <version>${project.parent.version}</version>
         </dependency>
 
+        <!-- Geometric types -->
+        <dependency>
+            <groupId>com.vividsolutions</groupId>
+            <artifactId>jts</artifactId>
+            <version>1.13</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!--for email notifications-->
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
             <version>1.5.2</version>
+            <scope>provided</scope>
         </dependency>
 
         <!--for email validation-->
@@ -37,20 +46,6 @@
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
             <version>1.4.1</version>
-        </dependency>
-
-        <!--for time storage-->
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>2.7</version>
-        </dependency>
-
-        <!-- to resolve problem -->
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>1.5.2</version>
         </dependency>
 
         <!-- for processing email templates -->
@@ -65,6 +60,16 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>3.12-beta1</version>
+        </dependency>
+
+        <!-- TEST DEPENDENCIES -->
+
+        <!--for mail tests-->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.5.2</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

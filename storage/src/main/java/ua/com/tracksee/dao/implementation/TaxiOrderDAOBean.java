@@ -57,7 +57,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
                 "music_style,animal_transportation,free_wifi,non_smoking_driver,air_conditioner,ordered_date) " +
                 "VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14) RETURNING tracking_number; ");
 
-        for (TaxiOrderItemEntity item : itemList) {
+        for (int i = 0; i < itemList.size(); i++) {
             sql.append("INSERT INTO taxi_order_item" +
                     "(tracking_numer, path, ordered_quantity, driver_id)" +
                     "VALUES (lastval(), ?, ?, ?); ");
@@ -78,7 +78,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(13, order.getAirConditioner());
         query.setParameter(14, order.getOrderedDate());
 
-        int i = 14; // incrementing inside the loop
+        int i = 14; // should be incremented before use
         for (TaxiOrderItemEntity item : itemList) {
             query.setParameter(++i, item.getPath());
             query.setParameter(++i, item.getOrderedQuantity());

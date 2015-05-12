@@ -3,13 +3,13 @@ package ua.com.tracksee.dao.implementation;
 import org.postgresql.jdbc2.optional.SimpleDataSource;
 
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import java.io.InputStream;
 import java.util.Properties;
 
+import static java.lang.Integer.parseInt;
 import static java.lang.System.setProperty;
 import static javax.naming.Context.INITIAL_CONTEXT_FACTORY;
 import static javax.naming.Context.URL_PKG_PREFIXES;
@@ -31,9 +31,11 @@ public class PostgresEntityManagerFactory {
             properties.load(stream);
 
             SimpleDataSource dataSource = new SimpleDataSource();
-            dataSource.setUrl(properties.getProperty("database.url"));
-            dataSource.setUser(properties.getProperty("database.user"));
-            dataSource.setPassword(properties.getProperty("database.password"));
+            dataSource.setServerName(properties.getProperty("datasource.host"));
+            dataSource.setPortNumber(parseInt(properties.getProperty("datasource.port")));
+            dataSource.setDatabaseName(properties.getProperty("datasource.database"));
+            dataSource.setUser(properties.getProperty("datasource.user"));
+            dataSource.setPassword(properties.getProperty("datasource.password"));
 
             // binding datasource
             setProperty(INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");

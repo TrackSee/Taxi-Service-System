@@ -10,9 +10,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.postgresql.geometric.PGpath;
 import org.postgresql.geometric.PGpoint;
-import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.implementation.exceptions.CarNotFoundException;
 import ua.com.tracksee.dao.implementation.exceptions.ServiceUserNotFoundException;
@@ -48,7 +46,6 @@ public class TaxiOrderDAOBeanTest {
                 .addAsLibraries(log4jCore)
                 .addAsLibraries(hibernateLib)
                 .addPackage(PGpoint.class.getPackage())
-                .addPackage(PGBinaryObject.class.getPackage())
                 .addPackage(TaxiOrderEntity.class.getPackage())
                 .addPackage(TaxiOrderDAOBean.class.getPackage())
                 .addPackage(TaxiOrderDAO.class.getPackage())
