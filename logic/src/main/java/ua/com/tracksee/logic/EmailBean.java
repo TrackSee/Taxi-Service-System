@@ -54,29 +54,6 @@ public class EmailBean {
     private @EJB UserDAO userDAO;
 
 
-//    @Asynchronous
-//    public void sendRegistrationEmail(ServiceUserEntity user, String userCode) throws MessagingException {
-//        MimeMessage message = new MimeMessage(getEmailSession());
-//        message.setFrom(new InternetAddress(SERVER_EMAIL));
-//        message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
-//        message.setSubject("Registration at " + WEBSITE_SHORT);
-//        message.setText(getMessageText(userCode));
-//        Transport.send(message);
-////        Map<String, Object> data = new HashMap<>();
-////        data.put("activationLink", WEBSITE_FULL + "activation?code=" + userCode);
-////        sendTemplatedEmail(user.getEmail(), REGISTRATION_EMAIL_SUBJECT,
-////                REGISTRATION_TEMPLATE_PATH, data);
-//        logger.debug("Sent message successfully to {}", user.getEmail());
-//    }
-//
-//    private String getMessageText(String userCode) {
-//        return "Hi, \n"
-//                + "Your email address was used for registration at "
-//                + WEBSITE_SHORT
-//                + "\nPlease click the confirmation link to complete registration: "
-//                + WEBSITE_FULL + "activation?code=" + userCode;
-//    }
-
     /**
      * @param email
      * @param userCode
