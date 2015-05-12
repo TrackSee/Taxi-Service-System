@@ -37,7 +37,6 @@ public class TaxiOrderBean {
 
     private @EJB TaxiOrderDAO taxiOrderDAO;
     private @EJB UserDAO userDAO;
-    private @EJB FavoritePlaceDAO favoritePlaceDAO;
     private @EJB EmailBean mailBean;
     private @EJB ValidationBean validationBean;
     private @EJB PriceCalculatorBean priceCalculatorBean;

@@ -111,14 +111,6 @@
             <version>2.2</version>
         </dependency>
 
-
-        <dependency>
-            <groupId>com.vividsolutions</groupId>
-            <artifactId>jts</artifactId>
-            <version>1.13</version>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- TEST DEPENDENCIES -->
 
         <!-- Needed for running tests (you may also use TestNG) -->
