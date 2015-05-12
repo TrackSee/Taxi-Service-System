@@ -1,3 +1,5 @@
+DELETE FROM taxi_price;
+
 INSERT INTO taxi_price
 (price_per_km, price_per_min, car_category, weekend, night_tariff)
 VALUES (13, 1.55, 'VAN', TRUE, TRUE);

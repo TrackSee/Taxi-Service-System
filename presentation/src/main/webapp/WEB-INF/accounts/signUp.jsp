@@ -93,7 +93,7 @@
 
                         <div class="controls">
                             <input type="text" id="phone-number" name="phone-number"
-                                   placeholder="" class="input-xlarge">
+                                   placeholder="(+380) 00 000-00-00" class="input-xlarge">
                             <%--<p class="help-block">Username can contain any letters or numbers, without spaces</p>--%>
                         </div>
                     </div>

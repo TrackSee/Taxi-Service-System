@@ -8,12 +8,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-
-
-<%-- start: Java Script --%>
-<%@include file="../parts/scripts.jsp" %>
-<%-- end: Java Script --%>
-
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
@@ -237,7 +231,8 @@
 <%--end jQuery and bootstrap datepicker scripts--%>
 
 <%--Google maps scripts--%>
-<script src="<%=application.getContextPath()%>/resources/customer/js/google-maps.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/maps/google-maps-loader.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/maps/order-maps.js"></script>
 <%--end google maps scripts--%>
 
 <%-- Order page scripts --%>

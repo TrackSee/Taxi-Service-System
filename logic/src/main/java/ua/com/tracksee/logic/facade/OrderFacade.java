@@ -4,10 +4,7 @@ import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.enumartion.*;
 import ua.com.tracksee.exception.OrderException;
-import ua.com.tracksee.logic.EnumValidationBean;
-import ua.com.tracksee.logic.OrderRefusingBean;
-import ua.com.tracksee.logic.TaxiOrderBean;
-import ua.com.tracksee.logic.ValidationBean;
+import ua.com.tracksee.logic.*;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -28,6 +25,7 @@ public class OrderFacade {
     private @EJB TaxiOrderBean taxiOrderBean;
     private @EJB EnumValidationBean enumValidationBean;
     private @EJB ValidationBean validationBean;
+    private @EJB AlertGeneratorBean alertGeneratorBean;
 
     /**
      * @author Ruslan Gunavardana
@@ -144,9 +142,32 @@ public class OrderFacade {
          taxiOrderBean.updateOrder(inputData);
     }
 
-    //TODO write this method
-    public List getOrdersFor(int userId){
-        List orders = null;
-        return orders;
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.logic.AlertGeneratorBean
+     */
+    public String getSuccessAlert(String inputText){
+        return alertGeneratorBean.getSuccessAlert(inputText);
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.logic.AlertGeneratorBean
+     */
+    public String getInfoAlert(String inputText){
+        return alertGeneratorBean.getInfoAlert(inputText);
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.logic.AlertGeneratorBean
+     */
+    public String getWarningAlert(String inputText){
+        return alertGeneratorBean.getWarningAlert(inputText);
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.logic.AlertGeneratorBean
+     */
+    public String getDangerAlert(String inputText){
+        return alertGeneratorBean.getDangerAlert(inputText);
     }
 }

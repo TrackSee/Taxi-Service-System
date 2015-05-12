@@ -27,8 +27,7 @@ public class CustomerFacade {
     private static final Logger logger = LogManager.getLogger();
 
     private @EJB TaxiOrderDAO taxiOrderDAO;
-    private @EJB
-    AccountManagementBean accountManagementBean;
+    private @EJB AccountManagementBean accountManagementBean;
     private @EJB FavoritePlacesBean favoritePlacesBean;
 
     /**

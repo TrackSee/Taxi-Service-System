@@ -34,17 +34,11 @@ public class OrderServlet extends HttpServlet {
     private static final String ORDER_STATUS = "QUEUED";
     private static final Logger logger = LogManager.getLogger();
     private @EJB OrderFacade orderFacade;
+    private static final String ALERT_TRACK_BUTTON = " \n <a class=\"btn btn-large btn-success\" href=\"orderInfo\">" +
+            "<h4>Track your taxi order</h4></a>";
+    private static final String ALERT_SUCCESS_ORDER_MESSAGE = " Your order accepted for further processing " +
+            "successfully and you was assigned to such tracking number: ";
 
-
-    private String alertBeginAndType = "<div class=\"alert alert-success\"";
-    private String alertBody = " role=\"alert\">\n" +
-            "                <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
-            "                    <span aria-hidden=\"true\">&times;</span></button><h3>";
-    private String alertTrackButton = "</h3><a class=\"btn btn-large btn-success\" href=\"orderInfo\"><h4>" +
-            "Track your taxi order</h4></a>";
-    private String alertSuccessMessage = " Your order accepted for further processing successfully and you was assigned" +
-            " to such tracking number: ";
-    private String alertEnd = "</div>";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -54,7 +48,8 @@ public class OrderServlet extends HttpServlet {
     /**
      * @author Ruslan Gunavardana
      */
-    private void ruslanMethod(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    // TODO Ruslan workaround
+    private void method(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         StringBuilder sb = new StringBuilder();
         try {
@@ -128,8 +123,8 @@ public class OrderServlet extends HttpServlet {
             } else {
                 Long trackingNumber = orderFacade.makeOrder(inputData);
                 req.setAttribute("trackingNumber", trackingNumber);
-                req.setAttribute("showSuccess", alertBeginAndType + alertBody + alertSuccessMessage + trackingNumber +
-                        alertTrackButton + alertEnd);
+                req.setAttribute("showSuccess", orderFacade.getSuccessAlert(ALERT_SUCCESS_ORDER_MESSAGE+trackingNumber
+                        +ALERT_TRACK_BUTTON));
                 req.setAttribute("hideOrderTrack", "hidden=\"hidden\"");
 
             }

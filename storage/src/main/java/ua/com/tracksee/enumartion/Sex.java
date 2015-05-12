@@ -1,8 +1,18 @@
 package ua.com.tracksee.enumartion;
 
 /**
+ * Enumeration of available system user's sex.
+ *
  * @author Ruslan Gunavardana
  */
 public enum Sex {
-   A, M, F
+
+    /** Any Sex */
+    A,
+
+    /** Male */
+    M,
+
+    /** Female */
+    F
 }

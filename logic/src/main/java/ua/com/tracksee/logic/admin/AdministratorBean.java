@@ -180,6 +180,7 @@ public class AdministratorBean {
     }
     /**
      * @author Vitalii Diravka
+     * @return present tazi_price table from DB
      */
     public List<TaxiPriceEntity> getAllPrices(){taxiPriceDAO.getAllPrices();
         return taxiPriceDAO.getAllPrices();
@@ -188,7 +189,6 @@ public class AdministratorBean {
      * @author Vitalii Diravka
      */
     public void updateTariff(BigDecimal newPrice, CarCategory enumCarCategory, Boolean weekend, Boolean nightTariff, String priceType) {
-        //String carCategory = String.valueOf(enumCarCategory);
         TaxiPriceEntity newPriceEntity = new TaxiPriceEntity();
         if (priceType.equals("perKm")) {
             System.out.println(priceType);

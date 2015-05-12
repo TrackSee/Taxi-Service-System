@@ -1,7 +1,6 @@
 package ua.com.tracksee.dao.implementation;
 
 import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.Point;
 import ua.com.tracksee.dao.FavoritePlaceDAO;
 import ua.com.tracksee.entities.FavoritePlaceEntity;
 import ua.com.tracksee.entities.FavoritePlaceEntityPK;
@@ -37,14 +36,14 @@ public class FavoritePlaceDAOBean implements FavoritePlaceDAO {
         String sql = "SELECT * FROM Favorite_Place WHERE user_id = ?";
         Query query = entityManager.createNativeQuery(sql, FavoritePlaceEntity.class);
         query.setParameter(1, id);
-        return (List<FavoritePlaceEntity>) query.getResultList();
+        return query.getResultList();
     }
 
     @Override
     public boolean addAddress(FavoritePlaceEntity address) {
         String sql = "INSERT INTO Favorite_Place " +
                 "(name, user_id, location) " +
-                "VALUES (?1, ?2, CAST(?3 AS GEOMETRY))";
+                "VALUES (?1, ?2, ?3)";
         Query query = entityManager.createNativeQuery(sql);
         query.<String>setParameter(1, address.getName());
         query.<Integer>setParameter(2, address.getUserId());

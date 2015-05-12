@@ -57,7 +57,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "password", nullable = false, length = 28)
+    @Column(name = "password", nullable = false, length = 64, columnDefinition = "bpchar")
     public String getPassword() {
         return password;
     }
@@ -67,7 +67,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "salt", nullable = false, length = 8)
+    @Column(name = "salt", nullable = false, length = 8, columnDefinition = "bpchar")
     public String getSalt() {
         return salt;
     }
@@ -87,7 +87,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "sex", nullable = false)
+    @Column(name = "sex", nullable = false, length = 1, columnDefinition = "bpchar")
     public String getSex() {
         return sex;
     }

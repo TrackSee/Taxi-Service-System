@@ -78,6 +78,7 @@
                 <option value="USER_CAR">USER_CAR</option>
 
             </select>
+            <input type="checkbox" id="acceptsVisa" name="acceptsVisa">Way Of Payment - VISA<Br>
             <%--<label for="animalTransportationApplicable" class="sr-only">Color</label>--%>
             <input type="checkbox" id="animalTransportationApplicable" name="animalTransportationApplicable"
                     >Animal Transportation Applicable<Br>

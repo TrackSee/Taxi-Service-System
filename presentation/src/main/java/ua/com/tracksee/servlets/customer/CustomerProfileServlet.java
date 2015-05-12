@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Vadym_Akymov on 26.04.15.
  */
-@WebServlet("/customer")
+@WebServlet("/customerProfile")
 public class CustomerProfileServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
 
@@ -39,6 +39,7 @@ public class CustomerProfileServlet extends HttpServlet {
         request.setAttribute("orders", orders);
         request.setAttribute("pageNumber", 1);
         request.setAttribute("pagesCount", customerFacade.getOrdersPagesCount(userID, orderStatusBO));
+        logger.error("customerProfilePage GET work!!!");
         request.getRequestDispatcher("/WEB-INF/customer/customerProfile.jsp").forward(request, response);
     }
 }

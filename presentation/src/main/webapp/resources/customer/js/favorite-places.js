@@ -7,3 +7,4 @@ angular.module('favoritePlaces', ['ngResource', 'ngRoute', 'ui.bootstrap'])
             redirectTo: '/'
         })
     });
+

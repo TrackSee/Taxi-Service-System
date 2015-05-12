@@ -9,8 +9,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.postgresql.geometric.PGpoint;
-import org.postgresql.util.PGBinaryObject;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.implementation.UserDAOBean;
 import ua.com.tracksee.dao.implementation.exceptions.CarNotFoundException;
@@ -39,8 +37,7 @@ public class AccountManagementBeanTest {
     private static final String TEST_EMAIL = "rusan.rus@gmail.com";
     private static final String TEST_PASSWORD = "very@Secure";
     private static final String TEST_PHONE = "+380635005050";
-    private @EJB
-    AccountManagementBean accountManagementBean;
+    private @EJB AccountManagementBean accountManagementBean;
     private @EJB UserDAO userDAO;
 
     @Deployment
@@ -52,10 +49,8 @@ public class AccountManagementBeanTest {
                 .addAsLibraries(log4jApi)
                 .addAsLibraries(log4jCore)
                 .addAsLibraries(hibernateLib)
-                .addPackage(PGpoint.class.getPackage())
                 .addPackage(PersistError.class.getPackage())
                 .addPackage(CarNotFoundException.class.getPackage())
-                .addPackage(PGBinaryObject.class.getPackage())
                 .addPackage(UserEntity.class.getPackage())
                 .addPackage(UserDAOBean.class.getPackage())
                 .addPackage(Group.class.getPackage())
