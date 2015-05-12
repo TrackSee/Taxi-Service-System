@@ -143,4 +143,10 @@ public class OrderFacade {
     public void updateOrder(HashMap<String,String> inputData) throws OrderException{
          taxiOrderBean.updateOrder(inputData);
     }
+
+    //TODO write this method
+    public List getOrdersFor(int userId){
+        List orders = null;
+        return orders;
+    }
 }
