@@ -128,6 +128,24 @@ public class EmailBean {
     }
 
 
+    /**
+     *
+     * @param order
+     * @throws MessagingException
+     */
+    public void sendChangingTOFromQueuedToUpdated(TaxiOrderItemEntity order) throws MessagingException {
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
+        data.put("trackingNumber", order.getTaxiOrder().getTrackingNumber());
+        data.put("carCat", order.getTaxiOrder().getCarCategory().toString());
+        data.put("wayOfPay", order.getTaxiOrder().getFreeWifi().toString());
+        data.put("animal", order.getTaxiOrder().getAnimalTransportation());
+        data.put("wifi", order.getTaxiOrder().getFreeWifi());
+        data.put("smoking", order.getTaxiOrder().getNonSmokingDriver());
+        data.put("music", order.getTaxiOrder().getMusicStyle());
+    }
+
+
     @Asynchronous
     public void sendOrderConfirmation(UserEntity user, Long trackingNumber) {
 //TODO use trackingNumber and use template

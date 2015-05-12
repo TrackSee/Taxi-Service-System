@@ -81,6 +81,14 @@ public class MailSender {
     }
 
 
+    /**
+     *
+     * @param to
+     * @param subject
+     * @param templatePath
+     * @param data
+     * @throws MessagingException
+     */
     public static void sendTemplatedEmail(String to, String subject,
                                           String templatePath, Map<String, Object> data) throws MessagingException
     {
@@ -98,6 +106,12 @@ public class MailSender {
 
     }
 
+    /**
+     *
+     * @param path
+     * @return
+     * @throws IOException
+     */
     public static Template loadTemplate(String path) throws IOException {
         Configuration cfg = new Configuration();
         return cfg.getTemplate(path);

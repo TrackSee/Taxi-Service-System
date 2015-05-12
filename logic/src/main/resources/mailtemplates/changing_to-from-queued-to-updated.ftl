@@ -79,7 +79,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Is 'smoking driver'?
+                                    Is 'non-smoking driver'?
                                 </td>
                                 <td>
                                 ${smoking}
