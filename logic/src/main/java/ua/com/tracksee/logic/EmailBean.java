@@ -136,21 +136,27 @@ public class EmailBean {
      * @param order
      * @throws MessagingException
      */
+    @Asynchronous
     public void sendChangingTOFromQueuedToUpdated(TaxiOrderItemEntity order) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
         data.put("trackingNumber", order.getTaxiOrder().getTrackingNumber());
         data.put("carCat", order.getTaxiOrder().getCarCategory().toString());
         data.put("wayOfPay", order.getTaxiOrder().getFreeWifi().toString());
-        data.put("animal", order.getTaxiOrder().getAnimalTransportation());
-        data.put("wifi", order.getTaxiOrder().getFreeWifi());
-        data.put("smoking", order.getTaxiOrder().getNonSmokingDriver());
+        data.put("animal", order.getTaxiOrder().getAnimalTransportation() ? "yes" : "no");
+        data.put("wifi", order.getTaxiOrder().getFreeWifi() ? "yes" : "no");
+        data.put("smoking", order.getTaxiOrder().getNonSmokingDriver() ? "yes" : "no");
         data.put("music", order.getTaxiOrder().getMusicStyle());
         List<String> driverEmails = userDAO.getDriversEmails();
         sendTemplatedEmail(driverEmails, CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_SUBJECT_PROP_NAME, CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_PATH, data);
     }
 
 
+    /**
+     *
+     * @param user
+     * @param trackingNumber
+     */
     @Asynchronous
     public void sendOrderConfirmation(UserEntity user, Long trackingNumber) {
 //TODO use trackingNumber and use template
