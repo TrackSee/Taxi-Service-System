@@ -16,6 +16,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static java.io.File.separatorChar;
@@ -51,6 +52,8 @@ public class EmailBean {
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_SUBJECT_TEMP_PROP_NAME = "TrackSee Order refused";
     private static final String REGISTRATION_TEMP_PATH = CONFIG_LOCATION + "registration_template.ftl";
     private static final String REGISTRATION_SUBJECT_TEMP_PROP_NAME = "TrackSee: Confirm User Registration";
+    private static final String CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_PATH = CONFIG_LOCATION + "changing_to-from-queued-to-updated.ftl";
+    private static final String CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_SUBJECT_PROP_NAME = "TrackSee Order Updated";
     private @EJB UserDAO userDAO;
 
 
@@ -143,6 +146,8 @@ public class EmailBean {
         data.put("wifi", order.getTaxiOrder().getFreeWifi());
         data.put("smoking", order.getTaxiOrder().getNonSmokingDriver());
         data.put("music", order.getTaxiOrder().getMusicStyle());
+        List<String> driverEmails = userDAO.getDriversEmails();
+        sendTemplatedEmail(driverEmails, CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_SUBJECT_PROP_NAME, CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_PATH, data);
     }
 
 
