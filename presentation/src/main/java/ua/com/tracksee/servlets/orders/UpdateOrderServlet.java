@@ -19,70 +19,54 @@ import java.util.HashMap;
  * @author Sharaban Sasha
  */
 @WebServlet("/updateOrder")
-public class UpdateOrderServlet extends HttpServlet {
+public class UpdateOrderServlet extends HttpServlet implements OrderAttributes {
 
     private @EJB OrderFacade orderFacade;
 
     private static final Logger logger = LogManager.getLogger();
-    /**
-     * Order status is QUEUED  because
-     * the orders received from the page will
-     * always have the status QUEUED
-     */
-//    private static final String ORDER_STATUS = "QUEUED";
-//    private static final String STATUS = "status";
-//    private static final String DRIVER_SEX = "driverSex";
-//    private static final String MUSIC_STYLE = "musicStyle";
-//    private static final String ANIMAL_TRANSPORTATION = "animalTransportation";
-//    private static final String WIFI = "wifi";
-//    private static final String SMOKING_DRIVER = "smokingDriver";
-//    private static final String CONDITIONER = "airConditioner";
-//    private static final String TRACKING_NUMBER = "trackingNumber";
-
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HashMap<String, String> inputData = new HashMap<String, String>();
         try {
-            inputData.put("trackingNumber", req.getParameter("trackingNumber"));
-            inputData.put("addressOrigin", req.getParameter("addressOrigin"));
-            inputData.put("addressDestination", req.getParameter("addressDestination"));
+            inputData.put(TRACKING_NUMBER, req.getParameter(TRACKING_NUMBER));
+            inputData.put(ADDRESS_ORIGIN, req.getParameter(ADDRESS_ORIGIN));
+            inputData.put(ADDRESS_DESTINATION, req.getParameter(ADDRESS_DESTINATION));
             //TODO calculationg distance, now for test it's 10
-            inputData.put("distance", "10");
+            inputData.put(DISTANCE, "10");
 
-                inputData.put("arriveDate", req.getParameter("arriveDate"));
-                inputData.put("endDate", req.getParameter("endDate"));
+                inputData.put(ARRIVE_DATE, req.getParameter(ARRIVE_DATE));
+                inputData.put(END_DATE, req.getParameter(END_DATE));
 
 
-            if (req.getParameter("service").equals("soberDriver")) {
-                inputData.put("service", "soberDriver");
-                inputData.put("carCategory", "userCar");
-                inputData.put("musicStyle", "default");
-                inputData.put("animalTransportation", "false");
-                inputData.put("freeWifi", "false");
-                inputData.put("smokingDriver", "false");
-                inputData.put("airConditioner", "false");
+            if (req.getParameter(SERVICE).equals("soberDriver")) {
+                inputData.put(SERVICE, "soberDriver");
+                inputData.put(CAR_CATEGORY, "userCar");
+                inputData.put(MUSIC_STYLE, "default");
+                inputData.put(ANIMAL_TRANSPORTATION, "false");
+                inputData.put(FREE_WIFI, "false");
+                inputData.put(SMOKING_DRIVER, "false");
+                inputData.put(AIR_CONDITIONER, "false");
             } else {
-                inputData.put("service", req.getParameter("service"));
-                inputData.put("carCategory", req.getParameter("carCategory"));
-                inputData.put("musicStyle", req.getParameter("musicStyle"));
-                inputData.put("animalTransportation", req.getParameter("animalTransportation"));
-                inputData.put("freeWifi", req.getParameter("freeWifi"));
-                inputData.put("smokingDriver", req.getParameter("smokingDriver"));
-                inputData.put("airConditioner", req.getParameter("airConditioner"));
+                inputData.put(SERVICE, req.getParameter(SERVICE));
+                inputData.put(CAR_CATEGORY, req.getParameter(CAR_CATEGORY));
+                inputData.put(MUSIC_STYLE, req.getParameter(MUSIC_STYLE));
+                inputData.put(ANIMAL_TRANSPORTATION, req.getParameter(ANIMAL_TRANSPORTATION));
+                inputData.put(FREE_WIFI, req.getParameter(FREE_WIFI));
+                inputData.put(SMOKING_DRIVER, req.getParameter(SMOKING_DRIVER));
+                inputData.put(AIR_CONDITIONER, req.getParameter(AIR_CONDITIONER));
             }
-            inputData.put("wayOfPayment", req.getParameter("wayOfPayment"));
-            inputData.put("driverSex", req.getParameter("driverSex"));
-            inputData.put("service", req.getParameter("service"));
-
-            inputData.put("description", req.getParameter("description"));
+            inputData.put(WAY_OF_PAYMENT, req.getParameter(WAY_OF_PAYMENT));
+            inputData.put(DRIVER_SEX, req.getParameter(DRIVER_SEX));
+            inputData.put(SERVICE, req.getParameter(SERVICE));
+            inputData.put(DESCRIPTION, req.getParameter(DESCRIPTION));
 
             orderFacade.updateOrder(inputData);
-            req.setAttribute("successUpdate","Show");
-            req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
+            req.setAttribute(UPDATE_SUCCESS,orderFacade.getSuccessAlert(UPDATE_SUCCESS_MESSAGE));
+            req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
         } catch (Exception  e) {
             logger.error(e.getMessage());
-            req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
+            req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
         }
     }
 }

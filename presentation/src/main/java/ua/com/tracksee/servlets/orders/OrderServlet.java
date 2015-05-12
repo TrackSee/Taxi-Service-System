@@ -19,30 +19,26 @@ import java.util.HashMap;
 
 /**
  * This class return order.jsp,
- * get data from this page and send it to TaxiOrderBean.
+ * get data from this page and send it
+ * to TaxiOrderBean.
+ * Order status is QUEUED  because
+ * the orders received from the page will
+ * always have the status QUEUED
  *
  * @author Sharaban Sasha
  * @author Ruslan Gunavardana
  */
 @WebServlet("/order")
-public class OrderServlet extends HttpServlet {
-    /**
-     * Order status is QUEUED  because
-     * the orders received from the page will
-     * always have the status QUEUED
-     */
-    private static final String ORDER_STATUS = "QUEUED";
+public class OrderServlet extends HttpServlet implements OrderAttributes {
     private static final Logger logger = LogManager.getLogger();
     private @EJB OrderFacade orderFacade;
-    private static final String ALERT_TRACK_BUTTON = " \n <a class=\"btn btn-large btn-success\" href=\"orderInfo\">" +
-            "<h4>Track your taxi order</h4></a>";
-    private static final String ALERT_SUCCESS_ORDER_MESSAGE = " Your order accepted for further processing " +
-            "successfully and you was assigned to such tracking number: ";
 
-
+    /**
+     * @author Sharaban Sasha
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/customer/order.jsp").forward(req, resp);
+        req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);
     }
 
     /**
@@ -83,56 +79,53 @@ public class OrderServlet extends HttpServlet {
         req.setAttribute("pageName", "orderInformation");
         HashMap<String, String> inputData = new HashMap<String, String>();
         try {
-            inputData.put("phoneNumber", req.getParameter("phoneNumber"));
-            inputData.put("email", req.getParameter("email"));
-            inputData.put("addressOrigin", req.getParameter("addressOrigin"));
-            inputData.put("addressDestination", req.getParameter("addressDestination"));
-            inputData.put("orderStatus", ORDER_STATUS);
+            inputData.put(PHONE_NUMBER, req.getParameter(PHONE_NUMBER));
+            inputData.put(EMAIL, req.getParameter("email"));
+            inputData.put(ADDRESS_ORIGIN, req.getParameter(ADDRESS_ORIGIN));
+            inputData.put(ADDRESS_DESTINATION, req.getParameter(ADDRESS_DESTINATION));
+            inputData.put(ORDER_STATUS, ORDER_STATUS_VALUE_QUEUED);
             //TODO calculationg distance, now for test it's 10
-            inputData.put("distance", "10");
+            inputData.put(DISTANCE, "10");
 
-            inputData.put("arriveDate", req.getParameter("arriveDate"));
-            inputData.put("endDate", req.getParameter("endDate"));
+            inputData.put(ARRIVE_DATE, req.getParameter(ARRIVE_DATE));
+            inputData.put(END_DATE, req.getParameter(END_DATE));
 
-            if (req.getParameter("service").equals("soberDriver")) {
-                inputData.put("service", "soberDriver");
-                inputData.put("carCategory", "userCar");
-                inputData.put("musicStyle", "default");
-                inputData.put("animalTransportation", "false");
-                inputData.put("freeWifi", "false");
-                inputData.put("smokingDriver", "false");
-                inputData.put("airConditioner", "false");
+            if (req.getParameter(SERVICE).equals("soberDriver")) {
+                inputData.put(SERVICE, "soberDriver");
+                inputData.put(CAR_CATEGORY, "userCar");
+                inputData.put(MUSIC_STYLE, "default");
+                inputData.put(ANIMAL_TRANSPORTATION, "false");
+                inputData.put(FREE_WIFI, "false");
+                inputData.put(SMOKING_DRIVER, "false");
+                inputData.put(AIR_CONDITIONER, "false");
             } else {
-                inputData.put("service", req.getParameter("service"));
-                inputData.put("carCategory", req.getParameter("carCategory"));
-                inputData.put("musicStyle", req.getParameter("musicStyle"));
-                inputData.put("animalTransportation", req.getParameter("animalTransportation"));
-                inputData.put("freeWifi", req.getParameter("freeWifi"));
-                inputData.put("smokingDriver", req.getParameter("smokingDriver"));
-                inputData.put("airConditioner", req.getParameter("airConditioner"));
+                inputData.put(SERVICE, req.getParameter(SERVICE));
+                inputData.put(CAR_CATEGORY, req.getParameter(CAR_CATEGORY));
+                inputData.put(MUSIC_STYLE, req.getParameter(MUSIC_STYLE));
+                inputData.put(ANIMAL_TRANSPORTATION, req.getParameter(ANIMAL_TRANSPORTATION));
+                inputData.put(FREE_WIFI, req.getParameter(FREE_WIFI));
+                inputData.put(SMOKING_DRIVER, req.getParameter(SMOKING_DRIVER));
+                inputData.put(AIR_CONDITIONER, req.getParameter(AIR_CONDITIONER));
             }
-            inputData.put("wayOfPayment", req.getParameter("wayOfPayment"));
-            inputData.put("driverSex", req.getParameter("driverSex"));
-            inputData.put("service", req.getParameter("service"));
+            inputData.put(WAY_OF_PAYMENT, req.getParameter(WAY_OF_PAYMENT));
+            inputData.put(DRIVER_SEX, req.getParameter(DRIVER_SEX));
+            inputData.put(SERVICE, req.getParameter(SERVICE));
+            inputData.put(DESCRIPTION, req.getParameter(DESCRIPTION));
 
-            inputData.put("description", req.getParameter("description"));
 
-
-            if (orderFacade.checkBlackListByUserEmail(inputData.get("email"))) {
-                req.setAttribute("showError", "Show");
+            if (orderFacade.checkBlackListByUserEmail(inputData.get(EMAIL))) {
+                req.setAttribute(ORDER_WARNING,orderFacade.getWarningAlert(ORDER_WARNING_MESSAGE));
             } else {
                 Long trackingNumber = orderFacade.makeOrder(inputData);
-                req.setAttribute("trackingNumber", trackingNumber);
-                req.setAttribute("showSuccess", orderFacade.getSuccessAlert(ALERT_SUCCESS_ORDER_MESSAGE+trackingNumber
-                        +ALERT_TRACK_BUTTON));
-                req.setAttribute("hideOrderTrack", "hidden=\"hidden\"");
-
+                req.setAttribute(TRACKING_NUMBER, trackingNumber);
+                req.setAttribute(ORDER_SUCCESS, orderFacade.getSuccessAlert(ORDER_SUCCESS_MESSAGE +trackingNumber
+                        + ORDER_SUCCESS_TRACK_BUTTON));
+                req.setAttribute(HIDE_ORDER_TRACK, HIDE);
             }
-
-            req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
+            req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
+            req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
         }
 
     }

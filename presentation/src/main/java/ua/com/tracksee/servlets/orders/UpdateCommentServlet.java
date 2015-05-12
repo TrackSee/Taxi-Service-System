@@ -18,29 +18,25 @@ import java.io.IOException;
  * @author Sharaban Sasha
  */
 @WebServlet("/addComment")
-public class UpdateCommentServlet extends HttpServlet {
+public class UpdateCommentServlet extends HttpServlet implements OrderAttributes {
     private @EJB OrderFacade orderFacade;
 
     private static final Logger logger = LogManager.getLogger();
 
-    private static final String TRACK_NUMBER_ALIAS = "trackingNumber";
-    private static final String COMMENT_ALIAS = "comments";
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String trackNumberString = req.getParameter(TRACK_NUMBER_ALIAS);
         try {
-            long trackNumber = Long.parseLong(trackNumberString);
-            String comment = req.getParameter(COMMENT_ALIAS);
-            orderFacade.addComment(trackNumber, comment);
-            req.setAttribute("successAddComments", "Show");
-            req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req, resp);
+            long trackingNumber = Long.parseLong(req.getParameter(TRACKING_NUMBER));
+            String comments = req.getParameter(COMMENTS);
+            orderFacade.addComment(trackingNumber, comments);
+            req.setAttribute(ADD_COMMENTS_SUCCESS, orderFacade.getSuccessAlert(ADD_COMMENTS_SUCCESS_MESSAGE));
+            req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
         }catch (NumberFormatException e){
             logger.error("Impossible to convert String to long " + e.getMessage());
-            req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
+            req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
+            req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
         }
     }
 }
