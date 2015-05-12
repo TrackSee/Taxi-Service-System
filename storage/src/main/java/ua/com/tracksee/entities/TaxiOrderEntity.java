@@ -70,7 +70,7 @@ public class TaxiOrderEntity {
     @GeneratedValue(generator = "orderSeq")
     @SequenceGenerator(name = "orderSeq", sequenceName = "taxi_order_tracking_number_seq",
             allocationSize = 1, initialValue= 1)
-    @Column(name = "tracking_number")
+    @Column(name = "tracking_number", columnDefinition = "int8")
     public Long getTrackingNumber() {
         return trackingNumber;
     }
@@ -155,7 +155,7 @@ public class TaxiOrderEntity {
 
     @Basic
     @Enumerated(STRING)
-    @Column(name = "driver_sex")
+    @Column(name = "driver_sex", length = 1, columnDefinition = "bpchar")
     public Sex getDriverSex() {
         return driverSex;
     }

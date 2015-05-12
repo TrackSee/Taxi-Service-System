@@ -4,7 +4,6 @@ package ua.com.tracksee.logic.driver;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.postgresql.geometric.PGpath;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
@@ -86,15 +85,15 @@ public class DriverOrderBean {
     }
 
     //Todo end this method
-    public List<String> getAddressList(PGpath pGpath){
-        //String path = pGpath.toString();
-        String lng;
-        String lat;
-        List<String> addresses = new ArrayList<String>();
-        //addresses.add(path);
-        //String address = getAddressByGpsCoordinates(lng, lat);
-        return addresses;
-    }
+//    public List<String> getAddressList(PGpath pGpath){
+//        //String path = pGpath.toString();
+//        String lng;
+//        String lat;
+//        List<String> addresses = new ArrayList<String>();
+//        //addresses.add(path);
+//        //String address = getAddressByGpsCoordinates(lng, lat);
+//        return addresses;
+//    }
 
     public List<TaxiOrderEntity> getHistoryOfOrders(int id, int pageNumber){
         return taxiOrderDao.getHistoryOfOrders(id, pageNumber);
