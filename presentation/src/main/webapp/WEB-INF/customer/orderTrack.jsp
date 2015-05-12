@@ -153,9 +153,9 @@
                 <div class="form-group">
                     <label class="control-label">Driver sex</label>
                     <select class="form-control order_priority" name="driverSex" >
-                        <option value="ANYONE" ${ANYONE}>Anyone</option>
-                        <option value="MALE" ${MALE}>Male</option>
-                        <option value="FEMALE" ${FEMALE}>Female</option>
+                        <option value="A" ${A}>Anyone</option>
+                        <option value="M" ${M}>Male</option>
+                        <option value="F" ${F}>Female</option>
                     </select>
                 </div>
                 <div class="form-group" id="musicStyleGroup">
@@ -205,7 +205,7 @@
                 <button type="submit" class="btn btn-success btn-large">Change order</button>
             </div>
         </form>
-            <form method="post" action="<c:url value="/orderInfo"/>">
+            <form method="post" action="<c:url value="/orderRefuse"/>">
                 <label id="hideTrackingNumber">
                     <input type="text" name="trackingNumber" value="${trackingNumber}" >
                 </label>

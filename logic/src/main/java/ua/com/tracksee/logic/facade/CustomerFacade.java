@@ -3,12 +3,12 @@ package ua.com.tracksee.logic.facade;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
-import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
-import ua.com.tracksee.json.FavoritePlaceDTO;
-import ua.com.tracksee.logic.customer.FavoritePlacesBean;
-import ua.com.tracksee.logic.customer.AccountManagementBean;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.exception.RegistrationException;
+import ua.com.tracksee.json.FavoritePlaceDTO;
+import ua.com.tracksee.logic.customer.AccountManagementBean;
+import ua.com.tracksee.logic.customer.FavoritePlacesBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -30,10 +30,27 @@ public class CustomerFacade {
     private @EJB AccountManagementBean accountManagementBean;
     private @EJB FavoritePlacesBean favoritePlacesBean;
 
+    /**
+     * @author Vadym Akymov
+     * @param orderStatus - completed or active orders
+     * @param userID - user id in current session
+     * @param pageNumber
+     * @return
+     */
     public List<TaxiOrderEntity> getOrdersPerPage(OrderStatusBO orderStatus, int userID, int pageNumber){
         switch (orderStatus){
             case ACTIVE: return taxiOrderDAO.getCustomerActiveOrdersPerPage(userID, pageNumber);
             case COMPLETED: return taxiOrderDAO.getCustomerOldOrdersPerPage(userID, pageNumber);
+            default:
+                logger.warn("wrong order status param");
+                throw new IllegalArgumentException("wrong order status param");
+        }
+    }
+
+    public int getOrdersPagesCount(int userID, OrderStatusBO orderStatusBO){
+        switch (orderStatusBO){
+            case ACTIVE: return taxiOrderDAO.getActiveTaxiOrderPagesCount(userID);
+            case COMPLETED: return taxiOrderDAO.getOldTaxiOrderPagesCount(userID);
             default:
                 logger.warn("wrong order status param");
                 throw new IllegalArgumentException("wrong order status param");

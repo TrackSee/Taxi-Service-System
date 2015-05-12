@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Vadym_Akymov on 26.04.15.
  */
-@WebServlet("/customer")
+@WebServlet("/customerProfile")
 public class CustomerProfileServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
 
@@ -27,9 +27,9 @@ public class CustomerProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String dataType = request.getParameter("type");
-        //old TO are on page by default
+        //completed TO are on page by default
         if(dataType == null || dataType.isEmpty()){
-            dataType = "completed";
+            dataType = "active";
         }
         dataType = dataType.toUpperCase();
         Integer userID = (Integer) request.getSession().getAttribute("userId");
@@ -38,6 +38,8 @@ public class CustomerProfileServlet extends HttpServlet {
         List<TaxiOrderEntity> orders = customerFacade.getOrdersPerPage(orderStatusBO, userID, 1);
         request.setAttribute("orders", orders);
         request.setAttribute("pageNumber", 1);
+        request.setAttribute("pagesCount", customerFacade.getOrdersPagesCount(userID, orderStatusBO));
+        logger.error("customerProfilePage GET work!!!");
         request.getRequestDispatcher("/WEB-INF/customer/customerProfile.jsp").forward(request, response);
     }
 }

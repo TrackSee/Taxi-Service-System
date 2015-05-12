@@ -46,7 +46,7 @@
     <!--start: Container -->
     <div class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
-        <form method="post" action="<c:url value="/orderComplete"/>">
+        <form method="post" action="<c:url value="/order"/>">
             <div class="form-group">
                 <label>Phone number</label>
                 <input type="number" name="phoneNumber" class="form-control" placeholder="Enter phone number:"
@@ -145,9 +145,9 @@
                 <div class="form-group">
                     <label class="control-label">Driver sex</label>
                     <select class="form-control order_priority" name="driverSex">
-                        <option value="ANYONE">Anyone</option>
-                        <option value="MALE">Male</option>
-                        <option value="FEMALE">Female</option>
+                        <option value="A">Anyone</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
                     </select>
                 </div>
                 <div class="form-group" id="musicStyleGroup">

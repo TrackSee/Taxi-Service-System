@@ -26,7 +26,7 @@ public interface TaxiOrderDAO {
     /**
      *@author Igor Gula
      */
-    public int updateComment(Integer trackNumber, String comment);
+    public int updateComment(long trackNumber, String comment);
     /**
      *@author Igor Gula
      */
@@ -61,24 +61,23 @@ public interface TaxiOrderDAO {
     List<TaxiOrderEntity> getQueuedOrders();
 
     /**
-     * This method returns the order by tracking
-     * number.
+     * Returns object that contain
+     * information about order with
+     * such tracking number.
      *
      * @author Sharaban Sasha
-     * @param trackingNumber - the tracking number of which will return the order
-     * @return TaxiOrderEntity which contain information about order
+     * @param trackingNumber  tracking number of order
+     * @return object that contain all information about order
      */
     TaxiOrderEntity getOrder(Long trackingNumber);
 
     /**
-     * This method search for
-     *  order that the user is
-     *  looking for by tracking
-     *  number
+     * Checks order present in
+     * database with such trackingNumber.
      *
      * @author Sharaban Sasha
-     * @param trackingNumber - the tracking number of order that user looking for
-     * @return state of the order search, if it exist it will be true
+     * @param trackingNumber  tracking number of order
+     * @return state of order presenting
      */
     boolean checkOrderPresent(Long trackingNumber);
 
@@ -96,8 +95,8 @@ public interface TaxiOrderDAO {
      * @author Vadym Akymov
      * @return pages count of taxi order
      */
-    int getActiveTaxiOrderPagesCount();
-    int getOldTaxiOrderPagesCount();
+    int getActiveTaxiOrderPagesCount(int userID);
+    int getOldTaxiOrderPagesCount(int userID);
     /**
      * @author Oleksandr Kozin
      * @param startDate start date of the period

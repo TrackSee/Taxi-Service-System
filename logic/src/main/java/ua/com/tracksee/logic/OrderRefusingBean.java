@@ -16,14 +16,14 @@ import javax.ejb.Stateless;
  * @author Sharaban Sasha
  */
 @Stateless(name = "OrderCancellationBeanEJB")
-public class OrderCancellationBean {
+public class OrderRefusingBean {
     private static final Logger logger = LogManager.getLogger();
 
     private @EJB CancelDAOBean canselDAO;
     private @EJB TaxiOrderDAO taxiOrderDAO;
     private @EJB UserDAO userDAO;
 
-    public boolean cancelOrder(long trackingNumber) {
+    public boolean refuseOrder(long trackingNumber) {
         canselDAO.canselOrder(trackingNumber);
         int refusedTimes= canselDAO.getUserRefusedTimes(trackingNumber);
         if(refusedTimes>2){
@@ -41,7 +41,7 @@ and cand make more order whith this email
 
     /**
      * @author Sharaban Sasha
-     * @see FavoritePlaceDAO
+     * @see ua.com.tracksee.dao.UserDAO
      */
     public boolean checkBlackListByUserEmail(String email){
         return userDAO.checkBlackListUserByEmail(email);

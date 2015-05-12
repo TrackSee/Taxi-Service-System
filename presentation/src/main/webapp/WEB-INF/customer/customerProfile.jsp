@@ -47,13 +47,15 @@
   <div class="container">
 
     <!-- start: Row -->
-    <div class="row">
+    <div class="row orderRow">
     <%!int i = 0;%>
     <c:forEach items="${requestScope.orders}" var="order">
-      <div class="span4">
+      <div class="span4 orderSpan<%=i%>">
         <div class="icons-box orderBody">
           <i class="ico-shopping-cart circle big"></i>
-          <div class="title"><h3 class="order<%=i%>">Order № ${order.trackingNumber}</h3></div>
+          <a class="track" href="<%=application.getContextPath()%>/orderTracking"><div class="title">
+              <h3 class="order<%=i%>">Order № ${order.trackingNumber}</h3></div></a>
+          <input type="hidden" class="trackingNumber" value="${order.trackingNumber}">
           <div>
             <p class="service<%=i%>"><b>SERVICE:</b> ${order.service}</p>
           </div>
@@ -66,6 +68,7 @@
           <div>
             <p class="date<%=i%>"><b>DATE:</b> <fmt:formatDate pattern="dd-MM-yyyy" value="${order.orderedDate}"/></p>
           </div>
+            <a class="btn btn-large btn-success" href="orderInfo"><h4>Have a look detailed this order</h4></a>
           <div class="clear"></div>
         </div>
       </div>

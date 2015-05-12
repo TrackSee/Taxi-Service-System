@@ -58,8 +58,6 @@
 
     <form class="update-car" id="updateItCar" action="<c:url value="/admin/updatecar"/>" method="post">
         <h2 class="form-sign-up-heading">Please enter cars data</h2>
-        <%--<label for="carNumber" class="sr-only">Number</label>--%>
-        <%--<input type="carNumber" id="carNumber" name="carNumber" class="form-control" placeholder="Car Number" value="${car.carNumber}">--%>
 
         <label for="carModel" class="sr-only">Model</label>
         <input type="carModel" id="carModel" name="carModel" class="form-control"   value="${car.carModel}">
@@ -67,9 +65,6 @@
         <label for="carColor" class="sr-only">Color</label>
         <input type="carColor" id="carColor" name="carColor" class="form-control"
                placeholder="color"  value="${car.color}">
-
-
-        <%--TODO send via ajax!!--%>
         <div>
             <label>Category</label>
         </div>
@@ -79,9 +74,11 @@
             <option value="VAN">VAN</option>
         </select>
         <%--<label for="animalTransportationApplicable" class="sr-only">Color</label>--%>
-        <input type="checkbox" id = "animalTransportationApplicable" name="animalTransportationApplicable"  value="${car.animalTransportationApplicable}" >Animal Transportation Applicable<Br>
-        <input type="checkbox" id = "freeWifi" name="freeWifi" value="${car.freeWifi}">Free Wifi<Br>
-        <input type="checkbox" id = "airConditioner" name="airConditioner" value="${car.airConditioner}" >Air Conditioner<Br>
+        <input type="checkbox" id="acceptsVisa" name="acceptsVisa" ${car.acceptsVisa? "checked=\"on\"" : ""} >Way Of Payment - VISA<Br>
+
+        <input type="checkbox" id = "animalTransportationApplicable" name="animalTransportationApplicable" ${car.animalTransportationApplicable? "checked=\"on\"" : ""} >Animal Transportation Applicable<Br>
+        <input type="checkbox" id = "freeWifi" name="freeWifi" ${car.freeWifi ? "checked=\"on\"" : ""}>Free Wifi<Br>
+        <input type="checkbox" id = "airConditioner" name="airConditioner" ${car.airConditioner ? "checked=\"on\"" : ""} >Air Conditioner<Br>
         <div>
             <button  id="updateCar" type="button" class="btn btn-primary">Create</button>
         </div>

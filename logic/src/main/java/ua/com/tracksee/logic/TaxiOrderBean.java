@@ -4,10 +4,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entities.*;
+import ua.com.tracksee.entities.MostPopularOption;
+import ua.com.tracksee.entities.ServiceProfitable;
+import ua.com.tracksee.entities.TaxiOrderEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.enumartion.*;
-import ua.com.tracksee.json.TaxiOrderDTO;
 import ua.com.tracksee.exception.OrderException;
+import ua.com.tracksee.json.TaxiOrderDTO;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -34,6 +37,7 @@ public class TaxiOrderBean {
 
     private @EJB TaxiOrderDAO taxiOrderDAO;
     private @EJB UserDAO userDAO;
+    private @EJB FavoritePlaceDAO favoritePlaceDAO;
     private @EJB EmailBean mailBean;
     private @EJB ValidationBean validationBean;
     private @EJB PriceCalculatorBean priceCalculatorBean;
@@ -73,7 +77,7 @@ public class TaxiOrderBean {
     }
 
     /**
-     * This method check input data,insert order in database.
+     * Checks input data,insert order in database.
      * Also it insert user in database if he doesn't have  record
      * about him in database. And it send conformation letter with
      * tracking number, also tracking number returns to be shown to
@@ -128,13 +132,16 @@ public class TaxiOrderBean {
      * @author Vadym Akymov
      * @see TaxiOrderDAO
      */
-    public int getActiveTaxiOrderPagesCount() {
-        return taxiOrderDAO.getActiveTaxiOrderPagesCount();
+    public int getActiveTaxiOrderPagesCount(int userID) {
+        return taxiOrderDAO.getActiveTaxiOrderPagesCount(userID);
     }
 
     /**
+     * Updates order.
+     *
      * @author Sharaban Sasha
      * @author Igor Gula
+     * @param inputData information about changed order
      */
     public void updateOrder(HashMap<String, String> inputData) throws OrderException {
         TaxiOrderEntity taxiOrderEntity = validateForUpdateTaxiOrder(inputData);
@@ -153,7 +160,8 @@ public class TaxiOrderBean {
         }
     }
 
-    public void updateComment(Integer trackNumber, String comment) {
+
+    public void updateComment(long trackNumber, String comment) {
         taxiOrderDAO.updateComment(trackNumber, comment);
     }
 
@@ -161,16 +169,18 @@ public class TaxiOrderBean {
      * @author Vadym Akymov
      * @see TaxiOrderDAO
      */
-    public int getOldTaxiOrderPagesCount() {
-        return taxiOrderDAO.getOldTaxiOrderPagesCount();
+    public int getOldTaxiOrderPagesCount(int userID) {
+        return taxiOrderDAO.getOldTaxiOrderPagesCount(userID);
     }
 
     /**
      * This method checks whether there is a user who made
      * the order in database, if he present in database the
      * unique number of record attache to him,
-     * if not then create record in the database and attache to him
-     * new and unique generation number of created record.
+     * if not then creates record in the database and attache to him
+     * new and unique number of created record.
+     * Password and salt are set by default as empty
+     * string for unregistered user.
      *
      * @author Sharaban Sasha
      * @author Avlasov Sasha
@@ -182,10 +192,11 @@ public class TaxiOrderBean {
             logger.info("User was found");
             userEntity.setUserId(userDAO.getUserIdByEmail(userEntity.getEmail()));
         } else {
-            logger.info("User was not found");
+            logger.info("User was not found, record about him will be created");
             userEntity.setActivated(false);
             userEntity.setPassword("");
-            userEntity.setUserId(userDAO.addUser(userEntity));
+            userEntity.setSalt("");
+            userEntity.setUserId(userDAO.addUnregisteredUser(userEntity));
         }
         return userEntity;
     }
@@ -240,48 +251,26 @@ public class TaxiOrderBean {
         Sex driverSex;
         Service service;
         MusicStyle musicStyle;
-        OrderStatus orderStatus = OrderStatus.QUEUED;
+        OrderStatus orderStatus;
 
-            Timestamp arriveTimestamp = convertToTimestamp(inputData.get("arriveDate"));
-            taxiOrderEntity.setArriveDate(arriveTimestamp);
-           Timestamp endTimestamp = convertToTimestamp(inputData.get("endDate"));
-            taxiOrderEntity.setEndDate(endTimestamp);
-   
+        Timestamp arriveTimestamp = convertToTimestamp(inputData.get("arriveDate"));
+        taxiOrderEntity.setArriveDate(arriveTimestamp);
+        Timestamp endTimestamp = convertToTimestamp(inputData.get("endDate"));
+        taxiOrderEntity.setEndDate(endTimestamp);
 
-        if (inputData.get("orderStatus").equals("QUEUED")) {
-            taxiOrderEntity.setStatus(orderStatus);
-        }
-
+        orderStatus = enumValidationBean.setEnumOrderStatus(inputData.get("orderStatus"));
+        taxiOrderEntity.setStatus(orderStatus);
         carCategory = enumValidationBean.setEnumCarCategory(inputData.get("carCategory"));
-        if (carCategory != null) {
-            taxiOrderEntity.setCarCategory(carCategory);
-        } else {
-            throw new OrderException("Invalid carCategory enum value", "invalid-carCategory");
-        }
+        taxiOrderEntity.setCarCategory(carCategory);
         wayOfPayment = enumValidationBean.setEnumWayOfPayment(inputData.get("wayOfPayment"));
-        if (wayOfPayment != null) {
-            taxiOrderEntity.setWayOfPayment(wayOfPayment);
-        } else {
-            throw new OrderException("Invalid wayOfPayment enum value", "invalid-wayOfPayment");
-        }
+        taxiOrderEntity.setWayOfPayment(wayOfPayment);
         driverSex = enumValidationBean.setEnumDriverSex(inputData.get("driverSex"));
-        if (driverSex != null) {
-            taxiOrderEntity.setDriverSex(driverSex);
-        } else {
-            throw new OrderException("Invalid driverSex enum value", "invalid-driverSex");
-        }
+        taxiOrderEntity.setDriverSex(driverSex);
         service = enumValidationBean.setEnumService(inputData.get("service"));
-        if (service != null) {
-            taxiOrderEntity.setService(service);
-        } else {
-            throw new OrderException("Invalid service enum value", "invalid-service");
-        }
+        taxiOrderEntity.setService(service);
         musicStyle = enumValidationBean.setEnumMusicStyle(inputData.get("musicStyle"));
-        if (musicStyle != null) {
-            taxiOrderEntity.setMusicStyle(musicStyle);
-        } else {
-            throw new OrderException("Invalid musicStyle enum value", "invalid-musicStyle");
-        }
+        taxiOrderEntity.setMusicStyle(musicStyle);
+
         taxiOrderEntity.setAnimalTransportation(convertCheckBoxToBoolean(inputData.get("animalTransportation")));
         taxiOrderEntity.setFreeWifi(convertCheckBoxToBoolean(inputData.get("freeWifi")));
         taxiOrderEntity.setNonSmokingDriver(convertCheckBoxToBoolean(inputData.get("smokingDriver")));
@@ -317,7 +306,7 @@ public class TaxiOrderBean {
             timestamp = new java.sql.Timestamp(parsedDate.getTime());
         } catch (ParseException e) {
             logger.info("Invalid or missing date, cannot be parsed");
-            timestamp=null;
+            timestamp = null;
         }
         return timestamp;
     }
@@ -331,8 +320,13 @@ public class TaxiOrderBean {
     }
 
     /**
+     * Returns object that contain
+     * information about user with
+     * such user id.
+     *
      * @author Sharaban Sasha
-     * @see ua.com.tracksee.dao.UserDAO
+     * @param id id number of user record
+     * @return object that contain all information about user
      */
     public UserEntity getUserInfo(int id) {
 
@@ -384,35 +378,16 @@ public class TaxiOrderBean {
         taxiOrderEntity.setEndDate(endTimestamp);
 
         carCategory = enumValidationBean.setEnumCarCategory(inputData.get("carCategory"));
-        if (carCategory != null) {
-            taxiOrderEntity.setCarCategory(carCategory);
-        } else {
-            throw new OrderException("Invalid carCategory enum value", "invalid-carCategory");
-        }
+        taxiOrderEntity.setCarCategory(carCategory);
         wayOfPayment = enumValidationBean.setEnumWayOfPayment(inputData.get("wayOfPayment"));
-        if (wayOfPayment != null) {
-            taxiOrderEntity.setWayOfPayment(wayOfPayment);
-        } else {
-            throw new OrderException("Invalid wayOfPayment enum value", "invalid-wayOfPayment");
-        }
+        taxiOrderEntity.setWayOfPayment(wayOfPayment);
         driverSex = enumValidationBean.setEnumDriverSex(inputData.get("driverSex"));
-        if (driverSex != null) {
-            taxiOrderEntity.setDriverSex(driverSex);
-        } else {
-            throw new OrderException("Invalid driverSex enum value", "invalid-driverSex");
-        }
+        taxiOrderEntity.setDriverSex(driverSex);
         service = enumValidationBean.setEnumService(inputData.get("service"));
-        if (service != null) {
-            taxiOrderEntity.setService(service);
-        } else {
-            throw new OrderException("Invalid service enum value", "invalid-service");
-        }
+        taxiOrderEntity.setService(service);
         musicStyle = enumValidationBean.setEnumMusicStyle(inputData.get("musicStyle"));
-        if (musicStyle != null) {
-            taxiOrderEntity.setMusicStyle(musicStyle);
-        } else {
-            throw new OrderException("Invalid musicStyle enum value", "invalid-musicStyle");
-        }
+        taxiOrderEntity.setMusicStyle(musicStyle);
+
         taxiOrderEntity.setAnimalTransportation(convertCheckBoxToBoolean(inputData.get("animalTransportation")));
         taxiOrderEntity.setFreeWifi(convertCheckBoxToBoolean(inputData.get("freeWifi")));
         taxiOrderEntity.setNonSmokingDriver(convertCheckBoxToBoolean(inputData.get("smokingDriver")));
@@ -425,7 +400,10 @@ public class TaxiOrderBean {
         }
         return taxiOrderEntity;
     }
-
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     */
     public boolean checkOrderPresent(long trackingNumber) {
         return taxiOrderDAO.checkOrderPresent(trackingNumber);
     }

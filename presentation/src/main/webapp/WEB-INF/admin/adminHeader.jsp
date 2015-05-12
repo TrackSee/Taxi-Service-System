@@ -57,6 +57,10 @@
                         </li>
                     </ul>
                 </li>
+                <%--Change Tariff--%>
+                <li>
+                    <a href="<%=application.getContextPath()%>/admin/tariff"><i class="fa fa-dollar fa-fw"></i> Tariffs</a>
+                </li>
                 <%--block users account--%>
                 <li><a href="<%=application.getContextPath()%>/admin/block">Block User</a> </li>
                 <%--groups edit--%>

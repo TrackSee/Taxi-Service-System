@@ -1,40 +1,62 @@
 /**
  * Created by Vadym Akymov on 29.04.15.
  */
-
 var dataType = $('.active').val();
+//orders per page
+var itemsPerPage = 3;
 console.log('dataType value: ' + dataType);
 
 //click on old button
 $('.completed').click(function(){
-    window.location.href = 'dashboard?type=completed';
+    window.location.href = '?type=completed';
 });
 //click on active button
 $('.act').click(function(){
-    window.location.href = 'dashboard?type=active';
+    window.location.href = '?type=active';
 });
 
+//temporary
+var pNumber = $('.pageNumber').val();
+console.log("pageNumber: " + pNumber);
+var pCount = $('.pagesCount').val();
+console.log("pageCount: " + pCount);
+
+//controll buttons enabled
+if(pCount == 1){
+    $('.nextButton').attr('disabled','disabled');
+    $('.prevButton').attr('disabled','disabled');
+}
+
 $('.nextButton').click(function(){
-    console.log('dataType ' + dataType);
-    var pageNumber = $('.pageNumber').val();
-    var pagesCount = $('.pagesCount').val();
-    if((++pageNumber) >= pagesCount){
+    var pageNumber = $('.pageNumber').val() - 0;
+    console.log(pageNumber + 1);
+    if(pageNumber + 1 >= pCount){
         $('.nextButton').attr('disabled','disabled');
+        $('.prevButton').removeAttr('disabled');
     } else {
         $('.nextButton').removeAttr('disabled');
-    }
-    if((--pageNumber) < 1){
-        $('.prevButton').attr('disabled','disabled');
-    } else {
         $('.prevButton').removeAttr('disabled');
     }
     $.ajax({
         type: 'GET',
-        url: 'get-orders',
+        url: 'customer/get-orders',
         data: 'pageNumber=' + (++pageNumber) + '&type=' + dataType,
         success: function(data){
             $('.pageNumber').val(pageNumber);
             var ordersArray = JSON.parse(data);
+            //control count of items on page
+            console.log("Childrens: " + $('.orderRow').children().length);
+            if(ordersArray.length < $('.orderRow').children().length){
+                for(var i = ordersArray.length; i < itemsPerPage; i++){
+                    $('.orderSpan' + i).remove();
+                }
+            } else {
+                for(var i = $('.orderRow').children().length; i < itemsPerPage; i++){
+                    console.log('i = ' + i);
+                    var childSpan = createOrderSpan(i);
+                    $('.orderRow').append(childSpan);
+                }
+            }
             for(var i = 0; i < ordersArray.length; i++){
                 $('.order' + i).text('Order № ' + ordersArray[i].trackingNumber);
                 $('.service' + i).html('<b>SERVICE:</b> ' + ordersArray[i].service);
@@ -50,26 +72,36 @@ $('.nextButton').click(function(){
 
 //Previous button click
 $('.prevButton').click(function(){
-    console.log('dataType ' + dataType);
-    var pageNumber = $('.pageNumber').val();
-    var pagesCount = $('.pagesCount').val();
-    if((--pageNumber) <= 1){
+    var pageNumber = $('.pageNumber').val() - 0;
+    console.log(pageNumber - 1);
+    if(pageNumber - 1 <= 1){
         $('.prevButton').attr('disabled','disabled');
+        $('.nextButton').removeAttr('disabled');
     } else {
         $('.prevButton').removeAttr('disabled');
-    }
-    if((++pageNumber) > pagesCount){
-        $('.nextButton').attr('disabled','disabled');
-    } else {
         $('.nextButton').removeAttr('disabled');
     }
     $.ajax({
         type: 'GET',
-        url: 'get-orders',
+        url: 'customer/get-orders',
         data: 'pageNumber=' + (--pageNumber) + '&type=' + dataType,
         success: function(data){
             $('.pageNumber').val(pageNumber);
             var ordersArray = JSON.parse(data);
+            //control count of items on page
+            console.log("Childrens: " + $('.orderRow').children().length);
+            if(ordersArray.length < $('.orderRow').children().length){
+                for(var i = ordersArray.length; i < itemsPerPage; i++){
+                    $('.orderSpan' + i).remove();
+                }
+            } else {
+                for(var i = $('.orderRow').children().length; i < itemsPerPage; i++){
+                    console.log('i = ' + i);
+                    var childSpan = createOrderSpan(i);
+                    var orderRow = $('.orderRow');
+                    orderRow.append(childSpan);
+                }
+            }
             for(var i = 0; i < ordersArray.length; i++){
                 $('.order' + i).text('Order № ' + ordersArray[i].trackingNumber);
                 $('.service' + i).html('<b>SERVICE:</b> ' + ordersArray[i].service);
@@ -80,6 +112,12 @@ $('.prevButton').click(function(){
             }
         }
     });
+});
+
+//tracking number href
+$('.track').click(function(){
+    var trackingNumber = $('.trackingNumber').val();
+    alert("GET doesn't allowed!!")
 });
 
 function formatDate(d) {
@@ -94,4 +132,15 @@ function formatDate(d) {
     //if ( yy < 10 ) yy = '0' + yy;
 
     return dd+'-'+mm+'-'+yy
+}
+
+function createOrderSpan(orderNumber){
+    var childSpan = $('.orderSpan0').clone();
+    childSpan.removeClass('orderSpan0').addClass('orderSpan' + orderNumber);
+    childSpan.find('.order0').removeClass('order0').addClass('order' + orderNumber);
+    childSpan.find('.service0').removeClass('service0').addClass('service' + orderNumber);
+    childSpan.find('.status0').removeClass('status0').addClass('status' + orderNumber);
+    childSpan.find('.price0').removeClass('price0').addClass('price' + orderNumber);
+    childSpan.find('.date0').removeClass('date0').addClass('date' + orderNumber);
+    return childSpan;
 }

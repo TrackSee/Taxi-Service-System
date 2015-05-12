@@ -25,6 +25,7 @@ public class DriverProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = 6;
+        id = (int) req.getSession().getAttribute("userId");
         req.setAttribute("driver", userDAO.getDriverByID(id));
         req.getRequestDispatcher("/WEB-INF/driver/driverProfile.jsp").forward(req,resp);
     }
