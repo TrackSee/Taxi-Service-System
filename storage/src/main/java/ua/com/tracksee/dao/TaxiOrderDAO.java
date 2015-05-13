@@ -130,11 +130,13 @@ public interface TaxiOrderDAO {
 
     public void setAssignOrder(int driverId, int trackingNumber, Timestamp carArriveTime);
 
-    public void setInProgressOrder(int trackingNumber);
+    public int setInProgressOrder(int trackingNumber);
 
     public void setCompletedOrder(int trackingNumber);
 
     public void setRefusedOrder(int trackingNumber);
+
+    public void setToQueueOrder(int trackingNumber);
 
     public int getOrdersPagesCount(int id);
 

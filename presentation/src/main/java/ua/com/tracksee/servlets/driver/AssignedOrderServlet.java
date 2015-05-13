@@ -2,7 +2,7 @@ package ua.com.tracksee.servlets.driver;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.com.tracksee.logic.driver.DriverOrderBean;
+import ua.com.tracksee.logic.facade.OrderFacade;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -19,32 +19,36 @@ import java.io.IOException;
 public class AssignedOrderServlet extends HttpServlet {
     private static Logger logger = LogManager.getLogger();
     @EJB
-    private DriverOrderBean driverOrderBean;
+    private OrderFacade orderFacade;
     String timeCarArrive = "2015-06-25 00:00:00.000000";
     String trackingNumber;
     String orderStatus;
-    int id = 6;
+    int id;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         id = (int) req.getSession().getAttribute("userId");
         trackingNumber = req.getParameter("trackingNumber");
-        orderStatus = req.getParameter("orderStatus");
-        if(orderStatus != null) {
-            if(orderStatus.equals("Refused")){
-                driverOrderBean.setRefusedOrder(trackingNumber);
-            } else if(orderStatus.equals("In progress")){
-                driverOrderBean.setInProgressOrder(trackingNumber);
-            }
-            else if(orderStatus.equals("Completed")){
-                driverOrderBean.setCompletedOrder(trackingNumber);
-            }
-        }
+//        orderStatus = req.getParameter("orderStatus");
+//        if(orderStatus != null) {
+//            if(orderStatus.equals("Refused")) {
+//                driverOrderBean.setToQueueOrder(trackingNumber);
+//            }
+//            else if(orderStatus.equals("In progress")){
+//                driverOrderBean.setInProgressOrder(trackingNumber);
+//            }
+//            else if(orderStatus.equals("Completed")){
+//                driverOrderBean.setRefusedOrder(trackingNumber);
+//            }
+//            else if(orderStatus.equals("Toqueue")){
+//                driverOrderBean.setCompletedOrder(trackingNumber);
+//            }
+//        }
         //timeCarArrive = req.getParameter("carArriveTime");
         if(trackingNumber != null) {
-            driverOrderBean.setAssignOrder(id, trackingNumber, timeCarArrive);
+            orderFacade.setAssignOrder(id, trackingNumber, timeCarArrive);
         }
-        req.setAttribute("orders", driverOrderBean.getAssignedOrders(id, 1));
+        req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
         req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
     }
 
@@ -56,16 +60,21 @@ public class AssignedOrderServlet extends HttpServlet {
 
         if(orderStatus != null) {
             if(orderStatus.equals("Refused")){
-                driverOrderBean.setRefusedOrder(trackingNumber);
+                orderFacade.setRefusedOrder(trackingNumber);
             } else if(orderStatus.equals("In progress")){
-                driverOrderBean.setInProgressOrder(trackingNumber);
+                //TODO get int if 0 then show some warning to driver
+                orderFacade.setInProgressOrder(trackingNumber);
             }
             else if(orderStatus.equals("Completed")){
-                driverOrderBean.setCompletedOrder(trackingNumber);
+                orderFacade.setCompletedOrder(trackingNumber);
+            }
+            else if(orderStatus.equals("Toqueue")){
+                orderFacade.setToQueueOrder(trackingNumber);
             }
         }
 
-        req.setAttribute("orders", driverOrderBean.getAssignedOrders(id, 1));
+        //timeCarArrive = req.getParameter("carArriveTime");
+        req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
         req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
     }
 }

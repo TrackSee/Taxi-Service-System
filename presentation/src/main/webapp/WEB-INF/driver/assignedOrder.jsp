@@ -72,6 +72,7 @@
                   <th>Finish address</th>
                   <th>Price</th>
                   <th>Refuse</th>
+                  <th>Customer not arrived</th>
                   <th>In progress</th>
                   <th>Completed</th>
                 </tr>
@@ -90,6 +91,14 @@
                       <form action="assigned-order" method="post">
                         <a href="javascript:;" onclick="parentNode.submit();">
                           <button type="button" class="btn btn-success">Refuse</button></a>
+                        <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
+                        <input type="hidden" name="orderStatus" value="Toqueue">
+                      </form>
+                    </td>
+                    <td>
+                      <form action="assigned-order" method="post">
+                        <a href="javascript:;" onclick="parentNode.submit();">
+                          <button type="button" class="btn btn-success">Customer not arrived</button></a>
                         <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
                         <input type="hidden" name="orderStatus" value="Refused">
                       </form>

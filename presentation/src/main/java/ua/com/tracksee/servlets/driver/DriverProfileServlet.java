@@ -2,7 +2,7 @@ package ua.com.tracksee.servlets.driver;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.com.tracksee.dao.UserDAO;
+import ua.com.tracksee.logic.facade.DriverFacade;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -19,14 +19,14 @@ import java.io.IOException;
 //hello kitty
 public class DriverProfileServlet extends HttpServlet {
     private static Logger logger = LogManager.getLogger();
+    int id;
     @EJB
-    private UserDAO userDAO;
+    private DriverFacade driverFacade;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = 6;
         id = (int) req.getSession().getAttribute("userId");
-        req.setAttribute("driver", userDAO.getDriverByID(id));
+        req.setAttribute("driver", driverFacade.getDriverByID(id));
         req.getRequestDispatcher("/WEB-INF/driver/driverProfile.jsp").forward(req,resp);
     }
 }

@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.TaxiOrderEntity;
-import ua.com.tracksee.logic.driver.DriverOrderBean;
+import ua.com.tracksee.logic.facade.OrderFacade;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -22,20 +22,17 @@ import java.util.List;
 @WebServlet("driver/history-of-orders")
 public class HistoryDriverServlet extends HttpServlet{
     private static Logger logger = LogManager.getLogger();
-
-    int id = 6;
+    int id;
 
     @EJB
-    private DriverOrderBean driverOrderBean;
+    private OrderFacade orderFacade;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         id = (int) req.getSession().getAttribute("userId");
-        List<TaxiOrderEntity> orders = driverOrderBean.getHistoryOfOrders(id, 1);
-        //Map<Integer, String> addresses = driverOrderBean.getStringAddressForList(orders);
+        List<TaxiOrderEntity> orders = orderFacade.getHistoryOfOrders(id, 1);
         req.setAttribute("orders", orders);
-        req.setAttribute("pagesCount", driverOrderBean.getOrdersPagesCount(id));
-        //req.setAttribute("addresses", addresses);
+        req.setAttribute("pagesCount", orderFacade.getOrdersPagesCount(id));
         //req.setAttribute("pagesCount", driverOrderBean.getOrdersPagesCount(id));
         req.getRequestDispatcher("/WEB-INF/driver/historyDriverTo.jsp").forward(req,resp);
     }
@@ -48,7 +45,7 @@ public class HistoryDriverServlet extends HttpServlet{
         //check pageNumber
         try {
             pageNumber = Integer.parseInt(req.getParameter("pageNumber"));
-            if(pageNumber > driverOrderBean.getOrdersPagesCount(id)){
+            if(pageNumber > orderFacade.getOrdersPagesCount(id)){
                 pageNumber = 1;
                 logger.warn("wrong page was request");
             }
@@ -56,9 +53,9 @@ public class HistoryDriverServlet extends HttpServlet{
             pageNumber = 1;
             logger.warn("wrong page was request");
         }
-        List<TaxiOrderEntity> orders = driverOrderBean.getHistoryOfOrders(id, pageNumber);
+        List<TaxiOrderEntity> orders = orderFacade.getHistoryOfOrders(id, pageNumber);
         req.setAttribute("orders", orders);
-        req.setAttribute("pagesCount", driverOrderBean.getOrdersPagesCount(id));
+        req.setAttribute("pagesCount", orderFacade.getOrdersPagesCount(id));
         resp.getWriter().write(getJsonFromList(orders));
 
 //        List<TaxiOrderEntity> orders = driverOrderBean.getHistoryOfOrders(id, 1);
