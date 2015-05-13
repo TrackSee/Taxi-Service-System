@@ -66,7 +66,7 @@
                                     Is animal transported?
                                 </td>
                                 <td>
-                                    <img style = "width : 10%;" src = "http://cs311228.vk.me/v311228353/333a/gdY5Fs0b404.jpg"></img>
+                                    ${animal}
                                 </td>
                             </tr>
                             <tr>
@@ -79,7 +79,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Is 'smoking driver'?
+                                    Is 'non-smoking driver'?
                                 </td>
                                 <td>
                                 ${smoking}

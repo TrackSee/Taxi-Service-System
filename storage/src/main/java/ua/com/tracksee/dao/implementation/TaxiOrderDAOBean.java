@@ -418,13 +418,16 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     }
 
     @Override
-    public List<TaxiOrderEntity> getAssignedOrders(int id) {
+    public List<TaxiOrderEntity> getAssignedOrders(int id, int pageNumber) {
         String sql = "SELECT * FROM taxi_order " +
                 "INNER JOIN taxi_order_item " +
                 "ON taxi_order.tracking_number = taxi_order_item.tracking_numer " +
-                "AND taxi_order_item.driver_id = ? AND (status = 'ASSIGNED' OR status ='IN_PROGRESS')";
+                "AND taxi_order_item.driver_id = ? AND (status = 'ASSIGNED' OR status ='IN_PROGRESS')" +
+                "LIMIT ? OFFSET ?";
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
         query.setParameter(1, id);
+        query.setParameter(2, ORDERS_PAGE_SIZE);
+        query.setParameter(3, (pageNumber - 1) * ORDERS_PAGE_SIZE);
         return query.getResultList();
     }
 

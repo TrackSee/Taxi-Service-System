@@ -5,9 +5,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import ua.com.tracksee.dao.TaxiOrderDAO;
-import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.TaxiOrderItemEntity;
+import ua.com.tracksee.entities.UserEntity;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -19,7 +19,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,8 +98,8 @@ public class DriverOrderBean {
         return taxiOrderDao.getHistoryOfOrders(id, pageNumber);
     }
 
-    public List<TaxiOrderEntity> getAssignedOrders(int id){
-        return taxiOrderDao.getAssignedOrders(id);
+    public List<TaxiOrderEntity> getAssignedOrders(int id, int pageNumber){
+        return taxiOrderDao.getAssignedOrders(id, pageNumber);
     }
 
     public void setAssignOrder(int driverId, String trackingNumber, String carArriveTime){

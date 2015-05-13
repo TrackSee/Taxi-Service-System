@@ -19,7 +19,7 @@ import java.util.List;
  * Created by Maria Komar on 19.04.2015.
  */
 
-@WebServlet("/driver/free-orders")
+@WebServlet({"/driver/free-orders", "/driver/"})
 public class DriverIndexServlet extends HttpServlet {
 
     int id = 6;

@@ -10,7 +10,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.sql.Timestamp;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Session Facade Bean for order subsystem.
