@@ -127,16 +127,30 @@
 
                           <div class="map-canvas">"Map"</div>
                         </div>
-                        <div class="panel-body text-center">
-                          <p>${order.trackingNumber}</p>
-                        </div>
                         <ul class="list-group text-center">
-                          <li class="list-group-item"><i class="fa fa-check"></i> Personal use</li>
-                          <li class="list-group-item"><i class="fa fa-check"></i> Unlimited projects</li>
-                          <li class="list-group-item"><i class="fa fa-check"></i> 27/7 support</li>
+                          <li class="list-group-item"><h3>Order tracking number: </h3> ${order.trackingNumber}</li>
+                          <li class="list-group-item">
+                            <label for="arriveDate" class="sr-only">Arrive date</label>
+
+                            <div class="controls input-append date form_datetime" data-date="2015-04-16T05:25:07Z"
+                                 data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                              <span class="add-on"><i class="icon-th"></i></span>
+                              <span class="add-on"><i class="icon-remove"></i></span>
+                              <input size="16" type="text" value= ${order.orderedDate} id="arriveDate" name="arriveDate" readonly>
+                              <input type="hidden" id="dtp_input1" value=""/><br/>
+
+                            </div>
+                          </li>
+                          <li class="list-group-item"><h3>Price: </h3>${order.price}</li>
+                          <li class="list-group-item"><h3>Non smoking: </h3>${order.nonSmokingDriver==true ? "+" : "-"}</li>
+                          <li class="list-group-item"><h3>Music style: </h3> ${order.musicStyle}</li>
+                          <li class="list-group-item"><h3>Status: </h3> ${order.status}</li>
                         </ul>
                         <div class="panel-footer">
-                          <a class="btn btn-lg btn-block btn-success" href="#">BUY NOW!</a>
+                          <a href="assigned-order?trackingNumber=${order.trackingNumber}" >
+                            <button type="button" id="assignOrder" class="btn btn-success btn-lg btn-block">
+                              Assign order</button></a>
+
                         </div>
                       </div>
                     </div>
