@@ -16,6 +16,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static java.io.File.separatorChar;
@@ -51,31 +52,15 @@ public class EmailBean {
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_SUBJECT_TEMP_PROP_NAME = "TrackSee Order refused";
     private static final String REGISTRATION_TEMP_PATH = CONFIG_LOCATION + "registration_template.ftl";
     private static final String REGISTRATION_SUBJECT_TEMP_PROP_NAME = "TrackSee: Confirm User Registration";
+    private static final String CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_PATH = CONFIG_LOCATION + "changing_to-from-queued-to-updated.ftl";
+    private static final String CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_SUBJECT_PROP_NAME = "TrackSee Order Updated";
+
+    private static final String CONFIRMATION_TEMP_PATH = CONFIG_LOCATION + "confirmation_template.ftl";
+    private static final String CONFIRMATION_TEMP_SUBJECT_PROP_NAME = "TrackSee Order Confirmation";
+
+
     private @EJB UserDAO userDAO;
 
-
-//    @Asynchronous
-//    public void sendRegistrationEmail(ServiceUserEntity user, String userCode) throws MessagingException {
-//        MimeMessage message = new MimeMessage(getEmailSession());
-//        message.setFrom(new InternetAddress(SERVER_EMAIL));
-//        message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
-//        message.setSubject("Registration at " + WEBSITE_SHORT);
-//        message.setText(getMessageText(userCode));
-//        Transport.send(message);
-////        Map<String, Object> data = new HashMap<>();
-////        data.put("activationLink", WEBSITE_FULL + "activation?code=" + userCode);
-////        sendTemplatedEmail(user.getEmail(), REGISTRATION_EMAIL_SUBJECT,
-////                REGISTRATION_TEMPLATE_PATH, data);
-//        logger.debug("Sent message successfully to {}", user.getEmail());
-//    }
-//
-//    private String getMessageText(String userCode) {
-//        return "Hi, \n"
-//                + "Your email address was used for registration at "
-//                + WEBSITE_SHORT
-//                + "\nPlease click the confirmation link to complete registration: "
-//                + WEBSITE_FULL + "activation?code=" + userCode;
-//    }
 
     /**
      * @param email
@@ -151,28 +136,43 @@ public class EmailBean {
     }
 
 
+    /**
+     *
+     * @param order
+     * @throws MessagingException
+     */
+    @Asynchronous
+    public void sendChangingTOFromQueuedToUpdated(TaxiOrderItemEntity order) throws MessagingException {
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
+        data.put("trackingNumber", order.getTaxiOrder().getTrackingNumber());
+        data.put("carCat", order.getTaxiOrder().getCarCategory().toString());
+        data.put("wayOfPay", order.getTaxiOrder().getFreeWifi().toString());
+        data.put("animal", order.getTaxiOrder().getAnimalTransportation() ? "yes" : "no");
+        data.put("wifi", order.getTaxiOrder().getFreeWifi() ? "yes" : "no");
+        data.put("smoking", order.getTaxiOrder().getNonSmokingDriver() ? "yes" : "no");
+        data.put("music", order.getTaxiOrder().getMusicStyle());
+        List<String> driverEmails = userDAO.getDriversEmails();
+        sendTemplatedEmail(driverEmails, CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_SUBJECT_PROP_NAME, CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_PATH, data);
+    }
+
+    /**
+     *
+     * @param user
+     * @param trackingNumber
+     */
     @Asynchronous
     public void sendOrderConfirmation(UserEntity user, Long trackingNumber) {
-//TODO use trackingNumber and use template
-        MimeMessage message = new MimeMessage(EmailUtils.getEmailSession());
         try {
-            message.setFrom(new InternetAddress(EmailUtils.SERVER_EMAIL));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
-            message.setSubject("Order Taxi " + WEBSITE_SHORT);
-            message.setText(getOrderConfirmMessageText(user.getUserId()));
-            Transport.send(message);
+            Map<String, Object> data = new HashMap<String, Object>();
+            data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
+            data.put("userCode", trackingNumber);
+            data.put("website_short", WEBSITE_SHORT);
+            data.put("website_full", WEBSITE_FULL);
+            sendTemplatedEmail(user.getEmail(), CONFIRMATION_TEMP_SUBJECT_PROP_NAME, CONFIRMATION_TEMP_PATH, data );
             logger.debug("Order confirmation email sent successfully to {}", user.getEmail());
         } catch (MessagingException e) {
             logger.warn("Order confirmation email sending to {} failed", user.getEmail());
         }
-    }
-
-    //TODO why not template?
-    private String getOrderConfirmMessageText(int id) {
-        return "Hello! \n"
-                + "Order taxi confirm message! "
-                + WEBSITE_SHORT
-                + "\nLink for your dashbord whith orders: "
-                + WEBSITE_FULL + "user_orders?user_id=" + id;
     }
 }

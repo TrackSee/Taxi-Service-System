@@ -15,10 +15,9 @@ import java.io.IOException;
  * @author Sharaban Sasha
  */
 @WebServlet("/orderInfo")
-public class OrderInfoServlet extends HttpServlet {
-    private static final Logger logger = LogManager.getLogger();
+public class OrderInfoServlet extends HttpServlet implements OrderAttributes {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/customer/orderInfo.jsp").forward(req,resp);
+        req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req,resp);
     }
 }

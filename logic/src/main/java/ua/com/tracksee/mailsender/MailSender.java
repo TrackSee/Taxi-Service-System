@@ -35,7 +35,7 @@ public class MailSender {
         try {
             FROM_ADDRESS = SenderSessionSpecificator.GMAIL.getInternetAddress();
         } catch (AddressException e) {
-            logger.error("ERROR, can not parse server_email: {1} to getInternetAddress","tracksee.mail@gmail.com");
+            logger.error("ERROR, can not parse server_email: {1} to getInternetAddress", "tracksee.mail@gmail.com");
         }
     }
 
@@ -66,8 +66,7 @@ public class MailSender {
      * @param body       - specifies the mail body
      */
     public static void sendEmailToGroup(List<String> recipients,
-                                        String subject, String body) throws MessagingException
-    {
+                                        String subject, String body) throws MessagingException {
         Message message = new MimeMessage(SESSION);
         message.setFrom(FROM_ADDRESS);
 
@@ -81,9 +80,15 @@ public class MailSender {
     }
 
 
+    /**
+     * @param to
+     * @param subject
+     * @param templatePath
+     * @param data
+     * @throws MessagingException
+     */
     public static void sendTemplatedEmail(String to, String subject,
-                                          String templatePath, Map<String, Object> data) throws MessagingException
-    {
+                                          String templatePath, Map<String, Object> data) throws MessagingException {
         String body;
         try {
             Template template = loadTemplate(templatePath);
@@ -98,6 +103,34 @@ public class MailSender {
 
     }
 
+    /**
+     * @param to
+     * @param subject
+     * @param templatePath
+     * @param data
+     * @throws MessagingException
+     */
+    public static void sendTemplatedEmail(List<String> to, String subject,
+                                          String templatePath, Map<String, Object> data) throws MessagingException {
+        String body;
+        try {
+            Template template = loadTemplate(templatePath);
+            Writer out = new StringWriter();
+            template.process(data, out);
+            body = out.toString();
+            out.flush();
+        } catch (TemplateException | IOException e) {
+            throw new MessagingException("Unable to create template due: " + e.getMessage());
+        }
+        sendEmailToGroup(to, subject, body);
+
+    }
+
+    /**
+     * @param path
+     * @return
+     * @throws IOException
+     */
     public static Template loadTemplate(String path) throws IOException {
         Configuration cfg = new Configuration();
         return cfg.getTemplate(path);

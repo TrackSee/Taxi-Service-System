@@ -37,54 +37,14 @@
 
         <div class="title"><h3>Information about order</h3></div>
 
-    <div id="hideSuccessUpdate${successUpdate}">
-        <div class="alert alert-success" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button><h3>
-            Your order has been updated successfully!
-        </h3></div>
-    </div>
-    <div id="hideSuccessAddComments${successAddComments}">
-        <div class="alert alert-success" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button><h3>
-            Comments for yours order has been added successfully
-        </h3></div>
-    </div>
-        <div id="hideUnregisteredSuccess${showUnregisteredSuccess}">
-            <div class="alert alert-success" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button><h3>
-                Your order accepted for further processing successfully and you was assigned to such tracking number:
-                ${trackingNumber}
-            </h3>
-                <a class="btn btn-large btn-success" href="orderInfo"><h4 >Track your taxi order</h4></a>
-            </div>
-        </div>
-       ${showSuccess}
+        ${updateSuccess}
+        ${addCommentsSuccess}
+        ${orderSuccess}
+        ${orderWarning}
+        ${refuseSuccess}
+        ${refuseWarning}
+        ${nonExistTrackingNumberWarning}
 
-        <div id="hideError${showError}">
-            <div class="alert alert-danger" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button><h3>
-                Your order has been rejected because you refused three orders that you have made and so you been put
-                in the black list:
-            </h3></div>
-        </div>
-        <div id="hideRefuseSuccess${showRefuseSuccess}">
-            <div class="alert alert-success" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button><h3>
-                Your order has been refused!
-            </h3></div>
-        </div>
-        <div id="hideRefuseError${showRefuseError}">
-            <div class="alert alert-danger" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button><h3>
-                Your order with tracking number: ${trackingNumber} has not been canceled,
-                if you do not change your mind try again.
-            </h3></div>
             <a class="btn btn-large btn-success" href="orderInfo"><h4 class="outline">Track your taxi order</h4></a>
         </div>
         <div ${hideOrderTrack}>
@@ -102,13 +62,7 @@
             </div>
         </div>
     </div>
-            <%--<form method="post" action="<c:url value="/report"/>">--%>
-            <%--<label>--%>
-            <%--</label>--%>
-            <%--<div class="form-group">--%>
-            <%--<button type="submit" class="btn btn-danger btn-large">Get report</button>--%>
-            <%--</div>--%>
-            <%--</form>--%>
+
 
         <p></p>
         <!-- end: Wrapper  -->
