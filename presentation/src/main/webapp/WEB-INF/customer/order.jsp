@@ -46,6 +46,8 @@
     <!--start: Container -->
     <div class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
+        <input type="text" hidden="hidden" id="taxiPricePerKm" value="10">
+        <%--${"taxiPricePerKm"}">--%>
         <form method="post" action="<c:url value="/order"/>">
             <div class="form-group">
                 <label>Phone number</label>
@@ -66,19 +68,21 @@
 
             <div class="form-group">
                 <label>Address from</label>
-                <input type="text" id="origin" class="form-control" value="${addressOrigin}"
+                <input type="text" id="origin" class="form-control" value=""
                        name="addressOrigin" title="That address is invalid"
                        required onblur="updateRoute()">
                 <span class="red-star">★</span>
             </div>
 
+
             <div class="form-group">
                 <label>Address to</label>
-                <input type="text" id="destination" class="form-control" value="${addressDestination}"
+                <input type="text" id="destination" class="form-control" value=""
                        name="addressDestination" title="That address is invalid"
                        required onblur="updateRoute()">
                 <span class="red-star" id="importanceAddressDestination">★</span>
             </div>
+
             <div class="form-group">
                 <label class="control-label">Way of payment</label>
                 <select class="form-control order_priority" name="wayOfPayment">
@@ -192,7 +196,7 @@
                 </div>
 
                 Description:<br/>
-                <textarea name="description" id="description" rows="4" cols="50" title=""></textarea>
+                <textarea name="description" id="description" rows="4" cols="50" title="" ></textarea>
                 <br/>
             </div>
 
@@ -250,6 +254,11 @@
 <script src="<%=application.getContextPath()%>/resources/customer/js/other-services.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/longTerm.js"></script>
 <%--end order oage scripts--%>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
+<script>
+
+getPrice();
+</script>
 
 <%@include file="../parts/scripts.jsp" %>
 <%@include file="../parts/footer.jsp" %>
