@@ -460,11 +460,11 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
 
     @Override
-    public void setInProgressOrder(int trackingNumber) {
+    public int setInProgressOrder(int trackingNumber) {
         String sql = "UPDATE taxi_order SET status = 'IN_PROGRESS' WHERE tracking_number = ?";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, trackingNumber);
-        query.executeUpdate();
+        return query.executeUpdate();
     }
 
     @Override
