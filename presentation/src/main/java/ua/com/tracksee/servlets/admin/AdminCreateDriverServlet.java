@@ -22,6 +22,7 @@ import java.io.IOException;
 @WebServlet("/admin/createdriver")
 public class AdminCreateDriverServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
+    private static String warning = "Cannot get json from post /admin/createdriver";
 
     @EJB
     private AdministratorBean administratorBean;
@@ -31,9 +32,6 @@ public class AdminCreateDriverServlet extends HttpServlet {
         req.getRequestDispatcher("/WEB-INF/admin/adminCreateDriver.jsp").forward(req, resp);
     }
 
-    /**
-     * Create driver
-     */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         StringBuilder sb = new StringBuilder();
         try {
@@ -44,7 +42,7 @@ public class AdminCreateDriverServlet extends HttpServlet {
                 sb.append(line).append("\n");
             } while (line != null);
         } catch (IOException e){
-            logger.warn("Cannot get json from post /admin/createdriver");
+            logger.warn(warning);
         }
         ObjectMapper mapper = new ObjectMapper();
         UserEntity user = mapper.readValue(sb.toString(), UserEntity.class);

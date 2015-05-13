@@ -15,13 +15,13 @@ import java.io.IOException;
  */
 @WebServlet("/admin/deletecar")
 public class AdminDeleteCarServlet extends HttpServlet {
-
+    private static String carNumber = "carNumber";
     @EJB
     private AdministratorBean administratorBean;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String carNumber = req.getParameter("carNumber");
-        administratorBean.deleteCar(carNumber);
+        String carNumb = req.getParameter(carNumber);
+        administratorBean.deleteCar(carNumb);
         resp.sendRedirect("cars");
     }
 }
