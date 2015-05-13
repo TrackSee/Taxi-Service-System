@@ -5,7 +5,6 @@
  * author Sharaban Sasha
  */
 
-$(document).ready(function() {
     $('#service').on('change', function() {
         if ($(this).val() == 'foodStuffDelivery'){
             $("#carCategoryGroup").slideUp("slow");
@@ -17,4 +16,3 @@ $(document).ready(function() {
 
         }
     });
-});
