@@ -14,7 +14,7 @@
     <%@include file="../parts/bootstrap2.jsp" %>
     <link href='<%=application.getContextPath()%>/resources/customer/css/visible.css' rel='stylesheet'
           type='text/css'/>
-    <link href='<%=application.getContextPath()%>/resources/customer/css/slide-panel.css' rel='stylesheet'
+    <link href='<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css' rel='stylesheet'
           type='text/css'/>
 </head>
 <body>
@@ -45,8 +45,6 @@
         ${refuseWarning}
         ${nonExistTrackingNumberWarning}
 
-            <a class="btn btn-large btn-success" href="orderInfo"><h4 class="outline">Track your taxi order</h4></a>
-        </div>
         <div ${hideOrderTrack}>
             <div class="form-group">
                 <form method="post" action="<c:url value="/orderTracking"/>">
@@ -55,8 +53,10 @@
                            placeholder="Enter your tracking number"
                            pattern="[1-9]{1,19}" title="Only the number is greater than zero" required>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-danger btn-large">Track your order</button>
-                    </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-large">
+                                Track your taxi order</button>
+                        </div>
                 </form>
             </div>
             </div>
@@ -91,8 +91,8 @@
         <%--end jQuery and bootstrap datepicker scripts--%>
 
         <%--Google maps scripts--%>
-        <script src="<%=application.getContextPath()%>/resources/customer/js/maps/google-maps-loader.js"></script>
-        <script src="<%=application.getContextPath()%>/resources/customer/js/maps/order-maps.js"></script>
+        <script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>
+        <script src="<%=application.getContextPath()%>/resources/js/maps/order-maps.js"></script>
         <%--end google maps scripts--%>
 
         <%-- Order page scripts --%>

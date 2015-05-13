@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.EnumType.STRING;
+import static javax.persistence.FetchType.EAGER;
 
 /**
  * @author Ruslan Gunavardana
@@ -236,7 +238,7 @@ public class TaxiOrderEntity {
         this.orderedDate = orderedDate;
     }
 
-    @OneToMany(mappedBy = "taxiOrder")
+    @OneToMany(mappedBy = "taxiOrder", targetEntity = TaxiOrderItemEntity.class, cascade = ALL, fetch = EAGER)
     @JsonIgnore
     public List<TaxiOrderItemEntity> getItemList() {
         return itemList;

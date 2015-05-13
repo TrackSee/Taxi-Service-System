@@ -44,7 +44,9 @@ public class AlertGeneratorBean  {
     private static final String ALERT_BODY = " role=\"alert\">\n" +
             "                <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
             "                    <span aria-hidden=\"true\">&times;</span></button>";
-    static final String ALERT_END = "</div>";
+    private static final String ALERT_END = "</div>";
+    private static final String FONT_BEGIN="<h3>";
+    private static final String FONT_END="</h3>";
 
     /**
      * Returns complete success alert popup
@@ -56,7 +58,7 @@ public class AlertGeneratorBean  {
      * @return complete alert popup with text ready for show
      */
    public String getSuccessAlert(String inputText){
-       return ALERT_TYPE_SUCCESS+ALERT_BODY+inputText+ALERT_END;
+       return ALERT_TYPE_SUCCESS+ALERT_BODY+FONT_BEGIN+inputText+FONT_END+ALERT_END;
    }
 
     /**
@@ -69,7 +71,7 @@ public class AlertGeneratorBean  {
      * @return complete alert popup with text ready for show
      */
     public String getInfoAlert(String inputText){
-        return ALERT_TYPE_INFO+ALERT_BODY+inputText+ALERT_END;
+        return ALERT_TYPE_INFO+ALERT_BODY+FONT_BEGIN+inputText+FONT_END+ALERT_END;
     }
 
     /**
@@ -82,7 +84,8 @@ public class AlertGeneratorBean  {
      * @return complete alert popup with text ready for show
      */
     public String getWarningAlert(String inputText){
-        return ALERT_TYPE_WARNING+ALERT_BODY+inputText+ALERT_END;
+
+        return ALERT_TYPE_WARNING+ALERT_BODY+FONT_BEGIN+inputText+FONT_END+ALERT_END;
     }
 
     /**
@@ -95,7 +98,7 @@ public class AlertGeneratorBean  {
      * @return complete alert popup with text ready for show
      */
     public String getDangerAlert(String inputText){
-        return ALERT_TYPE_DANGER+ALERT_BODY+inputText+ALERT_END;
+        return ALERT_TYPE_DANGER+ALERT_BODY+FONT_BEGIN+inputText+FONT_END+ALERT_END;
     }
 
 }

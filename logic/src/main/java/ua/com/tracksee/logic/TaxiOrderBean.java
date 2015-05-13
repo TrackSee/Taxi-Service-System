@@ -272,7 +272,7 @@ public class TaxiOrderBean {
 
         taxiOrderEntity.setAnimalTransportation(convertCheckBoxToBoolean(inputData.get("animalTransportation")));
         taxiOrderEntity.setFreeWifi(convertCheckBoxToBoolean(inputData.get("freeWifi")));
-        taxiOrderEntity.setNonSmokingDriver(convertCheckBoxToBoolean(inputData.get("smokingDriver")));
+        taxiOrderEntity.setNonSmokingDriver(convertCheckBoxToBoolean(inputData.get("nonSmokingDriver")));
         taxiOrderEntity.setAirConditioner(convertCheckBoxToBoolean(inputData.get("airConditioner")));
         try {
             int distance = Integer.parseInt(inputData.get("distance"));
@@ -389,7 +389,7 @@ public class TaxiOrderBean {
 
         taxiOrderEntity.setAnimalTransportation(convertCheckBoxToBoolean(inputData.get("animalTransportation")));
         taxiOrderEntity.setFreeWifi(convertCheckBoxToBoolean(inputData.get("freeWifi")));
-        taxiOrderEntity.setNonSmokingDriver(convertCheckBoxToBoolean(inputData.get("smokingDriver")));
+        taxiOrderEntity.setNonSmokingDriver(convertCheckBoxToBoolean(inputData.get("nonSmokingDriver")));
         taxiOrderEntity.setAirConditioner(convertCheckBoxToBoolean(inputData.get("airConditioner")));
 
         if (!inputData.get("description").equals("")) {

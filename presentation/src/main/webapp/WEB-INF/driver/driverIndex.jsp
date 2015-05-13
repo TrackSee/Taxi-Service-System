@@ -38,6 +38,9 @@
   <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
         media="screen">
 
+  <link href="<%=application.getContextPath()%>/resources/driver/css/map-canvas.css" rel="stylesheet"
+        media="screen">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -53,66 +56,80 @@
 
     <div class="row">
       <div class="col-lg-12">
-        <h1 class="page-header">Driver dashboard</h1>
+        <h1 class="page-header">Free orders</h1>
       </div>
       <!-- /.col-lg-12 -->
     </div>
 
-    <!-- /.row -->
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            Available orders
-          </div>
-          <!-- /.panel-heading -->
-          <div class="panel-body">
-            <div class="dataTable_wrapper">
-              <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Order time</th>
-                  <th>Start address</th>
-                  <th>Finish address</th>
-                  <th>Price</th>
-                  <th>Smoking driver</th>
-                  <th>Music style</th>
-                  <th>Status</th>
-                  <th>Assign order</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${requestScope.orders}" var="order">
-                  <tr class="odd gradeX">
-                    <td>${order.trackingNumber}</td>
-                    <td>
-                      <label for="arriveDate" class="sr-only">Arrive date</label>
+              <!-- Plans -->
+            <c:forEach items="${requestScope.orders}" var="order">
+              <section id="plans">
+                <div class="container">
+                  <div class="row">
 
-                      <div class="controls input-append date form_datetime" data-date="2015-04-16T05:25:07Z"
-                           data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                        <span class="add-on"><i class="icon-th"></i></span>
-                        <span class="add-on"><i class="icon-remove"></i></span>
-                        <input size="16" type="text" value= ${order.orderedDate} id="arriveDate" name="arriveDate" readonly>
-                        <input type="hidden" id="dtp_input1" value=""/><br/>
+                    <!-- item -->
+                    <div class="col-md-9 text-center">
+                      <div class="panel panel-success panel-pricing">
+                        <div class="panel-heading">
+                          <c:set var="startPoint" value="${order.itemList[0].path.getStartPoint()}"/>
+                          <c:set var="endPoint" value="${order.itemList[0].path.getEndPoint()}"/>
+                          <div class="map-canvas">
+                            <iframe frameborder="0" width="600" height="450"
+                                    src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin=${pageScope.startPoint.getX()},${pageScope.startPoint.getY()}&destination=${pageScope.endPoint.getX()},${pageScope.endPoint.getY()}">
+                            </iframe>
+                          </div>
+                        </div>
 
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                          <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Order time</th>
+                            <th>Price</th>
+                            <th>Smoking driver</th>
+                            <th>Music style</th>
+                            <th>Status</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="odd gradeX">
+                              <td>${order.trackingNumber}</td>
+                              <td>
+                                <label for="arriveDate" class="sr-only">Arrive date</label>
+
+                                <div class="controls input-append date form_datetime" data-date="2015-04-16T05:25:07Z"
+                                     data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                                  <span class="add-on"><i class="icon-th"></i></span>
+                                  <span class="add-on"><i class="icon-remove"></i></span>
+                                  <input size="16" type="text" value= ${order.orderedDate} id="arriveDate" name="arriveDate" readonly>
+                                  <input type="hidden" id="dtp_input1" value=""/><br/>
+
+                                </div>
+                              </td>
+                              <td>${order.price}</td>
+                              <td>${order.nonSmokingDriver==true ? "+" : "-"}</td>
+                              <td>${order.musicStyle}</td>
+                              <td>${order.status}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <div class="panel-footer">
+                          <a href="assigned-order?trackingNumber=${order.trackingNumber}" >
+                            <button type="button" id="assignOrder" class="btn btn-success btn-lg btn-block">
+                              Assign order</button></a>
+
+                        </div>
                       </div>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
-                    <td>${order.price}</td>
-                    <td>${order.nonSmokingDriver==true ? "+" : "-"}</td>
-                    <td>${order.musicStyle}</td>
-                    <td>${order.status}</td>
-                    <td><a href="assigned-order?trackingNumber=${order.trackingNumber}" >
-                      <button type="button" id="assignOrder" class="btn btn-info btn-circle">
-                        <i class="fa fa-check"></i> </button></a></td>
-                  </tr>
-                </c:forEach>
-                </tbody>
-              </table>
+                    </div>
+                    <!-- /item -->
+
+                  </div>
+                </div>
+              </section>
+            </c:forEach>
+              <!-- /Plans -->
+
               <div class="text-center">
                 <ul class="pagination">
                   <%--<li class="active"><a href="1">1</a></li>--%>

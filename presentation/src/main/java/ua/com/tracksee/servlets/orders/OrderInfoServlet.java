@@ -18,6 +18,7 @@ import java.io.IOException;
 public class OrderInfoServlet extends HttpServlet implements OrderAttributes {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("pageName", "orderInfo");
         req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req,resp);
     }
 }

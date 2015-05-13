@@ -45,7 +45,7 @@
                                         <a href="<c:url value="/"/>">Home</a>
                                     </li>
 
-                                    <li <c:if test="${pageScope.uri.endsWith('/orderComplete.jsp')}">class="active"</c:if>>
+                                    <li <c:if test="${pageScope.uri.endsWith('/order.jsp')}">class="active"</c:if>>
                                         <a href="<c:url value="/order"/>">Order</a>
                                     </li>
                                     <li <c:if test="${pageScope.uri.endsWith('/orderInfo.jsp')}">class="active"</c:if>>
