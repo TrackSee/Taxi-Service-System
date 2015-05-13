@@ -5,11 +5,13 @@ import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.enumartion.*;
 import ua.com.tracksee.exception.OrderException;
 import ua.com.tracksee.logic.*;
+import ua.com.tracksee.logic.driver.DriverOrderBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Session Facade Bean for order subsystem.
@@ -17,6 +19,7 @@ import java.util.HashMap;
  *
  * @author Ruslan Gunavardana
  * @author Sharaban Sasha
+ * @author Maria Komar
  */
 @Stateless
 public class OrderFacade {
@@ -25,6 +28,7 @@ public class OrderFacade {
     private @EJB EnumValidationBean enumValidationBean;
     private @EJB ValidationBean validationBean;
     private @EJB AlertGeneratorBean alertGeneratorBean;
+    private @EJB DriverOrderBean driverOrderBean;
 
     /**
      * @author Ruslan Gunavardana
@@ -170,5 +174,39 @@ public class OrderFacade {
         return alertGeneratorBean.getDangerAlert(inputText);
     }
 
+    public List<TaxiOrderEntity> getHistoryOfOrders(int id, int pageNumber){
+        return driverOrderBean.getHistoryOfOrders(id, pageNumber);
+    }
 
+    public int getOrdersPagesCount(int id){
+        return driverOrderBean.getOrdersPagesCount(id);
+    }
+
+    public void setAssignOrder(int id, String trackingNumber, String carArriveTime){
+        driverOrderBean.setAssignOrder(id, trackingNumber, carArriveTime);
+    }
+
+    public List<TaxiOrderEntity> getAssignedOrders(int id, int pageNumber){
+        return driverOrderBean.getAssignedOrders(id, pageNumber);
+    }
+
+    public int setInProgressOrder(String trackingNumber){
+        return driverOrderBean.setInProgressOrder(trackingNumber);
+    }
+
+    public void setCompletedOrder(String trackingNumber){
+        driverOrderBean.setCompletedOrder(trackingNumber);
+    }
+
+    public void setRefusedOrder(String trackingNumber){
+        driverOrderBean.setRefusedOrder(trackingNumber);
+    }
+
+    public void setToQueueOrder(String trackingNumber){
+        driverOrderBean.setToQueueOrder(trackingNumber);
+    }
+
+    public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
+        return driverOrderBean.getAvailableOrders(driver, pageNumber);
+    }
 }
