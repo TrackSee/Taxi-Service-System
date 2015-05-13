@@ -1,7 +1,7 @@
 DELETE FROM service_user;
 
 -- password3A --
-INSERT INTO public.service_user (user_id, email, password, salt, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date) VALUES (12345,  'vadimka2995@gmail.com',         '64bf867e6ce4a9706b5e4dfd445820712e74099db9271a0271866c410f0030e1', 'badbad2A', '+38063111111',  NULL,  FALSE, TRUE,  null, null, null,      0, TRUE, '2015-05-09 21:37:19.145000');
+INSERT INTO public.service_user (user_id, email, password, salt, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date) VALUES (12345,  'vadimka2995@gmail.com',         '64bf867e6ce4a9706b5e4dfd445820712e74099db9271a0271866c410f0030e1', 'badbad2A', '+38063111111',  'M',   FALSE, TRUE,  null, null, null,      0, TRUE, '2015-05-09 21:37:19.145000');
 -- password2A --
 INSERT INTO public.service_user (user_id, email, password, salt, phone, sex, driver, admin, group_name, car_number, driver_license, ignored_times, activated, registration_date) VALUES (123456, 'rusan.rus@gmail.com',           'b982a65f648203ef88cde202a6084893c9fbe0eec798f3e33517c2eb19c6bd31', 'badbad2A', '+380635293836', 'M',   TRUE,  FALSE, null, null, 'A, B, C', 0, TRUE, '2015-05-09 21:37:19.145000');
 
