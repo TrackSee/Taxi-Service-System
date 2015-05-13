@@ -11,6 +11,7 @@
         <class>ua.com.tracksee.entities.TaxiOrderItemEntity</class>
         <class>ua.com.tracksee.entities.TaxiPriceEntity</class>
 
+
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.spatial.dialect.postgis.PostgisDialect"/>
             <!--<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>-->

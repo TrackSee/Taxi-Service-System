@@ -38,6 +38,9 @@
   <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
         media="screen">
 
+  <link href="<%=application.getContextPath()%>/resources/driver/css/map-canvas.css" rel="stylesheet"
+        media="screen">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -73,8 +76,7 @@
                 <tr>
                   <th>#</th>
                   <th>Order time</th>
-                  <th>Start address</th>
-                  <th>Finish address</th>
+                  <th>Path</th>
                   <th>Price</th>
                   <th>Smoking driver</th>
                   <th>Music style</th>
@@ -100,8 +102,6 @@
                     </td>
                     <td>
                     </td>
-                    <td>
-                    </td>
                     <td>${order.price}</td>
                     <td>${order.nonSmokingDriver==true ? "+" : "-"}</td>
                     <td>${order.musicStyle}</td>
@@ -113,6 +113,41 @@
                 </c:forEach>
                 </tbody>
               </table>
+
+              <!-- Plans -->
+            <c:forEach items="${requestScope.orders}" var="order">
+              <section id="plans">
+                <div class="container">
+                  <div class="row">
+
+                    <!-- item -->
+                    <div class="col-md-8 text-center">
+                      <div class="panel panel-success panel-pricing">
+                        <div class="panel-heading">
+
+                          <div class="map-canvas">"Map"</div>
+                        </div>
+                        <div class="panel-body text-center">
+                          <p>${order.trackingNumber}</p>
+                        </div>
+                        <ul class="list-group text-center">
+                          <li class="list-group-item"><i class="fa fa-check"></i> Personal use</li>
+                          <li class="list-group-item"><i class="fa fa-check"></i> Unlimited projects</li>
+                          <li class="list-group-item"><i class="fa fa-check"></i> 27/7 support</li>
+                        </ul>
+                        <div class="panel-footer">
+                          <a class="btn btn-lg btn-block btn-success" href="#">BUY NOW!</a>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /item -->
+
+                  </div>
+                </div>
+              </section>
+            </c:forEach>
+              <!-- /Plans -->
+
               <div class="text-center">
                 <ul class="pagination">
                   <%--<li class="active"><a href="1">1</a></li>--%>
