@@ -1,0 +1,16 @@
+/*
+* author Vitalii Diravka
+*/
+#container {
+    position: absolute;
+    left: 60px;
+    margin: 0 auto;
+    /*z-index: 10;*/
+}
+
+#map-canvas {
+    position: absolute;
+    top: 240px;
+    left: 350px;
+    width: 60%; height: 60%;
+}

@@ -4,6 +4,7 @@
 * disabled, because it not need.
 *
 * author Sharaban Sasha
+* author Vitalii Diravka
 */
 
 /** {*/
@@ -23,4 +24,5 @@
 /*}*/
 .navbar-fixed-bottom.back_color{
     background-color: lavender;
+    height: 20px;
 }
