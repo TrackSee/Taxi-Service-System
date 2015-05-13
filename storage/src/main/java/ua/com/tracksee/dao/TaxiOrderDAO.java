@@ -126,7 +126,7 @@ public interface TaxiOrderDAO {
 
     public List<TaxiOrderEntity> getHistoryOfOrders(int id, int pageNumber);
 
-    public List<TaxiOrderEntity> getAssignedOrders(int id);
+    public List<TaxiOrderEntity> getAssignedOrders(int id, int pageNumber);
 
     public void setAssignOrder(int driverId, int trackingNumber, Timestamp carArriveTime);
 
