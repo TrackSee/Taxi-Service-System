@@ -46,28 +46,28 @@ public class SignInServlet extends HttpServlet {
 
         // for getting salt and calculating hash
         UserEntity user = customerFacade.getUserByLoginCredentials(email, password);
-//
-//        //if user wasn't activated
-//        if(!user.getActivated()){
-//            resp.getWriter().append(ERROR);
-//            return;
-//        }
-//        if (user == null) {
-//            resp.getWriter().append(ERROR);
-//            return;
-//        }
-//
-//        // using JAAS to login
-//        try {
-//            req.login(email, user.getPassword());
-//        } catch (ServletException e) {
-//            logger.warn(e.getMessage());
-//            resp.getWriter().append(ERROR);
-//        }
+
+        //if user wasn't activated
+        if(!user.getActivated()){
+            resp.getWriter().append(ERROR);
+            return;
+        }
+        if (user == null) {
+            resp.getWriter().append(ERROR);
+            return;
+        }
+
+        // using JAAS to login
+        try {
+            req.login(email, user.getPassword());
+        } catch (ServletException e) {
+            logger.warn(e.getMessage());
+            resp.getWriter().append(ERROR);
+        }
 
         session = req.getSession(true);
         session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_INTERVAL);
-        session.setAttribute(USER_ID,5);
+        session.setAttribute(USER_ID,user.getUserId());
         session.setAttribute(USER_EMAIL, email);
     }
 }
