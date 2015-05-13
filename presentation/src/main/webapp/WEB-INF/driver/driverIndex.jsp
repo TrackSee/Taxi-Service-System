@@ -124,8 +124,13 @@
                     <div class="col-md-8 text-center">
                       <div class="panel panel-success panel-pricing">
                         <div class="panel-heading">
-
-                          <div class="map-canvas">"Map"</div>
+                          <c:set var="startPoint" value="${order.itemList[0].path.getStartPoint()}"/>
+                          <c:set var="endPoint" value="${order.itemList[0].path.getEndPoint()}"/>
+                          <div class="map-canvas">
+                            <iframe frameborder="0" width="600" height="450"
+                                    src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin=${pageScope.startPoint.getX()},${pageScope.startPoint.getY()}&destination=${pageScope.endPoint.getX()},${pageScope.endPoint.getY()}">
+                            </iframe>
+                          </div>
                         </div>
                         <ul class="list-group text-center">
                           <li class="list-group-item"><h3>Order tracking number: </h3> ${order.trackingNumber}</li>
