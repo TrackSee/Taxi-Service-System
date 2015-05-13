@@ -44,7 +44,7 @@ public class AssignedOrderServlet extends HttpServlet {
         if(trackingNumber != null) {
             driverOrderBean.setAssignOrder(id, trackingNumber, timeCarArrive);
         }
-        req.setAttribute("orders", driverOrderBean.getAssignedOrders(id));
+        req.setAttribute("orders", driverOrderBean.getAssignedOrders(id, 1));
         req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
     }
 
@@ -65,7 +65,7 @@ public class AssignedOrderServlet extends HttpServlet {
             }
         }
 
-        req.setAttribute("orders", driverOrderBean.getAssignedOrders(id));
+        req.setAttribute("orders", driverOrderBean.getAssignedOrders(id, 1));
         req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
     }
 }

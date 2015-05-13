@@ -22,7 +22,7 @@
           media="screen">
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
           media="screen">
-    <link href="<%=application.getContextPath()%>/resources/customer/css/slide-panel.css" rel="stylesheet"
+    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"
           type="text/css"/>
     <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
           type="text/css"/>
@@ -239,8 +239,8 @@
 <%--end jQuery and bootstrap datepicker scripts--%>
 
 <%--Google maps scripts--%>
-<script src="<%=application.getContextPath()%>/resources/customer/js/maps/google-maps-loader.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/maps/order-maps.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/maps/order-maps.js"></script>
 <%--end google maps scripts--%>
 
 <%-- Order page scripts --%>

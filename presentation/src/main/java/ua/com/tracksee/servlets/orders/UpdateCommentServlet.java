@@ -2,7 +2,6 @@ package ua.com.tracksee.servlets.orders;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.com.tracksee.logic.TaxiOrderBean;
 import ua.com.tracksee.logic.facade.OrderFacade;
 
 import javax.ejb.EJB;
@@ -26,8 +25,8 @@ public class UpdateCommentServlet extends HttpServlet implements OrderAttributes
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            long trackingNumber = Long.parseLong(req.getParameter(TRACKING_NUMBER));
-            String comments = req.getParameter(COMMENTS);
+            long trackingNumber = Long.parseLong(req.getParameter(TRACKING_NUMBER_ALIAS));
+            String comments = req.getParameter(COMMENTS_ALIAS);
             orderFacade.addComment(trackingNumber, comments);
             req.setAttribute(ADD_COMMENTS_SUCCESS, orderFacade.getSuccessAlert(ADD_COMMENTS_SUCCESS_MESSAGE));
             req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);

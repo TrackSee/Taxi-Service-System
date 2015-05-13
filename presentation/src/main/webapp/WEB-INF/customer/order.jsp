@@ -15,7 +15,7 @@
           media="screen">
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
           media="screen">
-    <link href="<%=application.getContextPath()%>/resources/customer/css/slide-panel.css" rel="stylesheet"
+    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"
           type="text/css"/>
     <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
           type="text/css"/>
@@ -46,10 +46,15 @@
     <!--start: Container -->
     <div class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
+        <input type="text" hidden="hidden" id="taxiPricePerKm" value="10">
+        <%--${"taxiPricePerKm"}">--%>
         <form method="post" action="<c:url value="/order"/>">
             <div class="form-group">
                 <label>Phone number</label>
-                <input type="number" name="phoneNumber" class="form-control" placeholder="Enter phone number:"
+                <input type="text" pattern="\d{10}"
+                       title="That phone number is invalid please enter in this format 0934535415"
+                       name="phoneNumber" class="form-control"
+                       placeholder="Enter phone number"
                        required>
                 <span class="red-star">★</span>
             </div>
@@ -57,25 +62,27 @@
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" class="form-control" name="email" placeholder="Enter email"
-                       data-error="That email is invalid" required>
+                       title="That email is invalid" required>
                 <span class="red-star">★</span>
             </div>
 
             <div class="form-group">
                 <label>Address from</label>
-                <input type="text" id="origin" class="form-control" value="${addressOrigin}"
-                       name="addressOrigin" data-error="That address is invalid"
+                <input type="text" id="origin" class="form-control" value=""
+                       name="addressOrigin" title="That address is invalid"
                        required onblur="updateRoute()">
                 <span class="red-star">★</span>
             </div>
 
+
             <div class="form-group">
                 <label>Address to</label>
-                <input type="text" id="destination" class="form-control" value="${addressDestination}"
-                       name="addressDestination" data-error="That address is invalid"
+                <input type="text" id="destination" class="form-control" value=""
+                       name="addressDestination" title="That address is invalid"
                        required onblur="updateRoute()">
                 <span class="red-star" id="importanceAddressDestination">★</span>
             </div>
+
             <div class="form-group">
                 <label class="control-label">Way of payment</label>
                 <select class="form-control order_priority" name="wayOfPayment">
@@ -103,7 +110,7 @@
                     <select class="form-control order_priority" name="service" id="service">
                         <option value="SIMPLE_TAXI">Simple taxi</option>
                         <option value="SOBER_DRIVER">Service "Sober driver"</option>
-                        <option value="GUEST DELIVERY">Service "Guest delivery"</option>
+                        <option value="GUEST_DELIVERY">Service "Guest delivery"</option>
                         <option value="CARGO_TAXI">Service "Cargo taxi"</option>
                         <option value="MEET_MY_GUEST">Service "Meet my guest"</option>
                         <option value="CELEBRATION_TAXI"> Service "Celebration taxi"</option>
@@ -177,9 +184,9 @@
                         <input type="checkbox" name="freeWifi"> Free wi-fi
                     </label>
                 </div>
-                <div class="checkbox" id="smokingDriverCh">
+                <div class="checkbox" id="nonSmokingDriverCh">
                     <label>
-                        <input type="checkbox" name="smokingDriver"> Smoking driver
+                        <input type="checkbox" name="nonSmokingDriver"> Non smoking driver
                     </label>
                 </div>
                 <div class="checkbox" id="airConditionerCh">
@@ -189,7 +196,7 @@
                 </div>
 
                 Description:<br/>
-                <textarea name="description" id="description" rows="4" cols="50" title=""></textarea>
+                <textarea name="description" id="description" rows="4" cols="50" title="" ></textarea>
                 <br/>
             </div>
 
@@ -231,20 +238,27 @@
 <%--end jQuery and bootstrap datepicker scripts--%>
 
 <%--Google maps scripts--%>
-<script src="<%=application.getContextPath()%>/resources/customer/js/maps/google-maps-loader.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/maps/order-maps.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/maps/order-maps.js"></script>
 <%--end google maps scripts--%>
 
 <%-- Order page scripts --%>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality.js"></script>
+
 <script src="<%=application.getContextPath()%>/resources/customer/js/cargoTaxi.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/sober-driver.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/meet-guest.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/food-delivery.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/other-services.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/longTerm.js"></script>
 <%--end order oage scripts--%>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
+<script>
+
+getPrice();
+</script>
 
 <%@include file="../parts/scripts.jsp" %>
 <%@include file="../parts/footer.jsp" %>
