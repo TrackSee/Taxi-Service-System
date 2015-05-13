@@ -56,63 +56,10 @@
 
     <div class="row">
       <div class="col-lg-12">
-        <h1 class="page-header">Driver dashboard</h1>
+        <h1 class="page-header">Free orders</h1>
       </div>
       <!-- /.col-lg-12 -->
     </div>
-
-    <!-- /.row -->
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            Available orders
-          </div>
-          <!-- /.panel-heading -->
-          <div class="panel-body">
-            <div class="dataTable_wrapper">
-              <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Order time</th>
-                  <th>Path</th>
-                  <th>Price</th>
-                  <th>Smoking driver</th>
-                  <th>Music style</th>
-                  <th>Status</th>
-                  <th>Assign order</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${requestScope.orders}" var="order">
-                  <tr class="odd gradeX">
-                    <td>${order.trackingNumber}</td>
-                    <td>
-                      <label for="arriveDate" class="sr-only">Arrive date</label>
-
-                      <div class="controls input-append date form_datetime" data-date="2015-04-16T05:25:07Z"
-                           data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                        <span class="add-on"><i class="icon-th"></i></span>
-                        <span class="add-on"><i class="icon-remove"></i></span>
-                        <input size="16" type="text" value= ${order.orderedDate} id="arriveDate" name="arriveDate" readonly>
-                        <input type="hidden" id="dtp_input1" value=""/><br/>
-
-                      </div>
-                    </td>
-                    <td>
-                    </td>
-                    <td>${order.price}</td>
-                    <td>${order.nonSmokingDriver==true ? "+" : "-"}</td>
-                    <td>${order.musicStyle}</td>
-                    <td>${order.status}</td>
-                    <td><a href="assigned-order?trackingNumber=${order.trackingNumber}" >
-                      <button type="button" id="assignOrder" class="btn btn-info btn-circle">
-                        <i class="fa fa-check"></i> </button></a></td>
-                  </tr>
-                </c:forEach>
-                </tbody>
-              </table>
 
               <!-- Plans -->
             <c:forEach items="${requestScope.orders}" var="order">
@@ -121,7 +68,7 @@
                   <div class="row">
 
                     <!-- item -->
-                    <div class="col-md-8 text-center">
+                    <div class="col-md-9 text-center">
                       <div class="panel panel-success panel-pricing">
                         <div class="panel-heading">
                           <c:set var="startPoint" value="${order.itemList[0].path.getStartPoint()}"/>
@@ -132,25 +79,41 @@
                             </iframe>
                           </div>
                         </div>
-                        <ul class="list-group text-center">
-                          <li class="list-group-item"><h3>Order tracking number: </h3> ${order.trackingNumber}</li>
-                          <li class="list-group-item">
-                            <label for="arriveDate" class="sr-only">Arrive date</label>
 
-                            <div class="controls input-append date form_datetime" data-date="2015-04-16T05:25:07Z"
-                                 data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                              <span class="add-on"><i class="icon-th"></i></span>
-                              <span class="add-on"><i class="icon-remove"></i></span>
-                              <input size="16" type="text" value= ${order.orderedDate} id="arriveDate" name="arriveDate" readonly>
-                              <input type="hidden" id="dtp_input1" value=""/><br/>
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                          <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Order time</th>
+                            <th>Price</th>
+                            <th>Smoking driver</th>
+                            <th>Music style</th>
+                            <th>Status</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="odd gradeX">
+                              <td>${order.trackingNumber}</td>
+                              <td>
+                                <label for="arriveDate" class="sr-only">Arrive date</label>
 
-                            </div>
-                          </li>
-                          <li class="list-group-item"><h3>Price: </h3>${order.price}</li>
-                          <li class="list-group-item"><h3>Non smoking: </h3>${order.nonSmokingDriver==true ? "+" : "-"}</li>
-                          <li class="list-group-item"><h3>Music style: </h3> ${order.musicStyle}</li>
-                          <li class="list-group-item"><h3>Status: </h3> ${order.status}</li>
-                        </ul>
+                                <div class="controls input-append date form_datetime" data-date="2015-04-16T05:25:07Z"
+                                     data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                                  <span class="add-on"><i class="icon-th"></i></span>
+                                  <span class="add-on"><i class="icon-remove"></i></span>
+                                  <input size="16" type="text" value= ${order.orderedDate} id="arriveDate" name="arriveDate" readonly>
+                                  <input type="hidden" id="dtp_input1" value=""/><br/>
+
+                                </div>
+                              </td>
+                              <td>${order.price}</td>
+                              <td>${order.nonSmokingDriver==true ? "+" : "-"}</td>
+                              <td>${order.musicStyle}</td>
+                              <td>${order.status}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+
                         <div class="panel-footer">
                           <a href="assigned-order?trackingNumber=${order.trackingNumber}" >
                             <button type="button" id="assignOrder" class="btn btn-success btn-lg btn-block">
