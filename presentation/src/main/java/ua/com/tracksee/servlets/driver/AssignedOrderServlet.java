@@ -31,12 +31,16 @@ public class AssignedOrderServlet extends HttpServlet {
         trackingNumber = req.getParameter("trackingNumber");
         orderStatus = req.getParameter("orderStatus");
         if(orderStatus != null) {
-            if(orderStatus.equals("Refused")){
-                driverOrderBean.setRefusedOrder(trackingNumber);
-            } else if(orderStatus.equals("In progress")){
+            if(orderStatus.equals("Refused")) {
+                driverOrderBean.setToQueueOrder(trackingNumber);
+            }
+            else if(orderStatus.equals("In progress")){
                 driverOrderBean.setInProgressOrder(trackingNumber);
             }
             else if(orderStatus.equals("Completed")){
+                driverOrderBean.setRefusedOrder(trackingNumber);
+            }
+            else if(orderStatus.equals("Toqueue")){
                 driverOrderBean.setCompletedOrder(trackingNumber);
             }
         }

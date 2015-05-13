@@ -123,6 +123,11 @@ public class DriverOrderBean {
         taxiOrderDao.setRefusedOrder(trackingNumberInt);
     }
 
+    public void setToQueueOrder(String trackingNumber){
+        int trackingNumberInt = Integer.parseInt(trackingNumber);
+        taxiOrderDao.setToQueueOrder(trackingNumberInt);
+    }
+
     public int getOrdersPagesCount(int id){
         return taxiOrderDao.getOrdersPagesCount(id);
     }

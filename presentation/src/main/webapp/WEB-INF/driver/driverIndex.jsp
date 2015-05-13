@@ -74,7 +74,7 @@
                           <c:set var="startPoint" value="${order.itemList[0].path.getStartPoint()}"/>
                           <c:set var="endPoint" value="${order.itemList[0].path.getEndPoint()}"/>
                           <div class="map-canvas">
-                            <iframe frameborder="0" width="600" height="450"
+                            <iframe frameborder="0" width="100%" height="250"
                                     src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin=${pageScope.startPoint.getX()},${pageScope.startPoint.getY()}&destination=${pageScope.endPoint.getX()},${pageScope.endPoint.getY()}">
                             </iframe>
                           </div>

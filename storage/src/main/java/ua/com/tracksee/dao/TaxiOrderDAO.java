@@ -136,6 +136,8 @@ public interface TaxiOrderDAO {
 
     public void setRefusedOrder(int trackingNumber);
 
+    public void setToQueueOrder(int trackingNumber);
+
     public int getOrdersPagesCount(int id);
 
     public TaxiOrderItemEntity getPgPath(TaxiOrderEntity taxiOrderEntity);

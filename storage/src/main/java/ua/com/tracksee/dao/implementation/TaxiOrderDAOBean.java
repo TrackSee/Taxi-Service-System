@@ -346,6 +346,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         boolean isNullFreeWifi = false;
         boolean isNullAnimalTransp = false;
         boolean isNullConditioner = false;
+        int ADDITIONAL_PARAMETERS = 3;
         StringBuffer sql = new StringBuffer("SELECT * FROM taxi_order WHERE (status =" +
                 " 'QUEUED' OR status = 'UPDATED') AND car_category = ? " +
                 "AND (driver_sex = ? OR driver_sex = " + IS_DRIVER_GENDER_NULL + ") ");
@@ -367,18 +368,18 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         Query query = entityManager.createNativeQuery(sql.toString(), TaxiOrderEntity.class);
         query.setParameter(1,driver.getCar().getCarCategory().toString());
         query.setParameter(2, driver.getSex());
-        int i = 3;
+
         if (isNullAnimalTransp) {
-            query.setParameter(i++,driver.getCar().getAnimalTransportationApplicable());
+            query.setParameter(ADDITIONAL_PARAMETERS++,driver.getCar().getAnimalTransportationApplicable());
         }
         if (isNullFreeWifi) {
-            query.setParameter(i++,driver.getCar().getFreeWifi());
+            query.setParameter(ADDITIONAL_PARAMETERS++,driver.getCar().getFreeWifi());
         }
         if (isNullConditioner) {
-            query.setParameter(i++,driver.getCar().getAirConditioner());
+            query.setParameter(ADDITIONAL_PARAMETERS++,driver.getCar().getAirConditioner());
         }
-        query.setParameter(i++, ORDERS_PAGE_SIZE);
-        query.setParameter(i, (pageNumber - 1) * ORDERS_PAGE_SIZE);
+        query.setParameter(ADDITIONAL_PARAMETERS++, ORDERS_PAGE_SIZE);
+        query.setParameter(ADDITIONAL_PARAMETERS, (pageNumber - 1) * ORDERS_PAGE_SIZE);
 
         return query.getResultList();
     }
@@ -408,7 +409,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         String sql = "SELECT * FROM taxi_order " +
                 "INNER JOIN taxi_order_item " +
                 "ON taxi_order.tracking_number = taxi_order_item.tracking_numer" +
-                " AND status = 'COMPLETED' " +
+                " AND (status = 'COMPLETED' OR status = 'REFUSED')" +
                 "AND driver_id = ? LIMIT ? OFFSET ?";
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
         query.setParameter(1, id);
@@ -436,8 +437,10 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     public void setAssignOrder(int driverId, int trackingNumber, Timestamp carArriveTime) {
 //        try {
         //entityManager.getTransaction().begin();
-        Query query = entityManager.createNativeQuery("UPDATE taxi_order_item SET driver_id = ?");
+        Query query = entityManager.createNativeQuery("UPDATE taxi_order_item SET driver_id = ? ");
+        //+ "WHERE tracking_number = ?"
         query.setParameter(1, driverId);
+        //query.setParameter(2, trackingNumber);
         Query query2 = entityManager.createNativeQuery("UPDATE taxi_order SET status = 'ASSIGNED', ordered_date = ? " +
                 "WHERE tracking_number = ?");
         query2.setParameter(1, carArriveTime);
@@ -475,6 +478,14 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     @Override
     public void setRefusedOrder(int trackingNumber) {
         String sql = "UPDATE taxi_order SET status = 'REFUSED' WHERE tracking_number = ?";
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1, trackingNumber);
+        query.executeUpdate();
+    }
+
+    @Override
+    public void setToQueueOrder(int trackingNumber){
+        String sql = "UPDATE taxi_order SET status = 'QUEUED' WHERE tracking_number = ?";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, trackingNumber);
         query.executeUpdate();
