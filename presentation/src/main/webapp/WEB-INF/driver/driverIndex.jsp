@@ -85,8 +85,9 @@
                           <tr>
                             <th>#</th>
                             <th>Order time</th>
+                            <th>Car arrive time</th>
                             <th>Price</th>
-                            <th>Smoking driver</th>
+                            <th>Non smoking driver</th>
                             <th>Music style</th>
                             <th>Status</th>
                           </tr>
@@ -94,17 +95,26 @@
                           <tbody>
                             <tr class="odd gradeX">
                               <td>${order.trackingNumber}</td>
+                              <td> <fmt:formatDate value="${order.orderedDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                               <td>
+                                <c:choose>
+                                <c:when test="${order.arriveDate == 'null'}">
                                 <label for="arriveDate" class="sr-only">Arrive date</label>
 
-                                <div class="controls input-append date form_datetime" data-date="2015-04-16T05:25:07Z"
+                                <div class="controls input-append date form_datetime"
                                      data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
                                   <span class="add-on"><i class="icon-th"></i></span>
                                   <span class="add-on"><i class="icon-remove"></i></span>
-                                  <input size="16" type="text" value= ${order.orderedDate} id="arriveDate" name="arriveDate" readonly>
+                                  <input size="16" type="text" value= "" id="arriveDate" name="arriveDate" readonly>
                                   <input type="hidden" id="dtp_input1" value=""/><br/>
 
                                 </div>
+                                </c:when>
+
+                                <c:otherwise>
+                                <fmt:formatDate value="${order.arriveDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                                </c:otherwise>
+                                </c:choose>
                               </td>
                               <td>${order.price}</td>
                               <td>${order.nonSmokingDriver==true ? "+" : "-"}</td>

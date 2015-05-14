@@ -25,31 +25,17 @@ public class AssignedOrderServlet extends HttpServlet {
     String orderStatus;
     int id;
     int inProgressStatus;
-    boolean status = false;
+    boolean statusBoolean = false;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         id = (int) req.getSession().getAttribute("userId");
         trackingNumber = req.getParameter("trackingNumber");
-//        orderStatus = req.getParameter("orderStatus");
-//        if(orderStatus != null) {
-//            if(orderStatus.equals("Refused")) {
-//                driverOrderBean.setToQueueOrder(trackingNumber);
-//            }
-//            else if(orderStatus.equals("In progress")){
-//                driverOrderBean.setInProgressOrder(trackingNumber);
-//            }
-//            else if(orderStatus.equals("Completed")){
-//                driverOrderBean.setRefusedOrder(trackingNumber);
-//            }
-//            else if(orderStatus.equals("Toqueue")){
-//                driverOrderBean.setCompletedOrder(trackingNumber);
-//            }
-//        }
         //timeCarArrive = req.getParameter("carArriveTime");
         if(trackingNumber != null) {
             orderFacade.setAssignOrder(id, trackingNumber, timeCarArrive);
         }
+        req.setAttribute("status", statusBoolean);
         req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
         req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
     }
@@ -59,15 +45,15 @@ public class AssignedOrderServlet extends HttpServlet {
         id = (int) req.getSession().getAttribute("userId");
         trackingNumber = req.getParameter("trackingNumber");
         orderStatus = req.getParameter("orderStatus");
+        statusBoolean = Boolean.valueOf(req.getParameter("status"));
 
         if(orderStatus != null) {
             if(orderStatus.equals("Refused")){
                 orderFacade.setRefusedOrder(trackingNumber);
             } else if(orderStatus.equals("In progress")){
-                //TODO get int if 0 then show some warning to driver
                 inProgressStatus = orderFacade.setInProgressOrder(trackingNumber);
                 if(inProgressStatus ==0){
-                    status = true;
+                    statusBoolean = true;
                 }
             }
             else if(orderStatus.equals("Completed")){
@@ -80,7 +66,7 @@ public class AssignedOrderServlet extends HttpServlet {
 
         //timeCarArrive = req.getParameter("carArriveTime");
         req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
-        req.setAttribute("status", status);
+        req.setAttribute("status", statusBoolean);
         req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
     }
 }

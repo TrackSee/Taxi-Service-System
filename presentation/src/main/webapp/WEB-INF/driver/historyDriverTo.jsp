@@ -52,12 +52,7 @@
     </div>
 
     <!-- /.row -->
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            History of completed orders
-          </div>
+
           <!-- /.panel-heading -->
                         <!-- Plans -->
               <c:forEach items="${requestScope.orders}" var="order">
@@ -83,6 +78,8 @@
                             <tr>
                               <th>#</th>
                               <th>Order time</th>
+                              <th>Car arrive time</th>
+                              <th>End of order</th>
                               <th>Price</th>
                               <th>Status</th>
                               <th>User comment</th>
@@ -92,16 +89,13 @@
                             <tr class="odd gradeX">
                               <td>${order.trackingNumber}</td>
                               <td>
-                                <label for="arriveDate" class="sr-only">Arrive date</label>
-
-                                <div class="controls input-append date form_datetime" data-date="2015-04-16T05:25:07Z"
-                                     data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                                  <span class="add-on"><i class="icon-th"></i></span>
-                                  <span class="add-on"><i class="icon-remove"></i></span>
-                                  <input size="16" type="text" value= ${order.orderedDate} id="arriveDate" name="arriveDate" readonly>
-                                  <input type="hidden" id="dtp_input1" value=""/><br/>
-
-                                </div>
+                                <fmt:formatDate value="${order.orderedDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                              </td>
+                              <td>
+                                <fmt:formatDate value="${order.arriveDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                              </td>
+                              <td>
+                                <fmt:formatDate value="${order.endDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                               </td>
                               <td>${order.price}</td>
                               <td>${order.status}</td>

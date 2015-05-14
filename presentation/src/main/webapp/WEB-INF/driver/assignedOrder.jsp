@@ -48,18 +48,12 @@
 
     <div class="row">
       <div class="col-lg-12">
-        <h1 class="page-header">Assigned order</h1>
+        <h1 class="page-header">Assigned orders</h1>
       </div>
       <!-- /.col-lg-12 -->
     </div>
 
-    <!-- /.row -->
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            Assigned order
-          </div>
+
                         <!-- Plans -->
               <c:forEach items="${requestScope.orders}" var="order">
                 <section id="plans">
@@ -84,6 +78,7 @@
                             <tr>
                               <th>#</th>
                               <th>Order time</th>
+                              <th>Car arrive time</th>
                               <th>Price</th>
                               <th>Status</th>
                             </tr>
@@ -92,16 +87,10 @@
                             <tr class="odd gradeX">
                               <td>${order.trackingNumber}</td>
                               <td>
-                                <label for="arriveDate" class="sr-only">Arrive date</label>
-
-                                <div class="controls input-append date form_datetime" data-date="2015-04-16T05:25:07Z"
-                                     data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                                  <span class="add-on"><i class="icon-th"></i></span>
-                                  <span class="add-on"><i class="icon-remove"></i></span>
-                                  <input size="16" type="text" value= ${order.orderedDate} id="arriveDate" name="arriveDate" readonly>
-                                  <input type="hidden" id="dtp_input1" value=""/><br/>
-
-                                </div>
+                                <fmt:formatDate value="${order.orderedDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                              </td>
+                              <td>
+                                <fmt:formatDate value="${order.arriveDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                               </td>
                               <td>${order.price}</td>
                               <td>${order.status}</td>
@@ -185,7 +174,10 @@
                   <p>Please be careful, you can not have two orders in "in progress" state!</p>
                 </div>
                 <div class="modal-footer">
+                  <form action="change-satus" method="post">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="hidden" name="status" value="false">
+                    </form>
                 </div>
               </div>
             </div>
