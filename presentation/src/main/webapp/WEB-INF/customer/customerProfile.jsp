@@ -68,7 +68,7 @@
           <div>
             <p class="date<%=i%>"><b>DATE:</b> <fmt:formatDate pattern="dd-MM-yyyy" value="${order.orderedDate}"/></p>
           </div>
-            <a class="btn btn-large btn-success" href="orderInfo"><h4>Have a look detailed this order</h4></a>
+            <a class="btn btn-large btn-success" id="trackOrder" type="submit"><h4>Have a look detailed this order</h4></a>
           <div class="clear"></div>
         </div>
       </div>

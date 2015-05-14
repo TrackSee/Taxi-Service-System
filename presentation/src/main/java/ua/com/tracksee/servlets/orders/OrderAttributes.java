@@ -38,6 +38,7 @@ public interface OrderAttributes {
 
     static final String ERROR_PAGE="/WEB-INF/error.jsp";
     static final String ORDER_INFO_PAGE="/WEB-INF/customer/orderInfo.jsp";
+    static final String MAP_PAGE="/WEB-INF/customer/map.jsp";
     static final String ORDER_TRACK_COMPLETE_PAGE="/WEB-INF/customer/orderTrackComplete.jsp";
     static final String ORDER_TRACK_PAGE="/WEB-INF/customer/orderTrack.jsp";
     static final String ORDER_PAGE="/WEB-INF/customer/order.jsp";
