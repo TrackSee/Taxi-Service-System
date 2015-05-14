@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>function getContextPath() { return '${pageContext.request.contextPath}/'; }</script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/sign-out.js"></script>
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
   <div class="navbar-header">
@@ -48,8 +51,9 @@
         </li>
       </ul>
         <%--Logout from page--%>
-        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-        </li>
+      <li id="signout">
+        <a href="/TaxiService" onclick="signOut()"><i class="fa fa-table fa-fw"></i> Sign out</a>
+      </li>
       </ul>
     </div>
     <!-- /.sidebar-collapse -->

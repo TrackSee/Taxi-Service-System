@@ -59,34 +59,67 @@
             History of completed orders
           </div>
           <!-- /.panel-heading -->
-          <div class="panel-body">
-            <div class="dataTable_wrapper">
-              <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Order time</th>
-                  <th>Start address</th>
-                  <th>Finish address</th>
-                  <th>Price</th>
-                  <th>User comment</th>
-                </tr>
-                </thead>
-                <tbody id="table-body">
-                <c:forEach items="${requestScope.orders}" var="order">
-                <tr class="odd gradeX">
-                  <td>${order.trackingNumber}</td>
-                  <td>${order.orderedDate}</td>
-                  <td><c:forEach var='adr' items='${addresses}'>
-                  <c:out value='Key=${item.key}, Value=${item.value}'/>
-                </c:forEach></td>
-                  <td>${"-"}</td>
-                  <td>${order.price}</td>
-                  <td>${order.comment=='null' ? "-" : order.comment}</td>
-                </tr>
-                </c:forEach>
-                </tbody>
-              </table>
+                        <!-- Plans -->
+              <c:forEach items="${requestScope.orders}" var="order">
+                <section id="plans">
+                  <div class="container">
+                    <div class="row">
+
+                      <!-- item -->
+                      <div class="col-md-9 text-center">
+                        <div class="panel panel-success panel-pricing">
+                          <div class="panel-heading">
+                            <c:set var="startPoint" value="${order.itemList[0].path.getStartPoint()}"/>
+                            <c:set var="endPoint" value="${order.itemList[0].path.getEndPoint()}"/>
+                            <div class="map-canvas">
+                              <iframe frameborder="0" width="100%" height="250"
+                                      src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin=${pageScope.startPoint.getX()},${pageScope.startPoint.getY()}&destination=${pageScope.endPoint.getX()},${pageScope.endPoint.getY()}">
+                              </iframe>
+                            </div>
+                          </div>
+
+                          <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Order time</th>
+                              <th>Price</th>
+                              <th>Status</th>
+                              <th>User comment</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="odd gradeX">
+                              <td>${order.trackingNumber}</td>
+                              <td>
+                                <label for="arriveDate" class="sr-only">Arrive date</label>
+
+                                <div class="controls input-append date form_datetime" data-date="2015-04-16T05:25:07Z"
+                                     data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                                  <span class="add-on"><i class="icon-th"></i></span>
+                                  <span class="add-on"><i class="icon-remove"></i></span>
+                                  <input size="16" type="text" value= ${order.orderedDate} id="arriveDate" name="arriveDate" readonly>
+                                  <input type="hidden" id="dtp_input1" value=""/><br/>
+
+                                </div>
+                              </td>
+                              <td>${order.price}</td>
+                              <td>${order.status}</td>
+                              <td>${order.comment=='null' ? "-" : order.comment}</td>
+                            </tr>
+                            </tbody>
+                          </table>
+
+                        </div>
+                      </div>
+                      <!-- /item -->
+
+                    </div>
+                  </div>
+                </section>
+              </c:forEach>
+              <!-- /Plans -->
+
               <div class="text-center">
                 <ul class="pagination">
                   <%--<li class="active"><a href="1">1</a></li>--%>

@@ -24,6 +24,8 @@ public class AssignedOrderServlet extends HttpServlet {
     String trackingNumber;
     String orderStatus;
     int id;
+    int inProgressStatus;
+    boolean status = false;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -63,7 +65,10 @@ public class AssignedOrderServlet extends HttpServlet {
                 orderFacade.setRefusedOrder(trackingNumber);
             } else if(orderStatus.equals("In progress")){
                 //TODO get int if 0 then show some warning to driver
-                orderFacade.setInProgressOrder(trackingNumber);
+                inProgressStatus = orderFacade.setInProgressOrder(trackingNumber);
+                if(inProgressStatus ==0){
+                    status = true;
+                }
             }
             else if(orderStatus.equals("Completed")){
                 orderFacade.setCompletedOrder(trackingNumber);
@@ -75,6 +80,7 @@ public class AssignedOrderServlet extends HttpServlet {
 
         //timeCarArrive = req.getParameter("carArriveTime");
         req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
+        req.setAttribute("status", status);
         req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
     }
 }
