@@ -11,6 +11,7 @@ import java.util.Objects;
 
 /**
  * @author Ruslan Gunavardana
+ * @author Vitalii Diravka
  */
 public class TaxiPriceEntityPK implements Serializable {
     private CarCategory carCategory;

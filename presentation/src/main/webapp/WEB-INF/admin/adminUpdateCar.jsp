@@ -80,7 +80,7 @@
         <input type="checkbox" id = "freeWifi" name="freeWifi" ${car.freeWifi ? "checked=\"on\"" : ""}>Free Wifi<Br>
         <input type="checkbox" id = "airConditioner" name="airConditioner" ${car.airConditioner ? "checked=\"on\"" : ""} >Air Conditioner<Br>
         <div>
-            <button  id="updateCar" type="button" class="btn btn-primary">Create</button>
+            <button  id="updateCar" type="button" class="btn btn-primary">Update</button>
         </div>
 
 

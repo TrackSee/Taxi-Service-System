@@ -21,6 +21,7 @@ import java.io.IOException;
 @WebServlet("/admin/createcar")
 public class AdminCreateCarServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
+    private String warning = "Cannot get json from post /admin/createcar";
 
     @EJB
     private AdministratorBean administratorBean;
@@ -40,7 +41,7 @@ public class AdminCreateCarServlet extends HttpServlet {
                 sb.append(line).append("\n");
             } while (line != null);
         } catch (IOException e){
-            logger.warn("Cannot get json from post /admin/createcar");
+            logger.warn(warning);
         }
         ObjectMapper mapper = new ObjectMapper();
         CarEntity car = mapper.readValue(sb.toString(), CarEntity.class);
