@@ -23,13 +23,12 @@ public class OrderRefusingBean {
     private @EJB TaxiOrderDAO taxiOrderDAO;
     private @EJB UserDAO userDAO;
 
-    public boolean refuseOrder(long trackingNumber) {
-        canselDAO.canselOrder(trackingNumber);
+    public void refuseOrder(long trackingNumber) {
+        canselDAO.cancelOrder(trackingNumber);
         int refusedTimes= canselDAO.getUserRefusedTimes(trackingNumber);
         if(refusedTimes>2){
             sendNotification(userDAO.getUserById(taxiOrderDAO.getOrder(trackingNumber).getUserId()));
-        }
-        return true;
+        };
     }
 /*
 method send mail thet user refuse more then 2 order,
