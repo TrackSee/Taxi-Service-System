@@ -52,9 +52,9 @@ public class OrderFacade {
      * @author Avlasov Sasha
      * @see ua.com.tracksee.logic.OrderRefusingBean
      */
-    public boolean refuseOrder(long trackingNumber) {
-        return orderRefusingBean.refuseOrder(trackingNumber);
-    }
+//    public boolean refuseOrder(long trackingNumber) {
+//       // return orderRefusingBean.refuseOrder(trackingNumber);
+//    }
 
     /**
      * @author Sharaban Sasha

@@ -24,7 +24,7 @@ public class OrderRefuseServlet extends HttpServlet implements OrderAttributes {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             long trackingNumber=Long.parseLong(req.getParameter(TRACKING_NUMBER_ALIAS));
-            orderFacade.refuseOrder(trackingNumber);
+           //orderFacade.refuseOrder(trackingNumber);
                 req.setAttribute(REFUSE_SUCCESS,orderFacade.getSuccessAlert(REFUSE_SUCCESS_MESSAGE));
 
               //  req.setAttribute(REFUSE_WARNING,orderFacade.getWarningAlert(REFUSE_WARNING_MESSAGE));
