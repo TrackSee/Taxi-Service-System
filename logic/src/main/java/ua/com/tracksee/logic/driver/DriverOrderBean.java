@@ -9,6 +9,9 @@ import ua.com.tracksee.logic.OrderRefusingBean;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -42,8 +45,21 @@ public class DriverOrderBean {
 
     public void setAssignOrder(int driverId, String trackingNumber, String carArriveTime){
         int trackingNumberInt = Integer.parseInt(trackingNumber);
-        Timestamp carArriveTimeTimestamp = Timestamp.valueOf(carArriveTime);
-        taxiOrderDao.setAssignOrder(driverId, trackingNumberInt, carArriveTimeTimestamp);
+        System.out.println("carArriveTime"+carArriveTime);
+        Timestamp carArriveTimeTimestamp=null;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Date parsedDate = dateFormat.parse(carArriveTime);
+            carArriveTimeTimestamp= new java.sql.Timestamp(parsedDate.getTime());
+        } catch (ParseException e) {
+            System.out.println("Invalid or missing date, cannot be parsed");
+            carArriveTimeTimestamp = null;
+        }
+        TaxiOrderEntity taxiOrderEntity=new TaxiOrderEntity();
+        taxiOrderEntity.setArriveDate(carArriveTimeTimestamp);
+        System.out.println("dateTimezone"+taxiOrderEntity.getArriveDate());
+       // Timestamp carArriveTimeTimestamp = Timestamp.valueOf(carArriveTime);
+        taxiOrderDao.setAssignOrder(driverId, trackingNumberInt, taxiOrderEntity.getArriveDate());
     }
 
     public int setInProgressOrder(String trackingNumber){

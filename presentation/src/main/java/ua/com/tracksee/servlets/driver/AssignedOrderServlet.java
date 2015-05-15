@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Maria Komar on 30.04.2015.
@@ -20,16 +24,16 @@ public class AssignedOrderServlet extends HttpServlet {
     private static Logger logger = LogManager.getLogger();
     @EJB
     private OrderFacade orderFacade;
-    String timeCarArrive = "2015-07-27 00:00:00.000000";
+    String timeCarArrive;
     String trackingNumber;
     String orderStatus;
-    int id = 1;
+    int id;
     int inProgressStatus;
     boolean statusBoolean = false;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //id = (int) req.getSession().getAttribute("userId");
+        id = (int) req.getSession().getAttribute("userId");
         trackingNumber = req.getParameter("trackingNumber");
         //timeCarArrive = req.getParameter("arriveDate");
 //        if(trackingNumber != null) {
@@ -46,13 +50,43 @@ public class AssignedOrderServlet extends HttpServlet {
         trackingNumber = req.getParameter("trackingNumber");
         orderStatus = req.getParameter("orderStatus");
         statusBoolean = Boolean.valueOf(req.getParameter("status"));
+        System.out.println("Servlet work");
+        System.out.println("arriveDateCustomer" + req.getParameter("arriveDateCustomer"));
+        System.out.println("arriveDate"+req.getParameter("arriveDate"));
+      //  if(req.getParameter("arriveDateCustomer").equals("")){
+          String  timeCarArriveCustomerDate = req.getParameter("arriveDateCustomer");
+      //  }
+      //  if(req.getParameter("arriveDate").equals("")) {
+          String  timeCarArriveDate = req.getParameter("arriveDate");
+        if(timeCarArriveCustomerDate!=null){
+            Timestamp carArriveTimeTimestamp=null;
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                Date parsedDate = dateFormat.parse(timeCarArriveCustomerDate);
+                carArriveTimeTimestamp= new java.sql.Timestamp(parsedDate.getTime());
+                timeCarArrive=carArriveTimeTimestamp.toString();
+            } catch (ParseException e) {
+                System.out.println("Invalid or missing date, cannot be parsed 1");
+                carArriveTimeTimestamp = null;
+            }
+            System.out.println("First"+timeCarArrive);
+        }else if(timeCarArriveDate!=null){
+            Timestamp carArriveTimeTimestamp2=null;
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                Date parsedDate = dateFormat.parse(timeCarArriveDate);
+                carArriveTimeTimestamp2= new java.sql.Timestamp(parsedDate.getTime());
+                timeCarArrive=carArriveTimeTimestamp2.toString();
+            } catch (ParseException e) {
+                System.out.println("Invalid or missing date, cannot be parsed 2");
+                carArriveTimeTimestamp2 = null;
 
-//        if(req.getParameter("arriveDateCustomer") != null){
-//            timeCarArrive = req.getParameter("arriveDateCustomer");
-//        }
-//        if(req.getParameter("arriveDate") != null) {
-//            timeCarArrive = req.getParameter("arriveDate");
-//        }
+            }
+            System.out.println("Second"+timeCarArrive);
+        }
+        System.out.println("RESSUPERFINAL"+timeCarArrive);
+      //  }
+
 
         if(orderStatus != null) {
             if(orderStatus.equals("Refused")){
