@@ -20,7 +20,7 @@ public class AssignedOrderServlet extends HttpServlet {
     private static Logger logger = LogManager.getLogger();
     @EJB
     private OrderFacade orderFacade;
-    String timeCarArrive = "2015-06-25 00:00:00.000000";
+    String timeCarArrive = "2015-07-27 00:00:00.000000";
     String trackingNumber;
     String orderStatus;
     int id;
@@ -31,10 +31,10 @@ public class AssignedOrderServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         id = (int) req.getSession().getAttribute("userId");
         trackingNumber = req.getParameter("trackingNumber");
-        //timeCarArrive = req.getParameter("carArriveTime");
-        if(trackingNumber != null) {
-            orderFacade.setAssignOrder(id, trackingNumber, timeCarArrive);
-        }
+        //timeCarArrive = req.getParameter("arriveDate");
+//        if(trackingNumber != null) {
+//            orderFacade.setAssignOrder(id, trackingNumber, timeCarArrive);
+//        }
         req.setAttribute("status", statusBoolean);
         req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
         req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
@@ -46,6 +46,13 @@ public class AssignedOrderServlet extends HttpServlet {
         trackingNumber = req.getParameter("trackingNumber");
         orderStatus = req.getParameter("orderStatus");
         statusBoolean = Boolean.valueOf(req.getParameter("status"));
+
+//        if(req.getParameter("arriveDateCustomer") != null){
+//            timeCarArrive = req.getParameter("arriveDateCustomer");
+//        }
+        if(req.getParameter("arriveDate") != null) {
+            timeCarArrive = req.getParameter("arriveDate");
+        }
 
         if(orderStatus != null) {
             if(orderStatus.equals("Refused")){
@@ -62,11 +69,16 @@ public class AssignedOrderServlet extends HttpServlet {
             else if(orderStatus.equals("Toqueue")){
                 orderFacade.setToQueueOrder(trackingNumber);
             }
+            else if(orderStatus.equals("Assign")) {
+                orderFacade.setAssignOrder(id, trackingNumber, timeCarArrive);
+            }
         }
 
         //timeCarArrive = req.getParameter("carArriveTime");
         req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
         req.setAttribute("status", statusBoolean);
+        req.setAttribute("firsCust", req.getParameter("arriveDateCustomer"));
+        req.setAttribute("firsDrive", req.getParameter("arriveDate"));
         req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
     }
 }
