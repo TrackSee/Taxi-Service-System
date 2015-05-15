@@ -1,7 +1,16 @@
 /**
  * Created by Vadym Akymov on 29.04.15.
  */
-var dataType = $('.active').val();
+//temporary
+var pNumber = $('.pageNumber').val();
+var pCount = $('.pagesCount').val();
+//controll buttons enabled
+if(pCount == 1 || pCount == 0){
+    $('.nextButton').attr('disabled','disabled');
+    $('.prevButton').attr('disabled','disabled');
+}
+var dataType = $('.datatype').val();
+console.log("type: " + dataType);
 //orders per page
 var itemsPerPage = 3;
 console.log('dataType value: ' + dataType);
@@ -14,18 +23,6 @@ $('.completed').click(function(){
 $('.act').click(function(){
     window.location.href = '?type=active';
 });
-
-//temporary
-var pNumber = $('.pageNumber').val();
-console.log("pageNumber: " + pNumber);
-var pCount = $('.pagesCount').val();
-console.log("pageCount: " + pCount);
-
-//controll buttons enabled
-if(pCount == 1){
-    $('.nextButton').attr('disabled','disabled');
-    $('.prevButton').attr('disabled','disabled');
-}
 
 $('.nextButton').click(function(){
     var pageNumber = $('.pageNumber').val() - 0;
