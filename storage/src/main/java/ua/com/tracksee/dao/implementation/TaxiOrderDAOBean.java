@@ -442,7 +442,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         //+ "WHERE tracking_number = ?"
         query.setParameter(1, driverId);
         //query.setParameter(2, trackingNumber);
-        Query query2 = entityManager.createNativeQuery("UPDATE taxi_order SET status = 'ASSIGNED', ordered_date = ? " +
+        Query query2 = entityManager.createNativeQuery("UPDATE taxi_order SET status = 'ASSIGNED', arrive_date = ? " +
                 "WHERE tracking_number = ?");
         query2.setParameter(1, carArriveTime);
         query2.setParameter(2, trackingNumber);

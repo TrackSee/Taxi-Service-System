@@ -1,4 +1,3 @@
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -49,28 +48,28 @@
 
 <div id="wrapper">
 
-        <jsp:include page="adminHeader.jsp"/>
-        <div id="page-wrapper">
-            <form class="serviceProfit" id="serviceProfit" action="<c:url value="/admin/report/profitableservice"/>"
-                  method="post">
-                <h2 class="form-sign-up-heading">Please enter period to get result be service profitable</h2>
+    <jsp:include page="/WEB-INF/admin/adminHeader.jsp"/>
+    <div id="page-wrapper">
+        <form class="serviceProfit" id="serviceProfit" action="<c:url value="/admin/report/profitableservice"/>"
+              method="post">
+            <h2 class="form-sign-up-heading">Please enter period to get result be service profitable</h2>
 
-                <p>Start Date</p>
-                <input type="startDate" id="startDate" name="startDate" class="form-control" placeholder="year-month-day">
+            <p>Start Date</p>
+            <input type="startDate" id="startDate" name="startDate" class="form-control" placeholder="year-month-day">
 
-                <p>End Date</p>
-                <input type="endDate" id="endDate" name="endDate" class="form-control" placeholder="year-month-day">
+            <p>End Date</p>
+            <input type="endDate" id="endDate" name="endDate" class="form-control" placeholder="year-month-day">
 
-                <div>
-                    <button id="getResult" type="button" class="btn btn-primary">Get Result</button>
-                </div>
-            </form>
-            <p>Report</p>
+            <div>
+                <button id="getResult" type="button" class="btn btn-primary">Get Result</button>
+            </div>
+        </form>
+        <p>Report</p>
 
-            <div id="chartdiv"></div>
-        </div>
+        <div id="chartdiv"></div>
     </div>
-    <!-- /#page-wrapper -->
+</div>
+<!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
 
@@ -93,5 +92,3 @@
 </body>
 
 </html>
-
-

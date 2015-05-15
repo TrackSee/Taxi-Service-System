@@ -57,6 +57,20 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a><i class="fa fa-table fa-fw"></i>Reports<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="<%=application.getContextPath()%>/admin/report/driver-car">Most popular car and driver category</a>
+                        </li>
+                        <li>
+                            <a href="<%=application.getContextPath()%>/admin/report/mostpopularopt">Most popular additional car options </a>
+                        </li>
+                        <li>
+                            <a href="<%=application.getContextPath()%>/admin/report/profitableservice">Most profitable service</a>
+                        </li>
+                    </ul>
+                </li>
                 <%--Change Tariff--%>
                 <li>
                     <a href="<%=application.getContextPath()%>/admin/tariff"><i class="fa fa-dollar fa-fw"></i> Tariffs</a>

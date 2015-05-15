@@ -2,7 +2,6 @@ package ua.com.tracksee.logic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.com.tracksee.dao.FavoritePlaceDAO;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.implementation.CancelDAOBean;
@@ -28,7 +27,7 @@ public class OrderRefusingBean {
         int refusedTimes= canselDAO.getUserRefusedTimes(trackingNumber);
         if(refusedTimes>2){
             sendNotification(userDAO.getUserById(taxiOrderDAO.getOrder(trackingNumber).getUserId()));
-        };
+        }
     }
 /*
 method send mail thet user refuse more then 2 order,

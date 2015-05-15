@@ -21,7 +21,10 @@ public class AdminDeleteCarServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String carNumber = req.getParameter("carNumber");
-        administratorBean.deleteCar(carNumber);
-        resp.sendRedirect("cars");
+        try{administratorBean.deleteCar(carNumber);
+        resp.sendRedirect("cars");}
+        catch (Exception e){
+            req.getRequestDispatcher("/WEB-INF/admin/errorDelete.jsp").forward(req, resp);
+        }
     }
 }
