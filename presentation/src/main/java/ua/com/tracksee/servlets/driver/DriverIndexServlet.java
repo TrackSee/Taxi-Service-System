@@ -22,7 +22,7 @@ import java.util.List;
 @WebServlet({"/driver/free-orders", "/driver/"})
 public class DriverIndexServlet extends HttpServlet {
 
-    int id;
+    int id = 1;
 
     @EJB
     private OrderFacade orderFacade;
@@ -32,7 +32,7 @@ public class DriverIndexServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        id = (int) req.getSession().getAttribute("userId");
+        //id = (int) req.getSession().getAttribute("userId");
         UserEntity driver = driverFacade.getUserById(id);
         List<TaxiOrderEntity> orders = orderFacade.getAvailableOrders(driver, 1);
         req.setAttribute("orders", orders);

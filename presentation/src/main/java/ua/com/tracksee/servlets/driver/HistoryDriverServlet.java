@@ -22,14 +22,14 @@ import java.util.List;
 @WebServlet("driver/history-of-orders")
 public class HistoryDriverServlet extends HttpServlet{
     private static Logger logger = LogManager.getLogger();
-    int id;
+    int id = 1;
 
     @EJB
     private OrderFacade orderFacade;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        id = (int) req.getSession().getAttribute("userId");
+        //id = (int) req.getSession().getAttribute("userId");
         List<TaxiOrderEntity> orders = orderFacade.getHistoryOfOrders(id, 1);
         req.setAttribute("orders", orders);
         req.setAttribute("pagesCount", orderFacade.getOrdersPagesCount(id));

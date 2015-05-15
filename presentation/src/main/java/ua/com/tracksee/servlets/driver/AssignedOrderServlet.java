@@ -23,13 +23,13 @@ public class AssignedOrderServlet extends HttpServlet {
     String timeCarArrive = "2015-07-27 00:00:00.000000";
     String trackingNumber;
     String orderStatus;
-    int id;
+    int id = 1;
     int inProgressStatus;
     boolean statusBoolean = false;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        id = (int) req.getSession().getAttribute("userId");
+        //id = (int) req.getSession().getAttribute("userId");
         trackingNumber = req.getParameter("trackingNumber");
         //timeCarArrive = req.getParameter("arriveDate");
 //        if(trackingNumber != null) {
