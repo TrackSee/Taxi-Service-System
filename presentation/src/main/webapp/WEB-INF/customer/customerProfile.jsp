@@ -1,7 +1,6 @@
 <%@ page import="ua.com.tracksee.entities.TaxiOrderEntity" %>
 <%@ page import="java.util.List" %>
 <%--
-  Created by IntelliJ IDEA.
   User: Vadym_Akymov
   Date: 26.04.15
   Time: 14:01
