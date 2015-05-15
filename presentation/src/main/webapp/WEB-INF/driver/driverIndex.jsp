@@ -128,8 +128,8 @@
                         <div class="panel-footer">
                           <form action="assigned-order" method="post">
                             <a href="javascript:;" onclick="parentNode.submit();"><button type="button" class="btn btn-success btn-lg btn-block">Assign order</button></a>
-                            <input type="hidden" name="arriveDateCustomer" value=${order.arriveDate}>
                             <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
+                            <input type="hidden" name="arriveDateCustomer" value=${order.arriveDate}">
                             <input type="hidden" name="orderStatus" value="Assign">
                           </form>
 

@@ -4,10 +4,12 @@ package ua.com.tracksee.logic.driver;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
+import ua.com.tracksee.logic.EmailBean;
 import ua.com.tracksee.logic.OrderRefusingBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.mail.MessagingException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -22,6 +24,9 @@ public class DriverOrderBean {
 
     @EJB
     private OrderRefusingBean orderRefusingBean;
+
+    @EJB
+    private EmailBean emailBean;
 
     public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
         return taxiOrderDao.getAvailableOrders(driver, pageNumber);
@@ -57,10 +62,16 @@ public class DriverOrderBean {
         orderRefusingBean.refuseOrder(trackingNumberInt);
     }
 
+    public TaxiOrderEntity getOrder(Long trackingNumber){
+        return taxiOrderDao.getOrder(trackingNumber);
+    }
+
     //TODO write some complicated business logic. What to do with time of car aarive?
-    public void setToQueueOrder(String trackingNumber){
+    public void setToQueueOrder(String trackingNumber) throws MessagingException {
         int trackingNumberInt = Integer.parseInt(trackingNumber);
+        Long trackingNumberLong = Long.parseLong(trackingNumber);
         taxiOrderDao.setToQueueOrder(trackingNumberInt);
+        emailBean.sendChangingTOFromAssignedToRefusedMadeByDriver(getOrder(trackingNumberLong));
     }
 
     public int getOrdersPagesCount(int id){
