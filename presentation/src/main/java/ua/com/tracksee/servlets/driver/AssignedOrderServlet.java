@@ -50,9 +50,9 @@ public class AssignedOrderServlet extends HttpServlet {
 //        if(req.getParameter("arriveDateCustomer") != null){
 //            timeCarArrive = req.getParameter("arriveDateCustomer");
 //        }
-        if(req.getParameter("arriveDate") != null) {
-            timeCarArrive = req.getParameter("arriveDate");
-        }
+//        if(req.getParameter("arriveDate") != null) {
+//            timeCarArrive = req.getParameter("arriveDate");
+//        }
 
         if(orderStatus != null) {
             if(orderStatus.equals("Refused")){
