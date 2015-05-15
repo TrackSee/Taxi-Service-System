@@ -47,6 +47,7 @@
     <div class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
         <div hidden="hidden">
+            <%--TODO gettin data from database--%>
         <input type="text" id="taxiPricePerKm" value="10">
             </div>
         <div hidden="hidden">
