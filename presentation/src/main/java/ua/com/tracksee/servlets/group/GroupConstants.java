@@ -15,4 +15,5 @@ public interface GroupConstants {
     public static final String IDS_ALIAS = "ids";
     public static final String UPDATE_ROLE_IDS_ALIAS = "updateRoleIds";
     public static final String SEPARATOR = ",";
+    public static final String ID_ADMIN = "id_admin";
 }

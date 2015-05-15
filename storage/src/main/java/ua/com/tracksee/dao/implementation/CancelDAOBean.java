@@ -17,6 +17,7 @@ import java.sql.SQLException;
  */
 @Stateless(name = "CanselDAOBeanEJB")
 public class CancelDAOBean {
+    // TODO refactoring and interface
     private static final Logger logger = LogManager.getLogger();
     @EJB
     TaxiOrderDAO taxiOrderDAO;
@@ -49,14 +50,14 @@ public class CancelDAOBean {
         query.setParameter(2, orderId);
         return query.executeUpdate();
     }
-    public boolean canselOrder(long trackingNumber){
+    public boolean cancelOrder(long trackingNumber){
 //        EntityTransaction transaction=entityManager.getTransaction();
 //        transaction.begin();
         setRefusedOrder(trackingNumber);
         try {
             incrimentUserIgnoredTimes(trackingNumber);
         } catch (SQLException e) {
-            logger.error("something wrong when incriment \"ignored times\" for user ");
+            logger.error("something wrong when increment \"ignored times\" for user ");
             logger.error(e.toString());
 //            transaction.rollback();
             return false;

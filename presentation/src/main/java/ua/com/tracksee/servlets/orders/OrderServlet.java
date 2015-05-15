@@ -38,6 +38,7 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("pageName", "order");
         req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);
     }
 
@@ -76,7 +77,7 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("pageName", "order");
+
         HashMap<String, String> inputData = new HashMap<String, String>();
         try {
             inputData.put(PHONE_NUMBER_ALIAS, req.getParameter(PHONE_NUMBER_ALIAS));
@@ -116,7 +117,9 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
             if (orderFacade.checkBlackListByUserEmail(inputData.get(EMAIL_ALIAS))) {
                 req.setAttribute(ORDER_WARNING,orderFacade.getWarningAlert(ORDER_WARNING_MESSAGE));
             } else {
+                System.out.println("before");
                 Long trackingNumber = orderFacade.makeOrder(inputData);
+                System.out.println("after");
                 req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
                 req.setAttribute(ORDER_SUCCESS, orderFacade.getSuccessAlert(ORDER_SUCCESS_MESSAGE +trackingNumber
                         + ORDER_SUCCESS_TRACK_BUTTON));

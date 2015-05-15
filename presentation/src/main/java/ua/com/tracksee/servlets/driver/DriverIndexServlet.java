@@ -22,7 +22,7 @@ import java.util.List;
 @WebServlet({"/driver/free-orders", "/driver/"})
 public class DriverIndexServlet extends HttpServlet {
 
-    int id = 6;
+    int id;
 
     @EJB
     private OrderFacade orderFacade;

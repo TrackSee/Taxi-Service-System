@@ -144,3 +144,17 @@ function createOrderSpan(orderNumber){
     childSpan.find('.date0').removeClass('date0').addClass('date' + orderNumber);
     return childSpan;
 }
+
+
+//TODO rederict to orderTrack
+$('#trackOrder').click(function(){
+    var pageNumber = $('.pageNumber').val() - 0;
+    $.ajax({
+        type: 'POST',
+        url: 'orderTrack',
+        data: 'pageNumber=' + (++pageNumber) + '&type=' + dataType,
+        success: function(data){
+
+        }
+    });
+});

@@ -3,6 +3,7 @@ package ua.com.tracksee.servlets.group;
 import com.google.gson.Gson;
 import com.google.gson.JsonPrimitive;
 import ua.com.tracksee.logic.GroupBean;
+import ua.com.tracksee.logic.facade.AdminFacade;
 import ua.com.tracksee.logic.group.GroupSelectCountAction;
 
 import javax.ejb.EJB;
@@ -19,7 +20,7 @@ import java.io.IOException;
 @WebServlet("admin/groupCount")
 public class GroupCountServlet extends HttpServlet implements GroupConstants{
     @EJB
-    private GroupBean groupBean;
+    private AdminFacade adminFacade;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,7 +30,7 @@ public class GroupCountServlet extends HttpServlet implements GroupConstants{
         GroupSelectCountAction selectCountAction =
                 GroupSelectCountAction.fromString(req.getParameter(SELECT_COUNT_ACTION_ALIAS));
 
-        Integer count = groupBean.executeSelectCount(selectCountAction, groupName, userEmail);
+        Integer count = adminFacade.groupExecuteSelectCount(selectCountAction, groupName, userEmail);
 
         String json = "[{\"count\":" + count + "}]";
         System.out.println(json);

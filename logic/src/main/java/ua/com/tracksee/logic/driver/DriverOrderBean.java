@@ -4,6 +4,7 @@ package ua.com.tracksee.logic.driver;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
+import ua.com.tracksee.logic.OrderRefusingBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -18,6 +19,9 @@ import java.util.List;
 public class DriverOrderBean {
     @EJB
     private TaxiOrderDAO taxiOrderDao;
+
+    @EJB
+    private OrderRefusingBean orderRefusingBean;
 
     public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
         return taxiOrderDao.getAvailableOrders(driver, pageNumber);
@@ -47,11 +51,13 @@ public class DriverOrderBean {
         taxiOrderDao.setCompletedOrder(trackingNumberInt);
     }
 
+    //When customer not arrived to car, driver refuse order and we +1 to refusedTimes by this user.
     public void setRefusedOrder(String trackingNumber){
-        int trackingNumberInt = Integer.parseInt(trackingNumber);
-        taxiOrderDao.setRefusedOrder(trackingNumberInt);
+        long trackingNumberInt = Long.parseLong(trackingNumber);
+        orderRefusingBean.refuseOrder(trackingNumberInt);
     }
 
+    //TODO write some complicated business logic. What to do with time of car aarive?
     public void setToQueueOrder(String trackingNumber){
         int trackingNumberInt = Integer.parseInt(trackingNumber);
         taxiOrderDao.setToQueueOrder(trackingNumberInt);
