@@ -67,11 +67,16 @@ public class DriverOrderBean {
     }
 
     //TODO write some complicated business logic. What to do with time of car aarive?
-    public void setToQueueOrder(String trackingNumber) throws MessagingException {
+    public void setToQueueOrder(String trackingNumber) {
         int trackingNumberInt = Integer.parseInt(trackingNumber);
         Long trackingNumberLong = Long.parseLong(trackingNumber);
         taxiOrderDao.setToQueueOrder(trackingNumberInt);
-        emailBean.sendChangingTOFromAssignedToRefusedMadeByDriver(getOrder(trackingNumberLong));
+        try {
+            emailBean.sendChangingTOFromAssignedToRefusedMadeByDriver(getOrder(trackingNumberLong));
+        }
+        catch(MessagingException e){
+            System.out.print("Message to customer not sent!");
+        }
     }
 
     public int getOrdersPagesCount(int id){
