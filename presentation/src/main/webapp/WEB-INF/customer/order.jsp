@@ -19,6 +19,8 @@
           type="text/css"/>
     <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
           type="text/css"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"
+          type="text/css"/>
 </head>
 <body >
 <%@include file="../parts/header.jsp" %>
