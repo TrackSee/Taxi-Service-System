@@ -159,13 +159,12 @@ function updateAddresses(route) {
         distance += route.legs[i].distance.value;
     }
      distance = Math.round(distance / 100) / 10;
-
     TAXI_PRICE_PER_KM=$('#taxiPricePerKm').val();
-    // TODO minimal price
-    //if(distance<3){
-    //    TAXI_PRICE_PER_KM=30;
-    //}
-    $('#price').val(distance*TAXI_PRICE_PER_KM+" UAH");
+    TAXI_PRICE_PER_KM=TAXI_PRICE_PER_KM*distance;
+    if(distance<5){
+        TAXI_PRICE_PER_KM=30;
+    }
+    $('#price').val(TAXI_PRICE_PER_KM+" UAH");
 }
 
 /**
