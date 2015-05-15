@@ -255,7 +255,6 @@
 
         </form>
     </div>
-    </p>
 </div>
 <%-- end:wrapper --%>
 </div>
