@@ -19,8 +19,11 @@
           type="text/css"/>
     <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
           type="text/css"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"
+          type="text/css"/>
+
 </head>
-<body >
+<body>
 <%@include file="../parts/header.jsp" %>
 
 <!-- start: Page Title -->
@@ -44,15 +47,9 @@
 <!--start: Wrapper-->
 <div id="wrapper">
     <!--start: Container -->
-    <div class="container">
+    <div id="container" class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
-        <div hidden="hidden">
-            <%--TODO gettin data from database--%>
-        <input type="text" id="taxiPricePerKm" value="10">
-            </div>
-        <div hidden="hidden">
-            <input type="text" id="distance" value="">
-        </div>
+        <input type="text" hidden="hidden" id="taxiPricePerKm" value="10">
         <%--${"taxiPricePerKm"}">--%>
         <form method="post" action="<c:url value="/order"/>">
             <div class="form-group">
@@ -72,9 +69,6 @@
                 <span class="red-star">★</span>
             </div>
 
-            <p>
-                <button type="button" id="buttonAddressOrigin" class="btn btn-info turnButton">Add another address from</button>
-            </p>
             <div class="form-group">
                 <label>Address from</label>
                 <input type="text" id="origin" class="form-control" value=""
@@ -82,42 +76,6 @@
                        required onblur="updateRoute()">
                 <span class="red-star">★</span>
             </div>
-<%--TODO working input fields--%>
-            <%--<div class="form-group" id="addressOrigin1">--%>
-                <%--<label>Address from</label>--%>
-                <%--<input type="text" id="origin1" class="form-control" value=""--%>
-                       <%--name="addressOrigin1" title="That address is invalid"--%>
-                       <%--required onblur="updateRoute()">--%>
-                <%--<span class="red-star">★</span>--%>
-            <%--</div>--%>
-            <%--<div class="form-group" id="addressOrigin2">--%>
-                <%--<label>Address from</label>--%>
-                <%--<input type="text" id="origin2" class="form-control" value=""--%>
-                       <%--name="addressOrigin3" title="That address is invalid"--%>
-                       <%--required onblur="updateRoute()">--%>
-                <%--<span class="red-star">★</span>--%>
-            <%--</div>--%>
-            <%--<div class="form-group" id="addressOrigin3">--%>
-                <%--<label>Address from</label>--%>
-                <%--<input type="text" id="origin3" class="form-control" value=""--%>
-                       <%--name="addressOrigin3" title="That address is invalid"--%>
-                       <%--required onblur="updateRoute()">--%>
-                <%--<span class="red-star">★</span>--%>
-            <%--</div>--%>
-            <%--<div class="form-group" id="addressOrigin4">--%>
-                <%--<label>Address from</label>--%>
-                <%--<input type="text" id="origin4" class="form-control" value=""--%>
-                       <%--name="addressOrigin4" title="That address is invalid"--%>
-                       <%--required onblur="updateRoute()">--%>
-                <%--<span class="red-star">★</span>--%>
-            <%--</div>--%>
-            <%--<div class="form" id="addressOrigin5">--%>
-                <%--<label>Address from</label>--%>
-                <%--<input type="text" id="origin5" class="form-control" value=""--%>
-                       <%--name="addressOrigin5" title="That address is invalid"--%>
-                       <%--required onblur="updateRoute()">--%>
-                <%--<span class="red-star">★</span>--%>
-            <%--</div>--%>
 
 
             <div class="form-group">
@@ -135,14 +93,12 @@
                     <option value="VISA_CARD">Visa card</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label>Order price</label>
                 <input type="text" name="price" class="form-control"
-                       value="" id="price"
+                       value="${price}"
                        data-error="That address is invalid" readonly>
             </div>
-
 
             <div id="flip">
                 <div class="form-group">
@@ -180,7 +136,7 @@
                 <label  class="sr-only">End date</label>
 
                 <div class="controls input-append date form_datetime"
-                     data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                     data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
                     <span class="add-on"><i class="icon-th"></i></span>
                     <span class="add-on"><i class="icon-remove"></i></span>
                     <input size="16" type="text" value="" id="endDate" name="endDate" readonly>
@@ -253,8 +209,9 @@
 
         </form>
     </div>
-    </p>
-</div>
+
+
+
 <%-- end:wrapper --%>
 </div>
 
@@ -266,6 +223,7 @@
 
     </div>
 </div>
+
 
 <!-- Load jQuery and bootstrap datepicker scripts -->
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
@@ -295,9 +253,18 @@
 <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality.js"></script>
 
+<script src="<%=application.getContextPath()%>/resources/customer/js/cargoTaxi.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/sober-driver.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/meet-guest.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/food-delivery.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/other-services.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/longTerm.js"></script>
 <%--end order oage scripts--%>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
+<script>
 
+getPrice();
+</script>
 
 <%@include file="../parts/scripts.jsp" %>
 <%@include file="../parts/footer.jsp" %>
