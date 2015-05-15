@@ -67,6 +67,7 @@
             </thead>
             <tbody id="table-body">
             <c:forEach items="${requestScope.cars}" var="car">
+                <input id="carNumber" type="hidden" value="${car.carNumber}">
                 <tr>
                     <td><a href="updatecar?carNumber=${car.carNumber}">${car.carNumber}</a></td>
                     <td>${car.carModel}</td>

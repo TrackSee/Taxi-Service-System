@@ -1,12 +1,9 @@
 <%--
   Created by IntelliJ IDEA.
-  User: kstes_000
-  Date: 06-May-15
-  Time: 15:33
-  To change this template use File | Settings | File Templates.
+  User: Vadym Akymov
+  Date: 15.04.15
+  Time: 1:37
 --%>
-
-
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -30,10 +27,9 @@
     <!-- MetisMenu CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"
           rel="stylesheet">
-
+    <link href="<%=application.getContextPath()%>/resources/admin/css/chart.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/dist/css/sb-admin-2.css" rel="stylesheet">
-    <link href="<%=application.getContextPath()%>/resources/admin/css/chart.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css"
@@ -48,6 +44,7 @@
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/plugins/export/export.js"></script>
+
     <![endif]-->
 
 </head>
@@ -55,13 +52,9 @@
 <body>
 
 <div id="wrapper">
-    <jsp:include page="adminHeader.jsp"/>
-
+    <jsp:include page="/WEB-INF/admin/adminHeader.jsp"/>
     <div id="page-wrapper">
         <form class="popularOpt" id="popularOpt"  action="<c:url value="/admin/report/mostpopularopt"/>" method="post">
-
-            <%--<input type="userId" id="userId" name="userId" class="form-control" placeholder="year-month-day">--%>
-
             <div class="userChoose">
                 <div>
                     <label>Choose user for get result</label>
@@ -79,32 +72,46 @@
         <p>Report</p>
         <div id="chartdiv"></div>
     </div>
-    <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
 
-<!-- jQuery -->
-<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/pie.js"></script>
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>
-<script src="<%=application.getContextPath()%>/resources/admin/reports/js/popularOptions.js"/>
-<!-- Bootstrap Core JavaScript -->
+<script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/reports/js/popularOptions.js"/><!-- Bootstrap Core JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-<!-- Metis Menu Plugin JavaScript -->
-<script src="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-<!-- Custom Theme JavaScript -->
-<script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
-<%--for pagination--%>
-<%--<script src="<%=application.getContextPath()%>/resources/admin/reports/js/serviceProfit.js"/>--%>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>--%>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>--%>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.js"></script>--%>
+<%--<script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>--%>
+<%--<script type="text/javascript" src="http://www.amcharts.com/lib/3/pie.js"></script>--%>
+<%--<script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>--%>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/reports/js/popularOptions.js"/><!-- Bootstrap Core JavaScript -->--%>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>--%>
 
+<%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>--%>
+<%--<script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>--%>
+<%--<script type="text/javascript" src="http://www.amcharts.com/lib/3/pie.js"></script>--%>
+<%--<script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>--%>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/reports/js/serviceProfit.js"/><!-- Bootstrap Core JavaScript -->--%>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>--%>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.js"></script>--%>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>--%>
 
+<%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>--%>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/reports/js/serviceProfit.js"/><!-- Bootstrap Core JavaScript -->--%>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>--%>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.js"></script>--%>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>--%>
+<%--<script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>--%>
+<%--<script type="text/javascript" src="http://www.amcharts.com/lib/3/pie.js"></script>--%>
+<%--<script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>--%>
 
 </body>
 
 </html>
-
-
-
