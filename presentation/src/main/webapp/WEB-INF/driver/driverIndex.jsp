@@ -98,6 +98,7 @@
                               <td> <fmt:formatDate value="${order.orderedDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                               <td>
                                 <fmt:formatDate value="${order.arriveDate}" pattern="yyyy" var="testDate" />
+
                                 <c:choose>
                                   <c:when test="${testDate > 1900}">
                                   <fmt:formatDate value="${order.arriveDate}" pattern="yyyy-MM-dd HH:mm:ss" />
@@ -105,13 +106,12 @@
 
                                 <c:otherwise>
                                   <label for="arriveDate" class="sr-only">Arrive date</label>
-
                                   <div class="controls input-append date form_datetime"
                                        data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
                                     <span class="add-on"><i class="icon-th"></i></span>
                                     <span class="add-on"><i class="icon-remove"></i></span>
-                                    <input size="16" type="text" value= "" id="arriveDate" name="arriveDate" readonly>
-                                    <input type="hidden" id="dtp_input1" value=""/><br/>
+                                    <input size="16" type="text" id="arriveDate" name="arriveDate" readonly>
+                                    <input type="hidden" id="dtp_input1" /><br/>
 
                                   </div>
                                 </c:otherwise>
@@ -126,9 +126,12 @@
                         </table>
 
                         <div class="panel-footer">
-                          <a href="assigned-order?trackingNumber=${order.trackingNumber}" >
-                            <button type="button" id="assignOrder" class="btn btn-success btn-lg btn-block">
-                              Assign order</button></a>
+                          <form action="assigned-order" method="post">
+                            <a href="javascript:;" onclick="parentNode.submit();"><button type="button" class="btn btn-success btn-lg btn-block">Assign order</button></a>
+                            <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
+                            <input type="hidden" name="arriveDateCustomer" value=${order.arriveDate}">
+                            <input type="hidden" name="orderStatus" value="Assign">
+                          </form>
 
                         </div>
                       </div>

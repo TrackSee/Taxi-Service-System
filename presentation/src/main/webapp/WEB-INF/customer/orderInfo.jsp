@@ -49,13 +49,14 @@
             <div class="form-group">
                 <form method="post" action="<c:url value="/orderTracking"/>">
                     <label>Tracking number</label>
-                    <input type="text" id="trackingNumber" class="form-control" name="orderTrackingNumber"
+                    <input type="text" id="trackingNumber" class="form-control" name="trackingNumber"
                            placeholder="Enter your tracking number"
                            pattern="[1-9]{1,19}" title="Only the number is greater than zero" required>
                     <div class="form-group">
                         <div class="form-group">
                             <button type="submit" class="btn btn-success btn-large">
                                 Track your taxi order</button>
+                        </div>
                         </div>
                 </form>
             </div>

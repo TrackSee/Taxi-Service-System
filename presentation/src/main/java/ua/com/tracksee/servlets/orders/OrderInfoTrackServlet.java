@@ -22,12 +22,17 @@ import java.io.IOException;
 public class OrderInfoTrackServlet extends HttpServlet implements OrderAttributes {
     private @EJB OrderFacade orderFacade;
     private static final Logger logger = LogManager.getLogger();
-
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("pageName", "orderInfo");
+        System.out.println(req.getParameter("trackingNumber"));
+        req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req,resp);
+    }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
 
-            long trackingNumber = Long.parseLong(req.getParameter(ORDER_TRACKING_NUMBER_ALIAS));
+            long trackingNumber = Long.parseLong(req.getParameter(TRACKING_NUMBER_ALIAS));
 
             if (orderFacade.checkOrderPresent(trackingNumber)) {
                 TaxiOrderEntity taxiOrderEntity = orderFacade.getOrderInfo(trackingNumber);

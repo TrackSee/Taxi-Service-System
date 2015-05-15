@@ -3,18 +3,14 @@ package ua.com.tracksee.logic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entities.UserEntity;
+import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.TaxiOrderItemEntity;
-import ua.com.tracksee.util.EmailUtils;
+import ua.com.tracksee.entities.UserEntity;
 
 import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +55,9 @@ public class EmailBean {
     private static final String CONFIRMATION_TEMP_SUBJECT_PROP_NAME = "TrackSee Order Confirmation";
 
 
-    private @EJB UserDAO userDAO;
+    private
+    @EJB
+    UserDAO userDAO;
 
 
     /**
@@ -137,7 +135,6 @@ public class EmailBean {
 
 
     /**
-     *
      * @param order
      * @throws MessagingException
      */
@@ -157,7 +154,6 @@ public class EmailBean {
     }
 
     /**
-     *
      * @param user
      * @param trackingNumber
      */
@@ -169,10 +165,17 @@ public class EmailBean {
             data.put("userCode", trackingNumber);
             data.put("website_short", WEBSITE_SHORT);
             data.put("website_full", WEBSITE_FULL);
-            sendTemplatedEmail(user.getEmail(), CONFIRMATION_TEMP_SUBJECT_PROP_NAME, CONFIRMATION_TEMP_PATH, data );
+            sendTemplatedEmail(user.getEmail(), CONFIRMATION_TEMP_SUBJECT_PROP_NAME, CONFIRMATION_TEMP_PATH, data);
             logger.debug("Order confirmation email sent successfully to {}", user.getEmail());
         } catch (MessagingException e) {
             logger.warn("Order confirmation email sending to {} failed", user.getEmail());
         }
     }
+
+    @Asynchronous
+    public void sendChangingTOFromAssignedToRefusedMadeByDriver(TaxiOrderEntity order) throws MessagingException {
+        //TODO this is not empty and does something.
+        // Can we use here TaxiOrderEntity instead of TaxiOrderItemEntity, please?
+    }
+
 }

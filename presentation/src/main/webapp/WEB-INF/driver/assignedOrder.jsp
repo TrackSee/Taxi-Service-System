@@ -94,6 +94,8 @@
                               </td>
                               <td>${order.price}</td>
                               <td>${order.status}</td>
+                              <td>${requestScope.firsCust} this is cust</td>
+                              <td>${requestScope.firsDrive} this is drive</td>
                             </tr>
                             </tbody>
                           </table>
@@ -104,14 +106,14 @@
                               <tr class="odd gradeX">
                                 <td> <form action="assigned-order" method="post">
                                   <a href="javascript:;" onclick="parentNode.submit();">
-                                    <button type="button" class="btn btn-success">Refuse</button></a>
+                                    <button type="button" class="btn btn-danger">Refuse</button></a>
                                   <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
                                   <input type="hidden" name="orderStatus" value="Toqueue">
                                 </form></td>
                                 <td>
                                   <form action="assigned-order" method="post">
                                     <a href="javascript:;" onclick="parentNode.submit();">
-                                      <button type="button" class="btn btn-success">Customer not arrived</button></a>
+                                      <button type="button" class="btn btn-info">Customer not arrived</button></a>
                                     <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
                                     <input type="hidden" name="orderStatus" value="Refused">
                                   </form>
@@ -125,7 +127,7 @@
                                     <c:otherwise>
                                       <form action="assigned-order" method="post">
                                         <a href="javascript:;" onclick="parentNode.submit();">
-                                          <button type="button" class="btn btn-success">In progress</button></a>
+                                          <button type="button" class="btn btn-primary">In progress</button></a>
                                         <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
                                         <input type="hidden" name="orderStatus" value="In progress">
                                       </form>
