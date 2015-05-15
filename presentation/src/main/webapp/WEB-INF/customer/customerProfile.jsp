@@ -55,7 +55,10 @@
           <i class="ico-shopping-cart circle big"></i>
           <a class="track" href="<%=application.getContextPath()%>/orderTracking"><div class="title">
               <h3 class="order<%=i%>">Order № ${order.trackingNumber}</h3></div></a>
-          <input type="hidden"  id="trackingNumber" value="${order.trackingNumber}">
+
+            <form method="post" action="<c:url value="/orderTracking"/>">
+
+                <input type="hidden"  name="trackingNumber" id="trackingNumber" value="${order.trackingNumber}">
           <div>
             <p class="service<%=i%>"><b>SERVICE:</b> ${order.service}</p>
           </div>
@@ -68,8 +71,14 @@
           <div>
             <p class="date<%=i%>"><b>DATE:</b> <fmt:formatDate pattern="dd-MM-yyyy" value="${order.orderedDate}"/></p>
           </div>
-            <a class="btn btn-large btn-success" id="trackOrder<%=i%>"
-               type="submit"><h4>Have a look detailed this order</h4></a>
+
+                <div class="form-group">
+                    <div class="form-group">
+                        <button type="submit" id="trackOrder<%=i%>" class="btn btn-success btn-large">
+                            Detailed description</button>
+                    </div>
+                </div>
+            </form>
           <div class="clear"></div>
         </div>
       </div>
@@ -85,6 +94,8 @@
     <!-- end: Container  -->
   </div>
 </div>
+
+
 
 <%-- start: JavaScript --%>
 <%@include file="../parts/scripts.jsp" %>

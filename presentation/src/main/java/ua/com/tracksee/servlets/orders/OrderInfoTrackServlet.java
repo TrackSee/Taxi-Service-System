@@ -32,7 +32,7 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
 
-            long trackingNumber = Long.parseLong(req.getParameter(ORDER_TRACKING_NUMBER_ALIAS));
+            long trackingNumber = Long.parseLong(req.getParameter(TRACKING_NUMBER_ALIAS));
 
             if (orderFacade.checkOrderPresent(trackingNumber)) {
                 TaxiOrderEntity taxiOrderEntity = orderFacade.getOrderInfo(trackingNumber);

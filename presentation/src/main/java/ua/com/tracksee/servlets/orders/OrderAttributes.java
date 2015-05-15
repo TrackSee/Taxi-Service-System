@@ -4,7 +4,6 @@ package ua.com.tracksee.servlets.orders;
  * @author Sharaban Sasha
  */
 public interface OrderAttributes {
-    static final String ORDER_TRACKING_NUMBER_ALIAS ="orderTrackingNumber";
     static final String TRACKING_NUMBER_ALIAS ="trackingNumber";
     static final String PHONE_NUMBER_ALIAS ="phoneNumber";
     static final String EMAIL_ALIAS ="email";
