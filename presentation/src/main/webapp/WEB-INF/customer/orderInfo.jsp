@@ -57,6 +57,7 @@
                             <button type="submit" class="btn btn-success btn-large">
                                 Track your taxi order</button>
                         </div>
+                        </div>
                 </form>
             </div>
             </div>

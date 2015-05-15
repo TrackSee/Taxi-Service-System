@@ -147,14 +147,65 @@ function createOrderSpan(orderNumber){
 
 
 //TODO rederict to orderTrack
-$('#trackOrder').click(function(){
-    var pageNumber = $('.pageNumber').val() - 0;
+$('#trackOrder0').click(function(){
+    alert("ajax go1");
+    alert($('#trackingNumber').val());
+    $.ajax({
+        type: 'GET',
+        url:'http://localhost:9090/TaxiService/'+'orderInfo',
+        data: 'trackingNumber=' + $('#trackingNumber'),
+        success: function (data) {
+            console.log('success' == data);
+            console.log(data);
+            if (data != 'error') {
+                window.location.replace('.');
+            } else {
+                $.notify("Such tracking number doesn't exist. Please try again", "error");
+            }
+        },
+        error: function (xhr, str) {
+            $.notify("Internal server error occurred.", "warn");
+        }
+    });
+});
+$('#trackOrder1').click(function(){
+    alert("ajax go2");
+
     $.ajax({
         type: 'POST',
-        url: 'orderTrack',
-        data: 'pageNumber=' + (++pageNumber) + '&type=' + dataType,
-        success: function(data){
-
+        url: getContextPath() + 'orderTracking',
+        data: 'trackingNumber=' + $('#trackingNumber'),
+        success: function (data) {
+            console.log('success' == data);
+            console.log(data);
+            if (data != 'error') {
+                window.location.replace('.');
+            } else {
+                $.notify("Such tracking number doesn't exist. Please try again", "error");
+            }
+        },
+        error: function (xhr, str) {
+            $.notify("Internal server error occurred.", "warn");
+        }
+    });
+});
+$('#trackOrder2').click(function(){
+    alert("ajax go3");
+    $.ajax({
+        type: 'POST',
+        url: getContextPath() + 'orderTracking',
+        data: 'trackingNumber=' + $('#trackingNumber'),
+        success: function (data) {
+            console.log('success' == data);
+            console.log(data);
+            if (data != 'error') {
+                window.location.replace('.');
+            } else {
+                $.notify("Such tracking number doesn't exist. Please try again", "error");
+            }
+        },
+        error: function (xhr, str) {
+            $.notify("Internal server error occurred.", "warn");
         }
     });
 });

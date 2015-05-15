@@ -179,7 +179,7 @@
                 <label  class="sr-only">End date</label>
 
                 <div class="controls input-append date form_datetime"
-                     data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                     data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
                     <span class="add-on"><i class="icon-th"></i></span>
                     <span class="add-on"><i class="icon-remove"></i></span>
                     <input size="16" type="text" value="" id="endDate" name="endDate" readonly>
