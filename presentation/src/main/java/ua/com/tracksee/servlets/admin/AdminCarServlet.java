@@ -44,9 +44,11 @@ public class AdminCarServlet extends HttpServlet {
             pageNumber = 1;
             logger.warn("wrong page was request on /admin/drivers");
         }
+        System.out.println("PageNumber" + pageNumber);
         List<CarEntity> cars = administratorBean.getCarsPart(pageNumber);
         req.setAttribute("cars", cars);
         req.setAttribute("pagesCount", administratorBean.getCarPagesCount());
+        System.out.println("json: " + getJsonFromList(cars));
         resp.getWriter().write(getJsonFromList(cars));
     }
 

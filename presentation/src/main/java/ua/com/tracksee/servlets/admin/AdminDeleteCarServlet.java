@@ -25,14 +25,17 @@ public class AdminDeleteCarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        String carNumber = req.getParameter("carNumber");
         try{
+            String carNumber = req.getParameter("carNumber");
+            System.out.println("CAR NUMB " + carNumber);
             administratorBean.deleteCar(carNumber);
         }
         catch (Exception e){
-            resp.setStatus(400);
+            resp.setStatus(700);
             logger.warn("can't delelte this car");
         }
 
     }
+
+
 }

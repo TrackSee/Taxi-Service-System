@@ -67,7 +67,6 @@
             </thead>
             <tbody id="table-body">
             <c:forEach items="${requestScope.cars}" var="car">
-                <input id="carNumber" type="hidden" value="${car.carNumber}">
                 <tr>
                     <td><a href="updatecar?carNumber=${car.carNumber}">${car.carNumber}</a></td>
                     <td>${car.carModel}</td>
@@ -107,7 +106,7 @@
 <!-- Custom Theme JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
 <%--for pagination--%>
-<script src="<%=application.getContextPath()%>/resources/admin/js/paginatorforcar.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/paginatorCar.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/js/removeForCar.js"></script>
 
 
