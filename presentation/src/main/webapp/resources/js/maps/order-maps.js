@@ -8,7 +8,6 @@ var directionsDisplay;
 var directionsService;
 var map;
 var geocoder;
-//TODO get taxiPrice from db
 var TAXI_PRICE_PER_KM=0;
 
 function initializeMaps() {
@@ -162,8 +161,9 @@ function updateAddresses(route) {
     TAXI_PRICE_PER_KM=$('#taxiPricePerKm').val();
     TAXI_PRICE_PER_KM=TAXI_PRICE_PER_KM*distance;
     if(distance<5){
-        TAXI_PRICE_PER_KM=30;
+        TAXI_PRICE_PER_KM=$('#taxiPricePerKmMin').val();
     }
+    TAXI_PRICE_PER_KM=Math.round(TAXI_PRICE_PER_KM*100)/100;
     $('#price').val(TAXI_PRICE_PER_KM+" UAH");
 }
 
