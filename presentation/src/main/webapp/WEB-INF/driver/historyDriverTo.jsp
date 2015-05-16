@@ -9,6 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <head>
@@ -98,7 +99,12 @@
                                 <fmt:formatDate value="${order.endDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                               </td>
                               <td>${order.price}</td>
-                              <td>${order.status}</td>
+                              <td>
+                                <c:set var="string4" value="${order.status}"/>
+                                <c:set var="string5" value="${fn:toLowerCase(string4)}" />
+                                <c:set var="string6" value="${fn:replace(string5,
+                                '_', ' ')}" />
+                                  ${string6}</td>
                               <td>${order.comment=='null' ? "-" : order.comment}</td>
                             </tr>
                             </tbody>
@@ -116,14 +122,9 @@
 
               <div class="text-center">
                 <ul class="pagination">
-                  <%--<li class="active"><a href="1">1</a></li>--%>
                   <c:forEach var="i" begin="1" end="${requestScope.pagesCount}">
                     <li class="pageLi${i}"><a class="pageButton" href="#">${i}</a></li>
                   </c:forEach>
-                  <%--<li><a class="pageButton" href="#">2</a></li>--%>
-                  <%--<li><a href="#">3</a></li>--%>
-                  <%--<li><a href="#">4</a></li>--%>
-                  <%--<li><a href="#">5</a></li>--%>
                 </ul>
               </div>
             </div>
