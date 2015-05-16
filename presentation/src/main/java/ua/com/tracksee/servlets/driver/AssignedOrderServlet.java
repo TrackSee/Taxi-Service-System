@@ -2,6 +2,9 @@ package ua.com.tracksee.servlets.driver;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.entities.TaxiOrderEntity;
+import ua.com.tracksee.entities.UserEntity;
+import ua.com.tracksee.logic.facade.DriverFacade;
 import ua.com.tracksee.logic.facade.OrderFacade;
 
 import javax.ejb.EJB;
@@ -15,6 +18,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Maria Komar on 30.04.2015.
@@ -24,21 +28,20 @@ public class AssignedOrderServlet extends HttpServlet {
     private static Logger logger = LogManager.getLogger();
     @EJB
     private OrderFacade orderFacade;
+    @EJB
+    private DriverFacade driverFacade;
     String timeCarArrive;
     String trackingNumber;
     String orderStatus;
     int id;
     int inProgressStatus;
     boolean statusBoolean = false;
+    boolean alert = false;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         id = (int) req.getSession().getAttribute("userId");
         trackingNumber = req.getParameter("trackingNumber");
-        //timeCarArrive = req.getParameter("arriveDate");
-//        if(trackingNumber != null) {
-//            orderFacade.setAssignOrder(id, trackingNumber, timeCarArrive);
-//        }
         req.setAttribute("status", statusBoolean);
         req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
         req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
@@ -50,15 +53,10 @@ public class AssignedOrderServlet extends HttpServlet {
         trackingNumber = req.getParameter("trackingNumber");
         orderStatus = req.getParameter("orderStatus");
         statusBoolean = Boolean.valueOf(req.getParameter("status"));
-//        System.out.println("Servlet work");
-//        System.out.println("arriveDateCustomer" + req.getParameter("arriveDateCustomer"));
-//        System.out.println("arriveDate"+req.getParameter("arriveDate"));
-      //  if(req.getParameter("arriveDateCustomer").equals("")){
+
           String  timeCarArriveCustomerDate = req.getParameter("arriveDateCustomer");
-      //  }
-      //  if(req.getParameter("arriveDate").equals("")) {
           String  timeCarArriveDate = req.getParameter("arriveDate");
-        //Timestamp testTime = new Timestamp(-1);
+
         if(timeCarArriveCustomerDate!=null){
             Timestamp carArriveTimeTimestamp=null;
             try {
@@ -79,39 +77,54 @@ public class AssignedOrderServlet extends HttpServlet {
                         Date parsedDate = dateFormat.parse(timeCarArriveDate);
                         carArriveTimeTimestamp2= new java.sql.Timestamp(parsedDate.getTime());
                         //if(carArriveTimeTimestamp2.after(testTime)) {
-                            timeCarArrive = carArriveTimeTimestamp2.toString();
+                            //timeCarArrive = carArriveTimeTimestamp2.toString();
                         //}
                         timeCarArrive=carArriveTimeTimestamp2.toString();
                     } catch (ParseException e1) {
                         System.out.println("Invalid or missing date, cannot be parsed 2");
                        // carArriveTimeTimestamp2 = null;
-
+                    } catch (javax.ejb.EJBTransactionRolledbackException e2){
+                        req.setAttribute("alert", alert = true);
+                        req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
+                        req.setAttribute("status", statusBoolean);
+                        req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
                     }
-                    //System.out.println("Second"+timeCarArrive);
+                    catch (NullPointerException e3){
+                        req.setAttribute("alert", alert = true);
+                        req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
+                        req.setAttribute("status", statusBoolean);
+                        req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
+                    }
                 }
 
             }
             System.out.println("First"+timeCarArrive);
         }
-        else if(timeCarArriveDate!=null){
-            Timestamp carArriveTimeTimestamp2=null;
-            try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                Date parsedDate = dateFormat.parse(timeCarArriveDate);
-                carArriveTimeTimestamp2= new java.sql.Timestamp(parsedDate.getTime());
-                //if(carArriveTimeTimestamp2.after(testTime)) {
-                    timeCarArrive = carArriveTimeTimestamp2.toString();
-                //}
-                timeCarArrive=carArriveTimeTimestamp2.toString();
-            } catch (ParseException e) {
-                System.out.println("Invalid or missing date, cannot be parsed 2");
-                carArriveTimeTimestamp2 = null;
+//        else if(timeCarArriveDate!=null){
+//            Timestamp carArriveTimeTimestamp2=null;
+//            try {
+//                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//                Date parsedDate = dateFormat.parse(timeCarArriveDate);
+//                carArriveTimeTimestamp2= new java.sql.Timestamp(parsedDate.getTime());
+//                //if(carArriveTimeTimestamp2.after(testTime)) {
+//                    timeCarArrive = carArriveTimeTimestamp2.toString();
+//                //}
+//                timeCarArrive=carArriveTimeTimestamp2.toString();
+//            } catch (ParseException e) {
+//                System.out.println("Invalid or missing date, cannot be parsed 2");
+//                carArriveTimeTimestamp2 = null;
+//
+//            }
+//            catch (Exception e1){
+//                req.setAttribute("alert", alert = true);
+//                req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
+//                req.setAttribute("status", statusBoolean);
+//                req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
+//            }
+//            //System.out.println("Second"+timeCarArrive);
+//        }
+//        System.out.println("RESSUPERFINAL"+timeCarArrive);
 
-            }
-            //System.out.println("Second"+timeCarArrive);
-        }
-        //System.out.println("RESSUPERFINAL"+timeCarArrive);
-      //  }
 
 
         if(orderStatus != null) {
@@ -130,7 +143,17 @@ public class AssignedOrderServlet extends HttpServlet {
                 orderFacade.setToQueueOrder(trackingNumber);
             }
             else if(orderStatus.equals("Assign")) {
-                orderFacade.setAssignOrder(id, trackingNumber, timeCarArrive);
+                try {
+                    orderFacade.setAssignOrder(id, trackingNumber, timeCarArrive);
+                }
+                catch (javax.ejb.EJBTransactionRolledbackException e2){
+                    UserEntity driver = driverFacade.getUserById(id);
+                    List<TaxiOrderEntity> orders = orderFacade.getAvailableOrders(driver, 1);
+                    req.setAttribute("alert", alert = true);
+                    req.setAttribute("orders", orders);
+                    req.setAttribute("pagesCount", orderFacade.getOrdersPagesCount(id));
+                    req.getRequestDispatcher("/WEB-INF/driver/driverIndex.jsp").forward(req,resp);
+                }
             }
         }
 
@@ -139,8 +162,8 @@ public class AssignedOrderServlet extends HttpServlet {
         //timeCarArrive = req.getParameter("carArriveTime");
         req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
         req.setAttribute("status", statusBoolean);
-        req.setAttribute("firsCust", req.getParameter("arriveDateCustomer"));
-        req.setAttribute("firsDrive", req.getParameter("arriveDate"));
+        //req.setAttribute("firsCust", req.getParameter("arriveDateCustomer"));
+        //req.setAttribute("firsDrive", req.getParameter("arriveDate"));
         req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
     }
 }

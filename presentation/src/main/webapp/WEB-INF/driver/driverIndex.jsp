@@ -128,9 +128,10 @@
                               <label for="arriveDate" class="sr-only">Arrive date</label>
                               <div class="controls input-append date form_datetime"
                                    data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                                <b>Enter the time of arrival to the client: </b>
                                 <span class="add-on"><i class="icon-th"></i></span>
                                 <span class="add-on"><i class="icon-remove"></i></span>
-                                <input size="16" type="text" value= "" id="arriveDate" name="arriveDate" readonly>
+                                <input size="16" type="text" value= "" id="arriveDate" name="arriveDate" readonly required>
                                 <input type="hidden" id="dtp_input1" value=""/><br/>
                               </div>
                               </div>
@@ -164,6 +165,35 @@
                 </div>
               </section>
             </c:forEach>
+
+    <c:choose>
+    <c:when test="${alert == 'true'}">
+    <script src="<%=application.getContextPath()%>/resources/driver/js/jquery.min.js"></script>
+    <script src="<%=application.getContextPath()%>/resources/driver/js/modalOrderInProgress.js"></script>
+
+    </head>
+    <body>
+    <div id="myModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Warning</h4>
+          </div>
+          <div class="modal-body">
+            <p>Please dont't forget to enter the time of arrival to the client!</p>
+          </div>
+          <div class="modal-footer">
+            <form action="change-satus" method="post">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <input type="hidden" name="status" value="false">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </c:when>
+    </c:choose>
               <!-- /Plans -->
 
               <div class="text-center">
