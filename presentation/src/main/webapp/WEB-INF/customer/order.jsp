@@ -169,6 +169,7 @@
                         <option value="TAXI_FOR_LONG_TERM">Service "Taxi for long term"</option>
                     </select>
                 </div>
+
                 <label for="arriveDate" class="sr-only">Arrive date</label>
 
                 <div class="controls input-append date form_datetime"
@@ -179,9 +180,8 @@
                 <input type="hidden" id="dtp_input1" value=""/><br/>
 
             </div>
-                <div id="endDateBlock">
-                <label  class="sr-only">End date</label>
-
+                <div id="amountOfTimeBlock">
+                <label  class="sr-only"></label>
                 <div class="controls input-append date form_datetime"
                      data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
                     <span class="add-on"><i class="icon-th"></i></span>
@@ -189,6 +189,7 @@
                     <input size="16" type="text" value="" id="endDate" name="endDate" readonly>
                     <input type="hidden" id="dtp_input2" value=""/><br/>
                 </div>
+
                     </div>
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>

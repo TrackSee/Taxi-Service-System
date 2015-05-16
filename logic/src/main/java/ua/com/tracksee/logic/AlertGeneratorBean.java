@@ -27,16 +27,17 @@ import java.util.List;
 import static ua.com.tracksee.enumartion.OrderStatus.QUEUED;
 
 /**
+ * The AlertGenerator interface provides
+ * generating any popup alert to further
+ * display on web page. Parts of popup alert and
+ * different alert types store in constants.
+ *
  * @author Sharaban Sasha
- * @see ua.com.tracksee.logic.AlertGenerator
  */
 @Stateless
 public class AlertGeneratorBean  {
     private static final Logger logger = LogManager.getLogger();
-    /**
-     * Parts of popup alert and
-     * different alert types.
-     */
+
     private static final String ALERT_TYPE_SUCCESS = "<div class=\"alert alert-success\"";
     private static final String ALERT_TYPE_INFO = "<div class=\"alert alert-info\"";
     private static final String ALERT_TYPE_WARNING = "<div class=\"alert alert-warning\"";
@@ -57,6 +58,7 @@ public class AlertGeneratorBean  {
      * @param inputText text that must be displayed in alert
      * @return complete alert popup with text ready for show
      */
+
    public String getSuccessAlert(String inputText){
        return ALERT_TYPE_SUCCESS+ALERT_BODY+FONT_BEGIN+inputText+FONT_END+ALERT_END;
    }

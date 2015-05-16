@@ -143,7 +143,7 @@ public class TaxiOrderBean {
      * @param inputData information about changed order
      */
     public void updateOrder(HashMap<String, String> inputData) throws OrderException {
-        TaxiOrderEntity taxiOrderEntity = validateForUpdateTaxiOrder(inputData);
+        TaxiOrderEntity taxiOrderEntity = validateForTaxiOrder(inputData);
         long trackingNumber = Long.parseLong(inputData.get("trackingNumber"));
         if (trackingNumber >= 0) {
             taxiOrderEntity.setTrackingNumber(trackingNumber);
@@ -215,7 +215,7 @@ public class TaxiOrderBean {
     }
 
     /**
-     * This method checks incoming origin
+     * Checks incoming origin
      * address and insert it into AddressEntity object.
      *
      * @author Sharaban Sasha
@@ -333,7 +333,7 @@ public class TaxiOrderBean {
     }
 
     /**
-     * This method convert string
+     * Converts string
      * representation of checkbox state
      * to boolean
      *
@@ -351,54 +351,6 @@ public class TaxiOrderBean {
         return booleanCheckBoxState;
     }
 
-    /**
-     * This method checks incoming values and
-     * insert it into TaxiOrderEntity object
-     * it is used for updating taxi order
-     *
-     * @author Sharaban Sasha
-     * @param inputData - input data from the client
-     * @return TaxiOrderEntity object that contain checked values
-     * @throws ua.com.tracksee.exception.OrderException
-     */
-    private TaxiOrderEntity validateForUpdateTaxiOrder(HashMap<String, String> inputData) throws OrderException {
-        TaxiOrderEntity taxiOrderEntity = new TaxiOrderEntity();
-        CarCategory carCategory;
-        WayOfPayment wayOfPayment;
-        Sex driverSex;
-        Service service;
-        MusicStyle musicStyle;
-        
-
-        Timestamp arriveTimestamp = convertToTimestamp(inputData.get("arriveDate"));
-        taxiOrderEntity.setArriveDate(arriveTimestamp);
-
-        Timestamp endTimestamp = convertToTimestamp(inputData.get("endDate"));
-        taxiOrderEntity.setEndDate(endTimestamp);
-
-        carCategory = enumValidationBean.setEnumCarCategory(inputData.get("carCategory"));
-        taxiOrderEntity.setCarCategory(carCategory);
-        wayOfPayment = enumValidationBean.setEnumWayOfPayment(inputData.get("wayOfPayment"));
-        taxiOrderEntity.setWayOfPayment(wayOfPayment);
-        driverSex = enumValidationBean.setEnumDriverSex(inputData.get("driverSex"));
-        taxiOrderEntity.setDriverSex(driverSex);
-        service = enumValidationBean.setEnumService(inputData.get("service"));
-        taxiOrderEntity.setService(service);
-        musicStyle = enumValidationBean.setEnumMusicStyle(inputData.get("musicStyle"));
-        taxiOrderEntity.setMusicStyle(musicStyle);
-
-        taxiOrderEntity.setAnimalTransportation(convertCheckBoxToBoolean(inputData.get("animalTransportation")));
-        taxiOrderEntity.setFreeWifi(convertCheckBoxToBoolean(inputData.get("freeWifi")));
-        taxiOrderEntity.setNonSmokingDriver(convertCheckBoxToBoolean(inputData.get("nonSmokingDriver")));
-        taxiOrderEntity.setAirConditioner(convertCheckBoxToBoolean(inputData.get("airConditioner")));
-
-        if (!inputData.get("description").equals("")) {
-            taxiOrderEntity.setDescription(inputData.get("description"));
-        } else {
-            taxiOrderEntity.setDescription("");
-        }
-        return taxiOrderEntity;
-    }
     /**
      * @author Sharaban Sasha
      * @see ua.com.tracksee.dao.TaxiOrderDAO
