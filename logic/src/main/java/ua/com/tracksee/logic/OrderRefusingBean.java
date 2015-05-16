@@ -24,7 +24,7 @@ public class OrderRefusingBean {
     private @EJB UserDAO userDAO;
 
     public void refuseOrder(long trackingNumber) {
-        canselDAO.cancelOrder(trackingNumber);
+        canselDAO.refuseOrder(trackingNumber);
         int refusedTimes= canselDAO.getUserRefusedTimes(trackingNumber);
         if(refusedTimes>2){
             sendNotification(userDAO.getUserById(taxiOrderDAO.getOrder(trackingNumber).getUserId()));
