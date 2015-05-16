@@ -156,6 +156,14 @@ function updateAddresses(route) {
  */
 function updatePrice(route) {
     var distance = 0;
+    //TODO calculating price for different service if it need
+    //var arriveDate=0;
+    //var endDate=0;
+    //arriveDate=$('#arriveDate').val();
+    //endDate=$('#endDate').val();
+    //alert(arriveDate);
+    //alert(endDate);
+
     for (var i = 0; i < route.legs.length; i++) {
         distance += route.legs[i].distance.value;
     }

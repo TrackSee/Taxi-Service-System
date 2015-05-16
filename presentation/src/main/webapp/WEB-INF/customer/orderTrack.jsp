@@ -130,7 +130,7 @@
                     <input type="hidden" id="dtp_input1" value=""/><br/>
 
                 </div>
-                <div id="endDateBlock">
+                <div id="amountOfTimeBlock">
                     <label  class="sr-only">End date</label>
 
                     <div class="controls input-append date form_datetime"
