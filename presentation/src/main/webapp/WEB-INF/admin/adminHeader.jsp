@@ -58,6 +58,17 @@
                     </ul>
                 </li>
                 <li>
+                    <a><i class="fa fa-table fa-fw"></i>Review Dashboards<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="<%=application.getContextPath()%>/admin/searchdriver">Go to driver dashboard</a>
+                        </li>
+                        <li>
+                            <a href="<%=application.getContextPath()%>/admin/customerbysearch">Go to customer dashboard</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
                     <a><i class="fa fa-table fa-fw"></i>Reports<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>

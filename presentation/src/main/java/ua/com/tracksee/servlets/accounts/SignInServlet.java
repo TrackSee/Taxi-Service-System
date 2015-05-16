@@ -40,6 +40,7 @@ public class SignInServlet extends HttpServlet {
             session.invalidate();
         }
         req.logout();
+
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         logger.debug("User attempts to authorise {}", email);
@@ -67,7 +68,7 @@ public class SignInServlet extends HttpServlet {
 
         session = req.getSession(true);
         session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_INTERVAL);
-        session.setAttribute(USER_ID,5);
+        session.setAttribute(USER_ID,user.getUserId());
         session.setAttribute(USER_EMAIL, email);
     }
 }
