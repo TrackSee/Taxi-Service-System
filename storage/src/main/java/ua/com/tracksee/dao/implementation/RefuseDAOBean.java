@@ -16,7 +16,7 @@ import java.sql.SQLException;
  * Created by Sasha on 5/2/2015.
  */
 @Stateless(name = "CanselDAOBeanEJB")
-public class CancelDAOBean {
+public class RefuseDAOBean {
     // TODO refactoring and interface
     private static final Logger logger = LogManager.getLogger();
     @EJB

@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * @author Sharaban Sasha
+ * @author Avlasov Sasha
  */
 @Local
 public interface RefuseDAO {

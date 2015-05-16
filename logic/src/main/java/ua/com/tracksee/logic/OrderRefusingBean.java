@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.dao.implementation.CancelDAOBean;
+import ua.com.tracksee.dao.implementation.RefuseDAOBean;
 import ua.com.tracksee.entities.UserEntity;
 
 import javax.ejb.EJB;
@@ -18,7 +18,8 @@ import javax.ejb.Stateless;
 public class OrderRefusingBean {
     private static final Logger logger = LogManager.getLogger();
 
-    private @EJB CancelDAOBean canselDAO;
+    private @EJB
+    RefuseDAOBean canselDAO;
     private @EJB TaxiOrderDAO taxiOrderDAO;
     private @EJB UserDAO userDAO;
 
