@@ -8,7 +8,7 @@ var directionsDisplay;
 var directionsService;
 var map;
 var geocoder;
-var TAXI_PRICE_PER_KM=0;
+var TAXI_PRICE_PER_KM = 0;
 
 function initializeMaps() {
     DEFAULT_LOCATION = new google.maps.LatLng(DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lng);
@@ -24,7 +24,7 @@ function initializeMaps() {
     calcRoute(DEFAULT_LOCATION, DEFAULT_LOCATION, []);
     tryGeolocation();
     geocoder = new google.maps.Geocoder();
-    google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
+    google.maps.event.addListener(directionsDisplay, 'directions_changed', function () {
         updateAddresses(directionsDisplay.getDirections().routes[0]);
         updatePrice(directionsDisplay.getDirections().routes[0]);
     });
@@ -44,12 +44,12 @@ function initializeDirections() {
 function tryGeolocation() {
 
     // HTML5 geolocation
-    if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             map.setCenter(pos);
             calcRoute(pos, pos, []);
-        }, function() {
+        }, function () {
             $.notify('The Geolocation service failed.', 'error');
         });
     } else {
@@ -73,7 +73,7 @@ function calcRoute(origin, destination, waypoints) {
         waypoints: waypoints,
         travelMode: google.maps.TravelMode.DRIVING
     };
-    directionsService.route(request, function(response, status) {
+    directionsService.route(request, function (response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
         }
@@ -89,7 +89,7 @@ function calcRoute(origin, destination, waypoints) {
  * @param textInput {Node}
  */
 function decodePointToText(latLng, textInput) {
-    geocoder.geocode({'latLng': latLng}, function(results, status) {
+    geocoder.geocode({'latLng': latLng}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             if (results[0]) {
                 textInput.val(results[0].formatted_address);
@@ -117,8 +117,10 @@ function getRouteData(route) {
         duration += route.legs[i].duration.value;
         distance += route.legs[i].distance.value;
     }
-    return {duration : Math.round(duration / SECS_PER_MINUTE), // to minutes
-        distance : Math.round(distance / 100) / 10};           // to km
+    return {
+        duration: Math.round(duration / SECS_PER_MINUTE), // to minutes
+        distance: Math.round(distance / 100) / 10
+    };           // to km
 }
 
 /**
@@ -152,19 +154,19 @@ function updateAddresses(route) {
  * @author Sharaban Sasha
  * @param route {google.maps.DirectionsRoute}
  */
-  function updatePrice(route){
+function updatePrice(route) {
     var distance = 0;
     for (var i = 0; i < route.legs.length; i++) {
         distance += route.legs[i].distance.value;
     }
-     distance = Math.round(distance / 100) / 10;
-    TAXI_PRICE_PER_KM=$('#taxiPricePerKm').val();
-    TAXI_PRICE_PER_KM=TAXI_PRICE_PER_KM*distance;
-    if(distance<5){
-        TAXI_PRICE_PER_KM=$('#taxiPricePerKmMin').val();
+    distance = Math.round(distance / 100) / 10;
+    TAXI_PRICE_PER_KM = $('#taxiPricePerKm').val();
+    TAXI_PRICE_PER_KM = TAXI_PRICE_PER_KM * distance;
+    if (distance < 5) {
+        TAXI_PRICE_PER_KM = $('#taxiPricePerKmMin').val();
     }
-    TAXI_PRICE_PER_KM=Math.round(TAXI_PRICE_PER_KM*100)/100;
-    $('#price').val(TAXI_PRICE_PER_KM+" UAH");
+    TAXI_PRICE_PER_KM = Math.round(TAXI_PRICE_PER_KM * 100) / 100;
+    $('#price').val(TAXI_PRICE_PER_KM + " UAH");
 }
 
 /**

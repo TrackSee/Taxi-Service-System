@@ -28,27 +28,27 @@ $(".form_datetime").datetimepicker({
  * @author Sharaban Sasha
  * @returns date in format (yyyy-MM-dd hh:mm)
  */
-function  getCurrentDate(){
+function getCurrentDate() {
     var today = new Date();
     var mm = today.getMinutes();
     var hh = today.getHours();
     var dd = today.getDate();
-    var MM = today.getMonth()+1; //January is 0!
+    var MM = today.getMonth() + 1; //January is 0!
     var yyyy = today.getFullYear();
 
 
-    if(dd<10){
-        dd='0'+dd
+    if (dd < 10) {
+        dd = '0' + dd
     }
-    if(mm<10){
-        mm='0'+mm
+    if (mm < 10) {
+        mm = '0' + mm
     }
-    if(hh<10){
-        hh='0'+hh
+    if (hh < 10) {
+        hh = '0' + hh
     }
-    if(MM<10){
-        MM='0'+MM
+    if (MM < 10) {
+        MM = '0' + MM
     }
-    var today = yyyy+'-'+MM+'-'+dd+' '+hh+':'+mm;
+    var today = yyyy + '-' + MM + '-' + dd + ' ' + hh + ':' + mm;
     return today;
 }
