@@ -9,6 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <head>
@@ -116,8 +117,20 @@
                               </td>
                               <td>${order.price}</td>
                               <td>${order.nonSmokingDriver==true ? "+" : "-"}</td>
-                              <td>${order.musicStyle}</td>
-                              <td>${order.status}</td>
+                              <td>
+                                <c:set var="string1" value="${order.musicStyle}"/>
+                                <c:set var="string2" value="${fn:toLowerCase(string1)}" />
+                                <c:set var="string3" value="${fn:replace(string2,
+                                '_', ' ')}" />
+                                ${string3}
+                              </td>
+                              <td>
+                                <c:set var="string4" value="${order.status}"/>
+                                <c:set var="string5" value="${fn:toLowerCase(string4)}" />
+                                <c:set var="string6" value="${fn:replace(string5,
+                                '_', ' ')}" />
+                                  ${string6}
+                              </td>
                             </tr>
                           </tbody>
                         </table>
