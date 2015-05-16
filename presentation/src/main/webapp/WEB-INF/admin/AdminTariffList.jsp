@@ -54,36 +54,39 @@
     <table class="table" id="tablePrice">
       <thead>
       <tr>
+        <th bgcolor="#f5f5f5">№</th>
+        <th bgcolor="#f5f5f5">Car category</th>
+        <th bgcolor="#f5f5f5">Weekend</th>
+        <th bgcolor="#f5f5f5">Night tariff</th>
         <th>Price per km, UAH</th>
         <th>Price per min, UAH</th>
-        <th>Car category</th>
-        <th>Weekend</th>
-        <th>Night tariff</th>
       </tr>
       </thead>
       <tbody id="table-body" class="tboddy">
       <c:forEach items="${requestScope.tariff}" var="tariff" varStatus="myIndex">
         <tr>
+          <td></td>
+          <td class="No" bgcolor="#f5f5f5">${myIndex.index+1}</td>
+          <td class="car" bgcolor="#f5f5f5">${tariff.carCategory}</td>
+          <td bgcolor="#f5f5f5">
+            <input id="ch_weeke${myIndex.index}" type="checkbox" <c:if test="${tariff.weekend}">checked</c:if> disabled>
+          </td>
+          <td bgcolor="#f5f5f5">
+            <input id="ch_nt${myIndex.index}" type="checkbox" <c:if test="${tariff.nightTariff}">checked</c:if> disabled>
+          </td>
           <td>
-            <input id = "perKm${myIndex.index}" type="number" step="0.01" min="0" value="${tariff.pricePerKm}"
+            <input id = "perKm${myIndex.index}" type="number" step="0.01" min="0" maxlength="2" value="${tariff.pricePerKm}"
                    onfocus="check(${myIndex.index}, 'perKm', 'buttonKm')">
             <input id="buttonKm${myIndex.index}" type="submit" value="Save" onclick="save(${myIndex.index}, 'perKm')">
             <input id="err_perKm${myIndex.index}" style="border-color:white; border-width:0;" class="error" size="6" readonly>
             <input id="text_perKm${myIndex.index}" style="border-color:white; border-width:0;" class="msgText" readonly>
           </td>
           <td>
-            <input id = "perMin${myIndex.index}" type="number" step="0.01" min="0" value="${tariff.pricePerMin}"
+            <input id = "perMin${myIndex.index}" type="number" step="0.01" min="0" maxlength="14" value="${tariff.pricePerMin}"
                    onfocus="check(${myIndex.index}, 'perMin', 'buttonMin')">
             <input id="buttonMin${myIndex.index}" type="submit" value="Save" onclick="save(${myIndex.index}, 'perMin')">
             <input id="err_perMin${myIndex.index}" style="border-color:white; border-width:0;" class="error" size="6" readonly>
             <input id="text_perMin${myIndex.index}" style="border-color:white; border-width:0;" class="msgText" readonly>
-          </td>
-          <td class="car" >${tariff.carCategory}</td>
-          <td>
-            <input id="ch_weeke${myIndex.index}" type="checkbox" <c:if test="${tariff.weekend}">checked</c:if> disabled>
-          </td>
-          <td>
-            <input id="ch_nt${myIndex.index}" type="checkbox" <c:if test="${tariff.nightTariff}">checked</c:if> disabled>
           </td>
         </tr>
       </c:forEach>
