@@ -48,12 +48,13 @@
     <!--start: Container -->
     <div id = "input-form" class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
+
+            <%--TODO getting data from database--%>
         <div hidden="hidden">
-            <%--TODO gettin data from database--%>
-        <input type="text" id="taxiPricePerKm" value="10">
+        <input type="text" id="taxiPricePerKm" value="6">
             </div>
         <div hidden="hidden">
-            <input type="text" id="distance" value="">
+            <input type="text" id="taxiPricePerKmMin" value="30">
         </div>
         <%--${"taxiPricePerKm"}">--%>
         <form method="post" action="<c:url value="/order"/>">
