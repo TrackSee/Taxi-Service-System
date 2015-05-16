@@ -40,6 +40,9 @@
 
   <link href="<%=application.getContextPath()%>/resources/driver/css/map-canvas.css" rel="stylesheet"
         media="screen">
+  <link href="<%=application.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+        media="screen">
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -99,23 +102,17 @@
                               <td>
                                 <fmt:formatDate value="${order.arriveDate}" pattern="yyyy" var="testDate" />
 
+                                <c:set var="hide" scope="session" value="hidden=\"hidden\""/>
                                 <c:choose>
                                   <c:when test="${testDate > 1900}">
                                   <fmt:formatDate value="${order.arriveDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                                 </c:when>
 
                                 <c:otherwise>
-                                  <label for="arriveDate" class="sr-only">Arrive date</label>
-                                  <div class="controls input-append date form_datetime"
-                                       data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                                    <span class="add-on"><i class="icon-th"></i></span>
-                                    <span class="add-on"><i class="icon-remove"></i></span>
-                                    <input size="16" type="text" id="arriveDate" name="arriveDate" readonly>
-                                    <input type="hidden" id="dtp_input1" /><br/>
-
-                                  </div>
+                                  <c:set var="hide" scope="session" value=""/>
                                 </c:otherwise>
                                 </c:choose>
+
                               </td>
                               <td>${order.price}</td>
                               <td>${order.nonSmokingDriver==true ? "+" : "-"}</td>
@@ -124,12 +121,37 @@
                             </tr>
                           </tbody>
                         </table>
-
                         <div class="panel-footer">
                           <form action="assigned-order" method="post">
+                           <p>
+                            <div <c:out value="${hide}"/>>
+                              <label for="arriveDate" class="sr-only">Arrive date</label>
+                              <div class="controls input-append date form_datetime"
+                                   data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                                <b>Enter the time of arrival to the client: </b>
+                                <span class="add-on"><i class="icon-th"></i></span>
+                                <span class="add-on"><i class="icon-remove"></i></span>
+                                <input size="16" type="text" value= "" id="arriveDate" name="arriveDate" readonly required>
+                                <input type="hidden" id="dtp_input1" value=""/><br/>
+                              </div>
+                              </div>
+                            </p>
                             <a href="javascript:;" onclick="parentNode.submit();"><button type="button" class="btn btn-success btn-lg btn-block">Assign order</button></a>
+                            <%--<input type="hidden" name="arriveDateCustomer" value=${order.arriveDate}>--%>
+                            <p>
+                            <div hidden="hidden">
+                              <label for="arriveDateCustomer" class="sr-only">Arrive date</label>
+                              <div class="controls input-append date form_datetime"
+                                   data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                                <span class="add-on"><i class="icon-th"></i></span>
+                                <span class="add-on"><i class="icon-remove"></i></span>
+                                <input size="16" type="text" value= "${order.arriveDate}" id="arriveDateCustomer"
+                                       name="arriveDateCustomer" readonly>
+                                <input type="hidden" id="dtp_input2" value=""/><br/>
+                              </div>
+                            </div>
+                            </p>
                             <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
-                            <input type="hidden" name="arriveDateCustomer" value=${order.arriveDate}">
                             <input type="hidden" name="orderStatus" value="Assign">
                           </form>
 
@@ -138,10 +160,40 @@
                     </div>
                     <!-- /item -->
 
+
                   </div>
                 </div>
               </section>
             </c:forEach>
+
+    <c:choose>
+    <c:when test="${alert == 'true'}">
+    <script src="<%=application.getContextPath()%>/resources/driver/js/jquery.min.js"></script>
+    <script src="<%=application.getContextPath()%>/resources/driver/js/modalOrderInProgress.js"></script>
+
+    </head>
+    <body>
+    <div id="myModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Warning</h4>
+          </div>
+          <div class="modal-body">
+            <p>Please dont't forget to enter the time of arrival to the client!</p>
+          </div>
+          <div class="modal-footer">
+            <form action="change-satus" method="post">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <input type="hidden" name="status" value="false">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </c:when>
+    </c:choose>
               <!-- /Plans -->
 
               <div class="text-center">

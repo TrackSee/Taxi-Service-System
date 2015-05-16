@@ -1,7 +1,6 @@
 <%@ page import="ua.com.tracksee.entities.TaxiOrderEntity" %>
 <%@ page import="java.util.List" %>
 <%--
-  Created by IntelliJ IDEA.
   User: Vadym_Akymov
   Date: 26.04.15
   Time: 14:01
@@ -30,8 +29,8 @@
     <div class="container">
       <h2><i class="ico-settings ico-whiteeclipse"></i>Client Dashboard</h2>
       <div class="btn-group btn-group-lg group" role="group" aria-label="Large button group">
-        <button type="button" class="btn btn-default completed <%=request.getAttribute("type").equals("completed") ? "active" : ""%>" value="old">Old TOs</button>
-        <button type="button" class="btn btn-default act <%=request.getAttribute("type").equals("active") ? "active" : ""%>" value="active">Active TOs</button>
+        <button type="button" class="btn btn-default completed <%=request.getAttribute("type").equals("completed") ? "active datatype" : ""%>" value="old">Old TOs</button>
+        <button type="button" class="btn btn-default act <%=request.getAttribute("type").equals("active") ? "active datatype" : ""%>" value="active">Active TOs</button>
       </div>
     </div>
     <!-- end: Container  -->

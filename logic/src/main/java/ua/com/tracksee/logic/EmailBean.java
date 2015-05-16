@@ -3,7 +3,6 @@ package ua.com.tracksee.logic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.TaxiOrderItemEntity;
 import ua.com.tracksee.entities.UserEntity;
 
@@ -172,10 +171,10 @@ public class EmailBean {
         }
     }
 
-    @Asynchronous
-    public void sendChangingTOFromAssignedToRefusedMadeByDriver(TaxiOrderEntity order) throws MessagingException {
-        //TODO this is not empty and does something.
-        // Can we use here TaxiOrderEntity instead of TaxiOrderItemEntity, please?
-    }
+//    @Asynchronous
+//    public void sendChangingTOFromAssignedToRefusedMadeByDriver(TaxiOrderEntity order) throws MessagingException {
+//        //TODO this is not empty and does something.
+//        // Can we use here TaxiOrderEntity instead of TaxiOrderItemEntity, please?
+//    }
 
 }

@@ -4,13 +4,14 @@ package ua.com.tracksee.logic.driver;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
-import ua.com.tracksee.logic.EmailBean;
 import ua.com.tracksee.logic.OrderRefusingBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.mail.MessagingException;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -19,14 +20,16 @@ import java.util.List;
  */
 @Stateless
 public class DriverOrderBean {
+    //private static final Logger logger = LogManager.getLogger();
+
     @EJB
     private TaxiOrderDAO taxiOrderDao;
 
     @EJB
     private OrderRefusingBean orderRefusingBean;
 
-    @EJB
-    private EmailBean emailBean;
+//    @EJB
+//    private EmailBean emailBean;
 
     public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
         return taxiOrderDao.getAvailableOrders(driver, pageNumber);
@@ -42,8 +45,21 @@ public class DriverOrderBean {
 
     public void setAssignOrder(int driverId, String trackingNumber, String carArriveTime){
         int trackingNumberInt = Integer.parseInt(trackingNumber);
-        Timestamp carArriveTimeTimestamp = Timestamp.valueOf(carArriveTime);
-        taxiOrderDao.setAssignOrder(driverId, trackingNumberInt, carArriveTimeTimestamp);
+        System.out.println("carArriveTime"+carArriveTime);
+        Timestamp carArriveTimeTimestamp=null;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Date parsedDate = dateFormat.parse(carArriveTime);
+            carArriveTimeTimestamp= new java.sql.Timestamp(parsedDate.getTime());
+        } catch (ParseException e) {
+            System.out.println("Invalid or missing date, cannot be parsed");
+            carArriveTimeTimestamp = null;
+        }
+        TaxiOrderEntity taxiOrderEntity=new TaxiOrderEntity();
+        taxiOrderEntity.setArriveDate(carArriveTimeTimestamp);
+        System.out.println("dateTimezone"+taxiOrderEntity.getArriveDate());
+       // Timestamp carArriveTimeTimestamp = Timestamp.valueOf(carArriveTime);
+        taxiOrderDao.setAssignOrder(driverId, trackingNumberInt, taxiOrderEntity.getArriveDate());
     }
 
     public int setInProgressOrder(String trackingNumber){
@@ -58,25 +74,26 @@ public class DriverOrderBean {
 
     //When customer not arrived to car, driver refuse order and we +1 to refusedTimes by this user.
     public void setRefusedOrder(String trackingNumber){
-        long trackingNumberInt = Long.parseLong(trackingNumber);
-        orderRefusingBean.refuseOrder(trackingNumberInt);
+        long trackingNumberLong = Long.parseLong(trackingNumber);
+        orderRefusingBean.refuseOrder(trackingNumberLong);
     }
 
-    public TaxiOrderEntity getOrder(Long trackingNumber){
-        return taxiOrderDao.getOrder(trackingNumber);
-    }
+//    public TaxiOrderEntity getOrder(Long trackingNumber){
+//        return taxiOrderDao.getOrder(trackingNumber);
+//    }
 
     //TODO write some complicated business logic. What to do with time of car aarive?
     public void setToQueueOrder(String trackingNumber) {
         int trackingNumberInt = Integer.parseInt(trackingNumber);
-        Long trackingNumberLong = Long.parseLong(trackingNumber);
+//        Long trackingNumberLong = Long.parseLong(trackingNumber);
         taxiOrderDao.setToQueueOrder(trackingNumberInt);
-        try {
-            emailBean.sendChangingTOFromAssignedToRefusedMadeByDriver(getOrder(trackingNumberLong));
-        }
-        catch(MessagingException e){
-            System.out.print("Message to customer not sent!");
-        }
+//        try {
+//            emailBean.sendChangingTOFromAssignedToRefusedMadeByDriver(getOrder(trackingNumberLong));
+//        }
+//        catch(MessagingException e){
+//            logger.warn("Message to customer not sent!");
+//            System.out.print("Message to customer not sent!");
+        //}
     }
 
     public int getOrdersPagesCount(int id){

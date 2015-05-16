@@ -1,11 +1,10 @@
 /*
 * author Vitalii Diravka
 */
-#container {
+#input-form {
     position: absolute;
     left: 60px;
     margin: 0 auto;
-    /*z-index: 10;*/
 }
 
 #map-canvas {
