@@ -2,9 +2,9 @@ package ua.com.tracksee.logic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.dao.RefuseDAO;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.dao.implementation.RefuseDAOBean;
 import ua.com.tracksee.entities.UserEntity;
 
 import javax.ejb.EJB;
@@ -14,18 +14,18 @@ import javax.ejb.Stateless;
  * @author Sasha Avlasov
  * @author Sharaban Sasha
  */
-@Stateless(name = "OrderCancellationBeanEJB")
+@Stateless
 public class OrderRefusingBean {
     private static final Logger logger = LogManager.getLogger();
 
     private @EJB
-    RefuseDAOBean canselDAO;
+    RefuseDAO refuseDAO;
     private @EJB TaxiOrderDAO taxiOrderDAO;
     private @EJB UserDAO userDAO;
 
     public void refuseOrder(long trackingNumber) {
-        canselDAO.refuseOrder(trackingNumber);
-        int refusedTimes= canselDAO.getUserRefusedTimes(trackingNumber);
+        refuseDAO.refuseOrder(trackingNumber);
+        int refusedTimes= refuseDAO.getUserRefusedTimes(trackingNumber);
         if(refusedTimes>2){
             sendNotification(userDAO.getUserById(taxiOrderDAO.getOrder(trackingNumber).getUserId()));
         }
