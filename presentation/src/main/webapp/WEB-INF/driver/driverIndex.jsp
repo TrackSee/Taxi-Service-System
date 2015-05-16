@@ -65,6 +65,7 @@
       <!-- /.col-lg-12 -->
     </div>
 
+
               <!-- Plans -->
             <c:forEach items="${requestScope.orders}" var="order">
               <section id="plans">
@@ -208,17 +209,12 @@
     </c:when>
     </c:choose>
               <!-- /Plans -->
-
+    Where is pagination?
               <div class="text-center">
                 <ul class="pagination">
-                  <%--<li class="active"><a href="1">1</a></li>--%>
                   <c:forEach var="i" begin="1" end="${requestScope.pagesCount}">
                     <li class="pageLi${i}"><a class="pageButton" href="#">${i}</a></li>
                   </c:forEach>
-                  <%--<li><a class="pageButton" href="#">2</a></li>--%>
-                  <%--<li><a href="#">3</a></li>--%>
-                  <%--<li><a href="#">4</a></li>--%>
-                  <%--<li><a href="#">5</a></li>--%>
                 </ul>
               </div>
             </div>
@@ -276,6 +272,9 @@
 
 <script src="<%=application.getContextPath()%>/resources/js/moment.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/combodate.js"></script>
+
+<%--for pagination--%>
+<script src="<%=application.getContextPath()%>/resources/driver/js/paginator-orders.js"></script>
 
 
 </body>

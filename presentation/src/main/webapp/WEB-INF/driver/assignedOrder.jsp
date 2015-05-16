@@ -161,6 +161,14 @@
               </c:forEach>
               <!-- /Plans -->
 
+    <div class="text-center">
+      <ul class="pagination">
+        <c:forEach var="i" begin="1" end="${requestScope.pagesCount}">
+          <li class="pageLi${i}"><a class="pageButton" href="#">${i}</a></li>
+        </c:forEach>
+      </ul>
+    </div>
+
           <!-- Pop up-->
 
       <c:choose>
@@ -246,6 +254,9 @@
 
 <!-- Bootstrap editable JavaScript-->
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-editable.js"></script>
+
+<%--for pagination--%>
+<script src="<%=application.getContextPath()%>/resources/driver/js/paginator-orders.js"></script>
 
 </body>
 
