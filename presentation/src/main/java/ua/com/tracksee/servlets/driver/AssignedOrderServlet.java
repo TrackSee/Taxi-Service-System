@@ -50,41 +50,67 @@ public class AssignedOrderServlet extends HttpServlet {
         trackingNumber = req.getParameter("trackingNumber");
         orderStatus = req.getParameter("orderStatus");
         statusBoolean = Boolean.valueOf(req.getParameter("status"));
-        System.out.println("Servlet work");
-        System.out.println("arriveDateCustomer" + req.getParameter("arriveDateCustomer"));
-        System.out.println("arriveDate"+req.getParameter("arriveDate"));
+//        System.out.println("Servlet work");
+//        System.out.println("arriveDateCustomer" + req.getParameter("arriveDateCustomer"));
+//        System.out.println("arriveDate"+req.getParameter("arriveDate"));
       //  if(req.getParameter("arriveDateCustomer").equals("")){
           String  timeCarArriveCustomerDate = req.getParameter("arriveDateCustomer");
       //  }
       //  if(req.getParameter("arriveDate").equals("")) {
           String  timeCarArriveDate = req.getParameter("arriveDate");
+        //Timestamp testTime = new Timestamp(-1);
         if(timeCarArriveCustomerDate!=null){
             Timestamp carArriveTimeTimestamp=null;
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 Date parsedDate = dateFormat.parse(timeCarArriveCustomerDate);
                 carArriveTimeTimestamp= new java.sql.Timestamp(parsedDate.getTime());
-                timeCarArrive=carArriveTimeTimestamp.toString();
+               // if(carArriveTimeTimestamp.after(testTime)) {
+                    timeCarArrive = carArriveTimeTimestamp.toString();
+                //}
             } catch (ParseException e) {
                 System.out.println("Invalid or missing date, cannot be parsed 1");
-                carArriveTimeTimestamp = null;
+               // carArriveTimeTimestamp = null;
+
+                if(timeCarArriveDate!=null){
+                    Timestamp carArriveTimeTimestamp2=null;
+                    try {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        Date parsedDate = dateFormat.parse(timeCarArriveDate);
+                        carArriveTimeTimestamp2= new java.sql.Timestamp(parsedDate.getTime());
+                        //if(carArriveTimeTimestamp2.after(testTime)) {
+                            timeCarArrive = carArriveTimeTimestamp2.toString();
+                        //}
+                        timeCarArrive=carArriveTimeTimestamp2.toString();
+                    } catch (ParseException e1) {
+                        System.out.println("Invalid or missing date, cannot be parsed 2");
+                       // carArriveTimeTimestamp2 = null;
+
+                    }
+                    //System.out.println("Second"+timeCarArrive);
+                }
+
             }
             System.out.println("First"+timeCarArrive);
-        }else if(timeCarArriveDate!=null){
+        }
+        else if(timeCarArriveDate!=null){
             Timestamp carArriveTimeTimestamp2=null;
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 Date parsedDate = dateFormat.parse(timeCarArriveDate);
                 carArriveTimeTimestamp2= new java.sql.Timestamp(parsedDate.getTime());
+                //if(carArriveTimeTimestamp2.after(testTime)) {
+                    timeCarArrive = carArriveTimeTimestamp2.toString();
+                //}
                 timeCarArrive=carArriveTimeTimestamp2.toString();
             } catch (ParseException e) {
                 System.out.println("Invalid or missing date, cannot be parsed 2");
                 carArriveTimeTimestamp2 = null;
 
             }
-            System.out.println("Second"+timeCarArrive);
+            //System.out.println("Second"+timeCarArrive);
         }
-        System.out.println("RESSUPERFINAL"+timeCarArrive);
+        //System.out.println("RESSUPERFINAL"+timeCarArrive);
       //  }
 
 
@@ -107,6 +133,8 @@ public class AssignedOrderServlet extends HttpServlet {
                 orderFacade.setAssignOrder(id, trackingNumber, timeCarArrive);
             }
         }
+
+        timeCarArrive = null;
 
         //timeCarArrive = req.getParameter("carArriveTime");
         req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
