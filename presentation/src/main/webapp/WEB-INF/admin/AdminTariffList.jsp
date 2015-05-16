@@ -65,7 +65,6 @@
       <tbody id="table-body" class="tboddy">
       <c:forEach items="${requestScope.tariff}" var="tariff" varStatus="myIndex">
         <tr>
-          <td></td>
           <td class="No" bgcolor="#f5f5f5">${myIndex.index+1}</td>
           <td class="car" bgcolor="#f5f5f5">${tariff.carCategory}</td>
           <td bgcolor="#f5f5f5">
