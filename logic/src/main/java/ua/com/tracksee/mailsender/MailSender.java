@@ -24,6 +24,8 @@ import java.util.Map;
 import static ua.com.tracksee.mailsender.SenderSessionSpecificator.GMAIL;
 
 /**
+ * This bean provides standard basic mechanism for email notification
+ *
  * @author Igor Dvorskij
  */
 @Stateless

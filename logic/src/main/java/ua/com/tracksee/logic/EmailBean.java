@@ -15,10 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.io.File.separatorChar;
-import static java.lang.System.getProperty;
-//import static ua.com.tracksee.mailsender.MailSender.sendTemplatedEmail;
-
 /**
  * A bean provides any email sending action used in the system.
  *
