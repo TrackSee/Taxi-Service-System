@@ -77,7 +77,10 @@
                     <td>${car.freeWifi==true ? "+" : "-"}</td>
                     <td>${car.airConditioner==true ? "+" : "-"}</td>
                     <td><a href="updatecar?carNumber=${car.carNumber}">Edit</a></td>
-                    <td><button class = "btn" id="getResult" type="button"><a href="deletecar?carNumber=${car.carNumber}">Delete</a></button></td>
+                    <td>
+                        <button class="btn" id="getResult" type="button"><a href="deletecar?carNumber=${car.carNumber}">Delete</a>
+                        </button>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>

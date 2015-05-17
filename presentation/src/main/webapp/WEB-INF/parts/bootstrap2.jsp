@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <!-- start: CSS -->
     <link href="<%=application.getContextPath()%>/resources/customer/css/googleMap.css" rel="stylesheet">
+<%--Меняет карту, тот что внизу--%>
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap2/bootstrap.css" rel="stylesheet">
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap2/bootstrap-responsive.css" rel="stylesheet">
     <link href="<%=application.getContextPath()%>/resources/css/style.css" rel="stylesheet">

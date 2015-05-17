@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * This class return order.jsp,
+ * This servlet return order.jsp,
  * get data from this page and send it
  * to TaxiOrderBean.
  * Order status is QUEUED  because
@@ -31,7 +31,9 @@ import java.util.HashMap;
 @WebServlet("/order")
 public class OrderServlet extends HttpServlet implements OrderAttributes {
     private static final Logger logger = LogManager.getLogger();
-    private @EJB OrderFacade orderFacade;
+    private
+    @EJB
+    OrderFacade orderFacade;
 
     /**
      * @author Sharaban Sasha
@@ -77,37 +79,28 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+//TODO calculationg price via route
         HashMap<String, String> inputData = new HashMap<String, String>();
         try {
             inputData.put(PHONE_NUMBER_ALIAS, req.getParameter(PHONE_NUMBER_ALIAS));
-            inputData.put(EMAIL_ALIAS, req.getParameter("email"));
+            inputData.put(EMAIL_ALIAS, req.getParameter(EMAIL_ALIAS));
+
             inputData.put(ADDRESS_ORIGIN_ALIAS, req.getParameter(ADDRESS_ORIGIN_ALIAS));
             inputData.put(ADDRESS_DESTINATION_ALIAS, req.getParameter(ADDRESS_DESTINATION_ALIAS));
-            inputData.put(ORDER_STATUS_ALIAS, ORDER_STATUS_VALUE_QUEUED);
-            //TODO calculationg distance, now for test it's 10
-            inputData.put(DISTANCE_ALIAS, "10");
 
+            inputData.put(ORDER_STATUS_ALIAS, ORDER_STATUS_VALUE_QUEUED);
+            inputData.put(AMOUNT_OF_CARS_ALIAS,req.getParameter(AMOUNT_OF_CARS_ALIAS));
+            inputData.put(AMOUNT_OF_HOURS_ALIAS,req.getParameter(AMOUNT_OF_HOURS_ALIAS));
+            inputData.put(AMOUNT_OF_MINUTES_ALIAS,req.getParameter(AMOUNT_OF_MINUTES_ALIAS));
             inputData.put(ARRIVE_DATE_ALIAS, req.getParameter(ARRIVE_DATE_ALIAS));
             inputData.put(END_DATE_ALIAS, req.getParameter(END_DATE_ALIAS));
-
-            if (req.getParameter(SERVICE_ALIAS).equals("soberDriver")) {
-                inputData.put(SERVICE_ALIAS, "soberDriver");
-                inputData.put(CAR_CATEGORY_ALIAS, "userCar");
-                inputData.put(MUSIC_STYLE_ALIAS, "default");
-                inputData.put(ANIMAL_TRANSPORTATION_ALIAS, "false");
-                inputData.put(FREE_WIFI_ALIAS, "false");
-                inputData.put(NON_SMOKING_DRIVER_ALIAS, "false");
-                inputData.put(AIR_CONDITIONER_ALIAS, "false");
-            } else {
-                inputData.put(SERVICE_ALIAS, req.getParameter(SERVICE_ALIAS));
-                inputData.put(CAR_CATEGORY_ALIAS, req.getParameter(CAR_CATEGORY_ALIAS));
-                inputData.put(MUSIC_STYLE_ALIAS, req.getParameter(MUSIC_STYLE_ALIAS));
-                inputData.put(ANIMAL_TRANSPORTATION_ALIAS, req.getParameter(ANIMAL_TRANSPORTATION_ALIAS));
-                inputData.put(FREE_WIFI_ALIAS, req.getParameter(FREE_WIFI_ALIAS));
-                inputData.put(NON_SMOKING_DRIVER_ALIAS, req.getParameter(NON_SMOKING_DRIVER_ALIAS));
-                inputData.put(AIR_CONDITIONER_ALIAS, req.getParameter(AIR_CONDITIONER_ALIAS));
-            }
+            inputData.put(SERVICE_ALIAS, req.getParameter(SERVICE_ALIAS));
+            inputData.put(CAR_CATEGORY_ALIAS, req.getParameter(CAR_CATEGORY_ALIAS));
+            inputData.put(MUSIC_STYLE_ALIAS, req.getParameter(MUSIC_STYLE_ALIAS));
+            inputData.put(ANIMAL_TRANSPORTATION_ALIAS, req.getParameter(ANIMAL_TRANSPORTATION_ALIAS));
+            inputData.put(FREE_WIFI_ALIAS, req.getParameter(FREE_WIFI_ALIAS));
+            inputData.put(NON_SMOKING_DRIVER_ALIAS, req.getParameter(NON_SMOKING_DRIVER_ALIAS));
+            inputData.put(AIR_CONDITIONER_ALIAS, req.getParameter(AIR_CONDITIONER_ALIAS));
             inputData.put(WAY_OF_PAYMENT_ALIAS, req.getParameter(WAY_OF_PAYMENT_ALIAS));
             inputData.put(DRIVER_SEX_ALIAS, req.getParameter(DRIVER_SEX_ALIAS));
             inputData.put(SERVICE_ALIAS, req.getParameter(SERVICE_ALIAS));
@@ -115,13 +108,11 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
 
 
             if (orderFacade.checkBlackListByUserEmail(inputData.get(EMAIL_ALIAS))) {
-                req.setAttribute(ORDER_WARNING,orderFacade.getWarningAlert(ORDER_WARNING_MESSAGE));
+                req.setAttribute(ORDER_WARNING, orderFacade.getWarningAlert(ORDER_WARNING_MESSAGE));
             } else {
-                System.out.println("before");
                 Long trackingNumber = orderFacade.makeOrder(inputData);
-                System.out.println("after");
                 req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
-                req.setAttribute(ORDER_SUCCESS, orderFacade.getSuccessAlert(ORDER_SUCCESS_MESSAGE +trackingNumber
+                req.setAttribute(ORDER_SUCCESS, orderFacade.getSuccessAlert(ORDER_SUCCESS_MESSAGE + trackingNumber
                         + ORDER_SUCCESS_TRACK_BUTTON));
                 req.setAttribute(HIDE_ORDER_TRACK, HIDE);
             }

@@ -6,7 +6,7 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
- */
+ /**!/*/
 
 article,
 aside,
@@ -67,9 +67,9 @@ sub {
 }
 
 img {
-  width: auto\9;
+  width: auto;
   height: auto;
-  max-width: 100%;
+  /*max-width: 100%;*/
   vertical-align: middle;
   border: 0;
   -ms-interpolation-mode: bicubic;

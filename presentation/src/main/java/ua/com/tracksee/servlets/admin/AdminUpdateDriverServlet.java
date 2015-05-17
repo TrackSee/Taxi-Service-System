@@ -25,7 +25,7 @@ public class AdminUpdateDriverServlet extends HttpServlet {
     private String userId = "userId";
     private String driver = "driver";
 
-    private  Integer id;
+    private Integer id;
     @EJB
     private AdministratorBean administratorBean;
 
@@ -38,6 +38,15 @@ public class AdminUpdateDriverServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String data = getData(req);
+        ObjectMapper mapper = new ObjectMapper();
+        UserEntity user = mapper.readValue(data, UserEntity.class);
+        user.setUserId(id);
+        user.setDriver(true);
+        administratorBean.updateUser(user);
+    }
+
+    private String getData(HttpServletRequest req) {
         StringBuilder sb = new StringBuilder();
         try {
             BufferedReader reader = req.getReader();
@@ -46,13 +55,10 @@ public class AdminUpdateDriverServlet extends HttpServlet {
                 line = reader.readLine();
                 sb.append(line).append("\n");
             } while (line != null);
-        } catch (IOException e){
+        } catch (IOException e) {
             logger.warn(warning);
+
         }
-        ObjectMapper mapper = new ObjectMapper();
-        UserEntity user = mapper.readValue(sb.toString(), UserEntity.class);
-        user.setUserId(id);
-        user.setDriver(true);
-        administratorBean.updateUser(user);
+        return sb.toString();
     }
 }

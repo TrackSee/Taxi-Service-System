@@ -2,6 +2,20 @@
  * Created by Katia Stetsiuk on 25-Apr-15.
  */
 $(document).ready(function () {
+    $('#createCar').validate({
+        rules: {
+            carNumber: {
+                required: true,
+                minlength:3,
+                maxlength: 12
+            },
+            carModel: {
+                required: true,
+                minlength:3,
+                maxlength:15
+            }
+        }
+    });
 
     $('#addCar').click(function(){
         var data = {};

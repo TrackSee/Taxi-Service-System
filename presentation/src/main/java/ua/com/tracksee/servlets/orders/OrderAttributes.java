@@ -5,6 +5,9 @@ package ua.com.tracksee.servlets.orders;
  */
 public interface OrderAttributes {
     static final String TRACKING_NUMBER_ALIAS ="trackingNumber";
+    static final String AMOUNT_OF_CARS_ALIAS ="amountOfCars";
+    static final String AMOUNT_OF_HOURS_ALIAS ="amountOfHours";
+    static final String AMOUNT_OF_MINUTES_ALIAS ="amountOfMinutes";
     static final String PHONE_NUMBER_ALIAS ="phoneNumber";
     static final String EMAIL_ALIAS ="email";
     static final String ARRIVE_DATE_ALIAS ="arriveDate";

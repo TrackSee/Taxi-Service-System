@@ -45,7 +45,7 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
                //TODO addresses and price
 
                 req.setAttribute(ARRIVE_DATE_ALIAS, orderFacade.convertDateForShow(taxiOrderEntity.getArriveDate()));
-                req.setAttribute(END_DATE_ALIAS, orderFacade.convertDateForShow(taxiOrderEntity.getEndDate()));
+                // TODO getting from db amount of cars, hours, minutes
 
                 req.setAttribute(DESCRIPTION_ALIAS, taxiOrderEntity.getDescription());
                 if (taxiOrderEntity.getComment() != null) {

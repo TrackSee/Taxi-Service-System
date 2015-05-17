@@ -22,7 +22,7 @@
     <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"
           type="text/css"/>
 </head>
-<body >
+<body>
 <%@include file="../parts/header.jsp" %>
 
 <!-- start: Page Title -->
@@ -46,13 +46,13 @@
 <!--start: Wrapper-->
 <div id="wrapper">
     <!--start: Container -->
-    <div id = "input-form" class="container">
+    <div id="input-form" class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
 
-            <%--TODO getting data from database--%>
+        <%--TODO getting data from database--%>
         <div hidden="hidden">
-        <input type="text" id="taxiPricePerKm" value="6">
-            </div>
+            <input type="text" id="taxiPricePerKm" value="6">
+        </div>
         <div hidden="hidden">
             <input type="text" id="taxiPricePerKmMin" value="30">
         </div>
@@ -75,51 +75,62 @@
                 <span class="red-star">★</span>
             </div>
 
-            <p>
-                <button type="button" id="buttonAddressOrigin" class="btn btn-info turnButton">Add another address from</button>
-            </p>
+
             <div class="form-group">
-                <label>Address from</label>
+                <label>Address from </label>
                 <input type="text" id="origin" class="form-control" value=""
                        name="addressOrigin" title="That address is invalid"
                        required onblur="updateRoute()">
                 <span class="red-star">★</span>
             </div>
-<%--TODO working input fields--%>
+            <p>
+                <button type="button" id="buttonAddressOrigin" class="btn btn-info turnButton">
+                    Add another address from
+                </button>
+            </p>
+            <%--TODO working input fields--%>
+            <%--<c:forEach var="i" begin="1" end="5">--%>
+                <%--<label>Address from ${i}</label>--%>
+            <%--<input type="text" value="origin${i}" id="origin${i}" required>--%>
+                <%--<span class="red-star">★</span><br>--%>
+            <%--</c:forEach>--%>
+
+
+
             <%--<div class="form-group" id="addressOrigin1">--%>
-                <%--<label>Address from</label>--%>
-                <%--<input type="text" id="origin1" class="form-control" value=""--%>
-                       <%--name="addressOrigin1" title="That address is invalid"--%>
-                       <%--required onblur="updateRoute()">--%>
-                <%--<span class="red-star">★</span>--%>
+            <%--<label>Address from</label>--%>
+            <%--<input type="text" id="origin1" class="form-control" value=""--%>
+            <%--name="addressOrigin1" title="That address is invalid"--%>
+            <%--required onblur="updateRoute()">--%>
+            <%--<span class="red-star">★</span>--%>
             <%--</div>--%>
             <%--<div class="form-group" id="addressOrigin2">--%>
-                <%--<label>Address from</label>--%>
-                <%--<input type="text" id="origin2" class="form-control" value=""--%>
-                       <%--name="addressOrigin3" title="That address is invalid"--%>
-                       <%--required onblur="updateRoute()">--%>
-                <%--<span class="red-star">★</span>--%>
+            <%--<label>Address from</label>--%>
+            <%--<input type="text" id="origin2" class="form-control" value=""--%>
+            <%--name="addressOrigin3" title="That address is invalid"--%>
+            <%--required onblur="updateRoute()">--%>
+            <%--<span class="red-star">★</span>--%>
             <%--</div>--%>
             <%--<div class="form-group" id="addressOrigin3">--%>
-                <%--<label>Address from</label>--%>
-                <%--<input type="text" id="origin3" class="form-control" value=""--%>
-                       <%--name="addressOrigin3" title="That address is invalid"--%>
-                       <%--required onblur="updateRoute()">--%>
-                <%--<span class="red-star">★</span>--%>
+            <%--<label>Address from</label>--%>
+            <%--<input type="text" id="origin3" class="form-control" value=""--%>
+            <%--name="addressOrigin3" title="That address is invalid"--%>
+            <%--required onblur="updateRoute()">--%>
+            <%--<span class="red-star">★</span>--%>
             <%--</div>--%>
             <%--<div class="form-group" id="addressOrigin4">--%>
-                <%--<label>Address from</label>--%>
-                <%--<input type="text" id="origin4" class="form-control" value=""--%>
-                       <%--name="addressOrigin4" title="That address is invalid"--%>
-                       <%--required onblur="updateRoute()">--%>
-                <%--<span class="red-star">★</span>--%>
+            <%--<label>Address from</label>--%>
+            <%--<input type="text" id="origin4" class="form-control" value=""--%>
+            <%--name="addressOrigin4" title="That address is invalid"--%>
+            <%--required onblur="updateRoute()">--%>
+            <%--<span class="red-star">★</span>--%>
             <%--</div>--%>
             <%--<div class="form" id="addressOrigin5">--%>
-                <%--<label>Address from</label>--%>
-                <%--<input type="text" id="origin5" class="form-control" value=""--%>
-                       <%--name="addressOrigin5" title="That address is invalid"--%>
-                       <%--required onblur="updateRoute()">--%>
-                <%--<span class="red-star">★</span>--%>
+            <%--<label>Address from</label>--%>
+            <%--<input type="text" id="origin5" class="form-control" value=""--%>
+            <%--name="addressOrigin5" title="That address is invalid"--%>
+            <%--required onblur="updateRoute()">--%>
+            <%--<span class="red-star">★</span>--%>
             <%--</div>--%>
 
 
@@ -173,24 +184,38 @@
                 <label for="arriveDate" class="sr-only">Arrive date</label>
 
                 <div class="controls input-append date form_datetime"
-                       data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                <span class="add-on"><i class="icon-th"></i></span>
-                <span class="add-on"><i class="icon-remove"></i></span>
-                <input size="16" type="text" value="" id="arriveDate" name="arriveDate" readonly>
-                <input type="hidden" id="dtp_input1" value=""/><br/>
-
-            </div>
-                <div id="amountOfTimeBlock">
-                <label  class="sr-only"></label>
-                <div class="controls input-append date form_datetime"
                      data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
                     <span class="add-on"><i class="icon-th"></i></span>
                     <span class="add-on"><i class="icon-remove"></i></span>
-                    <input size="16" type="text" value="" id="endDate" name="endDate" readonly>
-                    <input type="hidden" id="dtp_input2" value=""/><br/>
+                    <input size="16" type="text" value="" id="arriveDate" name="arriveDate" readonly>
+                    <input type="hidden" id="dtp_input1" value=""/><br/>
+                </div>
+                <%--TODO validation--%>
+                <div id="amountOfTripTimeBlock">
+                    <label>Amount time of trip</label>
+                    <div>
+                    <input type="number" id="amountOfHours" class="form-control" name="amountOfHours"
+                           placeholder="Amount of hours 8+"
+                           title="Amount of hours 8+">
+                    <span class="red-star">★</span>
+                        </div>
+                    <div>
+                    <input type="number" id="amountOfMinutes" class="form-control" name="amountOfMinutes"
+                           placeholder="Amount minutes [0:60]"
+                           title="Amount of minutes [0:60]">
+                    <span class="red-star">★</span>
+                    </div>
+
                 </div>
 
-                    </div>
+                <%--TODO validation--%>
+                <div id="amountOfCarsBlock">
+                <label>Amount of cars</label>
+                <input type="number" id="amountOfCars" class="form-control" name="amountOfCars"
+                       placeholder="Amount of cars 5+"
+                       title="Amount of cars greater then 4">
+                <span class="red-star">★</span>
+                </div>
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>
                     <select class="form-control order_priority" name="carCategory">
@@ -247,7 +272,7 @@
                 </div>
 
                 Description:<br/>
-                <textarea name="description" id="description" rows="4" cols="50" title="" ></textarea>
+                <textarea name="description" id="description" rows="4" cols="50" title=""></textarea>
                 <br/>
             </div>
 
@@ -296,7 +321,7 @@
 <%-- Order page scripts --%>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/order-funct.js"></script>
 
 <%--end order oage scripts--%>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>

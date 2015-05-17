@@ -91,6 +91,7 @@
                 <%--groups edit--%>
                 <li><a href="<%=application.getContextPath()%>/admin/groups">Groups and roles</a> </li>
                 <li><a href="<%=application.getContextPath()%>/admin/report/driver-car"><i class="fa fa-sign-out fa-fw"></i> Reports</a></li>
+                <li><a href="<%=application.getContextPath()%>/order"><i class="fa fa-sign-out fa-fw"></i>Main Page</a></li>
                 <%--Logout from page--%>
                 <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
             </ul>

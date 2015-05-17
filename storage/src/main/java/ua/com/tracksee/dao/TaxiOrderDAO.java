@@ -49,14 +49,27 @@ public interface TaxiOrderDAO {
      */
     void addArriveDate(Timestamp arriveDate,long trackingNumber);
     /**
-     * This method update inserted order by
-     * setting end date;
+     * Updates inserted order by
+     * setting celebration taxi
+     * parameter.
      *
      * @author Sharaban Sasha
-     * @param endDate - end date from order
+     * @param amountOfCars - amount of cars for celebration
      * @param trackingNumber - tracking number of inserted order
      */
-    void addEndDate(Timestamp endDate,long trackingNumber);
+    void addCelebrationTaxiParam(int amountOfCars, long trackingNumber);
+    /**
+     * Updates inserted order by
+     * setting parameters needed
+     * for taxi for long term service
+     * or celebration taxi service.
+     *
+     * @author Sharaban Sasha
+     * @param amountOfHours - amount of hours for order taxi for a long time
+     * @param amountOfMinutes - amount of minutes for order taxi for a long time
+     * @param trackingNumber - tracking number of inserted order
+     */
+    void addLongTermTaxiParams(int amountOfHours,int amountOfMinutes, long trackingNumber);
 
     List<TaxiOrderEntity> getQueuedOrders();
 
