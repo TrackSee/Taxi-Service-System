@@ -77,7 +77,7 @@
 
 
             <div class="form-group">
-                <label>Address from</label>
+                <label>Address from </label>
                 <input type="text" id="origin" class="form-control" value=""
                        name="addressOrigin" title="That address is invalid"
                        required onblur="updateRoute()">
@@ -89,6 +89,14 @@
                 </button>
             </p>
             <%--TODO working input fields--%>
+            <%--<c:forEach var="i" begin="1" end="5">--%>
+                <%--<label>Address from ${i}</label>--%>
+            <%--<input type="text" value="origin${i}" id="origin${i}" required>--%>
+                <%--<span class="red-star">★</span><br>--%>
+            <%--</c:forEach>--%>
+
+
+
             <%--<div class="form-group" id="addressOrigin1">--%>
             <%--<label>Address from</label>--%>
             <%--<input type="text" id="origin1" class="form-control" value=""--%>

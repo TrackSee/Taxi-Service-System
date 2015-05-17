@@ -104,6 +104,13 @@ public class TaxiOrderBean {
         if (taxiOrderEntity.getArriveDate() != null) {
             taxiOrderDAO.addArriveDate(taxiOrderEntity.getArriveDate(), taxiOrderEntity.getTrackingNumber());
         }
+        if (taxiOrderEntity.getAmountOfHours() != null&&taxiOrderEntity.getAmountOfMinutes() != null) {
+            taxiOrderDAO.addLongTermTaxiParams(taxiOrderEntity.getAmountOfHours(),
+                    taxiOrderEntity.getAmountOfMinutes(),taxiOrderEntity.getTrackingNumber());
+        }
+        if (taxiOrderEntity.getAmountOfCars() != null) {
+            taxiOrderDAO.addCelebrationTaxiParam(taxiOrderEntity.getAmountOfCars(), taxiOrderEntity.getTrackingNumber());
+        }
         sendEmail(user, taxiOrderEntity.getTrackingNumber());
         return taxiOrderEntity.getTrackingNumber();
     }
