@@ -1,24 +1,12 @@
 #panel {
     display: none;
 }
-#endDateBlock {
+#amountOfTripTimeBlock {
     display: none;
 }
 #buttonAddressOrigin{
     display:none;
 }
-#addressOrigin1{
-    display:none;
-}
-#addressOrigin2{
-    display:none;
-}
-#addressOrigin3{
-    display:none;
-}
-#addressOrigin4{
-    display:none;
-}
-#addressOrigin5{
+#amountOfCarsBlock{
     display:none;
 }

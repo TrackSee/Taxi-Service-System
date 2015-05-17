@@ -124,10 +124,6 @@
                      disabled>
                     <input type="hidden" value=""/><br/>
 
-                <label for="endDate" class="sr-only">End date</label>
-                    <input size="16" type="text" id="endDate" name="endDate" value="${endDate}" disabled>
-                    <input type="hidden"  value=""/><br/>
-
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>
                     <select class="form-control order_priority" name="carCategory" disabled>
