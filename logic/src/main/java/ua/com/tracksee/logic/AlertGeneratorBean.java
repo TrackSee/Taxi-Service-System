@@ -27,16 +27,17 @@ import java.util.List;
 import static ua.com.tracksee.enumartion.OrderStatus.QUEUED;
 
 /**
+ * The AlertGenerator interface provides
+ * generating any popup alert to further
+ * display on web page. Parts of popup alert and
+ * different alert types store in constants.
+ *
  * @author Sharaban Sasha
- * @see ua.com.tracksee.logic.AlertGenerator
  */
 @Stateless
 public class AlertGeneratorBean  {
     private static final Logger logger = LogManager.getLogger();
-    /**
-     * Parts of popup alert and
-     * different alert types.
-     */
+
     private static final String ALERT_TYPE_SUCCESS = "<div class=\"alert alert-success\"";
     private static final String ALERT_TYPE_INFO = "<div class=\"alert alert-info\"";
     private static final String ALERT_TYPE_WARNING = "<div class=\"alert alert-warning\"";
@@ -44,7 +45,9 @@ public class AlertGeneratorBean  {
     private static final String ALERT_BODY = " role=\"alert\">\n" +
             "                <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
             "                    <span aria-hidden=\"true\">&times;</span></button>";
-    static final String ALERT_END = "</div>";
+    private static final String ALERT_END = "</div>";
+    private static final String FONT_BEGIN="<h3>";
+    private static final String FONT_END="</h3>";
 
     /**
      * Returns complete success alert popup
@@ -55,8 +58,9 @@ public class AlertGeneratorBean  {
      * @param inputText text that must be displayed in alert
      * @return complete alert popup with text ready for show
      */
+
    public String getSuccessAlert(String inputText){
-       return ALERT_TYPE_SUCCESS+ALERT_BODY+inputText+ALERT_END;
+       return ALERT_TYPE_SUCCESS+ALERT_BODY+FONT_BEGIN+inputText+FONT_END+ALERT_END;
    }
 
     /**
@@ -69,7 +73,7 @@ public class AlertGeneratorBean  {
      * @return complete alert popup with text ready for show
      */
     public String getInfoAlert(String inputText){
-        return ALERT_TYPE_INFO+ALERT_BODY+inputText+ALERT_END;
+        return ALERT_TYPE_INFO+ALERT_BODY+FONT_BEGIN+inputText+FONT_END+ALERT_END;
     }
 
     /**
@@ -82,7 +86,8 @@ public class AlertGeneratorBean  {
      * @return complete alert popup with text ready for show
      */
     public String getWarningAlert(String inputText){
-        return ALERT_TYPE_WARNING+ALERT_BODY+inputText+ALERT_END;
+
+        return ALERT_TYPE_WARNING+ALERT_BODY+FONT_BEGIN+inputText+FONT_END+ALERT_END;
     }
 
     /**
@@ -95,7 +100,7 @@ public class AlertGeneratorBean  {
      * @return complete alert popup with text ready for show
      */
     public String getDangerAlert(String inputText){
-        return ALERT_TYPE_DANGER+ALERT_BODY+inputText+ALERT_END;
+        return ALERT_TYPE_DANGER+ALERT_BODY+FONT_BEGIN+inputText+FONT_END+ALERT_END;
     }
 
 }

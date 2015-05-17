@@ -84,7 +84,9 @@ public class AdministratorBean {
     public void getDriverById(int driverId) {
         userDAO.getDriverByID(driverId);
     }
-
+    public UserEntity getUserById(int userId) {
+        return userDAO.getUserById(userId);
+    }
     public List<CarEntity> getCars() {
         return carDAO.getCars();
     }

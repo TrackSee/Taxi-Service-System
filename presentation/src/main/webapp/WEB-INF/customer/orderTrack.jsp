@@ -22,7 +22,7 @@
           media="screen">
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
           media="screen">
-    <link href="<%=application.getContextPath()%>/resources/customer/css/slide-panel.css" rel="stylesheet"
+    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"
           type="text/css"/>
     <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
           type="text/css"/>
@@ -40,7 +40,7 @@
         <!-- start: Container -->
         <div class="container">
 
-            <h2><i class="ico-settings ico-white"></i>Order tracking</h2>
+            <h2><i class="ico-settings ico-white"></i>Order tracking (tracking number: ${trackingNumber})</h2>
 
         </div>
         <!-- end: Container  -->
@@ -130,16 +130,8 @@
                     <input type="hidden" id="dtp_input1" value=""/><br/>
 
                 </div>
-                <div id="endDateBlock">
-                    <label  class="sr-only">End date</label>
-
-                    <div class="controls input-append date form_datetime"
-                         data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                        <span class="add-on"><i class="icon-th"></i></span>
-                        <span class="add-on"><i class="icon-remove"></i></span>
-                        <input size="16" type="text" value="${endDate}" id="endDate" name="endDate" readonly>
-                        <input type="hidden" id="dtp_input2" value=""/><br/>
-                    </div>
+                <div id="amountOfHoursBlock">
+                  
                     </div>
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>

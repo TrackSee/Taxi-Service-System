@@ -3,7 +3,6 @@
  */
 $(document).ready(function () {
     $("#search").on('input', function () {
-
         var keyUpTime = 2000;
         var keyUpTimeout = null;
         $("#search").on('input', function () {
@@ -30,7 +29,7 @@ $(document).ready(function () {
                             tBody.appendChild(newTr);
                         }
                         if (i < usersArray.length){
-                            rows[i].children[0].innerHTML = '<a href="driver?id=' + usersArray[i].userId + '">'+
+                            rows[i].children[0].innerHTML = '<a href="driver/driver-profile?id=' + usersArray[i].userId + '">'+
                                 usersArray[i].email + '</a>';
 
                             rows[i].children[1].innerHTML = usersArray[i].phone != null? usersArray[i].phone : "-";

@@ -76,8 +76,11 @@
                     <td>${car.animalTransportationApplicable==true ? "+" : "-"}</td>
                     <td>${car.freeWifi==true ? "+" : "-"}</td>
                     <td>${car.airConditioner==true ? "+" : "-"}</td>
-                    <td><a href="updatecar?carNumber=${car.carNumber}" >Edit</a></td>
-                    <td><a href="deletecar?carNumber=${car.carNumber}">Delete</a></td>
+                    <td><a href="updatecar?carNumber=${car.carNumber}">Edit</a></td>
+                    <td>
+                        <button class="btn" id="getResult" type="button"><a href="deletecar?carNumber=${car.carNumber}">Delete</a>
+                        </button>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -106,7 +109,8 @@
 <!-- Custom Theme JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
 <%--for pagination--%>
-<script src="<%=application.getContextPath()%>/resources/admin/js/paginatorforcar.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/paginatorCar.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/removeForCar.js"></script>
 
 
 </body>

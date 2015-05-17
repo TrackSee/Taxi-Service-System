@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Igor Gula
@@ -35,9 +36,6 @@
 <head>
 
     <style>
-        /*#tableEmailDiv {*/
-            /*width: 100%;*/
-        /*}*/
 
         #search, #groupNameInput, #inputEmail, #groupRole {
             width: 20%;
@@ -50,6 +48,10 @@
 
 </head>
 <body>
+
+<c:set var="ID_USER_VALUE" value="${sessionScope.get('userId')}" />
+
+<input id="id_admin" type="hidden" value="${ID_USER_VALUE}">
 
 <div id="wrapper" class="container">
 

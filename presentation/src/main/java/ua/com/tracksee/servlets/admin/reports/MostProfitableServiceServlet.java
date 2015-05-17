@@ -15,9 +15,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by kstes_000 on 05-May-15.
+ * @author Katia Stetsiuk
  */
-
 @WebServlet("/admin/report/profitableservice")
 public class MostProfitableServiceServlet extends HttpServlet {
 
@@ -44,8 +43,8 @@ public class MostProfitableServiceServlet extends HttpServlet {
 
     /**
      *
-     * @param listServiceProfit
-     * @return
+     * @param listServiceProfit list ServiceProfitable objects
+     * @return json from list of object
      */
     private String getJsonFromList(List<ServiceProfitable> listServiceProfit){
         ObjectMapper mapper = new ObjectMapper();

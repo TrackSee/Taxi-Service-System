@@ -8,6 +8,8 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <head>
@@ -96,7 +98,14 @@
                     </tr>
                     <tr>
                       <td>Sex</td>
-                      <td>${driver.sex}</td>
+                      <td>
+                        <c:set var="string1" value="${driver.sex}"/>
+                        <c:set var="string2" value="${fn:replace(string1,
+                                'M', 'male')}" />
+                        <c:set var="string3" value="${fn:replace(string2,
+                                'F', 'female')}" />
+                        ${string3}
+                      </td>
                     </tr>
                     <td>Phone Number</td>
                     <td>${driver.phone != null ? driver.phone : "No phone number"} </td>

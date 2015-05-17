@@ -1,4 +1,3 @@
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -16,19 +15,12 @@
 
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
           media="screen">
-    <!-- Bootstrap Core CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
           rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"
           rel="stylesheet">
-
-    <!-- Custom CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/dist/css/sb-admin-2.css" rel="stylesheet">
-    <link href="<%=application.getContextPath()%>/resources/admin/css/chart.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
+    <link href="<%=application.getContextPath()%>/resources/admin/css/formStyle.css" rel="stylesheet">
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css"
           rel="stylesheet" type="text/css">
 
@@ -49,49 +41,48 @@
 
 <div id="wrapper">
 
-        <jsp:include page="adminHeader.jsp"/>
-        <div id="page-wrapper">
-            <form class="serviceProfit" id="serviceProfit" action="<c:url value="/admin/report/profitableservice"/>"
-                  method="post">
-                <h2 class="form-sign-up-heading">Please enter period to get result be service profitable</h2>
+    <jsp:include page="/WEB-INF/admin/adminHeader.jsp"/>
+    <div id="page-wrapper">
+        <form class="serviceProfit" id="serviceProfit" action="<c:url value="/admin/report/profitableservice"/>"
+              method="post">
+            <h3 class="form-sign-up-heading">Please enter period to get result be service profitable</h3>
 
-                <p>Start Date</p>
-                <input type="startDate" id="startDate" name="startDate" class="form-control" placeholder="year-month-day">
+            <p id="start"> Start Date
+                <input type="text" class="date start" id="startDate" name="startDate"/>
+            </p>
 
-                <p>End Date</p>
-                <input type="endDate" id="endDate" name="endDate" class="form-control" placeholder="year-month-day">
+            <p id="end"> End Date
+                <input type="text" class="date end" id="endDate" name="endDate"/>
+            </p>
 
-                <div>
-                    <button id="getResult" type="button" class="btn btn-primary">Get Result</button>
-                </div>
-            </form>
-            <p>Report</p>
+            <div>
+                <button id="getResult" type="button" class="btn btn-primary">Get Result</button>
+            </div>
+        </form>
 
-            <div id="chartdiv"></div>
-        </div>
+        <div id="chartdiv"></div>
     </div>
-    <!-- /#page-wrapper -->
 </div>
-<!-- /#wrapper -->
 
-<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="https://jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="https://jonthornton.github.io/jquery-timepicker/jquery.timepicker.css"/>
+
+<script src="<%=application.getContextPath()%>/resources/datepicker/js/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/datepicker/css/bootstrap-datepicker.css"/>
+<script src="<%=application.getContextPath()%>/resources/datepicker/js/Datepair.js"></script>
+<script src="<%=application.getContextPath()%>/resources/datepicker/js/jquery.datepair.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/reports/js/dataPicker.js"/>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/pie.js"></script>
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>
-<script src="<%=application.getContextPath()%>/resources/admin/reports/js/serviceProfit.js"/><!-- Bootstrap Core JavaScript -->
+<script src="<%=application.getContextPath()%>/resources/admin/reports/js/serviceProfit.js"/>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-<!-- Metis Menu Plugin JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
-<%--for pagination--%>
-<%--<script src="<%=application.getContextPath()%>/resources/admin/reports/js/serviceProfit.js"/>--%>
 
 </body>
 
 </html>
-
-

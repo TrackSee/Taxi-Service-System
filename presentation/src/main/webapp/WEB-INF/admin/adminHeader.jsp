@@ -15,7 +15,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">TrackSee</a>
+        <a class="navbar-brand" href="/TaxiService">TrackSee</a>
     </div>
     <!-- /.navbar-header -->
 
@@ -57,6 +57,31 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a><i class="fa fa-table fa-fw"></i>Review Dashboards<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="<%=application.getContextPath()%>/admin/searchdriver">Go to driver dashboard</a>
+                        </li>
+                        <li>
+                            <a href="<%=application.getContextPath()%>/admin/customerbysearch">Go to customer dashboard</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a><i class="fa fa-table fa-fw"></i>Reports<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="<%=application.getContextPath()%>/admin/report/driver-car">Most popular car and driver category</a>
+                        </li>
+                        <li>
+                            <a href="<%=application.getContextPath()%>/admin/report/mostpopularopt">Most popular additional car options </a>
+                        </li>
+                        <li>
+                            <a href="<%=application.getContextPath()%>/admin/report/profitableservice">Most profitable service</a>
+                        </li>
+                    </ul>
+                </li>
                 <%--Change Tariff--%>
                 <li>
                     <a href="<%=application.getContextPath()%>/admin/tariff"><i class="fa fa-dollar fa-fw"></i> Tariffs</a>
@@ -66,6 +91,7 @@
                 <%--groups edit--%>
                 <li><a href="<%=application.getContextPath()%>/admin/groups">Groups and roles</a> </li>
                 <li><a href="<%=application.getContextPath()%>/admin/report/driver-car"><i class="fa fa-sign-out fa-fw"></i> Reports</a></li>
+                <li><a href="<%=application.getContextPath()%>/order"><i class="fa fa-sign-out fa-fw"></i>Main Page</a></li>
                 <%--Logout from page--%>
                 <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
             </ul>

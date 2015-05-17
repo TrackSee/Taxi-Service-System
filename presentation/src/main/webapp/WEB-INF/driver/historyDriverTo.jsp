@@ -9,6 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <head>
@@ -52,51 +53,78 @@
     </div>
 
     <!-- /.row -->
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            History of completed orders
-          </div>
+
           <!-- /.panel-heading -->
-          <div class="panel-body">
-            <div class="dataTable_wrapper">
-              <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Order time</th>
-                  <th>Start address</th>
-                  <th>Finish address</th>
-                  <th>Price</th>
-                  <th>User comment</th>
-                </tr>
-                </thead>
-                <tbody id="table-body">
-                <c:forEach items="${requestScope.orders}" var="order">
-                <tr class="odd gradeX">
-                  <td>${order.trackingNumber}</td>
-                  <td>${order.orderedDate}</td>
-                  <td><c:forEach var='adr' items='${addresses}'>
-                  <c:out value='Key=${item.key}, Value=${item.value}'/>
-                </c:forEach></td>
-                  <td>${"-"}</td>
-                  <td>${order.price}</td>
-                  <td>${order.comment=='null' ? "-" : order.comment}</td>
-                </tr>
-                </c:forEach>
-                </tbody>
-              </table>
+                        <!-- Plans -->
+              <c:forEach items="${requestScope.orders}" var="order">
+                <section id="plans">
+                  <div class="container">
+                    <div class="row">
+
+                      <!-- item -->
+                      <div class="col-md-9 text-center">
+                        <div class="panel panel-success panel-pricing">
+                          <div class="panel-heading">
+                            <c:set var="startPoint" value="${order.itemList[0].path.getStartPoint()}"/>
+                            <c:set var="endPoint" value="${order.itemList[0].path.getEndPoint()}"/>
+                            <div class="map-canvas">
+                              <iframe frameborder="0" width="100%" height="250"
+                                      src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin=${pageScope.startPoint.getX()},${pageScope.startPoint.getY()}&destination=${pageScope.endPoint.getX()},${pageScope.endPoint.getY()}">
+                              </iframe>
+                            </div>
+                          </div>
+
+                          <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Order time</th>
+                              <th>Car arrive time</th>
+                              <th>End of order</th>
+                              <th>Price</th>
+                              <th>Status</th>
+                              <th>User comment</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="odd gradeX">
+                              <td>${order.trackingNumber}</td>
+                              <td>
+                                <fmt:formatDate value="${order.orderedDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                              </td>
+                              <td>
+                                <fmt:formatDate value="${order.arriveDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                              </td>
+                              <td>
+                                <fmt:formatDate value="${order.endDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                              </td>
+                              <td>${order.price}</td>
+                              <td>
+                                <c:set var="string4" value="${order.status}"/>
+                                <c:set var="string5" value="${fn:toLowerCase(string4)}" />
+                                <c:set var="string6" value="${fn:replace(string5,
+                                '_', ' ')}" />
+                                  ${string6}</td>
+                              <td>${order.comment=='null' ? "-" : order.comment}</td>
+                            </tr>
+                            </tbody>
+                          </table>
+
+                        </div>
+                      </div>
+                      <!-- /item -->
+
+                    </div>
+                  </div>
+                </section>
+              </c:forEach>
+              <!-- /Plans -->
+
               <div class="text-center">
                 <ul class="pagination">
-                  <%--<li class="active"><a href="1">1</a></li>--%>
                   <c:forEach var="i" begin="1" end="${requestScope.pagesCount}">
                     <li class="pageLi${i}"><a class="pageButton" href="#">${i}</a></li>
                   </c:forEach>
-                  <%--<li><a class="pageButton" href="#">2</a></li>--%>
-                  <%--<li><a href="#">3</a></li>--%>
-                  <%--<li><a href="#">4</a></li>--%>
-                  <%--<li><a href="#">5</a></li>--%>
                 </ul>
               </div>
             </div>

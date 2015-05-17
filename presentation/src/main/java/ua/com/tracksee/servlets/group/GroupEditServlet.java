@@ -7,6 +7,7 @@ package ua.com.tracksee.servlets.group;
 import com.google.gson.Gson;
 import ua.com.tracksee.enumartion.Role;
 import ua.com.tracksee.logic.GroupBean;
+import ua.com.tracksee.logic.facade.AdminFacade;
 import ua.com.tracksee.logic.group.GroupSelectAction;
 import ua.com.tracksee.logic.group.GroupUpdateAction;
 
@@ -26,8 +27,7 @@ import java.util.List;
 public class GroupEditServlet extends HttpServlet implements GroupConstants {
 
     @EJB
-    private GroupBean groupBean;
-    private List resList;
+    private AdminFacade adminFacade;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,7 +39,7 @@ public class GroupEditServlet extends HttpServlet implements GroupConstants {
         int pageNumber = Integer.parseInt(request.getParameter(PAGE_NUMBER_ALIAS));
         int pageSize = Integer.parseInt(request.getParameter(PAGE_SIZE_ALIAS));
 
-        resList = groupBean.executeSelect(selectAction, groupName, userEmail, pageNumber, pageSize);
+        List resList = adminFacade.groupExecuteSelect(selectAction, groupName, userEmail, pageNumber, pageSize);
 
         String json = new Gson().toJson(resList);
         System.out.println(json);
@@ -64,6 +64,7 @@ public class GroupEditServlet extends HttpServlet implements GroupConstants {
 
         String groupName = request.getParameter(GROUP_NAME_ALIAS);
         Role role = Role.fromString(request.getParameter(GROUP_ROLE_ALIAS));
+        Integer admin = Integer.parseInt(request.getParameter(ID_ADMIN));
 
         String idsString = request.getParameter(IDS_ALIAS);
         String[] ids;
@@ -88,7 +89,7 @@ public class GroupEditServlet extends HttpServlet implements GroupConstants {
             isAdmins[i++] = user.isAdmin;
         }
 
-        groupBean.executeUpdate(updateAction, groupName, ids, role, updateIds, isAdmins, isDrivers);
+        adminFacade.groupExecuteUpdate(updateAction, groupName, ids, role, updateIds, isAdmins, isDrivers, admin);
 
         doGet(request, response);
     }

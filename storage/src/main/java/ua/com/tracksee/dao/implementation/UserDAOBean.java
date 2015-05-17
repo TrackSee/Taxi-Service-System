@@ -1,6 +1,5 @@
 package ua.com.tracksee.dao.implementation;
 
-import com.sun.corba.se.impl.presentation.rmi.ExceptionHandlerImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
@@ -110,10 +109,10 @@ public class UserDAOBean implements UserDAO {
 
 
     public void assignCar(String carNumber, Integer driverID) {
-        if (carNumber == null) {
-            logger.warn("carNumber can't be null");
-            throw new IllegalArgumentException("carNumber can't be null");
-        }
+//        if (carNumber == null) {
+//            logger.warn("carNumber can't be null");
+//            throw new IllegalArgumentException("carNumber can't be null");
+//        }
         if (driverID == null) {
             logger.warn("driverID can't be null");
             throw new IllegalArgumentException("driverID can't be null");

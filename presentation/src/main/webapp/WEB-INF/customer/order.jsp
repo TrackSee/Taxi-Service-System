@@ -15,9 +15,11 @@
           media="screen">
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
           media="screen">
-    <link href="<%=application.getContextPath()%>/resources/customer/css/slide-panel.css" rel="stylesheet"
+    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"
           type="text/css"/>
     <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"
           type="text/css"/>
 </head>
 <body>
@@ -44,12 +46,24 @@
 <!--start: Wrapper-->
 <div id="wrapper">
     <!--start: Container -->
-    <div class="container">
+    <div id="input-form" class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
+
+        <%--TODO getting data from database--%>
+        <div hidden="hidden">
+            <input type="text" id="taxiPricePerKm" value="6">
+        </div>
+        <div hidden="hidden">
+            <input type="text" id="taxiPricePerKmMin" value="30">
+        </div>
+        <%--${"taxiPricePerKm"}">--%>
         <form method="post" action="<c:url value="/order"/>">
             <div class="form-group">
                 <label>Phone number</label>
-                <input type="number" name="phoneNumber" class="form-control" placeholder="Enter phone number:"
+                <input type="text" pattern="\d{10}"
+                       title="That phone number is invalid please enter in this format 0934535415"
+                       name="phoneNumber" class="form-control"
+                       placeholder="Enter phone number"
                        required>
                 <span class="red-star">★</span>
             </div>
@@ -57,25 +71,77 @@
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" class="form-control" name="email" placeholder="Enter email"
-                       data-error="That email is invalid" required>
+                       title="That email is invalid" required>
                 <span class="red-star">★</span>
             </div>
 
+
             <div class="form-group">
-                <label>Address from</label>
-                <input type="text" id="origin" class="form-control" value="${addressOrigin}"
-                       name="addressOrigin" data-error="That address is invalid"
+                <label>Address from </label>
+                <input type="text" id="origin" class="form-control" value=""
+                       name="addressOrigin" title="That address is invalid"
                        required onblur="updateRoute()">
                 <span class="red-star">★</span>
             </div>
+            <p>
+                <button type="button" id="buttonAddressOrigin" class="btn btn-info turnButton">
+                    Add another address from
+                </button>
+            </p>
+            <%--TODO working input fields--%>
+            <%--<c:forEach var="i" begin="1" end="5">--%>
+                <%--<label>Address from ${i}</label>--%>
+            <%--<input type="text" value="origin${i}" id="origin${i}" required>--%>
+                <%--<span class="red-star">★</span><br>--%>
+            <%--</c:forEach>--%>
+
+
+
+            <%--<div class="form-group" id="addressOrigin1">--%>
+            <%--<label>Address from</label>--%>
+            <%--<input type="text" id="origin1" class="form-control" value=""--%>
+            <%--name="addressOrigin1" title="That address is invalid"--%>
+            <%--required onblur="updateRoute()">--%>
+            <%--<span class="red-star">★</span>--%>
+            <%--</div>--%>
+            <%--<div class="form-group" id="addressOrigin2">--%>
+            <%--<label>Address from</label>--%>
+            <%--<input type="text" id="origin2" class="form-control" value=""--%>
+            <%--name="addressOrigin3" title="That address is invalid"--%>
+            <%--required onblur="updateRoute()">--%>
+            <%--<span class="red-star">★</span>--%>
+            <%--</div>--%>
+            <%--<div class="form-group" id="addressOrigin3">--%>
+            <%--<label>Address from</label>--%>
+            <%--<input type="text" id="origin3" class="form-control" value=""--%>
+            <%--name="addressOrigin3" title="That address is invalid"--%>
+            <%--required onblur="updateRoute()">--%>
+            <%--<span class="red-star">★</span>--%>
+            <%--</div>--%>
+            <%--<div class="form-group" id="addressOrigin4">--%>
+            <%--<label>Address from</label>--%>
+            <%--<input type="text" id="origin4" class="form-control" value=""--%>
+            <%--name="addressOrigin4" title="That address is invalid"--%>
+            <%--required onblur="updateRoute()">--%>
+            <%--<span class="red-star">★</span>--%>
+            <%--</div>--%>
+            <%--<div class="form" id="addressOrigin5">--%>
+            <%--<label>Address from</label>--%>
+            <%--<input type="text" id="origin5" class="form-control" value=""--%>
+            <%--name="addressOrigin5" title="That address is invalid"--%>
+            <%--required onblur="updateRoute()">--%>
+            <%--<span class="red-star">★</span>--%>
+            <%--</div>--%>
+
 
             <div class="form-group">
                 <label>Address to</label>
-                <input type="text" id="destination" class="form-control" value="${addressDestination}"
-                       name="addressDestination" data-error="That address is invalid"
+                <input type="text" id="destination" class="form-control" value=""
+                       name="addressDestination" title="That address is invalid"
                        required onblur="updateRoute()">
                 <span class="red-star" id="importanceAddressDestination">★</span>
             </div>
+
             <div class="form-group">
                 <label class="control-label">Way of payment</label>
                 <select class="form-control order_priority" name="wayOfPayment">
@@ -83,12 +149,14 @@
                     <option value="VISA_CARD">Visa card</option>
                 </select>
             </div>
+
             <div class="form-group">
                 <label>Order price</label>
                 <input type="text" name="price" class="form-control"
-                       value="${price}"
+                       value="" id="price"
                        data-error="That address is invalid" readonly>
             </div>
+
 
             <div id="flip">
                 <div class="form-group">
@@ -103,7 +171,7 @@
                     <select class="form-control order_priority" name="service" id="service">
                         <option value="SIMPLE_TAXI">Simple taxi</option>
                         <option value="SOBER_DRIVER">Service "Sober driver"</option>
-                        <option value="GUEST DELIVERY">Service "Guest delivery"</option>
+                        <option value="GUEST_DELIVERY">Service "Guest delivery"</option>
                         <option value="CARGO_TAXI">Service "Cargo taxi"</option>
                         <option value="MEET_MY_GUEST">Service "Meet my guest"</option>
                         <option value="CELEBRATION_TAXI"> Service "Celebration taxi"</option>
@@ -112,27 +180,42 @@
                         <option value="TAXI_FOR_LONG_TERM">Service "Taxi for long term"</option>
                     </select>
                 </div>
+
                 <label for="arriveDate" class="sr-only">Arrive date</label>
 
                 <div class="controls input-append date form_datetime"
-                       data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                <span class="add-on"><i class="icon-th"></i></span>
-                <span class="add-on"><i class="icon-remove"></i></span>
-                <input size="16" type="text" value="" id="arriveDate" name="arriveDate" readonly>
-                <input type="hidden" id="dtp_input1" value=""/><br/>
-
-            </div>
-                <div id="endDateBlock">
-                <label  class="sr-only">End date</label>
-
-                <div class="controls input-append date form_datetime"
-                     data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                     data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
                     <span class="add-on"><i class="icon-th"></i></span>
                     <span class="add-on"><i class="icon-remove"></i></span>
-                    <input size="16" type="text" value="" id="endDate" name="endDate" readonly>
-                    <input type="hidden" id="dtp_input2" value=""/><br/>
+                    <input size="16" type="text" value="" id="arriveDate" name="arriveDate" readonly>
+                    <input type="hidden" id="dtp_input1" value=""/><br/>
                 </div>
+                <%--TODO validation--%>
+                <div id="amountOfTripTimeBlock">
+                    <label>Amount time of trip</label>
+                    <div>
+                    <input type="number" id="amountOfHours" class="form-control" name="amountOfHours"
+                           placeholder="Amount of hours 8+"
+                           title="Amount of hours 8+">
+                    <span class="red-star">★</span>
+                        </div>
+                    <div>
+                    <input type="number" id="amountOfMinutes" class="form-control" name="amountOfMinutes"
+                           placeholder="Amount minutes [0:60]"
+                           title="Amount of minutes [0:60]">
+                    <span class="red-star">★</span>
                     </div>
+
+                </div>
+
+                <%--TODO validation--%>
+                <div id="amountOfCarsBlock">
+                <label>Amount of cars</label>
+                <input type="number" id="amountOfCars" class="form-control" name="amountOfCars"
+                       placeholder="Amount of cars 5+"
+                       title="Amount of cars greater then 4">
+                <span class="red-star">★</span>
+                </div>
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>
                     <select class="form-control order_priority" name="carCategory">
@@ -177,9 +260,9 @@
                         <input type="checkbox" name="freeWifi"> Free wi-fi
                     </label>
                 </div>
-                <div class="checkbox" id="smokingDriverCh">
+                <div class="checkbox" id="nonSmokingDriverCh">
                     <label>
-                        <input type="checkbox" name="smokingDriver"> Smoking driver
+                        <input type="checkbox" name="nonSmokingDriver"> Non smoking driver
                     </label>
                 </div>
                 <div class="checkbox" id="airConditionerCh">
@@ -199,7 +282,6 @@
 
         </form>
     </div>
-    </p>
 </div>
 <%-- end:wrapper --%>
 </div>
@@ -212,6 +294,7 @@
 
     </div>
 </div>
+
 <!-- Load jQuery and bootstrap datepicker scripts -->
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
         charset="UTF-8"></script>
@@ -237,14 +320,12 @@
 
 <%-- Order page scripts --%>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/cargoTaxi.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/sober-driver.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/meet-guest.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/food-delivery.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/other-services.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/longTerm.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/order-funct.js"></script>
+
 <%--end order oage scripts--%>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
+
 
 <%@include file="../parts/scripts.jsp" %>
 <%@include file="../parts/footer.jsp" %>

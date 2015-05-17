@@ -21,10 +21,11 @@ import java.io.IOException;
 @WebServlet("/admin/updatedriver")
 public class AdminUpdateDriverServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
+    private static String warning = "Cannot get json from post /admin/updatedriver";
     private String userId = "userId";
     private String driver = "driver";
 
-    private  Integer id;
+    private Integer id;
     @EJB
     private AdministratorBean administratorBean;
 
@@ -33,11 +34,19 @@ public class AdminUpdateDriverServlet extends HttpServlet {
         id = Integer.parseInt(req.getParameter(userId));
         req.setAttribute(driver, administratorBean.getDriverByID(id));
         req.getRequestDispatcher("/WEB-INF/admin/adminUpdateDriver.jsp").forward(req, resp);
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String data = getData(req);
+        ObjectMapper mapper = new ObjectMapper();
+        UserEntity user = mapper.readValue(data, UserEntity.class);
+        user.setUserId(id);
+        user.setDriver(true);
+        administratorBean.updateUser(user);
+    }
+
+    private String getData(HttpServletRequest req) {
         StringBuilder sb = new StringBuilder();
         try {
             BufferedReader reader = req.getReader();
@@ -46,13 +55,10 @@ public class AdminUpdateDriverServlet extends HttpServlet {
                 line = reader.readLine();
                 sb.append(line).append("\n");
             } while (line != null);
-        } catch (IOException e){
-            logger.warn("Cannot get json from post /admin/updatedriver");
+        } catch (IOException e) {
+            logger.warn(warning);
+
         }
-        ObjectMapper mapper = new ObjectMapper();
-        UserEntity user = mapper.readValue(sb.toString(), UserEntity.class);
-        user.setUserId(id);
-        user.setDriver(true);
-        administratorBean.updateUser(user);
+        return sb.toString();
     }
 }

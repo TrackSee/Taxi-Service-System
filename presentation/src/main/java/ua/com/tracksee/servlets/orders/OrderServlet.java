@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * This class return order.jsp,
+ * This servlet return order.jsp,
  * get data from this page and send it
  * to TaxiOrderBean.
  * Order status is QUEUED  because
@@ -31,13 +31,16 @@ import java.util.HashMap;
 @WebServlet("/order")
 public class OrderServlet extends HttpServlet implements OrderAttributes {
     private static final Logger logger = LogManager.getLogger();
-    private @EJB OrderFacade orderFacade;
+    private
+    @EJB
+    OrderFacade orderFacade;
 
     /**
      * @author Sharaban Sasha
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("pageName", "order");
         req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);
     }
 
@@ -76,49 +79,40 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("pageName", "orderInformation");
+//TODO calculationg price via route
         HashMap<String, String> inputData = new HashMap<String, String>();
         try {
-            inputData.put(PHONE_NUMBER, req.getParameter(PHONE_NUMBER));
-            inputData.put(EMAIL, req.getParameter("email"));
-            inputData.put(ADDRESS_ORIGIN, req.getParameter(ADDRESS_ORIGIN));
-            inputData.put(ADDRESS_DESTINATION, req.getParameter(ADDRESS_DESTINATION));
-            inputData.put(ORDER_STATUS, ORDER_STATUS_VALUE_QUEUED);
-            //TODO calculationg distance, now for test it's 10
-            inputData.put(DISTANCE, "10");
+            inputData.put(PHONE_NUMBER_ALIAS, req.getParameter(PHONE_NUMBER_ALIAS));
+            inputData.put(EMAIL_ALIAS, req.getParameter(EMAIL_ALIAS));
 
-            inputData.put(ARRIVE_DATE, req.getParameter(ARRIVE_DATE));
-            inputData.put(END_DATE, req.getParameter(END_DATE));
+            inputData.put(ADDRESS_ORIGIN_ALIAS, req.getParameter(ADDRESS_ORIGIN_ALIAS));
+            inputData.put(ADDRESS_DESTINATION_ALIAS, req.getParameter(ADDRESS_DESTINATION_ALIAS));
 
-            if (req.getParameter(SERVICE).equals("soberDriver")) {
-                inputData.put(SERVICE, "soberDriver");
-                inputData.put(CAR_CATEGORY, "userCar");
-                inputData.put(MUSIC_STYLE, "default");
-                inputData.put(ANIMAL_TRANSPORTATION, "false");
-                inputData.put(FREE_WIFI, "false");
-                inputData.put(SMOKING_DRIVER, "false");
-                inputData.put(AIR_CONDITIONER, "false");
-            } else {
-                inputData.put(SERVICE, req.getParameter(SERVICE));
-                inputData.put(CAR_CATEGORY, req.getParameter(CAR_CATEGORY));
-                inputData.put(MUSIC_STYLE, req.getParameter(MUSIC_STYLE));
-                inputData.put(ANIMAL_TRANSPORTATION, req.getParameter(ANIMAL_TRANSPORTATION));
-                inputData.put(FREE_WIFI, req.getParameter(FREE_WIFI));
-                inputData.put(SMOKING_DRIVER, req.getParameter(SMOKING_DRIVER));
-                inputData.put(AIR_CONDITIONER, req.getParameter(AIR_CONDITIONER));
-            }
-            inputData.put(WAY_OF_PAYMENT, req.getParameter(WAY_OF_PAYMENT));
-            inputData.put(DRIVER_SEX, req.getParameter(DRIVER_SEX));
-            inputData.put(SERVICE, req.getParameter(SERVICE));
-            inputData.put(DESCRIPTION, req.getParameter(DESCRIPTION));
+            inputData.put(ORDER_STATUS_ALIAS, ORDER_STATUS_VALUE_QUEUED);
+            inputData.put(AMOUNT_OF_CARS_ALIAS,req.getParameter(AMOUNT_OF_CARS_ALIAS));
+            inputData.put(AMOUNT_OF_HOURS_ALIAS,req.getParameter(AMOUNT_OF_HOURS_ALIAS));
+            inputData.put(AMOUNT_OF_MINUTES_ALIAS,req.getParameter(AMOUNT_OF_MINUTES_ALIAS));
+            inputData.put(ARRIVE_DATE_ALIAS, req.getParameter(ARRIVE_DATE_ALIAS));
+            inputData.put(END_DATE_ALIAS, req.getParameter(END_DATE_ALIAS));
+            inputData.put(SERVICE_ALIAS, req.getParameter(SERVICE_ALIAS));
+            inputData.put(CAR_CATEGORY_ALIAS, req.getParameter(CAR_CATEGORY_ALIAS));
+            inputData.put(MUSIC_STYLE_ALIAS, req.getParameter(MUSIC_STYLE_ALIAS));
+            inputData.put(ANIMAL_TRANSPORTATION_ALIAS, req.getParameter(ANIMAL_TRANSPORTATION_ALIAS));
+            inputData.put(FREE_WIFI_ALIAS, req.getParameter(FREE_WIFI_ALIAS));
+            inputData.put(NON_SMOKING_DRIVER_ALIAS, req.getParameter(NON_SMOKING_DRIVER_ALIAS));
+            inputData.put(AIR_CONDITIONER_ALIAS, req.getParameter(AIR_CONDITIONER_ALIAS));
+            inputData.put(WAY_OF_PAYMENT_ALIAS, req.getParameter(WAY_OF_PAYMENT_ALIAS));
+            inputData.put(DRIVER_SEX_ALIAS, req.getParameter(DRIVER_SEX_ALIAS));
+            inputData.put(SERVICE_ALIAS, req.getParameter(SERVICE_ALIAS));
+            inputData.put(DESCRIPTION_ALIAS, req.getParameter(DESCRIPTION_ALIAS));
 
 
-            if (orderFacade.checkBlackListByUserEmail(inputData.get(EMAIL))) {
-                req.setAttribute(ORDER_WARNING,orderFacade.getWarningAlert(ORDER_WARNING_MESSAGE));
+            if (orderFacade.checkBlackListByUserEmail(inputData.get(EMAIL_ALIAS))) {
+                req.setAttribute(ORDER_WARNING, orderFacade.getWarningAlert(ORDER_WARNING_MESSAGE));
             } else {
                 Long trackingNumber = orderFacade.makeOrder(inputData);
-                req.setAttribute(TRACKING_NUMBER, trackingNumber);
-                req.setAttribute(ORDER_SUCCESS, orderFacade.getSuccessAlert(ORDER_SUCCESS_MESSAGE +trackingNumber
+                req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
+                req.setAttribute(ORDER_SUCCESS, orderFacade.getSuccessAlert(ORDER_SUCCESS_MESSAGE + trackingNumber
                         + ORDER_SUCCESS_TRACK_BUTTON));
                 req.setAttribute(HIDE_ORDER_TRACK, HIDE);
             }

@@ -39,7 +39,6 @@ public class CustomerProfileServlet extends HttpServlet {
         request.setAttribute("orders", orders);
         request.setAttribute("pageNumber", 1);
         request.setAttribute("pagesCount", customerFacade.getOrdersPagesCount(userID, orderStatusBO));
-        logger.error("customerProfilePage GET work!!!");
         request.getRequestDispatcher("/WEB-INF/customer/customerProfile.jsp").forward(request, response);
     }
 }

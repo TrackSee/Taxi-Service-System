@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <head>
@@ -48,81 +49,157 @@
 
     <div class="row">
       <div class="col-lg-12">
-        <h1 class="page-header">Assigned order</h1>
+        <h1 class="page-header">Assigned orders</h1>
       </div>
       <!-- /.col-lg-12 -->
     </div>
 
-    <!-- /.row -->
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            Assigned order
-          </div>
-          <!-- /.panel-heading -->
-          <div class="panel-body">
-            <div class="dataTable_wrapper">
-              <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Order time</th>
-                  <th>Start address</th>
-                  <th>Finish address</th>
-                  <th>Price</th>
-                  <th>Refuse</th>
-                  <th>In progress</th>
-                  <th>Completed</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${requestScope.orders}" var="order">
-                  <tr>
-                      <td>${order.trackingNumber}</td>
-                      <td>${order.orderedDate}</td>
-                      <td>${"-"}</td>
-                      <td>
-                          ${"-"}
-                      </td>
-                      <td>${order.price}</td>
-                    <td>
-                      <form action="assigned-order" method="post">
-                        <a href="javascript:;" onclick="parentNode.submit();">
-                          <button type="button" class="btn btn-success">Refuse</button></a>
-                        <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
-                        <input type="hidden" name="orderStatus" value="Refused">
-                      </form>
-                    </td>
-                    <td>
-                      <c:set var="inputDisplay" value="IN_PROGRESS" />
-                      <c:choose>
-                        <c:when test="${order.status == 'IN_PROGRESS'}">
-                          <button type="button" class="btn btn-warning">In progress</button>
-                        </c:when>
-                        <c:otherwise>
-                          <form action="assigned-order" method="post">
-                            <a href="javascript:;" onclick="parentNode.submit();">
-                              <button type="button" class="btn btn-success">In progress</button></a>
-                            <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
-                            <input type="hidden" name="orderStatus" value="In progress">
-                          </form>
-                        </c:otherwise>
-                      </c:choose>
-                    </td>
-                    <td>
-                      <form action="assigned-order" method="post">
-                        <a href="javascript:;" onclick="parentNode.submit();">
-                          <button type="button" class="btn btn-success">Complete</button></a>
-                        <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
-                        <input type="hidden" name="orderStatus" value="Completed">
-                      </form>
-                    </td>
 
-                  </tr>
-                </c:forEach>
-                </tbody>
-              </table>
+                        <!-- Plans -->
+              <c:forEach items="${requestScope.orders}" var="order">
+                <section id="plans">
+                  <div class="container">
+                    <div class="row">
+
+                      <!-- item -->
+                      <div class="col-md-9 text-center">
+                        <div class="panel panel-success panel-pricing">
+                          <div class="panel-heading">
+                            <c:set var="startPoint" value="${order.itemList[0].path.getStartPoint()}"/>
+                            <c:set var="endPoint" value="${order.itemList[0].path.getEndPoint()}"/>
+                            <div class="map-canvas">
+                              <iframe frameborder="0" width="100%" height="250"
+                                      src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin=${pageScope.startPoint.getX()},${pageScope.startPoint.getY()}&destination=${pageScope.endPoint.getX()},${pageScope.endPoint.getY()}">
+                              </iframe>
+                            </div>
+                          </div>
+
+                          <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Order time</th>
+                              <th>Car arrive time</th>
+                              <th>Price</th>
+                              <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="odd gradeX">
+                              <td>${order.trackingNumber}</td>
+                              <td>
+                                <fmt:formatDate value="${order.orderedDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                              </td>
+                              <td>
+                                <fmt:formatDate value="${order.arriveDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                              </td>
+                              <td>${order.price}</td>
+                              <td>
+                                <c:set var="string4" value="${order.status}"/>
+                                <c:set var="string5" value="${fn:toLowerCase(string4)}" />
+                                <c:set var="string6" value="${fn:replace(string5,
+                                '_', ' ')}" />
+                                  ${string6}
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+
+                          <div class="panel-footer">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                              <tbody>
+                              <tr class="odd gradeX">
+                                <td> <form action="assigned-order" method="post">
+                                  <a href="javascript:;" onclick="parentNode.submit();">
+                                    <button type="button" class="btn btn-danger">Refuse</button></a>
+                                  <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
+                                  <input type="hidden" name="orderStatus" value="Toqueue">
+                                </form></td>
+                                <td>
+                                  <form action="assigned-order" method="post">
+                                    <a href="javascript:;" onclick="parentNode.submit();">
+                                      <button type="button" class="btn btn-info">Customer not arrived</button></a>
+                                    <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
+                                    <input type="hidden" name="orderStatus" value="Refused">
+                                  </form>
+                                </td>
+                                <td>
+                                  <c:set var="inputDisplay" value="IN_PROGRESS" />
+                                  <c:choose>
+                                    <c:when test="${order.status == 'IN_PROGRESS'}">
+                                      <button type="button" class="btn btn-warning">In progress</button>
+                                    </c:when>
+                                    <c:otherwise>
+                                      <form action="assigned-order" method="post">
+                                        <a href="javascript:;" onclick="parentNode.submit();">
+                                          <button type="button" class="btn btn-primary">In progress</button></a>
+                                        <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
+                                        <input type="hidden" name="orderStatus" value="In progress">
+                                      </form>
+                                    </c:otherwise>
+                                  </c:choose>
+                                </td>
+                                <td>
+                                  <form action="assigned-order" method="post">
+                                    <a href="javascript:;" onclick="parentNode.submit();">
+                                      <button type="button" class="btn btn-success">Complete</button></a>
+                                    <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
+                                    <input type="hidden" name="orderStatus" value="Completed">
+                                  </form>
+                                </td>
+                                </tr>
+                              </tbody>
+                              </table>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /item -->
+
+                    </div>
+                  </div>
+                </section>
+              </c:forEach>
+              <!-- /Plans -->
+
+    <div class="text-center">
+      <ul class="pagination">
+        <c:forEach var="i" begin="1" end="${requestScope.pagesCount}">
+          <li class="pageLi${i}"><a class="pageButton" href="#">${i}</a></li>
+        </c:forEach>
+      </ul>
+    </div>
+
+          <!-- Pop up-->
+
+      <c:choose>
+        <c:when test="${status == 'true'}">
+          <script src="<%=application.getContextPath()%>/resources/driver/js/jquery.min.js"></script>
+          <script src="<%=application.getContextPath()%>/resources/driver/js/modalOrderInProgress.js"></script>
+
+          </head>
+          <body>
+          <div id="myModal" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Warning</h4>
+                </div>
+                <div class="modal-body">
+                  <p>Please be careful, you can not have two orders in "in progress" state!</p>
+                </div>
+                <div class="modal-footer">
+                  <form action="change-satus" method="post">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="hidden" name="status" value="false">
+                    </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </c:when>
+          </c:choose>
+          <!-- end pop up -->
 
               <div class="text-center">
                 <ul class="pagination">
@@ -154,6 +231,7 @@
 
 <!-- jQuery Version 1.11.2 -->
 <script src="<%=application.getContextPath()%>/resources/js/jquery-1.11.2.min.js"></script>
+
 <!--
 <script src="../../../resources/js/jquery-1.11.2.js"></script>
 <script src="../../../resources/js/jquery.min.js"></script>
@@ -176,6 +254,9 @@
 
 <!-- Bootstrap editable JavaScript-->
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-editable.js"></script>
+
+<%--for pagination--%>
+<script src="<%=application.getContextPath()%>/resources/driver/js/paginator-orders.js"></script>
 
 </body>
 

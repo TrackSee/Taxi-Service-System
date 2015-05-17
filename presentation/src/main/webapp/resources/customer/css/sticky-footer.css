@@ -4,6 +4,7 @@
 * disabled, because it not need.
 *
 * author Sharaban Sasha
+* author Vitalii Diravka
 */
 
 /** {*/
@@ -22,5 +23,12 @@
     /*height: 4em;*/
 /*}*/
 .navbar-fixed-bottom.back_color{
-    background-color: lavender;
+    /*background-color: lavender;*/
+    height: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    /*height: 60px;*/
+    background-color: #99cc33;
 }

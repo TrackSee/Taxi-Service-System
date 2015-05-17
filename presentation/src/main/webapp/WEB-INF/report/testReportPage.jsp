@@ -14,8 +14,9 @@
     <%@include file="../parts/bootstrap2.jsp" %>
     <link href='<%=application.getContextPath()%>/resources/customer/css/visible.css' rel='stylesheet'
           type='text/css'/>
-    <link href='<%=application.getContextPath()%>/resources/customer/css/slide-panel.css' rel='stylesheet'
+    <link href='<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css' rel='stylesheet'
           type='text/css'/>
+
 </head>
 <body>
 <%@include file="../parts/header.jsp" %>

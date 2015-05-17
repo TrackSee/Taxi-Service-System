@@ -16,6 +16,7 @@ import static javax.persistence.FetchType.EAGER;
 
 /**
  * @author Ruslan Gunavardana
+ * @author Sharaban Sasha
  */
 @Entity
 @Table(name = "taxi_order", schema = "public", catalog = "tracksee")
@@ -37,11 +38,43 @@ public class TaxiOrderEntity {
     private Integer userId;
     private Timestamp orderedDate = new Timestamp(System.currentTimeMillis());
     private Timestamp arriveDate;
-    private Timestamp endDate;
+    private Integer amountOfCars;
+    private Integer amountOfHours;
+    private Integer amountOfMinutes;
     private List<TaxiOrderItemEntity> itemList = new ArrayList<>();
 
     public TaxiOrderEntity() {
 
+    }
+
+    @Basic
+    @Column(name = "amount_of_hours",nullable = true)
+    public Integer getAmountOfHours() {
+        return amountOfHours;
+    }
+
+    public void setAmountOfHours(Integer amountOfHours) {
+        this.amountOfHours = amountOfHours;
+    }
+
+    @Basic
+    @Column(name = "amount_of_minutes",nullable = true)
+    public Integer getAmountOfMinutes() {
+        return amountOfMinutes;
+    }
+
+    public void setAmountOfMinutes(Integer amountOfMinutes) {
+        this.amountOfMinutes = amountOfMinutes;
+    }
+
+    @Basic
+    @Column(name = "amount_of_cars",nullable = true)
+    public Integer getAmountOfCars() {
+        return amountOfCars;
+    }
+
+    public void setAmountOfCars(Integer amountOfCars) {
+        this.amountOfCars = amountOfCars;
     }
 
     public TaxiOrderEntity(OrderStatus status) {
@@ -59,15 +92,6 @@ public class TaxiOrderEntity {
 
     }
 
-    @Basic
-    @Column(name="end_date",nullable = true)
-    public Timestamp getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Timestamp endDate) {
-        this.endDate = endDate;
-    }
 
     @Id
     @GeneratedValue(generator = "orderSeq")

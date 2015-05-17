@@ -49,3 +49,10 @@
 .error {
     color: red;
 }
+
+.headerStyle {
+    width: 100%;
+}
+.adminPic {
+    margin: 0px 30%;
+}

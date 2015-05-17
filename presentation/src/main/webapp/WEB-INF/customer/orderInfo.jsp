@@ -14,7 +14,7 @@
     <%@include file="../parts/bootstrap2.jsp" %>
     <link href='<%=application.getContextPath()%>/resources/customer/css/visible.css' rel='stylesheet'
           type='text/css'/>
-    <link href='<%=application.getContextPath()%>/resources/customer/css/slide-panel.css' rel='stylesheet'
+    <link href='<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css' rel='stylesheet'
           type='text/css'/>
 </head>
 <body>
@@ -45,18 +45,19 @@
         ${refuseWarning}
         ${nonExistTrackingNumberWarning}
 
-            <a class="btn btn-large btn-success" href="orderInfo"><h4 class="outline">Track your taxi order</h4></a>
-        </div>
         <div ${hideOrderTrack}>
             <div class="form-group">
                 <form method="post" action="<c:url value="/orderTracking"/>">
                     <label>Tracking number</label>
-                    <input type="text" id="trackingNumber" class="form-control" name="orderTrackingNumber"
+                    <input type="number" id="trackingNumber" class="form-control" name="trackingNumber"
                            placeholder="Enter your tracking number"
-                           pattern="[1-9]{1,19}" title="Only the number is greater than zero" required>
+                            title="Only integer number" required>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-danger btn-large">Track your order</button>
-                    </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-large">
+                                Track your taxi order</button>
+                        </div>
+                        </div>
                 </form>
             </div>
             </div>

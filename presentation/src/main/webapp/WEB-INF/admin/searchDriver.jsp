@@ -44,7 +44,7 @@
             <c:forEach items="${requestScope.drivers}" var="driver">
                 <tr>
                         <%--TODO add reference on DASHBOARD --%>
-                    <td><a href="driver?id=${driver.userId}">${driver.email}</a></td>
+                    <td><a href="driver/driver-profile?id=${driver.userId}">${driver.email}</a></td>
                     <td>${driver.phone != null? driver.phone : "-"}</td>
                     <td>${driver.sex}</td>
                     <td>${driver.groupName? driver.groupName : "-"}</td>
@@ -58,6 +58,6 @@
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
-<script src="<%=application.getContextPath()%>/resources/admin/js/keyup.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/rec.js"></script>
 </body>
 </html>

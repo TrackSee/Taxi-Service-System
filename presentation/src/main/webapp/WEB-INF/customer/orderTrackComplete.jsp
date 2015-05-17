@@ -22,7 +22,7 @@
           media="screen">
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
           media="screen">
-    <link href="<%=application.getContextPath()%>/resources/customer/css/slide-panel.css" rel="stylesheet"
+    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"
           type="text/css"/>
     <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
           type="text/css"/>
@@ -123,10 +123,6 @@
                     <input size="16" type="text"  id="arriveDate" name="arriveDate" value="${arriveDate}"
                      disabled>
                     <input type="hidden" value=""/><br/>
-
-                <label for="endDate" class="sr-only">End date</label>
-                    <input size="16" type="text" id="endDate" name="endDate" value="${endDate}" disabled>
-                    <input type="hidden"  value=""/><br/>
 
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>

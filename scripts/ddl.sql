@@ -1,20 +1,20 @@
-DROP TABLE IF EXISTS Taxi_Order_Item;
-DROP TABLE IF EXISTS Favorite_Place;
-DROP TABLE IF EXISTS Taxi_Order;
-DROP TABLE IF EXISTS Service_User;
-DROP TABLE IF EXISTS Car;
-DROP TABLE IF EXISTS Taxi_Price;
-DROP TABLE IF EXISTS Config;
+DROP TABLE IF EXISTS tracksee.public.Taxi_Order_Item;
+DROP TABLE IF EXISTS tracksee.public.Favorite_Place;
+DROP TABLE IF EXISTS tracksee.public.Taxi_Order;
+DROP TABLE IF EXISTS tracksee.public.Service_User;
+DROP TABLE IF EXISTS tracksee.public.Car;
+DROP TABLE IF EXISTS tracksee.public.Taxi_Price;
+DROP TABLE IF EXISTS tracksee.public.Config;
 
 -- CREATION --
 
-CREATE TABLE IF NOT EXISTS Config
+CREATE TABLE IF NOT EXISTS tracksee.public.Config
 (
   name  VARCHAR(55) UNIQUE NOT NULL,
   value VARCHAR(120)       NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Taxi_Price
+CREATE TABLE IF NOT EXISTS tracksee.public.Taxi_Price
 (
   price_per_km  NUMERIC(10, 2) NOT NULL,
   price_per_min NUMERIC(10, 2) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS Taxi_Price
   PRIMARY KEY (car_category, weekend, night_tariff)
 );
 
-CREATE TABLE IF NOT EXISTS Car
+CREATE TABLE IF NOT EXISTS tracksee.public.Car
 (
   car_number                       VARCHAR(55) PRIMARY KEY,
   car_model                        VARCHAR(55) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS Car
   air_conditioner                  BOOLEAN     NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Service_User
+CREATE TABLE IF NOT EXISTS tracksee.public.Service_User
 (
   user_id           SERIAL PRIMARY KEY,
   email             VARCHAR(254) UNIQUE NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS Service_User
   registration_date TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS Favorite_Place
+CREATE TABLE IF NOT EXISTS tracksee.public.Favorite_Place
 (
   name     VARCHAR(120) NOT NULL,
   user_id  INT          NOT NULL REFERENCES Service_User (user_id) ON DELETE CASCADE,
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS Favorite_Place
   PRIMARY KEY (name, user_id)
 );
 
-CREATE TABLE IF NOT EXISTS Taxi_Order
+CREATE TABLE IF NOT EXISTS tracksee.public.Taxi_Order
 (
   tracking_number       BIGSERIAL PRIMARY KEY,
   status                VARCHAR(28) NOT NULL,
@@ -77,7 +77,9 @@ CREATE TABLE IF NOT EXISTS Taxi_Order
   driver_sex            CHAR(1),
   ordered_date          TIMESTAMP,
   arrive_date           TIMESTAMP,
-  end_date              TIMESTAMP,
+  amount_of_hours       INT DEFAULT NULL,
+  amount_of_minutes     INT DEFAULT NULL,
+  amount_of_cars        INT DEFAULT NULL,
   music_style           VARCHAR(50),
   animal_transportation BOOLEAN,
   free_wifi             BOOLEAN,
@@ -86,7 +88,7 @@ CREATE TABLE IF NOT EXISTS Taxi_Order
   comment               VARCHAR(400)
 );
 
-CREATE TABLE IF NOT EXISTS Taxi_Order_Item
+CREATE TABLE IF NOT EXISTS tracksee.public.Taxi_Order_Item
 (
   taxi_item_id     BIGSERIAL PRIMARY KEY,
   tracking_numer   INT NOT NULL REFERENCES Taxi_Order (tracking_number) ON DELETE CASCADE,

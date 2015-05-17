@@ -3,6 +3,7 @@ package ua.com.tracksee.servlets.group;
 import com.google.gson.Gson;
 import com.google.gson.JsonPrimitive;
 import ua.com.tracksee.logic.GroupBean;
+import ua.com.tracksee.logic.facade.AdminFacade;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -18,14 +19,14 @@ import java.io.IOException;
 @WebServlet("admin/groupExist")
 public class CheckExistGroupServlet extends HttpServlet implements GroupConstants{
     @EJB
-    private GroupBean groupBean;
+    private AdminFacade adminFacade;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String groupName = req.getParameter(GROUP_NAME_ALIAS);
 
-        boolean exist = groupBean.existsGroup(groupName);
+        boolean exist = adminFacade.existsGroup(groupName);
 
         String json = "[{\"exist\":" + exist + "}]";
         System.out.println(json);

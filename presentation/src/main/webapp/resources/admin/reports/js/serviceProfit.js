@@ -1,8 +1,7 @@
 $(document).ready(function() {
-    $('#getResult').click(function(){;
+    $('#getResult').click(function(){
         var startDate = $('input[name = startDate]', '#serviceProfit').val();
         var endDate = $('input[name = endDate]', '#serviceProfit').val();
-
         $.ajax({
             type: 'POST',
             data: {startDate: startDate, endDate: endDate},

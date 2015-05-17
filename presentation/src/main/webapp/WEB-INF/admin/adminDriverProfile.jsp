@@ -144,6 +144,7 @@
                 </div>
                     <select class="make form-control taxiCar" name="taxiCar">
                         <c:forEach items="${requestScope.cars}" var="car">
+                            <option value="no car">No car</option>
                             <option value="${car.carNumber}">${car.carNumber}</option>
                         </c:forEach>
                     </select>
