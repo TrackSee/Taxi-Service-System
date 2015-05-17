@@ -6,29 +6,27 @@
  */
 var directionsDisplay;
 var directionsService;
-var map;
-var geocoder;
 
 function initializeMaps() {
     DEFAULT_LOCATION = new google.maps.LatLng(DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lng);
 
+    // creating map
     var mapOptions = {
         zoom: DEFAULT_ZOOM,
         center: DEFAULT_LOCATION,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    new google.maps.TrafficLayer().setMap(map);
 
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-    initializeDirections();
+    // creating path
+    initializeDirections(map);
     calcRoute(DEFAULT_LOCATION, DEFAULT_LOCATION, []);
-    tryGeolocation();
-    geocoder = new google.maps.Geocoder();
-    google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
-        updateAddresses(directionsDisplay.getDirections().routes[0]);
-    });
+    tryGeolocation(map);
+    google.maps.event.addListener(directionsDisplay, 'directions_changed', updateAddresses);
 }
 
-function initializeDirections() {
+function initializeDirections(map) {
     var rendererOptions = {
         draggable: true,
         preserveViewport: true,
@@ -39,9 +37,7 @@ function initializeDirections() {
     directionsDisplay.setMap(map);
 }
 
-function tryGeolocation() {
-
-    // HTML5 geolocation
+function tryGeolocation(map) {
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -52,7 +48,7 @@ function tryGeolocation() {
         });
     } else {
         // Browser doesn't support Geolocation
-        $.notify('Your browser doesn\'t support geolocation.', 'error');
+        $.notify("Your browser doesn't support geolocation.", 'error');
     }
 }
 
@@ -79,67 +75,14 @@ function calcRoute(origin, destination, waypoints) {
 }
 
 /**
- * useLatLngAddressFor
- * Function geocodes passed LatLng parameter and uses it
- * as callback parameter.
- *
- * @param latLng {google.maps.LatLng}
- * @param textInput {Node}
- */
-function decodePointToText(latLng, textInput) {
-    geocoder.geocode({'latLng': latLng}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            if (results[0]) {
-                textInput.val(results[0].formatted_address);
-            } else {
-                $.notify('No results found', 'error');
-            }
-        } else {
-            $.notify('Geocoder failed due to: ' + status, 'error');
-        }
-    });
-}
-
-/**
- * getRouteData
- * Returns data about route in format {duration, length}.
- * Duration in minutes, length in km.
- *
- * @param route {google.maps.DirectionsRoute}
- * @returns {{duration: number, distance: number}}
- */
-function getRouteData(route) {
-    var duration = 0;
-    var distance = 0;
-    for (var i = 0; i < route.legs.length; i++) {
-        duration += route.legs[i].duration.value;
-        distance += route.legs[i].distance.value;
-    }
-    return {duration : Math.round(duration / SECS_PER_MINUTE), // to minutes
-        distance : Math.round(distance / 100) / 10};           // to km
-}
-
-/**
- * getRouteMiddle
- * Returns one of the middle route points.
- *
- * @param route {google.maps.DirectionsRoute}
- * @returns {google.maps.LatLng}
- */
-function getRouteMiddle(route) {
-    var middleLeg = route.legs[Math.floor(route.legs.length / 2)];
-    var middleStep = middleLeg.steps[Math.floor(middleLeg.steps.length / 2)];
-    return middleStep.end_location;
-}
-
-/**
  * updateAddresses
  * Updates addresses text fields with new Google Maps
  * information.
  */
-function updateAddresses(route) {
-    decodePointToText(route.overview_path[0], $('#origin'));
-    decodePointToText(route.overview_path[route.overview_path.length - 1], $('#destination'));
+function updateAddresses() {
+    var route = directionsDisplay.getDirections().routes[0];
+    $('#origin').val(route.legs[0].start_address);
+    $('#destination').val(route.legs[route.legs.length - 1].end_address);
 }
 
 /**
@@ -148,4 +91,26 @@ function updateAddresses(route) {
  */
 function updateRoute() {
     calcRoute($('#origin').val(), $('#destination').val(), []);
+}
+
+/**
+ * getRouteData
+ * Returns data about route in format {duration, length}.
+ * Duration in minutes, length in km.
+ *
+ * @returns {{duration: number, distance: number, route: string}}
+ */
+function getRouteData() {
+    var route = directionsDisplay.getDirections().routes[0];
+    var duration = 0;
+    var distance = 0;
+    for (var i = 0; i < route.legs.length; i++) {
+        duration += route.legs[i].duration.value;
+        distance += route.legs[i].distance.value;
+    }
+    return {
+        duration : Math.round(duration / SECS_PER_MINUTE), // to minutes
+        distance : Math.round(distance / 100) / 10,        // to km
+        route : route.overview_polyline // encoded poly
+    };
 }
