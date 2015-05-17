@@ -1,18 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
   User: Katia Stetsiuk
-  Date: 26-Apr-15
-  Time: 21:00
+  Date: 24-Apr-15
+  Time: 09:37
   To change this template use File | Settings | File Templates.
 --%>
-
-
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
+
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,6 +21,8 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
+    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
+          rel="stylesheet">
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
           rel="stylesheet">
 
@@ -44,73 +44,60 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
 </head>
+
 
 <body>
 
 <div id="wrapper">
     <jsp:include page="adminHeader.jsp"/>
-
-    <div id="page-wrapper">
-        <form class="create-car" id="createCar" action="<c:url value="/admin/createcar"/>" method="post">
-            <h2 class="form-sign-up-heading">Please enter cars data</h2>
-            <%--<label for="carNumber" class="sr-only">Number</label>--%>
-            <%--<input type="carNumber" id="carNumber" name="carNumber" class="form-control" placeholder="Car Number" value="${car.carNumber}">--%>
-
-            <label for="carNumber" class="sr-only">Model</label>
-            <input type="carNumber" id="carNumber" name="carNumber" class="form-control"
-                   placeholder="Car Number" >
-            <label for="carModel" class="sr-only">Model</label>
-            <input type="carModel" id="carModel" name="carModel" class="form-control"
-                   placeholder="Car Model">
-
-            <label for="carColor" class="sr-only">Color</label>
-            <input type="carColor" id="carColor" name="carColor" class="form-control"
-                   placeholder="Color" >
-
-            <div>
-                <label>Category</label>
-            </div>
-            <select id="category" class="category form-control" name="category">
-                <option value="BUSINESS_CLASS">BUSINESS CLASS</option>
-                <option value="ECONOMY_CLASS">ECONOMY CLASS</option>
-                <option value="VAN">VAN</option>
-                <option value="USER_CAR">USER_CAR</option>
-
-            </select>
-            <input type="checkbox" id="acceptsVisa" name="acceptsVisa">Way Of Payment - VISA<Br>
-            <%--<label for="animalTransportationApplicable" class="sr-only">Color</label>--%>
-            <input type="checkbox" id="animalTransportationApplicable" name="animalTransportationApplicable"
-                    >Animal Transportation Applicable<Br>
-            <input type="checkbox" id="freeWifi" name="freeWifi">Free Wifi<Br>
-            <input type="checkbox" id="airConditioner" name="airConditioner">Air
-            Conditioner<Br>
-
-            <div>
-                <button id="addCar" type="button" class="btn btn-primary">Create</button>
-            </div>
-    </div>
-    <!-- /#page-wrapper -->
 </div>
-<!-- /#wrapper -->
+<div id="page-wrapper">
+    <form class="create-car" id="createCar" action="<c:url value="/admin/createcar"/>" method="post">
+        <h2 class="form-sign-up-heading">Please enter cars data</h2>
+        <%--<label for="carNumber" class="sr-only">Number</label>--%>
+        <%--<input type="carNumber" id="carNumber" name="carNumber" class="form-control" placeholder="Car Number" value="${car.carNumber}">--%>
 
-<!-- jQuery -->
+        <label for="carNumber" class="sr-only">Model</label>
+        <input type="carNumber" id="carNumber" name="carNumber" class="form-control"
+               placeholder="Car Number" required>
+        <label for="carModel" class="sr-only">Model</label>
+        <input type="carModel" id="carModel" name="carModel" class="form-control"
+               placeholder="Car Model" required>
+
+        <label for="carColor" class="sr-only">Color</label>
+        <input type="carColor" id="carColor" name="carColor" class="form-control"
+               placeholder="Color" >
+
+        <div>
+            <label>Category</label>
+        </div>
+        <select id="category" class="category form-control" name="category">
+            <option value="BUSINESS_CLASS">BUSINESS CLASS</option>
+            <option value="ECONOMY_CLASS">ECONOMY CLASS</option>
+            <option value="VAN">VAN</option>
+            <option value="USER_CAR">USER_CAR</option>
+
+        </select>
+        <input type="checkbox" id="acceptsVisa" name="acceptsVisa">Way Of Payment - VISA<Br>
+        <%--<label for="animalTransportationApplicable" class="sr-only">Color</label>--%>
+        <input type="checkbox" id="animalTransportationApplicable" name="animalTransportationApplicable"
+                >Animal Transportation Applicable<Br>
+        <input type="checkbox" id="freeWifi" name="freeWifi">Free Wifi<Br>
+        <input type="checkbox" id="airConditioner" name="airConditioner">Air
+        Conditioner<Br>
+
+        <div>
+            <button id="addCar" type="button" class="btn btn-primary">Create</button>
+        </div>
+</div>
+
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin//bower_components/jquery/dist/jquery.validate.min.js"></script>
-
-<!-- Metis Menu Plugin JavaScript -->
-<script src="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
-<%--for pagination--%>
-<script src="<%=application.getContextPath()%>/resources/admin/js/forcreatecar.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/carCreate.js"></script>
 
 
 </body>
-
 </html>
-
