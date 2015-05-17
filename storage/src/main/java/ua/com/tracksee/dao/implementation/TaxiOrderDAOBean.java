@@ -56,8 +56,9 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         List<TaxiOrderItemEntity> itemList = order.getItemList();
         StringBuilder sql = new StringBuilder("INSERT INTO taxi_order " +
                 "(description,status,price,user_id,service,car_category,way_of_payment,driver_sex," +
-                "music_style,animal_transportation,free_wifi,non_smoking_driver,air_conditioner,ordered_date) " +
-                "VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14) RETURNING tracking_number; ");
+                "music_style,animal_transportation,free_wifi,non_smoking_driver,air_conditioner," +
+                "ordered_date,amount_of_cars,amount_of_hours,amount_of_minutes) " +
+                "VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17) RETURNING tracking_number; ");
 
         for (int i = 0; i < itemList.size(); i++) {
             sql.append("INSERT INTO taxi_order_item" +
@@ -79,6 +80,9 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(12, order.getNonSmokingDriver());
         query.setParameter(13, order.getAirConditioner());
         query.setParameter(14, order.getOrderedDate());
+        query.setParameter(15, order.getAmountOfCars());
+        query.setParameter(16, order.getAmountOfHours());
+        query.setParameter(17, order.getAmountOfMinutes());
 
         int i = 14; // should be incremented before use
         for (TaxiOrderItemEntity item : itemList) {

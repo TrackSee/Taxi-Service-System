@@ -97,15 +97,12 @@ public class TaxiOrderBean {
         user.setEmail(email);
         user.setPhone(phone);
 
-        TaxiOrderEntity taxiOrderEntity = validateForTaxiOrder(inputData);
+        TaxiOrderEntity taxiOrderEntity = validateAndAssignDataToTaxiOrderEntity(inputData);
         user = checkUserPresent(user);
         taxiOrderEntity.setUserId(user.getUserId());
         taxiOrderEntity.setTrackingNumber(taxiOrderDAO.addOrder(taxiOrderEntity));
         if (taxiOrderEntity.getArriveDate() != null) {
             taxiOrderDAO.addArriveDate(taxiOrderEntity.getArriveDate(), taxiOrderEntity.getTrackingNumber());
-        }
-        if (taxiOrderEntity.getEndDate() != null) {
-            taxiOrderDAO.addEndDate(taxiOrderEntity.getEndDate(), taxiOrderEntity.getTrackingNumber());
         }
         sendEmail(user, taxiOrderEntity.getTrackingNumber());
         return taxiOrderEntity.getTrackingNumber();
@@ -143,16 +140,13 @@ public class TaxiOrderBean {
      * @param inputData information about changed order
      */
     public void updateOrder(HashMap<String, String> inputData) throws OrderException {
-        TaxiOrderEntity taxiOrderEntity = validateForTaxiOrder(inputData);
+        TaxiOrderEntity taxiOrderEntity = validateAndAssignDataToTaxiOrderEntity(inputData);
         long trackingNumber = Long.parseLong(inputData.get("trackingNumber"));
         if (trackingNumber >= 0) {
             taxiOrderEntity.setTrackingNumber(trackingNumber);
             taxiOrderDAO.updateOrder(taxiOrderEntity);
             if (taxiOrderEntity.getArriveDate() != null) {
                 taxiOrderDAO.addArriveDate(taxiOrderEntity.getArriveDate(), taxiOrderEntity.getTrackingNumber());
-            }
-            if (taxiOrderEntity.getEndDate() != null) {
-                taxiOrderDAO.addEndDate(taxiOrderEntity.getEndDate(), taxiOrderEntity.getTrackingNumber());
             }
         } else {
             throw new OrderException("Invalid tracking number", "invalid-track-numb");
@@ -173,7 +167,7 @@ public class TaxiOrderBean {
     }
 
     /**
-     * This method checks whether there is a user who made
+     * Checks whether there is a user who made
      * the order in database, if he present in database the
      * unique number of record attache to him,
      * if not then creates record in the database and attache to him
@@ -201,7 +195,7 @@ public class TaxiOrderBean {
     }
 
     /**
-     * This method send confirmation letter with
+     * Sends confirmation letter with
      * tracking number to the user who made the order
      *
      * @author Sharaban Sasha
@@ -243,43 +237,30 @@ public class TaxiOrderBean {
      * @return TaxiOrderEntity object that contain checked values
      * @throws ua.com.tracksee.exception.OrderException
      */
-    private TaxiOrderEntity validateForTaxiOrder(HashMap<String, String> inputData) throws OrderException {
+    private TaxiOrderEntity validateAndAssignDataToTaxiOrderEntity(HashMap<String, String> inputData) throws OrderException {
         TaxiOrderEntity taxiOrderEntity = new TaxiOrderEntity();
-        CarCategory carCategory;
-        WayOfPayment wayOfPayment;
-        Sex driverSex;
-        Service service;
-        MusicStyle musicStyle;
-        OrderStatus orderStatus;
 
-        Timestamp arriveTimestamp = convertToTimestamp(inputData.get("arriveDate"));
-        taxiOrderEntity.setArriveDate(arriveTimestamp);
-        Timestamp endTimestamp = convertToTimestamp(inputData.get("endDate"));
-        taxiOrderEntity.setEndDate(endTimestamp);
+        taxiOrderEntity.setArriveDate(convertToTimestamp(inputData.get("arriveDate")));
 
-        orderStatus = enumValidationBean.setEnumOrderStatus(inputData.get("orderStatus"));
-        taxiOrderEntity.setStatus(orderStatus);
-        carCategory = enumValidationBean.setEnumCarCategory(inputData.get("carCategory"));
-        taxiOrderEntity.setCarCategory(carCategory);
-        wayOfPayment = enumValidationBean.setEnumWayOfPayment(inputData.get("wayOfPayment"));
-        taxiOrderEntity.setWayOfPayment(wayOfPayment);
-        driverSex = enumValidationBean.setEnumDriverSex(inputData.get("driverSex"));
-        taxiOrderEntity.setDriverSex(driverSex);
-        service = enumValidationBean.setEnumService(inputData.get("service"));
-        taxiOrderEntity.setService(service);
-        musicStyle = enumValidationBean.setEnumMusicStyle(inputData.get("musicStyle"));
-        taxiOrderEntity.setMusicStyle(musicStyle);
+        //TODO calculating price, now for test it is 10
+        taxiOrderEntity.setPrice(new BigDecimal(10));
+
+        taxiOrderEntity.setAmountOfCars(convertToInt(inputData.get("amountOfCars")));
+        taxiOrderEntity.setAmountOfHours(convertToInt(inputData.get("amountOfHours")));
+        taxiOrderEntity.setAmountOfMinutes(convertToInt(inputData.get("amountOfMinutes")));
+        taxiOrderEntity.setStatus(enumValidationBean.setEnumOrderStatus(inputData.get("orderStatus")));
+        taxiOrderEntity.setCarCategory(enumValidationBean.setEnumCarCategory(inputData.get("carCategory")));
+        taxiOrderEntity.setWayOfPayment(enumValidationBean.setEnumWayOfPayment(inputData.get("wayOfPayment")));
+        taxiOrderEntity.setDriverSex(enumValidationBean.setEnumDriverSex(inputData.get("driverSex")));
+        taxiOrderEntity.setService( enumValidationBean.setEnumService(inputData.get("service")));
+        taxiOrderEntity.setMusicStyle(enumValidationBean.setEnumMusicStyle(inputData.get("musicStyle")));
 
         taxiOrderEntity.setAnimalTransportation(convertCheckBoxToBoolean(inputData.get("animalTransportation")));
         taxiOrderEntity.setFreeWifi(convertCheckBoxToBoolean(inputData.get("freeWifi")));
         taxiOrderEntity.setNonSmokingDriver(convertCheckBoxToBoolean(inputData.get("nonSmokingDriver")));
         taxiOrderEntity.setAirConditioner(convertCheckBoxToBoolean(inputData.get("airConditioner")));
-        try {
-            int distance = Integer.parseInt(inputData.get("distance"));
-            taxiOrderEntity.setPrice(new BigDecimal(priceCalculatorBean.simpleCalculatePrice(distance)));
-        } catch (Exception e) {
-            throw new OrderException("Invalid price", "wrong-price");
-        }
+
+       // TODO optimization and refactoring
         if (!inputData.get("description").equals("")) {
             taxiOrderEntity.setDescription(inputData.get("description"));
         } else {
@@ -289,7 +270,7 @@ public class TaxiOrderBean {
     }
 
     /**
-     * This method convert date from
+     * Converts date from
      * string to Timestamp
      *
      * @author Sharaban Sasha
@@ -308,6 +289,26 @@ public class TaxiOrderBean {
             timestamp = null;
         }
         return timestamp;
+    }
+    /**
+     * Converts string value
+     * to integer and make code
+     * simplest
+     *
+     * @author Sharaban Sasha
+     * @param number - number in string format
+     * @return number converted from string to int
+     * @throws ua.com.tracksee.exception.OrderException
+     */
+    private Integer convertToInt(String number)  {
+        Integer intNumber;
+        try {
+          intNumber=Integer.parseInt(number);
+        } catch (NumberFormatException e) {
+            logger.info("TaxiOrderBean.convertToInt: input value:"+number+" ,exception "+ e);
+            intNumber=null;
+        }
+        return intNumber;
     }
 
     /**

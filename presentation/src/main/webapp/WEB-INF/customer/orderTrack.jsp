@@ -130,16 +130,8 @@
                     <input type="hidden" id="dtp_input1" value=""/><br/>
 
                 </div>
-                <div id="amountOfTimeBlock">
-                    <label  class="sr-only">End date</label>
-
-                    <div class="controls input-append date form_datetime"
-                         data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                        <span class="add-on"><i class="icon-th"></i></span>
-                        <span class="add-on"><i class="icon-remove"></i></span>
-                        <input size="16" type="text" value="${endDate}" id="endDate" name="endDate" readonly>
-                        <input type="hidden" id="dtp_input2" value=""/><br/>
-                    </div>
+                <div id="amountOfHoursBlock">
+                  
                     </div>
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>
