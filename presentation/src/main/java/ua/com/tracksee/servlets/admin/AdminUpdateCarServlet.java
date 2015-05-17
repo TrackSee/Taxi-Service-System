@@ -33,11 +33,18 @@ public class AdminUpdateCarServlet extends HttpServlet {
         carNumb = req.getParameter(carNumber);
         req.setAttribute(car, administratorBean.getCarByNumber(carNumb));
         req.getRequestDispatcher("/WEB-INF/admin/adminUpdateCar.jsp").forward(req, resp);
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String data = getData(req);
+        ObjectMapper mapper = new ObjectMapper();
+        CarEntity car = mapper.readValue(data, CarEntity.class);
+        car.setCarNumber(carNumb);
+        administratorBean.updateCar(car);
+    }
+
+    private String getData(HttpServletRequest req) {
         StringBuilder sb = new StringBuilder();
         try {
             BufferedReader reader = req.getReader();
@@ -48,10 +55,8 @@ public class AdminUpdateCarServlet extends HttpServlet {
             } while (line != null);
         } catch (IOException e) {
             logger.warn(warning);
+
         }
-        ObjectMapper mapper = new ObjectMapper();
-        CarEntity car = mapper.readValue(sb.toString(), CarEntity.class);
-        car.setCarNumber(carNumb);
-        administratorBean.updateCar(car);
+        return sb.toString();
     }
 }

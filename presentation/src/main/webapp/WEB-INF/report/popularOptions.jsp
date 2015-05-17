@@ -73,7 +73,7 @@
         <div id="chartdiv"></div>
     </div>
 </div>
-<!-- /#wrapper -->
+
 
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>

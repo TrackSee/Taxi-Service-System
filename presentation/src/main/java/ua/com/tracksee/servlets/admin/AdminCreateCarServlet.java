@@ -32,6 +32,13 @@ public class AdminCreateCarServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String data = getData(req);
+        ObjectMapper mapper = new ObjectMapper();
+        CarEntity car = mapper.readValue(data, CarEntity.class);
+        administratorBean.createCar(car);
+    }
+
+    private String getData(HttpServletRequest req){
         StringBuilder sb = new StringBuilder();
         try {
             BufferedReader reader = req.getReader();
@@ -43,8 +50,6 @@ public class AdminCreateCarServlet extends HttpServlet {
         } catch (IOException e){
             logger.warn(warning);
         }
-        ObjectMapper mapper = new ObjectMapper();
-        CarEntity car = mapper.readValue(sb.toString(), CarEntity.class);
-        administratorBean.createCar(car);
+        return sb.toString();
     }
 }
