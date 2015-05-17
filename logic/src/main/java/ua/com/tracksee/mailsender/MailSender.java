@@ -6,6 +6,8 @@ import freemarker.template.TemplateException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.ejb.Asynchronous;
+import javax.ejb.Stateless;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -24,10 +26,12 @@ import static ua.com.tracksee.mailsender.SenderSessionSpecificator.GMAIL;
 /**
  * @author Igor Dvorskij
  */
+@Stateless
 public class MailSender {
 
     private static final Logger logger = LogManager.getLogger();
     private static Session SESSION = GMAIL.getSession();
+    private static final String ROOT_PATH = "/";
 
     private static InternetAddress FROM_ADDRESS;
 
@@ -46,8 +50,7 @@ public class MailSender {
      * @param subject - specifies the mail subject
      * @param body    - specifies the mail body
      */
-    public static void sendEmail(String to, String subject, String body) throws MessagingException {
-
+    public void sendEmail(String to, String subject, String body) throws MessagingException {
         Message message = new MimeMessage(SESSION);
         message.setFrom(FROM_ADDRESS);
         message.setRecipients(Message.RecipientType.TO,
@@ -55,7 +58,6 @@ public class MailSender {
         message.setSubject(subject);
         message.setContent(body, "text/html");
         Transport.send(message);
-
     }
 
     /**
@@ -65,7 +67,7 @@ public class MailSender {
      * @param subject    - specifies the mail subject
      * @param body       - specifies the mail body
      */
-    public static void sendEmailToGroup(List<String> recipients,
+    public void sendEmailToGroup(List<String> recipients,
                                         String subject, String body) throws MessagingException {
         Message message = new MimeMessage(SESSION);
         message.setFrom(FROM_ADDRESS);
@@ -87,7 +89,7 @@ public class MailSender {
      * @param data
      * @throws MessagingException
      */
-    public static void sendTemplatedEmail(String to, String subject,
+    public void sendTemplatedEmail(String to, String subject,
                                           String templatePath, Map<String, Object> data) throws MessagingException {
         String body;
         try {
@@ -100,7 +102,6 @@ public class MailSender {
             throw new MessagingException("Unable to create template due: " + e.getMessage());
         }
         sendEmail(to, subject, body);
-
     }
 
     /**
@@ -110,7 +111,7 @@ public class MailSender {
      * @param data
      * @throws MessagingException
      */
-    public static void sendTemplatedEmail(List<String> to, String subject,
+    public void sendTemplatedEmail(List<String> to, String subject,
                                           String templatePath, Map<String, Object> data) throws MessagingException {
         String body;
         try {
@@ -131,8 +132,9 @@ public class MailSender {
      * @return
      * @throws IOException
      */
-    public static Template loadTemplate(String path) throws IOException {
+    public Template loadTemplate(String path) throws IOException {
         Configuration cfg = new Configuration();
+        cfg.setClassForTemplateLoading(this.getClass(), ROOT_PATH);
         return cfg.getTemplate(path);
     }
 
