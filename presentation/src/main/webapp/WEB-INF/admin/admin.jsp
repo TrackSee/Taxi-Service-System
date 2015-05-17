@@ -31,6 +31,8 @@
     <!-- Custom Fonts -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css"
           rel="stylesheet" type="text/css">
+    <link href="<%=application.getContextPath()%>/resources/admin/css/admin.css"
+          rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -46,7 +48,11 @@
 <div id="wrapper">
     <jsp:include page="adminHeader.jsp"/>
     <div id="page-wrapper">
-        <p>Here is main page of admin panel</p>
+        <div class="jumbotron headerStyle">
+            <h1>Hey!! You are in admin page!</h1>
+        </div>
+        <img class="adminPic" alt="admin picture" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQbgjCP6ZaC-g-2huuBuZnupbyFY2xWNu_kFJCdtaorZWQ8nh1n">
+
     </div>
     <!-- /#page-wrapper -->
 </div>

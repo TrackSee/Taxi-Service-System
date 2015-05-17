@@ -2,6 +2,7 @@
  * Created by Vadym_Akymov on 25.04.15.
  */
 
+    //choosing car script
 var displayStatus = true;
 //car choosing button
 $('.carChooseButton').click(function(event){
@@ -19,6 +20,7 @@ $('.carChooseButton').click(function(event){
 $('.okBtn').click(function(event){
     //get carNumber
     var carNumber = $('.taxiCar').val();
+    console.log("car number: " + carNumber);
     var driverId = $('#driverId').val();
     console.log('driver id: ' + driverId);
     $.ajax({
