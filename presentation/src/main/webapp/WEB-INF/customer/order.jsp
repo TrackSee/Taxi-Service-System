@@ -11,16 +11,12 @@
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
-    <link href="<%=application.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-          media="screen">
+    <link href="<%=application.getContextPath()%>/resources/customer/css/googleMap.css" rel="stylesheet">
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
           media="screen">
-    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"
-          type="text/css"/>
-    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
-          type="text/css"/>
-    <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"
-          type="text/css"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"/>
 </head>
 <body>
 <%@include file="../parts/header.jsp" %>

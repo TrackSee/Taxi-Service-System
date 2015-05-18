@@ -1,4 +1,4 @@
-package ua.com.tracksee.json;
+package ua.com.tracksee.dto;
 
 /**
  * Taxi order data transfer object class.

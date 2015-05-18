@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Vadym_Akymov on 26.04.15.
  */
-@WebServlet("/customerProfile")
+@WebServlet("/customer")
 public class CustomerProfileServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
 

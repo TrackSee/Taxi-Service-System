@@ -2,6 +2,8 @@ package ua.com.tracksee.dao;
 
 import ua.com.tracksee.entities.MostPopularOption;
 import ua.com.tracksee.entities.ServiceProfitable;
+import ua.com.tracksee.entities.reports.CarReportEntity;
+import ua.com.tracksee.entities.reports.DriverReportEntity;
 
 import javax.ejb.Local;
 import java.math.BigInteger;
@@ -12,6 +14,19 @@ import java.util.List;
  */
 @Local
 public interface ReportDAO {
+
+    /**
+     * @author Vadym Akymov
+     * @return list of entities which contains info about sex of driver and ordered count
+     */
+    List<DriverReportEntity> getDriverSexReport();
+
+    /**
+     * @author Vadym Akymov
+     * @return list of entities which contains info about car category and ordered count
+     */
+    List<CarReportEntity> getCarCategoryReport();
+
         /**
      * @author Katia Stetisuk
      * @param startDate start date to get the most profitable service

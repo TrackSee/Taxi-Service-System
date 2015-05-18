@@ -1,6 +1,6 @@
 package ua.com.tracksee.rest.customer;
 
-import ua.com.tracksee.json.FavoritePlaceDTO;
+import ua.com.tracksee.dto.FavoritePlaceDTO;
 import ua.com.tracksee.logic.facade.CustomerFacade;
 
 import javax.ejb.EJB;

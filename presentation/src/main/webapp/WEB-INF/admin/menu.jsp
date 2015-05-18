@@ -221,7 +221,7 @@
                 <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                 </li>
                 <li class="divider"></li>
-                <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                <li><a id="sign-out-button" href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                 </li>
             </ul>
             <!-- /.dropdown-user -->
@@ -338,3 +338,5 @@
     </div>
     <!-- /.navbar-static-side -->
 </nav>
+
+<script src="<%=application.getContextPath()%>/resources/customer/js/sign-out.js"></script>

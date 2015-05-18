@@ -10,8 +10,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%@include file="../parts/meta.jsp" %>
-    <%@include file="../parts/bootstrap2.jsp" %>
+    <%@include file="/WEB-INF/parts/meta.jsp" %>
+        <%@include file="/WEB-INF/parts/bootstrap2.jsp" %>
     <link href='<%=application.getContextPath()%>/resources/customer/css/visible.css' rel='stylesheet'
           type='text/css'/>
     <link href='<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css' rel='stylesheet'
@@ -19,7 +19,7 @@
 
 </head>
 <body>
-<%@include file="../parts/header.jsp" %>
+<%@include file="/WEB-INF/parts/header.jsp" %>
 <!-- start: Page Title -->
 <div id="page-title">
     <div id="page-title-inner">
@@ -60,8 +60,8 @@
     <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
             charset="UTF-8"></script>
 
-    <%@include file="../parts/scripts.jsp" %>
-    <%@include file="../parts/footer.jsp" %>
+    <%@include file="/WEB-INF/parts/scripts.jsp" %>
+    <%@include file="/WEB-INF/parts/footer.jsp" %>
     <!-- Load jQuery and bootstrap datepicker scripts -->
     <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
             charset="UTF-8"></script>
