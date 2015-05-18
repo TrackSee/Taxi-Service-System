@@ -6,14 +6,13 @@ $('#password').focus(function() {
     '\nfor making your password safe', 'info')
 });
 
-function sendForm() {
-    var form = $('#form-sign-up');
+$('#form-sign-up').submit(function(){
     $.ajax({
         type: 'POST',
         url: getContextPath() + 'signup',
-        data: form.serialize(),
+        data: $(this).serialize(),
         success: function (data) {
-            form.html(data);
+            $(this).html(data);
         },
         error: function (xhr) {
             if (xhr.status = 422) {
@@ -41,7 +40,7 @@ function sendForm() {
             }
         }
     });
-}
+});
 
 /**
  * Sign up form validation using jQuery validation plugin.
