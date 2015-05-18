@@ -42,7 +42,6 @@ CREATE TABLE IF NOT EXISTS tracksee.public.Service_User
   email             VARCHAR(254) UNIQUE NOT NULL,
   password          CHAR(64)            NOT NULL,
   salt              CHAR(8)             NOT NULL,
-  name              CHAR(20)            NOT NULL,
   phone             VARCHAR(28),
   first_name        VARCHAR(50),
   last_name         VARCHAR(50),
