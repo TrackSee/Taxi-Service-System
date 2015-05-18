@@ -5,7 +5,7 @@
   Time: 8:52 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <!-- Bootstrap Core JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap2/bootstrap.min.js"></script>
 
