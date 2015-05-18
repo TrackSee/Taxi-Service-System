@@ -6,14 +6,14 @@ package ua.com.tracksee.json;
  *
  * @author Ruslan Gunavardana
  */
-public class LocationDTO {
+public class Location {
     private double lat;
     private double lng;
 
-    public LocationDTO() {
+    public Location() {
     }
 
-    public LocationDTO(double lat, double lng) {
+    public Location(double lat, double lng) {
         this.lat = lat;
         this.lng = lng;
     }

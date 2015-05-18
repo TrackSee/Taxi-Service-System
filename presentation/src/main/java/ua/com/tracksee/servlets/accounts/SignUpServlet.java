@@ -29,7 +29,9 @@ public class SignUpServlet extends HttpServlet {
     }
 
     private static String nullIfIsEmpty(String s) {
-        return s.isEmpty() ? null : s;
+        return s == null ? null
+                         : s.isEmpty() ? null
+                                       : s;
     }
 
     @Override
