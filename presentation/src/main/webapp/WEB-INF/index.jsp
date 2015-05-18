@@ -12,7 +12,6 @@
 <html lang="en">
 <head>
     <%@include file="parts/meta.jsp" %>
-    <link href="<%=application.getContextPath()%>/resources/css/bootstrap2/bootstrap.min.css" rel="stylesheet">
     <%@include file="parts/bootstrap2.jsp" %>
 
     <%--For slider--%>
