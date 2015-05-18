@@ -17,7 +17,9 @@
     <%--For slider--%>
     <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/css/carousel.css">
     <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/customer/css/textOutline.css">
+    <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/css/agency.css">
     <link rel="shortcut icon" href="<%=application.getContextPath()%>/resources/img/icons/cab.png" type="image/png">
+
 </head>
 
 <body>
@@ -67,6 +69,38 @@
     <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
 </div>
 <%--End slider--%>
+<!-- Services Section -->
+<div>
+    <h2 align="center">Services</h2>
+
+    <div align="center" class="float-left">
+         <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                    </span>
+        <h4 class="service-heading">E-Commerce</h4>
+        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+
+    </div>
+    <div align="center" class="float-left">
+         <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
+                    </span>
+        <h4 class="service-heading">Responsive Design</h4>
+        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+
+    </div>
+    <div align="center" class="float-left">
+         <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
+                    </span>
+        <h4 class="service-heading">Web Security</h4>
+        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+
+    </div>
+</div>
 
 
 <%-- start: Java Script --%>
