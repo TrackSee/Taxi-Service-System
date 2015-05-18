@@ -83,13 +83,15 @@
                        required onblur="updateRoute()">
                 <span class="red-star">★</span>
             </div>
-            <p>
+            <div id="addinput">
+                <p>
                 <button type="button" id="buttonAddressOrigin" class="btn btn-info turnButton">
-                    Add another address from
+                    Add address from
                 </button>
             </p>
+           </div>
             <%--TODO working input fields--%>
-            <%--<c:forEach var="i" begin="1" end="5">--%>
+            <%--<c:forEach var="i" begin="1" end="">--%>
                 <%--<label>Address from ${i}</label>--%>
             <%--<input type="text" value="origin${i}" id="origin${i}" required>--%>
                 <%--<span class="red-star">★</span><br>--%>
@@ -295,6 +297,8 @@
     </div>
 </div>
 
+
+
 <!-- Load jQuery and bootstrap datepicker scripts -->
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
         charset="UTF-8"></script>
@@ -321,10 +325,10 @@
 <%-- Order page scripts --%>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/order-funct.js"></script>
-
+<script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/fields-generator.js"></script>
 <%--end order oage scripts--%>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
 
 
 <%@include file="../parts/scripts.jsp" %>
