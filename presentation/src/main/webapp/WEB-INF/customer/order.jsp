@@ -57,7 +57,7 @@
             <input type="text" id="taxiPricePerKmMin" value="30">
         </div>
         <%--${"taxiPricePerKm"}">--%>
-        <form method="post" action="<c:url value="/order"/>">
+        <form id="order-form" method="post" action="javascript:void(null);">
             <div class="form-group">
                 <label>Phone number</label>
                 <input type="text" pattern="\d{10}"
@@ -296,21 +296,11 @@
 </div>
 
 <!-- Load jQuery and bootstrap datepicker scripts -->
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
-        charset="UTF-8"></script>
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"
-        charset="UTF-8"></script>
-<script type="text/javascript"
-        src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
-        charset="UTF-8"></script>
-<script type="text/javascript"
-        src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
-        charset="UTF-8"></script>
-<script type="text/javascript"
-        src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"
-        charset="UTF-8"></script>
-<script src="<%=application.getContextPath()%>http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<%@include file="../parts/scripts.jsp" %>
+<script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"></script>
 <%--end jQuery and bootstrap datepicker scripts--%>
 
 <%--Google maps scripts--%>
@@ -324,10 +314,7 @@
 <script src="<%=application.getContextPath()%>/resources/customer/js/order-funct.js"></script>
 
 <%--end order oage scripts--%>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
-
-
-<%@include file="../parts/scripts.jsp" %>
+<script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
 <%@include file="../parts/footer.jsp" %>
 </body>
 </html>
