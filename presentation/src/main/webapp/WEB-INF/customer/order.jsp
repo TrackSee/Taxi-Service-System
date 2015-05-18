@@ -90,51 +90,6 @@
                 </button>
             </p>
            </div>
-            <%--TODO working input fields--%>
-            <%--<c:forEach var="i" begin="1" end="">--%>
-                <%--<label>Address from ${i}</label>--%>
-            <%--<input type="text" value="origin${i}" id="origin${i}" required>--%>
-                <%--<span class="red-star">★</span><br>--%>
-            <%--</c:forEach>--%>
-
-
-
-            <%--<div class="form-group" id="addressOrigin1">--%>
-            <%--<label>Address from</label>--%>
-            <%--<input type="text" id="origin1" class="form-control" value=""--%>
-            <%--name="addressOrigin1" title="That address is invalid"--%>
-            <%--required onblur="updateRoute()">--%>
-            <%--<span class="red-star">★</span>--%>
-            <%--</div>--%>
-            <%--<div class="form-group" id="addressOrigin2">--%>
-            <%--<label>Address from</label>--%>
-            <%--<input type="text" id="origin2" class="form-control" value=""--%>
-            <%--name="addressOrigin3" title="That address is invalid"--%>
-            <%--required onblur="updateRoute()">--%>
-            <%--<span class="red-star">★</span>--%>
-            <%--</div>--%>
-            <%--<div class="form-group" id="addressOrigin3">--%>
-            <%--<label>Address from</label>--%>
-            <%--<input type="text" id="origin3" class="form-control" value=""--%>
-            <%--name="addressOrigin3" title="That address is invalid"--%>
-            <%--required onblur="updateRoute()">--%>
-            <%--<span class="red-star">★</span>--%>
-            <%--</div>--%>
-            <%--<div class="form-group" id="addressOrigin4">--%>
-            <%--<label>Address from</label>--%>
-            <%--<input type="text" id="origin4" class="form-control" value=""--%>
-            <%--name="addressOrigin4" title="That address is invalid"--%>
-            <%--required onblur="updateRoute()">--%>
-            <%--<span class="red-star">★</span>--%>
-            <%--</div>--%>
-            <%--<div class="form" id="addressOrigin5">--%>
-            <%--<label>Address from</label>--%>
-            <%--<input type="text" id="origin5" class="form-control" value=""--%>
-            <%--name="addressOrigin5" title="That address is invalid"--%>
-            <%--required onblur="updateRoute()">--%>
-            <%--<span class="red-star">★</span>--%>
-            <%--</div>--%>
-
 
             <div class="form-group">
                 <label>Address to</label>

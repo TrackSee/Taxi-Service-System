@@ -1,6 +1,9 @@
-
 /**
- * author Sharaban Sasha
+ * Dynamically adds new
+ * input field with close
+ * hyperlink.
+ *
+ * @author Sharaban Sasha
  */
 
 var addDiv = $('#addinput');
@@ -13,6 +16,14 @@ $('#buttonAddressOrigin').click(function(){
     return false;
 });
 
+/**
+ * Provides removing of
+ * any of created field
+ * by clicking on close
+ * hyperlink.
+ *
+ * @author Sharaban Sasha
+ */
 $('#remNew').live('click', function() {
     if( i > 2 ) {
         $(this).parents('p').remove();

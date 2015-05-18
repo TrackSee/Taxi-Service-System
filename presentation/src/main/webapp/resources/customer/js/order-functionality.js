@@ -1,8 +1,11 @@
 
 /**
- * This script
+ * Provides changing of order
+ * input form structure, options
+ * and requirements depending on the
+ * selected service.
  *
- * author Sharaban Sasha
+ * @author Sharaban Sasha
  */
 
 $('#service').on('change', function () {
@@ -19,7 +22,7 @@ $('#service').on('change', function () {
         taxiForLongTermHide();
         meetMyGuestMessageHide();
         conveyCorporationEmployeesHide();
-        additionalOptionsHide();
+        amountOfCarsHide();
         amountOfTripTimeHide();
         $('#animalTransportationCh').slideDown("slow");
 
@@ -72,6 +75,14 @@ $('#service').on('change', function () {
         amountOfTripTimeHide();
     }
 
+    /**
+     * Provides showing of additional options if
+     * they are hidden. It's need for all services
+     * except those: "Food stuff delivery",
+     * "Cargo taxi" and "Sober driver".
+     *
+     * @author Sharaban Sasha
+     */
     function additionalOptionsShow() {
         $("#carCategoryGroup").slideDown("slow");
         $('#musicStyleGroup').slideDown("slow");
@@ -80,7 +91,13 @@ $('#service').on('change', function () {
         $('#airConditionerCh').slideDown("slow");
         $('#animalTransportationCh').slideDown("slow");
     }
-
+    /**
+     * Provides hiding additional options if was
+     * chosen such services: "Food stuff delivery",
+     * "Cargo taxi" and "Sober driver".
+     *
+     * @author Sharaban Sasha
+     */
     function additionalOptionsHide() {
         $("#carCategoryGroup").slideUp("slow");
         $('#musicStyleGroup').slideUp("slow");
@@ -89,59 +106,120 @@ $('#service').on('change', function () {
         $('#nonSmokingDriverCh').slideUp("slow");
         $('#airConditionerCh').slideUp("slow");
     }
-
+    /**
+     * Makes address destination not required,
+     * it's need for such services: "Taxi for
+     * long term" and "Celebration taxi".
+     *
+     * @author Sharaban Sasha
+     */
     function taxiForLongTermShow() {
-        $('#endDateBlock').slideDown("slow");
         $('#importanceAddressDestination').hide();
         $('#destination').removeAttr("required");
     }
-
+    /**
+     * Makes address destination required
+     * if it's not. It's need for all
+     * services except those: "Taxi for
+     * long term" and "Celebration taxi".
+     *
+     * @author Sharaban Sasha
+     */
     function taxiForLongTermHide() {
-        $('#endDateBlock').slideUp("slow");
         $('#importanceAddressDestination').show();
         $('#destination').attr("required");
     }
-
+    /**
+     * Shows required filed amount of cars
+     * that need for service "Celebration taxi".
+     *
+     * @author Sharaban Sasha
+     */
     function amountOfCarsShow() {
         $('#amountOfCarsBlock').slideDown("slow");
         $('#amountOfCars').attr("required");
     }
-
+    /**
+     * Hides filed amount of cars that
+     * need for all services except service
+     * "Celebration taxi".
+     *
+     * @author Sharaban Sasha
+     */
     function amountOfCarsHide() {
         $('#amountOfCarsBlock').slideUp("slow");
         $('#amountOfCars').removeAttr("required");
     }
-
+    /**
+     * Shows required fields amount of hours
+     * and amount of minutes that need for
+     * such services: "Celebration taxi" and
+     * "Taxi for long term".
+     *
+     * @author Sharaban Sasha
+     */
     function amountOfTripTimeShow(){
         $('#amountOfTripTimeBlock').slideDown("slow");
         $('#amountOfHours').attr("required");
         $('#amountOfMinutes').attr("required");
     }
+    /**
+     * Hides fields amount of hours
+     * and amount of minutes that need for all
+     * services except those: "Celebration taxi" and
+     * "Taxi for long term".
+     *
+     * @author Sharaban Sasha
+     */
     function amountOfTripTimeHide(){
         $('#amountOfTripTimeBlock').slideUp("slow");
         $('#amountOfHours').removeAttr("required");
         $('#amountOfMinutes').removeAttr("required");
     }
-
+    /**
+     * Shows message for user about ability for
+     * him to enter name of the guest in description
+     * field. It's need for service "Meet my guest".
+     *
+     * @author Sharaban Sasha
+     */
     function meetMyGuestMessageShow() {
         $('#description').attr('placeholder', 'Here you can write the name of the guest and additional information');
     }
-
+    /**
+     * Hides message for user about ability for
+     * him to enter name of the guest in description
+     * field. It's need for all services except service
+     * "Meet my guest".
+     *
+     * @author Sharaban Sasha
+     */
     function meetMyGuestMessageHide() {
         $('#description').attr('placeholder', '');
 
     }
-
-    function conveyCorporationEmployeesHide() {
-        $('#buttonAddressOrigin').slideUp("slow");
-        $('#addinput').slideUp("slow");
-    }
-
+    /**
+     * Shows button that allow creating more "Address from"
+     * fields  It's need for service "Convey corporation
+     * employees".
+     *
+     * @author Sharaban Sasha
+     */
     function conveyCorporationEmployeesShow() {
         $('#addinput').slideDown("slow");
         $('#buttonAddressOrigin').slideDown("slow");
     }
-
+    /**
+     * Hides button that allow creating more "Address from"
+     * fields  It's need for all services except service
+     * "Convey corporation employees".
+     *
+     * @author Sharaban Sasha
+     */
+    function conveyCorporationEmployeesHide() {
+        $('#buttonAddressOrigin').slideUp("slow");
+        $('#addinput').slideUp("slow");
+    }
 });
 
 
