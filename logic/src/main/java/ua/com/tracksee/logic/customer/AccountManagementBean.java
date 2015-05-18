@@ -1,6 +1,5 @@
 package ua.com.tracksee.logic.customer;
 
-import com.sun.xml.internal.ws.developer.MemberSubmissionAddressing;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.EmailBean;
@@ -29,12 +28,6 @@ import static ua.com.tracksee.logic.encryption.PasswordUtils.generatePassword;
 */
 @Stateless
 public class AccountManagementBean {
-    public static final String BAD_PASSWORD = "bad-password";
-    public static final String BAD_PHONE = "bad-phone";
-    public static final String BAD_EMAIL = "bad-email";
-    public static final String USER_EXISTS = "user-exists";
-    public static final String USER_IS_ACTIVE = "is-active";
-    public static final String BAD_LINK = "bad-link";
 
     //TODO redirect these to configs
     private static final int UNACTIVATED_USERS_MAX_DAYS = 30;
@@ -76,10 +69,10 @@ public class AccountManagementBean {
         try {
             userId = Integer.parseInt(userCode);
         } catch (NumberFormatException e) {
-            throw new RegistrationException("Invalid link.", BAD_LINK);
+            throw new RegistrationException("Invalid link.", BAD_LINK.getCode());
         }
         if (userDAO.accountIsActivated(userId) != FALSE) {
-            throw new RegistrationException("User is already activated.", USER_IS_ACTIVE);
+            throw new RegistrationException("User is already activated.", USER_IS_ACTIVE.getCode());
         }
 
         userDAO.activateAccount(userId);
@@ -103,7 +96,7 @@ public class AccountManagementBean {
         user.setSalt(salt);
         Integer generatedId = userDAO.addUser(user);
         if (generatedId == null) {
-            throw new RegistrationException("User already exists.", USER_EXISTS);
+            throw new RegistrationException("User already exists.", USER_EXISTS.getCode());
         }
 
         String userCode = generatedId.toString();
@@ -123,16 +116,16 @@ public class AccountManagementBean {
         }
         if (!validationBean.isValidEmail(user.getEmail())) {
             invalid = true;
-            builder.append(BAD_EMAIL).append(' ');
+            builder.append(BAD_EMAIL.getCode()).append(' ');
         }
         if (!validationBean.isValidPassword(user.getPassword())) {
             invalid = true;
-            builder.append(BAD_PASSWORD).append(' ');
+            builder.append(BAD_PASSWORD.getCode()).append(' ');
         }
         String phone = user.getPhone();
         if (phone != null && !phone.equals("") && !validationBean.isValidPhoneNumber(phone)) {
             invalid = true;
-            builder.append(BAD_PHONE).append(' ');
+            builder.append(BAD_PHONE.getCode()).append(' ');
         }
 
         if (invalid) {
