@@ -62,8 +62,9 @@ public class CarDAOBean implements CarDAO {
     @Override
     public void deleteCar(String carNumber) {
         if(carNumber == null){
-            logger.warn("carNumber can't be Null");
-            throw new IllegalArgumentException("carId can't be <= 0");
+//            logger.warn("carNumber can't be Null");
+//            throw new IllegalArgumentException("carId can't be <= 0");
+            return;
         }
         String sql = "DELETE from car " +
                 "where car_number = ?1";
@@ -99,6 +100,7 @@ public class CarDAOBean implements CarDAO {
         if(carNumber == null){
             logger.warn("carNumber can't be null!");
             throw new IllegalArgumentException("carNumber can't be null!");
+
         }
         CarEntity car = entityManager.find(CarEntity.class, carNumber);
         if(car == null){

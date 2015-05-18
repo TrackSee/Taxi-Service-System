@@ -1,23 +1,23 @@
 /**
  * Created by Ruslan Gunavardana
  */
-function sendForm() {
-    var msg = $('#form-sign-in').serialize();
-    $.ajax({
-        type: 'POST',
-        url: getContextPath() + 'signin',
-        data: msg,
-        success: function (data) {
-            console.log('success' == data);
-            console.log(data);
-            if (data != 'error') {
+$(document).ready(function(){
+    $('#form-sign-in').submit(function() {
+        $.ajax({
+            type: 'POST',
+            url: getContextPath() + 'signin',
+            data: $(this).serialize(),
+            success: function () {
                 window.location.replace('.');
-            } else {
-                $.notify("The username or password is incorrect. Please try again.", "error");
+            },
+            error: function (xhr) {
+                var btn = $('#sign-in-submit');
+                if (xhr.status == 422) {
+                    btn.notify("The username or password is incorrect. Please try again.", "error");
+                } else {
+                    btn.notify("Internal server error occurred.", "warn");
+                }
             }
-        },
-        error: function (xhr, str) {
-            $.notify("Internal server error occurred.", "warn");
-        }
+        });
     });
-}
+});

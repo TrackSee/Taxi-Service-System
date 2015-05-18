@@ -6,18 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <head>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>SB Admin 2 - Bootstrap Admin Theme</title>
+  <%@include file="../parts/meta.jsp"%>
 
   <!-- Bootstrap Core CSS -->
   <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -30,13 +26,6 @@
 
   <!-- Custom Fonts -->
   <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <div id="wrapper">
@@ -52,51 +41,100 @@
     </div>
 
     <!-- /.row -->
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            History of completed orders
-          </div>
+
           <!-- /.panel-heading -->
-          <div class="panel-body">
-            <div class="dataTable_wrapper">
-              <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Order time</th>
-                  <th>Start address</th>
-                  <th>Finish address</th>
-                  <th>Price</th>
-                  <th>User comment</th>
-                </tr>
-                </thead>
-                <tbody id="table-body">
-                <c:forEach items="${requestScope.orders}" var="order">
-                <tr class="odd gradeX">
-                  <td>${order.trackingNumber}</td>
-                  <td>${order.orderedDate}</td>
-                  <td><c:forEach var='adr' items='${addresses}'>
-                  <c:out value='Key=${item.key}, Value=${item.value}'/>
-                </c:forEach></td>
-                  <td>${"-"}</td>
-                  <td>${order.price}</td>
-                  <td>${order.comment=='null' ? "-" : order.comment}</td>
-                </tr>
-                </c:forEach>
-                </tbody>
-              </table>
+                        <!-- Plans -->
+              <c:forEach items="${requestScope.orders}" var="order">
+                <section id="plans">
+                  <div class="container">
+                    <div class="row">
+
+                      <!-- item -->
+                      <div class="col-md-9 text-center">
+                        <div class="panel panel-success panel-pricing">
+                          <div class="panel-heading">
+                            <c:set var="startPoint" value="${order.itemList[0].path.getStartPoint()}"/>
+                            <c:set var="endPoint" value="${order.itemList[0].path.getEndPoint()}"/>
+                            <div class="map-canvas">
+                              <iframe frameborder="0" width="100%" height="250"
+                                      src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin=${pageScope.startPoint.getX()},${pageScope.startPoint.getY()}&destination=${pageScope.endPoint.getX()},${pageScope.endPoint.getY()}">
+                              </iframe>
+                            </div>
+                          </div>
+
+                          <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Service</th>
+                              <c:set var="hide2" scope="session" value="hidden=\"hidden\""/>
+                              <c:choose>
+                                <c:when test="${order.service == 'CELEBRATION_TAXI'}">
+                                  <th>Duration</th>
+                                </c:when>
+                                <c:when test="${order.service == 'TAXI_FOR_LONG_TERM'}">
+                                  <th>Duration</th>
+                                </c:when>
+                              </c:choose>
+                              <th>Order time</th>
+                              <th>Car arrive time</th>
+                              <th>Price</th>
+                              <th>Status</th>
+                              <th>User comment</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="odd gradeX">
+                              <td>${order.trackingNumber}</td>
+                              <td>
+                                <c:set var="string7" value="${order.service}"/>
+                                <c:set var="string8" value="${fn:toLowerCase(string7)}" />
+                                <c:set var="string9" value="${fn:replace(string8,
+                                '_', ' ')}" />
+                                  ${string9}
+                              </td>
+                              <c:set var="hide2" scope="session" value="hidden=\"hidden\""/>
+                              <c:choose>
+                                <c:when test="${order.service == 'CELEBRATION_TAXI'}">
+                                  <td>${order.amountOfHours} : ${order.amountOfMinutes}</td>
+                                </c:when>
+                                <c:when test="${order.service == 'TAXI_FOR_LONG_TERM'}">
+                                  <td>${order.amountOfHours} : ${order.amountOfMinutes}</td>
+                                </c:when>
+                              </c:choose>
+                              <td>
+                                <fmt:formatDate value="${order.orderedDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                              </td>
+                              <td>
+                                <fmt:formatDate value="${order.arriveDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                              </td>
+                              <td>${order.price}</td>
+                              <td>
+                                <c:set var="string4" value="${order.status}"/>
+                                <c:set var="string5" value="${fn:toLowerCase(string4)}" />
+                                <c:set var="string6" value="${fn:replace(string5,
+                                '_', ' ')}" />
+                                  ${string6}</td>
+                              <td>${order.comment=='null' ? "-" : order.comment}</td>
+                            </tr>
+                            </tbody>
+                          </table>
+
+                        </div>
+                      </div>
+                      <!-- /item -->
+
+                    </div>
+                  </div>
+                </section>
+              </c:forEach>
+              <!-- /Plans -->
+
               <div class="text-center">
                 <ul class="pagination">
-                  <%--<li class="active"><a href="1">1</a></li>--%>
                   <c:forEach var="i" begin="1" end="${requestScope.pagesCount}">
                     <li class="pageLi${i}"><a class="pageButton" href="#">${i}</a></li>
                   </c:forEach>
-                  <%--<li><a class="pageButton" href="#">2</a></li>--%>
-                  <%--<li><a href="#">3</a></li>--%>
-                  <%--<li><a href="#">4</a></li>--%>
-                  <%--<li><a href="#">5</a></li>--%>
                 </ul>
               </div>
             </div>

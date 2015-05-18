@@ -1,6 +1,15 @@
 #panel {
     display: none;
 }
-#endDateBlock {
+#amountOfTripTimeBlock {
     display: none;
+}
+#buttonAddressOrigin{
+    display:none;
+}
+#buttonAddressOriginDelete{
+    display:none;
+}
+#amountOfCarsBlock{
+    display:none;
 }

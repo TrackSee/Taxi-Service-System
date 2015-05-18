@@ -8,6 +8,12 @@ import ua.com.tracksee.exception.RegistrationException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
+import java.util.Set;
 
 import static java.lang.Boolean.FALSE;
 import static ua.com.tracksee.exception.RegistrationExceptionType.*;
@@ -26,6 +32,12 @@ public class AccountManagementBean {
     //TODO redirect these to configs
     private static final int UNACTIVATED_USERS_MAX_DAYS = 30;
     private static final int SALT_SIZE = 8;
+
+    @Inject
+    private ValidatorFactory validatorFactory;
+
+    @Inject
+    private Validator validator;
 
     private @EJB EmailBean emailBean;
     private @EJB ValidationBean validationBean;
@@ -57,10 +69,10 @@ public class AccountManagementBean {
         try {
             userId = Integer.parseInt(userCode);
         } catch (NumberFormatException e) {
-            throw new RegistrationException("Invalid link.", BAD_LINK);
+            throw new RegistrationException("Invalid link.", BAD_LINK.getCode());
         }
         if (userDAO.accountIsActivated(userId) != FALSE) {
-            throw new RegistrationException("User is already activated.", USER_IS_ACTIVE);
+            throw new RegistrationException("User is already activated.", USER_IS_ACTIVE.getCode());
         }
 
         userDAO.activateAccount(userId);
@@ -69,47 +81,56 @@ public class AccountManagementBean {
     /**
      * Customer user registration method.
      *
-     * @param email user's email
-     * @param password user's password
-     * @param phoneNumber user's phone number
+     * @param user user to register
      * @throws RegistrationException if invalid data passed
      */
-    public void registerCustomerUser(String email, String password, String phoneNumber)
-            throws RegistrationException
-    {
-        validateRegistrationData(email, password, phoneNumber);
+    public void registerCustomerUser(UserEntity user) throws RegistrationException {
+        validateRegistrationData(user);
 
         // hashing the password
         String salt = generateSalt();
-        String hashedPassword = getHashedPassword(password, salt);
-
+        String hashedPassword = getHashedPassword(user.getPassword(), salt);
 
         // adding new user
-        UserEntity user = new UserEntity();
-        user.setEmail(email);
         user.setPassword(hashedPassword);
         user.setSalt(salt);
-        user.setPhone(phoneNumber);
         Integer generatedId = userDAO.addUser(user);
         if (generatedId == null) {
-            throw new RegistrationException("User already exists.", USER_EXISTS);
+            throw new RegistrationException("User already exists.", USER_EXISTS.getCode());
         }
 
         String userCode = generatedId.toString();
-        emailBean.sendRegistrationEmail(email, userCode);
+        emailBean.sendRegistrationEmail(user.getEmail(), userCode);
     }
 
-    private void validateRegistrationData(String email, String password, String phoneNumber)
-            throws RegistrationException
-    {
-        if (!validationBean.isValidEmail(email)) {
-            throw new RegistrationException("Invalid email.", BAD_EMAIL);
+    private void validateRegistrationData(UserEntity user) throws RegistrationException {
+        StringBuilder builder = new StringBuilder();
+        boolean invalid = false;
+
+        Set<ConstraintViolation<UserEntity>> violations = validator.validate(user);
+        if (violations.size() > 0) {
+            invalid = true;
+            for (ConstraintViolation<UserEntity> v : violations) {
+                builder.append(v.getMessage()).append(' ');
+            }
         }
-        if (!validationBean.isValidPassword(password)) {
-            throw new RegistrationException("Invalid password.", BAD_PASSWORD);
+        if (!validationBean.isValidEmail(user.getEmail())) {
+            invalid = true;
+            builder.append(BAD_EMAIL.getCode()).append(' ');
         }
-        if (phoneNumber != null && !phoneNumber.equals("") && !validationBean.isValidPhoneNumber(phoneNumber)) {
-            throw new RegistrationException("Invalid phone number.", BAD_PHONE);
+        if (!validationBean.isValidPassword(user.getPassword())) {
+            invalid = true;
+            builder.append(BAD_PASSWORD.getCode()).append(' ');
+        }
+        String phone = user.getPhone();
+        if (phone != null && !phone.equals("") && !validationBean.isValidPhoneNumber(phone)) {
+            invalid = true;
+            builder.append(BAD_PHONE.getCode()).append(' ');
+        }
+
+        if (invalid) {
+            String msg = builder.toString();
+            throw new RegistrationException("Registration field validation failed: " + msg, msg);
         }
     }
 

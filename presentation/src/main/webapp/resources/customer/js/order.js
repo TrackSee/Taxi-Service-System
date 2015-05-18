@@ -4,6 +4,7 @@
 function calc() {
 
 }
+
 $.fn.serializeObject = function()
 {
     var o = {};
@@ -21,20 +22,23 @@ $.fn.serializeObject = function()
     return o;
 };
 
-$(function() {
+$(document).ready(function(){
     $('#order-form').submit(function() {
+        var formData = $(this).serialize();
+        formData += '&route=' + JSON.stringify(getRouteData())
         $.ajax({
             type: 'POST',
-            url: 'signup',
-            data: JSON.stringify(this.serializeObject()),
+            url: getContextPath() + 'order',
+            //data: JSON.stringify($(this).serializeObject()),
+            data: formData,
             success: function (data) {
                 if (data == "error") {
                     $.notify("Invalid data entered!", "error");
                 } else {
-                    $('document').html(data);
+                    $(document).html(data);
                 }
             },
-            error: function (xhr, str) {
+            error: function () {
                 $.notify("Internal server error occurred.", "warn");
             }
         });

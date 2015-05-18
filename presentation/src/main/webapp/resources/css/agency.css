@@ -1,0 +1,212 @@
+/*!
+ * Start Bootstrap - Agency Bootstrap Theme (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+body {
+    overflow-x: hidden;
+    font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.text-muted {
+    color: #777;
+}
+
+.text-primary {
+    color: #fed136;
+}
+
+p {
+    font-size: 14px;
+    line-height: 1.75;
+}
+
+p.large {
+    font-size: 16px;
+}
+
+a,
+a:hover,
+a:focus,
+a:active,
+a.active {
+    outline: 0;
+}
+
+a {
+    color: #fed136;
+}
+
+a:hover,
+a:focus,
+a:active,
+a.active {
+    color: #fec503;
+}
+
+
+
+.btn-primary {
+    border-color: #fed136;
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    color: #fff;
+    background-color: #fed136;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+    border-color: #f6bf01;
+    color: #fff;
+    background-color: #fec503;
+}
+
+
+
+.btn-primary.disabled,
+.btn-primary[disabled],
+fieldset[disabled] .btn-primary,
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled:active,
+.btn-primary[disabled]:active,
+fieldset[disabled] .btn-primary:active,
+.btn-primary.disabled.active,
+.btn-primary[disabled].active,
+fieldset[disabled] .btn-primary.active {
+    border-color: #fed136;
+    background-color: #fed136;
+}
+
+.btn-primary .badge {
+    color: #fed136;
+    background-color: #fff;
+}
+
+.btn-xl {
+    padding: 20px 40px;
+    border-color: #fed136;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    background-color: #fed136;
+}
+
+.btn-xl:hover,
+.btn-xl:focus,
+.btn-xl:active,
+.btn-xl.active,
+.open .dropdown-toggle.btn-xl {
+    border-color: #f6bf01;
+    color: #fff;
+    background-color: #fec503;
+}
+
+
+
+.btn-xl.disabled,
+.btn-xl[disabled],
+fieldset[disabled] .btn-xl,
+.btn-xl.disabled:hover,
+.btn-xl[disabled]:hover,
+fieldset[disabled] .btn-xl:hover,
+.btn-xl.disabled:focus,
+.btn-xl[disabled]:focus,
+fieldset[disabled] .btn-xl:focus,
+.btn-xl.disabled:active,
+.btn-xl[disabled]:active,
+fieldset[disabled] .btn-xl:active,
+.btn-xl.disabled.active,
+.btn-xl[disabled].active,
+fieldset[disabled] .btn-xl.active {
+    border-color: #fed136;
+    background-color: #fed136;
+}
+
+.btn-xl .badge {
+    color: #fed136;
+    background-color: #fff;
+}
+
+.navbar-default {
+    border-color: transparent;
+    background-color: #222;
+}
+
+.navbar-default .navbar-brand {
+    font-family: "Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive;
+    color: #fed136;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus,
+.navbar-default .navbar-brand:active,
+.navbar-default .navbar-brand.active {
+    color: #fec503;
+}
+
+.navbar-default .navbar-collapse {
+    border-color: rgba(255,255,255,.02);
+}
+
+.navbar-default .navbar-toggle {
+    border-color: #fed136;
+    background-color: #fed136;
+}
+
+
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #fed136;
+}
+
+
+
+section#contact .form-control:focus {
+    border-color: #fed136;
+    box-shadow: none;
+}
+
+
+
+
+ul.social-buttons li a:hover,
+ul.social-buttons li a:focus,
+ul.social-buttons li a:active {
+    background-color: #fed136;
+}
+
+
+
+::-moz-selection {
+    text-shadow: none;
+    background: #fed136;
+}
+
+::selection {
+    text-shadow: none;
+    background: #fed136;
+}
+
+
+body {
+    webkit-tap-highlight-color: #fed136;
+}
+
+.float-left {
+    float:left;
+    width:33%;
+}

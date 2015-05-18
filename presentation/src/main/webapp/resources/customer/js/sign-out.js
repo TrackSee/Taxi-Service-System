@@ -1,33 +1,44 @@
 /**
  * Created by Ruslan Gunavardana
  */
-function signOut() {
-    $.ajax({
-        type: 'POST',
-        url: getContextPath() + 'signout',
-        success: function (data) {
-            updateHeader();
-        },
-        error: function (xhr, str) {
-            updateHeader();
-        }
+document.addEventListener("DOMContentLoaded", function(event) {
+    $('#sign-out-button').click(function(){
+        $.ajax({
+            type: 'POST',
+            url: getContextPath() + 'signout',
+            success: function () {
+                updateHeader();
+            },
+            error: function () {
+                updateHeader();
+            }
+        });
     });
-}
 
-function updateHeader() {
-    $('#signout').remove();
-    var ul = $('#button-list');
-    var count = 2;
-    var nameArr = ['Sign in', 'Sign up'];
-    var hrefArr = ['signin', 'signup'];
-    var liArr = [];
-    var aArr = [];
-    for (var i = 0; i < count; i++) {
-        liArr[i] = document.createElement('li');
-        aArr[i] = document.createElement('a');
-        aArr[i].href = hrefArr[i];
-        aArr[i].appendChild(document.createTextNode(nameArr[i]));
-        liArr[i].appendChild(aArr[i]);
-        ul.append(liArr[i]);
+    function updateHeader() {
+        if (window.location.href.search('customer') != -1 ||
+            window.location.href.search('admin')    != -1 ||
+            window.location.href.search('driver')   != -1)
+        {
+            window.location.href = getContextPath();
+        } else {
+            $('#signout').remove();
+            $('#customerProfile').remove();
+            var ul = $('#button-list');
+            var elems = [
+                {text: 'Sign in', href: 'signin'},
+                {text: 'Sign up', href: 'signup'}
+            ];
+            var liArr = [];
+            var aArr = [];
+            for (var i = 0; i < elems.length; i++) {
+                liArr[i] = document.createElement('li');
+                aArr[i] = document.createElement('a');
+                aArr[i].href = getContextPath() + elems[i].href;
+                aArr[i].appendChild(document.createTextNode(elems[i].text));
+                liArr[i].appendChild(aArr[i]);
+                ul.append(liArr[i]);
+            }
+        }
     }
-}
+});

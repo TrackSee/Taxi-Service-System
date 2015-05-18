@@ -5,7 +5,7 @@
   Time: 20:37
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,13 +49,14 @@
             <div class="form-group">
                 <form method="post" action="<c:url value="/orderTracking"/>">
                     <label>Tracking number</label>
-                    <input type="text" id="trackingNumber" class="form-control" name="orderTrackingNumber"
+                    <input type="number" id="trackingNumber" class="form-control" name="trackingNumber"
                            placeholder="Enter your tracking number"
-                           pattern="[1-9]{1,19}" title="Only the number is greater than zero" required>
+                            title="Only integer number" required>
                     <div class="form-group">
                         <div class="form-group">
                             <button type="submit" class="btn btn-success btn-large">
                                 Track your taxi order</button>
+                        </div>
                         </div>
                 </form>
             </div>
@@ -64,8 +65,7 @@
     </div>
 
 
-        <p></p>
-        <!-- end: Wrapper  -->
+<!-- end: Wrapper  -->
         <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
         <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
                 charset="UTF-8"></script>
@@ -76,29 +76,10 @@
         <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
                 charset="UTF-8"></script>
         <script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"
-                charset="UTF-8"></script>
-        <script type="text/javascript"
-                src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
-                charset="UTF-8"></script>
-        <script type="text/javascript"
-                src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
-                charset="UTF-8"></script>
-        <script type="text/javascript"
-                src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"
-                charset="UTF-8"></script>
+
         <script src="<%=application.getContextPath()%>http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <%--end jQuery and bootstrap datepicker scripts--%>
 
-        <%--Google maps scripts--%>
-        <script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>
-        <script src="<%=application.getContextPath()%>/resources/js/maps/order-maps.js"></script>
-        <%--end google maps scripts--%>
-
-        <%-- Order page scripts --%>
-        <script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
-        <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
-        <%--end order oage scripts--%>
 
 </body>
 </html>

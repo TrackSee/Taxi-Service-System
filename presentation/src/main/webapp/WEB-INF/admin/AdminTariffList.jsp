@@ -7,19 +7,12 @@
 --%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>SB Admin 2 - Bootstrap Admin Theme. Edited by Vetal</title>
+  <%@include file="../parts/meta.jsp"%>
 
   <!-- Bootstrap Core CSS -->
   <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -34,12 +27,6 @@
   <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <%--test format--%>
   <link href="<%=application.getContextPath()%>/resources/admin/css/admin.css"  rel="stylesheet" type="text/css">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9] -->
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <script src="<%=application.getContextPath()%>/resources/admin/js/update_tariff.js"></script>
   <script src="<%=application.getContextPath()%>/resources/admin/js/tariff_galochka.js"></script>
   <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-2.1.3.min.js"></script>
@@ -54,36 +41,38 @@
     <table class="table" id="tablePrice">
       <thead>
       <tr>
+        <th bgcolor="#f5f5f5">№</th>
+        <th bgcolor="#f5f5f5">Car category</th>
+        <th bgcolor="#f5f5f5">Weekend</th>
+        <th bgcolor="#f5f5f5">Night tariff</th>
         <th>Price per km, UAH</th>
         <th>Price per min, UAH</th>
-        <th>Car category</th>
-        <th>Weekend</th>
-        <th>Night tariff</th>
       </tr>
       </thead>
       <tbody id="table-body" class="tboddy">
       <c:forEach items="${requestScope.tariff}" var="tariff" varStatus="myIndex">
         <tr>
+          <td class="No" bgcolor="#f5f5f5">${myIndex.index+1}</td>
+          <td class="car" bgcolor="#f5f5f5">${tariff.carCategory}</td>
+          <td bgcolor="#f5f5f5">
+            <input id="ch_weeke${myIndex.index}" type="checkbox" <c:if test="${tariff.weekend}">checked</c:if> disabled>
+          </td>
+          <td bgcolor="#f5f5f5">
+            <input id="ch_nt${myIndex.index}" type="checkbox" <c:if test="${tariff.nightTariff}">checked</c:if> disabled>
+          </td>
           <td>
-            <input id = "perKm${myIndex.index}" type="number" step="0.01" min="0" value="${tariff.pricePerKm}"
+            <input id = "perKm${myIndex.index}" type="number" step="0.01" min="0" maxlength="2" value="${tariff.pricePerKm}"
                    onfocus="check(${myIndex.index}, 'perKm', 'buttonKm')">
             <input id="buttonKm${myIndex.index}" type="submit" value="Save" onclick="save(${myIndex.index}, 'perKm')">
             <input id="err_perKm${myIndex.index}" style="border-color:white; border-width:0;" class="error" size="6" readonly>
             <input id="text_perKm${myIndex.index}" style="border-color:white; border-width:0;" class="msgText" readonly>
           </td>
           <td>
-            <input id = "perMin${myIndex.index}" type="number" step="0.01" min="0" value="${tariff.pricePerMin}"
+            <input id = "perMin${myIndex.index}" type="number" step="0.01" min="0" maxlength="14" value="${tariff.pricePerMin}"
                    onfocus="check(${myIndex.index}, 'perMin', 'buttonMin')">
             <input id="buttonMin${myIndex.index}" type="submit" value="Save" onclick="save(${myIndex.index}, 'perMin')">
             <input id="err_perMin${myIndex.index}" style="border-color:white; border-width:0;" class="error" size="6" readonly>
             <input id="text_perMin${myIndex.index}" style="border-color:white; border-width:0;" class="msgText" readonly>
-          </td>
-          <td class="car" >${tariff.carCategory}</td>
-          <td>
-            <input id="ch_weeke${myIndex.index}" type="checkbox" <c:if test="${tariff.weekend}">checked</c:if> disabled>
-          </td>
-          <td>
-            <input id="ch_nt${myIndex.index}" type="checkbox" <c:if test="${tariff.nightTariff}">checked</c:if> disabled>
           </td>
         </tr>
       </c:forEach>

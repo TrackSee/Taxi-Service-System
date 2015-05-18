@@ -5,41 +5,28 @@
   Time: 21:59
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
-<%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">--%>
-<%--<!-- Optional theme -->--%>
-<%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">--%>
-<%--<!-- MetisMenu CSS -->--%>
-<%--<link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"--%>
-<%--rel="stylesheet">--%>
-<!-- Bootstrap Core CSS -->
-<link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
-      rel="stylesheet">
-
-<!-- MetisMenu CSS -->
-<link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"
-      rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="<%=application.getContextPath()%>/resources/admin/dist/css/sb-admin-2.css" rel="stylesheet">
-
-<!-- Custom Fonts -->
-<link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css"
-      rel="stylesheet" type="text/css">
-
 <head>
+    <%@include file="../parts/meta.jsp"%>
 
+    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"
+          rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="<%=application.getContextPath()%>/resources/admin/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css"
+          rel="stylesheet" type="text/css">
     <style>
-        /*#tableEmailDiv {*/
-            /*width: 100%;*/
-        /*}*/
-
-        #search, #groupNameInput, #inputEmail, #groupRole {
+        #search, #groupNameInput, #inputEmail, #groupRole, #userCountPage {
             width: 20%;
         }
 
@@ -51,6 +38,10 @@
 </head>
 <body>
 
+<c:set var="ID_USER_VALUE" value="${sessionScope.get('userId')}" />
+
+<input id="id_admin" type="hidden" value="${ID_USER_VALUE}">
+
 <div id="wrapper" class="container">
 
     <jsp:include page="adminHeader.jsp"/>
@@ -58,9 +49,19 @@
     <div id="page-wrapper">
 
         <div class="form-group" id="search">
+
+            <h3>Groups per page: </h3>
+            <select id="groupCountPage" class="form-control" data-style="btn-success">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+
             <input id="input1" type="text" class="form-control" placeholder="Search"
                    oninput="getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_GROUPS'),
           SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), pageNumber)">
+
         </div>
 
         <div id="tablediv" class="panel panel-default">
@@ -110,18 +111,28 @@
 
                             <div id="alert-danger" class="alert alert-danger alert-dismissible" role="alert"></div>
 
+                            <h3>Users per page: </h3>
+                            <select id="userCountPage" class="form-control" data-style="btn-success">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+
                             <h3 id="labelGroupName"></h3>
 
-                            <input id="inputEmail" type="text" class="form-control" placeholder="Search"
+                            <input id="inputEmail" type="text" class="form-control" placeholder="Input email"
                                    oninput="getUsersByInput()"/>
 
                             <input id="groupNameInput" type="text" class="form-control" placeholder="Name"/>
 
                             <select id="groupRole" class="form-control" data-style="btn-success">
+                                <option value="none">none</option>
                                 <option value="registered_customer">customer</option>
                                 <option value="administrator">administrator</option>
                                 <option value="driver">driver</option>
                             </select>
+
 
                         </div>
                         <div id="panelUserTable" class="panel panel-default">
@@ -188,5 +199,4 @@
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
 
 </body>
-
 </html>

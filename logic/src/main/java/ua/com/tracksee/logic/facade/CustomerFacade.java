@@ -6,7 +6,7 @@ import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.exception.RegistrationException;
-import ua.com.tracksee.json.FavoritePlaceDTO;
+import ua.com.tracksee.dto.FavoritePlaceDTO;
 import ua.com.tracksee.logic.customer.AccountManagementBean;
 import ua.com.tracksee.logic.customer.FavoritePlacesBean;
 
@@ -62,10 +62,10 @@ public class CustomerFacade {
     }
 
     /** Registers new account with the specified credentials. */
-    public void registerUser(String email, String password, String phoneNumber)
+    public void registerUser(UserEntity user)
             throws RegistrationException
     {
-        accountManagementBean.registerCustomerUser(email, password, phoneNumber);
+        accountManagementBean.registerCustomerUser(user);
     }
 
     /** Activates user account with the specified code. */

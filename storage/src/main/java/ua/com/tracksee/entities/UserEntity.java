@@ -1,6 +1,10 @@
 package ua.com.tracksee.entities;
 
+import javax.enterprise.context.SessionScoped;
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -17,12 +21,14 @@ import java.util.Objects;
         @NamedQuery(name = "blockAll", query = "UPDATE UserEntity user SET user.ignoredTimes=:ignoredTimes WHERE user.userId in :userIds"),
         @NamedQuery(name = "usersSize", query = "SELECT count (user) from UserEntity user")
 })
-public class UserEntity {
+public class UserEntity implements Serializable {
     private Integer userId;
     private String email;
     private String password;
     private String salt;
     private String phone;
+    private String firstName;
+    private String lastName;
     private Boolean driver = false;
     private Boolean admin = false;
     private String sex;
@@ -32,6 +38,17 @@ public class UserEntity {
     private Boolean activated = false;
     private Timestamp registrationDate = new Timestamp(System.currentTimeMillis());
     private CarEntity car;
+
+    public UserEntity() {
+    }
+
+    public UserEntity(String email, String password, String phone, String firstName, String lastName) {
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     @Id
     @GeneratedValue(generator = "userSeq")
@@ -68,6 +85,7 @@ public class UserEntity {
 
     @Basic
     @Column(name = "salt", nullable = false, length = 8, columnDefinition = "bpchar")
+    @Size(min = 8, max = 8)
     public String getSalt() {
         return salt;
     }
@@ -78,12 +96,35 @@ public class UserEntity {
 
     @Basic
     @Column(name = "phone", length = 28)
+    @Size(min = 5, max = 28, message = "bad-phone")
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Basic
+    @Column(name = "first_name", length = 50)
+    @Size(min = 1, max = 50, message = "bad-first-name")
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @Basic
+    @Column(name = "last_name", length = 50)
+    @Size(min = 1, max = 50, message = "bad-last-name")
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @Basic

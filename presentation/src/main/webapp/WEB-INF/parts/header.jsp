@@ -5,10 +5,8 @@
   Time: 6:07 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script>function getContextPath() { return '${pageContext.request.contextPath}/'; }</script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/sign-out.js"></script>
 <!--start: Header -->
 <header>
 
@@ -66,10 +64,10 @@
                                         <li id="customerProfile"
                                                 <c:if test="${pageScope.uri.endsWith('/customerProfile.jsp')}">
                                             class="active"</c:if>>
-                                            <a href="<c:url value="/customerProfile"/>">Client Dashboard</a>
+                                            <a href="<c:url value="/customer"/>">Client Dashboard</a>
                                         </li>
                                         <li id="signout">
-                                            <a href="<c:url value="#"/>" onclick="signOut()">Sign out</a>
+                                            <a id="sign-out-button" href="#">Sign out</a>
                                         </li>
                                     </c:if>
                                 </ul>
@@ -87,3 +85,4 @@
     </div>
 </header>
 <!--end: Header-->
+

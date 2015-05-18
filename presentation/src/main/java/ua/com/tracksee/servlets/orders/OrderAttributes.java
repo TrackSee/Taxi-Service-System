@@ -4,8 +4,10 @@ package ua.com.tracksee.servlets.orders;
  * @author Sharaban Sasha
  */
 public interface OrderAttributes {
-    static final String ORDER_TRACKING_NUMBER_ALIAS ="orderTrackingNumber";
     static final String TRACKING_NUMBER_ALIAS ="trackingNumber";
+    static final String AMOUNT_OF_CARS_ALIAS ="amountOfCars";
+    static final String AMOUNT_OF_HOURS_ALIAS ="amountOfHours";
+    static final String AMOUNT_OF_MINUTES_ALIAS ="amountOfMinutes";
     static final String PHONE_NUMBER_ALIAS ="phoneNumber";
     static final String EMAIL_ALIAS ="email";
     static final String ARRIVE_DATE_ALIAS ="arriveDate";
@@ -38,6 +40,7 @@ public interface OrderAttributes {
 
     static final String ERROR_PAGE="/WEB-INF/error.jsp";
     static final String ORDER_INFO_PAGE="/WEB-INF/customer/orderInfo.jsp";
+    static final String MAP_PAGE="/WEB-INF/customer/map.jsp";
     static final String ORDER_TRACK_COMPLETE_PAGE="/WEB-INF/customer/orderTrackComplete.jsp";
     static final String ORDER_TRACK_PAGE="/WEB-INF/customer/orderTrack.jsp";
     static final String ORDER_PAGE="/WEB-INF/customer/order.jsp";

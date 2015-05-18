@@ -5,7 +5,7 @@
   Time: 20:37
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -122,17 +122,30 @@
                 <label for="arriveDate" class="sr-only">Arrive date</label>
                     <input size="16" type="text"  id="arriveDate" name="arriveDate" value="${arriveDate}"
                      disabled>
-                    <input type="hidden" value=""/><br/>
 
-                <label for="endDate" class="sr-only">End date</label>
-                    <input size="16" type="text" id="endDate" name="endDate" value="${endDate}" disabled>
-                    <input type="hidden"  value=""/><br/>
+                <div id="amountOfTripTimeBlock">
+                    <label>Amount time of trip</label>
+                    <div>
+                        <input type="number" id="amountOfHours" class="form-control" name="amountOfHours"
+                                value="${amountOfHours}" disabled>
+                    </div>
+                    <div>
+                        <input type="number" id="amountOfMinutes" class="form-control" name="amountOfMinutes"
+                               value="${amountOfMinutes}" disabled>
+                    </div>
+                </div>
 
+                <%--TODO validation--%>
+                <div id="amountOfCarsBlock">
+                    <label>Amount of cars</label>
+                    <input type="number" id="amountOfCars" class="form-control" name="amountOfCars"
+                           value="${amountOfCars}" disabled>
+                </div>
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>
                     <select class="form-control order_priority" name="carCategory" disabled>
                         <option value="ECONOMY_CLASS" ${ECONOMY_CLASS}>Economy class</option>
-                        <option value="BUSINESS_CLASS" ${BUSINESS_CLASS}}>Business class</option>
+                        <option value="BUSINESS_CLASS" ${BUSINESS_CLASS}>Business class</option>
                         <option value="VAN" ${VAN}>Van</option>
                     </select>
                 </div>

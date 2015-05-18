@@ -1,19 +1,11 @@
-
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <%@include file="../parts/meta.jsp"%>
 
     <!-- Bootstrap Core CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
@@ -33,7 +25,6 @@
 </head>
 
 <body>
-
 
 
 <div id="wrapper">
@@ -57,7 +48,8 @@
             <c:forEach items="${requestScope.users}" var="user">
                 <tr>
                         <%--TODO add reference on DASHBOARD --%>
-                    <td><a href="user?id=${user.userId}">${user.email}</a></td>
+                    <td><a href="">${user.email}</a></td>
+                        <%--reference on dashboard--%>
                     <td>${user.phone != null? user.phone : "-"}</td>
                     <td>${user.sex}</td>
                     <td>${user.groupName? user.groupName : "-"}</td>
@@ -84,8 +76,8 @@
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
 <%--for pagination--%>
 <%--<script src="<%=application.getContextPath()%>/resources/admin/js/search.js"></script>--%>
-<script src="<%=application.getContextPath()%>/resources/admin/js/keyupforcustomer.js"></script>
-
+<script src="<%=application.getContextPath()%>/resources/admin/js/searchCustomer.js"></script>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/js/changeId.js"></script>--%>
 
 
 </body>

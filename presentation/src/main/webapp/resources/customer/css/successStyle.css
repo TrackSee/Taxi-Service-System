@@ -1,7 +1,7 @@
 /* author Sharaban Sasha */
 body {
     /* Path ot image*/
-    background-image: url(../img/success.jpg);
+    background-image: url(../../img/success.jpg);
 
     /*Picture vertical and horizontal always centered*/
     background-position: center center;

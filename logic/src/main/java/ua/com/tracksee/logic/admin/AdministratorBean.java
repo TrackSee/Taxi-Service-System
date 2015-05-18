@@ -52,7 +52,7 @@ public class AdministratorBean {
 
     /**
      * @author Katia Stetsiuk
-     * @return
+     * @return list of users
      */
     public List<UserEntity> getUsers(){return userDAO.getUsers();}
     /**
@@ -84,7 +84,9 @@ public class AdministratorBean {
     public void getDriverById(int driverId) {
         userDAO.getDriverByID(driverId);
     }
-
+    public UserEntity getUserById(int userId) {
+        return userDAO.getUserById(userId);
+    }
     public List<CarEntity> getCars() {
         return carDAO.getCars();
     }

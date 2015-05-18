@@ -2,6 +2,7 @@ package ua.com.tracksee.servlets.accounts;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.exception.RegistrationException;
 import ua.com.tracksee.logic.facade.CustomerFacade;
 
@@ -24,23 +25,31 @@ public class SignUpServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/accounts/signUp.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/customer/signUp.jsp").forward(req, resp);
+    }
+
+    private static String nullIfIsEmpty(String s) {
+        return s == null ? null
+                         : s.isEmpty() ? null
+                                       : s;
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-        String phoneNumber = req.getParameter("phone-number");
-        phoneNumber = phoneNumber.equals("") ? null : phoneNumber;
+        UserEntity user = new UserEntity();
+        user.setEmail(req.getParameter("email"));
+        user.setPassword(req.getParameter("password"));
+        user.setPhone(nullIfIsEmpty(req.getParameter("phone-number")));
+        user.setFirstName(nullIfIsEmpty(req.getParameter("first-name")));
+        user.setLastName(nullIfIsEmpty(req.getParameter("last-name")));
 
         try {
-            customerFacade.registerUser(email, password, phoneNumber);
-            logger.info("Successful sign up. User: {}", email);
-            req.getRequestDispatcher("/WEB-INF/accounts/checkEmail.jsp").forward(req, resp);
+            customerFacade.registerUser(user);
+            logger.info("Successful sign up. User: {}", user.getEmail());
+            req.getRequestDispatcher("/WEB-INF/customer/checkEmail.jsp").forward(req, resp);
         } catch (RegistrationException e) {
             logger.warn(e.getMessage());
-            resp.getWriter().append(e.getErrorType());
+            resp.sendError(422, e.getErrorType());
         }
     }
 }

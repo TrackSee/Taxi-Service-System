@@ -4,21 +4,19 @@
   Time: 20:37
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
-    <link href="<%=application.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-          media="screen">
+    <link href="<%=application.getContextPath()%>/resources/customer/css/googleMap.css" rel="stylesheet">
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
           media="screen">
-    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"
-          type="text/css"/>
-    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
-          type="text/css"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"/>
 </head>
 <body>
 <%@include file="../parts/header.jsp" %>
@@ -44,11 +42,18 @@
 <!--start: Wrapper-->
 <div id="wrapper">
     <!--start: Container -->
-    <div class="container">
+    <div id="input-form" class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
-        <input type="text" hidden="hidden" id="taxiPricePerKm" value="10">
+
+        <%--TODO getting data from database--%>
+        <div hidden="hidden">
+            <input type="text" id="taxiPricePerKm" value="6">
+        </div>
+        <div hidden="hidden">
+            <input type="text" id="taxiPricePerKmMin" value="30">
+        </div>
         <%--${"taxiPricePerKm"}">--%>
-        <form method="post" action="<c:url value="/order"/>">
+        <form id="order-form" method="post" action="javascript:void(null);" onsubmit="sendForm()">
             <div class="form-group">
                 <label>Phone number</label>
                 <input type="text" pattern="\d{10}"
@@ -66,14 +71,21 @@
                 <span class="red-star">★</span>
             </div>
 
+
             <div class="form-group">
-                <label>Address from</label>
+                <label>Address from </label>
                 <input type="text" id="origin" class="form-control" value=""
                        name="addressOrigin" title="That address is invalid"
                        required onblur="updateRoute()">
                 <span class="red-star">★</span>
             </div>
-
+            <div id="addinput">
+                <p>
+                <button type="button" id="buttonAddressOrigin" class="btn btn-info turnButton">
+                    Add address from
+                </button>
+            </p>
+           </div>
 
             <div class="form-group">
                 <label>Address to</label>
@@ -90,12 +102,14 @@
                     <option value="VISA_CARD">Visa card</option>
                 </select>
             </div>
+
             <div class="form-group">
                 <label>Order price</label>
                 <input type="text" name="price" class="form-control"
-                       value="${price}"
+                       value="" id="price"
                        data-error="That address is invalid" readonly>
             </div>
+
 
             <div id="flip">
                 <div class="form-group">
@@ -119,27 +133,42 @@
                         <option value="TAXI_FOR_LONG_TERM">Service "Taxi for long term"</option>
                     </select>
                 </div>
+
                 <label for="arriveDate" class="sr-only">Arrive date</label>
 
                 <div class="controls input-append date form_datetime"
-                       data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                <span class="add-on"><i class="icon-th"></i></span>
-                <span class="add-on"><i class="icon-remove"></i></span>
-                <input size="16" type="text" value="" id="arriveDate" name="arriveDate" readonly>
-                <input type="hidden" id="dtp_input1" value=""/><br/>
-
-            </div>
-                <div id="endDateBlock">
-                <label  class="sr-only">End date</label>
-
-                <div class="controls input-append date form_datetime"
-                     data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                     data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
                     <span class="add-on"><i class="icon-th"></i></span>
                     <span class="add-on"><i class="icon-remove"></i></span>
-                    <input size="16" type="text" value="" id="endDate" name="endDate" readonly>
-                    <input type="hidden" id="dtp_input2" value=""/><br/>
+                    <input size="16" type="text" value="" id="arriveDate" name="arriveDate" readonly>
+                    <input type="hidden" id="dtp_input1" value=""/><br/>
                 </div>
+                <%--TODO validation--%>
+                <div id="amountOfTripTimeBlock">
+                    <label>Amount time of trip</label>
+                    <div>
+                    <input type="number" id="amountOfHours" class="form-control" name="amountOfHours"
+                           placeholder="Amount of hours 8+"
+                           title="Amount of hours 8+">
+                    <span class="red-star">★</span>
+                        </div>
+                    <div>
+                    <input type="number" id="amountOfMinutes" class="form-control" name="amountOfMinutes"
+                           placeholder="Amount minutes [0:60]"
+                           title="Amount of minutes [0:60]">
+                    <span class="red-star">★</span>
                     </div>
+
+                </div>
+
+                <%--TODO validation--%>
+                <div id="amountOfCarsBlock">
+                <label>Amount of cars</label>
+                <input type="number" id="amountOfCars" class="form-control" name="amountOfCars"
+                       placeholder="Amount of cars 5+"
+                       title="Amount of cars greater then 4">
+                <span class="red-star">★</span>
+                </div>
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>
                     <select class="form-control order_priority" name="carCategory">
@@ -196,7 +225,7 @@
                 </div>
 
                 Description:<br/>
-                <textarea name="description" id="description" rows="4" cols="50" title="" ></textarea>
+                <textarea name="description" id="description" rows="4" cols="50" title=""></textarea>
                 <br/>
             </div>
 
@@ -206,7 +235,6 @@
 
         </form>
     </div>
-    </p>
 </div>
 <%-- end:wrapper --%>
 </div>
@@ -219,22 +247,15 @@
 
     </div>
 </div>
+
+
+
 <!-- Load jQuery and bootstrap datepicker scripts -->
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
-        charset="UTF-8"></script>
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"
-        charset="UTF-8"></script>
-<script type="text/javascript"
-        src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
-        charset="UTF-8"></script>
-<script type="text/javascript"
-        src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
-        charset="UTF-8"></script>
-<script type="text/javascript"
-        src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"
-        charset="UTF-8"></script>
-<script src="<%=application.getContextPath()%>http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<%@include file="../parts/scripts.jsp" %>
+<script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"></script>
 <%--end jQuery and bootstrap datepicker scripts--%>
 
 <%--Google maps scripts--%>
@@ -246,21 +267,9 @@
 <script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality.js"></script>
-
-<script src="<%=application.getContextPath()%>/resources/customer/js/cargoTaxi.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/sober-driver.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/meet-guest.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/food-delivery.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/other-services.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/longTerm.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/fields-generator.js"></script>
 <%--end order oage scripts--%>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
-<script>
-
-getPrice();
-</script>
-
-<%@include file="../parts/scripts.jsp" %>
+<script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
 <%@include file="../parts/footer.jsp" %>
 </body>
 </html>

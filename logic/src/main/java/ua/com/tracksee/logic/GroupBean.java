@@ -3,9 +3,6 @@ package ua.com.tracksee.logic;
 /**
  * Created by Igor on 22.04.2015.
  */
-/**
- * Created by Igor Gula on 19.04.2015.
- */
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,19 +36,20 @@ public class GroupBean {
     private GroupDAO groupDAO;
 
     private void addGroup(String groupName, Role role, String[] userIds, Integer[] userIdsUpdateRole,
-                          boolean[] idAdmins, boolean[] isDrivers) throws SQLException{
-        if (!existsGroup(groupName)) {
-            for (Integer id : stringsToIntegers(userIds)) {
-                groupDAO.addUserToGroup(groupName, id);
-                groupDAO.setRoleToUser(role.getName(), id);
-            }
-        } else {
-            throw new EntityExistsException();
-        }
+                          boolean[] idAdmins, boolean[] isDrivers, Integer admin) throws SQLException{
         try {
             setRolesToUsers(userIdsUpdateRole, isDrivers, idAdmins);
         } catch (IllegalArgumentException e) {
             logger.error(e);
+        }
+        if (!existsGroup(groupName)) {
+            for (Integer id : stringsToIntegers(userIds)) {
+                groupDAO.addUserToGroup(groupName, id);
+                groupDAO.setRoleToUser(role, id);
+            }
+            groupDAO.setRoleToUser(Role.ADMINISTRATOR, admin);
+        } else {
+            throw new EntityExistsException();
         }
     }
 
@@ -75,13 +73,9 @@ public class GroupBean {
     }
 
     private void updateGroup(String groupName, Role role, String[] ids,
-                             Integer[] userIds, boolean[] idAdmins, boolean[] isDrivers) {
-
+                             Integer[] userIds, boolean[] idAdmins, boolean[] isDrivers, Integer admin) {
         Integer[] groupIds = getGroupMemberIds(groupName);
         List<Integer> groupIdsList = Arrays.asList(groupIds);
-        for (Integer userId : groupIds) {
-            groupDAO.setRoleToUser(role.getName(), userId);
-        }
 
         Integer[] idsInt = stringsToIntegers(ids);
         for (Integer id : idsInt) {
@@ -97,6 +91,11 @@ public class GroupBean {
         } catch (IllegalArgumentException e) {
             logger.error(e);
         }
+
+        for (Integer userId : groupIds) {
+            groupDAO.setRoleToUser(role, userId);
+        }
+        groupDAO.setRoleToUser(Role.ADMINISTRATOR, admin);
     }
 
     public Role getGroupRole(String groupName) {
@@ -127,7 +126,7 @@ public class GroupBean {
     }
 
     public void executeUpdate(GroupUpdateAction action, String groupName, String[] ids, Role role,
-                                String[] userIdsStrings, boolean[] idAdmins, boolean[] isDrivers) {
+                                String[] userIdsStrings, boolean[] idAdmins, boolean[] isDrivers, Integer admin) {
         Integer[] userIds = null;
         if (userIdsStrings != null) {
             userIds = stringsToIntegers(userIdsStrings);
@@ -135,7 +134,7 @@ public class GroupBean {
         if (action == GroupUpdateAction.ADD_GROUP) {
             try {
                 try {
-                    addGroup(groupName, role, ids, userIds, idAdmins, isDrivers);
+                    addGroup(groupName, role, ids, userIds, idAdmins, isDrivers, admin);
                 } catch (EntityExistsException|EJBException e) {
                     logger.error("This group exist! " + e);
                 }
@@ -149,7 +148,7 @@ public class GroupBean {
                 logger.error("This group does not exist! " + e);
             }
         } else if (action == GroupUpdateAction.UPDATE_GROUP) {
-            updateGroup(groupName, role, ids, userIds, idAdmins, isDrivers);
+            updateGroup(groupName, role, ids, userIds, idAdmins, isDrivers, admin);
         }
     }
 
@@ -172,14 +171,13 @@ public class GroupBean {
             } else if (!groupName.equals("")) {
                 return this.getUsersInGroupCount(groupName);
             } else {
-                //return this.getUsersAllCount();
                 return this.getUsersCountByEmail("");
             }
         }
         return null;
     }
 
-    public void setRolesToUsers(Integer[] userIds, boolean[] isDrivers, boolean[] isAdmins) {
+    private void setRolesToUsers(Integer[] userIds, boolean[] isDrivers, boolean[] isAdmins) {
         if ((userIds.length != isAdmins.length) || (userIds.length != isAdmins.length)) {
             logger.error("Length of userIds has to be equils to isDrivers length, and to isAdmins arrays!");
             throw new IllegalArgumentException();

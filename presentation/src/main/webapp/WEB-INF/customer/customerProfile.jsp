@@ -1,12 +1,11 @@
 <%@ page import="ua.com.tracksee.entities.TaxiOrderEntity" %>
 <%@ page import="java.util.List" %>
 <%--
-  Created by IntelliJ IDEA.
   User: Vadym_Akymov
   Date: 26.04.15
   Time: 14:01
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -30,8 +29,8 @@
     <div class="container">
       <h2><i class="ico-settings ico-whiteeclipse"></i>Client Dashboard</h2>
       <div class="btn-group btn-group-lg group" role="group" aria-label="Large button group">
-        <button type="button" class="btn btn-default completed <%=request.getAttribute("type").equals("completed") ? "active" : ""%>" value="old">Old TOs</button>
-        <button type="button" class="btn btn-default act <%=request.getAttribute("type").equals("active") ? "active" : ""%>" value="active">Active TOs</button>
+        <button type="button" class="btn btn-default completed <%=request.getAttribute("type").equals("completed") ? "active datatype" : ""%>" value="old">Old TOs</button>
+        <button type="button" class="btn btn-default act <%=request.getAttribute("type").equals("active") ? "active datatype" : ""%>" value="active">Active TOs</button>
       </div>
     </div>
     <!-- end: Container  -->
@@ -55,7 +54,10 @@
           <i class="ico-shopping-cart circle big"></i>
           <a class="track" href="<%=application.getContextPath()%>/orderTracking"><div class="title">
               <h3 class="order<%=i%>">Order № ${order.trackingNumber}</h3></div></a>
-          <input type="hidden" class="trackingNumber" value="${order.trackingNumber}">
+
+            <form method="post" action="<c:url value="/orderTracking"/>">
+
+                <input type="hidden"  name="trackingNumber" id="trackingNumber" value="${order.trackingNumber}">
           <div>
             <p class="service<%=i%>"><b>SERVICE:</b> ${order.service}</p>
           </div>
@@ -68,7 +70,14 @@
           <div>
             <p class="date<%=i%>"><b>DATE:</b> <fmt:formatDate pattern="dd-MM-yyyy" value="${order.orderedDate}"/></p>
           </div>
-            <a class="btn btn-large btn-success" href="orderInfo"><h4>Have a look detailed this order</h4></a>
+
+                <div class="form-group">
+                    <div class="form-group">
+                        <button type="submit" id="trackOrder<%=i%>" class="btn btn-success btn-large">
+                            Detailed description</button>
+                    </div>
+                </div>
+            </form>
           <div class="clear"></div>
         </div>
       </div>
@@ -84,6 +93,8 @@
     <!-- end: Container  -->
   </div>
 </div>
+
+
 
 <%-- start: JavaScript --%>
 <%@include file="../parts/scripts.jsp" %>

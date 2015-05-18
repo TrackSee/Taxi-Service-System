@@ -5,8 +5,10 @@ package ua.com.tracksee.servlets.group;
  */
 
 import com.google.gson.Gson;
+import ua.com.tracksee.entity.Group;
 import ua.com.tracksee.enumartion.Role;
 import ua.com.tracksee.logic.GroupBean;
+import ua.com.tracksee.logic.facade.AdminFacade;
 import ua.com.tracksee.logic.group.GroupSelectAction;
 import ua.com.tracksee.logic.group.GroupUpdateAction;
 
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Created by Igor Gula on 19.04.2015.
@@ -26,12 +29,13 @@ import java.util.List;
 public class GroupEditServlet extends HttpServlet implements GroupConstants {
 
     @EJB
-    private GroupBean groupBean;
-    private List resList;
+    private AdminFacade adminFacade;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         GroupSelectAction selectAction = GroupSelectAction.fromString(request.getParameter(SELECT_ACTION_ALIAS));
 
         String groupName = request.getParameter(GROUP_NAME_ALIAS);
@@ -39,10 +43,9 @@ public class GroupEditServlet extends HttpServlet implements GroupConstants {
         int pageNumber = Integer.parseInt(request.getParameter(PAGE_NUMBER_ALIAS));
         int pageSize = Integer.parseInt(request.getParameter(PAGE_SIZE_ALIAS));
 
-        resList = groupBean.executeSelect(selectAction, groupName, userEmail, pageNumber, pageSize);
+        List resList = adminFacade.groupExecuteSelect(selectAction, groupName, userEmail, pageNumber, pageSize);
 
         String json = new Gson().toJson(resList);
-        System.out.println(json);
         response.setContentType("application/json");
         response.getWriter().print(json);
 
@@ -63,7 +66,13 @@ public class GroupEditServlet extends HttpServlet implements GroupConstants {
         GroupUpdateAction updateAction = GroupUpdateAction.fromString(request.getParameter(UPDATE_ACTION_ALIAS));
 
         String groupName = request.getParameter(GROUP_NAME_ALIAS);
-        Role role = Role.fromString(request.getParameter(GROUP_ROLE_ALIAS));
+        Role role = null;
+        try {
+            role = Role.fromString(request.getParameter(GROUP_ROLE_ALIAS));
+        } catch(NoSuchElementException e) {
+            role = Role.NOT_REGISTER_USER;
+        }
+        Integer admin = Integer.parseInt(request.getParameter(ID_ADMIN));
 
         String idsString = request.getParameter(IDS_ALIAS);
         String[] ids;
@@ -88,7 +97,7 @@ public class GroupEditServlet extends HttpServlet implements GroupConstants {
             isAdmins[i++] = user.isAdmin;
         }
 
-        groupBean.executeUpdate(updateAction, groupName, ids, role, updateIds, isAdmins, isDrivers);
+        adminFacade.groupExecuteUpdate(updateAction, groupName, ids, role, updateIds, isAdmins, isDrivers, admin);
 
         doGet(request, response);
     }

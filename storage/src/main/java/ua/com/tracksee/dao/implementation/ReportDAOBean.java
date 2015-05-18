@@ -5,6 +5,8 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.ReportDAO;
 import ua.com.tracksee.entities.MostPopularOption;
 import ua.com.tracksee.entities.ServiceProfitable;
+import ua.com.tracksee.entities.reports.CarReportEntity;
+import ua.com.tracksee.entities.reports.DriverReportEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -23,6 +25,19 @@ public class ReportDAOBean implements ReportDAO{
     private static final Logger logger = LogManager.getLogger();
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
+
+    @Override
+    public List<DriverReportEntity> getDriverSexReport() {
+        Query q = entityManager.createNativeQuery("SELECT * FROM driver_report", DriverReportEntity.class);
+        return q.getResultList();
+    }
+
+    @Override
+    public List<CarReportEntity> getCarCategoryReport() {
+        Query q = entityManager.createNativeQuery("SELECT * FROM car_report", CarReportEntity.class);
+        return q.getResultList();
+    }
+
     /**
      * @author Katia Stetisuk
      * @param startDate start date to get the most profitable service

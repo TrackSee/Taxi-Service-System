@@ -23,14 +23,13 @@ import static ua.com.tracksee.servlets.AttributeNames.USER_ID;
 @WebServlet("/signin")
 public class SignInServlet extends HttpServlet {
     private static final int SESSION_MAX_INACTIVE_INTERVAL = 60 * 60;
-    private static final String ERROR = "error";
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(SignInServlet.class);
 
     private @EJB CustomerFacade customerFacade;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/accounts/signIn.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/customer/signIn.jsp").forward(req, resp);
     }
 
     @Override
@@ -40,29 +39,24 @@ public class SignInServlet extends HttpServlet {
             session.invalidate();
         }
         req.logout();
+
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         logger.debug("User attempts to authorise {}", email);
 
-        // for getting salt and calculating hash
+        // used to get user's salt and calculate password hash
         UserEntity user = customerFacade.getUserByLoginCredentials(email, password);
-
-        //if user wasn't activated
-        if(!user.getActivated()){
-            resp.getWriter().append(ERROR);
-            return;
-        }
-        if (user == null) {
-            resp.getWriter().append(ERROR);
-            return;
-        }
 
         // using JAAS to login
         try {
+            if (user == null) {
+                throw new ServletException("No user found with such email: " + email);
+            }
             req.login(email, user.getPassword());
         } catch (ServletException e) {
             logger.warn(e.getMessage());
-            resp.getWriter().append(ERROR);
+            resp.sendError(422);
+            return;
         }
 
         session = req.getSession(true);

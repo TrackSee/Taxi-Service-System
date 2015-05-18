@@ -1,6 +1,7 @@
 package ua.com.tracksee.dao;
 
 import ua.com.tracksee.entities.UserEntity;
+import ua.com.tracksee.enumartion.Role;
 
 import javax.ejb.Local;
 import javax.persistence.EntityManager;
@@ -37,7 +38,7 @@ public interface GroupDAO {
      * @param role - role of user {Administrator, Driver, Customer}
      * @param userId - id of user to add to group
      */
-    public int setRoleToUser(String role, Integer userId);
+    public int setRoleToUser(Role role, Integer userId);
     /**
      * This method returns all groups with name like 'name'.
      *
@@ -94,7 +95,5 @@ public interface GroupDAO {
      * @param isAdmin - is user admin, or not
      */
     public int updateUserRoles(Integer userId, boolean isDriver, boolean isAdmin);
-
-    public EntityManager getEntityManager();
 }
 

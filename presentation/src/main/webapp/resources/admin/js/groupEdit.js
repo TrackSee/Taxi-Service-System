@@ -95,6 +95,8 @@ var INPUT_NAME_MESSAGE = "Please input correct name of the group(2 - 30 characte
 var NOT_FREE_NAME_MESSAGE = "This group name is not free";
 var ASSIGN_USERS_MESSAGE = "Please assing user for group";
 
+var ID_ADMIN = 'id_admin';
+
 var pageNumber = 1;
 var pageSize = 5;
 var pageMaxNumber = 999999999;
@@ -155,10 +157,13 @@ function manageGroups(servletName1, pageNumber1, updateAction,  selectAction, se
         pageNumber = getPageNum(pageSize, pageMaxNumber, pageNumber1);
         var e = document.getElementById("groupRole");
         role = e.options[e.selectedIndex].value;
+
         $.post(servletName1, {pageSize: pageSize, pageNumber: 1, groupName : groupName,
             userEmail: $("#inputEmail").val(), ids: ids1.join(","), groupRole: role,
             updateAction : updateAction,  selectAction: selectAction,
-            selectCountAction: selectCountAction, updateRoleIds: JSON.stringify(arrUpdateRoles)}, function (responseJson) {
+            selectCountAction: selectCountAction, updateRoleIds: JSON.stringify(arrUpdateRoles),
+            id_admin: $("#id_admin").val()}, function (responseJson) {
+
             if (updateAction === UPDATE_CONSTANTS.get("REMOVE_GROUPS")) {
                 getGroups(responseJson);
                 onCansel();
@@ -188,8 +193,12 @@ function getUsers(responseJson) {
             var isDriver = value[USER_ATTRIBUTES.get('IS_DRIVER')];
             var isAdmin = value[USER_ATTRIBUTES.get('IS_ADMIN')];
 
-            rowNew.children().eq(3).html(selectRole(isDriver, currentId, 'isDriver'));
-            rowNew.children().eq(4).html(selectRole(isAdmin, currentId, 'isAdmin'));
+            var roles = selectRol(isAdmin, isDriver, currentId);
+
+            //rowNew.children().eq(3).html(selectRole(isDriver, currentId, 'isDriver'));
+            //rowNew.children().eq(4).html(selectRoleAdmin(isAdmin, currentId, isDriver));
+            rowNew.children().eq(3).html(roles[0]);
+            rowNew.children().eq(4).html(roles[1]);
 
             var currentUserGroup = value[USER_ATTRIBUTES.get('GROUP_NAME')];
             rowNew.children().eq(5).text(currentUserGroup);
@@ -216,24 +225,44 @@ function selectActionForUser(id, group) {
     }
 }
 
-function selectRole(el, id, action) {
+function selectRol(isAdmin, isDriver, id) {
+    var rez = [];
     var unselected = "<input type='checkbox' onchange='updateRolesIds(this)'>";
     var selected = "<input type='checkbox' onchange='updateRolesIds(this)' checked>";
+    var unselectedReadable = "<input type='checkbox' onchange='updateRolesIds(this)' disabled>";
+    var selectedReadable = "<input type='checkbox' onchange='updateRolesIds(this)' checked disabled>";
     for (var o in arrUpdateRoles) {
         var obj = arrUpdateRoles[o];
         if (obj['id'] == id) {
-            if (obj[action] == true) {
-                return selected;
+            if (obj['isDriver'] == true) {
+                rez.push(selected);
+                rez.push(unselectedReadable);
+            } else if(obj['isAdmin'] == true) {
+                rez.push(unselectedReadable);
+                rez.push(selected);
             } else {
-                return unselected;
+                rez.push(unselected);
+                rez.push(unselected);
             }
+            return rez;
         }
     }
-    if (el == true) {
-        return selected;
+    if ($("#id_admin").val() == id) {
+        rez.push(unselectedReadable);
+        rez.push(selectedReadable);
     } else {
-        return unselected;
+        if (isDriver == true) {
+            rez.push(selected);
+            rez.push(unselectedReadable);
+        } else if(isAdmin == true) {
+            rez.push(unselectedReadable);
+            rez.push(selected);
+        } else {
+            rez.push(unselected);
+            rez.push(unselected);
+        }
     }
+    return rez;
 }
 
 function updateRolesIds(el) {
@@ -247,6 +276,11 @@ function updateRolesIds(el) {
             obj['isDriver'] = isDriver;
         }
     }
+    var roles = selectRol(isAdmin, isDriver, id);
+    var tabl = el.parentNode.parentNode.getElementsByTagName("td");
+
+    tabl[4].innerHTML=roles[1];
+    tabl[3].innerHTML=roles[0];
 
     arrUpdateRoles.push({ id: id, isAdmin: isAdmin, isDriver: isDriver });
 }
@@ -361,7 +395,7 @@ function onCansel() {
     $("#alert-danger").hide();
     $("#groupNameInput").val('');
     $("#inputEmail").val('');
-    $("#groupRole").val('registered_customer');
+    $("#groupRole").val('none');
     userIds = [];
     arrUpdateRoles = [];
     pageNumber = 1;
@@ -403,7 +437,24 @@ function getUsersByInput() {
     //var inputStart = $('#inputEmail').val();
     //var date = new Date();
     //if (date - currentdate > DELAY) {
-        getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, inputStart, 1);
+        getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, $('#inputEmail').val(), 1);
     //}
     //currentdate = new Date();
 }
+
+$(document).ready(function () {
+    $("#userCountPage").change(function () {
+        var e = document.getElementById("userCountPage");
+        pageSize = e.options[e.selectedIndex].value;
+        getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_USERS'),
+            SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, $('#inputEmail').val(), 1);
+    });
+});
+$(document).ready(function () {
+    $("#groupCountPage").change(function () {
+        var e = document.getElementById("groupCountPage");
+        pageSize = e.options[e.selectedIndex].value;
+        getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_GROUPS'),
+            SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), pageNumber);
+    });
+});

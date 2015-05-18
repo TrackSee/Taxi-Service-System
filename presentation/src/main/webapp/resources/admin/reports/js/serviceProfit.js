@@ -1,8 +1,7 @@
 $(document).ready(function() {
-    $('#getResult').click(function(){;
+    $('#getResult').click(function(){
         var startDate = $('input[name = startDate]', '#serviceProfit').val();
         var endDate = $('input[name = endDate]', '#serviceProfit').val();
-
         $.ajax({
             type: 'POST',
             data: {startDate: startDate, endDate: endDate},
@@ -27,6 +26,12 @@ $(document).ready(function() {
                         "libs": {
                             "path": "http://www.amcharts.com/lib/3/plugins/export/libs/"
                         }
+                        ,
+                        "menu": [{
+                            "format": "XLSX",
+                            "label": "Save as XLSX",
+                            "title": "Export chart to XLSX"
+                        }]
                     }
                 } );
             }

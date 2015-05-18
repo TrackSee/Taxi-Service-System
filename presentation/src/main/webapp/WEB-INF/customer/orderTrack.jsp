@@ -5,7 +5,7 @@
   Time: 20:37
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +40,7 @@
         <!-- start: Container -->
         <div class="container">
 
-            <h2><i class="ico-settings ico-white"></i>Order tracking</h2>
+            <h2><i class="ico-settings ico-white"></i>Order tracking (tracking number: ${trackingNumber})</h2>
 
         </div>
         <!-- end: Container  -->
@@ -106,7 +106,7 @@
             <div id="panel">
                 <div class="form-group">
                     <label class="control-label">Service</label>
-                    <select class="form-control order_priority" name="service" id="service">
+                    <select class="form-control order_priority" name="service" id="service" disabled>
                         <option value="SIMPLE_TAXI"${SIMPLE_TAXI}>Simple taxi</option>
                         <option value="SOBER_DRIVER"${SOBER_DRIVER}>Service "Sober driver"</option>
                         <option value="GUEST_DELIVERY"${GUEST_DELIVERY}>Service "Guest delivery"</option>
@@ -130,17 +130,31 @@
                     <input type="hidden" id="dtp_input1" value=""/><br/>
 
                 </div>
-                <div id="endDateBlock">
-                    <label  class="sr-only">End date</label>
+                <div id="amountOfTripTimeBlock">
+                    <label>Amount time of trip</label>
+                    <div>
+                        <input type="number" id="amountOfHours" class="form-control" name="amountOfHours"
+                               placeholder="Amount of hours 8+"
+                               title="Amount of hours 8+" value="${amountOfHours}">
+                        <span class="red-star">★</span>
+                    </div>
+                    <div>
+                        <input type="number" id="amountOfMinutes" class="form-control" name="amountOfMinutes"
+                               placeholder="Amount minutes [0:60]"
+                               title="Amount of minutes [0:60]" value="${amountOfMinutes}">
+                        <span class="red-star">★</span>
+                    </div>
 
-                    <div class="controls input-append date form_datetime"
-                         data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                        <span class="add-on"><i class="icon-th"></i></span>
-                        <span class="add-on"><i class="icon-remove"></i></span>
-                        <input size="16" type="text" value="${endDate}" id="endDate" name="endDate" readonly>
-                        <input type="hidden" id="dtp_input2" value=""/><br/>
-                    </div>
-                    </div>
+                </div>
+
+                <%--TODO validation--%>
+                <div id="amountOfCarsBlock">
+                    <label>Amount of cars</label>
+                    <input type="number" id="amountOfCars" class="form-control" name="amountOfCars"
+                           placeholder="Amount of cars 5+"
+                           title="Amount of cars greater then 4" value="${amountOfCars}">
+                    <span class="red-star">★</span>
+                </div>
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>
                     <select class="form-control order_priority" name="carCategory">
