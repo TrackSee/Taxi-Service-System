@@ -44,7 +44,7 @@
 
         <!-- start: Row -->
         <div class="row">
-            <form id="form-sign-up" class="form-horizontal" method="POST" action="javascript:void(null);">
+            <form id="form-sign-up" class="form-horizontal" method="POST" action="javascript:void(null);" onsubmit="sendForm()">
                 <fieldset>
                     <div id="legend">
                         <legend><h2 class="form-sign-in-heading">Please sign up</h2></legend>
