@@ -16,7 +16,6 @@ $("#flip").click(function () {
         $('#panel').slideUp("slow");
         visibleState=false;
     }
-    //$('#flip').hide();
 });
 
 

@@ -53,7 +53,7 @@ $('#service').on('change', function () {
         meetMyGuestMessageHide();
         conveyCorporationEmployeesHide();
         amountOfCarsHide();
-        amountOfTripTimeHide();
+        amountOfTripTimeShow();
 
     } else if ($(this).val() == 'CELEBRATION_TAXI') {
         additionalOptionsShow();
@@ -67,7 +67,6 @@ $('#service').on('change', function () {
         additionalOptionsShow();
         taxiForLongTermHide();
         meetMyGuestMessageHide();
-        $('#buttonAddressOrigin').show();
         conveyCorporationEmployeesShow();
         amountOfCarsHide();
         amountOfTripTimeHide();
@@ -133,46 +132,16 @@ $('#service').on('change', function () {
 
     }
 
-
     function conveyCorporationEmployeesHide() {
         $('#buttonAddressOrigin').slideUp("slow");
+        $('#addinput').slideUp("slow");
     }
 
     function conveyCorporationEmployeesShow() {
+        $('#addinput').slideDown("slow");
         $('#buttonAddressOrigin').slideDown("slow");
-        //TODO autocreating fields
-        //var counter = 1;
-        //var limit = 100;
-        ////function addInput(divName){
-        //        var newdiv = document.createElement('div');
-        //        newdiv.innerHTML = "Entry " + (counter + 1) +
-        //        "<div class=\"form-group\"> <label>Address from</label>"+
-        //        +"<input type=\"text\" id=\"origin"+counter+"\" class=\"form-control\" value=\"\""+
-        //        +"name=\"addressOrigin"+counter+"\" title=\"That address is invalid\""+
-        //        +"required onblur=\"updateRoute()\">"+
-        //       " <span class=\"red-star\">★</span></div>";
-        //        document.getElementById(divName).appendChild(newdiv);
-        //        counter++;
-        //    if (counter == limit)  {
-        //        $('#addNextAddressFrom').slideUp();
-        //    }
-        //}
     }
 
 });
 
-//$('#buttonAddressOrigin').click(function (){
-//    alert("button");
-//    var counter = 1;
-//    if(counter==1){
-//        $('#addressOrigin1').show();
-//    }else if (counter==2){
-//        $('#addressOrigin2').show();
-//    }else if (counter==3){
-//        $('#addressOrigin3').show();
-//    }else if (counter==4){
-//        $('#addressOrigin4').show();
-//    }else if (counter==5){
-//        $('#addressOrigin5').show();
-//    }
-//});
+
