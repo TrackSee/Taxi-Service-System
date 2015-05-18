@@ -71,33 +71,33 @@
 <%--End slider--%>
 <!-- Services Section -->
 <div>
-    <h2 align="center">Services</h2>
+    <h2 align="center">Most popular services</h2>
 
     <div align="center" class="float-left">
          <span class="fa-stack fa-4x">
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                        <i class="fa fa-automobile fa-stack-1x fa-inverse"></i>
                     </span>
-        <h4 class="service-heading">E-Commerce</h4>
-        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-
-    </div>
-    <div align="center" class="float-left">
-         <span class="fa-stack fa-4x">
-                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
-                    </span>
-        <h4 class="service-heading">Responsive Design</h4>
-        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+        <h4 class="service-heading">Sober driver</h4>
+        <p class="text-muted">The term "designated driver" refers to the selection of a person who remains sober as the responsible driver of a vehicle whilst others have been allowed to drink alcoholic beverages.</p>
 
     </div>
     <div align="center" class="float-left">
          <span class="fa-stack fa-4x">
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
+                        <i class="fa fa-plane fa-stack-1x fa-inverse"></i>
                     </span>
-        <h4 class="service-heading">Web Security</h4>
-        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+        <h4 class="service-heading">Guest delivery</h4>
+        <p class="text-muted">Sometimes you can’t be there when your guests arrive at the airport. But with our company, you can be sure that your guests are getting the VIP welcoming treatment you want to provide.</p>
+
+    </div>
+    <div align="center" class="float-left">
+         <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-birthday-cake fa-stack-1x fa-inverse"></i>
+                    </span>
+        <h4 class="service-heading">Celebration taxi</h4>
+        <p class="text-muted">We provide cars for any occasions: weddings, events, party nights, birthdays, special occasions. Our drivers are well dressed and safe drivers.</p>
 
     </div>
 </div>
