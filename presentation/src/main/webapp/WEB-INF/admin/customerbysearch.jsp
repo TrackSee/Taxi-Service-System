@@ -57,7 +57,7 @@
             <c:forEach items="${requestScope.users}" var="user">
                 <tr>
                         <%--TODO add reference on DASHBOARD --%>
-                    <td><a href="user?id=${user.userId}">${user.email}</a></td>
+                    <td><a href="customerProfile?id=${user.userId}">${user.email}</a></td>
                     <td>${user.phone != null? user.phone : "-"}</td>
                     <td>${user.sex}</td>
                     <td>${user.groupName? user.groupName : "-"}</td>
@@ -84,7 +84,7 @@
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
 <%--for pagination--%>
 <%--<script src="<%=application.getContextPath()%>/resources/admin/js/search.js"></script>--%>
-<script src="<%=application.getContextPath()%>/resources/admin/js/keyupforcustomer.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/keyUpCustomer.js"></script>
 
 
 
