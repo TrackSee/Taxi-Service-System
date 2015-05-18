@@ -25,7 +25,7 @@ public class SignUpServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/accounts/signUp.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/customer/signUp.jsp").forward(req, resp);
     }
 
     private static String nullIfIsEmpty(String s) {
@@ -46,7 +46,7 @@ public class SignUpServlet extends HttpServlet {
         try {
             customerFacade.registerUser(user);
             logger.info("Successful sign up. User: {}", user.getEmail());
-            req.getRequestDispatcher("/WEB-INF/accounts/checkEmail.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/customer/checkEmail.jsp").forward(req, resp);
         } catch (RegistrationException e) {
             logger.warn(e.getMessage());
             resp.sendError(422, e.getErrorType());

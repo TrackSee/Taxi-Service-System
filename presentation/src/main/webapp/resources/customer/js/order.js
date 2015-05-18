@@ -4,6 +4,7 @@
 function calc() {
 
 }
+
 $.fn.serializeObject = function()
 {
     var o = {};
@@ -21,24 +22,26 @@ $.fn.serializeObject = function()
     return o;
 };
 
-$('#order-form').submit(function() {
-    var formData = $(this).serialize();
-    formData += '&route=' + JSON.stringify(getRouteData())
-    $.ajax({
-        type: 'POST',
-        url: getContextPath() + 'order',
-        //data: JSON.stringify($(this).serializeObject()),
-        data: formData,
-        success: function (data) {
-            if (data == "error") {
-                $.notify("Invalid data entered!", "error");
-            } else {
-                $('document').html(data);
+$(document).ready(function(){
+    $('#order-form').submit(function() {
+        var formData = $(this).serialize();
+        formData += '&route=' + JSON.stringify(getRouteData())
+        $.ajax({
+            type: 'POST',
+            url: getContextPath() + 'order',
+            //data: JSON.stringify($(this).serializeObject()),
+            data: formData,
+            success: function (data) {
+                if (data == "error") {
+                    $.notify("Invalid data entered!", "error");
+                } else {
+                    $(document).html(data);
+                }
+            },
+            error: function () {
+                $.notify("Internal server error occurred.", "warn");
             }
-        },
-        error: function (xhr, str) {
-            $.notify("Internal server error occurred.", "warn");
-        }
+        });
+        return false;
     });
-    return false;
 });
