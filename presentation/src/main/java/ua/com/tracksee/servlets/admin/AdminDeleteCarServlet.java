@@ -2,7 +2,7 @@ package ua.com.tracksee.servlets.admin;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.com.tracksee.logic.admin.AdministratorBean;
+import ua.com.tracksee.logic.facade.AdminFacade;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -20,21 +20,19 @@ public class AdminDeleteCarServlet extends HttpServlet {
 
     private static Logger logger = LogManager.getLogger();
     @EJB
-    private AdministratorBean administratorBean;
-
+    private AdminFacade adminFacade ;
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//
-//
-//        try{
-//            String carNumber = req.getParameter("carNumber");
-//            administratorBean.deleteCar(carNumber);
-//        }
-//        catch (Exception e){
-//            req.getRequestDispatcher("errorDelete").forward(req, resp);
-//            resp.setStatus(700);
-//            logger.warn("can't delelte this car");
-//        }
+        String carNumber = req.getParameter("carNumber");
+        if (carNumber == null) {
+            logger.warn("carNumber can't be null");
+            throw new IllegalArgumentException("CarNumber can't be null");
+        }
+        try {
+            adminFacade.deleteCar(carNumber);
+        } catch (Exception e) {
+            System.out.println("SQL exception!!!");
+            resp.setStatus(500);
+        }
+}
 
     }
-
-}

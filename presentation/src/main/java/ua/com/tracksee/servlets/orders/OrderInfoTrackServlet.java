@@ -25,15 +25,15 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("pageName", "orderInfo");
-        System.out.println(req.getParameter("trackingNumber"));
         req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req,resp);
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
 
-            long trackingNumber = Long.parseLong(req.getParameter(TRACKING_NUMBER_ALIAS));
 
+            long trackingNumber = Long.parseLong(req.getParameter(TRACKING_NUMBER_ALIAS));
+            // TODO checking user status authorise or not
             if (orderFacade.checkOrderPresent(trackingNumber)) {
                 TaxiOrderEntity taxiOrderEntity = orderFacade.getOrderInfo(trackingNumber);
                 UserEntity userEntity = orderFacade.getUserInfo(taxiOrderEntity.getUserId());
@@ -47,12 +47,9 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
                 req.setAttribute(ARRIVE_DATE_ALIAS, orderFacade.convertDateForShow(taxiOrderEntity.getArriveDate()));
                 // TODO getting from db amount of cars, hours, minutes
 
-                req.setAttribute(DESCRIPTION_ALIAS, taxiOrderEntity.getDescription());
-                if (taxiOrderEntity.getComment() != null) {
-                    req.setAttribute(COMMENTS_ALIAS, taxiOrderEntity.getComment());
-                    req.setAttribute(COMMENTS_STATE_ALIAS, DISABLE);
-                    req.setAttribute(BUTTON_COMMENTS_HIDE_ALIAS, HIDE);
-                }
+                req.setAttribute(AMOUNT_OF_CARS_ALIAS, req.getParameter(AMOUNT_OF_CARS_ALIAS));
+                req.setAttribute(AMOUNT_OF_HOURS_ALIAS,req.getParameter(AMOUNT_OF_HOURS_ALIAS));
+                req.setAttribute(AMOUNT_OF_MINUTES_ALIAS,req.getParameter(AMOUNT_OF_MINUTES_ALIAS));
 
                 req.setAttribute(orderFacade.getFromEnumWayOfPayment(taxiOrderEntity.getWayOfPayment()), OPTION_SELECTED);
                 req.setAttribute(orderFacade.getFromEnumService(taxiOrderEntity.getService()), OPTION_SELECTED);
@@ -72,14 +69,23 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
                 if (taxiOrderEntity.getAirConditioner()) {
                     req.setAttribute(AIR_CONDITIONER_ALIAS, CHECKBOX_CHECKED);
                 }
+                req.setAttribute(DESCRIPTION_ALIAS, taxiOrderEntity.getDescription());
+
+                if (taxiOrderEntity.getComment() != null) {
+                    req.setAttribute(COMMENTS_ALIAS, taxiOrderEntity.getComment());
+                    req.setAttribute(COMMENTS_STATE_ALIAS, DISABLE);
+                    req.setAttribute(BUTTON_COMMENTS_HIDE_ALIAS, HIDE);
+                }
+
                 if (taxiOrderEntity.getStatus() == OrderStatus.REFUSED ||
                         taxiOrderEntity.getStatus() == OrderStatus.COMPLETED) {
-
                     req.getRequestDispatcher(ORDER_TRACK_COMPLETE_PAGE).forward(req, resp);
                 } else {
                     req.getRequestDispatcher(ORDER_TRACK_PAGE).forward(req, resp);
                 }
             } else {
+                req.setAttribute(NON_EXIST_TRACKING_NUMBER_WARNING,
+                        orderFacade.getSuccessAlert(NON_EXIST_TRACKING_NUMBER_WARNING_MESSAGE));
                 req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
             }
         }catch (NumberFormatException e){

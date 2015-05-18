@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     $('.pageLi1').addClass('active');
     var pageButton = $('.pageButton').click(function(event){
         var pageNumber = this.innerHTML;
@@ -27,7 +28,7 @@ $(document).ready(function() {
                         rows[i].children[6].innerHTML = carsArray[i].freeWifi == true ? "+" : "-";
                         rows[i].children[7].innerHTML = carsArray[i].airConditioner == true ? "+" : "-";
                         rows[i].children[8].innerHTML = '<a href="updatecar?carNumber=' + carsArray[i].carNumber + '">'+ "Edit" +'</a>';
-                        rows[i].children[9].innerHTML = '<a href="deletecar?carNumber=' + carsArray[i].carNumber + '">'+ "Delete" +'</a>';
+                        rows[i].children[9].innerHTML = '<button class="'+carsArray[i].carNumber+'" type="button"><a href="deletecar?carNumber=' + carsArray[i].carNumber + '">'+ "Delete" +'</button></a>';
                     } else {
                         rows[i].style.display = 'none';
                     }

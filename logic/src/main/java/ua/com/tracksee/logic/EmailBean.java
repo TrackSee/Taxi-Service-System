@@ -3,6 +3,7 @@ package ua.com.tracksee.logic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
+import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.TaxiOrderItemEntity;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.mailsender.MailSender;
@@ -46,8 +47,11 @@ public class EmailBean {
     private static final String CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_PATH = CONFIG_LOCATION + "changing_to-from-queued-to-updated.ftl";
     private static final String CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_SUBJECT_PROP_NAME = "TrackSee Order Updated";
 
-    private  final String CONFIRMATION_TEMP_PATH = CONFIG_LOCATION + "confirmation_template.ftl";
+    private static final String CONFIRMATION_TEMP_PATH = CONFIG_LOCATION + "confirmation_template.ftl";
     private static final String CONFIRMATION_TEMP_SUBJECT_PROP_NAME = "TrackSee Order Confirmation";
+
+    private static final String CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_BY_DRIVER_TEMP_PATH = CONFIG_LOCATION + "changing_to_refused_by_driver.ftl";
+    private static final String CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_BY_DRIVER_TEMP_SUBJECT_PROP_NAME = "TrackSee Order Refused";
 
 
     private
@@ -71,7 +75,8 @@ public class EmailBean {
         data.put("website_short", WEBSITE_SHORT);
         data.put("userCode", userCode);
         try {
-            sender.sendTemplatedEmail(email, REGISTRATION_SUBJECT_TEMP_PROP_NAME, REGISTRATION_TEMP_PATH, data);
+            sender.sendTemplatedEmail(email, REGISTRATION_SUBJECT_TEMP_PROP_NAME,
+                    REGISTRATION_TEMP_PATH, data);
         } catch (MessagingException e) {
             logger.warn("Sending email to {} failed. Message: {}", email, e.getMessage());
         }
@@ -80,18 +85,16 @@ public class EmailBean {
     /**
      * @param user
      */
-    @Asynchronous
     public void sendBlockingUserEmail(UserEntity user) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
-        sender.sendTemplatedEmail(user.getEmail(), BLOCKING_ACCOUNT_SUBJECT_TEMP_PROP_NAME, BLOCKING_ACCOUNT_TEMP_PATH, data);
+        sender.sendTemplatedEmail(user.getEmail(), BLOCKING_ACCOUNT_SUBJECT_TEMP_PROP_NAME,
+                BLOCKING_ACCOUNT_TEMP_PATH, data);
     }
 
     /**
      * @param order
      */
-
-    @Asynchronous
     public void sendChangingTOFromAssignedToInProgress(TaxiOrderItemEntity order) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
@@ -114,7 +117,8 @@ public class EmailBean {
         data.put("trackingNumber", order.getTaxiOrder().getTrackingNumber());
         data.put("registrationURL", REGISTRATION_URL);
 
-        sender.sendTemplatedEmail(userDAO.getUserById(order.getTaxiOrder().getUserId()).getEmail(), CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_SUBJECT_TEMP_PROP_NAME,
+        sender.sendTemplatedEmail(userDAO.getUserById(order.getTaxiOrder().getUserId()).getEmail(),
+                CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_SUBJECT_TEMP_PROP_NAME,
                 CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_TEMP_PATH, data);
     }
 
@@ -122,13 +126,13 @@ public class EmailBean {
     /**
      * @param order
      */
-    @Asynchronous
     public void sendChangingTOFromAssignedToRefused(TaxiOrderItemEntity order) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
         data.put("trackingNumber", order.getTaxiOrder().getTrackingNumber());
 
-        sender.sendTemplatedEmail(userDAO.getUserById(order.getTaxiOrder().getUserId()).getEmail(), CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_SUBJECT_TEMP_PROP_NAME,
+        sender.sendTemplatedEmail(userDAO.getUserById(order.getTaxiOrder().getUserId()).getEmail(),
+                CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_SUBJECT_TEMP_PROP_NAME,
                 CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_TEMP_PATH, data);
     }
 
@@ -137,7 +141,6 @@ public class EmailBean {
      * @param order
      * @throws MessagingException
      */
-    @Asynchronous
     public void sendChangingTOFromQueuedToUpdated(TaxiOrderItemEntity order) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
@@ -149,7 +152,8 @@ public class EmailBean {
         data.put("smoking", order.getTaxiOrder().getNonSmokingDriver() ? "yes" : "no");
         data.put("music", order.getTaxiOrder().getMusicStyle());
         List<String> driverEmails = userDAO.getDriversEmails();
-        sender.sendTemplatedEmail(driverEmails, CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_SUBJECT_PROP_NAME, CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_PATH, data);
+        sender.sendTemplatedEmail(driverEmails, CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_SUBJECT_PROP_NAME,
+                CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_PATH, data);
     }
 
     /**
@@ -164,17 +168,20 @@ public class EmailBean {
             data.put("userCode", trackingNumber);
             data.put("website_short", WEBSITE_SHORT);
             data.put("website_full", WEBSITE_FULL);
-            sender.sendTemplatedEmail(user.getEmail(), CONFIRMATION_TEMP_SUBJECT_PROP_NAME, CONFIRMATION_TEMP_PATH, data);
+            sender.sendTemplatedEmail(user.getEmail(), CONFIRMATION_TEMP_SUBJECT_PROP_NAME,
+                    CONFIRMATION_TEMP_PATH, data);
             logger.debug("Order confirmation email sent successfully to {}", user.getEmail());
         } catch (MessagingException e) {
             logger.warn("Order confirmation email sending to {} failed", user.getEmail());
         }
     }
 
-//    @Asynchronous
-//    public void sendChangingTOFromAssignedToRefusedMadeByDriver(TaxiOrderEntity order) throws MessagingException {
-//        //TODO this is not empty and does something.
-//        // Can we use here TaxiOrderEntity instead of TaxiOrderItemEntity, please?
-//    }
-
+    public void sendChangingTOFromAssignedToRefusedMadeByDriver(TaxiOrderEntity order) throws MessagingException {
+        Map<String, Object> data = new HashMap<String, Object>();
+                data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
+        data.put("trackingNumber", order.getTrackingNumber());
+        sender.sendTemplatedEmail(userDAO.getUserById(order.getUserId()).getEmail(),
+                CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_BY_DRIVER_TEMP_SUBJECT_PROP_NAME,
+                CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_BY_DRIVER_TEMP_PATH,  data);
+    }
 }

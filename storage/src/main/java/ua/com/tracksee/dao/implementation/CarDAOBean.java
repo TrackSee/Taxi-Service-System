@@ -61,11 +61,11 @@ public class CarDAOBean implements CarDAO {
 
     @Override
     public void deleteCar(String carNumber) {
-//        if(carNumber == null){
-////            logger.warn("carNumber can't be Null");
-////            throw new IllegalArgumentException("carId can't be <= 0");
-//            return;
-//        }
+        if(carNumber == null){
+//            logger.warn("carNumber can't be Null");
+//            throw new IllegalArgumentException("carId can't be <= 0");
+            return;
+        }
         String sql = "DELETE from car " +
                 "where car_number = ?1";
         Query query = entityManager.createNativeQuery(sql);

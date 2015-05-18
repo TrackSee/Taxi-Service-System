@@ -24,6 +24,8 @@ public class GroupCountServlet extends HttpServlet implements GroupConstants{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         String groupName = req.getParameter(GROUP_NAME_ALIAS);
         String userEmail = req.getParameter(USER_EMAIL_ALIAS);
 
@@ -33,7 +35,6 @@ public class GroupCountServlet extends HttpServlet implements GroupConstants{
         Integer count = adminFacade.groupExecuteSelectCount(selectCountAction, groupName, userEmail);
 
         String json = "[{\"count\":" + count + "}]";
-        System.out.println(json);
         resp.setContentType("application/json");
         resp.getWriter().print(json);
     }

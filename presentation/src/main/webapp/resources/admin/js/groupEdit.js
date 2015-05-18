@@ -395,7 +395,7 @@ function onCansel() {
     $("#alert-danger").hide();
     $("#groupNameInput").val('');
     $("#inputEmail").val('');
-    $("#groupRole").val('registered_customer');
+    $("#groupRole").val('none');
     userIds = [];
     arrUpdateRoles = [];
     pageNumber = 1;
@@ -441,3 +441,20 @@ function getUsersByInput() {
     //}
     //currentdate = new Date();
 }
+
+$(document).ready(function () {
+    $("#userCountPage").change(function () {
+        var e = document.getElementById("userCountPage");
+        pageSize = e.options[e.selectedIndex].value;
+        getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_USERS'),
+            SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, $('#inputEmail').val(), 1);
+    });
+});
+$(document).ready(function () {
+    $("#groupCountPage").change(function () {
+        var e = document.getElementById("groupCountPage");
+        pageSize = e.options[e.selectedIndex].value;
+        getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_GROUPS'),
+            SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), pageNumber);
+    });
+});

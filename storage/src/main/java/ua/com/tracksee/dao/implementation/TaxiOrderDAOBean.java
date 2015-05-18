@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.*;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -483,10 +482,9 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     @Override
     public void setCompletedOrder(int trackingNumber) {
         Date completedOrderDate = new Date();
-        String sql = "UPDATE taxi_order SET status = 'COMPLETED', end_date = ? WHERE tracking_number = ?";
+        String sql = "UPDATE taxi_order SET status = 'COMPLETED' WHERE tracking_number = ?";
         Query query = entityManager.createNativeQuery(sql);
-        query.setParameter(1, completedOrderDate);
-        query.setParameter(2, trackingNumber);
+        query.setParameter(1, trackingNumber);
         query.executeUpdate();
     }
 

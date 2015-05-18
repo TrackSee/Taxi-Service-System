@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <html>
 
 <head>
@@ -25,6 +25,8 @@
           rel="stylesheet">
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
           rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/admin/css/formStyle.css" rel="stylesheet">
+
 
     <!-- MetisMenu CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"
@@ -52,7 +54,7 @@
 
 <div id="wrapper">
     <jsp:include page="adminHeader.jsp"/>
-
+</div>
     <div id="page-wrapper">
         <form class="create-car" id="createCar" action="<c:url value="/admin/createcar"/>" method="post">
             <h2 class="form-sign-up-heading">Please enter cars data</h2>
@@ -92,7 +94,7 @@
                 <button id="addCar" type="button" class="btn btn-primary">Create</button>
             </div>
     </div>
-</div>
+
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin//bower_components/jquery/dist/jquery.validate.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

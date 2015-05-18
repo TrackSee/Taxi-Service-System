@@ -1,11 +1,11 @@
 /**
  * Created by Ruslan Gunavardana
  */
-$('#form-sign-in').submit(function(){
+function sendForm() {
     $.ajax({
         type: 'POST',
         url: getContextPath() + 'signin',
-        data: $(this).serialize(),
+        data: $('#form-sign-in').serialize(),
         success: function () {
             window.location.replace('.');
         },
@@ -18,4 +18,4 @@ $('#form-sign-in').submit(function(){
             }
         }
     });
-});
+}
