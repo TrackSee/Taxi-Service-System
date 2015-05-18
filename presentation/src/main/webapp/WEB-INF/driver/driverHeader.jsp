@@ -7,8 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script>function getContextPath() { return '${pageContext.request.contextPath}/'; }</script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/sign-out.js"></script>
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
   <div class="navbar-header">
@@ -44,7 +42,7 @@
       </ul>
         <%--Logout from page--%>
       <li id="signout">
-        <a href="/TaxiService" onclick="signOut()"><i class="fa fa-sign-out fa-fw"></i> Sign out</a>
+        <a href="#" id="sign-out-button"><i class="fa fa-sign-out fa-fw"></i> Sign out</a>
       </li>
       </ul>
     </div>

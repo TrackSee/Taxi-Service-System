@@ -92,7 +92,7 @@
                 <li><a href="<%=application.getContextPath()%>/admin/groups">Groups and roles</a> </li>
                 <li><a href="<%=application.getContextPath()%>/order"><i class="fa fa-sign-out fa-fw"></i>Main Page</a></li>
                 <%--Logout from page--%>
-                <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                <li><a id="sign-out-button" href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

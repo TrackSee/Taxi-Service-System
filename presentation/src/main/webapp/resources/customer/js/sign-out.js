@@ -16,7 +16,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     function updateHeader() {
-        if (window.location.href.search('customerProfile') != -1) {
+        if (window.location.href.search('customer') != -1 ||
+            window.location.href.search('admin')    != -1 ||
+            window.location.href.search('driver')   != -1)
+        {
             window.location.href = getContextPath();
         } else {
             $('#signout').remove();

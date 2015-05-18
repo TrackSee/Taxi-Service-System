@@ -24,3 +24,6 @@
 <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script>function getContextPath() { return '${pageContext.request.contextPath}/'; }</script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/sign-out.js"></script>

@@ -86,5 +86,3 @@
 </header>
 <!--end: Header-->
 
-<script>function getContextPath() { return '${pageContext.request.contextPath}/'; }</script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/sign-out.js"></script>
