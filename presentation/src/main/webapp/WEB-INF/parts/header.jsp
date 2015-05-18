@@ -66,7 +66,7 @@
                                         <li id="customerProfile"
                                                 <c:if test="${pageScope.uri.endsWith('/customerProfile.jsp')}">
                                             class="active"</c:if>>
-                                            <a href="<c:url value="/customer/profile"/>">Client Dashboard</a>
+                                            <a href="<c:url value="/customer"/>">Client Dashboard</a>
                                         </li>
                                         <li id="signout">
                                             <a id="sign-out-button" href="<c:url value="#"/>">Sign out</a>
