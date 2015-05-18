@@ -85,9 +85,6 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
             inputData.put(PHONE_NUMBER_ALIAS, req.getParameter(PHONE_NUMBER_ALIAS));
             inputData.put(EMAIL_ALIAS, req.getParameter(EMAIL_ALIAS));
 
-            inputData.put(ADDRESS_ORIGIN_ALIAS, req.getParameter(ADDRESS_ORIGIN_ALIAS));
-            inputData.put(ADDRESS_DESTINATION_ALIAS, req.getParameter(ADDRESS_DESTINATION_ALIAS));
-
             inputData.put(ORDER_STATUS_ALIAS, ORDER_STATUS_VALUE_QUEUED);
             inputData.put(AMOUNT_OF_CARS_ALIAS,req.getParameter(AMOUNT_OF_CARS_ALIAS));
             inputData.put(AMOUNT_OF_HOURS_ALIAS,req.getParameter(AMOUNT_OF_HOURS_ALIAS));
@@ -113,7 +110,7 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
                 Long trackingNumber = orderFacade.makeOrder(inputData);
                 req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
                 req.setAttribute(ORDER_SUCCESS, orderFacade.getSuccessAlert(ORDER_SUCCESS_MESSAGE + trackingNumber
-                        + ORDER_SUCCESS_TRACK_BUTTON));
+                        +ORDER_SUCCESS_TRACK_BUTTON));
                 req.setAttribute(HIDE_ORDER_TRACK, HIDE);
             }
             req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
