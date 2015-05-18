@@ -4,6 +4,11 @@
 
 <footer>
     <div class="navbar-fixed-bottom back_color">
-        <p class="text-muted" align="right"><span class="copyright">&copy; TrackSee 2015. All Rights Reserved    </span></p>
+        <p class="text-muted" align="right"><span class="copyright">
+            &copy; TrackSee 2015.
+            <a href="https://github.com/TrackSee">GitHub</a>
+           <span style='padding-left:30px;'> </span> </span>
+        </p>
+
     </div>
 </footer>
