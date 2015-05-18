@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.UserEntity;
-import ua.com.tracksee.logic.admin.AdministratorBean;
+import ua.com.tracksee.logic.facade.AdminFacade;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -27,12 +27,12 @@ public class AdminUpdateDriverServlet extends HttpServlet {
 
     private Integer id;
     @EJB
-    private AdministratorBean administratorBean;
+    private AdminFacade adminFacade ;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         id = Integer.parseInt(req.getParameter(userId));
-        req.setAttribute(driver, administratorBean.getDriverByID(id));
+        req.setAttribute(driver, adminFacade.getDriverByID(id));
         req.getRequestDispatcher("/WEB-INF/admin/adminUpdateDriver.jsp").forward(req, resp);
     }
 
@@ -43,7 +43,7 @@ public class AdminUpdateDriverServlet extends HttpServlet {
         UserEntity user = mapper.readValue(data, UserEntity.class);
         user.setUserId(id);
         user.setDriver(true);
-        administratorBean.updateUser(user);
+        adminFacade.updateUser(user);
     }
 
     private String getData(HttpServletRequest req) {

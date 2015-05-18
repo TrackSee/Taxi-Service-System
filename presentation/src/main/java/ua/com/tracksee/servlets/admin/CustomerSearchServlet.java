@@ -2,7 +2,7 @@ package ua.com.tracksee.servlets.admin;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.UserEntity;
-import ua.com.tracksee.logic.admin.AdministratorBean;
+import ua.com.tracksee.logic.facade.AdminFacade;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -22,7 +22,7 @@ public class CustomerSearchServlet extends HttpServlet {
     private static final String email= "email";
 
     @EJB
-    private AdministratorBean administratorBean;
+    private AdminFacade adminFacade;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,7 +33,7 @@ public class CustomerSearchServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userEmail = req.getParameter(email);
         req.setAttribute(email, userEmail);
-        List<UserEntity> userList = administratorBean.getCustomersByEmail(userEmail);
+        List<UserEntity> userList = adminFacade.getCustomersByEmail(userEmail);
         req.setAttribute(users, userList);
         resp.getWriter().write(getJsonFromList(userList));
     }

@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.CarEntity;
-import ua.com.tracksee.logic.admin.AdministratorBean;
+import ua.com.tracksee.logic.facade.AdminFacade;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -23,12 +23,12 @@ public class AdminCarServlet extends HttpServlet {
 
     private static Logger logger = LogManager.getLogger();
     @EJB
-    private AdministratorBean administratorBean;
+    private AdminFacade adminFacade ;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<CarEntity> cars = administratorBean.getCarsPart(1);
+        List<CarEntity> cars = adminFacade.getCarsPart(1);
         req.setAttribute("cars", cars);
-        req.setAttribute("pagesCount", administratorBean.getCarPagesCount());
+        req.setAttribute("pagesCount", adminFacade.getCarPagesCount());
         req.getRequestDispatcher("/WEB-INF/admin/adminCarList.jsp").forward(req, resp);
     }
 
@@ -36,7 +36,7 @@ public class AdminCarServlet extends HttpServlet {
         Integer pageNumber = null;
         try {
             pageNumber = Integer.parseInt(req.getParameter("pageNumber"));
-            if(pageNumber > administratorBean.getCarPagesCount()){
+            if(pageNumber > adminFacade.getCarPagesCount()){
                 pageNumber = 1;
                 logger.warn("wrong page was request on /admin/cars");
             }
@@ -44,9 +44,9 @@ public class AdminCarServlet extends HttpServlet {
             pageNumber = 1;
             logger.warn("wrong page was request on /admin/drivers");
         }
-        List<CarEntity> cars = administratorBean.getCarsPart(pageNumber);
+        List<CarEntity> cars = adminFacade.getCarsPart(pageNumber);
         req.setAttribute("cars", cars);
-        req.setAttribute("pagesCount", administratorBean.getCarPagesCount());
+        req.setAttribute("pagesCount", adminFacade.getCarPagesCount());
         resp.getWriter().write(getJsonFromList(cars));
     }
 

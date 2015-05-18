@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.CarEntity;
-import ua.com.tracksee.logic.admin.AdministratorBean;
+import ua.com.tracksee.logic.facade.AdminFacade;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -26,12 +26,12 @@ public class AdminUpdateCarServlet extends HttpServlet {
     private static String car = "car";
     private String carNumb;
     @EJB
-    private AdministratorBean administratorBean;
+    private AdminFacade adminFacade ;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         carNumb = req.getParameter(carNumber);
-        req.setAttribute(car, administratorBean.getCarByNumber(carNumb));
+        req.setAttribute(car, adminFacade.getCarByNumber(carNumb));
         req.getRequestDispatcher("/WEB-INF/admin/adminUpdateCar.jsp").forward(req, resp);
     }
 
@@ -41,7 +41,7 @@ public class AdminUpdateCarServlet extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
         CarEntity car = mapper.readValue(data, CarEntity.class);
         car.setCarNumber(carNumb);
-        administratorBean.updateCar(car);
+        adminFacade.updateCar(car);
     }
 
     private String getData(HttpServletRequest req) {

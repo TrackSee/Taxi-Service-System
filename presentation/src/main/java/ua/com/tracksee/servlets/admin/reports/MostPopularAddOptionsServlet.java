@@ -9,6 +9,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.MostPopularOption;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.admin.AdministratorBean;
+import ua.com.tracksee.logic.facade.AdminFacade;
+import ua.com.tracksee.logic.facade.ReportFacade;
 import ua.com.tracksee.logic.reports.ReportChartBean;
 
 import javax.ejb.EJB;
@@ -27,21 +29,21 @@ public class MostPopularAddOptionsServlet extends HttpServlet {
     private String idUser = "userId";
     private String optionList = "listOptions";
     @EJB
-    private AdministratorBean administratorBean;
+    private AdminFacade adminFacade;
 
     @EJB
-    private ReportChartBean reportChartBean;
+    private ReportFacade reportFacade;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<UserEntity> userList = administratorBean.getUsers();
+        List<UserEntity> userList = adminFacade.getUsers();
         request.setAttribute(users, userList);
         request.getRequestDispatcher("/WEB-INF/report/popularOptions.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer userId = Integer.parseInt(request.getParameter(idUser));
-        List<MostPopularOption> listOptions = reportChartBean.getMostPopularOptionsForUser(userId);
+        List<MostPopularOption> listOptions = reportFacade.getMostPopularOptionsForUser(userId);
         request.setAttribute(optionList, listOptions);
         response.getWriter().write(getJsonFromList(listOptions));
     }

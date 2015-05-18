@@ -53,7 +53,7 @@
 <div id="wrapper">
     <jsp:include page="adminHeader.jsp"/>
 </div>
-<div class="container" style=" width : 500px; ">
+<div class="container"  style=" width : 500px; ">
 
     <form class="create-driver" id="createDriver" action="<c:url value="/admin/createdriver"/>" method="post">
         <h2 class="form-sign-up-heading">Please enter drivers data</h2>
