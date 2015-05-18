@@ -21,6 +21,9 @@ public class AssignCarToDriverServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String carNumber = request.getParameter("car");
+        if("no car".equals(carNumber)){
+            carNumber = null;
+        }
         Integer driverID = Integer.parseInt(request.getParameter("driver"));
         administratorBean.assignCar(carNumber, driverID);
         response.setStatus(200);

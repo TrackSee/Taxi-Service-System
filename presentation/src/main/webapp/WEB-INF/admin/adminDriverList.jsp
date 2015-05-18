@@ -6,7 +6,7 @@
 --%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,16 +59,12 @@
                 <th>Group Name</th>
             </tr>
             </thead>
-            <tbody id="table-body">
-            <c:forEach items="${requestScope.drivers}" var="driver">
-                <tr>
+            <tbody id="table-body"><c:forEach items="${requestScope.drivers}" var="driver"><tr>
                     <td><a href="driver?id=${driver.userId}">${driver.email}</a></td>
                     <td>${driver.phone != null? driver.phone : "-"}</td>
                     <td>${driver.sex}</td>
                     <td>${driver.groupName? driver.groupName : "-"}</td>
-                </tr>
-            </c:forEach>
-            </tbody>
+                </tr></c:forEach></tbody>
         </table>
         <div class="text-center">
             <ul class="pagination">

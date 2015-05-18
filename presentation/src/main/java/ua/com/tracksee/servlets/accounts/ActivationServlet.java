@@ -24,6 +24,7 @@ public class ActivationServlet extends HttpServlet {
             customerFacade.activateUser(req.getParameter("code"));
         } catch (RegistrationException e) {
             req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req,resp);
+            return;
         }
         req.getRequestDispatcher("/WEB-INF/accounts/activationSuccess.jsp").forward(req,resp);
     }

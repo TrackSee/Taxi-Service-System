@@ -76,13 +76,13 @@ public class AccountManagementBeanTest {
 
     @Test(expected = RegistrationException.class)
     public void testRegisterBadCustomerUser() throws Exception {
-        accountManagementBean.registerCustomerUser("badmail@", "nonsecurepassword", null);
+        accountManagementBean.registerCustomerUser(new UserEntity("badmail@", "nonsecurepassword", null, null, null));
     }
 
     @Test
     public void testRegisterGoodCustomerUser() throws Exception {
         clearUserIfExists(TEST_EMAIL);
-        accountManagementBean.registerCustomerUser(TEST_EMAIL, TEST_PASSWORD, TEST_PHONE);
+        accountManagementBean.registerCustomerUser(new UserEntity(TEST_EMAIL, TEST_PASSWORD, TEST_PHONE, null, null));
         UserEntity newUser = userDAO.getUserByEmail(TEST_EMAIL);
         assertFalse(newUser.getActivated());
         userDAO.deleteUser(newUser.getUserId());
@@ -94,7 +94,7 @@ public class AccountManagementBeanTest {
         UserEntity activatedUser;
 
         clearUserIfExists(TEST_EMAIL);
-        accountManagementBean.registerCustomerUser(TEST_EMAIL, TEST_PASSWORD, TEST_PHONE);
+        accountManagementBean.registerCustomerUser(new UserEntity(TEST_EMAIL, TEST_PASSWORD, TEST_PHONE, null, null));
         unactivatedUser = userDAO.getUserByEmail(TEST_EMAIL);
         assertFalse(unactivatedUser.getActivated());
 

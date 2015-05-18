@@ -7,12 +7,12 @@ import java.util.Objects;
  */
 public class FavoritePlaceDTO {
     private String name;
-    private LocationDTO location;
+    private Location location;
 
     public FavoritePlaceDTO() {
     }
 
-    public FavoritePlaceDTO(String name, LocationDTO location) {
+    public FavoritePlaceDTO(String name, Location location) {
         this.name = name;
         this.location = location;
     }
@@ -25,11 +25,11 @@ public class FavoritePlaceDTO {
         this.name = name;
     }
 
-    public LocationDTO getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(LocationDTO location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 

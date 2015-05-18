@@ -9,7 +9,7 @@ import org.joda.time.LocalDateTime;
  * @author Ruslan Gunavardana
  */
 public class TaxiOrderDTO {
-    private PathDTO[] routes;
+    private Route[] routes;
     private String service;
     private LocalDateTime orderDate;
 
@@ -35,11 +35,11 @@ public class TaxiOrderDTO {
      *
      * @return
      */
-    public PathDTO[] getRoutes() {
+    public Route[] getRoutes() {
         return routes;
     }
 
-    public void setRoutes(PathDTO[] routes) {
+    public void setRoutes(Route[] routes) {
         this.routes = routes;
     }
 

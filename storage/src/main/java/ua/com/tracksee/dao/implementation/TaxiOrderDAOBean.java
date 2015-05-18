@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.*;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -56,9 +55,8 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         List<TaxiOrderItemEntity> itemList = order.getItemList();
         StringBuilder sql = new StringBuilder("INSERT INTO taxi_order " +
                 "(description,status,price,user_id,service,car_category,way_of_payment,driver_sex," +
-                "music_style,animal_transportation,free_wifi,non_smoking_driver,air_conditioner," +
-                "ordered_date,amount_of_cars,amount_of_hours,amount_of_minutes) " +
-                "VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17) RETURNING tracking_number; ");
+                "music_style,animal_transportation,free_wifi,non_smoking_driver,air_conditioner,ordered_date) " +
+                "VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14) RETURNING tracking_number; ");
 
         for (int i = 0; i < itemList.size(); i++) {
             sql.append("INSERT INTO taxi_order_item" +
@@ -80,9 +78,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(12, order.getNonSmokingDriver());
         query.setParameter(13, order.getAirConditioner());
         query.setParameter(14, order.getOrderedDate());
-        query.setParameter(15, order.getAmountOfCars());
-        query.setParameter(16, order.getAmountOfHours());
-        query.setParameter(17, order.getAmountOfMinutes());
+
 
         int i = 14; // should be incremented before use
         for (TaxiOrderItemEntity item : itemList) {
@@ -154,12 +150,23 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     }
 
     @Override
-    public void addEndDate(Timestamp endDate, long trackingNumber) {
-        String sql = "UPDATE taxi_order SET end_date=(?1) WHERE tracking_number=(?2)";
+    public void addCelebrationTaxiParam(int amountOfCars, long trackingNumber){
+        String sql = "UPDATE taxi_order SET amount_of_cars=(?1) WHERE tracking_number=(?2)";
 
         Query query = entityManager.createNativeQuery(sql);
-        query.setParameter(1, endDate);
+        query.setParameter(1, amountOfCars);
         query.setParameter(2, trackingNumber);
+        query.executeUpdate();
+    }
+    @Override
+    public void addLongTermTaxiParams(int amountOfHours,int amountOfMinutes, long trackingNumber){
+        String sql = "UPDATE taxi_order SET amount_of_hours=(?1)," +
+                "amount_of_minutes=(?2) WHERE tracking_number=(?3)";
+
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1, amountOfHours);
+        query.setParameter(2, amountOfMinutes);
+        query.setParameter(3, trackingNumber);
         query.executeUpdate();
     }
 
@@ -475,10 +482,9 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     @Override
     public void setCompletedOrder(int trackingNumber) {
         Date completedOrderDate = new Date();
-        String sql = "UPDATE taxi_order SET status = 'COMPLETED', end_date = ? WHERE tracking_number = ?";
+        String sql = "UPDATE taxi_order SET status = 'COMPLETED' WHERE tracking_number = ?";
         Query query = entityManager.createNativeQuery(sql);
-        query.setParameter(1, completedOrderDate);
-        query.setParameter(2, trackingNumber);
+        query.setParameter(1, trackingNumber);
         query.executeUpdate();
     }
 

@@ -4,14 +4,14 @@ import ua.com.tracksee.dao.FavoritePlaceDAO;
 import ua.com.tracksee.entities.FavoritePlaceEntity;
 import ua.com.tracksee.entities.FavoritePlaceEntityPK;
 import ua.com.tracksee.json.FavoritePlaceDTO;
-import ua.com.tracksee.json.LocationDTO;
+import ua.com.tracksee.json.Location;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.com.tracksee.util.GeometryConverter.toLocationDTO;
+import static ua.com.tracksee.util.GeometryConverter.toLocation;
 import static ua.com.tracksee.util.GeometryConverter.toPoint;
 
 /**
@@ -31,8 +31,8 @@ public class FavoritePlacesBean {
 
         // filling dtoList
         for (FavoritePlaceEntity entity : entities) {
-            LocationDTO locationDTO = toLocationDTO(entity.getLocation());
-            FavoritePlaceDTO placeDTO = new FavoritePlaceDTO(entity.getName(), locationDTO);
+            Location location = toLocation(entity.getLocation());
+            FavoritePlaceDTO placeDTO = new FavoritePlaceDTO(entity.getName(), location);
             dtoList.add(placeDTO);
         }
 
@@ -48,7 +48,7 @@ public class FavoritePlacesBean {
      */
     public boolean addFavoritePlaceFor(Integer userId, FavoritePlaceDTO favoritePlaceDto) {
         String name = favoritePlaceDto.getName();
-        LocationDTO loc = favoritePlaceDto.getLocation();
+        Location loc = favoritePlaceDto.getLocation();
         return favoritePlaceDAO.addAddress(new FavoritePlaceEntity(name, userId, toPoint(loc)));
     }
 
@@ -72,7 +72,7 @@ public class FavoritePlacesBean {
      * @return true if successfully updated, false if not
      */
     public boolean updateFavoritePlaceFor(Integer userId, String oldName, FavoritePlaceDTO newData) {
-        LocationDTO loc = newData.getLocation();
+        Location loc = newData.getLocation();
         FavoritePlaceEntity newEntity = new FavoritePlaceEntity(newData.getName(), userId, toPoint(loc));
         return favoritePlaceDAO.updateAddress(new FavoritePlaceEntityPK(oldName, userId), newEntity);
     }

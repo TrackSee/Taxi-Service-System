@@ -62,10 +62,10 @@ public class CustomerFacade {
     }
 
     /** Registers new account with the specified credentials. */
-    public void registerUser(String email, String password, String phoneNumber)
+    public void registerUser(UserEntity user)
             throws RegistrationException
     {
-        accountManagementBean.registerCustomerUser(email, password, phoneNumber);
+        accountManagementBean.registerCustomerUser(user);
     }
 
     /** Activates user account with the specified code. */

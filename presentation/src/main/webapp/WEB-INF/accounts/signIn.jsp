@@ -5,7 +5,7 @@
   Time: 20:37
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +39,7 @@
 
         <!-- start: Row -->
         <div class="row">
-            <form id="form-sign-in" class="form-horizontal" action="javascript:void(null);" onsubmit="sendForm()">
+            <form id="form-sign-in" class="form-horizontal" action="javascript:void(null);" method="POST">
                 <fieldset>
                     <div id="legend">
                         <legend><h2 class="form-sign-in-heading">Please sign in</h2></legend>
@@ -69,7 +69,7 @@
                     <div class="control-group">
                         <%-- Button --%>
                         <div class="controls">
-                            <button class="btn btn-success" type="submit">Login</button>
+                            <button id="sign-in-submit" class="btn btn-success" type="submit">Login</button>
                             <button class="btn btn-info" type="button" onclick="window.location.replace('signup')">Sign up</button>
                         </div>
                     </div>

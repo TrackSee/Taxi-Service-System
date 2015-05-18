@@ -5,7 +5,7 @@
   Time: 0:44
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -144,6 +144,7 @@
                 </div>
                     <select class="make form-control taxiCar" name="taxiCar">
                         <c:forEach items="${requestScope.cars}" var="car">
+                            <option value="no car">No car</option>
                             <option value="${car.carNumber}">${car.carNumber}</option>
                         </c:forEach>
                     </select>

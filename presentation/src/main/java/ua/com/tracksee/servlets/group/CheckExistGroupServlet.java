@@ -24,12 +24,13 @@ public class CheckExistGroupServlet extends HttpServlet implements GroupConstant
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         String groupName = req.getParameter(GROUP_NAME_ALIAS);
 
         boolean exist = adminFacade.existsGroup(groupName);
 
         String json = "[{\"exist\":" + exist + "}]";
-        System.out.println(json);
         resp.setContentType("application/json");
         resp.getWriter().print(json);
     }

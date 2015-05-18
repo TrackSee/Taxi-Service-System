@@ -1,4 +1,4 @@
-package ua.com.tracksee.rest;
+package ua.com.tracksee.rest.customer;
 
 import ua.com.tracksee.json.FavoritePlaceDTO;
 import ua.com.tracksee.logic.facade.CustomerFacade;
@@ -18,7 +18,7 @@ import static ua.com.tracksee.servlets.AttributeNames.USER_ID;
 /**
  * @author Ruslan Gunavardana
  */
-@Path("/places")
+@Path("/customer/places")
 @RequestScoped
 public class FavoritePlacesService {
 
