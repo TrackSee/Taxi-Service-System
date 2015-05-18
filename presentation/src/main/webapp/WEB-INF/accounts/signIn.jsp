@@ -39,7 +39,8 @@
 
         <!-- start: Row -->
         <div class="row">
-            <form id="form-sign-in" class="form-horizontal" action="javascript:void(null);" onsubmit="sendForm()">
+            <form id="form-sign-in" class="form-horizontal"
+                  action="javascript:void(null);" method="POST" onsubmit="sendForm()">
                 <fieldset>
                     <div id="legend">
                         <legend><h2 class="form-sign-in-heading">Please sign in</h2></legend>
@@ -69,7 +70,7 @@
                     <div class="control-group">
                         <%-- Button --%>
                         <div class="controls">
-                            <button class="btn btn-success" type="submit">Login</button>
+                            <button id="sign-in-submit" class="btn btn-success" type="submit">Login</button>
                             <button class="btn btn-info" type="button" onclick="window.location.replace('signup')">Sign up</button>
                         </div>
                     </div>

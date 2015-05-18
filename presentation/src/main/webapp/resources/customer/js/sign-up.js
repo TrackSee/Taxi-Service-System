@@ -13,20 +13,32 @@ function sendForm() {
         url: getContextPath() + 'signup',
         data: form.serialize(),
         success: function (data) {
-            if (data == 'bad-email') {
-                $('#email').notify('Invalid email!', 'error');
-            } else if (data == 'bad-password') {
-                $('#password').notify('Invalid password', 'error');
-            } else if (data == 'bad-phone') {
-                $('#phone-number').notify('Invalid phone number', 'error');
-            } else if (data == 'user-exists') {
-                $('#email').notify('This email is already registered', 'info');
-            } else {
-                form.html(data);
-            }
+            form.html(data);
         },
-        error: function (xhr, str) {
-            $.notify('Internal server error occurred.', 'warn');
+        error: function (xhr) {
+            if (xhr.status = 422) {
+                var data = xhr.responseText;
+                if (data.search('bad-email') != -1) {
+                    $('#email').notify('Please, enter a valid email!', 'error');
+                }
+                if (data.search('bad-password') != -1) {
+                    $('#password').notify('Please, enter a valid password', 'error');
+                }
+                if (data.search('bad-phone') != -1) {
+                    $('#phone-number').notify('Please, enter a valid phone number', 'error');
+                }
+                if (data.search('user-exists') != -1) {
+                    $('#email').notify('This email is already registered', 'info');
+                }
+                if (data.search('bad-first-name') != -1) {
+                    $('#first-name').notify('Please, shorten your first name to 50 symbols', 'warn');
+                }
+                if (data.search('bad-last-name') != -1) {
+                    $('#last-name').notify('Please, shorten your last name to 50 symbols', 'warn');
+                }
+            } else {
+                $('#sign-up-submit').notify('Internal server error occurred.', 'warn');
+            }
         }
     });
 }

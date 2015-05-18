@@ -44,7 +44,7 @@
 
         <!-- start: Row -->
         <div class="row">
-            <form id="form-sign-up" class="form-horizontal" action="javascript:void(null);" method="POST"
+            <form id="form-sign-up" class="form-horizontal" method="POST" action="javascript:void(null);"
                   onsubmit="sendForm()">
                 <fieldset>
                     <div id="legend">
@@ -52,56 +52,77 @@
                     </div>
 
                     <div class="control-group">
-                        <!-- E-mail -->
-                        <label class="control-label" for="email">E-mail</label>
+                        <%-- E-mail --%>
+                        <label class="control-label" for="email">
+                            E-mail
+                            <span class="red-star">★</span>
+                        </label>
 
                         <div class="controls">
                             <input type="email" id="email" name="email" class="input-xlarge" required autofocus
                                    placeholder="user@example.com" >
-                            <span class="red-star">★</span>
-                            <%--<p class="help-block">Please provide your E-mail</p>--%>
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <!-- Password-->
-                        <label class="control-label" for="password">Password</label>
+                        <%-- Password --%>
+                        <label class="control-label" for="password">
+                            Password
+                            <span class="red-star">★</span>
+                        </label>
 
                         <div class="controls">
                             <input type="password" id="password" class="input-xlarge" name="password" required
                                    placeholder="6-28 letters and digits">
-                            <span class="red-star">★</span>
-                            <%--<p class="help-block">Password should be at least 4 characters</p>--%>
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <!-- Password -->
-                        <label class="control-label" for="repeat-password">Confirm Password</label>
+                        <%-- Repeat password --%>
+                        <label class="control-label" for="repeat-password">
+                            Confirm Password
+                            <span class="red-star">★</span>
+                        </label>
 
                         <div class="controls">
-                            <input type="password" id="repeat-password" name="repeat-password"
-                                   placeholder="Repeat your password" class="input-xlarge" required>
-                            <span class="red-star">★</span>
-                            <%--<p class="help-block">Please confirm password</p>--%>
+                            <input type="password" id="repeat-password" name="repeat-password" required
+                                   placeholder="Repeat your password" class="input-xlarge">
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <!-- Username -->
+                        <%-- Phone --%>
                         <label class="control-label" for="phone-number">Phone number</label>
 
                         <div class="controls">
                             <input type="text" id="phone-number" name="phone-number"
                                    placeholder="(+380) 00 000-00-00" class="input-xlarge">
-                            <%--<p class="help-block">Username can contain any letters or numbers, without spaces</p>--%>
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <!-- Button -->
+                        <%-- First name --%>
+                        <label class="control-label" for="first-name">First name</label>
+
                         <div class="controls">
-                            <button class="btn btn-success gradient" type="submit">Sign up</button>
+                            <input type="text" id="first-name" name="first-name"
+                                   placeholder="Albert" class="input-xlarge">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <%-- Last name --%>
+                        <label class="control-label" for="last-name">Last name</label>
+
+                        <div class="controls">
+                            <input type="text" id="last-name" name="last-name"
+                                   placeholder="Einstein" class="input-xlarge">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="controls">
+                            <button id="sign-up-submit" class="btn btn-success gradient" type="submit">Sign up</button>
                         </div>
                     </div>
                 </fieldset>
