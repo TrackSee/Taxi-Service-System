@@ -3,16 +3,16 @@ package ua.com.tracksee.logic.customer;
 import ua.com.tracksee.dao.FavoritePlaceDAO;
 import ua.com.tracksee.entities.FavoritePlaceEntity;
 import ua.com.tracksee.entities.FavoritePlaceEntityPK;
-import ua.com.tracksee.json.FavoritePlaceDTO;
-import ua.com.tracksee.json.Location;
+import ua.com.tracksee.dto.FavoritePlaceDTO;
+import ua.com.tracksee.dto.Location;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.com.tracksee.util.GeometryConverter.toLocation;
-import static ua.com.tracksee.util.GeometryConverter.toPoint;
+import static ua.com.tracksee.util.GeometryConverter.pointToLocation;
+import static ua.com.tracksee.util.GeometryConverter.locationToPoint;
 
 /**
  * @author Ruslan Gunavardana
@@ -31,7 +31,7 @@ public class FavoritePlacesBean {
 
         // filling dtoList
         for (FavoritePlaceEntity entity : entities) {
-            Location location = toLocation(entity.getLocation());
+            Location location = pointToLocation(entity.getLocation());
             FavoritePlaceDTO placeDTO = new FavoritePlaceDTO(entity.getName(), location);
             dtoList.add(placeDTO);
         }
@@ -49,7 +49,7 @@ public class FavoritePlacesBean {
     public boolean addFavoritePlaceFor(Integer userId, FavoritePlaceDTO favoritePlaceDto) {
         String name = favoritePlaceDto.getName();
         Location loc = favoritePlaceDto.getLocation();
-        return favoritePlaceDAO.addAddress(new FavoritePlaceEntity(name, userId, toPoint(loc)));
+        return favoritePlaceDAO.addAddress(new FavoritePlaceEntity(name, userId, locationToPoint(loc)));
     }
 
     /**
@@ -73,7 +73,7 @@ public class FavoritePlacesBean {
      */
     public boolean updateFavoritePlaceFor(Integer userId, String oldName, FavoritePlaceDTO newData) {
         Location loc = newData.getLocation();
-        FavoritePlaceEntity newEntity = new FavoritePlaceEntity(newData.getName(), userId, toPoint(loc));
+        FavoritePlaceEntity newEntity = new FavoritePlaceEntity(newData.getName(), userId, locationToPoint(loc));
         return favoritePlaceDAO.updateAddress(new FavoritePlaceEntityPK(oldName, userId), newEntity);
     }
 }
