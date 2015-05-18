@@ -85,7 +85,6 @@ public class EmailBean {
     /**
      * @param user
      */
-    @Asynchronous
     public void sendBlockingUserEmail(UserEntity user) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
@@ -96,7 +95,6 @@ public class EmailBean {
     /**
      * @param order
      */
-    @Asynchronous
     public void sendChangingTOFromAssignedToInProgress(TaxiOrderItemEntity order) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
@@ -128,7 +126,6 @@ public class EmailBean {
     /**
      * @param order
      */
-    @Asynchronous
     public void sendChangingTOFromAssignedToRefused(TaxiOrderItemEntity order) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
@@ -144,7 +141,6 @@ public class EmailBean {
      * @param order
      * @throws MessagingException
      */
-    @Asynchronous
     public void sendChangingTOFromQueuedToUpdated(TaxiOrderItemEntity order) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
@@ -180,7 +176,6 @@ public class EmailBean {
         }
     }
 
-    @Asynchronous
     public void sendChangingTOFromAssignedToRefusedMadeByDriver(TaxiOrderEntity order) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
                 data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
