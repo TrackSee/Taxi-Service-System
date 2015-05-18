@@ -21,23 +21,24 @@ $.fn.serializeObject = function()
     return o;
 };
 
-$(function() {
-    $('#order-form').submit(function() {
-        $.ajax({
-            type: 'POST',
-            url: 'signup',
-            data: JSON.stringify(this.serializeObject()),
-            success: function (data) {
-                if (data == "error") {
-                    $.notify("Invalid data entered!", "error");
-                } else {
-                    $('document').html(data);
-                }
-            },
-            error: function (xhr, str) {
-                $.notify("Internal server error occurred.", "warn");
+$('#order-form').submit(function() {
+    var formData = $(this).serialize();
+    formData += '&route=' + JSON.stringify(getRouteData())
+    $.ajax({
+        type: 'POST',
+        url: getContextPath() + 'order',
+        //data: JSON.stringify($(this).serializeObject()),
+        data: formData,
+        success: function (data) {
+            if (data == "error") {
+                $.notify("Invalid data entered!", "error");
+            } else {
+                $('document').html(data);
             }
-        });
-        return false;
+        },
+        error: function (xhr, str) {
+            $.notify("Internal server error occurred.", "warn");
+        }
     });
+    return false;
 });

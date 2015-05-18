@@ -1,14 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Katia Stetsiuk
-  Date: 26-Apr-15
-  Time: 21:00
-  To change this template use File | Settings | File Templates.
---%>
-
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,7 +69,7 @@
                     <td>${car.airConditioner==true ? "+" : "-"}</td>
                     <td><a href="updatecar?carNumber=${car.carNumber}">Edit</a></td>
                     <td>
-                        <button class="btn" id="getResult" type="button"><a href="deletecar?carNumber=${car.carNumber}">Delete</a>
+                        <button class="${car.carNumber}" type="button"><a href="deletecar?carNumber=${car.carNumber}">Delete</a>
                         </button>
                     </td>
                 </tr>
@@ -110,10 +101,9 @@
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
 <%--for pagination--%>
 <script src="<%=application.getContextPath()%>/resources/admin/js/paginatorCar.js"></script>
-<script src="<%=application.getContextPath()%>/resources/admin/js/removeForCar.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/removeCar.js"></script>
 
 
 </body>
 
 </html>
-

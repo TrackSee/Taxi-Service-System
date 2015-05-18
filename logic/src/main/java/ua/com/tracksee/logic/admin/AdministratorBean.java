@@ -52,7 +52,7 @@ public class AdministratorBean {
 
     /**
      * @author Katia Stetsiuk
-     * @return
+     * @return list of users
      */
     public List<UserEntity> getUsers(){return userDAO.getUsers();}
     /**

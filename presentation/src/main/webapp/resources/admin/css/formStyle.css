@@ -11,3 +11,12 @@
 p{
     font: 12pt sans-serif;
 }
+
+#createCar{
+    width: 400px;
+    margin: auto;
+    background-color: #f8f8f8;
+}
+#cont{
+    background-color: #f8f8f8;
+}

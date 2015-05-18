@@ -3,9 +3,6 @@ package ua.com.tracksee.logic;
 /**
  * Created by Igor on 22.04.2015.
  */
-/**
- * Created by Igor Gula on 19.04.2015.
- */
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -48,9 +45,9 @@ public class GroupBean {
         if (!existsGroup(groupName)) {
             for (Integer id : stringsToIntegers(userIds)) {
                 groupDAO.addUserToGroup(groupName, id);
-                groupDAO.setRoleToUser(role.getName(), id);
+                groupDAO.setRoleToUser(role, id);
             }
-            groupDAO.setRoleToUser(Role.ADMINISTRATOR.getName(), admin);
+            groupDAO.setRoleToUser(Role.ADMINISTRATOR, admin);
         } else {
             throw new EntityExistsException();
         }
@@ -96,9 +93,9 @@ public class GroupBean {
         }
 
         for (Integer userId : groupIds) {
-            groupDAO.setRoleToUser(role.getName(), userId);
+            groupDAO.setRoleToUser(role, userId);
         }
-        groupDAO.setRoleToUser(Role.ADMINISTRATOR.getName(), admin);
+        groupDAO.setRoleToUser(Role.ADMINISTRATOR, admin);
     }
 
     public Role getGroupRole(String groupName) {
@@ -180,7 +177,7 @@ public class GroupBean {
         return null;
     }
 
-    public void setRolesToUsers(Integer[] userIds, boolean[] isDrivers, boolean[] isAdmins) {
+    private void setRolesToUsers(Integer[] userIds, boolean[] isDrivers, boolean[] isAdmins) {
         if ((userIds.length != isAdmins.length) || (userIds.length != isAdmins.length)) {
             logger.error("Length of userIds has to be equils to isDrivers length, and to isAdmins arrays!");
             throw new IllegalArgumentException();
