@@ -6,7 +6,7 @@ package ua.com.tracksee.servlets.admin;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.UserEntity;
-import ua.com.tracksee.logic.admin.AdministratorBean;
+import ua.com.tracksee.logic.facade.AdminFacade;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -24,7 +24,7 @@ public class SearchDriverServlet extends HttpServlet {
     private String email= "email";
 
     @EJB
-    private AdministratorBean administratorBean;
+    private AdminFacade adminFacade;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,7 +35,7 @@ public class SearchDriverServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String driverEmail = req.getParameter(email);
         req.setAttribute(email, driverEmail);
-        List<UserEntity> driverList = administratorBean.getDriversByEmail(driverEmail);
+        List<UserEntity> driverList = adminFacade.getDriversByEmail(driverEmail);
         req.setAttribute(drivers, driverList);
         resp.getWriter().write(getJsonFromList(driverList));
     }

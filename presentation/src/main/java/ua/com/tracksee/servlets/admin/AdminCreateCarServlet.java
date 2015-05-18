@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.CarEntity;
-import ua.com.tracksee.logic.admin.AdministratorBean;
+import ua.com.tracksee.logic.facade.AdminFacade;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -24,7 +24,7 @@ public class AdminCreateCarServlet extends HttpServlet {
     private String warning = "Cannot get json from post /admin/createcar";
 
     @EJB
-    private AdministratorBean administratorBean;
+    private AdminFacade adminFacade ;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,7 +35,7 @@ public class AdminCreateCarServlet extends HttpServlet {
         String data = getData(req);
         ObjectMapper mapper = new ObjectMapper();
         CarEntity car = mapper.readValue(data, CarEntity.class);
-        administratorBean.createCar(car);
+        adminFacade.createCar(car);
     }
 
     private String getData(HttpServletRequest req){
