@@ -3,7 +3,7 @@ package ua.com.tracksee.servlets.orders;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
-import ua.com.tracksee.json.TaxiOrderDTO;
+import ua.com.tracksee.dto.TaxiOrderDTO;
 import ua.com.tracksee.logic.facade.OrderFacade;
 
 import javax.ejb.EJB;

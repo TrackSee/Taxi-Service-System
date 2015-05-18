@@ -4,8 +4,8 @@ import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.Point;
-import ua.com.tracksee.json.Location;
-import ua.com.tracksee.json.Route;
+import ua.com.tracksee.dto.Location;
+import ua.com.tracksee.dto.Route;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 public class GeometryConverter {
     private static final GeometryFactory geometryFactory = new GeometryFactory();
 
-    public static Point toPoint(Location loc) {
+    public static Point locationToPoint(Location loc) {
         if (loc == null) {
             return null;
         }
@@ -25,14 +25,14 @@ public class GeometryConverter {
         return geometryFactory.createPoint(coordinate);
     }
 
-    public static Location toLocation(Point point) {
+    public static Location pointToLocation(Point point) {
         if (point == null) {
             return null;
         }
         return new Location(point.getX(), point.getY());
     }
 
-    public static LineString toLineString(Route path) {
+    public static LineString routeToLineString(Route path) {
         if (path == null) {
             return null;
         }
@@ -46,7 +46,7 @@ public class GeometryConverter {
         return geometryFactory.createLineString(coordinates);
     }
 
-    public static Route toRoute(LineString lineString) {
+    public static Route lineStringToRoute(LineString lineString) {
         if (lineString == null) {
             return null;
         }
@@ -60,7 +60,7 @@ public class GeometryConverter {
         return new Route(locations);
     }
 
-    public Route decodeGoogleRoute(String encoded) {
+    public static Route decodeGooglePolylineToRoute(String encoded) {
 
         List<Location> poly = new ArrayList<>();
         int index = 0, len = encoded.length();
@@ -93,5 +93,9 @@ public class GeometryConverter {
         }
 
         return new Route(poly);
+    }
+
+    public static LineString decodeGooglePolylineToLineString(String encoded) {
+        return routeToLineString(decodeGooglePolylineToRoute(encoded));
     }
 }
