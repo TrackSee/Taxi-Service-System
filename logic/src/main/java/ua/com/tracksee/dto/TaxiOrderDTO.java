@@ -1,4 +1,4 @@
-package ua.com.tracksee.json;
+package ua.com.tracksee.dto;
 
 import org.joda.time.LocalDateTime;
 

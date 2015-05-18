@@ -2,29 +2,8 @@ package ua.com.tracksee.logic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.com.tracksee.dao.FavoritePlaceDAO;
-import ua.com.tracksee.dao.TaxiOrderDAO;
-import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entities.MostPopularOption;
-import ua.com.tracksee.entities.ServiceProfitable;
-import ua.com.tracksee.entities.TaxiOrderEntity;
-import ua.com.tracksee.entities.UserEntity;
-import ua.com.tracksee.enumartion.*;
-import ua.com.tracksee.exception.OrderException;
-import ua.com.tracksee.json.TaxiOrderDTO;
 
-import javax.ejb.EJB;
-import javax.ejb.Local;
 import javax.ejb.Stateless;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-
-import static ua.com.tracksee.enumartion.OrderStatus.QUEUED;
 
 /**
  * The AlertGenerator interface provides

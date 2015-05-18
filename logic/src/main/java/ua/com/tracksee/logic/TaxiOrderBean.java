@@ -10,7 +10,7 @@ import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.enumartion.*;
 import ua.com.tracksee.exception.OrderException;
-import ua.com.tracksee.json.TaxiOrderDTO;
+import ua.com.tracksee.dto.TaxiOrderDTO;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
