@@ -113,6 +113,7 @@ public class UserDAOBean implements UserDAO {
 //            logger.warn("carNumber can't be null");
 //            throw new IllegalArgumentException("carNumber can't be null");
 //        }
+        System.out.println("CarNumber: " + carNumber);
         if (driverID == null) {
             logger.warn("driverID can't be null");
             throw new IllegalArgumentException("driverID can't be null");

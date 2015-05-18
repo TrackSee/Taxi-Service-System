@@ -25,6 +25,7 @@
         rel="stylesheet" type="text/css">
   <link href="<%=application.getContextPath()%>/resources/admin/reports/css/report.css" type="text/css" rel="stylesheet">
 
+  <link href="http://amcharts.com/lib/3/plugins/export/export.css" rel="stylesheet" type="text/css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -34,7 +35,7 @@
 </head>
 <body>
 <div id="wrapper">
-  <jsp:include page="adminHeader.jsp"/>
+  <jsp:include page="/WEB-INF/admin/adminHeader.jsp"/>
 
   <div id="page-wrapper">
     <h3>Driver sex popularity</h3>
@@ -45,16 +46,13 @@
 </div>
 
 
-
-
-
-
 <!-- jQuery -->
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/pie.js"></script>
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>
-<script src="<%=application.getContextPath()%>/resources/admin/reports/js/reportScript.js"/>
+<script src="http://amcharts.com/lib/3/plugins/export/export.js" type="text/javascript"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/reports/js/driverAndCarReport.js"/>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

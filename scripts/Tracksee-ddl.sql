@@ -97,3 +97,7 @@ CREATE TABLE IF NOT EXISTS tracksee.public.Taxi_Order_Item
   -- need to be checked if this 'user_id' is a driver's id on code layer
   driver_id        INT REFERENCES Service_User (user_id) ON DELETE SET NULL
 );
+
+-- VIEW for driver-sex reports
+CREATE OR REPLACE VIEW driver_report AS select max(tracking_number) id, driver_sex, count(driver_sex) order_count from taxi_order GROUP BY driver_sex;
+-- VIEW for car-category reports
