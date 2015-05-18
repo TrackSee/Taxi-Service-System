@@ -1,5 +1,4 @@
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -35,7 +34,6 @@
 <body>
 
 
-
 <div id="wrapper">
     <jsp:include page="adminHeader.jsp"/>
 
@@ -57,7 +55,8 @@
             <c:forEach items="${requestScope.users}" var="user">
                 <tr>
                         <%--TODO add reference on DASHBOARD --%>
-                    <td><a href="customerProfile?id=${user.userId}">${user.email}</a></td>
+                    <td><a href="">${user.email}</a></td>
+                        <%--reference on dashboard--%>
                     <td>${user.phone != null? user.phone : "-"}</td>
                     <td>${user.sex}</td>
                     <td>${user.groupName? user.groupName : "-"}</td>
@@ -84,8 +83,8 @@
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
 <%--for pagination--%>
 <%--<script src="<%=application.getContextPath()%>/resources/admin/js/search.js"></script>--%>
-<script src="<%=application.getContextPath()%>/resources/admin/js/keyUpCustomer.js"></script>
-
+<script src="<%=application.getContextPath()%>/resources/admin/js/searchCustomer.js"></script>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/js/changeId.js"></script>--%>
 
 
 </body>

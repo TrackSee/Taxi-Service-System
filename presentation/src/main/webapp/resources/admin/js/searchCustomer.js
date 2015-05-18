@@ -11,7 +11,8 @@ $(document).ready(function () {
             var $item = $(this),
                 value = $item.val();
             var email = value;
-            keyUpTimeout = setTimeout(function() { $.ajax({
+            keyUpTimeout = setTimeout(function() {
+                $.ajax({
                 type: 'POST',
                 url: 'customerbysearch',
                 data: {email: email},
@@ -29,9 +30,7 @@ $(document).ready(function () {
                             tBody.appendChild(newTr);
                         }
                         if (i < usersArray.length){
-                            rows[i].children[0].innerHTML = '<a href="customerProfile?id=' + usersArray[i].userId + '">'+
-                                usersArray[i].email + '</a>';
-
+                            rows[i].children[0].innerHTML = '<a href="">'+ usersArray[i].email +'</a>';
                             rows[i].children[1].innerHTML = usersArray[i].phone != null? usersArray[i].phone : "-";
                             rows[i].children[2].innerHTML = usersArray[i].sex != null? usersArray[i].sex : "-";
                             rows[i].children[3].innerHTML = usersArray[i].groupName != null? usersArray[i].groupName : "-";
@@ -45,4 +44,6 @@ $(document).ready(function () {
 
         });
     });
+
+
 });

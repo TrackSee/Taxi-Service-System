@@ -45,7 +45,7 @@
             <c:forEach items="${requestScope.drivers}" var="driver">
                 <tr>
                         <%--TODO add reference on DASHBOARD --%>
-                    <td><a href="driver/driver-profile?id=${driver.userId}">${driver.email}</a></td>
+                    <td><a href="driver?id=${driver.userId}">${driver.email}</a></td>
                     <td>${driver.phone != null? driver.phone : "-"}</td>
                     <td>${driver.sex}</td>
                     <td>${driver.groupName? driver.groupName : "-"}</td>

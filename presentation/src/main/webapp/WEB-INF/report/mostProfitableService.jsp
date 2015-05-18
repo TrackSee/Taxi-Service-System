@@ -32,7 +32,8 @@
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>
-    <script type="text/javascript" src="http://www.amcharts.com/lib/3/plugins/export/export.js"></script>
+    <script type="text/javascript" src="http://amcharts.com/lib/3/plugins/export/export.js"></script>
+    <link href="http://amcharts.com/lib/3/plugins/export/export.css" rel="stylesheet" type="text/css">
     <![endif]-->
 
 </head>
@@ -82,6 +83,8 @@
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
+<script type="text/javascript" src="http://amcharts.com/lib/3/plugins/export/export.js"></script>
+<link href="http://amcharts.com/lib/3/plugins/export/export.css" rel="stylesheet" type="text/css">
 
 </body>
 
