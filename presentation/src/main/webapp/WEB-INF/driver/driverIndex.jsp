@@ -89,17 +89,45 @@
                           <thead>
                           <tr>
                             <th>#</th>
+                            <th>Service</th>
+
+                            <c:set var="hide2" scope="session" value="hidden=\"hidden\""/>
+                            <c:choose>
+                              <c:when test="${order.service == 'CELEBRATION_TAXI'}">
+                            <th>Duration</th>
+                              </c:when>
+                              <c:when test="${order.service == 'TAXI_FOR_LONG_TERM'}">
+                                <th>Duration</th>
+                              </c:when>
+                            </c:choose>
+
                             <th>Order time</th>
                             <th>Car arrive time</th>
                             <th>Price</th>
-                            <th>Non smoking driver</th>
-                            <th>Music style</th>
+                            <th>Non smoking</th>
+                            <th>Music</th>
                             <th>Status</th>
                           </tr>
                           </thead>
                           <tbody>
                             <tr class="odd gradeX">
                               <td>${order.trackingNumber}</td>
+                              <td>
+                                <c:set var="string7" value="${order.service}"/>
+                                <c:set var="string8" value="${fn:toLowerCase(string7)}" />
+                                <c:set var="string9" value="${fn:replace(string8,
+                                '_', ' ')}" />
+                                  ${string9}
+                              </td>
+                              <c:set var="hide2" scope="session" value="hidden=\"hidden\""/>
+                              <c:choose>
+                                <c:when test="${order.service == 'CELEBRATION_TAXI'}">
+                                  <td>${order.amountOfHours} : ${order.amountOfMinutes}</td>
+                                </c:when>
+                                <c:when test="${order.service == 'TAXI_FOR_LONG_TERM'}">
+                                  <td>${order.amountOfHours} : ${order.amountOfMinutes}</td>
+                                </c:when>
+                              </c:choose>
                               <td> <fmt:formatDate value="${order.orderedDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                               <td>
                                 <fmt:formatDate value="${order.arriveDate}" pattern="yyyy" var="testDate" />
@@ -209,7 +237,6 @@
     </c:when>
     </c:choose>
               <!-- /Plans -->
-    Where is pagination?
               <div class="text-center">
                 <ul class="pagination">
                   <c:forEach var="i" begin="1" end="${requestScope.pagesCount}">
