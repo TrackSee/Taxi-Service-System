@@ -10,7 +10,8 @@ var addDiv = $('#addinput');
 var i = $('#addinput p').size() + 1;
 $('#buttonAddressOrigin').click(function(){
     $('<p><label> Address from</label>' +
-    '<input type="text" id="p_new" size="40" name="p_new_' + i +'" value="" />' +
+    '<input type="text" id="p_new" size="40" name="p_new_' + i +'" value="" required>' +
+    '<span class="red-star">★</span>' +
     '<a href="#" id="remNew">Close</a></p>').appendTo(addDiv);
     i++;
     return false;
