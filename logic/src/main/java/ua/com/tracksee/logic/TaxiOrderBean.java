@@ -209,7 +209,6 @@ public class TaxiOrderBean {
             userEntity.setActivated(false);
             userEntity.setPassword("");
             userEntity.setSalt("");
-            System.out.println(userEntity.getPhone()+" HERE!");
             userEntity.setUserId(userDAO.addUnregisteredUser(userEntity));
         }
         return userEntity;

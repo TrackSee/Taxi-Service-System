@@ -252,7 +252,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.setParameter(2, userId);
         List list = query.getResultList();
         try {
-            if (list.size()==0) {
+            if (list.size()!=0) {
                 state = true;
             }
         } catch (NoResultException e) {

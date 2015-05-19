@@ -124,7 +124,7 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
             inputData.put(DESCRIPTION_ALIAS, req.getParameter(DESCRIPTION_ALIAS));
 
             ObjectMapper mapper = new ObjectMapper();
-            String orderDtoJson = req.getParameter(ORDER_ALIAS);
+            String orderDtoJson = req.getParameter("aa");
             logger.trace(orderDtoJson);
             TaxiOrderDTO orderDTO = mapper.readValue(orderDtoJson, TaxiOrderDTO.class);
 

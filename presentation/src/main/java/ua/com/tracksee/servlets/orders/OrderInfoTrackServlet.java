@@ -30,10 +30,14 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("pageName", "orderInfo");
         req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         Integer userID=null;
         try {
             userID = (Integer) req.getSession().getAttribute(USER_ID_ALIAS);
