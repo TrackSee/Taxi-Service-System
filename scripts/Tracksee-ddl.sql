@@ -99,6 +99,13 @@ CREATE TABLE IF NOT EXISTS tracksee.public.Taxi_Order_Item
   driver_id        INT REFERENCES Service_User (user_id) ON DELETE SET NULL
 );
 
+-- VIEW for music-style overall reports
+CREATE OR REPLACE VIEW music_report
+AS SELECT max(tracking_number) id, music_style, count(music_style) music_count
+FROM taxi_order
+WHERE music_style IS NOT NULL
+GROUP BY music_style;
+
 -- VIEW for driver-sex reports
 CREATE OR REPLACE VIEW driver_report AS select max(tracking_number) id, driver_sex, count(driver_sex) order_count from taxi_order GROUP BY driver_sex;
 -- VIEW for car-category reports
