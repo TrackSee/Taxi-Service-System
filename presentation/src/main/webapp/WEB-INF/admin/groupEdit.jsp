@@ -6,25 +6,25 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 
-<link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
-      rel="stylesheet">
-
-<!-- MetisMenu CSS -->
-<link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"
-      rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="<%=application.getContextPath()%>/resources/admin/dist/css/sb-admin-2.css" rel="stylesheet">
-
-<!-- Custom Fonts -->
-<link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css"
-      rel="stylesheet" type="text/css">
-
 <head>
+    <%@include file="../parts/meta.jsp"%>
 
+    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"
+          rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="<%=application.getContextPath()%>/resources/admin/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css"
+          rel="stylesheet" type="text/css">
     <style>
         #search, #groupNameInput, #inputEmail, #groupRole, #userCountPage {
             width: 20%;

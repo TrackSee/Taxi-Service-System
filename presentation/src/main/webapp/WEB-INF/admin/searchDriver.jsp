@@ -9,14 +9,7 @@
 <html lang="en">
 
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <%@include file="../parts/meta.jsp"%>
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
           rel="stylesheet">
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"
@@ -45,7 +38,7 @@
             <c:forEach items="${requestScope.drivers}" var="driver">
                 <tr>
                         <%--TODO add reference on DASHBOARD --%>
-                    <td><a href="driver/driver-profile?id=${driver.userId}">${driver.email}</a></td>
+                    <td><a href="driver?id=${driver.userId}">${driver.email}</a></td>
                     <td>${driver.phone != null? driver.phone : "-"}</td>
                     <td>${driver.sex}</td>
                     <td>${driver.groupName? driver.groupName : "-"}</td>

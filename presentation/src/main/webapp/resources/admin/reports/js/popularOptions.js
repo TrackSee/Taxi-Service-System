@@ -28,6 +28,12 @@ $(document).ready(function() {
                         "libs": {
                             "path": "http://www.amcharts.com/lib/3/plugins/export/libs/"
                         }
+                        ,
+                        "menu": [{
+                            "format": "XLSX",
+                            "label": "Save as XLSX",
+                            "title": "Export chart to XLSX"
+                        }]
                     }
                 } );
             }

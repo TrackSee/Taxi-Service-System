@@ -189,6 +189,11 @@ public class AdministratorBean {
     }
     /**
      * @author Vitalii Diravka
+     * @param newPrice - per km or per in
+     * @param enumCarCategory - category/class of car
+     * @param weekend - is this price for weekand day or not
+     * @param nightTariff - is this price for night time of day
+     * @param priceType - price per km or per min
      */
     public void updateTariff(BigDecimal newPrice, CarCategory enumCarCategory, Boolean weekend, Boolean nightTariff, String priceType) {
         TaxiPriceEntity newPriceEntity = new TaxiPriceEntity();
