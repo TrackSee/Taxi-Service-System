@@ -6,8 +6,6 @@
  */
 var directionsDisplay;
 var directionsService;
-var MIN_DISTANCE_FOR_DEFAULT_PRICE=5;
-var TAXI_PRICE_PER_KM=0;
 
 function initializeMaps() {
     DEFAULT_LOCATION = new google.maps.LatLng(DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lng);
@@ -25,11 +23,10 @@ function initializeMaps() {
     initializeDirections(map);
     calcRoute(DEFAULT_LOCATION, DEFAULT_LOCATION, []);
     tryGeolocation(map);
-    //google.maps.event.addListener(directionsDisplay, 'directions_changed', updateAddresses);
-    google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
+    google.maps.event.addListener(directionsDisplay, 'directions_changed', function(){
                 updateAddresses(directionsDisplay.getDirections().routes[0]);
-                updatePrice (directionsDisplay.getDirections().routes[0]);
-            });
+                updatePrice();
+    });
 }
 
 function initializeDirections(map) {
@@ -81,12 +78,35 @@ function calcRoute(origin, destination, waypoints) {
 }
 
 /**
+ * getRoutesData
+ * Returns data about route in format {duration, length}.
+ * Duration in minutes, length in km.
+ *
+ * @returns {[{duration: number, distance: number, route: string}]}
+ */
+function getRoutesData() {
+    var route = directionsDisplay.getDirections().routes[0];
+    var duration = 0;
+    var distance = 0;
+    for (var i = 0; i < route.legs.length; i++) {
+        duration += route.legs[i].duration.value;
+        distance += route.legs[i].distance.value;
+    }
+    return [{
+        duration : Math.round(duration / SECS_PER_MINUTE), // to minutes
+        distance : Math.round(distance / 100) / 10,        // to km
+        route : route.overview_polyline // encoded poly
+    }];
+}
+
+/**
  * updateAddresses
  * Updates addresses text fields with new Google Maps
  * information.
+ *
+ * @param route {google.maps.DirectionsRoute}
  */
 function updateAddresses(route) {
-    //var route = directionsDisplay.getDirections().routes[0];
     $('#origin').val(route.legs[0].start_address);
     $('#destination').val(route.legs[route.legs.length - 1].end_address);
 }
@@ -100,46 +120,13 @@ function updateRoute() {
 }
 
 /**
- * getRouteData
- * Returns data about route in format {duration, length}.
- * Duration in minutes, length in km.
- *
- * @returns {{duration: number, distance: number, route: string}}
+ * updatePrice
+ * Updates order price when user change route addresses
  */
-function getRouteData() {
-    var route = directionsDisplay.getDirections().routes[0];
-    var duration = 0;
-    var distance = 0;
-    for (var i = 0; i < route.legs.length; i++) {
-        duration += route.legs[i].duration.value;
-        distance += route.legs[i].distance.value;
-    }
-    return {
-        duration : Math.round(duration / SECS_PER_MINUTE), // to minutes
-        distance : Math.round(distance / 100) / 10,        // to km
-        route : route.overview_polyline // encoded poly
-    };
-}
-/**
- * update order price
- * when user change
- * destination or origin
- * address
- *
- * @author Sharaban Sasha
- * @param route {google.maps.DirectionsRoute}
- */
-function updatePrice(route) {
-    var distance = 0;
-    for (var i = 0; i < route.legs.length; i++) {
-        distance += route.legs[i].distance.value;
-    }
-    distance = Math.round(distance / 100) / 10;
-    TAXI_PRICE_PER_KM = $('#taxiPricePerKm').val();
-    TAXI_PRICE_PER_KM = TAXI_PRICE_PER_KM * distance;
-    if (distance < MIN_DISTANCE_FOR_DEFAULT_PRICE) {
-        TAXI_PRICE_PER_KM = $('#taxiPricePerKmMin').val();
-    }
-    TAXI_PRICE_PER_KM = Math.round(TAXI_PRICE_PER_KM * 100) / 100;
-    $('#price').val(TAXI_PRICE_PER_KM + " UAH");
+function updatePrice() {
+    var distance = getRoutesData().reduce(function(pv, cv) {return pv + cv.distance; }, 0);
+    // taxi for very short distance has constant min price
+    var businessDistance = (distance > getMinDistance()) ? distance : getMinDistance();
+    var price = getTaxiPricePerKm() * businessDistance;
+    $('#price').val(price + " UAH");
 }

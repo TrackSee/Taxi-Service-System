@@ -46,12 +46,10 @@
         <div class="title"><h3>Extended Booking Taxi</h3></div>
 
         <%--TODO getting data from database--%>
-        <div hidden="hidden">
-            <input type="text" id="taxiPricePerKm" value="6">
-        </div>
-        <div hidden="hidden">
-            <input type="text" id="taxiPricePerKmMin" value="30">
-        </div>
+        <script>
+            function getTaxiPricePerKm() { return 30; }
+            function getMinDistance() { return 6; }
+        </script>
         <%--${"taxiPricePerKm"}">--%>
         <form id="order-form" method="post" action="javascript:void(null);" onsubmit="sendForm()">
             <div class="form-group">
@@ -260,7 +258,7 @@
 
 <%--Google maps scripts--%>
 <script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/maps/order-maps.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/order-maps.js"></script>
 <%--end google maps scripts--%>
 
 <%-- Order page scripts --%>
