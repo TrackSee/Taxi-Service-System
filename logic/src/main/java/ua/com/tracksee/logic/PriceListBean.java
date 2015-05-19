@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.ejb.Lock;
 import javax.ejb.Singleton;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import static javax.ejb.LockType.READ;
@@ -33,9 +34,18 @@ public class PriceListBean {
     }
 
     @PostConstruct
-    void postConstruct() {
+    private void postConstruct() {
         List<TaxiPriceEntity> lists = taxiPriceDAO.getAllPrices();
         prices = lists.toArray(new TaxiPriceEntity[lists.size()]);
+    }
+
+    public List<TaxiPriceEntity> getPrices() {
+        List<TaxiPriceEntity> priceList = new ArrayList<>();
+        for (TaxiPriceEntity price : this.prices) {
+            priceList.add(price.clone());
+        }
+
+        return priceList;
     }
 
     public TaxiPriceEntity getPrice(TaxiOrderEntity order) {

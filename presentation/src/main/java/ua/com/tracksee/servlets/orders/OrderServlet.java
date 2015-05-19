@@ -33,9 +33,7 @@ import java.util.HashMap;
 @WebServlet("/order")
 public class OrderServlet extends HttpServlet implements OrderAttributes {
     private static final Logger logger = LogManager.getLogger();
-    private
-    @EJB
-    OrderFacade orderFacade;
+    private @EJB OrderFacade orderFacade;
 
     /**
      * @author Sharaban Sasha
@@ -44,7 +42,6 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-        req.setAttribute("pageName", "order");
         Integer userID=0;
         try {
             userID = (Integer) req.getSession().getAttribute(USER_ID_ALIAS);
@@ -58,6 +55,7 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
             logger.info("don't authorised user");
             req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);
         }
+        req.setAttribute("priceList", orderFacade.getPriceList());
         req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);
     }
 

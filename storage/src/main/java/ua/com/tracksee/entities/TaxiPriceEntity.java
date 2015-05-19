@@ -12,7 +12,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "taxi_price", schema = "public", catalog = "tracksee")
 @IdClass(TaxiPriceEntityPK.class)
-public class TaxiPriceEntity {
+public class TaxiPriceEntity implements Cloneable {
     private BigDecimal pricePerKm;
     private BigDecimal pricePerMin;
     private CarCategory carCategory;
@@ -83,5 +83,15 @@ public class TaxiPriceEntity {
     @Override
     public int hashCode() {
         return Objects.hash(pricePerKm, pricePerMin, carCategory);
+    }
+
+    @Override
+    public TaxiPriceEntity clone() {
+        try {
+            return (TaxiPriceEntity) super.clone();
+        } catch (CloneNotSupportedException ignored) {
+            // it's supported!
+            return null;
+        }
     }
 }
