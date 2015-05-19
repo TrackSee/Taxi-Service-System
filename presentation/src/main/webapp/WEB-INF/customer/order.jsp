@@ -11,12 +11,16 @@
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
-    <link href="<%=application.getContextPath()%>/resources/customer/css/googleMap.css" rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+          media="screen">
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
           media="screen">
-    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"/>
-    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"/>
-    <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"
+          type="text/css"/>
 </head>
 <body>
 <%@include file="../parts/header.jsp" %>
@@ -51,7 +55,7 @@
             function getMinDistance() { return 6; }
         </script>
         <%--${"taxiPricePerKm"}">--%>
-        <form id="order-form" method="post" action="javascript:void(null);" onsubmit="sendForm()">
+        <form method="post" action="<c:url value="/order"/>">
             <div class="form-group">
                 <label>Phone number</label>
                 <input type="text" pattern="\d{10}"
@@ -79,11 +83,11 @@
             </div>
             <div id="addinput">
                 <p>
-                <button type="button" id="buttonAddressOrigin" class="btn btn-info turnButton">
-                    Add address from
-                </button>
-            </p>
-           </div>
+                    <button type="button" id="buttonAddressOrigin" class="btn btn-info turnButton">
+                        Add address from
+                    </button>
+                </p>
+            </div>
 
             <div class="form-group">
                 <label>Address to</label>
@@ -145,27 +149,27 @@
                 <div id="amountOfTripTimeBlock">
                     <label>Amount time of trip</label>
                     <div>
-                    <input type="number" id="amountOfHours" class="form-control" name="amountOfHours"
-                           placeholder="Amount of hours 8+"
-                           title="Amount of hours 8+">
-                    <span class="red-star">★</span>
-                        </div>
+                        <input type="number" id="amountOfHours" class="form-control" name="amountOfHours"
+                               placeholder="Amount of hours 8+"
+                               title="Amount of hours 8+">
+                        <span class="red-star">★</span>
+                    </div>
                     <div>
-                    <input type="number" id="amountOfMinutes" class="form-control" name="amountOfMinutes"
-                           placeholder="Amount minutes [0:60]"
-                           title="Amount of minutes [0:60]">
-                    <span class="red-star">★</span>
+                        <input type="number" id="amountOfMinutes" class="form-control" name="amountOfMinutes"
+                               placeholder="Amount minutes [0:60]"
+                               title="Amount of minutes [0:60]">
+                        <span class="red-star">★</span>
                     </div>
 
                 </div>
 
                 <%--TODO validation--%>
                 <div id="amountOfCarsBlock">
-                <label>Amount of cars</label>
-                <input type="number" id="amountOfCars" class="form-control" name="amountOfCars"
-                       placeholder="Amount of cars 5+"
-                       title="Amount of cars greater then 4">
-                <span class="red-star">★</span>
+                    <label>Amount of cars</label>
+                    <input type="number" id="amountOfCars" class="form-control" name="amountOfCars"
+                           placeholder="Amount of cars 5+"
+                           title="Amount of cars greater then 4">
+                    <span class="red-star">★</span>
                 </div>
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>
@@ -249,11 +253,21 @@
 
 
 <!-- Load jQuery and bootstrap datepicker scripts -->
-<%@include file="../parts/scripts.jsp" %>
-<script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"></script>
+<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
+        charset="UTF-8"></script>
+<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"
+        charset="UTF-8"></script>
+<script type="text/javascript"
+        src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
+        charset="UTF-8"></script>
+<script type="text/javascript"
+        src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
+        charset="UTF-8"></script>
+<script type="text/javascript"
+        src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"
+        charset="UTF-8"></script>
+<script src="<%=application.getContextPath()%>http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <%--end jQuery and bootstrap datepicker scripts--%>
 
 <%--Google maps scripts--%>
@@ -268,6 +282,9 @@
 <script src="<%=application.getContextPath()%>/resources/customer/js/fields-generator.js"></script>
 <%--end order oage scripts--%>
 <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
+
+
+<%@include file="../parts/scripts.jsp" %>
 <%@include file="../parts/footer.jsp" %>
 </body>
 </html>
