@@ -1,3 +1,4 @@
+DROP VIEW IF EXISTS driver_report;
 DROP TABLE IF EXISTS tracksee.public.Taxi_Order_Item;
 DROP TABLE IF EXISTS tracksee.public.Favorite_Place;
 DROP TABLE IF EXISTS tracksee.public.Taxi_Order;
