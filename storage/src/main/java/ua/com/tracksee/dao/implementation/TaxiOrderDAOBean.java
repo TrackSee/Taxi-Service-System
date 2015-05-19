@@ -378,6 +378,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         System.out.println(sql.toString());
 
         Query query = entityManager.createNativeQuery(sql.toString(), TaxiOrderEntity.class);
+        //if()
         query.setParameter(1,driver.getCar().getCarCategory().toString());
         query.setParameter(2, driver.getSex());
 
