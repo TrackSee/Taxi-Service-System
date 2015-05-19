@@ -25,7 +25,7 @@
 .navbar-fixed-bottom.back_color{
     /*background-color: lavender;*/
     height: 20px;
-    /*position: fixed;*/
+    position: fixed;
     bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
