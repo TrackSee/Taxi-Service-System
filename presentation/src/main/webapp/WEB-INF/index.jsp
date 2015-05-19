@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/css/carousel.css">
     <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/customer/css/textOutline.css">
     <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/css/agency.css">
+    <!-- Custom Fonts -->
+    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
     <link rel="shortcut icon" href="<%=application.getContextPath()%>/resources/img/icons/cab.png" type="image/png">
 
 </head>

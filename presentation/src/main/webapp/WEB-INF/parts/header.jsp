@@ -67,24 +67,75 @@
                                             <a href="<c:url value="/customer"/>">Client Dashboard</a>
                                         </li>
                                         <li id="signout">
-                                            <a id="sign-out-button" href="#">Sign out</a>
+                                            <a id="sign-out-button" href=".">Sign out</a>
                                         </li>
+
+                                        <c:if test="${sessionScope.role == 'admin'}">
+                                        <li <c:if test="${sessionScope.role == 'admin'}">class="active"</c:if>>
+                                            <a href="<c:url value="/admin"/>">Hello ${sessionScope.name}</a>
+                                        </li>
+                                        </c:if>
+
+                                        <c:if test="${sessionScope.role == 'driver'}">
+                                        <li <c:if test="${sessionScope.role == 'driver'}">class="header-user-link"</c:if>>
+                                            <a href="<c:url value="/driver/free-orders"/>">Hello ${sessionScope.name}</a>
+                                        </li>
+                                        </c:if>
+
+                                        <c:if test="${sessionScope.role == 'register_customer'}">
+                                        <li <c:if test="${sessionScope.role == 'register_customer'}">class="active"</c:if>>
+                                            <a href="<c:url value="/customer"/>">Hello ${sessionScope.name}</a>
+                                        </li>
+                                        </c:if>
+
                                     </c:if>
+
+
                                 </ul>
+
+                                        <%--<c:if test="${sessionScope.role == 'admin'}">--%>
+                                            <%--<li>--%>
+                                            <%--<span class="greeting">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hello,&nbsp;--%>
+                                            <%--&lt;%&ndash;<span id="header_user_menu_parent" name="splash-button" class="header-user-title">&ndash;%&gt;--%>
+                                            <%--<a href="<c:url value="/admin"/>" name="profile" class="header-user-link">${sessionScope.name}</a></span>--%>
+                                            <%--</li>--%>
+                                        <%--</c:if>--%>
+                                        <%--<c:if test="${sessionScope.role == 'driver'}">--%>
+                                            <%--<li>--%>
+                                            <%--<span class="greeting">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hello,&nbsp;--%>
+                                            <%--&lt;%&ndash;<span id="header_user_menu_parent" name="splash-button" class="header-user-title">&ndash;%&gt;--%>
+                                            <%--<a href="<c:url value="/driver/free-orders"/>" name="profile" class="header-user-link">${sessionScope.name}</a></span>--%>
+                                            <%--</li>--%>
+                                         <%--</c:if>--%>
+                                        <%--<c:if test="${sessionScope.role == 'register_customer'}">--%>
+                                            <%--<li>--%>
+                                            <%--<span class="greeting">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hello,&nbsp;--%>
+                                            <%--&lt;%&ndash;<span id="header_user_menu_parent" name="splash-button" class="header-user-title">&ndash;%&gt;--%>
+                                            <%--<a href="<c:url value="/customer"/>" name="profile" class="header-user-link">${sessionScope.name}</a></span>--%>
+                                            <%--</li>--%>
+                                        <%--</c:if>--%>
+
+                                <%--<span font-size="18" color="black">Hello,&nbsp;--%>
+                                <%--<a href="/customerProfile" >${sessionScope.name}</a></span>--%>
+                                <%--<span style='padding-left:40px;'> </span>--%>
+                                <%--<span>Hello,&nbsp;</span>--%>
+                                <%--&lt;%&ndash;<span id="header_user_menu_parent" name="splash-button" class="header-user-title">&ndash;%&gt;--%>
+                                <%--<a href="/admin" name="profile" class="header-user-link">${sessionScope.name}</a>--%>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
             <!--end: Navigation -->
 
+            <%--<div class="logo span3_my">--%>
+                <%--<a class="brand_my" href="<c:url value="/"/>">--%>
+                    <%--<img src="<%=application.getContextPath()%>/resources/img/logo.png" alt="Logo">--%>
+                <%--</a>--%>
+            <%--</div>--%>
         </div>
         <!--end: Row -->
-
     </div>
 </header>
 <!--end: Header-->
 
-<script>function getContextPath() { return '${pageContext.request.contextPath}/'; }</script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/sign-out.js"></script>

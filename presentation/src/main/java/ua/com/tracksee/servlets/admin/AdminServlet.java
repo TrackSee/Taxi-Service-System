@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by Vadym_Akymov on 25.04.15.
  */
-@WebServlet("/admin")
+@WebServlet({"/admin", "/admin/"})
 public class AdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/admin/admin.jsp").forward(request, response);

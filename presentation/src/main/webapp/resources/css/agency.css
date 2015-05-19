@@ -191,15 +191,7 @@ ul.social-buttons li a:active {
 
 
 
-::-moz-selection {
-    text-shadow: none;
-    background: #fed136;
-}
 
-::selection {
-    text-shadow: none;
-    background: #fed136;
-}
 
 
 body {
