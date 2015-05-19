@@ -224,15 +224,14 @@
 <%-- end:wrapper --%>
 </div>
 
-<%--<div class="row">--%>
+<div class="row">
 
-    <%--<div class="span12">--%>
+    <div class="span12">
 
-        <%--<div id="map-canvas" class="googleMap"></div>--%>
+        <div id="map-canvas" class="googleMap"></div>
 
-    <%--</div>--%>
-<%--</div>--%>
-<p>d</p>
+    </div>
+</div>
 <!-- Load jQuery and bootstrap datepicker scripts -->
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
         charset="UTF-8"></script>
@@ -258,13 +257,7 @@
 
 <%-- Order page scripts --%>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/cargoTaxi.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/sober-driver.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/meet-guest.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/food-delivery.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/other-services.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/longTerm.js"></script>
 <%--end order oage scripts--%>
 
 <%@include file="../parts/scripts.jsp" %>

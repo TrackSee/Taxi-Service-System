@@ -86,13 +86,39 @@ public interface TaxiOrderDAO {
 
     /**
      * Checks order present in
-     * database with such trackingNumber.
+     * database with such trackingNumber
+     * and assigned to activated user.
+     *
      *
      * @author Sharaban Sasha
      * @param trackingNumber  tracking number of order
      * @return state of order presenting
      */
-    boolean checkOrderPresent(Long trackingNumber);
+    boolean checkOrderPresentActiveUser(Long trackingNumber);
+    /**
+     * Checks order present in
+     * database with such trackingNumber
+     * and assigned to non activated user.
+     *
+     *
+     * @author Sharaban Sasha
+     * @param trackingNumber  tracking number of order
+     * @return state of order presenting
+     */
+    boolean checkOrderPresentNonActiveUser(Long trackingNumber);
+    /**
+     * Checks order present in
+     * database with such trackingNumber
+     * and userId that belongs to activated
+     * user.
+     *
+     *
+     * @author Sharaban Sasha
+     * @param trackingNumber  tracking number of order
+     * @param userId user id
+     * @return state of order presenting
+     */
+    boolean checkOrderPresentForActiveUser(Long trackingNumber,int userId);
 
     /**
      * @author Vadym Akymov

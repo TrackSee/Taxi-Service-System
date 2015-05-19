@@ -20,19 +20,17 @@ import java.util.List;
  * @author Sharaban Sasha
  */
 @Stateless
-public class PriceListReportBean {
+public class PriceListReportBean  {
     @EJB private TaxiPriceDAO taxiPriceDAO;
-    private String reportTitle="Price list";
     private static final int MIN_DISTANCE=5;
     private static final int DISTANCE_FOR_SHOW=10;
     private static final int MINUTES_IN_HOUR=60;
 
     public String getReportTitle() {
-        return reportTitle;
+        return "Price list";
     }
-
-    public void setReportTitle(String reportTitle) {
-        this.reportTitle = reportTitle;
+    public int[] getReportNumberCells() {
+        return new int[]{2,3,4,5,6};
     }
 
     public ArrayList<String> getTitles(){
@@ -57,14 +55,17 @@ public class PriceListReportBean {
             data.add(taxiPriceEntityList.get(i).getCarCategory().toString());
             if(taxiPriceEntityList.get(i).getNightTariff()){
                 data.add("With night tariff");
+
             }else
             if(taxiPriceEntityList.get(i).getWeekend()){
                 data.add("With weekend tariff");
             }else
             if(taxiPriceEntityList.get(i).getWeekend()&&taxiPriceEntityList.get(i).getNightTariff()){
                 data.add("With weekend and night tariff");
+            }else
+            if(!taxiPriceEntityList.get(i).getWeekend()&&!taxiPriceEntityList.get(i).getNightTariff()){
+                data.add("None");
             }
-
             BigDecimal pricePerKmDigDecimal=(BigDecimal)taxiPriceEntityList.get(i).getPricePerKm();
             long pricePerKm=pricePerKmDigDecimal.longValue();
             data.add(String.valueOf(pricePerKm*MIN_DISTANCE));
