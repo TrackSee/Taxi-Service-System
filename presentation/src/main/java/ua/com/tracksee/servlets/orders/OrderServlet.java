@@ -40,6 +40,8 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         req.setAttribute("pageName", "order");
         req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);
     }
@@ -79,6 +81,8 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
 //TODO calculationg price via route
         HashMap<String, String> inputData = new HashMap<String, String>();
         try {

@@ -13,6 +13,8 @@ import java.io.IOException;
 @WebServlet({"/admin", "/admin/"})
 public class AdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         request.getRequestDispatcher("/WEB-INF/admin/admin.jsp").forward(request, response);
     }
 }

@@ -30,6 +30,8 @@ public class AdminDriverServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         List<UserEntity> drivers = administratorBean.getDrivers(1);
         req.setAttribute("drivers", drivers);
         req.setAttribute("pagesCount", administratorBean.getDriverPagesCount());
@@ -38,6 +40,8 @@ public class AdminDriverServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         String pageParam = req.getParameter("pageNumber");
         Integer pageNumber = null;
         //check pageNumber

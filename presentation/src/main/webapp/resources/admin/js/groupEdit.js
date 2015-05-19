@@ -107,6 +107,8 @@ var groupNameHelp = "";
 var role = "";
 var arrUpdateRoles = [];
 
+var pageSizeHelp;
+
 var countGroupsBeforeAdd;
 
 var currentdate = new Date();
@@ -136,6 +138,7 @@ function getPageNum(pageSize1, pageMaxNumber1, pageNumber1) {
 }
 
 function addGroup() {
+	pageSizeHelp = pageSize;
     $.get(SERVLETS.get('GROUP_EXIST_SERVLET'), {groupName : groupName}, function (responseJson) {
         $.each(responseJson, function (key, value) {
             if (value[EXIST] == true) {
@@ -346,6 +349,7 @@ function getGroupUserData(servletName, selectAction, selectCountAction, groupNam
 }
 
 function onClickEditGroup(el) {
+	pageSizeHelp = pageSize;
     pageNumber = 1;
     groupName = el.parentNode.parentNode.getElementsByTagName("td")[0].innerHTML;
     groupNameHelp = groupName;
@@ -399,6 +403,7 @@ function onCansel() {
     userIds = [];
     arrUpdateRoles = [];
     pageNumber = 1;
+	pageSize = pageSizeHelp;
     getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_GROUPS'),
         SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), pageNumber);
 }
@@ -455,6 +460,6 @@ $(document).ready(function () {
         var e = document.getElementById("groupCountPage");
         pageSize = e.options[e.selectedIndex].value;
         getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_GROUPS'),
-            SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), pageNumber);
+            SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), 1);
     });
 });

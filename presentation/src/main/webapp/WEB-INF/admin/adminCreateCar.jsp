@@ -10,11 +10,9 @@
 <html>
 
 <head>
-    <%@include file="../parts/meta.jsp"%>
+    <%--<%@include file="../parts/meta.jsp"%>--%>
 
     <!-- Bootstrap Core CSS -->
-    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
-          rel="stylesheet">
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
           rel="stylesheet">
     <link href="<%=application.getContextPath()%>/resources/admin/css/formStyle.css" rel="stylesheet">
@@ -40,10 +38,7 @@
 </div>
     <div id="page-wrapper">
         <form class="create-car" id="createCar" action="<c:url value="/admin/createcar"/>" method="post">
-            <h2 class="form-sign-up-heading">Please enter cars data</h2>
-            <%--<label for="carNumber" class="sr-only">Number</label>--%>
-            <%--<input type="carNumber" id="carNumber" name="carNumber" class="form-control" placeholder="Car Number" value="${car.carNumber}">--%>
-
+            <h2 class="form-sign-up-heading">Please enter data</h2>
             <label for="carNumber" class="sr-only">Model</label>
             <input type="carNumber" id="carNumber" name="carNumber" class="form-control"
                    placeholder="Car Number" required>
@@ -76,6 +71,7 @@
             <div>
                 <button id="addCar" type="button" class="btn btn-primary">Create</button>
             </div>
+            </form>
     </div>
 
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
