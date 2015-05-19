@@ -303,7 +303,6 @@
 <%--for pagination--%>
 <script src="<%=application.getContextPath()%>/resources/driver/js/paginator-orders.js"></script>
 
-
 </body>
 
 </html>

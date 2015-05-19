@@ -68,7 +68,6 @@ public class AssignedOrderServlet extends HttpServlet {
                 //}
             } catch (ParseException e) {
                 System.out.println("Invalid or missing date, cannot be parsed 1");
-               // carArriveTimeTimestamp = null;
 
                 if(timeCarArriveDate!=null){
                     Timestamp carArriveTimeTimestamp2=null;
@@ -76,9 +75,7 @@ public class AssignedOrderServlet extends HttpServlet {
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         Date parsedDate = dateFormat.parse(timeCarArriveDate);
                         carArriveTimeTimestamp2= new java.sql.Timestamp(parsedDate.getTime());
-                        //if(carArriveTimeTimestamp2.after(testTime)) {
-                            //timeCarArrive = carArriveTimeTimestamp2.toString();
-                        //}
+
                         timeCarArrive=carArriveTimeTimestamp2.toString();
                     } catch (ParseException e1) {
                         System.out.println("Invalid or missing date, cannot be parsed 2");
@@ -100,32 +97,6 @@ public class AssignedOrderServlet extends HttpServlet {
             }
             System.out.println("First"+timeCarArrive);
         }
-//        else if(timeCarArriveDate!=null){
-//            Timestamp carArriveTimeTimestamp2=null;
-//            try {
-//                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-//                Date parsedDate = dateFormat.parse(timeCarArriveDate);
-//                carArriveTimeTimestamp2= new java.sql.Timestamp(parsedDate.getTime());
-//                //if(carArriveTimeTimestamp2.after(testTime)) {
-//                    timeCarArrive = carArriveTimeTimestamp2.toString();
-//                //}
-//                timeCarArrive=carArriveTimeTimestamp2.toString();
-//            } catch (ParseException e) {
-//                System.out.println("Invalid or missing date, cannot be parsed 2");
-//                carArriveTimeTimestamp2 = null;
-//
-//            }
-//            catch (Exception e1){
-//                req.setAttribute("alert", alert = true);
-//                req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
-//                req.setAttribute("status", statusBoolean);
-//                req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
-//            }
-//            //System.out.println("Second"+timeCarArrive);
-//        }
-//        System.out.println("RESSUPERFINAL"+timeCarArrive);
-
-
 
         if(orderStatus != null) {
             if(orderStatus.equals("Refused")){
@@ -159,11 +130,8 @@ public class AssignedOrderServlet extends HttpServlet {
 
         timeCarArrive = null;
 
-        //timeCarArrive = req.getParameter("carArriveTime");
         req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
         req.setAttribute("status", statusBoolean);
-        //req.setAttribute("firsCust", req.getParameter("arriveDateCustomer"));
-        //req.setAttribute("firsDrive", req.getParameter("arriveDate"));
         req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
     }
 }
