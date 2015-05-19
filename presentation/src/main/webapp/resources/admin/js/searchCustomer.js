@@ -57,7 +57,7 @@ function goToUserDash(el) {
         url: 'userdash',
         data: {userIdAdmin: id},
         success: function() {
-            window.location.replace("../customerProfile");            
+            window.location.replace("../customer");            
         }
     });
 }

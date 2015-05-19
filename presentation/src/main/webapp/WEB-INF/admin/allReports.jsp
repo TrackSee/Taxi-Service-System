@@ -219,7 +219,7 @@
                 <%--<i class="fa fa-bar-chart-o fa-fw"></i> Driver sex popularity--%>
                 <%--</div>--%>
                 <div class="panel-body">
-                  <div id="popularDriverDiv"></div>
+                  <div id="driverDiv"></div>
                 </div>
                 <%--</div>--%>
               </div>
@@ -229,7 +229,7 @@
                 <%--<i class="fa fa-bar-chart-o fa-fw"></i> Car category popularity--%>
                 <%--</div>--%>
                 <div class="panel-body">
-                  <div id="popularCarDiv"></div>
+                  <div id="carDiv"></div>
                 </div>
                 <%--</div>--%>
               </div>
@@ -354,6 +354,7 @@
           charset="UTF-8"></script>
 
   <%--Reports JS--%>
+  <script src="<%=application.getContextPath()%>/resources/admin/reports/js/driverAndCarReport.js"></script>
   <script src="<%=application.getContextPath()%>/resources/admin/reports/js/popularDriver.js"></script>
   <script src="<%=application.getContextPath()%>/resources/admin/reports/js/popularCar.js"></script>
   <script src="<%=application.getContextPath()%>/resources/admin/reports/js/musicOverall.js"></script>

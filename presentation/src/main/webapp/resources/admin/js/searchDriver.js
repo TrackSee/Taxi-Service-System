@@ -19,7 +19,8 @@ $(document).ready(function () {
                     var tBody = document.getElementById('table-body');
                     var rows = tBody.children;
                     var i;
-                    for (i = 0; i < Math.max(rows.length, usersArray.length); i++) {
+                    for (i = 0; i < Math.max(rows.length,
+					usersArray.length); i++) {
                         if (i >= rows.length) {
                             var newTr = document.createElement('tr');
                             //TODO Don't forget to change magic number of attribute tr count
@@ -46,3 +47,16 @@ $(document).ready(function () {
         });
     });
 });
+
+function goToUserDash(el) {
+    var id = el.value;
+
+    $.ajax({
+        type: 'GET',
+        url: 'userdash',
+        data: {userIdAdmin: id},
+        success: function() {
+            window.location.replace("../customer");
+        }
+    });
+}

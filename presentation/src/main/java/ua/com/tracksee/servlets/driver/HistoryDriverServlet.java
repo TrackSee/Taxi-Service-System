@@ -29,6 +29,8 @@ public class HistoryDriverServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         id = (int) req.getSession().getAttribute("userId");
         List<TaxiOrderEntity> orders = orderFacade.getHistoryOfOrders(id, 1);
         req.setAttribute("orders", orders);
@@ -39,6 +41,8 @@ public class HistoryDriverServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         id = (int) req.getSession().getAttribute("userId");
         String pageParam = req.getParameter("pageNumber");
         Integer pageNumber = null;

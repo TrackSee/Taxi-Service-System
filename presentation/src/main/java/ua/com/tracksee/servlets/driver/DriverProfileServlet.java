@@ -25,6 +25,8 @@ public class DriverProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         id = (int) req.getSession().getAttribute("userId");
         Integer userID = (Integer) req.getSession().getAttribute("userId");
         System.out.println("us id1" + userID);

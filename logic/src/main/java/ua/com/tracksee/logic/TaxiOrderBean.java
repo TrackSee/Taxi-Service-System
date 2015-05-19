@@ -1,14 +1,12 @@
 package ua.com.tracksee.logic;
 
+import com.vividsolutions.jts.geom.LineString;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entities.MostPopularOption;
-import ua.com.tracksee.entities.ServiceProfitable;
-import ua.com.tracksee.entities.TaxiOrderEntity;
-import ua.com.tracksee.entities.UserEntity;
-import ua.com.tracksee.enumartion.*;
+import ua.com.tracksee.dto.RouteDTO;
+import ua.com.tracksee.entities.*;
 import ua.com.tracksee.exception.OrderException;
 import ua.com.tracksee.dto.TaxiOrderDTO;
 
@@ -21,8 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
-import static ua.com.tracksee.enumartion.OrderStatus.QUEUED;
 
 /**
  * Stateless bean used for any order processing business logic.
@@ -50,30 +46,31 @@ public class TaxiOrderBean {
         return taxiOrderDAO.getMostPopularOptionsForUser(userId);
     }
 
-    /**
-     * Creates taxi order for authorised user.
-     *
-     * @param userId   id of authorised customer user
-     * @param orderDTO basic information about the order
-     */
-    public Long createAuthorisedOrder(Integer userId, TaxiOrderDTO orderDTO) {
-        TaxiOrderEntity order = new TaxiOrderEntity();
-        order.setUserId(userId);
-        order.setStatus(QUEUED);
-        //TODO service + price calculation at server order.setPrice();
-
-        // collecting data from DTO
-        try {
-            order.setCarCategory(CarCategory.valueOf(orderDTO.getCarCategory()));
-            order.setWayOfPayment(WayOfPayment.valueOf(orderDTO.getWayOfPayment()));
-            order.setDriverSex(Sex.valueOf(orderDTO.getDriverSex()));
-            order.setMusicStyle(MusicStyle.valueOf(orderDTO.getMusicStyle()));
-        } catch (IllegalArgumentException e) {
-            logger.warn("Could not parse enum during taxi order creation.");
-            return null;
-        }
-        return order.getTrackingNumber();
-    }
+    //no need in this
+//    /**
+//     * Creates taxi order for authorised user.
+//     *
+//     * @param userId   id of authorised customer user
+//     * @param orderDTO basic information about the order
+//     */
+//    public Long createAuthorisedOrder(Integer userId, TaxiOrderDTO orderDTO) {
+//        TaxiOrderEntity order = new TaxiOrderEntity();
+//        order.setUserId(userId);
+//        order.setStatus(QUEUED);
+//        //TODO service + price calculation at server order.setPrice();
+//
+//        // collecting data from DTO
+//        try {
+//            order.setCarCategory(CarCategory.valueOf(orderDTO.getCarCategory()));
+//            order.setWayOfPayment(WayOfPayment.valueOf(orderDTO.getWayOfPayment()));
+//            order.setDriverSex(Sex.valueOf(orderDTO.getDriverSex()));
+//            order.setMusicStyle(MusicStyle.valueOf(orderDTO.getMusicStyle()));
+//        } catch (IllegalArgumentException e) {
+//            logger.warn("Could not parse enum during taxi order creation.");
+//            return null;
+//        }
+//        return order.getTrackingNumber();
+//    }
 
     /**
      * Checks input data,insert order in database.
@@ -85,34 +82,50 @@ public class TaxiOrderBean {
      * @author Ruslan Gunavardana
      * @author Sharaban Sasha
      * @author Avlasov Sasha
-     * @param inputData- input data about user and his order
+     * @param inputData - input data about user and his order
+     * @param orderDTO
      * @return Integer - tracking number of user order
      * @throws ua.com.tracksee.exception.OrderException
      */
-    public Long makeOrder(HashMap<String, String> inputData) throws OrderException {
+    public Long makeOrder(HashMap<String, String> inputData, TaxiOrderDTO orderDTO) throws OrderException {
         String email = inputData.get("email");
         String phone = inputData.get("phoneNumber");
-        validateForUser(email, phone);
+        validateUserCredentials(email, phone);
         UserEntity user = new UserEntity();
         user.setEmail(email);
         user.setPhone(phone);
 
-        TaxiOrderEntity taxiOrderEntity = validateAndAssignDataToTaxiOrderEntity(inputData);
+        TaxiOrderEntity order = validateAndAssignDataToTaxiOrderEntity(inputData);
+
+        // items initialisation
+        for (RouteDTO route : orderDTO.getRoutes()) {
+            LineString path = route.getRouteLineString();
+            BigDecimal orderedQuantity = new BigDecimal(route.getDistance());
+            order.getItemList().add(new TaxiOrderItemEntity(path, orderedQuantity, order));
+        }
+
+
+        //calculating price
+        order.setPrice(priceCalculatorBean.calculatePrice(order));
+
         user = checkUserPresent(user);
-        taxiOrderEntity.setUserId(user.getUserId());
-        taxiOrderEntity.setTrackingNumber(taxiOrderDAO.addOrder(taxiOrderEntity));
-        if (taxiOrderEntity.getArriveDate() != null) {
-            taxiOrderDAO.addArriveDate(taxiOrderEntity.getArriveDate(), taxiOrderEntity.getTrackingNumber());
+        order.setUserId(user.getUserId());
+
+        // adding to database
+        order.setTrackingNumber(taxiOrderDAO.addOrder(order));
+
+        if (order.getArriveDate() != null) {
+            taxiOrderDAO.addArriveDate(order.getArriveDate(), order.getTrackingNumber());
         }
-        if (taxiOrderEntity.getAmountOfHours() != null&&taxiOrderEntity.getAmountOfMinutes() != null) {
-            taxiOrderDAO.addLongTermTaxiParams(taxiOrderEntity.getAmountOfHours(),
-                    taxiOrderEntity.getAmountOfMinutes(),taxiOrderEntity.getTrackingNumber());
+        if (order.getAmountOfHours() != null&&order.getAmountOfMinutes() != null) {
+            taxiOrderDAO.addLongTermTaxiParams(order.getAmountOfHours(),
+                    order.getAmountOfMinutes(),order.getTrackingNumber());
         }
-        if (taxiOrderEntity.getAmountOfCars() != null) {
-            taxiOrderDAO.addCelebrationTaxiParam(taxiOrderEntity.getAmountOfCars(), taxiOrderEntity.getTrackingNumber());
+        if (order.getAmountOfCars() != null) {
+            taxiOrderDAO.addCelebrationTaxiParam(order.getAmountOfCars(), order.getTrackingNumber());
         }
-        sendEmail(user, taxiOrderEntity.getTrackingNumber());
-        return taxiOrderEntity.getTrackingNumber();
+        sendEmail(user, order.getTrackingNumber());
+        return order.getTrackingNumber();
     }
 
     /**
@@ -226,7 +239,7 @@ public class TaxiOrderBean {
      * @param phone - client's phone number
      * @throws ua.com.tracksee.exception.OrderException *
      */
-    private void validateForUser(String email, String phone) throws OrderException {
+    private void validateUserCredentials(String email, String phone) throws OrderException {
         if (!validationBean.isValidEmail(email)) {
             throw new OrderException("Invalid email.", "wrong-email");
         }
@@ -249,9 +262,6 @@ public class TaxiOrderBean {
         TaxiOrderEntity taxiOrderEntity = new TaxiOrderEntity();
 
         taxiOrderEntity.setArriveDate(convertToTimestamp(inputData.get("arriveDate")));
-
-        //TODO calculating price, now for test it is 10
-        taxiOrderEntity.setPrice(new BigDecimal(10));
 
         taxiOrderEntity.setAmountOfCars(convertToInt(inputData.get("amountOfCars")));
         taxiOrderEntity.setAmountOfHours(convertToInt(inputData.get("amountOfHours")));

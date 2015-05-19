@@ -42,6 +42,8 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         req.setAttribute("pageName", "order");
         Integer userID=0;
         try {
@@ -94,6 +96,8 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
 //TODO calculationg price via route
         HashMap<String, String> inputData = new HashMap<String, String>();
         try {
@@ -119,11 +123,16 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
             inputData.put(SERVICE_ALIAS, req.getParameter(SERVICE_ALIAS));
             inputData.put(DESCRIPTION_ALIAS, req.getParameter(DESCRIPTION_ALIAS));
 
+            ObjectMapper mapper = new ObjectMapper();
+            String orderDtoJson = req.getParameter(ORDER_ALIAS);
+            logger.trace(orderDtoJson);
+            TaxiOrderDTO orderDTO = mapper.readValue(orderDtoJson, TaxiOrderDTO.class);
+
 
             if (orderFacade.checkBlackListByUserEmail(inputData.get(EMAIL_ALIAS))) {
                 req.setAttribute(ORDER_WARNING, orderFacade.getWarningAlert(ORDER_WARNING_MESSAGE));
             } else {
-                Long trackingNumber = orderFacade.makeOrder(inputData);
+                Long trackingNumber = orderFacade.makeOrder(inputData, orderDTO);
                 req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
                 req.setAttribute(ORDER_SUCCESS, orderFacade.getSuccessAlert(ORDER_SUCCESS_MESSAGE + trackingNumber
                         +ORDER_SUCCESS_TRACK_BUTTON));

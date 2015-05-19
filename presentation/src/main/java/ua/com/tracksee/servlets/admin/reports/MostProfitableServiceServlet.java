@@ -31,10 +31,14 @@ public class MostProfitableServiceServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         request.getRequestDispatcher("/WEB-INF/admin/reports/mostProfitableService.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String startDate = request.getParameter(dateStart);
         String endDate = request.getParameter(dateEnd);
         List<ServiceProfitable>  listServiceProfit = reportFacade.getProfitByService(startDate, endDate);

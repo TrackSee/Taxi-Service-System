@@ -1,7 +1,5 @@
 package ua.com.tracksee.dto;
 
-import org.joda.time.LocalDateTime;
-
 /**
  * Taxi order data transfer object class.
  * Objects of this class are used for converting to and from JSON.
@@ -9,18 +7,21 @@ import org.joda.time.LocalDateTime;
  * @author Ruslan Gunavardana
  */
 public class TaxiOrderDTO {
-    private Route[] routes;
-    private String service;
-    private LocalDateTime orderDate;
+    private RouteDTO[] routes;
+    //private String service;
+    //private LocalDateTime orderDate;
 
     /* contact info */
+    /*
     private String email;
     private String phoneNumber;
 
     private String description;
     private String serviceInfo;
+    */
 
     /* additional info */
+    /*
     private String carCategory;
     private String wayOfPayment;
     private String driverSex;
@@ -29,20 +30,17 @@ public class TaxiOrderDTO {
     private Boolean freeWiFi;
     private Boolean smokingDriver;
     private Boolean airConditioner;
+    */
 
-    /**
-     * An array of different routes.
-     *
-     * @return
-     */
-    public Route[] getRoutes() {
+    public RouteDTO[] getRoutes() {
         return routes;
     }
 
-    public void setRoutes(Route[] routes) {
+    public void setRoutes(RouteDTO[] routes) {
         this.routes = routes;
     }
 
+    /*
     public String getService() {
         return service;
     }
@@ -154,4 +152,5 @@ public class TaxiOrderDTO {
     public void setAirConditioner(Boolean airConditioner) {
         this.airConditioner = airConditioner;
     }
+    */
 }

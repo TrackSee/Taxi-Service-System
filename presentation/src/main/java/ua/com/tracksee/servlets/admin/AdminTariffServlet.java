@@ -29,6 +29,8 @@ public class AdminTariffServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         List<TaxiPriceEntity> tariff = administratorBean.getAllPrices();
         req.setAttribute("tariff", tariff);
         req.getRequestDispatcher("/WEB-INF/admin/AdminTariffList.jsp").forward(req, resp);
@@ -36,6 +38,8 @@ public class AdminTariffServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         BigDecimal newPrice = new BigDecimal(req.getParameter("newPriceVal").trim());
         CarCategory carCategory = CarCategory.valueOf(req.getParameter("carCategory").trim());
         Boolean weekend = Boolean.valueOf(req.getParameter("weekend").trim());
