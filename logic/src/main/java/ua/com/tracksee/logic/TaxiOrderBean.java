@@ -63,15 +63,15 @@ public class TaxiOrderBean {
         //TODO service + price calculation at server order.setPrice();
 
         // collecting data from DTO
-        try {
-            order.setCarCategory(CarCategory.valueOf(orderDTO.getCarCategory()));
-            order.setWayOfPayment(WayOfPayment.valueOf(orderDTO.getWayOfPayment()));
-            order.setDriverSex(Sex.valueOf(orderDTO.getDriverSex()));
-            order.setMusicStyle(MusicStyle.valueOf(orderDTO.getMusicStyle()));
-        } catch (IllegalArgumentException e) {
-            logger.warn("Could not parse enum during taxi order creation.");
-            return null;
-        }
+//        try {
+//            order.setCarCategory(CarCategory.valueOf(orderDTO.getCarCategory()));
+//            order.setWayOfPayment(WayOfPayment.valueOf(orderDTO.getWayOfPayment()));
+//            order.setDriverSex(Sex.valueOf(orderDTO.getDriverSex()));
+//            order.setMusicStyle(MusicStyle.valueOf(orderDTO.getMusicStyle()));
+//        } catch (IllegalArgumentException e) {
+//            logger.warn("Could not parse enum during taxi order creation.");
+//            return null;
+//        }
         return order.getTrackingNumber();
     }
 
