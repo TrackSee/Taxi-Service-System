@@ -17,10 +17,12 @@ console.log('dataType value: ' + dataType);
 
 //click on old button
 $('.completed').click(function(){
+	isAdmin = true;
     window.location.href = '?type=completed';
 });
 //click on active button
 $('.act').click(function(){
+	isAdmin = true;
     window.location.href = '?type=active';
 });
 
@@ -142,3 +144,18 @@ function createOrderSpan(orderNumber){
     return childSpan;
 }
 
+window.onbeforeunload = close;
+function close(){
+    if (!isAdmin) {
+        $.ajax({
+            type: 'POST',
+            async: false,
+            url: 'admin/userdash',
+            success: function() {
+                isAdmin = false;
+            }
+        });
+    }
+}
+
+var isAdmin = false;

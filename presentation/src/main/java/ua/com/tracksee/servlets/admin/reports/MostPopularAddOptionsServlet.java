@@ -38,7 +38,7 @@ public class MostPopularAddOptionsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<UserEntity> userList = adminFacade.getUsers();
         request.setAttribute(users, userList);
-        request.getRequestDispatcher("/WEB-INF/report/popularOptions.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/admin/reports/popularOptions.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

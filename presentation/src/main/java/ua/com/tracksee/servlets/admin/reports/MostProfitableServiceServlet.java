@@ -31,7 +31,7 @@ public class MostProfitableServiceServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/report/mostProfitableService.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/admin/reports/mostProfitableService.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -48,7 +48,7 @@
             <c:forEach items="${requestScope.users}" var="user">
                 <tr>
                         <%--TODO add reference on DASHBOARD --%>
-                    <td><a href="">${user.email}</a></td>
+                    <td><button class="btn btn-default" value="${user.userId}" onclick="goToUserDash(this)" name="${user.email}"></button></td>
                         <%--reference on dashboard--%>
                     <td>${user.phone != null? user.phone : "-"}</td>
                     <td>${user.sex}</td>
