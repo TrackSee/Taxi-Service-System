@@ -56,6 +56,9 @@ public class PriceListReportImpl implements Report {
             }else
             if(taxiPriceEntityList.get(i).getWeekend()&&taxiPriceEntityList.get(i).getNightTariff()){
                 data.add("With weekend and night tariff");
+            }else
+            if(!taxiPriceEntityList.get(i).getWeekend()&&!taxiPriceEntityList.get(i).getNightTariff()){
+                data.add("None");
             }
             BigDecimal pricePerKmDigDecimal=(BigDecimal)taxiPriceEntityList.get(i).getPricePerKm();
             long pricePerKm=pricePerKmDigDecimal.longValue();
