@@ -43,4 +43,13 @@ public interface TaxiPriceDAO {
     List<TaxiPriceEntity> getAllPrices();
     void updatePricePerKm(TaxiPriceEntity newPriceEntity);
     void updatePricePerMin(TaxiPriceEntity newPriceEntity);
+
+    /**
+     * Returns list of prices
+     * ordered by carCategory.
+     *
+     * @author Sharaban Sasha
+     * @return all prices order by car category
+     */
+    List<TaxiPriceEntity> getPricesOrderByCarCategory();
 }

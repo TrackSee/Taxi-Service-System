@@ -17,6 +17,7 @@ import java.util.Map;
  * @author Ruslan Gunavardana
  * @author Katia Stetsiuk
  * @author Vitalii Diravka
+ * @author Sharaban Sasha
  */
 @Stateless
 public class TaxiPriceDAOBean implements TaxiPriceDAO {
@@ -91,6 +92,14 @@ public class TaxiPriceDAOBean implements TaxiPriceDAO {
         String sql = "SELECT price_per_km, price_per_min, car_category, weekend, night_tariff " +
                 "FROM taxi_price " +
                 "ORDER BY car_category, weekend, night_tariff";
+        Query query = entityManager.createNativeQuery(sql, TaxiPriceEntity.class);
+        return query.getResultList();
+    }
+    @Override
+    public List<TaxiPriceEntity> getPricesOrderByCarCategory() {
+        String sql = "SELECT price_per_km, price_per_min, car_category, weekend, night_tariff " +
+                "FROM taxi_price " +
+                "ORDER BY car_category";
         Query query = entityManager.createNativeQuery(sql, TaxiPriceEntity.class);
         return query.getResultList();
     }

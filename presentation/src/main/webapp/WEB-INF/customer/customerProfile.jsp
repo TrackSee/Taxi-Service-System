@@ -22,9 +22,7 @@
 
 <!-- start: Page Title -->
 <div id="page-title">
-
   <div id="page-title-inner">
-
     <!-- start: Container -->
     <div class="container">
       <h2><i class="ico-settings ico-whiteeclipse"></i>Client Dashboard</h2>
@@ -35,7 +33,6 @@
     </div>
     <!-- end: Container  -->
   </div>
-
 </div>
 <!-- end: Page Title -->
 
@@ -44,7 +41,12 @@
 
   <!--start: Container -->
   <div class="container">
-
+      <form method="post" action="<c:url value="/report"/>">
+              <button type="submit" class="btn btn-info btn-large">Get simple report</button>
+      </form>
+      <form method="post" action="<c:url value="/reportComplicate"/>">
+              <button type="submit" class="btn btn-info btn-large">Get price list report</button>
+      </form>
     <!-- start: Row -->
     <div class="row orderRow">
     <%!int i = 0;%>
@@ -100,6 +102,7 @@
 <%@include file="../parts/scripts.jsp" %>
 <%--<%@include file="../parts/footer.jsp" %>--%>
 <script src="<%=application.getContextPath()%>/resources/customer/js/customer.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/excelReports.js"></script>
 
 </body>
 </html>
