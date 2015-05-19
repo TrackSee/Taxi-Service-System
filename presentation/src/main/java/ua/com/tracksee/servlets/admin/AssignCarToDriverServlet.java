@@ -20,6 +20,8 @@ public class AssignCarToDriverServlet extends HttpServlet {
     private AdministratorBean administratorBean;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String carNumber = request.getParameter("car");
         if("No car".equals(carNumber)){
             carNumber = null;

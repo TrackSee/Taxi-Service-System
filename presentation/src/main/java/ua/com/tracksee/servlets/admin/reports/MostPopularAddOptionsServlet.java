@@ -36,12 +36,16 @@ public class MostPopularAddOptionsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         List<UserEntity> userList = adminFacade.getUsers();
         request.setAttribute(users, userList);
         request.getRequestDispatcher("/WEB-INF/admin/reports/popularOptions.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         Integer userId = Integer.parseInt(request.getParameter(idUser));
         List<MostPopularOption> listOptions = reportFacade.getMostPopularOptionsForUser(userId);
         request.setAttribute(optionList, listOptions);

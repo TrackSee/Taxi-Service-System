@@ -15,6 +15,8 @@ public class FavoritePlacesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         req.getRequestDispatcher("/WEB-INF/customer/favoritePlaces.jsp").forward(req, resp);
     }
 }

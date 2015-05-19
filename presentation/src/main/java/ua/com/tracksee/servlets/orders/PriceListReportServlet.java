@@ -32,6 +32,8 @@ public class PriceListReportServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         try {
             HSSFWorkbook workbook = excelReporterBean.getExcelFile(reportBean);
             resp.setContentType("application/vnd.ms-excel");

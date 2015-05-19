@@ -27,6 +27,8 @@ public class GetOrdersPerPage extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         String dataType = req.getParameter("type");
         OrderStatusBO orderStatusBO = Enum.valueOf(OrderStatusBO.class, dataType.toUpperCase());
         Integer pageNumber = Integer.parseInt(req.getParameter("pageNumber"));

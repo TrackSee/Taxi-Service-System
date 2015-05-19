@@ -26,6 +26,8 @@ public class AdminCarServlet extends HttpServlet {
     private AdminFacade adminFacade ;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         List<CarEntity> cars = adminFacade.getCarsPart(1);
         req.setAttribute("cars", cars);
         req.setAttribute("pagesCount", adminFacade.getCarPagesCount());
@@ -33,6 +35,8 @@ public class AdminCarServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         Integer pageNumber = null;
         try {
             pageNumber = Integer.parseInt(req.getParameter("pageNumber"));
