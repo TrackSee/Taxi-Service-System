@@ -1,13 +1,12 @@
 package ua.com.tracksee.logic;
 
+import com.vividsolutions.jts.geom.LineString;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entities.MostPopularOption;
-import ua.com.tracksee.entities.ServiceProfitable;
-import ua.com.tracksee.entities.TaxiOrderEntity;
-import ua.com.tracksee.entities.UserEntity;
+import ua.com.tracksee.dto.RouteDTO;
+import ua.com.tracksee.entities.*;
 import ua.com.tracksee.enumartion.*;
 import ua.com.tracksee.exception.OrderException;
 import ua.com.tracksee.dto.TaxiOrderDTO;
@@ -86,11 +85,12 @@ public class TaxiOrderBean {
      * @author Ruslan Gunavardana
      * @author Sharaban Sasha
      * @author Avlasov Sasha
-     * @param inputData- input data about user and his order
+     * @param inputData - input data about user and his order
+     * @param orderDTO
      * @return Integer - tracking number of user order
      * @throws ua.com.tracksee.exception.OrderException
      */
-    public Long makeOrder(HashMap<String, String> inputData) throws OrderException {
+    public Long makeOrder(HashMap<String, String> inputData, TaxiOrderDTO orderDTO) throws OrderException {
         String email = inputData.get("email");
         String phone = inputData.get("phoneNumber");
         validateForUser(email, phone);
@@ -98,29 +98,37 @@ public class TaxiOrderBean {
         user.setEmail(email);
         user.setPhone(phone);
 
-        TaxiOrderEntity taxiOrderEntity = validateAndAssignDataToTaxiOrderEntity(inputData);
+        TaxiOrderEntity order = validateAndAssignDataToTaxiOrderEntity(inputData);
+
+        // items initialisation
+        for (RouteDTO route : orderDTO.getRoutes()) {
+            LineString path = route.getRouteLineString();
+            BigDecimal orderedQuantity = new BigDecimal(route.getDistance());
+            order.getItemList().add(new TaxiOrderItemEntity(path, orderedQuantity, order));
+        }
+
 
         //calculating price
-        taxiOrderEntity.setPrice(priceCalculatorBean.calculatePrice(taxiOrderEntity));
+        order.setPrice(priceCalculatorBean.calculatePrice(order));
 
         user = checkUserPresent(user);
-        taxiOrderEntity.setUserId(user.getUserId());
+        order.setUserId(user.getUserId());
 
         // adding to database
-        taxiOrderEntity.setTrackingNumber(taxiOrderDAO.addOrder(taxiOrderEntity));
+        order.setTrackingNumber(taxiOrderDAO.addOrder(order));
 
-        if (taxiOrderEntity.getArriveDate() != null) {
-            taxiOrderDAO.addArriveDate(taxiOrderEntity.getArriveDate(), taxiOrderEntity.getTrackingNumber());
+        if (order.getArriveDate() != null) {
+            taxiOrderDAO.addArriveDate(order.getArriveDate(), order.getTrackingNumber());
         }
-        if (taxiOrderEntity.getAmountOfHours() != null&&taxiOrderEntity.getAmountOfMinutes() != null) {
-            taxiOrderDAO.addLongTermTaxiParams(taxiOrderEntity.getAmountOfHours(),
-                    taxiOrderEntity.getAmountOfMinutes(),taxiOrderEntity.getTrackingNumber());
+        if (order.getAmountOfHours() != null&&order.getAmountOfMinutes() != null) {
+            taxiOrderDAO.addLongTermTaxiParams(order.getAmountOfHours(),
+                    order.getAmountOfMinutes(),order.getTrackingNumber());
         }
-        if (taxiOrderEntity.getAmountOfCars() != null) {
-            taxiOrderDAO.addCelebrationTaxiParam(taxiOrderEntity.getAmountOfCars(), taxiOrderEntity.getTrackingNumber());
+        if (order.getAmountOfCars() != null) {
+            taxiOrderDAO.addCelebrationTaxiParam(order.getAmountOfCars(), order.getTrackingNumber());
         }
-        sendEmail(user, taxiOrderEntity.getTrackingNumber());
-        return taxiOrderEntity.getTrackingNumber();
+        sendEmail(user, order.getTrackingNumber());
+        return order.getTrackingNumber();
     }
 
     /**

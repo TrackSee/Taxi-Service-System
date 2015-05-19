@@ -103,11 +103,14 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
             inputData.put(SERVICE_ALIAS, req.getParameter(SERVICE_ALIAS));
             inputData.put(DESCRIPTION_ALIAS, req.getParameter(DESCRIPTION_ALIAS));
 
+            ObjectMapper mapper = new ObjectMapper();
+            TaxiOrderDTO orderDTO = mapper.readValue(req.getParameter(ORDER_ALIAS), TaxiOrderDTO.class);
+
 
             if (orderFacade.checkBlackListByUserEmail(inputData.get(EMAIL_ALIAS))) {
                 req.setAttribute(ORDER_WARNING, orderFacade.getWarningAlert(ORDER_WARNING_MESSAGE));
             } else {
-                Long trackingNumber = orderFacade.makeOrder(inputData);
+                Long trackingNumber = orderFacade.makeOrder(inputData, orderDTO);
                 req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
                 req.setAttribute(ORDER_SUCCESS, orderFacade.getSuccessAlert(ORDER_SUCCESS_MESSAGE + trackingNumber
                         +ORDER_SUCCESS_TRACK_BUTTON));
