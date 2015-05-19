@@ -104,7 +104,9 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
             inputData.put(DESCRIPTION_ALIAS, req.getParameter(DESCRIPTION_ALIAS));
 
             ObjectMapper mapper = new ObjectMapper();
-            TaxiOrderDTO orderDTO = mapper.readValue(req.getParameter(ORDER_ALIAS), TaxiOrderDTO.class);
+            String orderDtoJson = req.getParameter(ORDER_ALIAS);
+            logger.trace(orderDtoJson);
+            TaxiOrderDTO orderDTO = mapper.readValue(orderDtoJson, TaxiOrderDTO.class);
 
 
             if (orderFacade.checkBlackListByUserEmail(inputData.get(EMAIL_ALIAS))) {

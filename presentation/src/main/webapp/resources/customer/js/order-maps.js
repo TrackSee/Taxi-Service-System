@@ -95,7 +95,7 @@ function getRoutesData() {
     return [{
         durationInMin   : Math.round(duration / SECS_PER_MINUTE), // to minutes
         distance        : Math.round(distance / 100) / 10,        // to km
-        encodedPolyline : route.overview_polyline // encoded poly
+        encodedRoute : route.overview_polyline // encoded poly
     }];
 }
 

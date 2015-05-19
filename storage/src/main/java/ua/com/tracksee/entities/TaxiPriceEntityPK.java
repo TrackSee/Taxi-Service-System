@@ -18,6 +18,15 @@ public class TaxiPriceEntityPK implements Serializable {
     private Boolean weekend;
     private Boolean nightTariff;
 
+    public TaxiPriceEntityPK() {
+    }
+
+    public TaxiPriceEntityPK(CarCategory carCategory, Boolean weekend, Boolean nightTariff) {
+        this.carCategory = carCategory;
+        this.weekend = weekend;
+        this.nightTariff = nightTariff;
+    }
+
     @Column(name = "car_category")
     @Enumerated(EnumType.STRING)
     @Id

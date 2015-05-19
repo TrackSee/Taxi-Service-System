@@ -7,7 +7,6 @@ import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dto.RouteDTO;
 import ua.com.tracksee.entities.*;
-import ua.com.tracksee.enumartion.*;
 import ua.com.tracksee.exception.OrderException;
 import ua.com.tracksee.dto.TaxiOrderDTO;
 
@@ -20,8 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
-import static ua.com.tracksee.enumartion.OrderStatus.QUEUED;
 
 /**
  * Stateless bean used for any order processing business logic.
@@ -93,7 +90,7 @@ public class TaxiOrderBean {
     public Long makeOrder(HashMap<String, String> inputData, TaxiOrderDTO orderDTO) throws OrderException {
         String email = inputData.get("email");
         String phone = inputData.get("phoneNumber");
-        validateForUser(email, phone);
+        validateUserCredentials(email, phone);
         UserEntity user = new UserEntity();
         user.setEmail(email);
         user.setPhone(phone);
@@ -241,7 +238,7 @@ public class TaxiOrderBean {
      * @param phone - client's phone number
      * @throws ua.com.tracksee.exception.OrderException *
      */
-    private void validateForUser(String email, String phone) throws OrderException {
+    private void validateUserCredentials(String email, String phone) throws OrderException {
         if (!validationBean.isValidEmail(email)) {
             throw new OrderException("Invalid email.", "wrong-email");
         }
