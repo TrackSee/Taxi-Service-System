@@ -82,6 +82,7 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
 //TODO calculationg price via route
         HashMap<String, String> inputData = new HashMap<String, String>();
         try {
+            //if()
             inputData.put(PHONE_NUMBER_ALIAS, req.getParameter(PHONE_NUMBER_ALIAS));
             inputData.put(EMAIL_ALIAS, req.getParameter(EMAIL_ALIAS));
 

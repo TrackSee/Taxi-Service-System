@@ -10,6 +10,8 @@ public interface OrderAttributes {
     static final String AMOUNT_OF_MINUTES_ALIAS ="amountOfMinutes";
     static final String PHONE_NUMBER_ALIAS ="phoneNumber";
     static final String EMAIL_ALIAS ="email";
+    static final String ADDRESSES_PATH ="addressPath";
+    static final String PRICE_ALIAS ="price";
     static final String ARRIVE_DATE_ALIAS ="arriveDate";
     static final String END_DATE_ALIAS ="endDate";
     static final String ADDRESS_DESTINATION_ALIAS ="addressDestination";

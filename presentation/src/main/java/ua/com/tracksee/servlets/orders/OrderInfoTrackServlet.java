@@ -41,15 +41,14 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
                 req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
                 req.setAttribute(PHONE_NUMBER_ALIAS, userEntity.getPhone());
                 req.setAttribute(EMAIL_ALIAS, userEntity.getEmail());
-
-               //TODO addresses and price
+               // req.setAttribute(ADDRESSES_PATH,);
+                req.setAttribute(PRICE_ALIAS,taxiOrderEntity.getPrice());
 
                 req.setAttribute(ARRIVE_DATE_ALIAS, orderFacade.convertDateForShow(taxiOrderEntity.getArriveDate()));
-                // TODO getting from db amount of cars, hours, minutes
 
-                req.setAttribute(AMOUNT_OF_CARS_ALIAS, req.getParameter(AMOUNT_OF_CARS_ALIAS));
-                req.setAttribute(AMOUNT_OF_HOURS_ALIAS,req.getParameter(AMOUNT_OF_HOURS_ALIAS));
-                req.setAttribute(AMOUNT_OF_MINUTES_ALIAS,req.getParameter(AMOUNT_OF_MINUTES_ALIAS));
+                req.setAttribute(AMOUNT_OF_CARS_ALIAS, taxiOrderEntity.getAmountOfCars());
+                req.setAttribute(AMOUNT_OF_HOURS_ALIAS,taxiOrderEntity.getAmountOfHours());
+                req.setAttribute(AMOUNT_OF_MINUTES_ALIAS,taxiOrderEntity.getAmountOfMinutes());
 
                 req.setAttribute(orderFacade.getFromEnumWayOfPayment(taxiOrderEntity.getWayOfPayment()), OPTION_SELECTED);
                 req.setAttribute(orderFacade.getFromEnumService(taxiOrderEntity.getService()), OPTION_SELECTED);

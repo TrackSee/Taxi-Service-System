@@ -1,10 +1,9 @@
-package ua.com.tracksee.servlets.orders;
+package ua.com.tracksee.servlets.customer.reports;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import ua.com.tracksee.entity.PriceListReportImpl;
-import ua.com.tracksee.entity.Report;
+import ua.com.tracksee.logic.reports.PriceListReportBean;
 import ua.com.tracksee.logic.reports.ExcelReporterBean;
 
 import javax.ejb.EJB;
@@ -26,16 +25,14 @@ public class PriceListReportServlet extends HttpServlet {
     private @EJB
     ExcelReporterBean excelReporterBean;
     private @EJB
-    Report reportBean;
-
-
+    PriceListReportBean reportBean;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             HSSFWorkbook workbook = excelReporterBean.getExcelFile(reportBean);
             resp.setContentType("application/vnd.ms-excel");
-            resp.addHeader("content-disposition", "attachment; filename=ComplicateReport.xls");
+            resp.addHeader("content-disposition", "attachment; filename="+reportBean.getReportTitle()+".xls");
             workbook.write(resp.getOutputStream());
             workbook.close();
         } catch (NullPointerException e) {

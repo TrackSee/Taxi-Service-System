@@ -41,9 +41,6 @@
 
   <!--start: Container -->
   <div class="container">
-      <form method="post" action="<c:url value="/report"/>">
-              <button type="submit" class="btn btn-info btn-large">Get simple report</button>
-      </form>
       <form method="post" action="<c:url value="/reportComplicate"/>">
               <button type="submit" class="btn btn-info btn-large">Get price list report</button>
       </form>
