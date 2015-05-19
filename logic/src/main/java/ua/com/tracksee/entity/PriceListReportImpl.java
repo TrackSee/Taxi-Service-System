@@ -50,6 +50,7 @@ public class PriceListReportImpl implements Report {
             data.add(taxiPriceEntityList.get(i).getCarCategory().toString());
             if(taxiPriceEntityList.get(i).getNightTariff()){
                 data.add("With night tariff");
+
             }else
             if(taxiPriceEntityList.get(i).getWeekend()){
                 data.add("With weekend tariff");
