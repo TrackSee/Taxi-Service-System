@@ -5,17 +5,19 @@ import java.util.List;
 /**
  * @author Ruslan Gunavardana
  */
-public class Route {
+public class RouteDTO {
     private Location[] points;
+    private float distance;
+    private float duration;
 
-    public Route() {
+    public RouteDTO() {
     }
 
-    public Route(Location[] points) {
+    public RouteDTO(Location[] points) {
         this.points = points;
     }
 
-    public Route(List<Location> points) {
+    public RouteDTO(List<Location> points) {
         this.points = points.toArray(new Location[points.size()]);
     }
 

@@ -5,7 +5,6 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.Point;
 import ua.com.tracksee.dto.Location;
-import ua.com.tracksee.dto.Route;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,21 +31,20 @@ public class GeometryConverter {
         return new Location(point.getX(), point.getY());
     }
 
-    public static LineString routeToLineString(Route path) {
+    public static LineString locationsToLineString(Location[] path) {
         if (path == null) {
             return null;
         }
 
-        Location[] points = path.getPoints();
-        Coordinate[] coordinates = new Coordinate[points.length];
-        for (int i = 0; i < points.length; i++) {
-            coordinates[i] = new Coordinate(points[i].getLat(), points[i].getLng());
+        Coordinate[] coordinates = new Coordinate[path.length];
+        for (int i = 0; i < path.length; i++) {
+            coordinates[i] = new Coordinate(path[i].getLat(), path[i].getLng());
         }
 
         return geometryFactory.createLineString(coordinates);
     }
 
-    public static Route lineStringToRoute(LineString lineString) {
+    public static Location[] lineStringToLocations(LineString lineString) {
         if (lineString == null) {
             return null;
         }
@@ -57,10 +55,10 @@ public class GeometryConverter {
             locations[i] = new Location(coordinates[i].x, coordinates[i].y);
         }
 
-        return new Route(locations);
+        return locations;
     }
 
-    public static Route decodeGooglePolylineToRoute(String encoded) {
+    public static Location[] decodeGooglePolylineToLocations(String encoded) {
 
         List<Location> poly = new ArrayList<>();
         int index = 0, len = encoded.length();
@@ -92,10 +90,10 @@ public class GeometryConverter {
             poly.add(p);
         }
 
-        return new Route(poly);
+        return poly.toArray(new Location[poly.size()]);
     }
 
     public static LineString decodeGooglePolylineToLineString(String encoded) {
-        return routeToLineString(decodeGooglePolylineToRoute(encoded));
+        return locationsToLineString(decodeGooglePolylineToLocations(encoded));
     }
 }
