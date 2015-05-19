@@ -7,6 +7,7 @@ import ua.com.tracksee.entities.MostPopularOption;
 import ua.com.tracksee.entities.ServiceProfitable;
 import ua.com.tracksee.entities.reports.CarReportEntity;
 import ua.com.tracksee.entities.reports.DriverReportEntity;
+import ua.com.tracksee.entities.reports.MusicReportEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,7 +16,9 @@ import javax.persistence.Query;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by kstes_000 on 09-May-15.
@@ -116,5 +119,129 @@ public class ReportDAOBean implements ReportDAO{
         query.setParameter(1, userId);
         return (BigInteger) query.getSingleResult();
     }
+
+    @Override
+    public int getOrdersByPeriod(String startDate, String endDate) {
+        String sql = "SELECT COUNT(*) FROM taxi_order" +
+                " WHERE ordered_date" +
+                " BETWEEN '" + startDate + "'" +
+                " AND '" + endDate + "'";
+        return getInteger(sql);
+    }
+
+    @Override
+    public double serviceProfitByMonth(String startDate) {
+        startDate = startDate + "-01";
+        String endDate = null;
+        String[] date = startDate.split("-");
+        String[] months = {"January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"};
+        for (int i = 0; i < months.length; i++) {
+            if (date[1].equals(months[i]) && i < months.length){
+                endDate = date[0] + "-" + months[i + 1] + "-" + date[2];
+            } else {
+                endDate = date[0] + "-" + months[0] + "-" + date[2];
+            }
+        }
+        String sql = "SELECT SUM(price)" +
+                " FROM taxi_order" +
+                " WHERE ordered_date >= '" + startDate + "'" +
+                " AND ordered_date < '" + endDate + "'";
+        Query query = entityManager.createNativeQuery(sql);
+
+        BigDecimal bigDecimal = (BigDecimal) query.getSingleResult();
+        return bigDecimal.doubleValue();
+    }
+
+    @Override
+    public List<MusicReportEntity> getMusicReportOverall() {
+        Query query = entityManager.createNativeQuery("SELECT * FROM music_report", MusicReportEntity.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<MusicReportEntity> getMusicReportByUser(Integer userId) {
+        String sql = "SELECT music_style, COUNT(music_style)" +
+                " FROM taxi_order" +
+                " WHERE music_style NOTNULL" +
+                " AND user_id = " + userId +
+                " GROUP BY music_style;";
+        Query query = entityManager.createNativeQuery(sql, MusicReportEntity.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public Map<String, Integer> mostPopularAdditionalCarOptOverall() {
+        Map<String, Integer> map = new HashMap<>();
+        String sql = "SELECT COUNT(way_of_payment)" +
+                " FROM taxi_order" +
+                " WHERE way_of_payment = 'VISA_CARD'";
+        Integer integer = getInteger(sql);
+        map.put("Credit card", integer);
+        String[] options = {"free_wifi", "animal_transportation", "non_smoking_driver", "air_conditioner"};
+        String[] optionsRight = {"Free Wi-Fi", "Animal transportation", "Non smoking driver", "Air conditioner"};
+        for (int i = 0; i < options.length; i++) {
+            Integer amount = getAmountOverall(options[i]);
+            map.put(optionsRight[i], amount);
+        }
+        return map;
+    }
+
+    @Override
+    public Map<String, Integer> mostPopularAdditionalCarOptByUser(Integer userId) {
+        Map<String, Integer> map = new HashMap<>();
+        String sql = "SELECT COUNT(way_of_payment)" +
+                " FROM taxi_order" +
+                " WHERE way_of_payment = 'VISA_CARD'" +
+                " AND user_id = " + userId;
+        Integer integer = getInteger(sql);
+        map.put("Credit card", integer);
+        String[] options = {"free_wifi", "animal_transportation", "non_smoking_driver", "air_conditioner"};
+        String[] optionsRight = {"Free Wi-Fi", "Animal transportation", "Non smoking driver", "Air conditioner"};
+        for (int i = 0; i < options.length; i++) {
+            Integer amount = getAmountByUser(options[i], userId);
+            map.put(optionsRight[i], amount);
+        }
+        return map;
+    }
+
+    /**
+     * @param sql query to count the number of orders with an additional option
+     * @return number of orders with this additional option
+     * @author Oleksandr Kozin
+     */
+    private Integer getInteger(String sql) {
+        Query query = entityManager.createNativeQuery(sql);
+        BigInteger bigInteger = (BigInteger) query.getSingleResult();
+        return bigInteger.intValue();
+    }
+
+    /**
+     * It counts the number of orders from this additional option overall
+     *
+     * @param option the name of an additional option
+     * @return number of orders with this additional option
+     * @author Oleksandr Kozin
+     */
+    private Integer getAmountOverall(String option) {
+        String sql = "SELECT COUNT(*) FROM taxi_order" +
+                " WHERE " + option + " = TRUE";
+        return getInteger(sql);
+    }
+
+    /**
+     * It counts the number of orders from this additional option for current customer
+     *
+     * @param option the name of an additional option
+     * @return number of orders with this additional option
+     * @author Oleksandr Kozin
+     */
+    private Integer getAmountByUser(String option, Integer userId) {
+        String sql = "SELECT COUNT(*) FROM taxi_order" +
+                " WHERE " + option + " = TRUE" +
+                " AND user_id = " + userId;
+        return getInteger(sql);
+    }
+
 
 }

@@ -36,6 +36,11 @@ public class GeometryConverter {
             return null;
         }
 
+        if (path.length == 1) {
+            Location startAndFinish = path[0];
+            path = new Location[]{startAndFinish, startAndFinish};
+        }
+
         Coordinate[] coordinates = new Coordinate[path.length];
         for (int i = 0; i < path.length; i++) {
             coordinates[i] = new Coordinate(path[i].getLat(), path[i].getLng());
@@ -59,11 +64,9 @@ public class GeometryConverter {
     }
 
     public static Location[] decodeGooglePolylineToLocations(String encoded) {
-
         List<Location> poly = new ArrayList<>();
         int index = 0, len = encoded.length();
         int lat = 0, lng = 0;
-
         while (index < len) {
             int b, shift = 0, result = 0;
             do {
@@ -73,7 +76,6 @@ public class GeometryConverter {
             } while (b >= 0x20);
             int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
             lat += dlat;
-
             shift = 0;
             result = 0;
             do {
@@ -83,13 +85,9 @@ public class GeometryConverter {
             } while (b >= 0x20);
             int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
             lng += dlng;
-
-            Location p = new Location((int) (((double) lat / 1E5) * 1E6),
-                    (int) (((double) lng / 1E5) * 1E6));
-            System.out.println(p.getLat() + " " + p.getLng());
+            Location p = new Location((((double) lat / 1E5)), (((double) lng / 1E5)));
             poly.add(p);
         }
-
         return poly.toArray(new Location[poly.size()]);
     }
 

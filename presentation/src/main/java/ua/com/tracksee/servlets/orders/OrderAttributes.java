@@ -2,39 +2,41 @@ package ua.com.tracksee.servlets.orders;
 
 /**
  * @author Sharaban Sasha
+ * @author Ruslan Gunavardana
  */
 public interface OrderAttributes {
-    static final String TRACKING_NUMBER_ALIAS ="trackingNumber";
-    static final String AMOUNT_OF_CARS_ALIAS ="amountOfCars";
-    static final String AMOUNT_OF_HOURS_ALIAS ="amountOfHours";
-    static final String AMOUNT_OF_MINUTES_ALIAS ="amountOfMinutes";
-    static final String PHONE_NUMBER_ALIAS ="phoneNumber";
-    static final String EMAIL_ALIAS ="email";
-    static final String ARRIVE_DATE_ALIAS ="arriveDate";
-    static final String END_DATE_ALIAS ="endDate";
-    static final String ADDRESS_DESTINATION_ALIAS ="addressDestination";
-    static final String ADDRESS_ORIGIN_ALIAS ="addressOrigin";
-    static final String ORDER_STATUS_ALIAS ="orderStatus";
-    static final String DISTANCE_ALIAS ="distance";
-    static final String SERVICE_ALIAS="service";
-    static final String WAY_OF_PAYMENT_ALIAS ="wayOfPayment";
-    static final String CAR_CATEGORY_ALIAS ="carCategory";
-    static final String MUSIC_STYLE_ALIAS ="musicStyle";
-    static final String DRIVER_SEX_ALIAS ="driverSex";
-    static final String DESCRIPTION_ALIAS="description";
-    static final String COMMENTS_ALIAS ="comments";
-    static final String COMMENTS_STATE_ALIAS ="commentsState";
-    static final String BUTTON_COMMENTS_HIDE_ALIAS ="buttonCommentsHide";
-    static final String ANIMAL_TRANSPORTATION_ALIAS ="animalTransportation";
-    static final String FREE_WIFI_ALIAS ="freeWifi";
-    static final String NON_SMOKING_DRIVER_ALIAS ="nonSmokingDriver";
-    static final String AIR_CONDITIONER_ALIAS ="airConditioner";
+    String ORDER_ALIAS ="order";
+    String TRACKING_NUMBER_ALIAS ="trackingNumber";
+    String AMOUNT_OF_CARS_ALIAS ="amountOfCars";
+    String AMOUNT_OF_HOURS_ALIAS ="amountOfHours";
+    String AMOUNT_OF_MINUTES_ALIAS ="amountOfMinutes";
+    String PHONE_NUMBER_ALIAS ="phoneNumber";
+    String EMAIL_ALIAS ="email";
+    String ARRIVE_DATE_ALIAS ="arriveDate";
+    String END_DATE_ALIAS ="endDate";
+    String ADDRESS_DESTINATION_ALIAS ="addressDestination";
+    String ADDRESS_ORIGIN_ALIAS ="addressOrigin";
+    String ORDER_STATUS_ALIAS ="orderStatus";
+    String DISTANCE_ALIAS ="distance";
+    String SERVICE_ALIAS="service";
+    String WAY_OF_PAYMENT_ALIAS ="wayOfPayment";
+    String CAR_CATEGORY_ALIAS ="carCategory";
+    String MUSIC_STYLE_ALIAS ="musicStyle";
+    String DRIVER_SEX_ALIAS ="driverSex";
+    String DESCRIPTION_ALIAS="description";
+    String COMMENTS_ALIAS ="comments";
+    String COMMENTS_STATE_ALIAS ="commentsState";
+    String BUTTON_COMMENTS_HIDE_ALIAS ="buttonCommentsHide";
+    String ANIMAL_TRANSPORTATION_ALIAS ="animalTransportation";
+    String FREE_WIFI_ALIAS ="freeWifi";
+    String NON_SMOKING_DRIVER_ALIAS ="nonSmokingDriver";
+    String AIR_CONDITIONER_ALIAS ="airConditioner";
 
-    static final String HIDE="hidden=\"hidden\"";
-    static final String DISABLE="disabled=\"disabled\"";
-    static final String CHECKBOX_CHECKED ="checked=\"checked\"";
-    static final String OPTION_SELECTED ="selected=\"selected\"";
-    static final String ORDER_STATUS_VALUE_QUEUED = "QUEUED";
+    String HIDE="hidden=\"hidden\"";
+    String DISABLE="disabled=\"disabled\"";
+    String CHECKBOX_CHECKED ="checked=\"checked\"";
+    String OPTION_SELECTED ="selected=\"selected\"";
+    String ORDER_STATUS_VALUE_QUEUED = "QUEUED";
 
 
 

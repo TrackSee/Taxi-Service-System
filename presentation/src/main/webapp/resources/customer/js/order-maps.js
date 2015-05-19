@@ -93,9 +93,9 @@ function getRoutesData() {
         distance += route.legs[i].distance.value;
     }
     return [{
-        duration : Math.round(duration / SECS_PER_MINUTE), // to minutes
-        distance : Math.round(distance / 100) / 10,        // to km
-        route : route.overview_polyline // encoded poly
+        durationInMin   : Math.round(duration / SECS_PER_MINUTE), // to minutes
+        distance        : Math.round(distance / 100) / 10,        // to km
+        encodedRoute : route.overview_polyline // encoded poly
     }];
 }
 

@@ -2,6 +2,7 @@ package ua.com.tracksee.dao.implementation;
 
 import ua.com.tracksee.dao.TaxiPriceDAO;
 import ua.com.tracksee.entities.TaxiPriceEntity;
+import ua.com.tracksee.entities.TaxiPriceEntityPK;
 import ua.com.tracksee.enumartion.CarCategory;
 
 import javax.ejb.Stateless;
@@ -26,12 +27,7 @@ public class TaxiPriceDAOBean implements TaxiPriceDAO {
 
     @Override
     public TaxiPriceEntity getPriceFor(CarCategory category, boolean weekend, boolean nightTariff) {
-        String sql = "SELECT * FROM taxi_price" +
-                " WHERE car_category = " + category +
-                " AND weekend = " + weekend +
-                " AND night_tariff = " + nightTariff;
-        Query query = entityManager.createNativeQuery(sql);
-        return (TaxiPriceEntity) query.getSingleResult();
+        return entityManager.find(TaxiPriceEntity.class, new TaxiPriceEntityPK(category, weekend, nightTariff));
     }
 
     @Override

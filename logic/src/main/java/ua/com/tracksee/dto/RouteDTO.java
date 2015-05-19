@@ -1,31 +1,51 @@
 package ua.com.tracksee.dto;
 
-import java.util.List;
+import com.vividsolutions.jts.geom.LineString;
+
+import static ua.com.tracksee.util.GeometryConverter.decodeGooglePolylineToLineString;
+import static ua.com.tracksee.util.GeometryConverter.decodeGooglePolylineToLocations;
 
 /**
  * @author Ruslan Gunavardana
  */
 public class RouteDTO {
-    private Location[] points;
+    private String encodedRoute;
     private float distance;
-    private float duration;
+    private int durationInMin;
 
     public RouteDTO() {
+
     }
 
-    public RouteDTO(Location[] points) {
-        this.points = points;
+    public Location[] getRouteLocations() {
+        return decodeGooglePolylineToLocations(encodedRoute);
     }
 
-    public RouteDTO(List<Location> points) {
-        this.points = points.toArray(new Location[points.size()]);
+    public LineString getRouteLineString() {
+        return decodeGooglePolylineToLineString(encodedRoute);
     }
 
-    public Location[] getPoints() {
-        return points;
+    public String getEncodedRoute() {
+        return encodedRoute;
     }
 
-    public void setPoints(Location[] points) {
-        this.points = points;
+    public void setEncodedRoute(String encodedRoute) {
+        this.encodedRoute = encodedRoute;
+    }
+
+    public float getDistance() {
+        return distance;
+    }
+
+    public void setDistance(float distance) {
+        this.distance = distance;
+    }
+
+    public int getDurationInMin() {
+        return durationInMin;
+    }
+
+    public void setDurationInMin(int durationInMin) {
+        this.durationInMin = durationInMin;
     }
 }

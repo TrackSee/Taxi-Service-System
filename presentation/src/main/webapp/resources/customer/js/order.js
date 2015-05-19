@@ -28,7 +28,6 @@ $(document).ready(function(){
         $.ajax({
             type: 'POST',
             url: getContextPath() + 'order',
-            //data: JSON.stringify($(this).serializeObject()),
             data: formData,
             success: function (data) {
                 if (data == "error") {

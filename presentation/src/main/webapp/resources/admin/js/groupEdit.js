@@ -460,6 +460,6 @@ $(document).ready(function () {
         var e = document.getElementById("groupCountPage");
         pageSize = e.options[e.selectedIndex].value;
         getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_GROUPS'),
-            SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), pageNumber);
+            SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), $('#input1').val(), 1);
     });
 });

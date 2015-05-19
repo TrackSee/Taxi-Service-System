@@ -4,10 +4,12 @@ import ua.com.tracksee.entities.MostPopularOption;
 import ua.com.tracksee.entities.ServiceProfitable;
 import ua.com.tracksee.entities.reports.CarReportEntity;
 import ua.com.tracksee.entities.reports.DriverReportEntity;
+import ua.com.tracksee.entities.reports.MusicReportEntity;
 
 import javax.ejb.Local;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by kstes_000 on 09-May-15.
@@ -47,5 +49,44 @@ public interface ReportDAO {
 
 
     BigInteger getCountOptionalBool(String option, Integer userId);
+
+    /**
+     * @author Oleksandr Kozin
+     * @param startDate start date of the period
+     * @param endDate end date of the period
+     * @return number of orders per period
+     */
+    int getOrdersByPeriod(String startDate, String endDate);
+
+    /**
+     * @author Oleksandr Kozin
+     * @param startDate month for profit report
+     * @return profit by month
+     */
+    double serviceProfitByMonth(String startDate);
+
+    /**
+     * @author Oleksandr Kozin
+     * @return list of entities which contains info about music style and ordered count overall
+     */
+    List<MusicReportEntity> getMusicReportOverall();
+
+    /**
+     * @author Oleksandr Kozin
+     * @return list of entities which contains info about music style and ordered count for current customer
+     */
+    List<MusicReportEntity> getMusicReportByUser(Integer userId);
+
+    /**
+     * @author Oleksandr Kozin
+     * @return map with most popular additional car options overall
+     */
+    Map<String, Integer> mostPopularAdditionalCarOptOverall();
+
+    /**
+     * @author Oleksandr Kozin
+     * @return map with most popular additional car options for current customer
+     */
+    Map<String, Integer> mostPopularAdditionalCarOptByUser(Integer userId);
 
 }
