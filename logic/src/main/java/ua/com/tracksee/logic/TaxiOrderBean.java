@@ -50,30 +50,31 @@ public class TaxiOrderBean {
         return taxiOrderDAO.getMostPopularOptionsForUser(userId);
     }
 
-    /**
-     * Creates taxi order for authorised user.
-     *
-     * @param userId   id of authorised customer user
-     * @param orderDTO basic information about the order
-     */
-    public Long createAuthorisedOrder(Integer userId, TaxiOrderDTO orderDTO) {
-        TaxiOrderEntity order = new TaxiOrderEntity();
-        order.setUserId(userId);
-        order.setStatus(QUEUED);
-        //TODO service + price calculation at server order.setPrice();
-
-        // collecting data from DTO
-        try {
-            order.setCarCategory(CarCategory.valueOf(orderDTO.getCarCategory()));
-            order.setWayOfPayment(WayOfPayment.valueOf(orderDTO.getWayOfPayment()));
-            order.setDriverSex(Sex.valueOf(orderDTO.getDriverSex()));
-            order.setMusicStyle(MusicStyle.valueOf(orderDTO.getMusicStyle()));
-        } catch (IllegalArgumentException e) {
-            logger.warn("Could not parse enum during taxi order creation.");
-            return null;
-        }
-        return order.getTrackingNumber();
-    }
+    //no need in this
+//    /**
+//     * Creates taxi order for authorised user.
+//     *
+//     * @param userId   id of authorised customer user
+//     * @param orderDTO basic information about the order
+//     */
+//    public Long createAuthorisedOrder(Integer userId, TaxiOrderDTO orderDTO) {
+//        TaxiOrderEntity order = new TaxiOrderEntity();
+//        order.setUserId(userId);
+//        order.setStatus(QUEUED);
+//        //TODO service + price calculation at server order.setPrice();
+//
+//        // collecting data from DTO
+//        try {
+//            order.setCarCategory(CarCategory.valueOf(orderDTO.getCarCategory()));
+//            order.setWayOfPayment(WayOfPayment.valueOf(orderDTO.getWayOfPayment()));
+//            order.setDriverSex(Sex.valueOf(orderDTO.getDriverSex()));
+//            order.setMusicStyle(MusicStyle.valueOf(orderDTO.getMusicStyle()));
+//        } catch (IllegalArgumentException e) {
+//            logger.warn("Could not parse enum during taxi order creation.");
+//            return null;
+//        }
+//        return order.getTrackingNumber();
+//    }
 
     /**
      * Checks input data,insert order in database.
@@ -98,9 +99,16 @@ public class TaxiOrderBean {
         user.setPhone(phone);
 
         TaxiOrderEntity taxiOrderEntity = validateAndAssignDataToTaxiOrderEntity(inputData);
+
+        //calculating price
+        taxiOrderEntity.setPrice(priceCalculatorBean.calculatePrice(taxiOrderEntity));
+
         user = checkUserPresent(user);
         taxiOrderEntity.setUserId(user.getUserId());
+
+        // adding to database
         taxiOrderEntity.setTrackingNumber(taxiOrderDAO.addOrder(taxiOrderEntity));
+
         if (taxiOrderEntity.getArriveDate() != null) {
             taxiOrderDAO.addArriveDate(taxiOrderEntity.getArriveDate(), taxiOrderEntity.getTrackingNumber());
         }
@@ -248,9 +256,6 @@ public class TaxiOrderBean {
         TaxiOrderEntity taxiOrderEntity = new TaxiOrderEntity();
 
         taxiOrderEntity.setArriveDate(convertToTimestamp(inputData.get("arriveDate")));
-
-        //TODO calculating price, now for test it is 10
-        taxiOrderEntity.setPrice(new BigDecimal(10));
 
         taxiOrderEntity.setAmountOfCars(convertToInt(inputData.get("amountOfCars")));
         taxiOrderEntity.setAmountOfHours(convertToInt(inputData.get("amountOfHours")));
