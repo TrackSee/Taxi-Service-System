@@ -31,6 +31,8 @@ public class AdminUpdateDriverServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         id = Integer.parseInt(req.getParameter(userId));
         req.setAttribute(driver, adminFacade.getDriverByID(id));
         req.getRequestDispatcher("/WEB-INF/admin/adminUpdateDriver.jsp").forward(req, resp);
@@ -38,6 +40,8 @@ public class AdminUpdateDriverServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         String data = getData(req);
         ObjectMapper mapper = new ObjectMapper();
         UserEntity user = mapper.readValue(data, UserEntity.class);

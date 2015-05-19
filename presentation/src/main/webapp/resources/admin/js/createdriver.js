@@ -48,6 +48,5 @@ $(document).ready(function () {
                 window.location.href = 'drivers';
             }
         });
-        data = null;
     });
 });

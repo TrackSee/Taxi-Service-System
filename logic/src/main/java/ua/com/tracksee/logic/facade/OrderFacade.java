@@ -1,5 +1,6 @@
 package ua.com.tracksee.logic.facade;
 
+import ua.com.tracksee.dto.TaxiOrderDTO;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.enumartion.*;
@@ -36,8 +37,8 @@ public class OrderFacade {
      * @author Avlasov Sasha
      * @see ua.com.tracksee.logic.TaxiOrderBean
      */
-    public Long makeOrder(HashMap<String, String> inputData) throws OrderException {
-        return taxiOrderBean.makeOrder(inputData);
+    public Long makeOrder(HashMap<String, String> inputData, TaxiOrderDTO orderDTO) throws OrderException {
+        return taxiOrderBean.makeOrder(inputData, orderDTO);
     }
 
     /**

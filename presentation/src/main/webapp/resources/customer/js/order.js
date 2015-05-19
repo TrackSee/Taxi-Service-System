@@ -1,10 +1,6 @@
 /**
  * Created by Ruslan Gunavardana
  */
-function calc() {
-
-}
-
 $.fn.serializeObject = function()
 {
     var o = {};
@@ -22,14 +18,16 @@ $.fn.serializeObject = function()
     return o;
 };
 
+/**
+ * Order submit handler.
+ */
 $(document).ready(function(){
     $('#order-form').submit(function() {
         var formData = $(this).serialize();
-        formData += '&route=' + JSON.stringify(getRouteData())
+        formData += '&order=' + JSON.stringify({routes: getRoutesData()});
         $.ajax({
             type: 'POST',
             url: getContextPath() + 'order',
-            //data: JSON.stringify($(this).serializeObject()),
             data: formData,
             success: function (data) {
                 if (data == "error") {

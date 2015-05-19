@@ -2,6 +2,7 @@ package ua.com.tracksee.logic.reports;
 
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
+import ua.com.tracksee.entity.Report;
 
 import javax.ejb.Stateless;
 import java.util.ArrayList;
@@ -14,7 +15,10 @@ import java.util.ArrayList;
  */
 @Stateless
 public class ExcelReporterBean {
-    public HSSFWorkbook  getExcelFile(ArrayList<String> titles,ArrayList<ArrayList<String>> dataArray,String reportTitle){
+    public HSSFWorkbook  getExcelFile(Report report){
+        ArrayList<String> titles=report.getTitles();
+        ArrayList<ArrayList<String>> dataArray=report.getData();
+        String reportTitle=report.getReportTitle();
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet worksheet = workbook.createSheet(reportTitle);
         HSSFCellStyle cellStyle;

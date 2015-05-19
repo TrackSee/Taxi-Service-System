@@ -22,6 +22,8 @@ public class AdminDeleteCarServlet extends HttpServlet {
     @EJB
     private AdminFacade adminFacade ;
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         String carNumber = req.getParameter("carNumber");
         if (carNumber == null) {
             logger.warn("carNumber can't be null");

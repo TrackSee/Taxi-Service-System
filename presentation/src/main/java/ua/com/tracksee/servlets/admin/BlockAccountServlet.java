@@ -62,6 +62,8 @@ public class BlockAccountServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
 
         logger.debug("blockAccount, Get method");
         List<UserEntity> list = new LinkedList<>();
@@ -93,6 +95,8 @@ public class BlockAccountServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         logger.debug("blockAccount, Post method");
         List<Integer> userId = getUsersIdFromReq(req);
 

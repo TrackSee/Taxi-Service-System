@@ -11,12 +11,16 @@
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
-    <link href="<%=application.getContextPath()%>/resources/customer/css/googleMap.css" rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+          media="screen">
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
           media="screen">
-    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"/>
-    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"/>
-    <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"
+          type="text/css"/>
 </head>
 <body>
 <%@include file="../parts/header.jsp" %>
@@ -46,14 +50,12 @@
         <div class="title"><h3>Extended Booking Taxi</h3></div>
 
         <%--TODO getting data from database--%>
-        <div hidden="hidden">
-            <input type="text" id="taxiPricePerKm" value="6">
-        </div>
-        <div hidden="hidden">
-            <input type="text" id="taxiPricePerKmMin" value="30">
-        </div>
+        <script>
+            function getTaxiPricePerKm() { return 30; }
+            function getMinDistance() { return 6; }
+        </script>
         <%--${"taxiPricePerKm"}">--%>
-        <form id="order-form" method="post" action="javascript:void(null);" onsubmit="sendForm()">
+        <form id="order-form" method="post" action="javascript:void(null);">
             <div class="form-group">
                 <label>Phone number</label>
                 <input type="text" pattern="\d{10}"
@@ -81,11 +83,11 @@
             </div>
             <div id="addinput">
                 <p>
-                <button type="button" id="buttonAddressOrigin" class="btn btn-info turnButton">
-                    Add address from
-                </button>
-            </p>
-           </div>
+                    <button type="button" id="buttonAddressOrigin" class="btn btn-info turnButton">
+                        Add address from
+                    </button>
+                </p>
+            </div>
 
             <div class="form-group">
                 <label>Address to</label>
@@ -147,27 +149,27 @@
                 <div id="amountOfTripTimeBlock">
                     <label>Amount time of trip</label>
                     <div>
-                    <input type="number" id="amountOfHours" class="form-control" name="amountOfHours"
-                           placeholder="Amount of hours 8+"
-                           title="Amount of hours 8+">
-                    <span class="red-star">★</span>
-                        </div>
+                        <input type="number" id="amountOfHours" class="form-control" name="amountOfHours"
+                               placeholder="Amount of hours 8+"
+                               title="Amount of hours 8+">
+                        <span class="red-star">★</span>
+                    </div>
                     <div>
-                    <input type="number" id="amountOfMinutes" class="form-control" name="amountOfMinutes"
-                           placeholder="Amount minutes [0:60]"
-                           title="Amount of minutes [0:60]">
-                    <span class="red-star">★</span>
+                        <input type="number" id="amountOfMinutes" class="form-control" name="amountOfMinutes"
+                               placeholder="Amount minutes [0:60]"
+                               title="Amount of minutes [0:60]">
+                        <span class="red-star">★</span>
                     </div>
 
                 </div>
 
                 <%--TODO validation--%>
                 <div id="amountOfCarsBlock">
-                <label>Amount of cars</label>
-                <input type="number" id="amountOfCars" class="form-control" name="amountOfCars"
-                       placeholder="Amount of cars 5+"
-                       title="Amount of cars greater then 4">
-                <span class="red-star">★</span>
+                    <label>Amount of cars</label>
+                    <input type="number" id="amountOfCars" class="form-control" name="amountOfCars"
+                           placeholder="Amount of cars 5+"
+                           title="Amount of cars greater then 4">
+                    <span class="red-star">★</span>
                 </div>
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>
@@ -248,19 +250,18 @@
     </div>
 </div>
 
-
-
-<!-- Load jQuery and bootstrap datepicker scripts -->
+<%@include file="../parts/footer.jsp" %>
 <%@include file="../parts/scripts.jsp" %>
+
+<!-- Load bootstrap datepicker scripts -->
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"></script>
-<%--end jQuery and bootstrap datepicker scripts--%>
+<%--end bootstrap datepicker scripts--%>
 
 <%--Google maps scripts--%>
 <script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/maps/order-maps.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/order-maps.js"></script>
 <%--end google maps scripts--%>
 
 <%-- Order page scripts --%>
@@ -268,8 +269,7 @@
 <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/fields-generator.js"></script>
-<%--end order oage scripts--%>
+<%--end order page scripts--%>
 <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
-<%@include file="../parts/footer.jsp" %>
 </body>
 </html>

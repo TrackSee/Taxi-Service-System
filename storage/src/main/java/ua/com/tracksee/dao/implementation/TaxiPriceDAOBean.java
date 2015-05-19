@@ -2,6 +2,7 @@ package ua.com.tracksee.dao.implementation;
 
 import ua.com.tracksee.dao.TaxiPriceDAO;
 import ua.com.tracksee.entities.TaxiPriceEntity;
+import ua.com.tracksee.entities.TaxiPriceEntityPK;
 import ua.com.tracksee.enumartion.CarCategory;
 
 import javax.ejb.Stateless;
@@ -17,6 +18,7 @@ import java.util.Map;
  * @author Ruslan Gunavardana
  * @author Katia Stetsiuk
  * @author Vitalii Diravka
+ * @author Sharaban Sasha
  */
 @Stateless
 public class TaxiPriceDAOBean implements TaxiPriceDAO {
@@ -25,12 +27,7 @@ public class TaxiPriceDAOBean implements TaxiPriceDAO {
 
     @Override
     public TaxiPriceEntity getPriceFor(CarCategory category, boolean weekend, boolean nightTariff) {
-        String sql = "SELECT * FROM taxi_price" +
-                " WHERE car_category = " + category +
-                " AND weekend = " + weekend +
-                " AND night_tariff = " + nightTariff;
-        Query query = entityManager.createNativeQuery(sql);
-        return (TaxiPriceEntity) query.getSingleResult();
+        return entityManager.find(TaxiPriceEntity.class, new TaxiPriceEntityPK(category, weekend, nightTariff));
     }
 
     @Override
@@ -91,6 +88,14 @@ public class TaxiPriceDAOBean implements TaxiPriceDAO {
         String sql = "SELECT price_per_km, price_per_min, car_category, weekend, night_tariff " +
                 "FROM taxi_price " +
                 "ORDER BY car_category, weekend, night_tariff";
+        Query query = entityManager.createNativeQuery(sql, TaxiPriceEntity.class);
+        return query.getResultList();
+    }
+    @Override
+    public List<TaxiPriceEntity> getPricesOrderByCarCategory() {
+        String sql = "SELECT price_per_km, price_per_min, car_category, weekend, night_tariff " +
+                "FROM taxi_price " +
+                "ORDER BY car_category";
         Query query = entityManager.createNativeQuery(sql, TaxiPriceEntity.class);
         return query.getResultList();
     }

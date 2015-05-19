@@ -26,6 +26,8 @@ public class UpdateOrderServlet extends HttpServlet implements OrderAttributes {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         HashMap<String, String> inputData = new HashMap<String, String>();
         try {
             inputData.put(TRACKING_NUMBER_ALIAS, req.getParameter(TRACKING_NUMBER_ALIAS));

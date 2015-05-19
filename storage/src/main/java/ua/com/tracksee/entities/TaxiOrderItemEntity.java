@@ -19,6 +19,15 @@ public class TaxiOrderItemEntity {
     private UserEntity driver;
     private TaxiOrderEntity taxiOrder;
 
+    public TaxiOrderItemEntity() {
+    }
+
+    public TaxiOrderItemEntity(LineString path, BigDecimal orderedQuantity, TaxiOrderEntity taxiOrder) {
+        this.path = path;
+        this.orderedQuantity = orderedQuantity;
+        this.taxiOrder = taxiOrder;
+    }
+
     @Id
     @GeneratedValue(generator = "orderItemSeq")
     @SequenceGenerator(name = "orderItemSeq", sequenceName = "taxi_order_item_taxi_item_id_seq",

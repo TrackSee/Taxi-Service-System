@@ -15,8 +15,6 @@
     <!-- Bootstrap Core CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
           rel="stylesheet">
-    <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
-          rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"
@@ -39,7 +37,7 @@
 <div class="container"  style=" width : 500px; ">
 
     <form class="create-driver" id="createDriver" action="<c:url value="/admin/createdriver"/>" method="post">
-        <h2 class="form-sign-up-heading">Please enter drivers data</h2>
+        <h2 class="form-sign-up-heading">Please enter data</h2>
         <label for="email" class="sr-only">Email</label>
         <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required>
 
