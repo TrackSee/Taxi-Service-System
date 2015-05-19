@@ -4,6 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.dto.TaxiOrderDTO;
+import ua.com.tracksee.entities.TaxiOrderEntity;
+import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.facade.OrderFacade;
 
 import javax.ejb.EJB;
@@ -41,6 +43,21 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("pageName", "order");
+        Integer userID=0;
+        try {
+            userID = (Integer) req.getSession().getAttribute(USER_ID_ALIAS);
+            System.out.println("UserID"+userID);
+
+        if(userID>0){
+            UserEntity userEntity = orderFacade.getUserInfo(userID);
+            req.setAttribute(PHONE_NUMBER_ALIAS, userEntity.getPhone());
+            req.setAttribute(EMAIL_ALIAS, userEntity.getEmail());
+            System.out.println("USER FOUND");
+        }
+        }catch (NullPointerException e){
+            logger.info("don't authorise user");
+            req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);
+        }
         req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);
     }
 
@@ -82,7 +99,7 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
 //TODO calculationg price via route
         HashMap<String, String> inputData = new HashMap<String, String>();
         try {
-            //if()
+
             inputData.put(PHONE_NUMBER_ALIAS, req.getParameter(PHONE_NUMBER_ALIAS));
             inputData.put(EMAIL_ALIAS, req.getParameter(EMAIL_ALIAS));
 

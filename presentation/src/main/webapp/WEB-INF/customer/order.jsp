@@ -63,7 +63,7 @@
                 <input type="text" pattern="\d{10}"
                        title="That phone number is invalid please enter in this format 0934535415"
                        name="phoneNumber" class="form-control"
-                       placeholder="Enter phone number"
+                       placeholder="Enter phone number" value="${phoneNumber}"
                        required>
                 <span class="red-star">★</span>
             </div>
@@ -71,7 +71,7 @@
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" class="form-control" name="email" placeholder="Enter email"
-                       title="That email is invalid" required>
+                       title="That email is invalid" value="${email}" required>
                 <span class="red-star">★</span>
             </div>
 
