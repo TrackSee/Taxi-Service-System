@@ -25,6 +25,8 @@ public class UserDashboardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         Integer id = Integer.parseInt(req.getParameter(USER_ID_ADMIN_ALIAS));
         req.getSession().setAttribute(IS_ADMIN, req.getSession().getAttribute(USER_ID_ALIAS));
         req.getSession().setAttribute(USER_ID_ALIAS, id);
@@ -32,6 +34,8 @@ public class UserDashboardServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         Integer id = (Integer)req.getSession().getAttribute(IS_ADMIN);
         if (!(id == null)) {
             req.getSession().setAttribute(USER_ID_ALIAS, id);

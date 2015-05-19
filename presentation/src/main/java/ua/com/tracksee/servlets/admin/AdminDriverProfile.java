@@ -25,6 +25,8 @@ public class AdminDriverProfile extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         Integer id = Integer.parseInt(req.getParameter("id"));
         //get all free cars
         List<CarEntity> freeCars = administratorBean.getAllFreeCars();
@@ -39,6 +41,8 @@ public class AdminDriverProfile extends HttpServlet{
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         Integer id = Integer.parseInt(req.getParameter("id"));
         administratorBean.deleteUser(id);
     }

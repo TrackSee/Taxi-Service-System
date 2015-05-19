@@ -28,10 +28,14 @@ public class AdminCreateDriverServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         req.getRequestDispatcher("/WEB-INF/admin/adminCreateDriver.jsp").forward(req, resp);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         String data = getData(req);
         System.out.println("SB" + data);
         ObjectMapper mapper = new ObjectMapper();
