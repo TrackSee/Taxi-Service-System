@@ -2,6 +2,7 @@ package ua.com.tracksee.logic.facade;
 
 import ua.com.tracksee.dto.TaxiOrderDTO;
 import ua.com.tracksee.entities.TaxiOrderEntity;
+import ua.com.tracksee.entities.TaxiPriceEntity;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.enumartion.*;
 import ua.com.tracksee.exception.OrderException;
@@ -30,6 +31,7 @@ public class OrderFacade {
     private @EJB ValidationBean validationBean;
     private @EJB AlertGeneratorBean alertGeneratorBean;
     private @EJB DriverOrderBean driverOrderBean;
+    private @EJB PriceListBean priceListBean;
 
     /**
      * @author Ruslan Gunavardana
@@ -39,6 +41,10 @@ public class OrderFacade {
      */
     public Long makeOrder(HashMap<String, String> inputData, TaxiOrderDTO orderDTO) throws OrderException {
         return taxiOrderBean.makeOrder(inputData, orderDTO);
+    }
+
+    public List<TaxiPriceEntity> getPriceList() {
+        return priceListBean.getPrices();
     }
 
     /**

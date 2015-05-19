@@ -31,9 +31,7 @@ import java.util.HashMap;
 @WebServlet("/order")
 public class OrderServlet extends HttpServlet implements OrderAttributes {
     private static final Logger logger = LogManager.getLogger();
-    private
-    @EJB
-    OrderFacade orderFacade;
+    private @EJB OrderFacade orderFacade;
 
     /**
      * @author Sharaban Sasha
@@ -42,7 +40,7 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-        req.setAttribute("pageName", "order");
+        req.setAttribute("priceList", orderFacade.getPriceList());
         req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);
     }
 

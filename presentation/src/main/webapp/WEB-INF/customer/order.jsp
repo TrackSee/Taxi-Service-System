@@ -51,6 +51,8 @@
 
         <%--TODO getting data from database--%>
         <script>
+            //var priceList =
+
             function getTaxiPricePerKm() { return 30; }
             function getMinDistance() { return 6; }
         </script>
@@ -239,7 +241,6 @@
     </div>
 </div>
 <%-- end:wrapper --%>
-</div>
 
 <div class="row">
 
