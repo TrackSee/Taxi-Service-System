@@ -2,7 +2,7 @@
  * Created by Олександр on 16.05.2015.
  */
 
-var popDriverChart = AmCharts.makeChart( "popularDriverDiv", {
+var popDriverChart = AmCharts.makeChart( "driverDiv", {
     "type": "pie",
     "theme": "light",
     "path": "http://www.amcharts.com/lib/3/",

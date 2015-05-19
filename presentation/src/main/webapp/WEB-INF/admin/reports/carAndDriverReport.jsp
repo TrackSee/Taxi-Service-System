@@ -52,7 +52,7 @@
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/pie.js"></script>
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>
 <script src="http://amcharts.com/lib/3/plugins/export/export.js" type="text/javascript"></script>
-<script src="<%=application.getContextPath()%>/resources/admin/reports/js/driverAndCarReport.js"/>
+<script src="<%=application.getContextPath()%>/resources/admin/reports/js/driverAndCarReport.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
