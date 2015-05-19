@@ -184,15 +184,73 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         return (TaxiOrderEntity) query.getSingleResult();
     }
 
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     */
     @Override
-    public boolean checkOrderPresent(Long trackingNumber) {
+    public boolean checkOrderPresentActiveUser(Long trackingNumber) {
         boolean state = false;
-        String sql = "SELECT * FROM taxi_order WHERE tracking_number=(?)";
+        String sql = "SELECT * FROM taxi_order " +
+                "INNER JOIN service_user "+
+                "ON taxi_order.user_id= service_user.user_id " +
+                "WHERE tracking_number=(?1) AND activated=TRUE";
 
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
         query.setParameter(1, trackingNumber);
         try {
             if (query.getSingleResult() != null) {
+                state = true;
+            }
+        } catch (NoResultException e) {
+            logger.error("Order with such tracking number: " + trackingNumber + " was not found " + e);
+        }
+        return state;
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     */
+    @Override
+    public boolean checkOrderPresentNonActiveUser(Long trackingNumber) {
+        boolean state = false;
+        String sql = "SELECT * FROM taxi_order " +
+                "INNER JOIN service_user "+
+                "ON taxi_order.user_id= service_user.user_id " +
+                "WHERE tracking_number=(?1) AND activated=FALSE";
+
+        Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
+        query.setParameter(1, trackingNumber);
+        try {
+            if (query.getSingleResult() != null) {
+                state = true;
+            }
+        } catch (NoResultException e) {
+            logger.error("Order with such tracking number: " + trackingNumber + " was not found " + e);
+        }
+        return state;
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     */
+    @Override
+    public boolean checkOrderPresentForActiveUser(Long trackingNumber, int userId){
+        boolean state = false;
+        String sql = "SELECT tracking_number,description,status,price,taxi_order.user_id,service,car_category," +
+                "way_of_payment,driver_sex, music_style,animal_transportation,free_wifi,non_smoking_driver," +
+                "air_conditioner,ordered_date,arrive_date,amount_of_cars,amount_of_hours,amount_of_minutes,comment" +
+                " FROM taxi_order " +
+                "INNER JOIN service_user "+
+                "ON taxi_order.user_id= service_user.user_id " +
+                "WHERE tracking_number=(?1) AND taxi_order.user_id=(?2) AND activated=TRUE";
+
+        Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
+        query.setParameter(1, trackingNumber);
+        query.setParameter(2, userId);
+        List list = query.getResultList();
+        try {
+            if (list.size()==0) {
                 state = true;
             }
         } catch (NoResultException e) {

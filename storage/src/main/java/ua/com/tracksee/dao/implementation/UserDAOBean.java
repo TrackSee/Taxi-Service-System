@@ -193,7 +193,7 @@ public class UserDAOBean implements UserDAO {
                 "RETURNING user_id";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, user.getEmail());
-        query.setParameter(2, user.getPassword());
+        query.setParameter(2, user.getPhone());
         query.setParameter(3, user.getActivated());
         query.setParameter(4, user.getPassword());
         query.setParameter(5, user.getSalt());

@@ -60,8 +60,22 @@ public class OrderFacade {
      * @author Sharaban Sasha
      * @see ua.com.tracksee.logic.TaxiOrderBean
      */
-    public boolean checkOrderPresent(long trackingNumber) {
-        return taxiOrderBean.checkOrderPresent(trackingNumber);
+    public boolean checkOrderPresentActiveUser(long trackingNumber) {
+        return taxiOrderBean.checkOrderPresentActiveUser(trackingNumber);
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.logic.TaxiOrderBean
+     */
+    public boolean checkOrderPresentNonActiveUser(long trackingNumber) {
+        return taxiOrderBean.checkOrderPresentNonActiveUser(trackingNumber);
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.logic.TaxiOrderBean
+     */
+    public boolean checkOrderPresentForActiveUser(long trackingNumber,int userId) {
+        return taxiOrderBean.checkOrderPresentForActiveUser(trackingNumber,userId);
     }
 
     /**

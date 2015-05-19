@@ -46,16 +46,14 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
         Integer userID=0;
         try {
             userID = (Integer) req.getSession().getAttribute(USER_ID_ALIAS);
-            System.out.println("UserID"+userID);
 
         if(userID>0){
             UserEntity userEntity = orderFacade.getUserInfo(userID);
             req.setAttribute(PHONE_NUMBER_ALIAS, userEntity.getPhone());
             req.setAttribute(EMAIL_ALIAS, userEntity.getEmail());
-            System.out.println("USER FOUND");
         }
         }catch (NullPointerException e){
-            logger.info("don't authorise user");
+            logger.info("don't authorised user");
             req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);
         }
         req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);

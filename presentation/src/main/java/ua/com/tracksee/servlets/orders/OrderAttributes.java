@@ -47,9 +47,11 @@ public interface OrderAttributes {
     static final String ORDER_TRACK_COMPLETE_PAGE="/WEB-INF/customer/orderTrackComplete.jsp";
     static final String ORDER_TRACK_PAGE="/WEB-INF/customer/orderTrack.jsp";
     static final String ORDER_PAGE="/WEB-INF/customer/order.jsp";
+    static final String ORDER_IN_PROGRESS_PAGE ="/WEB-INF/customer/orderTrackInProgress.jsp" ;
 
     static final String NON_EXIST_TRACKING_NUMBER_WARNING="nonExistTrackingNumberWarning";
-    static final String NON_EXIST_TRACKING_NUMBER_WARNING_MESSAGE="requested order with such tracking number is not found";
+    static final String NON_EXIST_TRACKING_NUMBER_WARNING_MESSAGE="Requested order with such tracking number" +
+            " is not found or it is belong to registered user";
     static final String REFUSE_SUCCESS="refuseSuccess";
     static final String REFUSE_SUCCESS_MESSAGE="Your order has been refused!";
     static final String REFUSE_WARNING="refuseWarning";

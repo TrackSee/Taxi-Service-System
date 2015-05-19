@@ -196,6 +196,7 @@ public class TaxiOrderBean {
             userEntity.setActivated(false);
             userEntity.setPassword("");
             userEntity.setSalt("");
+            System.out.println(userEntity.getPhone()+" HERE!");
             userEntity.setUserId(userDAO.addUnregisteredUser(userEntity));
         }
         return userEntity;
@@ -363,7 +364,21 @@ public class TaxiOrderBean {
      * @author Sharaban Sasha
      * @see ua.com.tracksee.dao.TaxiOrderDAO
      */
-    public boolean checkOrderPresent(long trackingNumber) {
-        return taxiOrderDAO.checkOrderPresent(trackingNumber);
+    public boolean checkOrderPresentActiveUser(long trackingNumber) {
+        return taxiOrderDAO.checkOrderPresentActiveUser(trackingNumber);
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     */
+    public boolean checkOrderPresentNonActiveUser(long trackingNumber) {
+        return taxiOrderDAO.checkOrderPresentNonActiveUser(trackingNumber);
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     */
+    public boolean checkOrderPresentForActiveUser(long trackingNumber,int userId) {
+        return taxiOrderDAO.checkOrderPresentForActiveUser(trackingNumber, userId);
     }
 }

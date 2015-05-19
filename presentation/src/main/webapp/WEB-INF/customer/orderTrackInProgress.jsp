@@ -40,7 +40,7 @@
         <!-- start: Container -->
         <div class="container">
 
-            <h2><i class="ico-settings ico-white"></i>Order tracking (tracking number: ${trackingNumber})</h2>
+            <h2><i class="ico-settings ico-white"></i>Order tracking</h2>
 
         </div>
         <!-- end: Container  -->
@@ -55,45 +55,44 @@
     <!--start: Container -->
     <div class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
-        <form method="post" action="<c:url value="/updateOrder"/>">
-            <label id="hideTrackingNumberSecond">
-                <input type="text" name="trackingNumber" value="${trackingNumber}" >
-            </label>
+
             <div class="form-group">
                 <label>Phone number</label>
-                <input type="text" name="phoneNumber" class="form-control" placeholder="Enter phone number:"
+                <input type="text" name="phoneNumber" class="form-control"
                        value="${phoneNumber}"  readonly>
             </div>
 
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" class="form-control" name="email" placeholder="Enter email"
+                <input type="email" class="form-control" name="email"
                        value="${email}" data-error="That email is invalid" readonly>
             </div>
 
             <div class="form-group">
                 <label>Address from</label>
-                <input type="text" id="origin" class="form-control" value="${addressOrigin}"
-                       name="addressOrigin"  required onblur="updateRoute()">
-                <span class="red-star">★</span>
+                <input type="text" class="form-control" value="${addressOrigin}"
+                       name="addressOrigin" data-error="That address is invalid"
+                       readonly >
             </div>
 
-            <div class="form-group">
-                <label>Address to</label>
-                <input type="text" id="destination" class="form-control" value="${addressDestination}"
-                       name="addressDestination" required onblur="updateRoute()">
-                <span class="red-star">★</span>
-            </div>
+        <div class="form-group">
+            <label>Address to</label>
+            <input type="text" id="destination" class="form-control" value="${addressDestination}"
+                   name="addressDestination" required onblur="updateRoute()">
+            <span class="red-star">★</span>
+        </div>
             <div class="form-group">
                 <label class="control-label">Way of payment</label>
-                <select class="form-control order_priority" name="wayOfPayment">
+                <select class="form-control order_priority" name="wayOfPayment" disabled>
                     <option value="CASH" ${CASH}>Cash</option>
                     <option value="VISA_CARD" ${VISA_CARD}>Visa card</option>
                 </select>
             </div>
             <div class="form-group">
                 <label>Order price</label>
-                <input type="text" name="price" class="form-control" value="${price}" readonly>
+                <input type="text" name="price" class="form-control"
+                       value="${price}"
+                       data-error="That address is invalid" readonly>
             </div>
 
             <div id="flip">
@@ -121,52 +120,39 @@
                     </select>
                 </div>
                 <label for="arriveDate" class="sr-only">Arrive date</label>
+                    <input size="16" type="text"  id="arriveDate" name="arriveDate" value="${arriveDate}"
+                     disabled>
 
-                <div class="controls input-append date form_datetime"
-                     data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                    <span class="add-on"><i class="icon-th"></i></span>
-                    <span class="add-on"><i class="icon-remove"></i></span>
-                    <input size="16" type="text" value="${arriveDate}" id="arriveDate" name="arriveDate" readonly>
-                    <input type="hidden" id="dtp_input1" value=""/><br/>
-
-                </div>
                 <div id="amountOfTripTimeBlock">
                     <label>Amount time of trip</label>
                     <div>
                         <input type="number" id="amountOfHours" class="form-control" name="amountOfHours"
-                               placeholder="Amount of hours 8+"
-                               title="Amount of hours 8+" value="${amountOfHours}">
-                        <span class="red-star">★</span>
+                                value="${amountOfHours}" disabled>
                     </div>
                     <div>
                         <input type="number" id="amountOfMinutes" class="form-control" name="amountOfMinutes"
-                               placeholder="Amount minutes [0:60]"
-                               title="Amount of minutes [0:60]" value="${amountOfMinutes}">
-                        <span class="red-star">★</span>
+                               value="${amountOfMinutes}" disabled>
                     </div>
-
                 </div>
 
                 <%--TODO validation--%>
                 <div id="amountOfCarsBlock">
                     <label>Amount of cars</label>
                     <input type="number" id="amountOfCars" class="form-control" name="amountOfCars"
-                           placeholder="Amount of cars 5+"
-                           title="Amount of cars greater then 4" value="${amountOfCars}">
-                    <span class="red-star">★</span>
+                           value="${amountOfCars}" disabled>
                 </div>
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>
-                    <select class="form-control order_priority" name="carCategory">
+                    <select class="form-control order_priority" name="carCategory" disabled>
                         <option value="ECONOMY_CLASS" ${ECONOMY_CLASS}>Economy class</option>
-                        <option value="BUSINESS_CLASS" ${BUSINESS_CLASS}}>Business class</option>
+                        <option value="BUSINESS_CLASS" ${BUSINESS_CLASS}>Business class</option>
                         <option value="VAN" ${VAN}>Van</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label">Driver sex</label>
-                    <select class="form-control order_priority" name="driverSex" >
+                    <select class="form-control order_priority" name="driverSex" disabled>
                         <option value="A" ${A}>Anyone</option>
                         <option value="M" ${M}>Male</option>
                         <option value="F" ${F}>Female</option>
@@ -174,7 +160,7 @@
                 </div>
                 <div class="form-group" id="musicStyleGroup">
                     <label class="control-label">Music style</label>
-                    <select class="form-control order_priority" name="musicStyle" >
+                    <select class="form-control order_priority" name="musicStyle" disabled>
                         <option value="ANY" ${ANY}>Any</option>
                         <option value="BLUES" ${BLUES}>Blues</option>
                         <option value="CLASSICAL_MUSIC" ${CLASSICAL_MUSIC}>Classical music</option>
@@ -190,43 +176,48 @@
 
                 <div class="checkbox" id="animalTransportationCh">
                     <label>
-                        <input type="checkbox" name="animalTransportation" ${animalTransportation} >
+                        <input type="checkbox" name="animalTransportation" ${animalTransportation} disabled>
                         Animal transportation
                     </label>
                 </div>
                 <div class="checkbox" id="freeWifiCh">
                     <label>
-                        <input type="checkbox" name="freeWifi" ${freeWifi} > Free wi-fi
+                        <input type="checkbox" name="freeWifi" ${freeWifi} disabled> Free wi-fi
                     </label>
                 </div>
                 <div class="checkbox" id="smokingDriverCh">
                     <label>
-                        <input type="checkbox" name="smokingDriver" ${smokingDriver}> Smoking driver
+                        <input type="checkbox" name="smokingDriver" ${smokingDriver} disabled> Smoking driver
                     </label>
                 </div>
                 <div class="checkbox" id="airConditionerCh">
                     <label>
-                        <input type="checkbox" name="airConditioner" ${airConditioner}> Air conditioner
+                        <input type="checkbox" name="airConditioner" ${airConditioner} disabled> Air conditioner
                     </label>
                 </div>
 
                 Description:<br/>
-                <textarea name="description" id="description" rows="4" cols="50" title="">${description}
+                <textarea name="description" id="description" rows="4" cols="50" title="" readonly>${description}
                 </textarea>
                 <br/>
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-success btn-large">Change order</button>
+        <form method="post" action="<c:url value="/addComment"/>">
+            <label id="hideTrackingNumber">
+                <input type="text" name="trackingNumber" value="${trackingNumber}">
+            </label>
+            Comments:<br/>
+            <textarea name="comments" id="comments" rows="4" cols="50" title="" ${commentsState}>${comments}</textarea>
+            <br/>
+
+            <div class="form-group" ${buttonCommentsHide}>
+                <button type="submit" class="btn btn-success btn-large">Add comments</button>
             </div>
+
         </form>
-            <form method="post" action="<c:url value="/orderRefuse"/>">
-                <label id="hideTrackingNumber">
-                    <input type="text" name="trackingNumber" value="${trackingNumber}" >
-                </label>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-danger btn-large">Refuse order</button>
-                </div>
-            </form>
+    </div>
+    <div class="container">
+    ${image}
+
     </div>
     </p>
 </div>
@@ -241,7 +232,6 @@
 
     </div>
 </div>
-<p>d</p>
 <!-- Load jQuery and bootstrap datepicker scripts -->
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
         charset="UTF-8"></script>
