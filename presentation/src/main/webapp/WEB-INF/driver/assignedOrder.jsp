@@ -174,14 +174,58 @@
                 </section>
               </c:forEach>
               <!-- /Plans -->
-
+    <%--Pagination--%>
     <div class="text-center">
       <ul class="pagination">
-        <c:forEach var="i" begin="1" end="${requestScope.pagesCount}">
-          <li class="pageLi${i}"><a class="pageButton" href="#">${i}</a></li>
+        <c:if test="${requestScope.pagenumber != 1}">
+          <li class="dropdown pull-left">
+            <form action="assigned-order" method="post">
+              <a href="javascript:;" onclick="parentNode.submit();">
+                <button type="button" class="btn btn-default" aria-label="Previous">
+                  Previous</button></a>
+              <input type="hidden" name="pagenumber" value=${requestScope.pagenumber - 1}>
+            </form>
+          </li>
+        </c:if>
+        <c:forEach begin="1" end="${requestScope.pagesCount}" var="i">
+          <c:choose>
+            <c:when test="${requestScope.pagenumber eq i}">
+              <li class="dropdown pull-left"><button type="button" class="btn btn-default" aria-label="Next">
+                  ${i}</button></li>
+            </c:when>
+            <c:otherwise>
+              <li class="dropdown pull-left">
+                <form action="assigned-order" method="post">
+                  <button type="button" class="btn btn-default" aria-label="Next">
+                      ${i}</button>
+                  <input type="hidden" name="pagenumber" value=${i}>
+                </form>
+              </li>
+            </c:otherwise>
+          </c:choose>
         </c:forEach>
+        <c:if test="${requestScope.pagesCount != 0}">
+        <c:if test="${requestScope.pagenumber != requestScope.pagesCount}">
+          <li class="dropdown pull-left">
+            <form action="assigned-order" method="post">
+              <a href="javascript:;" onclick="parentNode.submit();">
+                <button type="button" class="btn btn-default" aria-label="Next">
+                  Next</button></a>
+              <input type="hidden" name="pagenumber" value=${requestScope.pagenumber + 1}>
+            </form>
+          </li>
+        </c:if>
+          </c:if>
       </ul>
     </div>
+
+    <%--<div class="text-center">--%>
+      <%--<ul class="pagination">--%>
+        <%--<c:forEach var="i" begin="1" end="${requestScope.pagesCount}">--%>
+          <%--<li class="pageLi${i}"><a class="pageButton" href="#">${i}</a></li>--%>
+        <%--</c:forEach>--%>
+      <%--</ul>--%>
+    <%--</div>--%>
 
           <!-- Pop up-->
 
