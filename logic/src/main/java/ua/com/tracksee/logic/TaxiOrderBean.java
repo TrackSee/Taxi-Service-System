@@ -20,6 +20,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import static java.lang.Boolean.FALSE;
+
 /**
  * Stateless bean used for any order processing business logic.
  *
@@ -91,11 +93,10 @@ public class TaxiOrderBean {
         String email = inputData.get("email");
         String phone = inputData.get("phoneNumber");
         validateUserCredentials(email, phone);
-        UserEntity user = new UserEntity();
-        user.setEmail(email);
-        user.setPhone(phone);
 
         TaxiOrderEntity order = validateAndAssignDataToTaxiOrderEntity(inputData);
+        UserEntity user = getUser(email, phone);
+        order.setUserId(user.getUserId());
 
         // items initialisation
         for (RouteDTO route : orderDTO.getRoutes()) {
@@ -107,9 +108,6 @@ public class TaxiOrderBean {
 
         //calculating price
         order.setPrice(priceCalculatorBean.calculatePrice(order));
-
-        user = checkUserPresent(user);
-        order.setUserId(user.getUserId());
 
         // adding to database
         order.setTrackingNumber(taxiOrderDAO.addOrder(order));
@@ -197,21 +195,24 @@ public class TaxiOrderBean {
      *
      * @author Sharaban Sasha
      * @author Avlasov Sasha
-     * @param userEntity - data about the user
      * @return ServiceUserEntity object that contain checked
      */
-    private UserEntity checkUserPresent(UserEntity userEntity) {
-        if (userDAO.getUserIdByEmail(userEntity.getEmail()) != null) {
-            logger.info("User was found");
-            userEntity.setUserId(userDAO.getUserIdByEmail(userEntity.getEmail()));
+    private UserEntity getUser(String email, String phone) {
+        UserEntity user = userDAO.getUserByEmail(email);
+        if (user != null) {
+            logger.debug("User was found");
+            user.setUserId(userDAO.getUserIdByEmail(user.getEmail()));
         } else {
-            logger.info("User was not found, record about him will be created");
-            userEntity.setActivated(false);
-            userEntity.setPassword("");
-            userEntity.setSalt("");
-            userEntity.setUserId(userDAO.addUnregisteredUser(userEntity));
+            logger.debug("User was not found, record about him will be created");
+            user = new UserEntity();
+            user.setEmail(email);
+            user.setPhone(phone);
+            user.setActivated(FALSE);
+            user.setPassword("");
+            user.setSalt("");
+            user.setUserId(userDAO.addUnregisteredUser(user));
         }
-        return userEntity;
+        return user;
     }
 
     /**

@@ -71,27 +71,21 @@
                 <i class="fa fa-taxi fa-5x"></i>
               </div>
               <div class="col-xs-9 text-right">
-                <div class="huge">514</div>
-                <div>New orders per period</div>
+                  <div>New orders per period</div>
+                  <div class="huge" id="placeholder1"></div>
               </div>
             </div>
           </div>
           <div class="panel-footer">
-            <%--<div class="row">--%>
-            <%--<div class="col-md-4">--%>
-            <div class="input-daterange input-group" id="datepicker">
+            <div class="input-daterange input-group" id="datepicker-new-orders">
               <input type="text" class="input-sm form-control" name="start"/>
               <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
               <span class="input-group-addon">to</span>
               <input type="text" class="input-sm form-control" name="end"/>
               <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
             </div>
-            <%--</div>--%>
-            <%--<div class="col-md-1">--%>
             <br>
-            <button type="button" class="btn btn-primary btn-block">Get Result</button>
-            <%--</div>--%>
-            <%--</div>--%>
+            <button id="getResultOrders" type="button" class="btn btn-primary btn-block">Get Result</button>
           </div>
         </div>
       </div>
@@ -104,18 +98,18 @@
                 <i class="fa fa-money fa-5x"></i>
               </div>
               <div class="col-xs-9 text-right">
-                <div class="huge">1257</div>
                 <div>Service profitability by month</div>
+                <div class="huge" id="placeholder2"></div>
               </div>
             </div>
           </div>
           <div class="panel-footer">
-            <div class="input-group date">
-              <input type="text" class="form-control">
+            <div class="input-group date" id="datepicker-profit">
+              <input type="text" class="form-control" name="date">
               <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
             </div>
             <br>
-            <button type="button" class="btn btn-primary btn-block">Get Result</button>
+            <button id="getResultProfit" type="button" class="btn btn-primary btn-block">Get Result</button>
           </div>
         </div>
       </div>
@@ -127,8 +121,6 @@
           <div class="panel-heading">
             <i class="fa fa-table fa-fw"></i> Most profitable taxi service
           </div>
-          <!-- /.panel-heading -->
-          <%--<div class="panel-body">--%>
           <div class="table-responsive">
             <table class="table table-bordered table-hover table-striped">
               <thead>
@@ -172,36 +164,32 @@
               </tr>
               <tr>
                 <th>Year</th>
-                <td>1020</td>
-                <td>1150</td>
-                <td>1465</td>
-                <td>1245</td>
-                <td>1025</td>
-                <td>954</td>
-                <td>1360</td>
-                <td>1820</td>
-                <td>856</td>
+                <td>10200</td>
+                <td>11504</td>
+                <td>14655</td>
+                <td>12457</td>
+                <td>10254</td>
+                <td>9540</td>
+                <td>13606</td>
+                <td>18208</td>
+                <td>8596</td>
               </tr>
               <tr>
                 <th>Decade</th>
-                <td>10200</td>
-                <td>11500</td>
-                <td>14650</td>
-                <td>12455</td>
-                <td>10250</td>
-                <td>9540</td>
-                <td>13600</td>
-                <td>18250</td>
-                <td>8560</td>
+                <td>145200</td>
+                <td>113800</td>
+                <td>146210</td>
+                <td>124572</td>
+                <td>100050</td>
+                <td>95550</td>
+                <td>121600</td>
+                <td>238250</td>
+                <td>95560</td>
               </tr>
               </tbody>
             </table>
           </div>
-          <!-- /.table-responsive -->
-          <%--</div>--%>
-          <!-- /.panel-body -->
         </div>
-        <!-- /.panel -->
       </div>
     </div>
 
@@ -214,24 +202,14 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-lg-6">
-                <%--<div class="panel panel-default">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<i class="fa fa-bar-chart-o fa-fw"></i> Driver sex popularity--%>
-                <%--</div>--%>
                 <div class="panel-body">
                   <div id="popularDriverDiv"></div>
                 </div>
-                <%--</div>--%>
               </div>
               <div class="col-lg-6">
-                <%--<div class="panel panel-default">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<i class="fa fa-bar-chart-o fa-fw"></i> Car category popularity--%>
-                <%--</div>--%>
                 <div class="panel-body">
                   <div id="popularCarDiv"></div>
                 </div>
-                <%--</div>--%>
               </div>
             </div>
           </div>
@@ -249,24 +227,14 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-lg-7">
-                <%--<div class="panel panel-default">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<i class="fa fa-bar-chart-o fa-fw"></i> Most popular music style--%>
-                <%--</div>--%>
                 <div class="panel-body">
                   <div id="musicOverallDiv"></div>
                 </div>
-                <%--</div>--%>
               </div>
               <div class="col-lg-5">
-                <%--<div class="panel panel-default">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<i class="fa fa-bar-chart-o fa-fw"></i> Most popular additional car options--%>
-                <%--</div>--%>
                 <div class="panel-body">
                   <div id="additionalOptOverallDiv"></div>
                 </div>
-                <%--</div>--%>
               </div>
             </div>
           </div>
@@ -304,24 +272,14 @@
             </form>
             <div class="row">
               <div class="col-lg-7">
-                <%--<div class="panel panel-default">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<i class="fa fa-bar-chart-o fa-fw"></i> Most popular music style--%>
-                <%--</div>--%>
                 <div class="panel-body">
                   <div id="musicCustomerDiv"></div>
                 </div>
-                <%--</div>--%>
               </div>
               <div class="col-lg-5">
-                <%--<div class="panel panel-default">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<i class="fa fa-bar-chart-o fa-fw"></i> Most popular additional car options--%>
-                <%--</div>--%>
                 <div class="panel-body">
                   <div id="additionalOptCustomerDiv"></div>
                 </div>
-                <%--</div>--%>
               </div>
             </div>
           </div>
@@ -361,6 +319,8 @@
   <script src="<%=application.getContextPath()%>/resources/admin/reports/js/additionalOptOverall.js"></script>
   <script src="<%=application.getContextPath()%>/resources/admin/reports/js/musicCustomer.js"></script>
   <script src="<%=application.getContextPath()%>/resources/admin/reports/js/additionalOptCustomer.js"></script>
+  <script src="<%=application.getContextPath()%>/resources/admin/reports/js/newOrdersPerPeriod.js"></script>
+  <script src="<%=application.getContextPath()%>/resources/admin/reports/js/serviceProfitByMonth.js"></script>
 
   <!-- Bootstrap Core JavaScript -->
   <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
