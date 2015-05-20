@@ -247,10 +247,6 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @Override
     public int getOldTaxiOrderPagesCount(int userID) {
-        if (userID < 0) {
-            logger.warn("userID can't be < 0");
-            throw new IllegalArgumentException("userID can't be < 0");
-        }
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order WHERE " +
                 "status = 'COMPLETED' AND user_id = ?1");
         q.setParameter(1, userID);
