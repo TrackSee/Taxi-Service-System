@@ -200,7 +200,7 @@
                 </div>
                 <div class="checkbox" id="freeWifiCh">
                     <label>
-                        <input type="checkbox" name="freeWifi"> Free wi-fi
+                        <input type="checkbox" name="freeWifi"> Free Wi-Fi
                     </label>
                 </div>
                 <div class="checkbox" id="nonSmokingDriverCh">
