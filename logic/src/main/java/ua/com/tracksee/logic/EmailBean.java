@@ -32,7 +32,7 @@ public class EmailBean {
     private static final String REGISTRATION_URL = "http://tracksee.tk/signup";
 
     // template properties
-    private static final String CONFIG_LOCATION = "mailtemplates/";
+    private static final String CONFIG_LOCATION = "/mailtemplates/";
     private static final String SITE_ADDRESS_TEMP_PROP_NAME = "siteadress";
     private static final String BLOCKING_ACCOUNT_SUBJECT_TEMP_PROP_NAME = "TrackSee Blocking Account";
     private static final String BLOCKING_ACCOUNT_TEMP_PATH = CONFIG_LOCATION + "blockingusertemplate.ftl";

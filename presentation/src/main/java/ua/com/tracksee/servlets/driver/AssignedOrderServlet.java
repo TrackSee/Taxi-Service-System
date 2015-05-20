@@ -2,6 +2,7 @@ package ua.com.tracksee.servlets.driver;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.facade.DriverFacade;
@@ -61,7 +62,7 @@ public class AssignedOrderServlet extends HttpServlet {
         //check pageNumber
         try {
             pagenumber = Integer.parseInt(req.getParameter("pagenumber"));
-            if(pagenumber > orderFacade.getOrdersPagesCountCompleted(id)){
+            if(pagenumber > orderFacade.getOrdersPagesCountAssigned(id)){
                 pagenumber = 1;
                 logger.warn("wrong page was request");
             }
@@ -138,6 +139,7 @@ public class AssignedOrderServlet extends HttpServlet {
                     req.setAttribute("orders", orders);
                     req.setAttribute("pagesCount", orderFacade.getOrdersPagesCountCompleted(id));
                     req.getRequestDispatcher("/WEB-INF/driver/driverIndex.jsp").forward(req,resp);
+                    resp.getWriter().write(getJsonFromList(orders));
                 }
             }
         }
@@ -145,8 +147,19 @@ public class AssignedOrderServlet extends HttpServlet {
         timeCarArrive = null;
         req.setAttribute("pagenumber", pagenumber);
         req.setAttribute("pagesCount", orderFacade.getOrdersPagesCountAssigned(id));
-        req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
+        req.setAttribute("orders", orderFacade.getAssignedOrders(id, pagenumber));
         req.setAttribute("status", statusBoolean);
         req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
+    }
+
+    private String getJsonFromList(List<TaxiOrderEntity> orders){
+        ObjectMapper mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(orders);
+        } catch (IOException e) {
+            json = "";
+        }
+        return json;
     }
 }

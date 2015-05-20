@@ -151,11 +151,12 @@
             </c:when>
             <c:otherwise>
               <li class="dropdown pull-left">
-        <form action="history-of-orders" method="post">
-          <button type="button" class="btn btn-default" aria-label="Next">
-              ${i}</button>
-            <input type="hidden" name="pagenumber" value=${i}>
-        </form>
+                <form action="history-of-orders" method="post">
+                  <a href="javascript:;" onclick="parentNode.submit();">
+                    <button type="button" class="btn btn-default" aria-label="Next">
+                        ${i}</button></a>
+                  <input type="hidden" name="pagenumber" value=${i}>
+                </form>
               </li>
             </c:otherwise>
           </c:choose>
