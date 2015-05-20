@@ -40,21 +40,14 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Integer userID=0;
-        try {
-            userID = (Integer) req.getSession().getAttribute(USER_ID_ALIAS);
-
-        if(userID>0){
+        Integer userID = (Integer) req.getSession().getAttribute(USER_ID_ALIAS);
+        if(userID!=null){
             UserEntity userEntity = orderFacade.getUserInfo(userID);
             req.setAttribute(PHONE_NUMBER_ALIAS, userEntity.getPhone());
             req.setAttribute(EMAIL_ALIAS, userEntity.getEmail());
-        }
-        }catch (NullPointerException e){
-            logger.info("don't authorised user");
-            req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);
-        }
+        }else{
         req.setAttribute("priceList", orderFacade.getPriceList());
-        req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);
+        req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);}
     }
 
     /**
