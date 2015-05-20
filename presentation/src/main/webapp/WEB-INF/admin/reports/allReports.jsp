@@ -219,7 +219,7 @@
                 <%--<i class="fa fa-bar-chart-o fa-fw"></i> Driver sex popularity--%>
                 <%--</div>--%>
                 <div class="panel-body">
-                  <div id="driverDiv"></div>
+                  <div id="popularDriverDiv"></div>
                 </div>
                 <%--</div>--%>
               </div>
@@ -229,7 +229,7 @@
                 <%--<i class="fa fa-bar-chart-o fa-fw"></i> Car category popularity--%>
                 <%--</div>--%>
                 <div class="panel-body">
-                  <div id="carDiv"></div>
+                  <div id="popularCarDiv"></div>
                 </div>
                 <%--</div>--%>
               </div>
