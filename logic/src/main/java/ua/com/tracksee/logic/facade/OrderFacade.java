@@ -70,11 +70,12 @@ public class OrderFacade {
 
     /**
      * @author Sharaban Sasha
-     * @see ua.com.tracksee.logic.TaxiOrderBean
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
      */
-    public boolean checkOrderPresentActiveUser(long trackingNumber) {
-        return taxiOrderBean.checkOrderPresentActiveUser(trackingNumber);
+    public boolean getActivatedCustomerByEmail(String email) {
+        return taxiOrderBean.getActivatedCustomerByEmail(email);
     }
+
     /**
      * @author Sharaban Sasha
      * @see ua.com.tracksee.logic.TaxiOrderBean

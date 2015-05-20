@@ -10,11 +10,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<%-- start: Java Script --%>
-<%@include file="../parts/scripts.jsp" %>
-<%-- end: Java Script --%>
-
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
@@ -81,145 +76,126 @@
                    name="addressDestination" required onblur="updateRoute()">
             <span class="red-star">★</span>
         </div>
+        <div class="form-group">
+            <label class="control-label">Way of payment</label>
+            <select class="form-control order_priority" name="wayOfPayment" disabled>
+                <option value="CASH" ${CASH}>Cash</option>
+                <option value="VISA_CARD" ${VISA_CARD}>Visa card</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Order price</label>
+            <input type="text" name="price" class="form-control"
+                   value="${price}"
+                   data-error="That address is invalid" readonly>
+        </div>
+
+        <div id="flip">
             <div class="form-group">
-                <label class="control-label">Way of payment</label>
-                <select class="form-control order_priority" name="wayOfPayment" disabled>
-                    <option value="CASH" ${CASH}>Cash</option>
-                    <option value="VISA_CARD" ${VISA_CARD}>Visa card</option>
+                <p>
+                    <button type="button" class="btn btn-info turnButton">Additional options</button>
+                </p>
+            </div>
+        </div>
+        <div id="panel">
+            <div class="form-group">
+                <label class="control-label">Service</label>
+                <select class="form-control order_priority" name="service" id="service" disabled>
+                    <option value="SIMPLE_TAXI"${SIMPLE_TAXI}>Simple taxi</option>
+                    <option value="SOBER_DRIVER"${SOBER_DRIVER}>Service "Sober driver"</option>
+                    <option value="GUEST_DELIVERY"${GUEST_DELIVERY}>Service "Guest delivery"</option>
+                    <option value="CARGO_TAXI"${CARGO_TAXI}>Service "Cargo taxi"</option>
+                    <option value="MEET_MY_GUEST"${MEET_MY_GUEST}>Service "Meet my guest"</option>
+                    <option value="CELEBRATION_TAXI"${CELEBRATION_TAXI}> Service "Celebration taxi"</option>
+                    <option value="foodStuffDelivery"${FOODSTUFF_DELIVERY}>Service "Foodstuff delivery"</option>
+                    <option value="CONVEY_CORPORATION_EMPLOYEES"${CONVEY_CORPORATION_EMPLOYEES}>
+                        Service "Convey corporation employees"</option>
+                    <option value="TAXI_FOR_LONG_TERM"${TAXI_FOR_LONG_TERM}>
+                        Service "Taxi for long term"</option>
                 </select>
             </div>
+            <label for="arriveDate" class="sr-only">Arrive date</label>
+            <input size="16" type="text"  id="arriveDate" name="arriveDate" value="${arriveDate}"
+                   disabled>
+
+            <div id="amountOfTripTimeBlock">
+                <label>Amount time of trip</label>
+                <div>
+                    <input type="number" id="amountOfHours" class="form-control" name="amountOfHours"
+                           value="${amountOfHours}" disabled>
+                </div>
+                <div>
+                    <input type="number" id="amountOfMinutes" class="form-control" name="amountOfMinutes"
+                           value="${amountOfMinutes}" disabled>
+                </div>
+            </div>
+
+            <%--TODO validation--%>
+            <div id="amountOfCarsBlock">
+                <label>Amount of cars</label>
+                <input type="number" id="amountOfCars" class="form-control" name="amountOfCars"
+                       value="${amountOfCars}" disabled>
+            </div>
+            <div class="form-group" id="carCategoryGroup">
+                <label class="control-label">Car category</label>
+                <select class="form-control order_priority" name="carCategory" disabled>
+                    <option value="ECONOMY_CLASS" ${ECONOMY_CLASS}>Economy class</option>
+                    <option value="BUSINESS_CLASS" ${BUSINESS_CLASS}>Business class</option>
+                    <option value="VAN" ${VAN}>Van</option>
+                </select>
+            </div>
+
             <div class="form-group">
-                <label>Order price</label>
-                <input type="text" name="price" class="form-control"
-                       value="${price}"
-                       data-error="That address is invalid" readonly>
+                <label class="control-label">Driver sex</label>
+                <select class="form-control order_priority" name="driverSex" disabled>
+                    <option value="A" ${A}>Anyone</option>
+                    <option value="M" ${M}>Male</option>
+                    <option value="F" ${F}>Female</option>
+                </select>
+            </div>
+            <div class="form-group" id="musicStyleGroup">
+                <label class="control-label">Music style</label>
+                <select class="form-control order_priority" name="musicStyle" disabled>
+                    <option value="ANY" ${ANY}>Any</option>
+                    <option value="BLUES" ${BLUES}>Blues</option>
+                    <option value="CLASSICAL_MUSIC" ${CLASSICAL_MUSIC}>Classical music</option>
+                    <option value="ROCK" ${ROCK}>Rock</option>
+                    <option value="JAZZ" ${JAZZ}>Jazz</option>
+                    <option value="DANCE_MUSIC" ${DANCE_MUSIC}>Dance music</option>
+                    <option value="ELECTRONIC_MUSIC" ${ELECTRONIC_MUSIC}>Electronic music</option>
+                    <option value="HIP_HOP" ${HIP_HOP}>Hip Hop</option>
+                    <option value="OTHER" ${Other}>Other</option>
+                </select>
             </div>
 
-            <div id="flip">
-                <div class="form-group">
-                    <p>
-                        <button type="button" class="btn btn-info turnButton">Additional options</button>
-                    </p>
-                </div>
+
+            <div class="checkbox" id="animalTransportationCh">
+                <label>
+                    <input type="checkbox" name="animalTransportation" ${animalTransportation} disabled>
+                    Animal transportation
+                </label>
             </div>
-            <div id="panel">
-                <div class="form-group">
-                    <label class="control-label">Service</label>
-                    <select class="form-control order_priority" name="service" id="service" disabled>
-                        <option value="SIMPLE_TAXI"${SIMPLE_TAXI}>Simple taxi</option>
-                        <option value="SOBER_DRIVER"${SOBER_DRIVER}>Service "Sober driver"</option>
-                        <option value="GUEST_DELIVERY"${GUEST_DELIVERY}>Service "Guest delivery"</option>
-                        <option value="CARGO_TAXI"${CARGO_TAXI}>Service "Cargo taxi"</option>
-                        <option value="MEET_MY_GUEST"${MEET_MY_GUEST}>Service "Meet my guest"</option>
-                        <option value="CELEBRATION_TAXI"${CELEBRATION_TAXI}> Service "Celebration taxi"</option>
-                        <option value="foodStuffDelivery"${FOODSTUFF_DELIVERY}>Service "Foodstuff delivery"</option>
-                        <option value="CONVEY_CORPORATION_EMPLOYEES"${CONVEY_CORPORATION_EMPLOYEES}>
-                            Service "Convey corporation employees"</option>
-                        <option value="TAXI_FOR_LONG_TERM"${TAXI_FOR_LONG_TERM}>
-                            Service "Taxi for long term"</option>
-                    </select>
-                </div>
-                <label for="arriveDate" class="sr-only">Arrive date</label>
-                    <input size="16" type="text"  id="arriveDate" name="arriveDate" value="${arriveDate}"
-                     disabled>
+            <div class="checkbox" id="freeWifiCh">
+                <label>
+                    <input type="checkbox" name="freeWifi" ${freeWifi} disabled> Free wi-fi
+                </label>
+            </div>
+            <div class="checkbox" id="smokingDriverCh">
+                <label>
+                    <input type="checkbox" name="smokingDriver" ${smokingDriver} disabled> Smoking driver
+                </label>
+            </div>
+            <div class="checkbox" id="airConditionerCh">
+                <label>
+                    <input type="checkbox" name="airConditioner" ${airConditioner} disabled> Air conditioner
+                </label>
+            </div>
 
-                <div id="amountOfTripTimeBlock">
-                    <label>Amount time of trip</label>
-                    <div>
-                        <input type="number" id="amountOfHours" class="form-control" name="amountOfHours"
-                                value="${amountOfHours}" disabled>
-                    </div>
-                    <div>
-                        <input type="number" id="amountOfMinutes" class="form-control" name="amountOfMinutes"
-                               value="${amountOfMinutes}" disabled>
-                    </div>
-                </div>
-
-                <%--TODO validation--%>
-                <div id="amountOfCarsBlock">
-                    <label>Amount of cars</label>
-                    <input type="number" id="amountOfCars" class="form-control" name="amountOfCars"
-                           value="${amountOfCars}" disabled>
-                </div>
-                <div class="form-group" id="carCategoryGroup">
-                    <label class="control-label">Car category</label>
-                    <select class="form-control order_priority" name="carCategory" disabled>
-                        <option value="ECONOMY_CLASS" ${ECONOMY_CLASS}>Economy class</option>
-                        <option value="BUSINESS_CLASS" ${BUSINESS_CLASS}>Business class</option>
-                        <option value="VAN" ${VAN}>Van</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label">Driver sex</label>
-                    <select class="form-control order_priority" name="driverSex" disabled>
-                        <option value="A" ${A}>Anyone</option>
-                        <option value="M" ${M}>Male</option>
-                        <option value="F" ${F}>Female</option>
-                    </select>
-                </div>
-                <div class="form-group" id="musicStyleGroup">
-                    <label class="control-label">Music style</label>
-                    <select class="form-control order_priority" name="musicStyle" disabled>
-                        <option value="ANY" ${ANY}>Any</option>
-                        <option value="BLUES" ${BLUES}>Blues</option>
-                        <option value="CLASSICAL_MUSIC" ${CLASSICAL_MUSIC}>Classical music</option>
-                        <option value="ROCK" ${ROCK}>Rock</option>
-                        <option value="JAZZ" ${JAZZ}>Jazz</option>
-                        <option value="DANCE_MUSIC" ${DANCE_MUSIC}>Dance music</option>
-                        <option value="ELECTRONIC_MUSIC" ${ELECTRONIC_MUSIC}>Electronic music</option>
-                        <option value="HIP_HOP" ${HIP_HOP}>Hip Hop</option>
-                        <option value="OTHER" ${Other}>Other</option>
-                    </select>
-                </div>
-
-
-                <div class="checkbox" id="animalTransportationCh">
-                    <label>
-                        <input type="checkbox" name="animalTransportation" ${animalTransportation} disabled>
-                        Animal transportation
-                    </label>
-                </div>
-                <div class="checkbox" id="freeWifiCh">
-                    <label>
-                        <input type="checkbox" name="freeWifi" ${freeWifi} disabled> Free wi-fi
-                    </label>
-                </div>
-                <div class="checkbox" id="smokingDriverCh">
-                    <label>
-                        <input type="checkbox" name="smokingDriver" ${smokingDriver} disabled> Smoking driver
-                    </label>
-                </div>
-                <div class="checkbox" id="airConditionerCh">
-                    <label>
-                        <input type="checkbox" name="airConditioner" ${airConditioner} disabled> Air conditioner
-                    </label>
-                </div>
-
-                Description:<br/>
+            Description:<br/>
                 <textarea name="description" id="description" rows="4" cols="50" title="" readonly>${description}
                 </textarea>
-                <br/>
-            </div>
-        <form method="post" action="<c:url value="/addComment"/>">
-            <label id="hideTrackingNumber">
-                <input type="text" name="trackingNumber" value="${trackingNumber}">
-            </label>
-            Comments:<br/>
-            <textarea name="comments" id="comments" rows="4" cols="50" title="" ${commentsState}>${comments}</textarea>
             <br/>
-
-            <div class="form-group" ${buttonCommentsHide}>
-                <button type="submit" class="btn btn-success btn-large">Add comments</button>
-            </div>
-
-        </form>
-    </div>
-    <div class="container">
-    ${image}
-
-    </div>
-    </p>
+        </div>
 </div>
 <%-- end:wrapper --%>
 </div>
@@ -232,34 +208,25 @@
 
     </div>
 </div>
-<!-- Load jQuery and bootstrap datepicker scripts -->
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
-        charset="UTF-8"></script>
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"
-        charset="UTF-8"></script>
-<script type="text/javascript"
-        src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
-        charset="UTF-8"></script>
-<script type="text/javascript"
-        src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
-        charset="UTF-8"></script>
-<script type="text/javascript"
-        src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"
-        charset="UTF-8"></script>
-<script src="<%=application.getContextPath()%>http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<%--end jQuery and bootstrap datepicker scripts--%>
+<!-- Load bootstrap datepicker scripts -->
+<script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"></script>
+<%--end bootstrap datepicker scripts--%>
 
 <%--Google maps scripts--%>
 <script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/maps/order-maps.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/order-maps.js"></script>
 <%--end google maps scripts--%>
 
 <%-- Order page scripts --%>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
-<%--end order oage scripts--%>
-
+<script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality-prepared.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/fields-generator.js"></script>
+<%--end order page scripts--%>
+<script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
 <%@include file="../parts/scripts.jsp" %>
 <%@include file="../parts/footer.jsp" %>
 </body>

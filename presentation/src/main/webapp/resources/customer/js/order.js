@@ -40,6 +40,5 @@ $(document).ready(function(){
                 $.notify("Internal server error occurred.", "warn");
             }
         });
-        return false;
     });
 });

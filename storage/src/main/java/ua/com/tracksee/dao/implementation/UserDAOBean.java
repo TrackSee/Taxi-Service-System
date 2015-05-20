@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.implementation.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.CarEntity;
+import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
 
 import javax.ejb.Stateless;
@@ -79,6 +80,26 @@ public class UserDAOBean implements UserDAO {
                 "WHERE driver = FALSE AND email LIKE ? ", UserEntity.class);
         query.setParameter(1, "%" + email + "%");
         return query.getResultList();
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.UserDAO
+     */
+    @Override
+    public boolean getActivatedCustomerByEmail(String email) {
+        boolean state=false;
+        Query query = entityManager.createNativeQuery("SELECT * FROM service_user " +
+                "WHERE email = (?1) AND activated=TRUE ", UserEntity.class);
+        query.setParameter(1,email);
+        List list = query.getResultList();
+        try {
+            if (list.size()!=0) {
+                state = true;
+            }
+        } catch (NoResultException e) {
+            logger.error("User with such email: " + email + " was not found " + e);
+        }
+        return state;
     }
 
     /**

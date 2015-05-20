@@ -35,11 +35,7 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer userID=null;
-        try {
             userID = (Integer) req.getSession().getAttribute(USER_ID_ALIAS);
-        } catch (NullPointerException e) {
-            logger.info("don't authorised user");
-        }
         try {
             long trackingNumber = Long.parseLong(req.getParameter(TRACKING_NUMBER_ALIAS));
             if (userID == null) {
@@ -48,8 +44,7 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
                     redirectSwitch(taxiOrderEntity, req, resp);
                 }else{ redirectToInfoPageWithAlert(req,resp);}
             }else
-            if (userID>0) {
-                System.out.println("userId "+userID);
+            if (userID!=null) {
                 if (orderFacade.checkOrderPresentForActiveUser(trackingNumber, userID)) {
                     TaxiOrderEntity taxiOrderEntity = setParametersToPage(req, resp, trackingNumber);
                     redirectSwitch(taxiOrderEntity,req,resp);
@@ -73,11 +68,10 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
         UserEntity userEntity = orderFacade.getUserInfo(taxiOrderEntity.getUserId());
 
         req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
-        System.out.println("Phone "+userEntity.getPhone());
         req.setAttribute(PHONE_NUMBER_ALIAS, userEntity.getPhone());
         req.setAttribute(EMAIL_ALIAS, userEntity.getEmail());
-        // req.setAttribute(ADDRESSES_PATH,);
-        // TODO decide req.setAttribute(PRICE_ALIAS, taxiOrderEntity.getPrice());
+        req.setAttribute(ADDRESSES_PATH,taxiOrderEntity.getItemList().get(0).getPath());
+        req.setAttribute(PRICE_ALIAS, taxiOrderEntity.getPrice());
 
         req.setAttribute(ARRIVE_DATE_ALIAS, orderFacade.convertDateForShow(taxiOrderEntity.getArriveDate()));
 

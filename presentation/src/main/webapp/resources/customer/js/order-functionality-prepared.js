@@ -8,8 +8,8 @@
  * @author Sharaban Sasha
  */
 $(document).ready(function(){
-$('#service').on('change', function () {
-    if ($(this).val() == 'FOODSTUFF_DELIVERY') {
+var service=$('#service');
+    if (service.val() == 'FOODSTUFF_DELIVERY') {
         additionalOptionsHide();
         taxiForLongTermHide();
         meetMyGuestMessageHide();
@@ -17,7 +17,7 @@ $('#service').on('change', function () {
         amountOfCarsHide();
         amountOfTripTimeHide();
 
-    } else if ($(this).val() == 'CARGO_TAXI') {
+    } else if (service.val() == 'CARGO_TAXI') {
         additionalOptionsHide();
         taxiForLongTermHide();
         meetMyGuestMessageHide();
@@ -26,7 +26,7 @@ $('#service').on('change', function () {
         amountOfTripTimeHide();
         $('#animalTransportationCh').slideDown("slow");
 
-    } else if ($(this).val() == 'MEET_MY_GUEST') {
+    } else if (service.val() == 'MEET_MY_GUEST') {
         additionalOptionsShow();
         taxiForLongTermHide();
         meetMyGuestMessageShow();
@@ -34,7 +34,7 @@ $('#service').on('change', function () {
         amountOfCarsHide();
         amountOfTripTimeHide();
 
-    } else if ($(this).val() == 'SOBER_DRIVER') {
+    } else if (service.val() == 'SOBER_DRIVER') {
         additionalOptionsHide();
         taxiForLongTermHide();
         meetMyGuestMessageHide();
@@ -42,7 +42,7 @@ $('#service').on('change', function () {
         amountOfCarsHide();
         amountOfTripTimeHide();
 
-    } else if ($(this).val() == 'SIMPLE_TAXI' || $(this).val() == 'GUEST_DELIVERY') {
+    } else if (service.val() == 'SIMPLE_TAXI' || $(this).val() == 'GUEST_DELIVERY') {
         additionalOptionsShow();
         taxiForLongTermHide();
         meetMyGuestMessageHide();
@@ -50,7 +50,7 @@ $('#service').on('change', function () {
         amountOfCarsHide();
         amountOfTripTimeHide();
 
-    } else if ($(this).val() == 'TAXI_FOR_LONG_TERM') {
+    } else if (service.val() == 'TAXI_FOR_LONG_TERM') {
         additionalOptionsShow();
         taxiForLongTermShow();
         meetMyGuestMessageHide();
@@ -58,7 +58,7 @@ $('#service').on('change', function () {
         amountOfCarsHide();
         amountOfTripTimeShow();
 
-    } else if ($(this).val() == 'CELEBRATION_TAXI') {
+    } else if (service.val() == 'CELEBRATION_TAXI') {
         additionalOptionsShow();
         taxiForLongTermShow();
         meetMyGuestMessageHide();
@@ -66,7 +66,7 @@ $('#service').on('change', function () {
         amountOfCarsShow();
         amountOfTripTimeShow();
 
-    } else if ($(this).val() == 'CONVEY_CORPORATION_EMPLOYEES') {
+    } else if (service.val() == 'CONVEY_CORPORATION_EMPLOYEES') {
         additionalOptionsShow();
         taxiForLongTermHide();
         meetMyGuestMessageHide();
@@ -221,5 +221,6 @@ $('#service').on('change', function () {
         $('#addinput').slideUp("slow");
     }
 });
-});
+
+
 

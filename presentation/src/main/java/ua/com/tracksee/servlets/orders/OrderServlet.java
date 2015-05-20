@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.dto.TaxiOrderDTO;
-import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.facade.OrderFacade;
 import ua.com.tracksee.servlets.AttributeNames;
@@ -62,7 +61,6 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HashMap<String, String> inputData = new HashMap<>();
         try {
-
             inputData.put(PHONE_NUMBER_ALIAS, req.getParameter(PHONE_NUMBER_ALIAS));
             inputData.put(EMAIL_ALIAS, req.getParameter(EMAIL_ALIAS));
 
@@ -90,8 +88,10 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
 
 
             if (orderFacade.checkBlackListByUserEmail(inputData.get(EMAIL_ALIAS))) {
-                req.setAttribute(ORDER_WARNING, orderFacade.getWarningAlert(ORDER_WARNING_MESSAGE));
-            } else {
+                req.setAttribute(ORDER_WARNING, orderFacade.getWarningAlert(ORDER_WARNING_BLACK_LIST_MESSAGE));
+            } else if(orderFacade.getActivatedCustomerByEmail(req.getParameter(EMAIL_ALIAS))){
+                req.setAttribute(ORDER_WARNING, orderFacade.getWarningAlert(ORDER_WARNING_AUTHORISE_MESSAGE));
+            }else{
                 Long trackingNumber = orderFacade.makeOrder(inputData, orderDTO);
                 req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
                 req.setAttribute(ORDER_SUCCESS, orderFacade.getSuccessAlert(ORDER_SUCCESS_MESSAGE + trackingNumber
