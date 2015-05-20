@@ -9,7 +9,6 @@ import ua.com.tracksee.entities.reports.MusicReportEntity;
 import javax.ejb.Local;
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by kstes_000 on 09-May-15.
@@ -81,12 +80,12 @@ public interface ReportDAO {
      * @author Oleksandr Kozin
      * @return map with most popular additional car options overall
      */
-    Map<String, Integer> mostPopularAdditionalCarOptOverall();
+    List<MostPopularOption> mostPopularAdditionalCarOptOverall();
 
     /**
      * @author Oleksandr Kozin
      * @return map with most popular additional car options for current customer
      */
-    Map<String, Integer> mostPopularAdditionalCarOptByUser(Integer userId);
+    List<MostPopularOption> mostPopularAdditionalCarOptByUser(Integer userId);
 
 }
