@@ -118,3 +118,4 @@ function updateAddresses(route) {
 function updateRoute() {
     calcRoute($('#origin').val(), $('#destination').val(), []);
 }
+

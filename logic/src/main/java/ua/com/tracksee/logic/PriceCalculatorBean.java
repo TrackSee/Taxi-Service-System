@@ -19,9 +19,8 @@ public class PriceCalculatorBean {
     private @EJB PriceListBean priceListBean;
 
     public BigDecimal calculatePrice(TaxiOrderEntity order) {
-        // TODO fix not working method, now it is default price
-       // BigDecimal servicePrice = getServicePrice(order);
-        BigDecimal servicePrice=BigDecimal.valueOf(100);
+
+        BigDecimal servicePrice = getServicePrice(order);
         List<TaxiOrderItemEntity> orderItems = order.getItemList();
         BigDecimal distance = ZERO;
         BigDecimal minDistance = priceListBean.getMinimalOrderDistance();
