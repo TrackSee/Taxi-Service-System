@@ -15,11 +15,14 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.List;
 import java.util.Map;
+
+import static java.lang.System.getProperty;
 
 import static ua.com.tracksee.mailsender.SenderSessionSpecificator.GMAIL;
 
@@ -33,8 +36,9 @@ public class MailSender {
 
     private static final Logger logger = LogManager.getLogger();
     private static Session SESSION = GMAIL.getSession();
-    private static final String ROOT_PATH = "/";
+    private static final String ROOT_PATH = getProperty("jboss.server.data.dir");
     private static InternetAddress FROM_ADDRESS;
+    private static final File TEMPLATE_DIR = new File(ROOT_PATH);
 
     static {
         try {
@@ -140,7 +144,8 @@ public class MailSender {
      */
     public Template loadTemplate(String path) throws IOException {
         Configuration cfg = new Configuration();
-        cfg.setClassForTemplateLoading(this.getClass(), ROOT_PATH);
+       // cfg.setClassForTemplateLoading(this.getClass(), ROOT_PATH);
+        cfg.setDirectoryForTemplateLoading(TEMPLATE_DIR);
         return cfg.getTemplate(path);
     }
 

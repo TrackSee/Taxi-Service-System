@@ -161,7 +161,6 @@ var service=$('#service');
     function amountOfTripTimeShow(){
         $('#amountOfTripTimeBlock').slideDown("slow");
         $('#amountOfHours').attr("required");
-        $('#amountOfMinutes').attr("required");
     }
     /**
      * Hides fields amount of hours
@@ -174,7 +173,6 @@ var service=$('#service');
     function amountOfTripTimeHide(){
         $('#amountOfTripTimeBlock').slideUp("slow");
         $('#amountOfHours').removeAttr("required");
-        $('#amountOfMinutes').removeAttr("required");
     }
     /**
      * Shows message for user about ability for
