@@ -31,8 +31,8 @@ public class OrderRefusingBean {
         }
     }
 /*
-method send mail thet user refuse more then 2 order,
-and cand make more order whith this email
+method send mail that user refuse more then 2 order,
+and cant make more order with this email.
  */
     private void sendNotification(UserEntity trackingNumber) {
         //TODO complete mail send

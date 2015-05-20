@@ -355,6 +355,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         return query.getResultList();
     }
 
+    //visa card acceptance
     @Override
     public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
         boolean isNullFreeWifi = false;
@@ -362,7 +363,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         boolean isNullConditioner = false;
         int ADDITIONAL_PARAMETERS = 3;
         StringBuffer sql = new StringBuffer("SELECT * FROM taxi_order WHERE (status =" +
-                " 'QUEUED' OR status = 'UPDATED') AND car_category = ? " +
+                " 'QUEUED' OR status = 'UPDATED') AND (car_category = ? OR car_category = 'USER_CAR')" +
                 "AND (driver_sex = ? OR driver_sex = " + IS_DRIVER_GENDER_NULL + ") ");
         if (driver.getCar().getAnimalTransportationApplicable() == false) {
             sql.append("AND animal_transportation = ? ");
@@ -376,11 +377,24 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
             sql.append("AND air_conditioner = ? ");
             isNullConditioner = true;
         }
+        if (driver.getCar().getCarCategory().toString() == "VAN") {
+            sql.append("");
+            isNullConditioner = true;
+        }
+        if (driver.getCar().getCarCategory().toString() == "BUSINESS_CLASS") {
+            sql.append("");
+            isNullConditioner = true;
+        }
+        if (driver.getCar().getCarCategory().toString() == "ECONOMY_CLASS") {
+            sql.append("");
+            isNullConditioner = true;
+        }
         sql.append("LIMIT ? OFFSET ?");
         System.out.println(sql.toString());
 
         Query query = entityManager.createNativeQuery(sql.toString(), TaxiOrderEntity.class);
-        //if()
+
+
         query.setParameter(1,driver.getCar().getCarCategory().toString());
         query.setParameter(2, driver.getSex());
 
