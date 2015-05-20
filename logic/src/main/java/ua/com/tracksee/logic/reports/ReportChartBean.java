@@ -96,4 +96,31 @@ public class ReportChartBean {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(musicReport);
     }
+
+    /**
+     * @author Oleksandr Kozin
+     * @param startDate start date of the period
+     * @param endDate end date of the period
+     * @return number of orders per period
+     */
+    public String getOrdersByPeriod(String startDate, String endDate) throws IOException {
+        Integer result = reportDAO.getOrdersByPeriod(startDate, endDate);
+        return String.valueOf(result);
+//        List<MusicReportEntity> musicReport = reportDAO.getMusicReportOverall();
+//        ObjectMapper mapper = new ObjectMapper();
+//        return mapper.writeValueAsString(musicReport);
+    }
+
+    /**
+     * @author Oleksandr Kozin
+     * @param startDate month for profit report
+     * @return profit by month
+     */
+    public String serviceProfitByMonth(String startDate) throws IOException {
+        Double result = reportDAO.serviceProfitByMonth(startDate);
+        return String.valueOf(result);
+//        List<MusicReportEntity> musicReport = reportDAO.getMusicReportOverall();
+//        ObjectMapper mapper = new ObjectMapper();
+//        return mapper.writeValueAsString(musicReport);
+    }
 }

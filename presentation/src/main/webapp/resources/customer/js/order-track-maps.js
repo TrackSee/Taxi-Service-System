@@ -8,21 +8,20 @@ var directionsDisplay;
 var directionsService;
 
 function initializeMaps() {
-    DEFAULT_LOCATION = new google.maps.LatLng(DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lng);
-
-    // creating map
-    var mapOptions = {
-        zoom: DEFAULT_ZOOM,
-        center: DEFAULT_LOCATION,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
+    var mapOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP };
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     new google.maps.TrafficLayer().setMap(map);
+    
+    // poly validation
+    var latLngArr = google.maps.geometry.encoding.decodePath(encodedRoute);
+    if (latLngArr.length == 0) return;
+    
+    var waypoints = [];
+    latLngArr.forEach(function(e){ waypoints.push({e.stopover: false}) });
 
-    // creating path
+    // appending directions
     initializeDirections(map);
-    calcRoute(DEFAULT_LOCATION, DEFAULT_LOCATION, []);
-    tryGeolocation(map);
+    calcRoute(latLngArr[0], []);
     google.maps.event.addListener(directionsDisplay, 'directions_changed', function(){
                 updateAddresses(directionsDisplay.getDirections().routes[0]);
                 updatePrice();
@@ -32,7 +31,6 @@ function initializeMaps() {
 function initializeDirections(map) {
     var rendererOptions = {
         draggable: true,
-        preserveViewport: true,
         region: DEFAULT_REGION
     };
     directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
@@ -40,32 +38,17 @@ function initializeDirections(map) {
     directionsDisplay.setMap(map);
 }
 
-function tryGeolocation(map) {
-    if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            map.setCenter(pos);
-            calcRoute(pos, pos, []);
-        }, function() {
-            $.notify('The Geolocation service failed.', 'error');
-        });
-    } else {
-        // Browser doesn't support Geolocation
-        $.notify("Your browser doesn't support geolocation.", 'error');
-    }
-}
-
 /**
  * calcRoute
  * Sends a request for building new path to Google Directions Service.
  *
- * @param origin google.maps.LatLng
  * @param destination google.maps.LatLng
  * @param waypoints google.maps.DirectionsWaypoint []
  */
-function calcRoute(origin, destination, waypoints) {
+function calcRoute(destination, waypoints) {
+    var route = directionsDisplay.getDirections().routes[0];
     var request = {
-        origin: origin,
+        origin: getOrigin(),
         destination: destination,
         waypoints: waypoints,
         travelMode: google.maps.TravelMode.DRIVING
@@ -107,7 +90,6 @@ function getRoutesData() {
  * @param route {google.maps.DirectionsRoute}
  */
 function updateAddresses(route) {
-    $('#origin').val(route.legs[0].start_address);
     $('#destination').val(route.legs[route.legs.length - 1].end_address);
 }
 
@@ -119,3 +101,14 @@ function updateRoute() {
     calcRoute($('#origin').val(), $('#destination').val(), []);
 }
 
+/**
+ * updatePrice
+ * Updates order price when user change route addresses
+ */
+function updatePrice() {
+    var distance = getRoutesData().reduce(function(pv, cv) {return pv + cv.distance; }, 0);
+    // taxi for very short distance has constant min price
+    var businessDistance = (distance > getMinDistance()) ? distance : getMinDistance();
+    var price = getTaxiPricePerKm() * businessDistance;
+    $('#price').val(price + " UAH");
+}
