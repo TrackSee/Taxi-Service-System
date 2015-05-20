@@ -101,6 +101,5 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
             logger.error(e.getMessage());
             req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
         }
-
     }
 }
