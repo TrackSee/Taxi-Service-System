@@ -56,7 +56,8 @@
 
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" class="form-control" name="email" placeholder="Enter email"
+                <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                       class="form-control" name="email" placeholder="Enter email"
                        title="That email is invalid" value="${email}" required>
                 <span class="red-star">★</span>
             </div>
@@ -132,30 +133,43 @@
                     <input size="16" type="text" value="" id="arriveDate" name="arriveDate" readonly>
                     <input type="hidden" id="dtp_input1" value=""/><br/>
                 </div>
-                <%--TODO validation--%>
+
                 <div id="amountOfTripTimeBlock">
                     <label>Amount time of trip</label>
                     <div>
-                        <input type="number" id="amountOfHours" class="form-control" name="amountOfHours"
+                        <input type="text" pattern="[8-9 ()-]{1,25}$" id="amountOfHours"
+                               class="form-control" name="amountOfHours"
                                placeholder="Amount of hours 8+"
                                title="Amount of hours 8+">
                         <span class="red-star">★</span>
                     </div>
                     <div>
-                        <input type="number" pattern="" id="amountOfMinutes" class="form-control" name="amountOfMinutes"
-                               placeholder="Amount minutes [0:60]"
-                               title="Amount of minutes [0:60]">
-                        <span class="red-star">★</span>
+                        <select class="form-control order_priority" name="amountOfMinutes" id="amountOfMinutes">
+                            <option value="0">0  minutes</option>
+                            <option value="5">5  minutes</option>
+                            <option value="10">10 minutes</option>
+                            <option value="15">15 minutes</option>
+                            <option value="20">20 minutes</option>
+                            <option value="25">25 minutes</option>
+                            <option value="30">30 minutes</option>
+                            <option value="35">35 minutes</option>
+                            <option value="40">40 minutes</option>
+                            <option value="45">45 minutes</option>
+                            <option value="50">50 minutes</option>
+                            <option value="55">55 minutes</option>
+                            <option value="60">60 minutes</option>
+
+                        </select>
                     </div>
 
                 </div>
 
-                <%--TODO validation--%>
                 <div id="amountOfCarsBlock">
                     <label>Amount of cars</label>
-                    <input type="number" id="amountOfCars" class="form-control" name="amountOfCars"
+                    <input type="text" pattern="[5-9 ()-]{1,25}$"
+                           id="amountOfCars" class="form-control" name="amountOfCars"
                            placeholder="Amount of cars 5+"
-                           title="Amount of cars greater then 4">
+                           title="Amount of cars 5+">
                     <span class="red-star">★</span>
                 </div>
                 <div class="form-group" id="carCategoryGroup">
