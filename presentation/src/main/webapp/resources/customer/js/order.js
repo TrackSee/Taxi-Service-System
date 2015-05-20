@@ -36,6 +36,7 @@ $(document).ready(function(){
                     $.notify("Invalid data entered!", "error");
                 } else {
                     $('html').replaceData(data);
+                    //window.location.replace("/TaxiService/orderSuccess");
                 }
             },
             error: function () {

@@ -28,6 +28,6 @@ public class AllReportsServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         List<UserEntity> userList = administratorBean.getUsers();
         request.setAttribute("users", userList);
-        request.getRequestDispatcher("/WEB-INF/admin/allReports.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/admin/reports/allReports.jsp").forward(request, response);
     }
 }

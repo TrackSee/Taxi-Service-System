@@ -23,6 +23,7 @@
           type="text/css"/>
     <link href='<%=application.getContextPath()%>/resources/customer/css/visible.css' rel='stylesheet'
           type='text/css'/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"/>
 </head>
 <body>
 <%@include file="../parts/header.jsp" %>
@@ -48,7 +49,7 @@
 <!--start: Wrapper-->
 <div id="wrapper">
     <!--start: Container -->
-    <div class="container">
+    <div id="input-form" class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
         <form method="post" action="<c:url value="/updateOrder"/>">
             <label id="hideTrackingNumberSecond">
@@ -191,7 +192,7 @@
                 </div>
                 <div class="checkbox" id="freeWifiCh">
                     <label>
-                        <input type="checkbox" name="freeWifi" ${freeWifi} > Free wi-fi
+                        <input type="checkbox" name="freeWifi" ${freeWifi} > Free Wi-Fi
                     </label>
                 </div>
                 <div class="checkbox" id="smokingDriverCh">
