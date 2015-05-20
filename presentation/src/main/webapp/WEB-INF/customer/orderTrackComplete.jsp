@@ -188,7 +188,7 @@
                 </div>
                 <div class="checkbox" id="smokingDriverCh">
                     <label>
-                        <input type="checkbox" name="smokingDriver" ${smokingDriver} disabled> Smoking driver
+                        <input type="checkbox" name="smokingDriver" ${smokingDriver} disabled>Non smoking driver
                     </label>
                 </div>
                 <div class="checkbox" id="airConditionerCh">
