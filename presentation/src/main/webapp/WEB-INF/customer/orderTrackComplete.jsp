@@ -210,10 +210,7 @@
 
         </form>
     </div>
-    <div class="container">
-    ${image}
 
-    </div>
     </p>
 </div>
 <%-- end:wrapper --%>
