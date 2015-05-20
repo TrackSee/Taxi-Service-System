@@ -69,13 +69,7 @@
                        required onblur="updateRoute()">
                 <span class="red-star">★</span>
             </div>
-            <div id="addinput">
-                <p>
-                    <button type="button" id="buttonAddressOrigin" class="btn btn-info turnButton">
-                        Add address from
-                    </button>
-                </p>
-            </div>
+
 
             <div class="form-group">
                 <label>Address to</label>
@@ -123,7 +117,12 @@
                         <option value="TAXI_FOR_LONG_TERM">Service "Taxi for long term"</option>
                     </select>
                 </div>
-
+                    <div class="alert alert-info" role="alert" hidden="hidden" id="addExtraAddresses" style="width:25%">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button><h4>
+                        To add more addresses from, make double-click on a point on the
+                        route where you want to get an extra address.</h4>
+                    </div>
                 <label for="arriveDate" class="sr-only">Arrive date</label>
 
                 <div class="controls input-append date form_datetime"
@@ -200,7 +199,7 @@
                 </div>
                 <div class="checkbox" id="freeWifiCh">
                     <label>
-                        <input type="checkbox" name="freeWifi"> Free wi-fi
+                        <input type="checkbox" name="freeWifi"> Free Wi-Fi
                     </label>
                 </div>
                 <div class="checkbox" id="nonSmokingDriverCh">

@@ -19,6 +19,7 @@ public class PriceCalculatorBean {
     private @EJB PriceListBean priceListBean;
 
     public BigDecimal calculatePrice(TaxiOrderEntity order) {
+
         BigDecimal servicePrice = getServicePrice(order);
         List<TaxiOrderItemEntity> orderItems = order.getItemList();
         BigDecimal distance = ZERO;

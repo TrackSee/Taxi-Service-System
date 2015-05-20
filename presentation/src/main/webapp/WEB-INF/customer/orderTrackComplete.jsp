@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
@@ -23,7 +24,9 @@
           type="text/css"/>
     <link href='<%=application.getContextPath()%>/resources/customer/css/visible.css' rel='stylesheet'
           type='text/css'/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"/>
 </head>
+
 <body>
 <%@include file="../parts/header.jsp" %>
 
@@ -48,7 +51,7 @@
 <!--start: Wrapper-->
 <div id="wrapper">
     <!--start: Container -->
-    <div class="container">
+    <div id="input-form" class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
         <div hidden="hidden">
         <input type="text" name="path" id="path"
@@ -180,7 +183,7 @@
                 </div>
                 <div class="checkbox" id="freeWifiCh">
                     <label>
-                        <input type="checkbox" name="freeWifi" ${freeWifi} disabled> Free wi-fi
+                        <input type="checkbox" name="freeWifi" ${freeWifi} disabled> Free Wi-Fi
                     </label>
                 </div>
                 <div class="checkbox" id="smokingDriverCh">
@@ -228,6 +231,8 @@
     </div>
 </div>
 
+<%@include file="../parts/footer.jsp" %>
+<%@include file="../parts/scripts.jsp" %>
 
 <!-- Load bootstrap datepicker scripts -->
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
@@ -248,8 +253,5 @@
 <script src="<%=application.getContextPath()%>/resources/customer/js/fields-generator.js"></script>
 <%--end order page scripts--%>
 <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
-
-<%@include file="../parts/scripts.jsp" %>
-<%@include file="../parts/footer.jsp" %>
 </body>
 </html>

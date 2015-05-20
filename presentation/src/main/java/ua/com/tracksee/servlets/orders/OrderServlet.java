@@ -98,6 +98,7 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
                         +ORDER_SUCCESS_TRACK_BUTTON));
                 req.setAttribute(HIDE_ORDER_TRACK, HIDE);
             }
+
             req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
         } catch (Exception e) {
             logger.error(e.getMessage());
