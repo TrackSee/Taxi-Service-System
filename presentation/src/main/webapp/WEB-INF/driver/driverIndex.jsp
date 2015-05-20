@@ -225,33 +225,50 @@
     </c:choose>
               <!-- /Plans -->
 
-    <%--For displaying Previous link except for the 1st page --%>
-    Pages num ${requestScope.pagesCount}
-    <c:if test="${currentPage != 1}">
-    <td><a href="employee.do?page=${currentPage - 1}">Previous</a></td>
-    </c:if>
-
-    <%--For displaying Page numbers.
-    The when condition does not display a link for the current page--%>
-    <table border="1" cellpadding="5" cellspacing="5">
-      <tr>
+    <%--Pagination--%>
+    <div class="text-center">
+      <ul class="pagination">
+        <c:if test="${requestScope.pagenumber != 1}">
+          <li class="dropdown pull-left">
+            <form action="free-orders" method="post">
+              <a href="javascript:;" onclick="parentNode.submit();">
+                <button type="button" class="btn btn-default" aria-label="Previous">
+                  Previous</button></a>
+              <input type="hidden" name="pagenumber" value=${requestScope.pagenumber - 1}>
+            </form>
+          </li>
+        </c:if>
         <c:forEach begin="1" end="${requestScope.pagesCount}" var="i">
           <c:choose>
-            <c:when test="${currentPage eq i}">
-              <td>${i}</td>
+            <c:when test="${requestScope.pagenumber eq i}">
+              <li class="dropdown pull-left"><button type="button" class="btn btn-default" aria-label="Next">
+                  ${i}</button></li>
             </c:when>
             <c:otherwise>
-              <td><a href="employee.do?page=${i}">${i}</a></td>
+              <li class="dropdown pull-left">
+                <form action="free-orders" method="post">
+                  <button type="button" class="btn btn-default" aria-label="Next">
+                      ${i}</button>
+                  <input type="hidden" name="pagenumber" value=${i}>
+                </form>
+              </li>
             </c:otherwise>
           </c:choose>
         </c:forEach>
-      </tr>
-    </table>
-
-    <%--For displaying Next link --%>
-    <c:if test="${currentPage lt noOfPages}">
-    <td><a href="employee.do?page=${currentPage + 1}">Next</a></td>
-    </c:if>
+        <c:if test="${requestScope.pagesCount != 0}">
+        <c:if test="${requestScope.pagenumber != requestScope.pagesCount}">
+          <li class="dropdown pull-left">
+            <form action="free-orders" method="post">
+              <a href="javascript:;" onclick="parentNode.submit();">
+                <button type="button" class="btn btn-default" aria-label="Next">
+                  Next</button></a>
+              <input type="hidden" name="pagenumber" value=${requestScope.pagenumber + 1}>
+            </form>
+          </li>
+        </c:if>
+          </c:if>
+      </ul>
+    </div>
 
               <%--<div class="text-center">--%>
                 <%--<ul class="pagination">--%>

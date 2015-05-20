@@ -205,8 +205,16 @@ public class OrderFacade {
         return driverOrderBean.getHistoryOfOrders(id, pageNumber);
     }
 
-    public int getOrdersPagesCount(int id){
-        return driverOrderBean.getOrdersPagesCount(id);
+    public int getOrdersPagesCountCompleted(int id){
+        return driverOrderBean.getOrdersPagesCountCompleted(id);
+    }
+
+    public int getOrdersPagesCountQueued(UserEntity driver){
+        return driverOrderBean.getOrdersPagesCountQueued(driver);
+    }
+
+    public int getOrdersPagesCountAssigned(int id){
+        return driverOrderBean.getOrdersPagesCountAssigned(id);
     }
 
     public void setAssignOrder(int id, String trackingNumber, String carArriveTime){

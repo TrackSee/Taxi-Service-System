@@ -131,13 +131,13 @@
               <!-- /Plans -->
 
     <%--Pagination--%>
-    <nav>
+    <div class="text-center">
       <ul class="pagination">
       <c:if test="${requestScope.pagenumber != 1}">
-        <li>
+        <li class="dropdown pull-left">
           <form action="history-of-orders" method="post">
             <a href="javascript:;" onclick="parentNode.submit();">
-              <button type="button" class="btn btn-success" aria-label="Previous">
+              <button type="button" class="btn btn-default" aria-label="Previous">
                 Previous</button></a>
               <input type="hidden" name="pagenumber" value=${requestScope.pagenumber - 1}>
           </form>
@@ -146,13 +146,13 @@
         <c:forEach begin="1" end="${requestScope.pagesCount}" var="i">
           <c:choose>
             <c:when test="${requestScope.pagenumber eq i}">
-              <li><button type="button" class="btn btn-success" aria-label="Next">
+              <li class="dropdown pull-left"><button type="button" class="btn btn-default" aria-label="Next">
                   ${i}</button></li>
             </c:when>
             <c:otherwise>
-              <li>
+              <li class="dropdown pull-left">
         <form action="history-of-orders" method="post">
-          <button type="button" class="btn btn-success" aria-label="Next">
+          <button type="button" class="btn btn-default" aria-label="Next">
               ${i}</button>
             <input type="hidden" name="pagenumber" value=${i}>
         </form>
@@ -160,18 +160,20 @@
             </c:otherwise>
           </c:choose>
         </c:forEach>
+        <c:if test="${requestScope.pagesCount != 0}">
         <c:if test="${requestScope.pagenumber != requestScope.pagesCount}">
-        <li>
+        <li class="dropdown pull-left">
           <form action="history-of-orders" method="post">
             <a href="javascript:;" onclick="parentNode.submit();">
-            <button type="button" class="btn btn-success" aria-label="Next">
+            <button type="button" class="btn btn-default" aria-label="Next">
               Next</button></a>
             <input type="hidden" name="pagenumber" value=${requestScope.pagenumber + 1}>
           </form>
         </li>
         </c:if>
+        </c:if>
       </ul>
-    </nav>
+    </div>
 
 
               <%--<div class="text-center">--%>

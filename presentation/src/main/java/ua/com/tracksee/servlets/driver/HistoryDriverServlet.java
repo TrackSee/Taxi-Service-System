@@ -34,7 +34,7 @@ public class HistoryDriverServlet extends HttpServlet{
         id = (int) req.getSession().getAttribute("userId");
         List<TaxiOrderEntity> orders = orderFacade.getHistoryOfOrders(id, 1);
         req.setAttribute("orders", orders);
-        req.setAttribute("pagesCount", orderFacade.getOrdersPagesCount(id));
+        req.setAttribute("pagesCount", orderFacade.getOrdersPagesCountCompleted(id));
         req.setAttribute("pagenumber", 1);
         req.getRequestDispatcher("/WEB-INF/driver/historyDriverTo.jsp").forward(req,resp);
     }
@@ -49,7 +49,7 @@ public class HistoryDriverServlet extends HttpServlet{
         //check pageNumber
         try {
             pagenumber = Integer.parseInt(req.getParameter("pagenumber"));
-            if(pagenumber > orderFacade.getOrdersPagesCount(id)){
+            if(pagenumber > orderFacade.getOrdersPagesCountCompleted(id)){
                 pagenumber = 1;
                 logger.warn("wrong page was request");
             }
@@ -59,14 +59,14 @@ public class HistoryDriverServlet extends HttpServlet{
         }
         List<TaxiOrderEntity> orders = orderFacade.getHistoryOfOrders(id, pagenumber);
         req.setAttribute("orders", orders);
-        req.setAttribute("pagesCount", orderFacade.getOrdersPagesCount(id));
+        req.setAttribute("pagesCount", orderFacade.getOrdersPagesCountCompleted(id));
         req.setAttribute("pagenumber", pagenumber);
         req.getRequestDispatcher("/WEB-INF/driver/historyDriverTo.jsp").forward(req,resp);
         resp.getWriter().write(getJsonFromList(orders));
 
 //        List<TaxiOrderEntity> orders = driverOrderBean.getHistoryOfOrders(id, 1);
 //        req.setAttribute("orders", orders);
-//        req.setAttribute("pagesCount", driverOrderBean.getOrdersPagesCount(id));
+//        req.setAttribute("pagesCount", driverOrderBean.getOrdersPagesCountCompleted(id));
 //        req.getRequestDispatcher("/WEB-INF/driver/historyDriverTo.jsp").forward(req,resp);
     }
 
