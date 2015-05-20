@@ -209,6 +209,10 @@
 
     </div>
 </div>
+
+<%@include file="../parts/footer.jsp" %>
+<%@include file="../parts/scripts.jsp" %>
+
 <!-- Load bootstrap datepicker scripts -->
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"></script>
@@ -228,7 +232,5 @@
 <script src="<%=application.getContextPath()%>/resources/customer/js/fields-generator.js"></script>
 <%--end order page scripts--%>
 <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
-<%@include file="../parts/scripts.jsp" %>
-<%@include file="../parts/footer.jsp" %>
 </body>
 </html>

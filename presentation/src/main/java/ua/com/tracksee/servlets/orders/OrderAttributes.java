@@ -49,6 +49,7 @@ public interface OrderAttributes {
 
     String ERROR_PAGE="/WEB-INF/error.jsp";
     String ORDER_INFO_PAGE="/WEB-INF/customer/orderInfo.jsp";
+    String ORDER_SUCCESS_PAGE="/WEB-INF/customer/orderSuccess.jsp";
     String MAP_PAGE="/WEB-INF/customer/map.jsp";
     String ORDER_TRACK_COMPLETE_PAGE="/WEB-INF/customer/orderTrackComplete.jsp";
     String ORDER_TRACK_PAGE="/WEB-INF/customer/orderTrack.jsp";
@@ -68,6 +69,8 @@ public interface OrderAttributes {
             "href=\"orderInfo\"><h4 class=\"outline\">Track your taxi order</h4></a>";
     String ORDER_SUCCESS_MESSAGE = " Your order accepted for further processing " +
             "successfully and you was assigned to such tracking number: ";
+    String ORDER_SUCCESS_MESSAGE_WITHOUT_TRACK_NUMB = " Your order accepted for further processing " +
+            "successfully and order number by which it can be tracked has been sent to your email.";
     String ORDER_WARNING="orderWarning";
     String ORDER_WARNING_BLACK_LIST_MESSAGE = "Your order has been rejected because you refused three" +
             " orders that you have made and so you been put in the black list.";
