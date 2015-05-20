@@ -46,11 +46,11 @@
                                     <li <c:if test="${pageScope.uri.endsWith('/order.jsp')}">class="active"</c:if>>
                                         <a href="<c:url value="/order"/>">Order</a>
                                     </li>
-                                    <li <c:if test="${pageScope.uri.endsWith('/orderInfo.jsp')}">class="active"</c:if>>
-                                        <a href="<c:url value="/orderInfo"/>">Order information</a>
-                                    </li>
 
                                     <c:if test="${sessionScope.userId == null}">
+                                        <li <c:if test="${pageScope.uri.endsWith('/orderInfo.jsp')}">class="active"</c:if>>
+                                            <a href="<c:url value="/orderInfo"/>">Order information</a>
+                                        </li>
                                         <li <c:if test="${pageScope.uri.endsWith('/signIn.jsp')}">
                                                     class="active"</c:if>>
                                             <a href="<c:url value="/signin"/>">Sign in</a>
@@ -61,32 +61,29 @@
                                     </c:if>
 
                                     <c:if test="${sessionScope.userId != null}">
-                                        <%--<li id="customerProfile"--%>
-                                                <%--<c:if test="${pageScope.uri.endsWith('/customerProfile.jsp')}">--%>
-                                            <%--class="active"</c:if>>--%>
-                                            <%--<a href="<c:url value="/customer"/>">Client Dashboard</a>--%>
-                                        <%--</li>--%>
-                                        <li id="signout">
-                                            <a id="sign-out-button" href=".">Sign out</a>
+                                        <li id="customerProfile"
+                                                <c:if test="${pageScope.uri.endsWith('/customerProfile.jsp')}">
+                                                    class="active"
+                                                </c:if>
+                                                >
+                                            <a href="<c:url value="/customer"/>">Client Dashboard</a>
                                         </li>
 
                                         <c:if test="${sessionScope.role == 'admin'}">
-                                        <li <c:if test="${sessionScope.role == 'admin'}">class="active"</c:if>>
+                                        <li class="header-user-link">
                                             <a href="<c:url value="/admin"/>">Admin dashboard</a>
                                         </li>
                                         </c:if>
 
                                         <c:if test="${sessionScope.role == 'driver'}">
-                                        <li <c:if test="${sessionScope.role == 'driver'}">class="header-user-link"</c:if>>
+                                        <li class="header-user-link">
                                             <a href="<c:url value="/driver/free-orders"/>">Driver profile</a>
                                         </li>
                                         </c:if>
 
-                                        <c:if test="${sessionScope.role == 'register_customer'}">
-                                        <li <c:if test="${sessionScope.role == 'register_customer'}">class="active"</c:if>>
-                                            <a href="<c:url value="/customer"/>">Customer profile</a>
+                                        <li id="signout">
+                                            <a id="sign-out-button" href=".">Sign out</a>
                                         </li>
-                                        </c:if>
 
                                     </c:if>
 
