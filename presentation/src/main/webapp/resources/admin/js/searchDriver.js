@@ -30,8 +30,9 @@ $(document).ready(function () {
                             tBody.appendChild(newTr);
                         }
                         if (i < usersArray.length){
-                            rows[i].children[0].innerHTML = '<a href="driver?id=' + usersArray[i].userId + '">'+
-                                usersArray[i].email + '</a>';
+                            var email = usersArray[i].email;
+                                rows[i].children[0].innerHTML = '<button class="btn btn-default" value="' + usersArray[i].userId +
+                                '" onclick="goToUserDash(this)" name="'+ email + '">' + email + '</button>';
 
                             rows[i].children[1].innerHTML = usersArray[i].phone != null? usersArray[i].phone : "-";
                             rows[i].children[2].innerHTML = usersArray[i].sex != null? usersArray[i].sex : "-";
