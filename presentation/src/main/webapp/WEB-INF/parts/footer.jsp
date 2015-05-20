@@ -4,12 +4,14 @@
 <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/css/agency.css">
 <%--<script src="<%=application.getContextPath()%>/resources/customer/js/down-footer.js"></script>--%>
 <footer>
-    <div>
+        <div class="navbar-fixed-bottom row-fluid">
+
         <p class="text-muted" align="right"><span class="copyright">
             &copy; TrackSee 2015.
             <a href="https://github.com/TrackSee">GitHub</a>
-           <span style='padding-left:30px;'> </span> </span>
+            <span style='padding-left:30px;'> </span> </span>
         </p>
-
+        </div>
     </div>
+
 </footer>
