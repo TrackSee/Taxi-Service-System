@@ -165,9 +165,10 @@ public class ReportDAOBean implements ReportDAO{
         String sql = "SELECT music_style, COUNT(music_style)" +
                 " FROM taxi_order" +
                 " WHERE music_style NOTNULL" +
-                " AND user_id = " + userId +
+                " AND user_id = ?" +
                 " GROUP BY music_style;";
-        Query query = entityManager.createNativeQuery(sql, MusicReportEntity.class);
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1, userId);
         return query.getResultList();
     }
 
@@ -205,17 +206,6 @@ public class ReportDAOBean implements ReportDAO{
         }
         return list;
     }
-
-//    /**
-//     * @param sql query to count the number of orders with an additional option
-//     * @return number of orders with this additional option
-//     * @author Oleksandr Kozin
-//     */
-//    private Integer getInteger(String sql) {
-//        Query query = entityManager.createNativeQuery(sql);
-//        BigInteger bigInteger = (BigInteger) query.getSingleResult();
-//        return bigInteger.intValue();
-//    }
 
     private BigInteger getBigInteger(String sql) {
         Query query = entityManager.createNativeQuery(sql);

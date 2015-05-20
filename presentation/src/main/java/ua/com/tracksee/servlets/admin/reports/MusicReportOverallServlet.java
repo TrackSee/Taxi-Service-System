@@ -18,8 +18,8 @@ import java.io.IOException;
 @WebServlet(name = "MusicReportOverallServlet", urlPatterns = "/admin/report/music-overall")
 public class MusicReportOverallServlet extends HttpServlet {
 
-    private @EJB
-    ReportChartBean reportChartBean;
+    @EJB
+    private ReportChartBean reportChartBean;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");

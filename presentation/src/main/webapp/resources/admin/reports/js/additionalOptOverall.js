@@ -13,10 +13,6 @@ $(document).ready(function () {
                 "type": "serial",
                 "theme": "light",
                 "path": "http://www.amcharts.com/lib/3/",
-
-                //"valueField": "ordersCount",
-                //"titleField": "car category",
-                //"balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
                 "valueAxes": [{
                     "gridColor": "#FFFFFF",
                     "gridAlpha": 0.2,
@@ -29,14 +25,14 @@ $(document).ready(function () {
                     "fillAlphas": 0.8,
                     "lineAlpha": 0.2,
                     "type": "column",
-                    "valueField": "count"                         //!!!!!!!!!!!!!!!!
+                    "valueField": "count"
                 }],
                 "chartCursor": {
                     "categoryBalloonEnabled": false,
                     "cursorAlpha": 0,
                     "zoomable": false
                 },
-                "categoryField": "additionalOptions",                         //!!!!!!!!!!!!!!!!
+                "categoryField": "additionalOptions",
                 "categoryAxis": {
                     "gridPosition": "start",
                     "gridAlpha": 0,
