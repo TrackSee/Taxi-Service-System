@@ -355,7 +355,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         return query.getResultList();
     }
 
-    //visa card acceptance
+    //visa card acceptance, for Van avilable econom class, for business avilable econom class, for econom - econom
     @Override
     public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
         boolean isNullFreeWifi = false;
