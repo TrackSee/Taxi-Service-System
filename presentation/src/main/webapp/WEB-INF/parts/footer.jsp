@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/css/agency.css">
 <%--<script src="<%=application.getContextPath()%>/resources/customer/js/down-footer.js"></script>--%>
 <footer>
-    <div class="navbar-fixed-bottom">
+    <div>
         <p class="text-muted" align="right"><span class="copyright">
             &copy; TrackSee 2015.
             <a href="https://github.com/TrackSee">GitHub</a>
