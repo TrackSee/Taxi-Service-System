@@ -11,16 +11,11 @@
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
-    <link href="<%=application.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-          media="screen">
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
           media="screen">
-    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"
-          type="text/css"/>
-    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
-          type="text/css"/>
-    <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"
-          type="text/css"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"/>
 </head>
 <body>
 <%@include file="../parts/header.jsp" %>
@@ -48,27 +43,6 @@
     <!--start: Container -->
     <div id="input-form" class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
-
-        <%--TODO getting data from database--%>
-        <script>
-            var priceList = ${requestScope.priceList};
-
-            function getTaxiPricePerKm() {
-                var date = $(".form_datetime").datetimepicker('getDate');
-
-                function isWeekEnd() { return date.toString().contains('Sun') || date.toString().contains('Sat'); }
-
-                function isNight() { return date.getHours() > 22 || date.getHours() < 6; }
-
-                return priceList.find(function(e){
-                    return $('#carCategory').val() == e.carCategory
-                            && isWeekEnd() ==  e.weekend
-                            && isNight() == e.nightTariff;
-                }).pricePerKm;
-            }
-            function getMinDistance() { return ${requestScope.minimalOrderDistance}; }
-        </script>
-        <%--${"taxiPricePerKm"}">--%>
         <form id="order-form" method="post" action="javascript:void(null);">
             <div class="form-group">
                 <label>Phone number</label>
@@ -266,11 +240,28 @@
 <%@include file="../parts/footer.jsp" %>
 <%@include file="../parts/scripts.jsp" %>
 
-<!-- Load bootstrap datepicker scripts -->
+<%-- Load bootstrap datepicker scripts --%>
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"></script>
 <%--end bootstrap datepicker scripts--%>
+
+<%-- price list JS injection --%>
+<script>
+    var priceList = ${requestScope.priceList};
+
+    function getTaxiPricePerKm() {
+        var date = $(".form_datetime").datetimepicker('getDate');
+        function isWeekEnd() { return date.toString().contains('Sun') || date.toString().contains('Sat'); }
+        function isNight() { return date.getHours() > 22 || date.getHours() < 6; }
+
+        return priceList.find(function(e){
+            return $('#carCategory').val() == e.carCategory && isWeekEnd() ==  e.weekend && isNight() == e.nightTariff;
+        }).pricePerKm;
+    }
+    function getMinDistance() { return ${requestScope.minimalOrderDistance}; }
+</script>
+<%-- END price list JS injection --%>
 
 <%--Google maps scripts--%>
 <script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>
