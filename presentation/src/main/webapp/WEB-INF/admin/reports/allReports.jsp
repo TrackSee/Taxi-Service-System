@@ -98,7 +98,6 @@
                 <i class="fa fa-money fa-5x"></i>
               </div>
               <div class="col-xs-9 text-right">
-                <%--<div class="huge">1257</div>--%>
                 <div>Service profitability by month</div>
                 <div class="huge" id="placeholder2"></div>
               </div>
@@ -165,27 +164,27 @@
               </tr>
               <tr>
                 <th>Year</th>
-                <td>1020</td>
-                <td>1150</td>
-                <td>1465</td>
-                <td>1245</td>
-                <td>1025</td>
-                <td>954</td>
-                <td>1360</td>
-                <td>1820</td>
-                <td>856</td>
+                <td>10200</td>
+                <td>11504</td>
+                <td>14655</td>
+                <td>12457</td>
+                <td>10254</td>
+                <td>9540</td>
+                <td>13606</td>
+                <td>18208</td>
+                <td>8596</td>
               </tr>
               <tr>
                 <th>Decade</th>
-                <td>10200</td>
-                <td>11500</td>
-                <td>14650</td>
-                <td>12455</td>
-                <td>10250</td>
-                <td>9540</td>
-                <td>13600</td>
-                <td>18250</td>
-                <td>8560</td>
+                <td>145200</td>
+                <td>113800</td>
+                <td>146210</td>
+                <td>124572</td>
+                <td>100050</td>
+                <td>95550</td>
+                <td>121600</td>
+                <td>238250</td>
+                <td>95560</td>
               </tr>
               </tbody>
             </table>
