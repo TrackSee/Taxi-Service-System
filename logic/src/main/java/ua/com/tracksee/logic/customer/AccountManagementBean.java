@@ -145,4 +145,6 @@ public class AccountManagementBean {
     public void clearUnactivatedRegistrations() {
         userDAO.clearUnactivatedAccounts(UNACTIVATED_USERS_MAX_DAYS);
     }
+
+
 }

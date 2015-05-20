@@ -10,11 +10,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<%-- start: Java Script --%>
-<%@include file="../parts/scripts.jsp" %>
-<%-- end: Java Script --%>
-
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>

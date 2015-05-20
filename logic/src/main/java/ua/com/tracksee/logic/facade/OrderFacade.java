@@ -63,6 +63,13 @@ public class OrderFacade {
         orderRefusingBean.refuseOrder(trackingNumber);
     }
 
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     */
+    public boolean getActivatedCustomerByEmail(String email) {
+        return taxiOrderBean.getActivatedCustomerByEmail(email);
+    }
 
     /**
      * @author Sharaban Sasha
@@ -76,7 +83,7 @@ public class OrderFacade {
      * @see ua.com.tracksee.logic.TaxiOrderBean
      */
     public boolean checkOrderPresentForActiveUser(long trackingNumber,int userId) {
-        return taxiOrderBean.checkOrderPresentForActiveUser(trackingNumber,userId);
+        return taxiOrderBean.checkOrderPresentForActiveUser(trackingNumber, userId);
     }
 
     /**

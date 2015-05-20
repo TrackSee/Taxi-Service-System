@@ -10,11 +10,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<%-- start: Java Script --%>
-<%@include file="../parts/scripts.jsp" %>
-<%-- end: Java Script --%>
-
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
@@ -264,8 +259,5 @@
 <script src="<%=application.getContextPath()%>/resources/customer/js/fields-generator.js"></script>
 <%--end order page scripts--%>
 <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
-
-<%@include file="../parts/scripts.jsp" %>
-<%@include file="../parts/footer.jsp" %>
 </body>
 </html>
