@@ -50,7 +50,10 @@
     <!--start: Container -->
     <div class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
-
+        <div hidden="hidden">
+        <input type="text" name="path" id="path"
+               value="${path}">
+            </div>
             <div class="form-group">
                 <label>Phone number</label>
                 <input type="text" name="phoneNumber" class="form-control"

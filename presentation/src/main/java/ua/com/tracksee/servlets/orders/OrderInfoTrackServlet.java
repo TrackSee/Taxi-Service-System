@@ -68,11 +68,10 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
         UserEntity userEntity = orderFacade.getUserInfo(taxiOrderEntity.getUserId());
 
         req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
-        System.out.println("Phone "+userEntity.getPhone());
         req.setAttribute(PHONE_NUMBER_ALIAS, userEntity.getPhone());
         req.setAttribute(EMAIL_ALIAS, userEntity.getEmail());
-        // req.setAttribute(ADDRESSES_PATH,);
-        // TODO decide req.setAttribute(PRICE_ALIAS, taxiOrderEntity.getPrice());
+        req.setAttribute(ADDRESSES_PATH,taxiOrderEntity.getItemList().get(0).getPath());
+        req.setAttribute(PRICE_ALIAS, taxiOrderEntity.getPrice());
 
         req.setAttribute(ARRIVE_DATE_ALIAS, orderFacade.convertDateForShow(taxiOrderEntity.getArriveDate()));
 

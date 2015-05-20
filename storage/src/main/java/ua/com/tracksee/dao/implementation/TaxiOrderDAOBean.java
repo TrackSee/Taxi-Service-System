@@ -179,7 +179,10 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @Override
     public TaxiOrderEntity getOrder(Long trackingNumber) {
-        String sql = "SELECT * FROM taxi_order WHERE tracking_number=(?)";
+        String sql = "SELECT * FROM taxi_order " +
+                "INNER JOIN taxi_order_item " +
+                "ON taxi_order.tracking_number = taxi_order_item.tracking_numer" +
+                " WHERE taxi_order.tracking_number=(?)";
 
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
         query.setParameter(1, trackingNumber);
