@@ -20,6 +20,7 @@ import java.util.List;
 
 import static ua.com.tracksee.exception.CreateExceptionType.BAD_EMAIL;
 import static ua.com.tracksee.exception.CreateExceptionType.BAD_PHONE;
+import static ua.com.tracksee.exception.CreateExceptionType.BAD_PASSWORD;
 
 /**
  * Created by Vadym_Akymov on 22.04.15.
