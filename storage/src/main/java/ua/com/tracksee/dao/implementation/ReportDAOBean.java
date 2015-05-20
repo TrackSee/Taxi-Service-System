@@ -16,9 +16,7 @@ import javax.persistence.Query;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by kstes_000 on 09-May-15.
@@ -126,7 +124,10 @@ public class ReportDAOBean implements ReportDAO{
                 " WHERE ordered_date" +
                 " BETWEEN '" + startDate + "'" +
                 " AND '" + endDate + "'";
-        return getInteger(sql);
+        Query query = entityManager.createNativeQuery(sql);
+        BigInteger bigInteger = (BigInteger) query.getSingleResult();
+        return bigInteger.intValue();
+//        return getInteger(sql);
     }
 
     @Override
@@ -171,49 +172,55 @@ public class ReportDAOBean implements ReportDAO{
     }
 
     @Override
-    public Map<String, Integer> mostPopularAdditionalCarOptOverall() {
-        Map<String, Integer> map = new HashMap<>();
+    public List<MostPopularOption> mostPopularAdditionalCarOptOverall() {
+        List<MostPopularOption> list = new ArrayList<>();
         String sql = "SELECT COUNT(way_of_payment)" +
                 " FROM taxi_order" +
                 " WHERE way_of_payment = 'VISA_CARD'";
-        Integer integer = getInteger(sql);
-        map.put("Credit card", integer);
+        BigInteger integer = getBigInteger(sql);
+        list.add(new MostPopularOption("Credit card", integer));
         String[] options = {"free_wifi", "animal_transportation", "non_smoking_driver", "air_conditioner"};
         String[] optionsRight = {"Free Wi-Fi", "Animal transportation", "Non smoking driver", "Air conditioner"};
         for (int i = 0; i < options.length; i++) {
-            Integer amount = getAmountOverall(options[i]);
-            map.put(optionsRight[i], amount);
+            BigInteger amount = getAmountOverall(options[i]);
+            list.add(new MostPopularOption(optionsRight[i], amount));
         }
-        return map;
+        return list;
     }
 
     @Override
-    public Map<String, Integer> mostPopularAdditionalCarOptByUser(Integer userId) {
-        Map<String, Integer> map = new HashMap<>();
+    public List<MostPopularOption> mostPopularAdditionalCarOptByUser(Integer userId) {
+        List<MostPopularOption> list = new ArrayList<>();
         String sql = "SELECT COUNT(way_of_payment)" +
                 " FROM taxi_order" +
                 " WHERE way_of_payment = 'VISA_CARD'" +
                 " AND user_id = " + userId;
-        Integer integer = getInteger(sql);
-        map.put("Credit card", integer);
+        BigInteger integer = getBigInteger(sql);
+        list.add(new MostPopularOption("Credit card", integer));
         String[] options = {"free_wifi", "animal_transportation", "non_smoking_driver", "air_conditioner"};
         String[] optionsRight = {"Free Wi-Fi", "Animal transportation", "Non smoking driver", "Air conditioner"};
         for (int i = 0; i < options.length; i++) {
-            Integer amount = getAmountByUser(options[i], userId);
-            map.put(optionsRight[i], amount);
+            BigInteger amount = getAmountByUser(options[i], userId);
+            list.add(new MostPopularOption(optionsRight[i], amount));
         }
-        return map;
+        return list;
     }
 
-    /**
-     * @param sql query to count the number of orders with an additional option
-     * @return number of orders with this additional option
-     * @author Oleksandr Kozin
-     */
-    private Integer getInteger(String sql) {
+//    /**
+//     * @param sql query to count the number of orders with an additional option
+//     * @return number of orders with this additional option
+//     * @author Oleksandr Kozin
+//     */
+//    private Integer getInteger(String sql) {
+//        Query query = entityManager.createNativeQuery(sql);
+//        BigInteger bigInteger = (BigInteger) query.getSingleResult();
+//        return bigInteger.intValue();
+//    }
+
+    private BigInteger getBigInteger(String sql) {
         Query query = entityManager.createNativeQuery(sql);
         BigInteger bigInteger = (BigInteger) query.getSingleResult();
-        return bigInteger.intValue();
+        return bigInteger;
     }
 
     /**
@@ -223,10 +230,10 @@ public class ReportDAOBean implements ReportDAO{
      * @return number of orders with this additional option
      * @author Oleksandr Kozin
      */
-    private Integer getAmountOverall(String option) {
+    private BigInteger getAmountOverall(String option) {
         String sql = "SELECT COUNT(*) FROM taxi_order" +
                 " WHERE " + option + " = TRUE";
-        return getInteger(sql);
+        return getBigInteger(sql);
     }
 
     /**
@@ -236,11 +243,11 @@ public class ReportDAOBean implements ReportDAO{
      * @return number of orders with this additional option
      * @author Oleksandr Kozin
      */
-    private Integer getAmountByUser(String option, Integer userId) {
+    private BigInteger getAmountByUser(String option, Integer userId) {
         String sql = "SELECT COUNT(*) FROM taxi_order" +
                 " WHERE " + option + " = TRUE" +
                 " AND user_id = " + userId;
-        return getInteger(sql);
+        return getBigInteger(sql);
     }
 
 
