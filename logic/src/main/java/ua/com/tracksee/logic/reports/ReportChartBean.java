@@ -1,7 +1,6 @@
 package ua.com.tracksee.logic.reports;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.json.simple.JSONValue;
 import ua.com.tracksee.dao.ReportDAO;
 import ua.com.tracksee.entities.MostPopularOption;
 import ua.com.tracksee.entities.ServiceProfitable;
@@ -13,7 +12,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by kstes_000 on 09-May-15.
@@ -64,9 +62,9 @@ public class ReportChartBean {
      * @return json which contains info about additional options and ordered count overall
      */
     public String mostPopularAdditionalCarOptOverall() throws IOException {
-        Map<String, Integer> optionsReport = reportDAO.mostPopularAdditionalCarOptOverall();
+        List<MostPopularOption> optionsReport = reportDAO.mostPopularAdditionalCarOptOverall();
         ObjectMapper mapper = new ObjectMapper();
-        return JSONValue.toJSONString(optionsReport);
+        return mapper.writeValueAsString(optionsReport);
     }
 
     /**
@@ -74,9 +72,9 @@ public class ReportChartBean {
      * @return json which contains info about additional options and ordered count for current customer
      */
     public String mostPopularAdditionalCarOptByUser(Integer userId) throws IOException {
-        Map<String, Integer> optionsReport = reportDAO.mostPopularAdditionalCarOptByUser(userId);
+        List<MostPopularOption> optionsReport = reportDAO.mostPopularAdditionalCarOptByUser(userId);
         ObjectMapper mapper = new ObjectMapper();
-        return JSONValue.toJSONString(optionsReport);
+        return mapper.writeValueAsString(optionsReport);
     }
 
     /**
