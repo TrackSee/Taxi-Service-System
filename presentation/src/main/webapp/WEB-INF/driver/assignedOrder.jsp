@@ -174,6 +174,7 @@
                 </section>
               </c:forEach>
               <!-- /Plans -->
+    Pages num ${requestScope.pagesCount}
 
     <div class="text-center">
       <ul class="pagination">

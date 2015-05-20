@@ -35,7 +35,7 @@ public class HistoryDriverServlet extends HttpServlet{
         List<TaxiOrderEntity> orders = orderFacade.getHistoryOfOrders(id, 1);
         req.setAttribute("orders", orders);
         req.setAttribute("pagesCount", orderFacade.getOrdersPagesCount(id));
-        //req.setAttribute("pagesCount", driverOrderBean.getOrdersPagesCount(id));
+        req.setAttribute("pagenumber", 1);
         req.getRequestDispatcher("/WEB-INF/driver/historyDriverTo.jsp").forward(req,resp);
     }
 
@@ -44,22 +44,24 @@ public class HistoryDriverServlet extends HttpServlet{
 		req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         id = (int) req.getSession().getAttribute("userId");
-        String pageParam = req.getParameter("pageNumber");
-        Integer pageNumber = null;
+        String pageParam = req.getParameter("pagenumber");
+        Integer pagenumber = null;
         //check pageNumber
         try {
-            pageNumber = Integer.parseInt(req.getParameter("pageNumber"));
-            if(pageNumber > orderFacade.getOrdersPagesCount(id)){
-                pageNumber = 1;
+            pagenumber = Integer.parseInt(req.getParameter("pagenumber"));
+            if(pagenumber > orderFacade.getOrdersPagesCount(id)){
+                pagenumber = 1;
                 logger.warn("wrong page was request");
             }
         } catch (NumberFormatException e){
-            pageNumber = 1;
+            pagenumber = 1;
             logger.warn("wrong page was request");
         }
-        List<TaxiOrderEntity> orders = orderFacade.getHistoryOfOrders(id, pageNumber);
+        List<TaxiOrderEntity> orders = orderFacade.getHistoryOfOrders(id, pagenumber);
         req.setAttribute("orders", orders);
         req.setAttribute("pagesCount", orderFacade.getOrdersPagesCount(id));
+        req.setAttribute("pagenumber", pagenumber);
+        req.getRequestDispatcher("/WEB-INF/driver/historyDriverTo.jsp").forward(req,resp);
         resp.getWriter().write(getJsonFromList(orders));
 
 //        List<TaxiOrderEntity> orders = driverOrderBean.getHistoryOfOrders(id, 1);

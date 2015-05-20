@@ -2,7 +2,6 @@ package  ua.com.tracksee.servlets.driver;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.facade.DriverFacade;
@@ -63,22 +62,23 @@ public class DriverIndexServlet extends HttpServlet {
         List<TaxiOrderEntity> orders = orderFacade.getAvailableOrders(driver, pageNumber);
         req.setAttribute("orders", orders);
         req.setAttribute("pagesCount", orderFacade.getOrdersPagesCount(id));
-        resp.getWriter().write(getJsonFromList(orders));
+        req.getRequestDispatcher("/WEB-INF/driver/driverIndex.jsp").forward(req,resp);
+//        resp.getWriter().write(getJsonFromList(orders));
     }
 
-    /**
-     *
-     * @param orders list of orders to convert into JSON
-     * @return String of JSON
-     */
-    private String getJsonFromList(List<TaxiOrderEntity> orders){
-        ObjectMapper mapper = new ObjectMapper();
-        String json = null;
-        try {
-            json = mapper.writeValueAsString(orders);
-        } catch (IOException e) {
-            json = "";
-        }
-        return json;
-    }
+//    /**
+//     *
+//     * @param orders list of orders to convert into JSON
+//     * @return String of JSON
+//     */
+//    private String getJsonFromList(List<TaxiOrderEntity> orders){
+//        ObjectMapper mapper = new ObjectMapper();
+//        String json = null;
+//        try {
+//            json = mapper.writeValueAsString(orders);
+//        } catch (IOException e) {
+//            json = "";
+//        }
+//        return json;
+//    }
 }
