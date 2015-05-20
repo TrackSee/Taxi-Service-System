@@ -71,13 +71,13 @@
                 <i class="fa fa-taxi fa-5x"></i>
               </div>
               <div class="col-xs-9 text-right">
-                <div class="huge">514</div>
-                <div>New orders per period</div>
+                  <div>New orders per period</div>
+                  <div class="huge" id="placeholder1"></div>
               </div>
             </div>
           </div>
           <div class="panel-footer">
-            <div class="input-daterange input-group" id="datepicker">
+            <div class="input-daterange input-group" id="datepicker-new-orders">
               <input type="text" class="input-sm form-control" name="start"/>
               <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
               <span class="input-group-addon">to</span>
@@ -85,7 +85,7 @@
               <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
             </div>
             <br>
-            <button type="button" class="btn btn-primary btn-block">Get Result</button>
+            <button id="getResultOrders" type="button" class="btn btn-primary btn-block">Get Result</button>
           </div>
         </div>
       </div>
@@ -98,18 +98,19 @@
                 <i class="fa fa-money fa-5x"></i>
               </div>
               <div class="col-xs-9 text-right">
-                <div class="huge">1257</div>
+                <%--<div class="huge">1257</div>--%>
                 <div>Service profitability by month</div>
+                <div class="huge" id="placeholder2"></div>
               </div>
             </div>
           </div>
           <div class="panel-footer">
-            <div class="input-group date">
-              <input type="text" class="form-control">
+            <div class="input-group date" id="datepicker-profit">
+              <input type="text" class="form-control" name="date">
               <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
             </div>
             <br>
-            <button type="button" class="btn btn-primary btn-block">Get Result</button>
+            <button id="getResultProfit" type="button" class="btn btn-primary btn-block">Get Result</button>
           </div>
         </div>
       </div>
@@ -319,6 +320,8 @@
   <script src="<%=application.getContextPath()%>/resources/admin/reports/js/additionalOptOverall.js"></script>
   <script src="<%=application.getContextPath()%>/resources/admin/reports/js/musicCustomer.js"></script>
   <script src="<%=application.getContextPath()%>/resources/admin/reports/js/additionalOptCustomer.js"></script>
+  <script src="<%=application.getContextPath()%>/resources/admin/reports/js/newOrdersPerPeriod.js"></script>
+  <script src="<%=application.getContextPath()%>/resources/admin/reports/js/serviceProfitByMonth.js"></script>
 
   <!-- Bootstrap Core JavaScript -->
   <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
