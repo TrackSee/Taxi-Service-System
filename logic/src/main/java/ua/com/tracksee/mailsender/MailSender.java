@@ -34,7 +34,6 @@ public class MailSender {
     private static final Logger logger = LogManager.getLogger();
     private static Session SESSION = GMAIL.getSession();
     private static final String ROOT_PATH = "/";
-
     private static InternetAddress FROM_ADDRESS;
 
     static {
@@ -85,11 +84,12 @@ public class MailSender {
 
 
     /**
-     * @param to
-     * @param subject
-     * @param templatePath
-     * @param data
-     * @throws MessagingException
+     * This method sends a email decorated with template to specified user
+     *
+     * @param to           - specifies the list of the users' email
+     * @param subject      - specifies the mail subject
+     * @param templatePath - specifies the mail body
+     * @param data         - specifies the map of properties that is used for template generation
      */
     public void sendTemplatedEmail(String to, String subject,
                                           String templatePath, Map<String, Object> data) throws MessagingException {
@@ -107,10 +107,12 @@ public class MailSender {
     }
 
     /**
-     * @param to
-     * @param subject
-     * @param templatePath
-     * @param data
+     * This method sends a email decorated with template to specified users
+     *
+     * @param to           - specifies the user email
+     * @param subject      - specifies the mail subject
+     * @param templatePath - specifies the mail body
+     * @param data         - specifies the map of properties that is used for template generation
      * @throws MessagingException
      */
     public void sendTemplatedEmail(List<String> to, String subject,
@@ -130,8 +132,10 @@ public class MailSender {
     }
 
     /**
-     * @param path
-     * @return
+     * This method loads templates by the given path
+     *
+     * @param path - specifies the path that template should be loaded
+     * @return the instance of Template
      * @throws IOException
      */
     public Template loadTemplate(String path) throws IOException {

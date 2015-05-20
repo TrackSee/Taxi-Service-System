@@ -27,12 +27,12 @@ public class EmailBean {
 
     private static final Logger logger = LogManager.getLogger();
     // website
-    private static final String WEBSITE_SHORT = "tracksee.team.com/TaxiService";
-    private static final String WEBSITE_FULL = "http://localhost:8080/TaxiService/";
-    private static final String CONFIG_LOCATION = "mailtemplates/";
+    private static final String WEBSITE_SHORT = "tracksee.tk";
+    private static final String WEBSITE_FULL = "http://tracksee.tk/";
+    private static final String REGISTRATION_URL = "http://tracksee.tk/signup";
 
-    private static final String REGISTRATION_URL = "c";
     // template properties
+    private static final String CONFIG_LOCATION = "mailtemplates/";
     private static final String SITE_ADDRESS_TEMP_PROP_NAME = "siteadress";
     private static final String BLOCKING_ACCOUNT_SUBJECT_TEMP_PROP_NAME = "TrackSee Blocking Account";
     private static final String BLOCKING_ACCOUNT_TEMP_PATH = CONFIG_LOCATION + "blockingusertemplate.ftl";
@@ -64,8 +64,11 @@ public class EmailBean {
 
 
     /**
-     * @param email
-     * @param userCode
+     * This method notifies user about their registration
+     * and sends confirmation link for registration
+     *
+     * @param email    - specifies the email to sent notification
+     * @param userCode - specifies the code that is used for confirmation of the user's registration
      */
     @Asynchronous
     public void sendRegistrationEmail(String email, String userCode) {
@@ -83,7 +86,10 @@ public class EmailBean {
     }
 
     /**
-     * @param user
+     * This method notifies user about blocking in the system
+     *
+     * @param user - specifies the user to send notification
+     * @throws MessagingException
      */
     public void sendBlockingUserEmail(UserEntity user) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
@@ -93,7 +99,10 @@ public class EmailBean {
     }
 
     /**
-     * @param order
+     * This method notifies user about changing the status of their order from assigned to in progress
+     *
+     * @param order - specifies order that have been recently changed
+     * @throws MessagingException
      */
     public void sendChangingTOFromAssignedToInProgress(TaxiOrderItemEntity order) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
@@ -108,9 +117,11 @@ public class EmailBean {
     }
 
     /**
-     * @param order
+     * This method notifies user about changing the status of their order from in progress to completed
+     *
+     * @param order - specifies order that have been recently changed
+     * @throws MessagingException
      */
-    @Asynchronous
     public void sendChangingTOFromInProgressToCompleted(TaxiOrderItemEntity order) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
@@ -124,7 +135,11 @@ public class EmailBean {
 
 
     /**
-     * @param order
+     * This method notifies user about changing the status of their order from assigned to refused
+     * because user ordered and didn't use taxi service
+     *
+     * @param order - specifies order that have been recently changed
+     * @throws MessagingException
      */
     public void sendChangingTOFromAssignedToRefused(TaxiOrderItemEntity order) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
@@ -138,7 +153,9 @@ public class EmailBean {
 
 
     /**
-     * @param order
+     * This method notifies all the drivers about changing the status of their order from queued to updated
+     *
+     * @param order - specifies order that have been recently changed
      * @throws MessagingException
      */
     public void sendChangingTOFromQueuedToUpdated(TaxiOrderItemEntity order) throws MessagingException {
@@ -157,8 +174,11 @@ public class EmailBean {
     }
 
     /**
-     * @param user
-     * @param trackingNumber
+     *This method notifies user that their order have been processed by the system
+     * and sends the confirmation code for this order
+     *
+     * @param user           - specifies user to send confirmation link
+     * @param trackingNumber - specifies code that is used for confirmation
      */
     @Asynchronous
     public void sendOrderConfirmation(UserEntity user, Long trackingNumber) {
@@ -176,6 +196,13 @@ public class EmailBean {
         }
     }
 
+    /**
+     * This method notifies user about
+     * changing the status of their order from assigned to refused due to some problem caused by organization
+     *
+     * @param order - specifies order that have been recently changed
+     * @throws MessagingException
+     */
     public void sendChangingTOFromAssignedToRefusedMadeByDriver(TaxiOrderEntity order) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
                 data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
