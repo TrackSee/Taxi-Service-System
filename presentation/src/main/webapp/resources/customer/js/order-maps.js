@@ -118,15 +118,3 @@ function updateAddresses(route) {
 function updateRoute() {
     calcRoute($('#origin').val(), $('#destination').val(), []);
 }
-
-/**
- * updatePrice
- * Updates order price when user change route addresses
- */
-function updatePrice() {
-    var distance = getRoutesData().reduce(function(pv, cv) {return pv + cv.distance; }, 0);
-    // taxi for very short distance has constant min price
-    var businessDistance = (distance > getMinDistance()) ? distance : getMinDistance();
-    var price = getTaxiPricePerKm() * businessDistance;
-    $('#price').val(price + " UAH");
-}

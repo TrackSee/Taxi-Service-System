@@ -248,17 +248,7 @@
 
 <%-- price list JS injection --%>
 <script>
-    var priceList = ${requestScope.priceList};
-
-    function getTaxiPricePerKm() {
-        var date = $(".form_datetime").datetimepicker('getDate');
-        function isWeekEnd() { return date.toString().contains('Sun') || date.toString().contains('Sat'); }
-        function isNight() { return date.getHours() > 22 || date.getHours() < 6; }
-
-        return priceList.find(function(e){
-            return $('#carCategory').val() == e.carCategory && isWeekEnd() ==  e.weekend && isNight() == e.nightTariff;
-        }).pricePerKm;
-    }
+    function getPriceList() { return ${requestScope.priceList}; }
     function getMinDistance() { return ${requestScope.minimalOrderDistance}; }
 </script>
 <%-- END price list JS injection --%>
