@@ -12,4 +12,7 @@
     top: 240px;
     left: 350px;
     width: 60%; height: 60%;
+    border: 5px double black; /* Параметры границы */
+    /*background: #fc3; /!* Цвет фона *!/*/
+    /*padding: 8px;*/
 }
