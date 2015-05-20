@@ -337,19 +337,7 @@ public class TaxiOrderBean {
         return taxiOrderDAO.getOrder(trackingNumber);
     }
 
-    /**
-     * Returns object that contain
-     * information about user with
-     * such user id.
-     *
-     * @author Sharaban Sasha
-     * @param id id number of user record
-     * @return object that contain all information about user
-     */
-    public UserEntity getUserInfo(int id) {
 
-        return userDAO.getUserById(id);
-    }
 
     /**
      * Converts string
@@ -385,11 +373,5 @@ public class TaxiOrderBean {
     public boolean checkOrderPresentForActiveUser(long trackingNumber,int userId) {
         return taxiOrderDAO.checkOrderPresentForActiveUser(trackingNumber, userId);
     }
-    /**
-     * @author Sharaban Sasha
-     * @see ua.com.tracksee.dao.TaxiOrderDAO
-     */
-    public boolean getActivatedCustomerByEmail(String email) {
-        return userDAO.getActivatedCustomerByEmail(email);
-    }
+
 }

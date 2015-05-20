@@ -6,7 +6,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.dto.TaxiOrderDTO;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.facade.OrderFacade;
-import ua.com.tracksee.servlets.AttributeNames;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -14,8 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -86,17 +83,17 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
             logger.trace(orderDtoJson);
             TaxiOrderDTO orderDTO = objectMapper.readValue(orderDtoJson, TaxiOrderDTO.class);
 
+            Integer userID = (Integer) req.getSession().getAttribute(USER_ID);
 
-            if (orderFacade.checkBlackListByUserEmail(inputData.get(EMAIL_ALIAS))) {
-                req.setAttribute(ORDER_WARNING, orderFacade.getWarningAlert(ORDER_WARNING_BLACK_LIST_MESSAGE));
-            } else if(orderFacade.getActivatedCustomerByEmail(req.getParameter(EMAIL_ALIAS))){
-                req.setAttribute(ORDER_WARNING, orderFacade.getWarningAlert(ORDER_WARNING_AUTHORISE_MESSAGE));
-            }else{
+            if(orderFacade.checkActivatedCustomerByEmail(req.getParameter(EMAIL_ALIAS), userID)&&
+                    !orderFacade.checkBlackListByUserEmail(inputData.get(EMAIL_ALIAS))){
                 Long trackingNumber = orderFacade.makeOrder(inputData, orderDTO);
                 req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
                 req.setAttribute(ORDER_SUCCESS, orderFacade.getSuccessAlert(ORDER_SUCCESS_MESSAGE + trackingNumber
                         +ORDER_SUCCESS_TRACK_BUTTON));
                 req.setAttribute(HIDE_ORDER_TRACK, HIDE);
+            }else{
+                req.setAttribute(ORDER_WARNING, orderFacade.getWarningAlert(ORDER_WARNING_AUTHORISE_MESSAGE));
             }
 
             req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
@@ -104,6 +101,5 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
             logger.error(e.getMessage());
             req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
         }
-
     }
 }
