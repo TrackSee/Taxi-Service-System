@@ -52,7 +52,7 @@
 </head>
 <body>
 <div id="wrapper">
-  <jsp:include page="adminHeader.jsp"/>
+  <jsp:include page="../adminHeader.jsp"/>
 
   <div id="page-wrapper">
 
