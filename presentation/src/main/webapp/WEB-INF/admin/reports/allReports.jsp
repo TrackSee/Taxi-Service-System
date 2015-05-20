@@ -77,8 +77,6 @@
             </div>
           </div>
           <div class="panel-footer">
-            <%--<div class="row">--%>
-            <%--<div class="col-md-4">--%>
             <div class="input-daterange input-group" id="datepicker">
               <input type="text" class="input-sm form-control" name="start"/>
               <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
@@ -86,12 +84,8 @@
               <input type="text" class="input-sm form-control" name="end"/>
               <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
             </div>
-            <%--</div>--%>
-            <%--<div class="col-md-1">--%>
             <br>
             <button type="button" class="btn btn-primary btn-block">Get Result</button>
-            <%--</div>--%>
-            <%--</div>--%>
           </div>
         </div>
       </div>
@@ -127,8 +121,6 @@
           <div class="panel-heading">
             <i class="fa fa-table fa-fw"></i> Most profitable taxi service
           </div>
-          <!-- /.panel-heading -->
-          <%--<div class="panel-body">--%>
           <div class="table-responsive">
             <table class="table table-bordered table-hover table-striped">
               <thead>
@@ -197,11 +189,7 @@
               </tbody>
             </table>
           </div>
-          <!-- /.table-responsive -->
-          <%--</div>--%>
-          <!-- /.panel-body -->
         </div>
-        <!-- /.panel -->
       </div>
     </div>
 
@@ -214,24 +202,14 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-lg-6">
-                <%--<div class="panel panel-default">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<i class="fa fa-bar-chart-o fa-fw"></i> Driver sex popularity--%>
-                <%--</div>--%>
                 <div class="panel-body">
                   <div id="popularDriverDiv"></div>
                 </div>
-                <%--</div>--%>
               </div>
               <div class="col-lg-6">
-                <%--<div class="panel panel-default">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<i class="fa fa-bar-chart-o fa-fw"></i> Car category popularity--%>
-                <%--</div>--%>
                 <div class="panel-body">
                   <div id="popularCarDiv"></div>
                 </div>
-                <%--</div>--%>
               </div>
             </div>
           </div>
@@ -249,24 +227,14 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-lg-7">
-                <%--<div class="panel panel-default">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<i class="fa fa-bar-chart-o fa-fw"></i> Most popular music style--%>
-                <%--</div>--%>
                 <div class="panel-body">
                   <div id="musicOverallDiv"></div>
                 </div>
-                <%--</div>--%>
               </div>
               <div class="col-lg-5">
-                <%--<div class="panel panel-default">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<i class="fa fa-bar-chart-o fa-fw"></i> Most popular additional car options--%>
-                <%--</div>--%>
                 <div class="panel-body">
                   <div id="additionalOptOverallDiv"></div>
                 </div>
-                <%--</div>--%>
               </div>
             </div>
           </div>
@@ -304,24 +272,14 @@
             </form>
             <div class="row">
               <div class="col-lg-7">
-                <%--<div class="panel panel-default">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<i class="fa fa-bar-chart-o fa-fw"></i> Most popular music style--%>
-                <%--</div>--%>
                 <div class="panel-body">
                   <div id="musicCustomerDiv"></div>
                 </div>
-                <%--</div>--%>
               </div>
               <div class="col-lg-5">
-                <%--<div class="panel panel-default">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<i class="fa fa-bar-chart-o fa-fw"></i> Most popular additional car options--%>
-                <%--</div>--%>
                 <div class="panel-body">
                   <div id="additionalOptCustomerDiv"></div>
                 </div>
-                <%--</div>--%>
               </div>
             </div>
           </div>
