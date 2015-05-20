@@ -369,13 +369,7 @@ public class TaxiOrderBean {
         return booleanCheckBoxState;
     }
 
-    /**
-     * @author Sharaban Sasha
-     * @see ua.com.tracksee.dao.TaxiOrderDAO
-     */
-    public boolean checkOrderPresentActiveUser(long trackingNumber) {
-        return taxiOrderDAO.checkOrderPresentActiveUser(trackingNumber);
-    }
+
     /**
      * @author Sharaban Sasha
      * @see ua.com.tracksee.dao.TaxiOrderDAO

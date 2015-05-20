@@ -247,6 +247,7 @@
 <script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality-prepared.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/fields-generator.js"></script>
 <%--end order page scripts--%>
 <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>

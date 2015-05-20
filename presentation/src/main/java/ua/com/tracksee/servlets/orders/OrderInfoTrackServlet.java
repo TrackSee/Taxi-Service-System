@@ -30,20 +30,12 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("pageName", "orderInfo");
         req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
-        req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
         Integer userID=null;
-        try {
             userID = (Integer) req.getSession().getAttribute(USER_ID_ALIAS);
-        } catch (NullPointerException e) {
-            logger.info("don't authorised user");
-        }
         try {
             long trackingNumber = Long.parseLong(req.getParameter(TRACKING_NUMBER_ALIAS));
             if (userID == null) {
@@ -52,8 +44,7 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
                     redirectSwitch(taxiOrderEntity, req, resp);
                 }else{ redirectToInfoPageWithAlert(req,resp);}
             }else
-            if (userID>0) {
-                System.out.println("userId "+userID);
+            if (userID!=null) {
                 if (orderFacade.checkOrderPresentForActiveUser(trackingNumber, userID)) {
                     TaxiOrderEntity taxiOrderEntity = setParametersToPage(req, resp, trackingNumber);
                     redirectSwitch(taxiOrderEntity,req,resp);

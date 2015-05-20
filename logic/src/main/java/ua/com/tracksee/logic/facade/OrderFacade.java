@@ -63,13 +63,7 @@ public class OrderFacade {
         orderRefusingBean.refuseOrder(trackingNumber);
     }
 
-    /**
-     * @author Sharaban Sasha
-     * @see ua.com.tracksee.logic.TaxiOrderBean
-     */
-    public boolean checkOrderPresentActiveUser(long trackingNumber) {
-        return taxiOrderBean.checkOrderPresentActiveUser(trackingNumber);
-    }
+
     /**
      * @author Sharaban Sasha
      * @see ua.com.tracksee.logic.TaxiOrderBean

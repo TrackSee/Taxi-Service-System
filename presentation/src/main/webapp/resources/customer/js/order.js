@@ -40,6 +40,10 @@ $(document).ready(function(){
                 $.notify("Internal server error occurred.", "warn");
             }
         });
-        return false;
     });
+});
+$(document).ajaxSuccess(function(event, request, settings) {
+    if (request.getResponseHeader('REQUIRES_AUTH') === '1') {
+        window.location = '/orderInfo';
+    }
 });

@@ -40,8 +40,6 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
         Integer userID=0;
         try {
             userID = (Integer) req.getSession().getAttribute(USER_ID_ALIAS);
@@ -94,8 +92,6 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
 //TODO calculationg price via route
         HashMap<String, String> inputData = new HashMap<String, String>();
         try {
@@ -122,7 +118,7 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
             inputData.put(DESCRIPTION_ALIAS, req.getParameter(DESCRIPTION_ALIAS));
 
             ObjectMapper mapper = new ObjectMapper();
-            String orderDtoJson = req.getParameter("aa");
+            String orderDtoJson = req.getParameter(ORDER_ALIAS);
             logger.trace(orderDtoJson);
             TaxiOrderDTO orderDTO = mapper.readValue(orderDtoJson, TaxiOrderDTO.class);
 
