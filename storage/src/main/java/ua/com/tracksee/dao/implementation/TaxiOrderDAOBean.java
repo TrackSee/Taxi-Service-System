@@ -416,15 +416,15 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
             isNullConditioner = true;
         }
         if (driver.getCar().getCarCategory().toString() == "VAN") {
-            sql.append("");
+            sql.append("(car_category = 'ECONOMY_CLASS' OR car_category = 'VAN' OR car_category = 'USER_CAR')");
             isNullConditioner = true;
         }
         if (driver.getCar().getCarCategory().toString() == "BUSINESS_CLASS") {
-            sql.append("");
+            sql.append("(car_category = 'ECONOMY_CLASS' OR car_category = 'BUSINESS_CLASS' OR car_category = 'USER_CAR')");
             isNullConditioner = true;
         }
         if (driver.getCar().getCarCategory().toString() == "ECONOMY_CLASS") {
-            sql.append("");
+            sql.append("(car_category = 'ECONOMY_CLASS' OR car_category = 'USER_CAR')");
             isNullConditioner = true;
         }
         sql.append("LIMIT ? OFFSET ?");
