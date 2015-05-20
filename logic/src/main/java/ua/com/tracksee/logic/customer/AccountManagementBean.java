@@ -1,5 +1,7 @@
 package ua.com.tracksee.logic.customer;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.EmailBean;
@@ -28,6 +30,7 @@ import static ua.com.tracksee.logic.encryption.PasswordUtils.generatePassword;
 */
 @Stateless
 public class AccountManagementBean {
+    private static final Logger logger = LogManager.getLogger(AccountManagementBean.class);
 
     //TODO redirect these to configs
     private static final int UNACTIVATED_USERS_MAX_DAYS = 30;
@@ -65,6 +68,8 @@ public class AccountManagementBean {
      * @throws RegistrationException if the userCode is bad, or user is already active
      */
     public void activateCustomerUserAccount(String userCode) throws RegistrationException {
+        logger.debug("Activation attempt using code: {}", userCode);
+
         Integer userId;
         try {
             userId = Integer.parseInt(userCode);
@@ -100,6 +105,7 @@ public class AccountManagementBean {
         }
 
         String userCode = generatedId.toString();
+        logger.debug("Generated userCode: {}", userCode);
         emailBean.sendRegistrationEmail(user.getEmail(), userCode);
     }
 
