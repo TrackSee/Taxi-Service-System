@@ -242,7 +242,6 @@
 
 <%-- Load bootstrap datepicker scripts --%>
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"></script>
 <%--end bootstrap datepicker scripts--%>
 
@@ -264,6 +263,5 @@
 <script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/fields-generator.js"></script>
 <%--end order page scripts--%>
-<script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
 </body>
 </html>
