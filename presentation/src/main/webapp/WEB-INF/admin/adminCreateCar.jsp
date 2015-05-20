@@ -39,7 +39,7 @@
     <div id="page-wrapper">
         <form class="create-car" id="createCar" action="<c:url value="/admin/createcar"/>" method="post">
             <h2 class="form-sign-up-heading">Please enter data</h2>
-            <label for="carNumber" class="sr-only">Model</label>
+            <label for="carNumber" class="sr-only">Car Number</label>
             <input type="text" id="carNumber" name="carNumber" class="form-control"
                    placeholder="Car Number" required>
             <label for="carModel" class="sr-only">Model</label>
