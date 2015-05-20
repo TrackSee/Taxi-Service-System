@@ -13,16 +13,11 @@
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
-    <link href="<%=application.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-          media="screen">
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
           media="screen">
-    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"
-          type="text/css"/>
-    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
-          type="text/css"/>
-    <link href='<%=application.getContextPath()%>/resources/customer/css/visible.css' rel='stylesheet'
-          type='text/css'/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/visible.css" rel="stylesheet"/>
 </head>
 <body>
 <%@include file="../parts/header.jsp" %>
@@ -226,7 +221,6 @@
 <script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality-prepared.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/fields-generator.js"></script>
 <%--end order page scripts--%>
-<script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
 <%@include file="../parts/scripts.jsp" %>
 <%@include file="../parts/footer.jsp" %>
 </body>

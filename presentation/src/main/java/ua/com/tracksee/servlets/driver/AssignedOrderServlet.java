@@ -40,8 +40,6 @@ public class AssignedOrderServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
         id = (int) req.getSession().getAttribute("userId");
         trackingNumber = req.getParameter("trackingNumber");
         req.setAttribute("status", statusBoolean);
@@ -51,8 +49,6 @@ public class AssignedOrderServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
         id = (int) req.getSession().getAttribute("userId");
         trackingNumber = req.getParameter("trackingNumber");
         orderStatus = req.getParameter("orderStatus");
