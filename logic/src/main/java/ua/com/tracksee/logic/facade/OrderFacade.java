@@ -33,6 +33,7 @@ public class OrderFacade {
     private @EJB AlertGeneratorBean alertGeneratorBean;
     private @EJB DriverOrderBean driverOrderBean;
     private @EJB PriceListBean priceListBean;
+    private @EJB UserCheckerBean userCheckerBean;
 
     /**
      * @author Ruslan Gunavardana
@@ -70,10 +71,10 @@ public class OrderFacade {
 
     /**
      * @author Sharaban Sasha
-     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     * @see ua.com.tracksee.logic.UserCheckerBean
      */
-    public boolean getActivatedCustomerByEmail(String email) {
-        return taxiOrderBean.getActivatedCustomerByEmail(email);
+    public boolean checkActivatedCustomerByEmail(String email, Integer userId) {
+        return userCheckerBean.checkActivatedUserByEmail(email,userId);
     }
 
     /**
@@ -104,7 +105,7 @@ public class OrderFacade {
      * @see ua.com.tracksee.logic.TaxiOrderBean
      */
     public UserEntity getUserInfo(int userId) {
-        return taxiOrderBean.getUserInfo(userId);
+        return userCheckerBean.getUserInfo(userId);
     }
 
     /**
@@ -201,6 +202,13 @@ public class OrderFacade {
         return alertGeneratorBean.getDangerAlert(inputText);
     }
 
+    /**
+     * @author Sharaban Sasha
+     * @see
+     */
+    public void checkActivatedUserByEmail(String email,Integer userId){
+
+    }
     public List<TaxiOrderEntity> getHistoryOfOrders(int id, int pageNumber){
         return driverOrderBean.getHistoryOfOrders(id, pageNumber);
     }
