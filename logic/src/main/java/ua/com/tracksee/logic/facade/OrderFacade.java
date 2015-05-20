@@ -2,6 +2,7 @@ package ua.com.tracksee.logic.facade;
 
 import ua.com.tracksee.dto.TaxiOrderDTO;
 import ua.com.tracksee.entities.TaxiOrderEntity;
+import ua.com.tracksee.entities.TaxiPriceEntity;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.enumartion.*;
 import ua.com.tracksee.exception.OrderException;
@@ -10,6 +11,7 @@ import ua.com.tracksee.logic.driver.DriverOrderBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +32,7 @@ public class OrderFacade {
     private @EJB ValidationBean validationBean;
     private @EJB AlertGeneratorBean alertGeneratorBean;
     private @EJB DriverOrderBean driverOrderBean;
+    private @EJB PriceListBean priceListBean;
 
     /**
      * @author Ruslan Gunavardana
@@ -39,6 +42,14 @@ public class OrderFacade {
      */
     public Long makeOrder(HashMap<String, String> inputData, TaxiOrderDTO orderDTO) throws OrderException {
         return taxiOrderBean.makeOrder(inputData, orderDTO);
+    }
+
+    public List<TaxiPriceEntity> getPriceList() {
+        return priceListBean.getPrices();
+    }
+
+    public BigDecimal getMinimalOrderDistance() {
+        return priceListBean.getMinimalOrderDistance();
     }
 
     /**
@@ -59,10 +70,25 @@ public class OrderFacade {
 
     /**
      * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     */
+    public boolean getActivatedCustomerByEmail(String email) {
+        return taxiOrderBean.getActivatedCustomerByEmail(email);
+    }
+
+    /**
+     * @author Sharaban Sasha
      * @see ua.com.tracksee.logic.TaxiOrderBean
      */
-    public boolean checkOrderPresent(long trackingNumber) {
-        return taxiOrderBean.checkOrderPresent(trackingNumber);
+    public boolean checkOrderPresentNonActiveUser(long trackingNumber) {
+        return taxiOrderBean.checkOrderPresentNonActiveUser(trackingNumber);
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.logic.TaxiOrderBean
+     */
+    public boolean checkOrderPresentForActiveUser(long trackingNumber,int userId) {
+        return taxiOrderBean.checkOrderPresentForActiveUser(trackingNumber, userId);
     }
 
     /**

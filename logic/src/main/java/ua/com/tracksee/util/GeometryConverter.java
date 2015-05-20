@@ -9,6 +9,8 @@ import ua.com.tracksee.dto.Location;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Arrays.asList;
+
 /**
  * @author Ruslan Gunavardana
  */
@@ -31,25 +33,25 @@ public class GeometryConverter {
         return new Location(point.getX(), point.getY());
     }
 
-    public static LineString locationsToLineString(Location[] path) {
+    public static LineString locationsToLineString(List<Location> path) {
         if (path == null) {
             return null;
         }
 
-        if (path.length == 1) {
-            Location startAndFinish = path[0];
-            path = new Location[]{startAndFinish, startAndFinish};
+        if (path.size() == 1) {
+            Location startAndFinish = path.get(0);
+            path = asList(startAndFinish, startAndFinish);
         }
 
-        Coordinate[] coordinates = new Coordinate[path.length];
-        for (int i = 0; i < path.length; i++) {
-            coordinates[i] = new Coordinate(path[i].getLat(), path[i].getLng());
+        Coordinate[] coordinates = new Coordinate[path.size()];
+        for (int i = 0; i < path.size(); i++) {
+            coordinates[i] = new Coordinate(path.get(i).getLat(), path.get(i).getLng());
         }
 
         return geometryFactory.createLineString(coordinates);
     }
 
-    public static Location[] lineStringToLocations(LineString lineString) {
+    public static List<Location> lineStringToLocations(LineString lineString) {
         if (lineString == null) {
             return null;
         }
@@ -60,10 +62,10 @@ public class GeometryConverter {
             locations[i] = new Location(coordinates[i].x, coordinates[i].y);
         }
 
-        return locations;
+        return asList(locations);
     }
 
-    public static Location[] decodeGooglePolylineToLocations(String encoded) {
+    public static List<Location> decodeGooglePolylineToLocations(String encoded) {
         List<Location> poly = new ArrayList<>();
         int index = 0, len = encoded.length();
         int lat = 0, lng = 0;
@@ -88,10 +90,48 @@ public class GeometryConverter {
             Location p = new Location((((double) lat / 1E5)), (((double) lng / 1E5)));
             poly.add(p);
         }
-        return poly.toArray(new Location[poly.size()]);
+        return poly;
     }
 
     public static LineString decodeGooglePolylineToLineString(String encoded) {
         return locationsToLineString(decodeGooglePolylineToLocations(encoded));
+    }
+
+    public static String encodeToGooglePolyLine(LineString polyline) {
+        return encodeToGooglePolyLine(lineStringToLocations(polyline));
+    }
+
+    public static String encodeToGooglePolyLine(List<Location> polyline) {
+        StringBuilder encodedPoints = new StringBuilder();
+        int prev_lat = 0, prev_lng = 0;
+        for (Location trackpoint : polyline) {
+            int lat = (int) (trackpoint.getLat() * 1E6);
+            int lng = (int) (trackpoint.getLng() * 1E6);
+            encodedPoints.append(encodeSignedNumber(lat - prev_lat));
+            encodedPoints.append(encodeSignedNumber(lng - prev_lng));
+            prev_lat = lat;
+            prev_lng = lng;
+        }
+        return encodedPoints.toString();
+    }
+
+    private static StringBuffer encodeSignedNumber(int num) {
+        int sgn_num = num << 1;
+        if (num < 0) {
+            sgn_num = ~(sgn_num);
+        }
+        return(encodeNumber(sgn_num));
+    }
+
+    private static StringBuffer encodeNumber(int num) {
+        StringBuffer encodeString = new StringBuffer();
+        while (num >= 0x20) {
+            int nextValue = (0x20 | (num & 0x1f)) + 63;
+            encodeString.append((char)(nextValue));
+            num >>= 5;
+        }
+        num += 63;
+        encodeString.append((char)(num));
+        return encodeString;
     }
 }

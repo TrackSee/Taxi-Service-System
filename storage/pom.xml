@@ -31,12 +31,6 @@
             <version>4.3</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.vividsolutions</groupId>
-            <artifactId>jts</artifactId>
-            <version>1.13</version>
-            <scope>provided</scope>
-        </dependency>
 
         <!--for JSON parsing-->
         <dependency>
@@ -75,18 +69,6 @@
             <artifactId>tomcat-catalina</artifactId>
             <version>8.0.22</version>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.9.13</version>
         </dependency>
 
     </dependencies>

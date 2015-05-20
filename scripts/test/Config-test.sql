@@ -1,0 +1,1 @@
+INSERT INTO public.config (name, value) VALUES ('minimal_order_distance', '5');

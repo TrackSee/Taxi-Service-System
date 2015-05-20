@@ -1,4 +1,5 @@
 DROP VIEW IF EXISTS driver_report;
+DROP VIEW IF EXISTS car_report;
 DROP TABLE IF EXISTS tracksee.public.Taxi_Order_Item;
 DROP TABLE IF EXISTS tracksee.public.Favorite_Place;
 DROP TABLE IF EXISTS tracksee.public.Taxi_Order;
@@ -92,7 +93,7 @@ CREATE TABLE IF NOT EXISTS tracksee.public.Taxi_Order
 CREATE TABLE IF NOT EXISTS tracksee.public.Taxi_Order_Item
 (
   taxi_item_id     BIGSERIAL PRIMARY KEY,
-  tracking_numer   INT NOT NULL REFERENCES Taxi_Order (tracking_number) ON DELETE CASCADE,
+  tracking_number   INT NOT NULL REFERENCES Taxi_Order (tracking_number) ON DELETE CASCADE,
   path             GEOMETRY,
   ordered_quantity NUMERIC(15, 1),
   -- need to be checked if this 'user_id' is a driver's id on code layer

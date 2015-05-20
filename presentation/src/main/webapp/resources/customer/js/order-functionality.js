@@ -7,7 +7,7 @@
  *
  * @author Sharaban Sasha
  */
-
+$(document).ready(function(){
 $('#service').on('change', function () {
     if ($(this).val() == 'FOODSTUFF_DELIVERY') {
         additionalOptionsHide();
@@ -221,5 +221,5 @@ $('#service').on('change', function () {
         $('#addinput').slideUp("slow");
     }
 });
-
+});
 

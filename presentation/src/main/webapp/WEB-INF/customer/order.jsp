@@ -11,16 +11,11 @@
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
-    <link href="<%=application.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-          media="screen">
     <link href="<%=application.getContextPath()%>/resources/css/bootstrap-datetimepicker.min.css" rel="stylesheet"
           media="screen">
-    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"
-          type="text/css"/>
-    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
-          type="text/css"/>
-    <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"
-          type="text/css"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/mapRange.css" rel="stylesheet"/>
 </head>
 <body>
 <%@include file="../parts/header.jsp" %>
@@ -48,20 +43,13 @@
     <!--start: Container -->
     <div id="input-form" class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
-
-        <%--TODO getting data from database--%>
-        <script>
-            function getTaxiPricePerKm() { return 30; }
-            function getMinDistance() { return 6; }
-        </script>
-        <%--${"taxiPricePerKm"}">--%>
         <form id="order-form" method="post" action="javascript:void(null);">
             <div class="form-group">
                 <label>Phone number</label>
-                <input type="text" pattern="\d{10}"
-                       title="That phone number is invalid please enter in this format 0934535415"
+                <input type="text" pattern="^\+?[0-9 ()-]{5,27}$"
+                       title="Please enter in this format (+3063) 696-77-00"
                        name="phoneNumber" class="form-control"
-                       placeholder="Enter phone number"
+                       placeholder="Enter phone number" value="${phoneNumber}"
                        required>
                 <span class="red-star">★</span>
             </div>
@@ -69,7 +57,7 @@
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" class="form-control" name="email" placeholder="Enter email"
-                       title="That email is invalid" required>
+                       title="That email is invalid" value="${email}" required>
                 <span class="red-star">★</span>
             </div>
 
@@ -172,8 +160,8 @@
                     <span class="red-star">★</span>
                 </div>
                 <div class="form-group" id="carCategoryGroup">
-                    <label class="control-label">Car category</label>
-                    <select class="form-control order_priority" name="carCategory">
+                    <label class="control-label" for="carCategory">Car category</label>
+                    <select class="form-control order_priority" name="carCategory" id="carCategory">
                         <option value="ECONOMY_CLASS">Economy class</option>
                         <option value="BUSINESS_CLASS">Business class</option>
                         <option value="VAN">Van</option>
@@ -239,7 +227,6 @@
     </div>
 </div>
 <%-- end:wrapper --%>
-</div>
 
 <div class="row">
 
@@ -253,11 +240,17 @@
 <%@include file="../parts/footer.jsp" %>
 <%@include file="../parts/scripts.jsp" %>
 
-<!-- Load bootstrap datepicker scripts -->
+<%-- Load bootstrap datepicker scripts --%>
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"></script>
 <%--end bootstrap datepicker scripts--%>
+
+<%-- price list JS injection --%>
+<script>
+    function getPriceList() { return ${requestScope.priceList}; }
+    function getMinDistance() { return ${requestScope.minimalOrderDistance}; }
+</script>
+<%-- END price list JS injection --%>
 
 <%--Google maps scripts--%>
 <script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>
@@ -270,6 +263,5 @@
 <script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/fields-generator.js"></script>
 <%--end order page scripts--%>
-<script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
 </body>
 </html>
