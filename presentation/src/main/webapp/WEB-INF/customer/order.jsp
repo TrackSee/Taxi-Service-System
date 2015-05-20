@@ -142,7 +142,7 @@
                         <span class="red-star">★</span>
                     </div>
                     <div>
-                        <input type="number" id="amountOfMinutes" class="form-control" name="amountOfMinutes"
+                        <input type="number" pattern="" id="amountOfMinutes" class="form-control" name="amountOfMinutes"
                                placeholder="Amount minutes [0:60]"
                                title="Amount of minutes [0:60]">
                         <span class="red-star">★</span>
