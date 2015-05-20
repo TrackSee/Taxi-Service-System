@@ -51,17 +51,29 @@
 
         <%--TODO getting data from database--%>
         <script>
-            //var priceList =
+            var priceList = ${requestScope.priceList};
 
-            function getTaxiPricePerKm() { return 30; }
-            function getMinDistance() { return 6; }
+            function getTaxiPricePerKm() {
+                var date = $(".form_datetime").datetimepicker('getDate');
+
+                function isWeekEnd() { return date.toString().contains('Sun') || date.toString().contains('Sat'); }
+
+                function isNight() { return date.getHours() > 22 || date.getHours() < 6; }
+
+                return priceList.find(function(e){
+                    return $('#carCategory').val() == e.carCategory
+                            && isWeekEnd() ==  e.weekend
+                            && isNight() == e.nightTariff;
+                }).pricePerKm;
+            }
+            function getMinDistance() { return ${requestScope.minimalOrderDistance}; }
         </script>
         <%--${"taxiPricePerKm"}">--%>
         <form id="order-form" method="post" action="javascript:void(null);">
             <div class="form-group">
                 <label>Phone number</label>
-                <input type="text" pattern="\d{10}"
-                       title="That phone number is invalid please enter in this format 0934535415"
+                <input type="text" pattern="^\+?[0-9 ()-]{5,27}$"
+                       title="Please enter in this format (+3063) 696-77-00"
                        name="phoneNumber" class="form-control"
                        placeholder="Enter phone number" value="${phoneNumber}"
                        required>
@@ -174,8 +186,8 @@
                     <span class="red-star">★</span>
                 </div>
                 <div class="form-group" id="carCategoryGroup">
-                    <label class="control-label">Car category</label>
-                    <select class="form-control order_priority" name="carCategory">
+                    <label class="control-label" for="carCategory">Car category</label>
+                    <select class="form-control order_priority" name="carCategory" id="carCategory">
                         <option value="ECONOMY_CLASS">Economy class</option>
                         <option value="BUSINESS_CLASS">Business class</option>
                         <option value="VAN">Van</option>

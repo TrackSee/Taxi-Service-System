@@ -4,6 +4,11 @@ package ua.com.tracksee.servlets.orders;
  * @author Sharaban Sasha
  */
 public interface OrderAttributes {
+
+    String PRICE_LIST_ALIAS = "priceList";
+    String MINIMAL_ORDER_DISTANCE_ALIAS = "minimalOrderDistance";
+
+
     String ORDER_ALIAS= "order";
     String TRACKING_NUMBER_ALIAS ="trackingNumber";
     String USER_ID_ALIAS ="userId";
@@ -12,8 +17,6 @@ public interface OrderAttributes {
     String AMOUNT_OF_MINUTES_ALIAS ="amountOfMinutes";
     String PHONE_NUMBER_ALIAS ="phoneNumber";
     String EMAIL_ALIAS ="email";
-    String ADDRESSES_PATH ="addressPath";
-    String PRICE_ALIAS ="price";
     String ARRIVE_DATE_ALIAS ="arriveDate";
     String END_DATE_ALIAS ="endDate";
     String ADDRESS_DESTINATION_ALIAS ="addressDestination";

@@ -11,6 +11,7 @@ import ua.com.tracksee.logic.driver.DriverOrderBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +46,10 @@ public class OrderFacade {
 
     public List<TaxiPriceEntity> getPriceList() {
         return priceListBean.getPrices();
+    }
+
+    public BigDecimal getMinimalOrderDistance() {
+        return priceListBean.getMinimalOrderDistance();
     }
 
     /**
@@ -82,7 +87,7 @@ public class OrderFacade {
      * @see ua.com.tracksee.logic.TaxiOrderBean
      */
     public boolean checkOrderPresentForActiveUser(long trackingNumber,int userId) {
-        return taxiOrderBean.checkOrderPresentForActiveUser(trackingNumber,userId);
+        return taxiOrderBean.checkOrderPresentForActiveUser(trackingNumber, userId);
     }
 
     /**

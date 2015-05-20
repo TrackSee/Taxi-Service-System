@@ -7,6 +7,7 @@ import ua.com.tracksee.dto.TaxiOrderDTO;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.facade.OrderFacade;
+import ua.com.tracksee.servlets.AttributeNames;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -18,6 +19,8 @@ import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
+
+import static ua.com.tracksee.servlets.AttributeNames.USER_ID;
 
 /**
  * This servlet return order.jsp,
@@ -33,6 +36,7 @@ import java.util.HashMap;
 @WebServlet("/order")
 public class OrderServlet extends HttpServlet implements OrderAttributes {
     private static final Logger logger = LogManager.getLogger();
+    private static final ObjectMapper objectMapper = new ObjectMapper();
     private @EJB OrderFacade orderFacade;
 
     /**
@@ -40,53 +44,15 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-        Integer userID=0;
-        try {
-            userID = (Integer) req.getSession().getAttribute(USER_ID_ALIAS);
-
-        if(userID>0){
+        Integer userID = (Integer) req.getSession().getAttribute(USER_ID);
+        if (userID != null) {
             UserEntity userEntity = orderFacade.getUserInfo(userID);
             req.setAttribute(PHONE_NUMBER_ALIAS, userEntity.getPhone());
             req.setAttribute(EMAIL_ALIAS, userEntity.getEmail());
         }
-        }catch (NullPointerException e){
-            logger.info("don't authorised user");
-            req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);
-        }
-        req.setAttribute("priceList", orderFacade.getPriceList());
+        req.setAttribute(PRICE_LIST_ALIAS, objectMapper.writeValueAsString(orderFacade.getPriceList()));
+        req.setAttribute(MINIMAL_ORDER_DISTANCE_ALIAS, orderFacade.getMinimalOrderDistance());
         req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);
-    }
-
-    /**
-     * @author Ruslan Gunavardana
-     */
-    // TODO Ruslan workaround
-    private void method(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        StringBuilder sb = new StringBuilder();
-        try {
-            BufferedReader reader = req.getReader();
-            String line;
-            do {
-                line = reader.readLine();
-                sb.append(line).append("\n");
-            } while (line != null);
-        } catch (IOException e) {
-            logger.warn("Cannot get JSON from POST /order");
-        }
-        TaxiOrderDTO orderDTO = null;
-
-        orderDTO = mapper.readValue(sb.toString(), TaxiOrderDTO.class);
-
-        HttpSession session = req.getSession(false);
-        Integer userId = session != null ? (Integer) session.getAttribute("userId") : null;
-        if (userId != null) {
-            // taxiOrderBean.createAuthorisedOrder(userId, orderDTO);
-        } else {
-            //TODO create order without signup merge
-        }
     }
 
     /**
@@ -94,10 +60,7 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-//TODO calculationg price via route
-        HashMap<String, String> inputData = new HashMap<String, String>();
+        HashMap<String, String> inputData = new HashMap<>();
         try {
 
             inputData.put(PHONE_NUMBER_ALIAS, req.getParameter(PHONE_NUMBER_ALIAS));
@@ -121,10 +84,9 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
             inputData.put(SERVICE_ALIAS, req.getParameter(SERVICE_ALIAS));
             inputData.put(DESCRIPTION_ALIAS, req.getParameter(DESCRIPTION_ALIAS));
 
-            ObjectMapper mapper = new ObjectMapper();
             String orderDtoJson = req.getParameter(ORDER_ALIAS);
             logger.trace(orderDtoJson);
-            TaxiOrderDTO orderDTO = mapper.readValue(orderDtoJson, TaxiOrderDTO.class);
+            TaxiOrderDTO orderDTO = objectMapper.readValue(orderDtoJson, TaxiOrderDTO.class);
 
 
             if (orderFacade.checkBlackListByUserEmail(inputData.get(EMAIL_ALIAS))) {
