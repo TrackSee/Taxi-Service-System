@@ -14,6 +14,7 @@ import java.util.Properties;
 class SenderSessionSpecificator {
 
     public static IEmailUtil GMAIL = new GmailSpecificator();
+    public static IEmailUtil TRACK_SEE_MAIL = new TrackseeMailSpecificator();
 
 
     private static class GmailSpecificator implements IEmailUtil {
@@ -43,6 +44,41 @@ class SenderSessionSpecificator {
                             return new PasswordAuthentication(USER_NAME, USER_PASSWORD);
                         }
                     });
+        }
+
+        @Override
+        public Session getSession() {
+            return session;
+        }
+
+        @Override
+        public InternetAddress getInternetAddress() throws AddressException {
+            return new InternetAddress(USER_NAME);
+        }
+
+        private Properties properties = null;
+        private Session session = null;
+    }
+
+    private static class TrackseeMailSpecificator implements IEmailUtil {
+        private static final String USER_NAME = "root@tracksee.tk";
+       // private static final String USER_PASSWORD = "";
+
+        private static final String MAIL_SMTP_HOST_PROPERTY_NAME = "mail.smtp.host";
+        private static final String MAIL_SMTP_PORT_PROPERTY_NAME = "mail.smtp.port";
+        private static final String MAIL_DEBUG_PROPERTY_NAME     = "mail.debug";
+
+        private static final String MAIL_SMTP_HOST_PROPERTY_VALUE = "localhost";
+        private static final String MAIL_SMTP_PORT_PROPERTY_VALUE = "25";
+        private static final String MAIL_DEBUG_PROPERTY_VALUE     = "true";
+
+        TrackseeMailSpecificator() {
+            properties = new Properties();
+            properties.put(MAIL_DEBUG_PROPERTY_NAME, MAIL_DEBUG_PROPERTY_VALUE);
+            properties.put(MAIL_SMTP_HOST_PROPERTY_NAME, MAIL_SMTP_HOST_PROPERTY_VALUE);
+            properties.put(MAIL_SMTP_PORT_PROPERTY_NAME, MAIL_SMTP_PORT_PROPERTY_VALUE);
+
+            session = Session.getInstance(properties);
         }
 
         @Override

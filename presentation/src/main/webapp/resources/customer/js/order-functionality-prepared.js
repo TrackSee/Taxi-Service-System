@@ -206,8 +206,7 @@ var service=$('#service');
      * @author Sharaban Sasha
      */
     function conveyCorporationEmployeesShow() {
-        $('#addinput').slideDown("slow");
-        $('#buttonAddressOrigin').slideDown("slow");
+        $('#addExtraAddresses').slideDown("slow");
     }
     /**
      * Hides button that allow creating more "Address from"
@@ -217,8 +216,7 @@ var service=$('#service');
      * @author Sharaban Sasha
      */
     function conveyCorporationEmployeesHide() {
-        $('#buttonAddressOrigin').slideUp("slow");
-        $('#addinput').slideUp("slow");
+        $('#addExtraAddresses').slideUp("slow");
     }
 });
 

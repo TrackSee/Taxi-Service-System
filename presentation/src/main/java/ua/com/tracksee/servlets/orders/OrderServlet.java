@@ -83,7 +83,7 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
             inputData.put(DESCRIPTION_ALIAS, req.getParameter(DESCRIPTION_ALIAS));
 
             String orderDtoJson = req.getParameter(ORDER_ALIAS);
-            logger.trace("orderTo json"+orderDtoJson);
+            logger.trace(orderDtoJson);
             TaxiOrderDTO orderDTO = objectMapper.readValue(orderDtoJson, TaxiOrderDTO.class);
 
 
@@ -93,13 +93,13 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
                 req.setAttribute(ORDER_WARNING, orderFacade.getWarningAlert(ORDER_WARNING_AUTHORISE_MESSAGE));
             }else{
                 Long trackingNumber = orderFacade.makeOrder(inputData, orderDTO);
-//                req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
-//                req.setAttribute(ORDER_SUCCESS, orderFacade.getSuccessAlert(ORDER_SUCCESS_MESSAGE + trackingNumber
-//                        +ORDER_SUCCESS_TRACK_BUTTON));
-//                req.setAttribute(HIDE_ORDER_TRACK, HIDE);
+                req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
+                req.setAttribute(ORDER_SUCCESS, orderFacade.getSuccessAlert(ORDER_SUCCESS_MESSAGE + trackingNumber
+                        +ORDER_SUCCESS_TRACK_BUTTON));
+                req.setAttribute(HIDE_ORDER_TRACK, HIDE);
             }
 
-          //  req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
+            req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
         } catch (Exception e) {
             logger.error(e.getMessage());
             req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
