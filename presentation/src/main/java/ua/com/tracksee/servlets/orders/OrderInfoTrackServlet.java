@@ -43,14 +43,11 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
                     TaxiOrderEntity taxiOrderEntity = setParametersToPage(req, resp, trackingNumber);
                     redirectSwitch(taxiOrderEntity, req, resp);
                 }else{ redirectToInfoPageWithAlert(req,resp);}
-            }else
-            if (userID!=null) {
+            }else {
                 if (orderFacade.checkOrderPresentForActiveUser(trackingNumber, userID)) {
                     TaxiOrderEntity taxiOrderEntity = setParametersToPage(req, resp, trackingNumber);
                     redirectSwitch(taxiOrderEntity,req,resp);
                 }else{ redirectToInfoPageWithAlert(req,resp);}
-            }else {
-             redirectToInfoPageWithAlert(req,resp);
             }
         } catch (NumberFormatException e) {
             logger.error("invalid tracking number " + e);
@@ -117,11 +114,9 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
             throws ServletException, IOException {
         if (taxiOrderEntity.getStatus() == OrderStatus.REFUSED ||
                 taxiOrderEntity.getStatus() == OrderStatus.COMPLETED) {
-
             req.getRequestDispatcher(ORDER_TRACK_COMPLETE_PAGE).forward(req, resp);
 
         } else {
-
             req.getRequestDispatcher(ORDER_TRACK_PAGE).forward(req, resp);
 
         }

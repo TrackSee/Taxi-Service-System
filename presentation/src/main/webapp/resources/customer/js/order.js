@@ -35,13 +35,15 @@ $(document).ready(function(){
                 if (data == "error") {
                     $.notify("Invalid data entered!", "error");
                 } else {
-                    $(document).html(data);
+                    $('html').replaceData(data);
+                    //window.location.replace("/TaxiService/orderSuccess");
                 }
             },
             error: function () {
                 $.notify("Internal server error occurred.", "warn");
             }
         });
+        return false;
     });
 
     $(".form_datetime").on('changeDate', updatePrice);
