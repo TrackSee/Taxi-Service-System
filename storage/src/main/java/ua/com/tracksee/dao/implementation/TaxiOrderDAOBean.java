@@ -179,22 +179,64 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @Override
     public TaxiOrderEntity getOrder(Long trackingNumber) {
-        String sql = "SELECT * FROM taxi_order WHERE tracking_number=(?)";
+        String sql = "SELECT * FROM taxi_order " +
+                "INNER JOIN taxi_order_item " +
+                "ON taxi_order.tracking_number = taxi_order_item.tracking_numer" +
+                " WHERE taxi_order.tracking_number=(?)";
 
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
         query.setParameter(1, trackingNumber);
         return (TaxiOrderEntity) query.getSingleResult();
     }
 
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     */
     @Override
-    public boolean checkOrderPresent(Long trackingNumber) {
+    public boolean checkOrderPresentNonActiveUser(Long trackingNumber) {
         boolean state = false;
-        String sql = "SELECT * FROM taxi_order WHERE tracking_number=(?)";
+        String sql = "SELECT tracking_number,description,status,price,taxi_order.user_id,service,car_category," +
+                "way_of_payment,driver_sex, music_style,animal_transportation,free_wifi,non_smoking_driver," +
+                "air_conditioner,ordered_date,arrive_date,amount_of_cars,amount_of_hours,amount_of_minutes,comment" +
+                " FROM taxi_order " +
+                "INNER JOIN service_user "+
+                "ON taxi_order.user_id= service_user.user_id " +
+                "WHERE tracking_number=(?1) AND activated=FALSE";
 
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
         query.setParameter(1, trackingNumber);
+        List list = query.getResultList();
         try {
-            if (query.getSingleResult() != null) {
+            if (list.size()!=0) {
+                state = true;
+            }
+        } catch (NoResultException e) {
+            logger.error("Order with such tracking number: " + trackingNumber + " was not found " + e);
+        }
+        return state;
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     */
+    @Override
+    public boolean checkOrderPresentForActiveUser(Long trackingNumber, int userId){
+        boolean state = false;
+        String sql = "SELECT tracking_number,description,status,price,taxi_order.user_id,service,car_category," +
+                "way_of_payment,driver_sex, music_style,animal_transportation,free_wifi,non_smoking_driver," +
+                "air_conditioner,ordered_date,arrive_date,amount_of_cars,amount_of_hours,amount_of_minutes,comment" +
+                " FROM taxi_order " +
+                "INNER JOIN service_user "+
+                "ON taxi_order.user_id= service_user.user_id " +
+                "WHERE tracking_number=(?1) AND taxi_order.user_id=(?2) AND activated=TRUE";
+
+        Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
+        query.setParameter(1, trackingNumber);
+        query.setParameter(2, userId);
+        List list = query.getResultList();
+        try {
+            if (list.size()!=0) {
                 state = true;
             }
         } catch (NoResultException e) {
@@ -205,10 +247,6 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @Override
     public int getOldTaxiOrderPagesCount(int userID) {
-        if (userID < 0) {
-            logger.warn("userID can't be < 0");
-            throw new IllegalArgumentException("userID can't be < 0");
-        }
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order WHERE " +
                 "status = 'COMPLETED' AND user_id = ?1");
         q.setParameter(1, userID);
@@ -355,6 +393,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         return query.getResultList();
     }
 
+    //visa card acceptance, for Van avilable econom class, for business avilable econom class, for econom - econom
     @Override
     public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
         boolean isNullFreeWifi = false;
@@ -362,7 +401,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         boolean isNullConditioner = false;
         int ADDITIONAL_PARAMETERS = 3;
         StringBuffer sql = new StringBuffer("SELECT * FROM taxi_order WHERE (status =" +
-                " 'QUEUED' OR status = 'UPDATED') AND car_category = ? " +
+                " 'QUEUED' OR status = 'UPDATED') AND (car_category = ? OR car_category = 'USER_CAR')" +
                 "AND (driver_sex = ? OR driver_sex = " + IS_DRIVER_GENDER_NULL + ") ");
         if (driver.getCar().getAnimalTransportationApplicable() == false) {
             sql.append("AND animal_transportation = ? ");
@@ -376,10 +415,24 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
             sql.append("AND air_conditioner = ? ");
             isNullConditioner = true;
         }
+        if (driver.getCar().getCarCategory().toString() == "VAN") {
+            sql.append("(car_category = 'ECONOMY_CLASS' OR car_category = 'VAN' OR car_category = 'USER_CAR')");
+            isNullConditioner = true;
+        }
+        if (driver.getCar().getCarCategory().toString() == "BUSINESS_CLASS") {
+            sql.append("(car_category = 'ECONOMY_CLASS' OR car_category = 'BUSINESS_CLASS' OR car_category = 'USER_CAR')");
+            isNullConditioner = true;
+        }
+        if (driver.getCar().getCarCategory().toString() == "ECONOMY_CLASS") {
+            sql.append("(car_category = 'ECONOMY_CLASS' OR car_category = 'USER_CAR')");
+            isNullConditioner = true;
+        }
         sql.append("LIMIT ? OFFSET ?");
         System.out.println(sql.toString());
 
         Query query = entityManager.createNativeQuery(sql.toString(), TaxiOrderEntity.class);
+
+
         query.setParameter(1,driver.getCar().getCarCategory().toString());
         query.setParameter(2, driver.getSex());
 

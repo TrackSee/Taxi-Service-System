@@ -2,6 +2,8 @@ package ua.com.tracksee.dto;
 
 import com.vividsolutions.jts.geom.LineString;
 
+import java.util.List;
+
 import static ua.com.tracksee.util.GeometryConverter.decodeGooglePolylineToLineString;
 import static ua.com.tracksee.util.GeometryConverter.decodeGooglePolylineToLocations;
 
@@ -17,7 +19,7 @@ public class RouteDTO {
 
     }
 
-    public Location[] getRouteLocations() {
+    public List<Location> getRouteLocations() {
         return decodeGooglePolylineToLocations(encodedRoute);
     }
 

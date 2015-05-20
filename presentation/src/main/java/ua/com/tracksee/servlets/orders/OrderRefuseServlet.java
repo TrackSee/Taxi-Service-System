@@ -17,7 +17,9 @@ import java.io.IOException;
  */
 @WebServlet("/orderRefuse")
 public class OrderRefuseServlet extends HttpServlet implements OrderAttributes {
-    private @EJB OrderFacade orderFacade;
+    private
+    @EJB
+    OrderFacade orderFacade;
     private static final Logger logger = LogManager.getLogger();
 
     @Override
@@ -25,15 +27,12 @@ public class OrderRefuseServlet extends HttpServlet implements OrderAttributes {
 		req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         try {
-            long trackingNumber=Long.parseLong(req.getParameter(TRACKING_NUMBER_ALIAS));
-           //orderFacade.refuseOrder(trackingNumber);
-                req.setAttribute(REFUSE_SUCCESS,orderFacade.getSuccessAlert(REFUSE_SUCCESS_MESSAGE));
+            long trackingNumber = Long.parseLong(req.getParameter(TRACKING_NUMBER_ALIAS));
+            orderFacade.refuseOrder(trackingNumber);
 
-              //  req.setAttribute(REFUSE_WARNING,orderFacade.getWarningAlert(REFUSE_WARNING_MESSAGE));
-             //   req.setAttribute(TRACKING_NUMBER_ALIAS,trackingNumber);
-
+            req.setAttribute(REFUSE_SUCCESS, orderFacade.getSuccessAlert(REFUSE_SUCCESS_MESSAGE));
             req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             logger.error(e.getMessage());
             req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
         }

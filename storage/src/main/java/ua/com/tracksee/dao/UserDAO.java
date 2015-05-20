@@ -31,7 +31,15 @@ public interface UserDAO {
      * @param unactivatedDays days of unactivated account existence
      */
     void clearUnactivatedAccounts(int unactivatedDays);
-
+    /**
+     * Returns activated user with such
+     * email.
+     *
+     * @author Sharaban Sasha
+     * @param email user email
+     * @return user entity
+     */
+    public boolean getActivatedCustomerByEmail(String email);
     /**
      * Checks if the user with specified userId is activated.
      *

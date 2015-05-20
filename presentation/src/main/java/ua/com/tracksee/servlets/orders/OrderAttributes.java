@@ -2,16 +2,23 @@ package ua.com.tracksee.servlets.orders;
 
 /**
  * @author Sharaban Sasha
- * @author Ruslan Gunavardana
  */
 public interface OrderAttributes {
-    String ORDER_ALIAS ="order";
+
+    String PRICE_LIST_ALIAS = "priceList";
+    String MINIMAL_ORDER_DISTANCE_ALIAS = "minimalOrderDistance";
+
+
+    String ORDER_ALIAS= "order";
     String TRACKING_NUMBER_ALIAS ="trackingNumber";
+    String USER_ID_ALIAS ="userId";
     String AMOUNT_OF_CARS_ALIAS ="amountOfCars";
     String AMOUNT_OF_HOURS_ALIAS ="amountOfHours";
     String AMOUNT_OF_MINUTES_ALIAS ="amountOfMinutes";
     String PHONE_NUMBER_ALIAS ="phoneNumber";
     String EMAIL_ALIAS ="email";
+    String ADDRESSES_PATH ="path";
+    String PRICE_ALIAS ="price";
     String ARRIVE_DATE_ALIAS ="arriveDate";
     String END_DATE_ALIAS ="endDate";
     String ADDRESS_DESTINATION_ALIAS ="addressDestination";
@@ -40,32 +47,36 @@ public interface OrderAttributes {
 
 
 
-    static final String ERROR_PAGE="/WEB-INF/error.jsp";
-    static final String ORDER_INFO_PAGE="/WEB-INF/customer/orderInfo.jsp";
-    static final String MAP_PAGE="/WEB-INF/customer/map.jsp";
-    static final String ORDER_TRACK_COMPLETE_PAGE="/WEB-INF/customer/orderTrackComplete.jsp";
-    static final String ORDER_TRACK_PAGE="/WEB-INF/customer/orderTrack.jsp";
-    static final String ORDER_PAGE="/WEB-INF/customer/order.jsp";
+    String ERROR_PAGE="/WEB-INF/error.jsp";
+    String ORDER_INFO_PAGE="/WEB-INF/customer/orderInfo.jsp";
+    String MAP_PAGE="/WEB-INF/customer/map.jsp";
+    String ORDER_TRACK_COMPLETE_PAGE="/WEB-INF/customer/orderTrackComplete.jsp";
+    String ORDER_TRACK_PAGE="/WEB-INF/customer/orderTrack.jsp";
+    String ORDER_PAGE="/WEB-INF/customer/order.jsp";
+    String ORDER_IN_PROGRESS_PAGE ="/WEB-INF/customer/orderTrackInProgress.jsp" ;
 
-    static final String NON_EXIST_TRACKING_NUMBER_WARNING="nonExistTrackingNumberWarning";
-    static final String NON_EXIST_TRACKING_NUMBER_WARNING_MESSAGE="requested order with such tracking number is not found";
-    static final String REFUSE_SUCCESS="refuseSuccess";
-    static final String REFUSE_SUCCESS_MESSAGE="Your order has been refused!";
-    static final String REFUSE_WARNING="refuseWarning";
-    static final String REFUSE_WARNING_MESSAGE=" Your order  has not been canceled,if you do not change your" +
+    String NON_EXIST_TRACKING_NUMBER_WARNING="nonExistTrackingNumberWarning";
+    String NON_EXIST_TRACKING_NUMBER_WARNING_MESSAGE="Requested order with such tracking number" +
+            " is not found or it is belong to registered user";
+    String REFUSE_SUCCESS="refuseSuccess";
+    String REFUSE_SUCCESS_MESSAGE="Your order has been refused!";
+    String REFUSE_WARNING="refuseWarning";
+    String REFUSE_WARNING_MESSAGE=" Your order  has not been canceled,if you do not change your" +
             " mind please try again.";
-    static final String ORDER_SUCCESS="orderSuccess";
-    static final String ORDER_SUCCESS_TRACK_BUTTON = "\n"+"<a class=\"btn btn-large btn-success\" " +
+    String ORDER_SUCCESS="orderSuccess";
+    String ORDER_SUCCESS_TRACK_BUTTON = "\n"+"<a class=\"btn btn-large btn-success\" " +
             "href=\"orderInfo\"><h4 class=\"outline\">Track your taxi order</h4></a>";
-    static final String ORDER_SUCCESS_MESSAGE = " Your order accepted for further processing " +
+    String ORDER_SUCCESS_MESSAGE = " Your order accepted for further processing " +
             "successfully and you was assigned to such tracking number: ";
-    static final String ORDER_WARNING="orderWarning";
-    static final String ORDER_WARNING_MESSAGE = "Your order has been rejected because you refused three" +
+    String ORDER_WARNING="orderWarning";
+    String ORDER_WARNING_BLACK_LIST_MESSAGE = "Your order has been rejected because you refused three" +
             " orders that you have made and so you been put in the black list.";
-    static final String HIDE_ORDER_TRACK="hideOrderTrack";
-    static final String UPDATE_SUCCESS="updateSuccess";
-    static final String UPDATE_SUCCESS_MESSAGE="Your order has been updated successfully!";
-    static final String ADD_COMMENTS_SUCCESS="addCommentsSuccess";
-    static final String ADD_COMMENTS_SUCCESS_MESSAGE="Comments for yours order has been added successfully.";
+    String ORDER_WARNING_AUTHORISE_MESSAGE = "Your order has been rejected because you have used" +
+            "email address of registered user, if you is registered user, please login to make order ";
+    String HIDE_ORDER_TRACK="hideOrderTrack";
+    String UPDATE_SUCCESS="updateSuccess";
+    String UPDATE_SUCCESS_MESSAGE="Your order has been updated successfully!";
+    String ADD_COMMENTS_SUCCESS="addCommentsSuccess";
+    String ADD_COMMENTS_SUCCESS_MESSAGE="Comments for yours order has been added successfully.";
 
 }

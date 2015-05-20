@@ -21,11 +21,14 @@ public class PriceCalculatorBean {
     public BigDecimal calculatePrice(TaxiOrderEntity order) {
         BigDecimal servicePrice = getServicePrice(order);
         List<TaxiOrderItemEntity> orderItems = order.getItemList();
-        BigDecimal summ = ZERO;
+        BigDecimal distance = ZERO;
+        BigDecimal minDistance = priceListBean.getMinimalOrderDistance();
         for (TaxiOrderItemEntity item : orderItems) {
-            summ = summ.add(servicePrice.multiply(item.getOrderedQuantity()));
+            distance = distance.add(item.getOrderedQuantity());
         }
-        return summ;
+        distance = distance.compareTo(minDistance) > 1 ? distance : minDistance;
+
+        return servicePrice.multiply(distance);
     }
 
     private BigDecimal getServicePrice(TaxiOrderEntity order) {

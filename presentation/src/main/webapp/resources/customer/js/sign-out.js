@@ -16,9 +16,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     function updateHeader() {
-        if (window.location.href.search('customer') != -1 ||
-            window.location.href.search('admin')    != -1 ||
-            window.location.href.search('driver')   != -1)
+        if (window.location.href.contains('customer') ||
+            window.location.href.contains('admin') ||
+            window.location.href.contains('driver'))
         {
             window.location.href = getContextPath();
         } else {

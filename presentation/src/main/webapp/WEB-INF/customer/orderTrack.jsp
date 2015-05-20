@@ -10,11 +10,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<%-- start: Java Script --%>
-<%@include file="../parts/scripts.jsp" %>
-<%-- end: Java Script --%>
-
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
@@ -241,24 +236,15 @@
 
     </div>
 </div>
-<p>d</p>
-<!-- Load jQuery and bootstrap datepicker scripts -->
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
-        charset="UTF-8"></script>
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"
-        charset="UTF-8"></script>
-<script type="text/javascript"
-        src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
-        charset="UTF-8"></script>
-<script type="text/javascript"
-        src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"
-        charset="UTF-8"></script>
-<script type="text/javascript"
-        src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"
-        charset="UTF-8"></script>
-<script src="<%=application.getContextPath()%>http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<%--end jQuery and bootstrap datepicker scripts--%>
+
+<%@include file="../parts/footer.jsp" %>
+<%@include file="../parts/scripts.jsp" %>
+
+<!-- Load bootstrap datepicker scripts -->
+<script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/locales/bootstrap-datetimepicker.fr.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"></script>
+<%--end bootstrap datepicker scripts--%>
 
 <%--Google maps scripts--%>
 <script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>
@@ -267,16 +253,11 @@
 
 <%-- Order page scripts --%>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/cargoTaxi.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/sober-driver.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/meet-guest.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/food-delivery.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/other-services.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/longTerm.js"></script>
-<%--end order oage scripts--%>
-
-<%@include file="../parts/scripts.jsp" %>
-<%@include file="../parts/footer.jsp" %>
+<script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality-prepared.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/fields-generator.js"></script>
+<%--end order page scripts--%>
+<script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
 </body>
 </html>

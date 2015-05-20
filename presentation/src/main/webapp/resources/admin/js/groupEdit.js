@@ -93,6 +93,7 @@ var DELAY = 150;
 
 var INPUT_NAME_MESSAGE = "Please input correct name of the group(2 - 30 characters)";
 var NOT_FREE_NAME_MESSAGE = "This group name is not free";
+var INCORECT_NAME = "Group name is not correct";
 var ASSIGN_USERS_MESSAGE = "Please assing user for group";
 
 var ID_ADMIN = 'id_admin';
@@ -138,21 +139,33 @@ function getPageNum(pageSize1, pageMaxNumber1, pageNumber1) {
 }
 
 function addGroup() {
-	pageSizeHelp = pageSize;
-    $.get(SERVLETS.get('GROUP_EXIST_SERVLET'), {groupName : groupName}, function (responseJson) {
-        $.each(responseJson, function (key, value) {
-            if (value[EXIST] == true) {
-                $("#alert-danger").html(NOT_FREE_NAME_MESSAGE);
-                $("#alert-danger").show();
-                $("#alert-danger").fadeOut(FADE_OUT);
-                groupName = "";
-            } else {
-                manageGroups(SERVLETS.get('GROUP_EDIT_SERVLET'), pageNumber, UPDATE_CONSTANTS.get("ADD_GROUP"),
-                    SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), userIds);
-                location.reload();
-            }
+    pageSizeHelp = pageSize;
+    var correct = true;
+    for (var i in groupName.split('')) {
+        if ((groupName.split('')[i] == ">") || (groupName.split('')[i] == "<")) {
+            $("#alert-danger").html(INCORECT_NAME);
+            $("#alert-danger").show();
+            $("#alert-danger").fadeOut(FADE_OUT);
+            correct = false;
+            groupName = "";
+        }
+    }
+    if (correct == true) {
+        $.get(SERVLETS.get('GROUP_EXIST_SERVLET'), {groupName : groupName}, function (responseJson) {
+            $.each(responseJson, function (key, value) {
+                if (value[EXIST] == true) {
+                    $("#alert-danger").html(NOT_FREE_NAME_MESSAGE);
+                    $("#alert-danger").show();
+                    $("#alert-danger").fadeOut(FADE_OUT);
+                    groupName = "";
+                } else {
+                    manageGroups(SERVLETS.get('GROUP_EDIT_SERVLET'), pageNumber, UPDATE_CONSTANTS.get("ADD_GROUP"),
+                        SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), userIds);
+                    location.reload();
+                }
+            });
         });
-    });
+    }
 }
 
 function manageGroups(servletName1, pageNumber1, updateAction,  selectAction, selectCountAction, ids1) {

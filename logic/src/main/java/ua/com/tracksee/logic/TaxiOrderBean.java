@@ -369,11 +369,26 @@ public class TaxiOrderBean {
         return booleanCheckBoxState;
     }
 
+
     /**
      * @author Sharaban Sasha
      * @see ua.com.tracksee.dao.TaxiOrderDAO
      */
-    public boolean checkOrderPresent(long trackingNumber) {
-        return taxiOrderDAO.checkOrderPresent(trackingNumber);
+    public boolean checkOrderPresentNonActiveUser(long trackingNumber) {
+        return taxiOrderDAO.checkOrderPresentNonActiveUser(trackingNumber);
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     */
+    public boolean checkOrderPresentForActiveUser(long trackingNumber,int userId) {
+        return taxiOrderDAO.checkOrderPresentForActiveUser(trackingNumber, userId);
+    }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     */
+    public boolean getActivatedCustomerByEmail(String email) {
+        return userDAO.getActivatedCustomerByEmail(email);
     }
 }
