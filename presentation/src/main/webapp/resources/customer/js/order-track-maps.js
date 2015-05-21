@@ -6,7 +6,6 @@
  */
 var directionsDisplay;
 var directionsService;
-
 function initializeMaps() {
     var mapOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP };
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);

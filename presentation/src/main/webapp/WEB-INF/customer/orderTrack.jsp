@@ -51,6 +51,10 @@
     <!--start: Container -->
     <div id="input-form" class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
+        <div hidden="hidden">
+            <input type="text" id="pathOrigin" value="${pathOrigin}">
+            <input type="text" id="pathDestination"  value="${pathDestination}">
+        </div>
         <form method="post" action="<c:url value="/updateOrder"/>">
             <label id="hideTrackingNumberSecond">
                 <input type="text" name="trackingNumber" value="${trackingNumber}" >
@@ -240,6 +244,7 @@
 
 <%@include file="../parts/footer.jsp" %>
 <%@include file="../parts/scripts.jsp" %>
+
 
 <!-- Load bootstrap datepicker scripts -->
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
