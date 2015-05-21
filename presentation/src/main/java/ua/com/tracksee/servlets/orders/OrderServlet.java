@@ -92,7 +92,9 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
                 req.setAttribute(ORDER_SUCCESS, orderFacade.getSuccessAlert(ORDER_SUCCESS_MESSAGE + trackingNumber
                         +ORDER_SUCCESS_TRACK_BUTTON));
                 req.setAttribute(HIDE_ORDER_TRACK, HIDE);
-            }else{
+            }else if(orderFacade.checkBlackListByUserEmail(inputData.get(EMAIL_ALIAS))){
+                req.setAttribute(ORDER_WARNING, orderFacade.getWarningAlert(ORDER_WARNING_BLACK_LIST_MESSAGE));
+            }else if(!orderFacade.checkActivatedCustomerByEmail(req.getParameter(EMAIL_ALIAS), userID)){
                 req.setAttribute(ORDER_WARNING, orderFacade.getWarningAlert(ORDER_WARNING_AUTHORISE_MESSAGE));
             }
 

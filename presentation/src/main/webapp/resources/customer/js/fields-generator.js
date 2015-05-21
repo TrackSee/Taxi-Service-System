@@ -25,7 +25,7 @@ $('#buttonAddressOrigin').click(function(){
  *
  * @author Sharaban Sasha
  */
-$('#remNew').live('click', function() {
+$('#remNew').click(function() {
     if( i > 2 ) {
         $(this).parents('p').remove();
         i--;

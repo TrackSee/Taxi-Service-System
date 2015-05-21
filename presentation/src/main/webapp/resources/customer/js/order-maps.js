@@ -26,7 +26,6 @@ function initializeMaps() {
     google.maps.event.addListener(directionsDisplay, 'directions_changed', function(){
                 updateAddresses(directionsDisplay.getDirections().routes[0]);
                 updatePrice();
-                update();
 
     });
 }

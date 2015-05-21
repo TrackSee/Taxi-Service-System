@@ -65,7 +65,7 @@ public class SignInServlet extends HttpServlet {
             req.login(email, user.getPassword());
         } catch (ServletException e) {
             logger.warn(e.getMessage());
-            resp.sendError(422);
+            resp.sendError(422, e.getMessage());
             return;
         }
 
@@ -75,6 +75,5 @@ public class SignInServlet extends HttpServlet {
         session.setAttribute(USER_EMAIL, email);
         session.setAttribute(USER_NAME, user.getFirstName());
         session.setAttribute(USER_ROLE, role.getRole(user.getAdmin(), user.getDriver()));
-
     }
 }
