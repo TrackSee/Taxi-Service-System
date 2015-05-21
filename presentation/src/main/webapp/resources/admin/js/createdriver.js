@@ -36,7 +36,7 @@ $(document).ready(function () {
     $('#addDriver').click(function(){
         var data = {};
         data["email"] = $('input[name = email]', '#createDriver').val();
-        data["password"] = calcMD5($('input[name = password]', '#createDriver').val());
+        data["password"] = $('input[name = password]', '#createDriver').val();
         data["phone"] = $('input[name = phone]', '#createDriver').val();
         data["sex"] = $('select option:selected').val();
         data = JSON.stringify(data);
