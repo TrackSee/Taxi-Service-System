@@ -264,7 +264,6 @@
     function getMinDistance() { return ${requestScope.minimalOrderDistance}; }
 </script>
 <%-- END price list JS injection --%>
-
 <%--Google maps scripts--%>
 <script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order-maps.js"></script>

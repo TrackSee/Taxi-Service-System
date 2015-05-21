@@ -51,8 +51,8 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
                 }else{
                     nonExistTrackNumberAlert(req, resp);}
             }
-        } catch (NullPointerException e) {
-            logger.error("Value is null " + e);
+        } catch (java.lang.IndexOutOfBoundsException e) {
+            logger.error("Address path is empty " + e);
             brokenOrderAlert(req, resp);
         }
         catch (NumberFormatException e) {
@@ -72,9 +72,16 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
 
         req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
         req.setAttribute(PHONE_NUMBER_ALIAS, userEntity.getPhone());
-        req.setAttribute(EMAIL_ALIAS, userEntity.getEmail());
+        req.setAttribute(EMAIL_ALIAS,userEntity.getEmail());
 
-        req.setAttribute(ADDRESSES_PATH,taxiOrderEntity.getItemList().get(0).getPath());
+        String path=String.valueOf(taxiOrderEntity.getItemList().get(0).getPath());
+        String addresses[]=path.split(",");
+        String origin[]=addresses[0].split("\\(");
+        String destination[]=addresses[1].split("\\)");
+        System.out.println("addresses"+origin[1]);
+        System.out.println("addresses"+destination[0]);
+        req.setAttribute(ADDRESSES_PATH_ORIGIN,origin[1]);
+        req.setAttribute(ADDRESSES_PATH_DESTINATION,destination[0]);
         req.setAttribute(PRICE_ALIAS, taxiOrderEntity.getPrice());
 
         req.setAttribute(ARRIVE_DATE_ALIAS, orderFacade.convertDateForShow(taxiOrderEntity.getArriveDate()));

@@ -17,7 +17,8 @@ public interface OrderAttributes {
     String AMOUNT_OF_MINUTES_ALIAS ="amountOfMinutes";
     String PHONE_NUMBER_ALIAS ="phoneNumber";
     String EMAIL_ALIAS ="email";
-    String ADDRESSES_PATH ="path";
+    String ADDRESSES_PATH_ORIGIN ="pathDestination";
+    String ADDRESSES_PATH_DESTINATION ="pathOrigin";
     String PRICE_ALIAS ="price";
     String ARRIVE_DATE_ALIAS ="arriveDate";
     String END_DATE_ALIAS ="endDate";
