@@ -35,9 +35,9 @@ $(document).ready(function(){
                 if (data == "error") {
                     $.notify("Invalid data entered!", "error");
                 } else {
-                    //$('html').replaceData(data);
-                  //  window.location.replace("/TaxiService/orderSuccess");
-                    window.location.href = 'orderInfo';
+                    var newDoc = document.open("text/html", "replace");
+                    newDoc.write(data);
+                    newDoc.close();
                 }
             },
             error: function () {
