@@ -1,11 +1,9 @@
-package ua.com.tracksee.logic.customer;
+package ua.com.tracksee.logic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.UserEntity;
-import ua.com.tracksee.logic.EmailBean;
-import ua.com.tracksee.logic.ValidationBean;
 import ua.com.tracksee.exception.RegistrationException;
 
 import javax.ejb.EJB;
@@ -106,7 +104,9 @@ public class AccountManagementBean {
 
         String userCode = generatedId.toString();
         logger.debug("Generated userCode: {}", userCode);
-        emailBean.sendRegistrationEmail(user.getEmail(), userCode);
+        if (user.getActivated().equals(FALSE)) {
+            emailBean.sendRegistrationEmail(user.getEmail(), userCode);
+        }
     }
 
     private void validateRegistrationData(UserEntity user) throws RegistrationException {
