@@ -58,6 +58,7 @@ public class AdministratorBean {
      */
     public void createUser(UserEntity user) throws RegistrationException {
         accountManagementBean.registerCustomerUser(user);
+//        userDAO.createUser(user);
     }
 
     public void getDriverById(int driverId) {

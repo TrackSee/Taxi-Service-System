@@ -250,8 +250,8 @@ public class UserDAOBean implements UserDAO {
 
     public void createUser(UserEntity user) {
         String sql = "INSERT INTO service_user " +
-                "(email, password, phone, driver, car_number, sex , salt) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "(email, password, phone, driver, car_number, sex , salt, activated) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, user.getEmail());
         query.setParameter(2, user.getPassword());
@@ -260,6 +260,7 @@ public class UserDAOBean implements UserDAO {
         query.setParameter(5, user.getCar() != null ? user.getCar().getCarNumber() : null);
         query.setParameter(6, user.getSex());
         query.setParameter(7, "2311323");
+        query.setParameter(8, user.getActivated());
         query.executeUpdate();
     }
 
