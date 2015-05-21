@@ -161,7 +161,6 @@ $('#service').on('change', function () {
     function amountOfTripTimeShow(){
         $('#amountOfTripTimeBlock').slideDown("slow");
         $('#amountOfHours').attr("required");
-        $('#amountOfMinutes').attr("required");
     }
     /**
      * Hides fields amount of hours
@@ -174,7 +173,6 @@ $('#service').on('change', function () {
     function amountOfTripTimeHide(){
         $('#amountOfTripTimeBlock').slideUp("slow");
         $('#amountOfHours').removeAttr("required");
-        $('#amountOfMinutes').removeAttr("required");
     }
     /**
      * Shows message for user about ability for
@@ -206,8 +204,7 @@ $('#service').on('change', function () {
      * @author Sharaban Sasha
      */
     function conveyCorporationEmployeesShow() {
-        $('#addinput').slideDown("slow");
-        $('#buttonAddressOrigin').slideDown("slow");
+        $('#addExtraAddresses').slideDown("slow");
     }
     /**
      * Hides button that allow creating more "Address from"
@@ -217,8 +214,7 @@ $('#service').on('change', function () {
      * @author Sharaban Sasha
      */
     function conveyCorporationEmployeesHide() {
-        $('#buttonAddressOrigin').slideUp("slow");
-        $('#addinput').slideUp("slow");
+        $('#addExtraAddresses').slideUp("slow");
     }
 });
 });

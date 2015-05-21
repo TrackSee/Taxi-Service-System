@@ -1,3 +1,5 @@
+DELETE FROM tracksee.public.Car;
+
 INSERT INTO tracksee.public.Car (car_number, car_model, color, car_category, animal_transportation_applicable, free_wifi, air_conditioner, accepts_visa) VALUES (     'NC 7473 QW',            'Audi',             'red',            'VAN', FALSE, FALSE,  TRUE, FALSE);
 INSERT INTO tracksee.public.Car (car_number, car_model, color, car_category, animal_transportation_applicable, free_wifi, air_conditioner, accepts_visa) VALUES (     'NE 3793 TC',      'Volkswagen',          'silver',            'VAN',  TRUE,  TRUE, FALSE,  TRUE);
 INSERT INTO tracksee.public.Car (car_number, car_model, color, car_category, animal_transportation_applicable, free_wifi, air_conditioner, accepts_visa) VALUES (     'NC 7335 QW',            'Opel',           'white',            'VAN',  TRUE,  TRUE,  TRUE,  TRUE);

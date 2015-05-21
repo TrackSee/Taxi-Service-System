@@ -41,17 +41,19 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
             if (userID == null) {
                 if (orderFacade.checkOrderPresentNonActiveUser(trackingNumber)) {
                     TaxiOrderEntity taxiOrderEntity = setParametersToPage(req, resp, trackingNumber);
-                    redirectSwitch(taxiOrderEntity, req, resp);
-                }else{ redirectToInfoPageWithAlert(req,resp);}
+                    redirectByOrderStatus(taxiOrderEntity, req, resp);
+                }else{
+                    nonExistTrackNumberAlert(req, resp);}
             }else {
                 if (orderFacade.checkOrderPresentForActiveUser(trackingNumber, userID)) {
                     TaxiOrderEntity taxiOrderEntity = setParametersToPage(req, resp, trackingNumber);
-                    redirectSwitch(taxiOrderEntity,req,resp);
-                }else{ redirectToInfoPageWithAlert(req,resp);}
+                    redirectByOrderStatus(taxiOrderEntity, req, resp);
+                }else{
+                    nonExistTrackNumberAlert(req, resp);}
             }
         } catch (NumberFormatException e) {
             logger.error("invalid tracking number " + e);
-          redirectToInfoPageWithAlert(req,resp);
+         nonExistTrackNumberAlert(req,resp);
         } catch (Exception e) {
             logger.error(e.getMessage());
             req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
@@ -66,9 +68,8 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
 
         req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
         req.setAttribute(PHONE_NUMBER_ALIAS, userEntity.getPhone());
-        req.setAttribute(EMAIL_ALIAS, userEntity.getEmail());
-        //TODO decide of using
-       // req.setAttribute(ADDRESSES_PATH,taxiOrderEntity.getItemList().get(0).getPath());
+        req.setAttribute(EMAIL_ALIAS,userEntity.getEmail());
+
         req.setAttribute(PRICE_ALIAS, taxiOrderEntity.getPrice());
 
         req.setAttribute(ARRIVE_DATE_ALIAS, orderFacade.convertDateForShow(taxiOrderEntity.getArriveDate()));
@@ -104,19 +105,28 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
         }
         return taxiOrderEntity;
     }
-    private void redirectToInfoPageWithAlert(HttpServletRequest req,
-                                             HttpServletResponse resp) throws ServletException, IOException {
+    private void nonExistTrackNumberAlert(HttpServletRequest req,
+                                          HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute(NON_EXIST_TRACKING_NUMBER_WARNING,
                 orderFacade.getSuccessAlert(NON_EXIST_TRACKING_NUMBER_WARNING_MESSAGE));
         req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
     }
-    private void redirectSwitch(TaxiOrderEntity taxiOrderEntity, HttpServletRequest req, HttpServletResponse resp)
+    private void brokenOrderAlert(HttpServletRequest req,
+                                  HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute(NON_EXIST_TRACKING_NUMBER_WARNING,
+                orderFacade.getSuccessAlert(NON_EXIST_TRACKING_NUMBER_WARNING_MESSAGE));
+        req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
+    }
+
+    private void redirectByOrderStatus(TaxiOrderEntity taxiOrderEntity, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         if (taxiOrderEntity.getStatus() == OrderStatus.REFUSED ||
                 taxiOrderEntity.getStatus() == OrderStatus.COMPLETED) {
+
             req.getRequestDispatcher(ORDER_TRACK_COMPLETE_PAGE).forward(req, resp);
 
         } else {
+
             req.getRequestDispatcher(ORDER_TRACK_PAGE).forward(req, resp);
 
         }

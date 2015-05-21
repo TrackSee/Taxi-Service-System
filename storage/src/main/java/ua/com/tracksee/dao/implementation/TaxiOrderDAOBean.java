@@ -1,6 +1,5 @@
 package ua.com.tracksee.dao.implementation;
 
-import com.vividsolutions.jts.geom.LineString;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
@@ -391,83 +390,104 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         return query.getResultList();
     }
 
-    //visa card acceptance, for Van avilable econom class, for business avilable econom class, for econom - econom
+
     @Override
     public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
-        boolean isNullFreeWifi = false;
-        boolean isNullAnimalTransp = false;
-        boolean isNullConditioner = false;
-        int ADDITIONAL_PARAMETERS = 3;
         StringBuffer sql = new StringBuffer("SELECT * FROM taxi_order WHERE (status =" +
-                " 'QUEUED' OR status = 'UPDATED') AND (car_category = ? OR car_category = 'USER_CAR')" +
-                "AND (driver_sex = ? OR driver_sex = " + IS_DRIVER_GENDER_NULL + ") ");
+                " 'QUEUED' OR status = 'UPDATED') " +
+                " AND (driver_sex = ? OR driver_sex = " + IS_DRIVER_GENDER_NULL + ") ");
         if (driver.getCar().getAnimalTransportationApplicable() == false) {
-            sql.append("AND animal_transportation = ? ");
-            isNullAnimalTransp = true;
+            sql.append(" AND animal_transportation = false ");
         }
         if (driver.getCar().getFreeWifi() == false) {
-            sql.append("AND free_wifi = ? ");
-            isNullFreeWifi = true;
+            sql.append(" AND free_wifi = false ");
         }
         if (driver.getCar().getAirConditioner() == false) {
-            sql.append("AND air_conditioner = ? ");
-            isNullConditioner = true;
+            sql.append(" AND air_conditioner = false ");
         }
-        if (driver.getCar().getCarCategory().toString() == "VAN") {
-            sql.append("(car_category = 'ECONOMY_CLASS' OR car_category = 'VAN' OR car_category = 'USER_CAR')");
-            isNullConditioner = true;
+        if (driver.getCar().getAcceptsVisa() == false) {
+            sql.append(" AND way_of_payment = 'CASH' ");
         }
-        if (driver.getCar().getCarCategory().toString() == "BUSINESS_CLASS") {
-            sql.append("(car_category = 'ECONOMY_CLASS' OR car_category = 'BUSINESS_CLASS' OR car_category = 'USER_CAR')");
-            isNullConditioner = true;
+        if (driver.getCar().getCarCategory().toString().equals("VAN")) {
+            sql.append(" AND (car_category = 'ECONOMY_CLASS' OR car_category = 'VAN' OR car_category = 'USER_CAR') ");
+        } else if (driver.getCar().getCarCategory().toString().equals("BUSINESS_CLASS")) {
+            sql.append(" AND (car_category = 'ECONOMY_CLASS' OR car_category = 'BUSINESS_CLASS' OR car_category = 'USER_CAR') ");
+        } else if (driver.getCar().getCarCategory().toString().equals("ECONOMY_CLASS")) {
+            sql.append(" AND (car_category = 'ECONOMY_CLASS' OR car_category = 'USER_CAR') ");
         }
-        if (driver.getCar().getCarCategory().toString() == "ECONOMY_CLASS") {
-            sql.append("(car_category = 'ECONOMY_CLASS' OR car_category = 'USER_CAR')");
-            isNullConditioner = true;
-        }
+
         sql.append("LIMIT ? OFFSET ?");
-        System.out.println(sql.toString());
 
         Query query = entityManager.createNativeQuery(sql.toString(), TaxiOrderEntity.class);
 
-
-        query.setParameter(1,driver.getCar().getCarCategory().toString());
-        query.setParameter(2, driver.getSex());
-
-        if (isNullAnimalTransp) {
-            query.setParameter(ADDITIONAL_PARAMETERS++,driver.getCar().getAnimalTransportationApplicable());
-        }
-        if (isNullFreeWifi) {
-            query.setParameter(ADDITIONAL_PARAMETERS++,driver.getCar().getFreeWifi());
-        }
-        if (isNullConditioner) {
-            query.setParameter(ADDITIONAL_PARAMETERS++,driver.getCar().getAirConditioner());
-        }
-        query.setParameter(ADDITIONAL_PARAMETERS++, ORDERS_PAGE_SIZE);
-        query.setParameter(ADDITIONAL_PARAMETERS, (pageNumber - 1) * ORDERS_PAGE_SIZE);
+        query.setParameter(1, driver.getSex());
+        query.setParameter(2, ORDERS_PAGE_SIZE);
+        query.setParameter(3, (pageNumber - 1) * ORDERS_PAGE_SIZE);
 
         return query.getResultList();
     }
-
+//    //visa card acceptance, for Van avilable econom class, for business avilable econom class, for econom - econom
 //    @Override
-//    public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber) {
+//    public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
+//        boolean isNullFreeWifi = false;
+//        boolean isNullAnimalTransp = false;
+//        boolean isNullConditioner = false;
+//        int ADDITIONAL_PARAMETERS = 3;
+//        StringBuffer sql = new StringBuffer("SELECT * FROM taxi_order WHERE (status =" +
+//                " 'QUEUED' OR status = 'UPDATED') AND (car_category = ? OR car_category = 'USER_CAR')" +
+//                "AND (driver_sex = ? OR driver_sex = " + IS_DRIVER_GENDER_NULL + ") ");
+//        if (driver.getCar().getAnimalTransportationApplicable() == false) {
+//            sql.append("AND animal_transportation = ? ");
+//            isNullAnimalTransp = true;
+//        }
+//        if (driver.getCar().getFreeWifi() == false) {
+//            sql.append("AND free_wifi = ? ");
+//            isNullFreeWifi = true;
+//        }
+//        if (driver.getCar().getAirConditioner() == false) {
+//            sql.append("AND air_conditioner = ? ");
+//            isNullConditioner = true;
+//        }
+//        if (driver.getCar().getAirConditioner() == false) {
+//            sql.append("AND air_conditioner = ? ");
+//            isNullConditioner = true;
+//        }
+//        if (driver.getCar().getCarCategory().toString() == "VAN") {
+//            sql.append("(car_category = 'ECONOMY_CLASS' OR car_category = 'VAN' OR car_category = 'USER_CAR')");
+//            isNullConditioner = true;
+//        }
+//        if (driver.getCar().getCarCategory().toString() == "BUSINESS_CLASS") {
+//            sql.append("(car_category = 'ECONOMY_CLASS' OR car_category = 'BUSINESS_CLASS' OR car_category = 'USER_CAR')");
+//            isNullConditioner = true;
+//        }
+//        if (driver.getCar().getCarCategory().toString() == "ECONOMY_CLASS") {
+//            sql.append("(car_category = 'ECONOMY_CLASS' OR car_category = 'USER_CAR')");
+//            isNullConditioner = true;
+//        }
+//        sql.append("LIMIT ? OFFSET ?");
+//        System.out.println(sql.toString());
 //
-//        String sql = "SELECT * FROM taxi_order WHERE " +
-//                "status = 'QUEUED' OR status = 'UPDATED' " +
-//                "AND car_category = ? " +
-//                "AND driver_sex = ?" +
-//                "AND animal_transportation = ? AND free_wifi = ?" +
-//                "AND air_conditioner = ? LIMIT ? OFFSET ?";
-//        Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
-//        query.setParameter(1, driver.getCar().getCarCategory().toString());
-//        query.<Boolean>setParameter(2, driver.getSex());
-//        query.<Boolean>setParameter(3, driver.getCar().getAnimalTransportationApplicable());
-//        query.<Boolean>setParameter(4, driver.getCar().getFreeWifi());
-//        query.<Boolean>setParameter(5, driver.getCar().getAirConditioner());
-//        query.setParameter(6, ORDERS_PAGE_SIZE);
-//        query.setParameter(7, (pageNumber - 1) * ORDERS_PAGE_SIZE);
+//        Query query = entityManager.createNativeQuery(sql.toString(), TaxiOrderEntity.class);
+//
+//
+//        query.setParameter(1,driver.getCar().getCarCategory().toString());
+//        query.setParameter(2, driver.getSex());
+//
+//        if (isNullAnimalTransp) {
+//            query.setParameter(ADDITIONAL_PARAMETERS++,driver.getCar().getAnimalTransportationApplicable());
+//        }
+//        if (isNullFreeWifi) {
+//            query.setParameter(ADDITIONAL_PARAMETERS++,driver.getCar().getFreeWifi());
+//        }
+//        if (isNullConditioner) {
+//            query.setParameter(ADDITIONAL_PARAMETERS++,driver.getCar().getAirConditioner());
+//        }
+//        query.setParameter(ADDITIONAL_PARAMETERS++, ORDERS_PAGE_SIZE);
+//        query.setParameter(ADDITIONAL_PARAMETERS, (pageNumber - 1) * ORDERS_PAGE_SIZE);
+//
 //        return query.getResultList();
 //    }
+
 
     @Override
     public List<TaxiOrderEntity> getHistoryOfOrders(int id, int pageNumber) {
@@ -497,30 +517,16 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         return query.getResultList();
     }
 
-    //@Todo write transaction, get time
     @Override
     public void setAssignOrder(int driverId, int trackingNumber, Timestamp carArriveTime) {
-//        try {
-        //entityManager.getTransaction().begin();
         Query query = entityManager.createNativeQuery("UPDATE taxi_order_item SET driver_id = ? ");
-        //+ "WHERE tracking_number = ?"
         query.setParameter(1, driverId);
-        //query.setParameter(2, trackingNumber);
         Query query2 = entityManager.createNativeQuery("UPDATE taxi_order SET status = 'ASSIGNED', arrive_date = ? " +
                 "WHERE tracking_number = ?");
         query2.setParameter(1, carArriveTime);
         query2.setParameter(2, trackingNumber);
         query.executeUpdate();
         query2.executeUpdate();
-        //entityManager.getTransaction().commit();
-//        }
-//        catch (  Exception e) {
-//            entityManager.getTransaction().rollback();
-//        }
-//        if (entityManager != null) {
-//            entityManager.close();
-//            entityManager=null;
-//        }
     }
 
 
@@ -559,12 +565,53 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
 
     @Override
-    public int getOrdersPagesCount(int id) {
+    public int getOrdersPagesCountCompleted(int id) {
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order INNER JOIN taxi_order_item " +
                 "ON taxi_order.tracking_number = taxi_order_item.tracking_numer " +
-                "AND taxi_order_item.driver_id = ? AND taxi_order.status = 'COMPLETED'");
+                "AND taxi_order_item.driver_id = ? AND (taxi_order.status = 'COMPLETED' OR taxi_order.status = 'REFUSED')");
         q.setParameter(1, id);
         Integer driversCount = ((BigInteger) q.getSingleResult()).intValue();
+        return (int) (Math.ceil((double) driversCount / ORDERS_PAGE_SIZE));
+    }
+
+    @Override
+    public int getOrdersPagesCountAssigned(int id) {
+        Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order INNER JOIN taxi_order_item " +
+                "ON taxi_order.tracking_number = taxi_order_item.tracking_numer " +
+                "AND taxi_order_item.driver_id = ? AND (taxi_order.status = 'ASSIGNED' OR taxi_order.status ='IN_PROGRESS')");
+        q.setParameter(1, id);
+        Integer driversCount = ((BigInteger) q.getSingleResult()).intValue();
+        return (int) (Math.ceil((double) driversCount / ORDERS_PAGE_SIZE));
+    }
+
+    @Override
+    public int getOrdersPagesCountQueued(UserEntity driver) {
+        StringBuffer sql = new StringBuffer("SELECT COUNT(*) FROM taxi_order WHERE (status =" +
+                " 'QUEUED' OR status = 'UPDATED') " +
+                " AND (driver_sex = ? OR driver_sex = " + IS_DRIVER_GENDER_NULL + ") ");
+        if (driver.getCar().getAnimalTransportationApplicable() == false) {
+            sql.append(" AND animal_transportation = false ");
+        }
+        if (driver.getCar().getFreeWifi() == false) {
+            sql.append(" AND free_wifi = false ");
+        }
+        if (driver.getCar().getAirConditioner() == false) {
+            sql.append(" AND air_conditioner = false ");
+        }
+        if (driver.getCar().getAcceptsVisa() == false) {
+            sql.append(" AND way_of_payment = 'CASH' ");
+        }
+        if (driver.getCar().getCarCategory().toString().equals("VAN")) {
+            sql.append(" AND (car_category = 'ECONOMY_CLASS' OR car_category = 'VAN' OR car_category = 'USER_CAR') ");
+        } else if (driver.getCar().getCarCategory().toString().equals("BUSINESS_CLASS")) {
+            sql.append(" AND (car_category = 'ECONOMY_CLASS' OR car_category = 'BUSINESS_CLASS' OR car_category = 'USER_CAR') ");
+        } else if (driver.getCar().getCarCategory().toString().equals("ECONOMY_CLASS")) {
+            sql.append(" AND (car_category = 'ECONOMY_CLASS' OR car_category = 'USER_CAR') ");
+        }
+
+        Query query = entityManager.createNativeQuery(sql.toString());
+        query.setParameter(1, driver.getSex());
+        Integer driversCount = ((BigInteger) query.getSingleResult()).intValue();
         return (int) (Math.ceil((double) driversCount / ORDERS_PAGE_SIZE));
     }
 

@@ -22,7 +22,7 @@ import java.util.List;
  * Created by kstes_000 on 09-May-15.
  */
 @Stateless
-public class ReportDAOBean implements ReportDAO{
+public class ReportDAOBean implements ReportDAO {
     private static final Logger logger = LogManager.getLogger();
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
@@ -40,10 +40,10 @@ public class ReportDAOBean implements ReportDAO{
     }
 
     /**
-     * @author Katia Stetisuk
      * @param startDate start date to get the most profitable service
-     * @param endDate end date to get the most profitable service
+     * @param endDate   end date to get the most profitable service
      * @return list object with statistic data
+     * @author Katia Stetisuk
      */
 
     public List<ServiceProfitable> getProfitByService(String startDate, String endDate) {
@@ -66,9 +66,9 @@ public class ReportDAOBean implements ReportDAO{
     }
 
     /**
-     * @author Katia Stetsiuk
      * @param userId user id for whom getting statistic about popular options
      * @return list object with statistic data
+     * @author Katia Stetsiuk
      */
     public List<MostPopularOption> getMostPopularOptionsForUser(Integer userId) {
         String options[] = {"Animal Transportation", "Music Style", "Free Wifi", "Non Smoking Driver",
@@ -91,10 +91,10 @@ public class ReportDAOBean implements ReportDAO{
     }
 
     /**
-     * @author Katia Stetsiuk
      * @param option additional option (bool type)
      * @param userId user id to get his additional option
      * @return count of option for user
+     * @author Katia Stetsiuk
      */
     public BigInteger getCountOptionalBool(String option, Integer userId) {
         String sql = "select count(*) from taxi_order where " + option + " = true " +
@@ -105,10 +105,10 @@ public class ReportDAOBean implements ReportDAO{
     }
 
     /**
-     * @author Katia Stetsiuk
      * @param option additional option (char type)
      * @param userId user id to get his additional option
      * @return count of option for user
+     * @author Katia Stetsiuk
      */
     public BigInteger getCountOptionalChar(String option, Integer userId) {
         String sql = "select count(*) from taxi_order where " + option + " is not null " +
@@ -138,10 +138,18 @@ public class ReportDAOBean implements ReportDAO{
         String[] months = {"January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December"};
         for (int i = 0; i < months.length; i++) {
-            if (date[1].equals(months[i]) && i < months.length){
-                endDate = date[0] + "-" + months[i + 1] + "-" + date[2];
-            } else {
-                endDate = date[0] + "-" + months[0] + "-" + date[2];
+//            if (date[1].equals(months[i]) & i < months.length){
+//                endDate = date[0] + "-" + months[i + 1] + "-" + date[2];
+//            } else {
+//                endDate = date[0] + "-" + months[0] + "-" + date[2];
+//            }
+            if (date[1].equals(months[i])) {
+                if (i < months.length) {
+                    endDate = date[0] + "-" + months[i + 1] + "-" + date[2];
+                } else {
+                    int year = Integer.valueOf(date[0]);
+                    endDate = String.valueOf(year) + "-" + months[0] + "-" + date[2];
+                }
             }
         }
         String sql = "SELECT SUM(price)" +

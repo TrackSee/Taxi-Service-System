@@ -35,8 +35,9 @@ $(document).ready(function(){
                 if (data == "error") {
                     $.notify("Invalid data entered!", "error");
                 } else {
-                    $('html').replaceData(data);
-                    //window.location.replace("/TaxiService/orderSuccess");
+                    var newDoc = document.open("text/html", "replace");
+                    newDoc.write(data);
+                    newDoc.close();
                 }
             },
             error: function () {
@@ -73,5 +74,5 @@ function updatePrice() {
     // taxi for very short distance has constant min price
     var businessDistance = (distance > getMinDistance()) ? distance : getMinDistance();
     var price = getTaxiPricePerKm() * businessDistance;
-    $('#price').val(price + " UAH");
+    $('#price').val(price.toFixed(2) + " UAH");
 }

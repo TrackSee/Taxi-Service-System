@@ -54,9 +54,9 @@
     <div id="input-form" class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
         <div hidden="hidden">
-        <input type="text" name="path" id="path"
-               value="${path}">
-            </div>
+            <input type="text" id="pathOrigin" value="${pathOrigin}">
+            <input type="text" id="pathDestination"  value="${pathDestination}">
+        </div>
             <div class="form-group">
                 <label>Phone number</label>
                 <input type="text" name="phoneNumber" class="form-control"
@@ -113,7 +113,7 @@
                         <option value="CARGO_TAXI"${CARGO_TAXI}>Service "Cargo taxi"</option>
                         <option value="MEET_MY_GUEST"${MEET_MY_GUEST}>Service "Meet my guest"</option>
                         <option value="CELEBRATION_TAXI"${CELEBRATION_TAXI}> Service "Celebration taxi"</option>
-                        <option value="foodStuffDelivery"${FOODSTUFF_DELIVERY}>Service "Foodstuff delivery"</option>
+                        <option value="FOODSTUFF_DELIVERY"${FOODSTUFF_DELIVERY}>Service "Foodstuff delivery"</option>
                         <option value="CONVEY_CORPORATION_EMPLOYEES"${CONVEY_CORPORATION_EMPLOYEES}>
                             Service "Convey corporation employees"</option>
                         <option value="TAXI_FOR_LONG_TERM"${TAXI_FOR_LONG_TERM}>
@@ -127,7 +127,7 @@
                 <div id="amountOfTripTimeBlock">
                     <label>Amount time of trip</label>
                     <div>
-                        <input type="number" id="amountOfHours" class="form-control" name="amountOfHours"
+                        <input type="number"  id="amountOfHours" class="form-control" name="amountOfHours"
                                 value="${amountOfHours}" disabled>
                     </div>
                     <div>
@@ -186,9 +186,9 @@
                         <input type="checkbox" name="freeWifi" ${freeWifi} disabled> Free Wi-Fi
                     </label>
                 </div>
-                <div class="checkbox" id="smokingDriverCh">
+                <div class="checkbox" id="nonSmokingDriverCh">
                     <label>
-                        <input type="checkbox" name="smokingDriver" ${smokingDriver} disabled> Smoking driver
+                        <input type="checkbox" name="nonSmokingDriver" ${nonSmokingDriver} disabled>Non smoking driver
                     </label>
                 </div>
                 <div class="checkbox" id="airConditionerCh">

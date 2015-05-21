@@ -21,11 +21,12 @@ function initializeMaps() {
 
     // creating path
     initializeDirections(map);
-    calcRoute(DEFAULT_LOCATION, DEFAULT_LOCATION, []);
+        calcRoute(DEFAULT_LOCATION, DEFAULT_LOCATION, []);
     tryGeolocation(map);
     google.maps.event.addListener(directionsDisplay, 'directions_changed', function(){
                 updateAddresses(directionsDisplay.getDirections().routes[0]);
                 updatePrice();
+
     });
 }
 
@@ -46,6 +47,7 @@ function tryGeolocation(map) {
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             map.setCenter(pos);
             calcRoute(pos, pos, []);
+
         }, function() {
             $.notify('The Geolocation service failed.', 'error');
         });
@@ -118,3 +120,4 @@ function updateAddresses(route) {
 function updateRoute() {
     calcRoute($('#origin').val(), $('#destination').val(), []);
 }
+

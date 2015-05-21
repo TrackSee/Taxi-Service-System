@@ -112,12 +112,11 @@ $('.prevButton').click(function(){
         }
     });
 });
-
-//tracking number href
-$('.track').click(function(){
-    var trackingNumber = $('.trackingNumber').val();
-    alert("GET doesn't allowed!!")
-});
+//
+////tracking number href
+//$('.track').click(function(){
+//    var trackingNumber = $('.trackingNumber').val();
+//});
 
 function formatDate(d) {
 

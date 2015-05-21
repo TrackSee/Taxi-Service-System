@@ -365,8 +365,10 @@ function onClickEditGroup(el) {
 	pageSizeHelp = pageSize;
     pageNumber = 1;
     groupName = el.parentNode.parentNode.getElementsByTagName("td")[0].innerHTML;
-    groupNameHelp = groupName;
+    groupNameHelp = groupName;	
     onClickGroup(el.parentNode.parentNode);
+	var e = document.getElementById("userCountPage");
+        pageSize = e.options[e.selectedIndex].value;	
     $("#labelGroupName").text("Group: " + groupName);
     $("#labelGroupName").show();
     $("#groupNameInput").hide();
@@ -402,6 +404,8 @@ function onClickAddGroup() {
     $("#labelGroupName").hide();
     $("#groupNameInput").show();
     $("#groupRole").show();
+	var e = document.getElementById("userCountPage");
+        pageSize = e.options[e.selectedIndex].value;
     getGroupUserData(SERVLETS.get('GROUP_EDIT_SERVLET'), SELECT_CONSTANTS.get('SELECT_USERS'), SELECT_COUNT_CONSTANTS.get('SELECT_USERS_COUNT'), groupName, '', 1);
     countGroupsBeforeAdd = pageMaxNumber;
 }

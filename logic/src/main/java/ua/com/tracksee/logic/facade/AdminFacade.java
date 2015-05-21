@@ -5,6 +5,7 @@ import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.enumartion.Role;
 import ua.com.tracksee.error.PersistError;
 import ua.com.tracksee.exception.CreateException;
+import ua.com.tracksee.exception.RegistrationException;
 import ua.com.tracksee.logic.GroupBean;
 import ua.com.tracksee.logic.admin.AdministratorBean;
 import ua.com.tracksee.logic.group.GroupSelectAction;
@@ -57,7 +58,7 @@ public class AdminFacade {
         administratorBean.updateUser(user);
     }
 
-    public void createUser(UserEntity user) throws CreateException {
+    public void createUser(UserEntity user) throws RegistrationException {
         administratorBean.createUser(user);
     }
 

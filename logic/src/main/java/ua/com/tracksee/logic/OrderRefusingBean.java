@@ -22,20 +22,27 @@ public class OrderRefusingBean {
     RefuseDAO refuseDAO;
     private @EJB TaxiOrderDAO taxiOrderDAO;
     private @EJB UserDAO userDAO;
+    private @EJB EmailBean mailBean;
 
     public void refuseOrder(long trackingNumber) {
         refuseDAO.refuseOrder(trackingNumber);
         int refusedTimes= refuseDAO.getUserRefusedTimes(trackingNumber);
         if(refusedTimes>2){
-            sendNotification(userDAO.getUserById(taxiOrderDAO.getOrder(trackingNumber).getUserId()));
+            sendEmail(userDAO.getUserById(taxiOrderDAO.getOrder(trackingNumber).getUserId()), trackingNumber);
         }
     }
-/*
-method send mail that user refuse more then 2 order,
-and cant make more order with this email.
- */
-    private void sendNotification(UserEntity trackingNumber) {
-        //TODO complete mail send
+    /**
+     * Sends confirmation letter with
+     * tracking number to the user who made the order
+     *
+     * @author Sharaban Sasha
+     * @author Avlasov Sasha
+     * @param userEntity- the user who made the order
+     * @param trackingNumber-    tracking number of made order
+     * @throws javax.mail.MessagingException
+     */
+    public void sendEmail(UserEntity userEntity, Long trackingNumber) {
+        mailBean.sendOrderConfirmation(userEntity, trackingNumber);
     }
 
     /**

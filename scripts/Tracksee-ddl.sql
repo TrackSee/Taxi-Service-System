@@ -1,3 +1,4 @@
+DROP VIEW IF EXISTS music_report;
 DROP VIEW IF EXISTS driver_report;
 DROP VIEW IF EXISTS car_report;
 DROP TABLE IF EXISTS tracksee.public.Taxi_Order_Item;

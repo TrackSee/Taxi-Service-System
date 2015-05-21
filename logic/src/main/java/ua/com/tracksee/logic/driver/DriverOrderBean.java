@@ -78,11 +78,7 @@ public class DriverOrderBean {
         orderRefusingBean.refuseOrder(trackingNumberLong);
     }
 
-//    public TaxiOrderEntity getOrder(Long trackingNumber){
-//        return taxiOrderDao.getOrder(trackingNumber);
-//    }
-
-    //TODO write some complicated business logic. What to do with time of car aarive?
+    //TODO complete
     public void setToQueueOrder(String trackingNumber) {
         int trackingNumberInt = Integer.parseInt(trackingNumber);
 //        Long trackingNumberLong = Long.parseLong(trackingNumber);
@@ -96,7 +92,17 @@ public class DriverOrderBean {
         //}
     }
 
-    public int getOrdersPagesCount(int id){
-        return taxiOrderDao.getOrdersPagesCount(id);
+    public int getOrdersPagesCountCompleted(int id){
+        return taxiOrderDao.getOrdersPagesCountCompleted(id);
     }
+
+    public int getOrdersPagesCountQueued(UserEntity driver){
+        return taxiOrderDao.getOrdersPagesCountQueued(driver);
+    }
+
+    public int getOrdersPagesCountAssigned(int id){
+        return taxiOrderDao.getOrdersPagesCountAssigned(id);
+    }
+
+
 }

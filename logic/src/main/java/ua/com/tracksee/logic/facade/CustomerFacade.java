@@ -7,7 +7,7 @@ import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.exception.RegistrationException;
 import ua.com.tracksee.dto.FavoritePlaceDTO;
-import ua.com.tracksee.logic.customer.AccountManagementBean;
+import ua.com.tracksee.logic.AccountManagementBean;
 import ua.com.tracksee.logic.customer.FavoritePlacesBean;
 
 import javax.ejb.EJB;
