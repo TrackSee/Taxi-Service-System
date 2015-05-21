@@ -74,5 +74,5 @@ function updatePrice() {
     // taxi for very short distance has constant min price
     var businessDistance = (distance > getMinDistance()) ? distance : getMinDistance();
     var price = getTaxiPricePerKm() * businessDistance;
-    $('#price').val(price + " UAH");
+    $('#price').val(price.toFixed(2) + " UAH");
 }
