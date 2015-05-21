@@ -127,7 +127,7 @@
                 <div id="amountOfTripTimeBlock">
                     <label>Amount time of trip</label>
                     <div>
-                        <input type="number" id="amountOfHours" class="form-control" name="amountOfHours"
+                        <input type="number"  id="amountOfHours" class="form-control" name="amountOfHours"
                                 value="${amountOfHours}" disabled>
                     </div>
                     <div>
