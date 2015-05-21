@@ -1,5 +1,7 @@
 package ua.com.tracksee.rest.customer;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dto.FavoritePlaceDTO;
 import ua.com.tracksee.logic.facade.CustomerFacade;
 
@@ -21,6 +23,7 @@ import static ua.com.tracksee.servlets.AttributeNames.USER_ID;
 @Path("/customer/places")
 @RequestScoped
 public class FavoritePlacesService {
+    private static final Logger logger = LogManager.getLogger(FavoritePlacesService.class);
 
     private @EJB CustomerFacade customerFacade;
     private @Context HttpServletRequest request;
@@ -37,6 +40,7 @@ public class FavoritePlacesService {
         if (userId == null) {
             return Response.status(UNAUTHORIZED).build();
         }
+        logger.trace("User #{} accesses his favorite places.", userId);
         return Response.ok(customerFacade.getFavoritePlacesFor(userId)).build();
     }
 
@@ -60,6 +64,7 @@ public class FavoritePlacesService {
         if (userId == null) {
             return Response.status(UNAUTHORIZED).build();
         }
+        logger.trace("User #{} updates his favorite place {}.", userId, name);
         return customerFacade.removeFavoritePlaceFor(userId, name)
                 ? Response.status(NO_CONTENT).build()
                 : Response.status(BAD_REQUEST).build();
