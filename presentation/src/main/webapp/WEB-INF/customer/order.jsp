@@ -137,7 +137,7 @@
                 <div id="amountOfTripTimeBlock">
                     <label>Amount time of trip</label>
                     <div>
-                        <input type="text" pattern="[8-9 ()-]{1,25}$" id="amountOfHours"
+                        <input type="number" pattern="[8-9 ()-]{1,25}$" id="amountOfHours"
                                class="form-control" name="amountOfHours"
                                placeholder="Amount of hours 8+"
                                title="Amount of hours 8+">
@@ -163,10 +163,17 @@
                     </div>
 
                 </div>
+                <%--<div>--%>
+                    <%--<input type="number" pattern="[8-9 ()-]{1,25}$" id="amountOfMinutes" class="form-control" --%>
+                           <%--name="amountOfMinutes"--%>
+                           <%--placeholder="Amount minutes [0:60]"--%>
+                           <%--title="Amount of minutes [0:60]" value="${amountOfMinutes}">--%>
+                    <%--<span class="red-star">★</span>--%>
+                <%--</div>--%>
 
                 <div id="amountOfCarsBlock">
                     <label>Amount of cars</label>
-                    <input type="text" pattern="[5-9 ()-]{1,25}$"
+                    <input type="number" pattern="[5-9 ()-]{1,25}$"
                            id="amountOfCars" class="form-control" name="amountOfCars"
                            placeholder="Amount of cars 5+"
                            title="Amount of cars 5+">

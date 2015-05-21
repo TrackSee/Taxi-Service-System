@@ -106,7 +106,21 @@
             <div id="panel">
                 <div class="form-group">
                     <label class="control-label">Service</label>
-                    <select class="form-control order_priority" name="service" id="service" disabled>
+                    <select class="form-control order_priority" name="serviceShow" id="serviceShow" disabled>
+                        <option value="SIMPLE_TAXI"${SIMPLE_TAXI}>Simple taxi</option>
+                        <option value="SOBER_DRIVER"${SOBER_DRIVER}>Service "Sober driver"</option>
+                        <option value="GUEST_DELIVERY"${GUEST_DELIVERY}>Service "Guest delivery"</option>
+                        <option value="CARGO_TAXI"${CARGO_TAXI}>Service "Cargo taxi"</option>
+                        <option value="MEET_MY_GUEST"${MEET_MY_GUEST}>Service "Meet my guest"</option>
+                        <option value="CELEBRATION_TAXI"${CELEBRATION_TAXI}> Service "Celebration taxi"</option>
+                        <option value="foodStuffDelivery"${FOODSTUFF_DELIVERY}>Service "Foodstuff delivery"</option>
+                        <option value="CONVEY_CORPORATION_EMPLOYEES"${CONVEY_CORPORATION_EMPLOYEES}>
+                            Service "Convey corporation employees"</option>
+                        <option value="TAXI_FOR_LONG_TERM"${TAXI_FOR_LONG_TERM}>
+                            Service "Taxi for long term"</option>
+                    </select>
+                    <div hidden="hidden">
+                    <select class="form-control order_priority" name="service" id="service">
                         <option value="SIMPLE_TAXI"${SIMPLE_TAXI}>Simple taxi</option>
                         <option value="SOBER_DRIVER"${SOBER_DRIVER}>Service "Sober driver"</option>
                         <option value="GUEST_DELIVERY"${GUEST_DELIVERY}>Service "Guest delivery"</option>
@@ -120,6 +134,7 @@
                             Service "Taxi for long term"</option>
                     </select>
                 </div>
+                    <div>
                 <label for="arriveDate" class="sr-only">Arrive date</label>
 
                 <div class="controls input-append date form_datetime"
@@ -133,13 +148,15 @@
                 <div id="amountOfTripTimeBlock">
                     <label>Amount time of trip</label>
                     <div>
-                        <input type="number" id="amountOfHours" class="form-control" name="amountOfHours"
+                        <input type="number" pattern="[8-9 ()-]{1,25}$"
+                               id="amountOfHours" class="form-control" name="amountOfHours"
                                placeholder="Amount of hours 8+"
                                title="Amount of hours 8+" value="${amountOfHours}">
                         <span class="red-star">★</span>
                     </div>
                     <div>
-                        <input type="number" id="amountOfMinutes" class="form-control" name="amountOfMinutes"
+                        <input type="number" pattern="[0-9 ()-]{1,2}$"
+                               id="amountOfMinutes" class="form-control" name="amountOfMinutes"
                                placeholder="Amount minutes [0:60]"
                                title="Amount of minutes [0:60]" value="${amountOfMinutes}">
                         <span class="red-star">★</span>
@@ -150,7 +167,8 @@
                 <%--TODO validation--%>
                 <div id="amountOfCarsBlock">
                     <label>Amount of cars</label>
-                    <input type="number" id="amountOfCars" class="form-control" name="amountOfCars"
+                    <input type="number" pattern="[5-9 ()-]{1,25}$"
+                           id="amountOfCars" class="form-control" name="amountOfCars"
                            placeholder="Amount of cars 5+"
                            title="Amount of cars greater then 4" value="${amountOfCars}">
                     <span class="red-star">★</span>
