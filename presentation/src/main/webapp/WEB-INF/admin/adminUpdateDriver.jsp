@@ -16,7 +16,7 @@
     <!-- Bootstrap Core CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
           rel="stylesheet">
-
+    <link href="<%=application.getContextPath()%>/resources/admin/css/formStyle.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"
           rel="stylesheet">
@@ -43,7 +43,7 @@
 <div id="wrapper">
     <jsp:include page="adminHeader.jsp"/>
 </div>
-<div class="container" style=" width : 500px; ">
+<div id="page-wrapper">
 
     <form class="update-driver" id="updateItDriver" action="<c:url value="/admin/updatedriver"/>">
         <h2 class="form-sign-up-heading">Update Profile</h2>
