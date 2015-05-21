@@ -1,4 +1,4 @@
-DELETE FROM tracksee.public.Car;
+DELETE FROM tracksee.public.Service_User;
 
 INSERT INTO tracksee.public.Service_User (email, password, salt, phone, first_name, last_name, group_name, sex, driver, admin, car_number, driver_license, ignored_times, activated, registration_date) VALUES ('jortiz0@indiegogo.com',                '2285876d41de4345dec3c89427623993be156750073487d8e86d23283ab2b338', 'tdTzmJWf', '7-(805)366-2813', 'Jason', 'Ortiz', 'Wikido',             'M', TRUE,  TRUE,  'PUDGE',                  'B, C1', '0', TRUE,  '2014-10-15 01:20:13'); -- RNAbUM
 INSERT INTO tracksee.public.Service_User (email, password, salt, phone, first_name, last_name, group_name, sex, driver, admin, car_number, driver_license, ignored_times, activated, registration_date) VALUES ('pgarcia1@weather.com',                 '2d1c0350a67b635e6d0e6e3e3d22c621474abc4c129e38f4f8dd6c745b356eda', 'V[r0ZCmk', '3-(969)125-4779', 'Pamela', 'Garcia', NULL,               'F', TRUE,  FALSE, 'ARTHAS',                 'B, C1', '0', TRUE,  '2014-08-14 21:43:00'); -- 5QQmB0n5
