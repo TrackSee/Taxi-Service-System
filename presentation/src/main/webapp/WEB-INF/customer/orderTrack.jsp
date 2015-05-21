@@ -119,7 +119,8 @@
                         <option value="TAXI_FOR_LONG_TERM"${TAXI_FOR_LONG_TERM}>
                             Service "Taxi for long term"</option>
                     </select>
-                    <select class="form-control order_priority" name="service" id="service" hidden="hidden">
+                    <div hidden="hidden">
+                    <select class="form-control order_priority" name="service" id="service">
                         <option value="SIMPLE_TAXI"${SIMPLE_TAXI}>Simple taxi</option>
                         <option value="SOBER_DRIVER"${SOBER_DRIVER}>Service "Sober driver"</option>
                         <option value="GUEST_DELIVERY"${GUEST_DELIVERY}>Service "Guest delivery"</option>
@@ -133,6 +134,7 @@
                             Service "Taxi for long term"</option>
                     </select>
                 </div>
+                    <div>
                 <label for="arriveDate" class="sr-only">Arrive date</label>
 
                 <div class="controls input-append date form_datetime"
