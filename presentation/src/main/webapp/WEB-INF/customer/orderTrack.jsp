@@ -113,7 +113,7 @@
                         <option value="CARGO_TAXI"${CARGO_TAXI}>Service "Cargo taxi"</option>
                         <option value="MEET_MY_GUEST"${MEET_MY_GUEST}>Service "Meet my guest"</option>
                         <option value="CELEBRATION_TAXI"${CELEBRATION_TAXI}> Service "Celebration taxi"</option>
-                        <option value="foodStuffDelivery"${FOODSTUFF_DELIVERY}>Service "Foodstuff delivery"</option>
+                        <option value="FOODSTUFF_DELIVERY"${FOODSTUFF_DELIVERY}>Service "Foodstuff delivery"</option>
                         <option value="CONVEY_CORPORATION_EMPLOYEES"${CONVEY_CORPORATION_EMPLOYEES}>
                             Service "Convey corporation employees"</option>
                         <option value="TAXI_FOR_LONG_TERM"${TAXI_FOR_LONG_TERM}>
@@ -127,14 +127,14 @@
                         <option value="CARGO_TAXI"${CARGO_TAXI}>Service "Cargo taxi"</option>
                         <option value="MEET_MY_GUEST"${MEET_MY_GUEST}>Service "Meet my guest"</option>
                         <option value="CELEBRATION_TAXI"${CELEBRATION_TAXI}> Service "Celebration taxi"</option>
-                        <option value="foodStuffDelivery"${FOODSTUFF_DELIVERY}>Service "Foodstuff delivery"</option>
+                        <option value="FOODSTUFF_DELIVERY"${FOODSTUFF_DELIVERY}>Service "Foodstuff delivery"</option>
                         <option value="CONVEY_CORPORATION_EMPLOYEES"${CONVEY_CORPORATION_EMPLOYEES}>
                             Service "Convey corporation employees"</option>
                         <option value="TAXI_FOR_LONG_TERM"${TAXI_FOR_LONG_TERM}>
                             Service "Taxi for long term"</option>
                     </select>
                 </div>
-                    <div>
+               </div>
                 <label for="arriveDate" class="sr-only">Arrive date</label>
 
                 <div class="controls input-append date form_datetime"
@@ -217,9 +217,9 @@
                         <input type="checkbox" name="freeWifi" ${freeWifi} > Free Wi-Fi
                     </label>
                 </div>
-                <div class="checkbox" id="smokingDriverCh">
+                <div class="checkbox" id="nonSmokingDriverCh">
                     <label>
-                        <input type="checkbox" name="smokingDriver" ${smokingDriver}>Non smoking driver
+                        <input type="checkbox" name="nonSmokingDriver" ${nonSmokingDriver}>Non smoking driver
                     </label>
                 </div>
                 <div class="checkbox" id="airConditionerCh">
