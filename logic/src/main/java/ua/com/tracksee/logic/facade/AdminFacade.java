@@ -3,8 +3,6 @@ package ua.com.tracksee.logic.facade;
 import ua.com.tracksee.entities.CarEntity;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.enumartion.Role;
-import ua.com.tracksee.error.PersistError;
-import ua.com.tracksee.exception.CreateException;
 import ua.com.tracksee.exception.RegistrationException;
 import ua.com.tracksee.logic.GroupBean;
 import ua.com.tracksee.logic.admin.AdministratorBean;
