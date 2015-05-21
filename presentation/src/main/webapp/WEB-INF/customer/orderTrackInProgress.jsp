@@ -147,7 +147,6 @@
 
                 </div>
 
-                <%--TODO validation--%>
                 <div id="amountOfCarsBlock">
                     <label>Amount of cars</label>
                     <input type="number" id="amountOfCars" class="form-control" name="amountOfCars"

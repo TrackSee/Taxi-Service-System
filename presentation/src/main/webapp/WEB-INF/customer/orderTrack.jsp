@@ -134,7 +134,7 @@
                             Service "Taxi for long term"</option>
                     </select>
                 </div>
-                    <div>
+               </div>
                 <label for="arriveDate" class="sr-only">Arrive date</label>
 
                 <div class="controls input-append date form_datetime"
