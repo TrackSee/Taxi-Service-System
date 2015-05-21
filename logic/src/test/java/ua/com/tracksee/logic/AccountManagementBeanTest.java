@@ -18,7 +18,6 @@ import ua.com.tracksee.entity.Group;
 import ua.com.tracksee.enumartion.Sex;
 import ua.com.tracksee.error.PersistError;
 import ua.com.tracksee.dto.TaxiOrderDTO;
-import ua.com.tracksee.logic.customer.AccountManagementBean;
 import ua.com.tracksee.exception.RegistrationException;
 import ua.com.tracksee.logic.group.GroupUpdateAction;
 
