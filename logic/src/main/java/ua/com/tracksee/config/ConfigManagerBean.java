@@ -17,6 +17,7 @@ import static ua.com.tracksee.config.ConfigName.MINIMAL_ORDER_DISTANCE;
 @Stateless
 public class ConfigManagerBean {
     private @EJB ConfigDAO configDao;
+
     public double getMinimalOrderDistance() {
         String string = configDao.getConfig(MINIMAL_ORDER_DISTANCE).getValue();
         try {
