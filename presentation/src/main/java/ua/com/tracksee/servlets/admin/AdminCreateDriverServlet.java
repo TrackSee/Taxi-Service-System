@@ -66,7 +66,4 @@ public class AdminCreateDriverServlet extends HttpServlet {
         return sb.toString();
 
     }
-    private String getHashedPassword(String password, String salt) {
-        return getHash(salt + password + salt);
-    }
-}
+   }
