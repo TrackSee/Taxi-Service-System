@@ -1,56 +1,40 @@
 package ua.com.tracksee.logic;
 
 import org.joda.time.DateTime;
-import ua.com.tracksee.config.ConfigName;
-import ua.com.tracksee.dao.ConfigDAO;
+import ua.com.tracksee.config.ConfigManagerBean;
 import ua.com.tracksee.dao.TaxiPriceDAO;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.TaxiPriceEntity;
 import ua.com.tracksee.enumartion.CarCategory;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Lock;
 import javax.ejb.Singleton;
+import javax.ejb.Stateless;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 import static javax.ejb.LockType.READ;
 import static org.joda.time.DateTimeConstants.SATURDAY;
 import static org.joda.time.DateTimeConstants.SUNDAY;
-import static ua.com.tracksee.config.ConfigName.MINIMAL_ORDER_DISTANCE;
 
 /**
  * @author Ruslan Gunavardana
  */
-@Singleton
+@Stateless
 public class PriceListBean {
     public static final int NIGHT_TARIFF_FROM_HOUR = 22;
     public static final int NIGHT_TARIFF_TILL_HOUR = 6;
     public static final int[] WEEKEND_DAYS = {SATURDAY, SUNDAY};
 
-    private @EJB ConfigDAO configDAO;
+    private @EJB ConfigManagerBean configManager;
     private @EJB TaxiPriceDAO taxiPriceDAO;
-    private TaxiPriceEntity[] prices;
 
     public PriceListBean() {
     }
 
-//    @PostConstruct
-//    private void postConstruct() {
-//        List<TaxiPriceEntity> lists = taxiPriceDAO.getAllPrices();
-//        prices = lists.toArray(new TaxiPriceEntity[lists.size()]);
-//    }
-
     public List<TaxiPriceEntity> getPrices() {
-//        List<TaxiPriceEntity> priceList = new ArrayList<>();
-//        for (TaxiPriceEntity price : this.prices) {
-//            priceList.add(price.clone());
-//        }
-//
-//        return priceList;
         return taxiPriceDAO.getAllPrices();
     }
 
@@ -72,7 +56,7 @@ public class PriceListBean {
     }
 
     public BigDecimal getMinimalOrderDistance() {
-        return new BigDecimal(configDAO.getConfig(MINIMAL_ORDER_DISTANCE).getValue());
+        return new BigDecimal(configManager.getMinimalOrderDistance());
     }
 
     @Lock(READ)
