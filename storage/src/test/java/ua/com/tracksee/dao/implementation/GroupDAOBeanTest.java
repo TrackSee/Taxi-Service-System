@@ -12,6 +12,7 @@ import org.postgresql.geometric.PGpoint;
 import ua.com.tracksee.dao.GroupDAO;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.entities.UserEntity;
+import ua.com.tracksee.enumartion.Role;
 
 import javax.ejb.EJB;
 import javax.persistence.EntityTransaction;
@@ -26,6 +27,11 @@ import static org.junit.Assert.assertTrue;
 public class GroupDAOBeanTest {
     @EJB
     private GroupDAO groupDAO;
+
+    private static final String GROUP_NAME = "qwerty";
+    private static final Integer USER_ID_1 = 1987;
+    private static final Integer USER_ID_2 = 1985;
+    private static final Role ROLE = Role.ADMINISTRATOR;
 
     @Deployment
     public	static WebArchive createTestArchive(){
@@ -50,14 +56,29 @@ public class GroupDAOBeanTest {
     }
 
     @Test
-    public void testRemoveUser() throws Exception {
-        //TODO working code
-//        EntityTransaction et;
-//        et = groupDAO.getEntityManager().getTransaction();
-//        et.begin();
-//        int count = groupDAO.removeGroup("regular client");
-//        et.commit();
-//        assertTrue(count == 1);
-//        et.rollback();
+    public void testAddGroup() {
+        int count = groupDAO.addUserToGroup(GROUP_NAME, USER_ID_1);
+        assertTrue(count == 1);
+        count = groupDAO.addUserToGroup(GROUP_NAME, USER_ID_2);
+        assertTrue(count == 1);
     }
+
+    @Test
+    public void testChangeRole() {
+        int count = groupDAO.setRoleToUser(ROLE, USER_ID_1);
+        assertTrue(count == 1);
+    }
+
+    @Test
+    public void testRemoveUser() {
+        int count = groupDAO.removeUser(USER_ID_2);
+        assertTrue(count == 1);
+    }
+
+    @Test
+    public void testRemoveGroup() throws Exception {
+        int count = groupDAO.removeGroup(GROUP_NAME);
+        assertTrue(count == 1);
+    }
+
 }
