@@ -25,7 +25,6 @@ public interface OrderAttributes {
     String ADDRESS_DESTINATION_ALIAS ="addressDestination";
     String ADDRESS_ORIGIN_ALIAS ="addressOrigin";
     String ORDER_STATUS_ALIAS ="orderStatus";
-    String DISTANCE_ALIAS ="distance";
     String SERVICE_ALIAS="service";
     String WAY_OF_PAYMENT_ALIAS ="wayOfPayment";
     String CAR_CATEGORY_ALIAS ="carCategory";
@@ -50,6 +49,7 @@ public interface OrderAttributes {
 
     String ERROR_PAGE="/WEB-INF/error.jsp";
     String ORDER_INFO_PAGE="/WEB-INF/customer/orderInfo.jsp";
+    String TARIFFS_PAGE="/WEB-INF/customer/tariffs.jsp";
     String ORDER_SUCCESS_PAGE="/WEB-INF/customer/orderSuccess.jsp";
     String MAP_PAGE="/WEB-INF/customer/map.jsp";
     String ORDER_TRACK_COMPLETE_PAGE="/WEB-INF/customer/orderTrackComplete.jsp";
