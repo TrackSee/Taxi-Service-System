@@ -9,15 +9,6 @@ $(document).ready(function () {
                 required: false,
                 email:true
             },
-            //password: {
-            //    required: false,
-            //    minlength:5
-            //},
-            //confirmpassword: {
-            //    required: false,
-            //    minlength:5,
-            //    equalTo: "#password"
-            //},
             phone: {
                 required: false,
                 minlength:7
@@ -30,8 +21,8 @@ $(document).ready(function () {
     $('#updateDriver').bind('click', function () {
         var data = {};
         data["email"] = $('input[name = email]', '#updateItDriver').val();
-        //data["password"] = $('input[name = password]', '#updateItDriver').val();
         data["phone"] = $('input[name = phone]', '#updateItDriver').val();
+        data["driverLicense"] = $('input[name = driverLicense]', '#updateItDriver').val();
         data = JSON.stringify(data);
 
         $.ajax({

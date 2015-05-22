@@ -50,17 +50,21 @@
         <label for="email" class="sr-only">Email </label>
         <input type="email" placeholder="email" id="email" name="email" class="form-control" value="${driver.email}">
 
-        <label for="password" class="sr-only">Password</label>
-        <input type="password" placeholder="password" id="password" name="password" class="form-control"
-               value="${driver.password}">
+        <%--<label for="password" class="sr-only">Password</label>--%>
+        <%--<input type="password" placeholder="password" id="password" name="password" class="form-control"--%>
+               <%--value="${driver.password}">--%>
 
-        <label for="confirmpassword" class="sr-only">Password</label>
-        <input type="password" placeholder="confirm password" id="confirmpassword" name="confirmpassword"
-               class="form-control" value="${driver.password}">
+        <%--<label for="confirmpassword" class="sr-only">Password</label>--%>
+        <%--<input type="password" placeholder="confirm password" id="confirmpassword" name="confirmpassword"--%>
+               <%--class="form-control" value="${driver.password}">--%>
 
         <label for="phone" class="sr-only">Phone number</label>
         <input type="text" placeholder="phone number" id="phone" name="phone" class="form-control"
                value="${driver.phone}">
+        <div class="form-group">
+            <label for="driverLicense" class="sr-only">Driver License</label>
+            <input type="text" id="driverLicense" name="driverLicense" class="form-control" value="${driver.driverLicense}" placeholder="Driver License" required>
+        </div>
 
         <div id="updateDriver">
             <button type="button" class="btn btn-primary">Update</button>
@@ -71,7 +75,7 @@
 <script src="<%=application.getContextPath()%>/resources/admin//bower_components/jquery/dist/jquery.validate.min.js"></script>
 
 
-<script src="<%=application.getContextPath()%>/resources/admin/js/updatedriver.js"></script>
+<script src="<%=application.getContextPath()%>/resources/admin/js/updateForDriver.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/js/hsps.js"></script>
 
 </body>

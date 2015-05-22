@@ -37,6 +37,7 @@ $(document).ready(function () {
         data["email"] = $('input[name = email]', '#createDriver').val();
         data["password"] = $('input[name = password]', '#createDriver').val();
         data["phone"] = $('input[name = phone]', '#createDriver').val();
+        data["driverLicense"] = $('input[name = driverLicense]', '#createDriver').val();
         data["sex"] = $('select option:selected').val();
         data = JSON.stringify(data);
         $.ajax({

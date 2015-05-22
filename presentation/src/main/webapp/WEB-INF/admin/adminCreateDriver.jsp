@@ -54,8 +54,12 @@
                    placeholder="confirm password" required>
         </div>
         <div class="form-group">
-            <label for="phone" class="sr-only">Phone number</label>
-            <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" required>
+        <label for="phone" class="sr-only">Phone number</label>
+        <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" required>
+    </div>
+        <div class="form-group">
+            <label for="driverLicense" class="sr-only">Driver License</label>
+            <input type="text" id="driverLicense" name="driverLicense" class="form-control" placeholder="Driver License" required>
         </div>
         <div class="form-group">
             <div>
