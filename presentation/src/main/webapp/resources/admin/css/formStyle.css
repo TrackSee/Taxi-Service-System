@@ -9,7 +9,8 @@
 }
 
 p{
-    font: 12pt sans-serif;
+    font: 25pt sans-serif;
+    margin: 0 75px;
 }
 
 #createCar{
@@ -32,6 +33,12 @@ p{
     width: 400px;
     margin: auto;
     background-color: #f8f8f8;
+}
+
+#titleFrom{
+    font:  25pt sans-serif;
+    margin: auto;
+    color: #002a80;
 }
 
 #cont{
