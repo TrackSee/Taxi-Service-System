@@ -99,6 +99,10 @@ public interface UserDAO {
      */
     UserEntity getUserByEmail(String email);
 
+    /**
+     *
+     * @param userEntity
+     */
     void createUser(UserEntity userEntity);
 
     /**

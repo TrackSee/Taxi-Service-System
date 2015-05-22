@@ -22,6 +22,18 @@ p{
     margin: auto;
     background-color: #f8f8f8;
 }
+#updateItCar{
+    width: 400px;
+    margin: auto;
+    background-color: #f8f8f8;
+}
+
+#updateItDriver{
+    width: 400px;
+    margin: auto;
+    background-color: #f8f8f8;
+}
+
 #cont{
     background-color: #f8f8f8;
 }

@@ -6,11 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 
 <head>
-    <%@include file="../parts/meta.jsp"%>
+    <%@include file="../parts/meta.jsp" %>
 
     <!-- Bootstrap Core CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
@@ -36,20 +36,26 @@
 <div id="wrapper">
     <jsp:include page="adminHeader.jsp"/>
 </div>
-    <div id="page-wrapper">
-        <form class="create-car" id="createCar" action="<c:url value="/admin/createcar"/>" method="post">
-            <h2 class="form-sign-up-heading">Please enter data</h2>
+<div id="page-wrapper">
+    <form class="create-car" id="createCar" action="<c:url value="/admin/createcar"/>" method="post">
+        <h2 class="form-sign-up-heading">Please enter data</h2>
+
+        <div class="form-group">
             <label for="carNumber" class="sr-only">Car Number</label>
             <input type="text" id="carNumber" name="carNumber" class="form-control"
                    placeholder="Car Number" required>
+        </div>
+        <div class="form-group">
             <label for="carModel" class="sr-only">Model</label>
             <input type="text" id="carModel" name="carModel" class="form-control"
                    placeholder="Car Model" required>
-
+        </div>
+        <div class="form-group">
             <label for="carColor" class="sr-only">Color</label>
             <input type="text" id="carColor" name="carColor" class="form-control"
                    placeholder="Color">
-
+        </div>
+        <div class="form-group">
             <div>
                 <label>Category</label>
             </div>
@@ -60,20 +66,29 @@
                 <option value="USER_CAR">USER_CAR</option>
 
             </select>
+        </div>
+        <div class="form-group">
             <input type="checkbox" id="acceptsVisa" name="acceptsVisa">Way Of Payment - VISA<Br>
-            <%--<label for="animalTransportationApplicable" class="sr-only">Color</label>--%>
+        </div>
+        <%--<label for="animalTransportationApplicable" class="sr-only">Color</label>--%>
+        <div class="form-group">
             <input type="checkbox" id="animalTransportationApplicable" name="animalTransportationApplicable"
                     >Animal Transportation Applicable<Br>
-            <input type="checkbox" id="freeWifi" name="freeWifi">Free Wifi<Br>
-            <input type="checkbox" id="airConditioner" name="airConditioner">Air
-            Conditioner<Br>
-
-            <div>
-                <button id="addCar" type="button" class="btn btn-primary">Create</button>
+        </div>
+        <div class="form-group">
+        <input type="checkbox" id="freeWifi" name="freeWifi">Free Wifi<Br>
             </div>
-            </form>
+        <div class="form-group">
+        <input type="checkbox" id="airConditioner" name="airConditioner">Air
+        Conditioner<Br>
+            </div>
 
-    </div>
+        <div>
+            <button id="addCar" type="button" class="btn btn-primary">Create</button>
+        </div>
+    </form>
+
+</div>
 
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin//bower_components/jquery/dist/jquery.validate.min.js"></script>

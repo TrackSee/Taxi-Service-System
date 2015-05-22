@@ -18,6 +18,7 @@
           rel="stylesheet">
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/css/bootstrap.min.css"
           rel="stylesheet">
+    <link href="<%=application.getContextPath()%>/resources/admin/css/formStyle.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.css"
@@ -37,7 +38,7 @@
 <div id="wrapper">
     <jsp:include page="adminHeader.jsp"/>
 </div>
-<div class="container" style=" width : 500px; ">
+<div id="page-wrapper">
 
     <form class="update-car" id="updateItCar" action="<c:url value="/admin/updatecar"/>" method="post">
         <h2 class="form-sign-up-heading">Please enter cars data</h2>

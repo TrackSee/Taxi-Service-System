@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+        import static ua.com.tracksee.logic.encryption.HashGenerator.getHash;
+
 /**
  * @author Katia Stetsiuk
  */
@@ -33,7 +35,7 @@ public class AdminCreateDriverServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String data = getData(req);
-        System.out.println("SB" + data);
+        System.out.println("data:  " + data);
         ObjectMapper mapper = new ObjectMapper();
         UserEntity user = mapper.readValue(data, UserEntity.class);
         user.setDriver(true);
@@ -64,4 +66,4 @@ public class AdminCreateDriverServlet extends HttpServlet {
         return sb.toString();
 
     }
-}
+   }
