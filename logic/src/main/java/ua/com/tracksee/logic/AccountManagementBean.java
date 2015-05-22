@@ -9,6 +9,7 @@ import ua.com.tracksee.exception.RegistrationException;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -16,6 +17,7 @@ import javax.validation.ValidatorFactory;
 import java.util.Set;
 
 import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import static ua.com.tracksee.exception.RegistrationExceptionType.*;
 import static ua.com.tracksee.logic.encryption.HashGenerator.getHash;
 import static ua.com.tracksee.logic.encryption.PasswordUtils.generatePassword;
@@ -83,11 +85,51 @@ public class AccountManagementBean {
 
     /**
      * Customer user registration method.
+     * Registration:
+     * <table>
+     *     <thead>
+     *         <tr>
+     *             <th>For</th>
+     *             <th>Result</th>
+     *             <th>Sends email</th>
+     *         </tr>
+     *     </thead>
+     *     <tbody>
+     *         <tr>
+     *             <td>not created user</td>
+     *             <td>PASSES, returns true</td>
+     *             <td>+</td>
+     *         </tr>
+     *         <tr>
+     *             <td>unactivated user</td>
+     *             <td>PASSES, returns false</td>
+     *             <td>+</td>
+     *         </tr>
+     *         <tr>
+     *             <td>blocked user</td>
+     *             <td>FAILS, throws exception</td>
+     *             <td>-</td>
+     *         </tr>
+     *         <tr>
+     *             <td>registered user</td>
+     *             <td>FAILS, throws exception</td>
+     *             <td>-</td>
+     *         </tr>
+     *         <tr>
+     *             <td>invalid data</td>
+     *             <td>FAILS, throws exception</td>
+     *             <td>-</td>
+     *         </tr>
+     *     </tbody>
+     * </table>
      *
      * @param user user to register
-     * @throws RegistrationException if invalid data passed
+     * @throws RegistrationException if invalid data passed or
+     * user has already been activated or blocked in the system
+     * @return false if user was previously registered (but not activated),
+     * true if the user is new
      */
-    public void registerCustomerUser(UserEntity user) throws RegistrationException {
+    public boolean registerCustomerUser(UserEntity user) throws RegistrationException {
         validateRegistrationData(user);
 
         // hashing the password
@@ -97,16 +139,30 @@ public class AccountManagementBean {
         // adding new user
         user.setPassword(hashedPassword);
         user.setSalt(salt);
-        Integer generatedId = userDAO.addUser(user);
-        if (generatedId == null) {
-            throw new RegistrationException("User already exists.", USER_EXISTS.getCode());
+
+        UserEntity persistedUser = userDAO.getUserByEmail(user.getEmail());
+        if (persistedUser == null) {
+
+            // simply adding new user
+            userDAO.addUser(user);
+        } else {
+            user.setUserId(persistedUser.getUserId());
+            user.setActivated(persistedUser.getActivated());
+
+            if (!user.getActivated().equals(FALSE)) {
+                throw new RegistrationException("User already exists.", USER_EXISTS.getCode());
+            }
+
+            // if we are here, user is not activated, so just update him
+            userDAO.updateUser(user);
         }
 
-        String userCode = generatedId.toString();
+        String userCode = user.getUserId().toString();
         logger.debug("Generated userCode: {}", userCode);
-        if (user.getActivated().equals(FALSE)) {
-            emailBean.sendRegistrationEmail(user.getEmail(), userCode);
-        }
+        emailBean.sendRegistrationEmail(user.getEmail(), userCode);
+
+        // returning if the new user was generated in db
+        return persistedUser != null;
     }
 
     private void validateRegistrationData(UserEntity user) throws RegistrationException {
