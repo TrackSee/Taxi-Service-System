@@ -38,9 +38,8 @@ $(document).ready(function () {
                 window.location.href = 'cars';
             },
             error: function(jqXHR, error, errorThrown) {
-                alert(jqXHR.status);
                 window.location.replace("cars");
-                alert('Car Number already exist!');
+                alert('Sorry, but such car number already exist!');
             }
         });
         data = null;
