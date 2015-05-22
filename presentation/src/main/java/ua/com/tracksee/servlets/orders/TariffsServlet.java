@@ -1,5 +1,7 @@
 package ua.com.tracksee.servlets.orders;
 
+import ua.com.tracksee.servlets.PageAddresses;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +13,7 @@ import java.io.IOException;
  * @author Sharaban Sasha
  */
 @WebServlet("/tariffs")
-public class TariffsServlet extends HttpServlet implements OrderAttributes {
+public class TariffsServlet extends HttpServlet implements PageAddresses {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("pageName", "tariffs");

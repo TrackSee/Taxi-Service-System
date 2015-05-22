@@ -1,9 +1,7 @@
 package ua.com.tracksee.servlets.orders;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import ua.com.tracksee.servlets.PageAddresses;
 
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +13,7 @@ import java.io.IOException;
  * @author Sharaban Sasha
  */
 @WebServlet("/orderInfo")
-public class OrderInfoServlet extends HttpServlet implements OrderAttributes {
+public class OrderInfoServlet extends HttpServlet implements PageAddresses {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("pageName", "orderInfo");

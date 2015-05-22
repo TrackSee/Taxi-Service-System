@@ -6,6 +6,8 @@ import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.enumartion.OrderStatus;
 import ua.com.tracksee.logic.facade.OrderFacade;
+import ua.com.tracksee.servlets.AlertMessages;
+import ua.com.tracksee.servlets.PageAddresses;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -19,7 +21,8 @@ import java.io.IOException;
  * @author Sharaban Sasha
  */
 @WebServlet("/orderTracking")
-public class OrderInfoTrackServlet extends HttpServlet implements OrderAttributes {
+public class OrderInfoTrackServlet extends HttpServlet implements OrderAttributeNames,OrderAttributesValues,
+        AlertMessages,PageAddresses {
 
     private
     @EJB
