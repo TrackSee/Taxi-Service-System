@@ -3,16 +3,10 @@
  */
 document.addEventListener("DOMContentLoaded", function(event) {
     $('#sign-out-button').click(function(){
-        $.ajax({
-            type: 'POST',
-            url: getContextPath() + 'signout',
-            success: function () {
-                updateHeader();
-            },
-            error: function () {
-                updateHeader();
-            }
-        });
+        $.post(getContextPath() + 'signout', updateHeader)
+            .fail(function(){
+                $(this).notify("Server connection problems.", "warn")
+            });
     });
 
     function updateHeader() {
