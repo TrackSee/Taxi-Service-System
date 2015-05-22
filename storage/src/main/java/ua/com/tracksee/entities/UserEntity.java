@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+import static java.lang.Boolean.FALSE;
+
 /**
  * @author Ruslan Gunavardana
  */
@@ -35,7 +37,7 @@ public class UserEntity implements Serializable {
     private String groupName;
     private String driverLicense;
     private Integer ignoredTimes = 0;
-    private Boolean activated = false;
+    private Boolean activated = FALSE;
     private Timestamp registrationDate = new Timestamp(System.currentTimeMillis());
     private CarEntity car;
 
