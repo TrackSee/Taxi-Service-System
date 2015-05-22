@@ -5,9 +5,11 @@ import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
 /**
+ * Implicitly using UTF-8 encoding for all client-server communication.
+ *
  * @author Ruslan Gunavardana
  */
-@WebFilter(filterName = "CharacteEncodingFilter", urlPatterns = "*")
+@WebFilter(filterName = "CharacterEncodingFilter", urlPatterns = "*")
 public class CharacteEncodingFilter implements Filter {
     public void destroy() {
     }
