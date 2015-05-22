@@ -112,7 +112,7 @@ public class ReportDAOBean implements ReportDAO {
      */
     public BigInteger getCountOptionalChar(String option, Integer userId) {
         String sql = "select count(*) from taxi_order where " + option + " is not null " +
-                "and "+ option + " not in ('ANY','A','CASH')" +
+                "and "+ option + " not in ('ANY','A','CASH', 'ECONOMY_CLASS')" +
                 "and user_id = ?";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, userId);

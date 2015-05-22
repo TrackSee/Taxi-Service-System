@@ -76,12 +76,12 @@
                     >Animal Transportation Applicable<Br>
         </div>
         <div class="form-group">
-        <input type="checkbox" id="freeWifi" name="freeWifi">Free Wifi<Br>
-            </div>
+            <input type="checkbox" id="freeWifi" name="freeWifi">Free Wifi<Br>
+        </div>
         <div class="form-group">
-        <input type="checkbox" id="airConditioner" name="airConditioner">Air
-        Conditioner<Br>
-            </div>
+            <input type="checkbox" id="airConditioner" name="airConditioner">Air
+            Conditioner<Br>
+        </div>
 
         <div>
             <button id="addCar" type="button" class="btn btn-primary">Create</button>
