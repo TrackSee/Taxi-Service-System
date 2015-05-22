@@ -9,8 +9,8 @@ import ua.com.tracksee.entities.TaxiPriceEntity;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.enumartion.CarCategory;
 import ua.com.tracksee.error.PersistError;
-import ua.com.tracksee.exception.CreateException;
-import ua.com.tracksee.logic.ValidationBean;
+import ua.com.tracksee.exception.RegistrationException;
+import ua.com.tracksee.logic.AccountManagementBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -18,38 +18,17 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
-import static ua.com.tracksee.exception.CreateExceptionType.BAD_EMAIL;
-import static ua.com.tracksee.exception.CreateExceptionType.BAD_PHONE;
-import static ua.com.tracksee.exception.CreateExceptionType.BAD_PASSWORD;
-
 /**
  * Created by Vadym_Akymov on 22.04.15.
  */
 @Stateless
 public class AdministratorBean {
 
-    private @EJB ValidationBean validationBean;
+    private @EJB AccountManagementBean accountManagementBean;
     private @EJB UserDAO userDAO;
     private @EJB CarDAO carDAO;
     private @EJB ServiceUserDaoBeen serviceUserDaoBeen;
     private @EJB TaxiPriceDAO taxiPriceDAO;
-
-    private void validateRegistrationData(UserEntity user)
-            throws CreateException
-
-    {
-        System.out.println("begin");
-        if (!validationBean.isValidEmail(user.getEmail())) {
-            throw new CreateException("Invalid email.", BAD_EMAIL);
-        }
-//        if (!validationBean.isValidPassword(user.getPassword())) {
-//            throw new CreateException("Invalid password.", BAD_PASSWORD);
-//        }
-        if (user.getPhone() != null && !user.getPhone().equals("") && !validationBean.isValidPhoneNumber(user.getPhone())) {
-            throw new CreateException("Invalid phone number.", BAD_PHONE);
-        }
-    }
-
 
     /**
      * @author Katia Stetsiuk
@@ -77,9 +56,9 @@ public class AdministratorBean {
      * @author Katia Stetsiuk
      * @param user entity for creating
      */
-    public void createUser(UserEntity user) throws CreateException {
-        validateRegistrationData(user);
-        userDAO.createUser(user);
+    public void createUser(UserEntity user) throws RegistrationException {
+        accountManagementBean.registerCustomerUser(user);
+//        userDAO.createUser(user);
     }
 
     public void getDriverById(int driverId) {

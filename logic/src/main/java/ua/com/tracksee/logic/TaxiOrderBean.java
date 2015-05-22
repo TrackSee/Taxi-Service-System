@@ -278,12 +278,8 @@ public class TaxiOrderBean {
         taxiOrderEntity.setNonSmokingDriver(convertCheckBoxToBoolean(inputData.get("nonSmokingDriver")));
         taxiOrderEntity.setAirConditioner(convertCheckBoxToBoolean(inputData.get("airConditioner")));
 
-       // TODO optimization and refactoring
-        if (!inputData.get("description").equals("")) {
             taxiOrderEntity.setDescription(inputData.get("description"));
-        } else {
-            taxiOrderEntity.setDescription("");
-        }
+
         return taxiOrderEntity;
     }
 

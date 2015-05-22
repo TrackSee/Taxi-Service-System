@@ -224,12 +224,12 @@ public class UserDAOBean implements UserDAO {
 
     @Override
     public void updateUser(UserEntity user) {
-        String sql = "UPDATE service_user SET email = ?, password = ? , phone =?" +
+        String sql = "UPDATE service_user SET email = ? , phone =? , driver_license = ?" +
                 "WHERE user_id = " + user.getUserId();
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, user.getEmail());
-        query.setParameter(2, user.getPassword());
-        query.setParameter(3, user.getPhone());
+        query.setParameter(2, user.getPhone());
+        query.setParameter(3, user.getDriverLicense());
         query.executeUpdate();
     }
 
@@ -250,8 +250,8 @@ public class UserDAOBean implements UserDAO {
 
     public void createUser(UserEntity user) {
         String sql = "INSERT INTO service_user " +
-                "(email, password, phone, driver, car_number, sex , salt) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "(email, password, phone, driver, car_number, sex , salt, activated) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter(1, user.getEmail());
         query.setParameter(2, user.getPassword());
@@ -260,6 +260,7 @@ public class UserDAOBean implements UserDAO {
         query.setParameter(5, user.getCar() != null ? user.getCar().getCarNumber() : null);
         query.setParameter(6, user.getSex());
         query.setParameter(7, "2311323");
+        query.setParameter(8, user.getActivated());
         query.executeUpdate();
     }
 

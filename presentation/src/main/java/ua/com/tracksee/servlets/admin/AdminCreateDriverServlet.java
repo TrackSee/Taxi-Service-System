@@ -1,12 +1,12 @@
 package ua.com.tracksee.servlets.admin;
 
-        import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.entities.UserEntity;
-    import ua.com.tracksee.exception.CreateException;
-    import ua.com.tracksee.logic.facade.AdminFacade;
-    import javax.ejb.EJB;
+import ua.com.tracksee.exception.RegistrationException;
+import ua.com.tracksee.logic.facade.AdminFacade;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
+
+        import static ua.com.tracksee.logic.encryption.HashGenerator.getHash;
 
 /**
  * @author Katia Stetsiuk
@@ -28,16 +30,12 @@ public class AdminCreateDriverServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
         req.getRequestDispatcher("/WEB-INF/admin/adminCreateDriver.jsp").forward(req, resp);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
         String data = getData(req);
-        System.out.println("SB" + data);
+        System.out.println("data:  " + data);
         ObjectMapper mapper = new ObjectMapper();
         UserEntity user = mapper.readValue(data, UserEntity.class);
         user.setDriver(true);
@@ -45,7 +43,7 @@ public class AdminCreateDriverServlet extends HttpServlet {
         user.setSex(user.getSex().substring(0, 1));
         try {
             adminFacade.createUser(user);
-        } catch (CreateException e) {
+        } catch (RegistrationException e) {
             logger.warn(e.getMessage());
             resp.getWriter().append(e.getErrorType());
             return;
@@ -68,4 +66,4 @@ public class AdminCreateDriverServlet extends HttpServlet {
         return sb.toString();
 
     }
-}
+   }

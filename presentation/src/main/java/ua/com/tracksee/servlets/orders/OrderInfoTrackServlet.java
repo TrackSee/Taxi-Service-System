@@ -125,15 +125,10 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
 
             req.getRequestDispatcher(ORDER_TRACK_COMPLETE_PAGE).forward(req, resp);
 
-        } else  if (taxiOrderEntity.getStatus() == OrderStatus.QUEUED||
-                taxiOrderEntity.getStatus() == OrderStatus.UPDATED) {
+        } else {
 
             req.getRequestDispatcher(ORDER_TRACK_PAGE).forward(req, resp);
 
-        }else if (taxiOrderEntity.getStatus() == OrderStatus.IN_PROGRESS||
-                taxiOrderEntity.getStatus() == OrderStatus.ASSIGNED) {
-
-            req.getRequestDispatcher(ORDER_IN_PROGRESS_PAGE).forward(req, resp);
         }
         }
     }

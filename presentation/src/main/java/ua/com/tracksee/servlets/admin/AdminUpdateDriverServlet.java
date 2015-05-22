@@ -46,7 +46,6 @@ public class AdminUpdateDriverServlet extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
         UserEntity user = mapper.readValue(data, UserEntity.class);
         user.setUserId(id);
-        user.setDriver(true);
         adminFacade.updateUser(user);
     }
 
