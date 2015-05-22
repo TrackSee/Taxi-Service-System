@@ -12,11 +12,11 @@ import java.io.IOException;
 /**
  * @author Sharaban Sasha
  */
-@WebServlet("/orderInfo")
-public class OrderInfoServlet extends HttpServlet implements PageAddresses {
+@WebServlet("/tariffs")
+public class TariffsServlet extends HttpServlet implements PageAddresses {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("pageName", "orderInfo");
-        req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req,resp);
+        req.setAttribute("pageName", "tariffs");
+        req.getRequestDispatcher(TARIFFS_PAGE).forward(req,resp);
     }
 }

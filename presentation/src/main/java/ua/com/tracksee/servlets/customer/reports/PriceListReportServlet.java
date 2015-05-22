@@ -3,6 +3,8 @@ package ua.com.tracksee.servlets.customer.reports;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import ua.com.tracksee.entity.PriceReportImpl;
+import ua.com.tracksee.entity.Report;
 import ua.com.tracksee.logic.reports.PriceListReportBean;
 import ua.com.tracksee.logic.reports.ExcelReporterBean;
 
@@ -32,9 +34,10 @@ public class PriceListReportServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         try {
-            HSSFWorkbook workbook = excelReporterBean.getExcelFile(reportBean);
+            Report report=reportBean.getData();
+            HSSFWorkbook workbook = excelReporterBean.getExcelFile(report);
             resp.setContentType("application/vnd.ms-excel");
-            resp.addHeader("content-disposition", "attachment; filename="+reportBean.getReportTitle()+".xls");
+            resp.addHeader("content-disposition", "attachment; filename="+report.getReportTitle()+".xls");
             workbook.write(resp.getOutputStream());
             workbook.close();
         } catch (NullPointerException e) {

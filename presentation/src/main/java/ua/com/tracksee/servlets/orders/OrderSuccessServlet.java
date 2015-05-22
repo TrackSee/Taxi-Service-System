@@ -1,6 +1,8 @@
 package ua.com.tracksee.servlets.orders;
 
 import ua.com.tracksee.logic.facade.OrderFacade;
+import ua.com.tracksee.servlets.AlertMessages;
+import ua.com.tracksee.servlets.PageAddresses;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -14,7 +16,7 @@ import java.io.IOException;
  * @author Sharaban Sasha
  */
 @WebServlet("/orderSuccess")
-public class OrderSuccessServlet extends HttpServlet implements OrderAttributes {
+public class OrderSuccessServlet extends HttpServlet implements AlertMessages,PageAddresses {
     private @EJB
     OrderFacade orderFacade;
     @Override

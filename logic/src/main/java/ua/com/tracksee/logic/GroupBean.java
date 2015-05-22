@@ -86,15 +86,18 @@ public class GroupBean {
             }
         }
 
+        groupIds = getGroupMemberIds(groupName);
+
+        for (Integer userId : groupIds) {
+            groupDAO.setRoleToUser(role, userId);
+        }
+
         try {
             setRolesToUsers(userIds, isDrivers, idAdmins);
         } catch (IllegalArgumentException e) {
             logger.error(e);
         }
-
-        for (Integer userId : groupIds) {
-            groupDAO.setRoleToUser(role, userId);
-        }
+		
         groupDAO.setRoleToUser(Role.ADMINISTRATOR, admin);
     }
 

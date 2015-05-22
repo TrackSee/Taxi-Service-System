@@ -3,6 +3,8 @@ package ua.com.tracksee.servlets.orders;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.logic.facade.OrderFacade;
+import ua.com.tracksee.servlets.AlertMessages;
+import ua.com.tracksee.servlets.PageAddresses;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -18,7 +20,7 @@ import java.util.HashMap;
  * @author Sharaban Sasha
  */
 @WebServlet("/updateOrder")
-public class UpdateOrderServlet extends HttpServlet implements OrderAttributes {
+public class UpdateOrderServlet extends HttpServlet implements OrderAttributeNames,AlertMessages,PageAddresses {
 
     private
     @EJB

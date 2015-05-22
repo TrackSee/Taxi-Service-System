@@ -1,24 +1,21 @@
 package ua.com.tracksee.logic.reports;
 
 import ua.com.tracksee.dao.TaxiPriceDAO;
-import ua.com.tracksee.dao.UserDAO;
-import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.TaxiPriceEntity;
-import ua.com.tracksee.entities.UserEntity;
+import ua.com.tracksee.entity.*;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Bean provides prepare data
- * for ExcelReporterBean
- *
- * @author Sharaban Sasha
- */
+* Bean provides prepare data
+* for ExcelReporterBean
+*
+* @author Sharaban Sasha
+*/
 @Stateless
 public class PriceListReportBean  {
     @EJB private TaxiPriceDAO taxiPriceDAO;
@@ -26,57 +23,49 @@ public class PriceListReportBean  {
     private static final int DISTANCE_FOR_SHOW=10;
     private static final int MINUTES_IN_HOUR=60;
 
-    public String getReportTitle() {
-        return "Price list";
-    }
-    public int[] getReportNumberCells() {
-        return new int[]{2,3,4,5,6};
-    }
-
-    public ArrayList<String> getTitles(){
-        ArrayList<String> titles=new ArrayList<String>();
-        titles.add("Car category");
-        titles.add("Special time or day");
-        titles.add("Minimal price (order lowest 5km)");
-        titles.add("Price per km");
-        titles.add("Price per 10km");
-        titles.add("Price per min");
-        titles.add("Price per hour");
-        return titles;
-    }
-    public ArrayList<ArrayList<String>> getData(){
-        ArrayList<ArrayList<String>> dataArray=new ArrayList<ArrayList<String>>();
-        ArrayList<String> data;
-        ArrayList<String> typeArray;
-
+    public Report getData(){
         List<TaxiPriceEntity> taxiPriceEntityList= taxiPriceDAO.getPricesOrderByCarCategory();
+        PriceReportImpl priceReport=new PriceReportImpl();
+
+        priceReport.setReportTitle("Price list");
+
+        priceReport.addColumnTitle("Car category");
+        priceReport.addColumnTitle("Special time or day");
+        priceReport.addColumnTitle("Minimal price (order lowest 5km)");
+        priceReport.addColumnTitle("Price per km");
+        priceReport.addColumnTitle("Price per 10km");
+        priceReport.addColumnTitle("Price per min");
+        priceReport.addColumnTitle("Price per hour");
+
+
         for (int i = 0; i < taxiPriceEntityList.size() ; i++) {
-            data=new ArrayList<String>();
-            data.add(taxiPriceEntityList.get(i).getCarCategory().toString());
+            DataObjectArray dataObjectArray=new DataObjectArrayImpl();
+            dataObjectArray.add(taxiPriceEntityList.get(i).getCarCategory().toString());
+
             if(taxiPriceEntityList.get(i).getNightTariff()){
-                data.add("With night tariff");
+                dataObjectArray.add("With night tariff");
 
             }else
             if(taxiPriceEntityList.get(i).getWeekend()){
-                data.add("With weekend tariff");
+                dataObjectArray.add("With weekend tariff");
             }else
             if(taxiPriceEntityList.get(i).getWeekend()&&taxiPriceEntityList.get(i).getNightTariff()){
-                data.add("With weekend and night tariff");
+                dataObjectArray.add("With weekend and night tariff");
             }else
             if(!taxiPriceEntityList.get(i).getWeekend()&&!taxiPriceEntityList.get(i).getNightTariff()){
-                data.add("None");
+                dataObjectArray.add("None");
             }
             BigDecimal pricePerKmDigDecimal=(BigDecimal)taxiPriceEntityList.get(i).getPricePerKm();
             long pricePerKm=pricePerKmDigDecimal.longValue();
-            data.add(String.valueOf(pricePerKm*MIN_DISTANCE));
-            data.add(String.valueOf(pricePerKm));
-            data.add(String.valueOf(pricePerKm*DISTANCE_FOR_SHOW));
+            dataObjectArray.add(pricePerKm * MIN_DISTANCE);
+            dataObjectArray.add(pricePerKm);
+            dataObjectArray.add(pricePerKm * DISTANCE_FOR_SHOW);
             BigDecimal pricePerMinBigDecimal=(BigDecimal)taxiPriceEntityList.get(i).getPricePerKm();
             long pricePerMin=pricePerMinBigDecimal.longValue();
-            data.add(String.valueOf(pricePerMin));
-            data.add(String.valueOf(pricePerMin*MINUTES_IN_HOUR));
-            dataArray.add(data);
+            dataObjectArray.add(pricePerMin);
+            dataObjectArray.add(pricePerMin * MINUTES_IN_HOUR);
+            priceReport.addDataObjectArray(dataObjectArray);
         }
-        return dataArray;
+        return priceReport;
     }
 }
