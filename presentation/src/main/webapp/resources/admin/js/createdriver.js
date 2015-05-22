@@ -3,7 +3,6 @@
  */
 $(document).ready(function () {
 
-
     $('#createDriver').validate({
         rules: {
             email: {

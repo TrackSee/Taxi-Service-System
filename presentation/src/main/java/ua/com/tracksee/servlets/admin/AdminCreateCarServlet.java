@@ -39,7 +39,12 @@ public class AdminCreateCarServlet extends HttpServlet {
         String data = getData(req);
         ObjectMapper mapper = new ObjectMapper();
         CarEntity car = mapper.readValue(data, CarEntity.class);
+        try {
         adminFacade.createCar(car);
+        } catch (Exception e) {
+            System.out.println("SQL exception!!!");
+            resp.setStatus(405);
+        }
     }
 
     private String getData(HttpServletRequest req){

@@ -36,6 +36,11 @@ $(document).ready(function () {
             data: data,
             success: function(data){
                 window.location.href = 'cars';
+            },
+            error: function(jqXHR, error, errorThrown) {
+                alert(jqXHR.status);
+                window.location.replace("cars");
+                alert('Car Number already exist!');
             }
         });
         data = null;
