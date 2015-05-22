@@ -19,7 +19,5 @@ public class CharacteEncodingFilter implements Filter {
     }
 
     public void init(FilterConfig config) throws ServletException {
-
     }
-
 }

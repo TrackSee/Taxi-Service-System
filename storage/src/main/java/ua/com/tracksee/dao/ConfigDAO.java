@@ -7,4 +7,5 @@ import ua.com.tracksee.entities.ConfigEntity;
  */
 public interface ConfigDAO {
     ConfigEntity getConfig(String key);
+    void saveConfig(ConfigEntity config);
 }

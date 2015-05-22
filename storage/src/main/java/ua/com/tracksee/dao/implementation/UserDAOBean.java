@@ -198,18 +198,14 @@ public class UserDAOBean implements UserDAO {
         query.setParameter(13, user.getIgnoredTimes());
         query.setParameter(14, user.getActivated());
         query.setParameter(15, user.getRegistrationDate());
-        try {
-            user.setUserId((Integer) query.getSingleResult());
-        } catch (PersistenceException e) {
-            return null;
-        }
+        user.setUserId((Integer) query.getSingleResult());
         return user.getUserId();
     }
 
     @Override
     public Integer addUnregisteredUser(UserEntity user) {
         String sql = "INSERT INTO service_user " +
-                "(email, phone, activated,password,salt) " +
+                "(email, phone, activated, password, salt) " +
                 "VALUES (?1, ?2, ?3,?4,?5) " +
                 "RETURNING user_id";
         Query query = entityManager.createNativeQuery(sql);

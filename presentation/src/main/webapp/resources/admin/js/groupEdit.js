@@ -395,6 +395,8 @@ function onClickGroup(el) {
 }
 
 function removeGroups() {
+	var e = document.getElementById("groupCountPage");
+    pageSize = e.options[e.selectedIndex].value;
     manageGroups(SERVLETS.get('GROUP_EDIT_SERVLET'), pageNumber, UPDATE_CONSTANTS.get("REMOVE_GROUPS"),
         SELECT_CONSTANTS.get('SELECT_GROUPS'), SELECT_COUNT_CONSTANTS.get('SELECT_GROUPS_COUNT'), groupIds);
 }

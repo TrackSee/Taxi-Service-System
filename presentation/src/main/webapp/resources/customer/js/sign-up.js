@@ -9,37 +9,35 @@ $('#password').focus(function() {
 $(document).ready(function(){
     $('#form-sign-up').submit(function() {
         var form = $(this);
-        $.ajax({
-            type: 'POST',
-            url: getContextPath() + 'signup',
-            data: form.serialize(),
-            success: function (data) {
-                form.html(data);
-            },
-            error: function (xhr) {
-                if (xhr.status = 422) {
-                    var data = xhr.responseText;
-                    if (data.search('bad-email') != -1) {
-                        $('#email').notify('Please, enter a valid email!', 'error');
-                    }
-                    if (data.search('bad-password') != -1) {
-                        $('#password').notify('Please, enter a valid password', 'error');
-                    }
-                    if (data.search('bad-phone') != -1) {
-                        $('#phone-number').notify('Please, enter a valid phone number', 'error');
-                    }
-                    if (data.search('user-exists') != -1) {
-                        $('#email').notify('This email is already registered', 'info');
-                    }
-                    if (data.search('bad-first-name') != -1) {
-                        $('#first-name').notify('Please, shorten your first name to 50 symbols', 'warn');
-                    }
-                    if (data.search('bad-last-name') != -1) {
-                        $('#last-name').notify('Please, shorten your last name to 50 symbols', 'warn');
-                    }
-                } else {
-                    $('#sign-up-submit').notify('Internal server error occurred.', 'warn');
+        var req = $.post(getContextPath() + 'signup', form.serialize());
+
+        req.done(function (data) {
+            form.html(data);
+        });
+
+        req.fail(function (xhr) {
+            if (xhr.status = 422) {
+                var data = xhr.responseText;
+                if (data.search('bad-email') != -1) {
+                    $('#email').notify('Please, enter a valid email!', 'error');
                 }
+                if (data.search('bad-password') != -1) {
+                    $('#password').notify('Please, enter a valid password', 'error');
+                }
+                if (data.search('bad-phone') != -1) {
+                    $('#phone-number').notify('Please, enter a valid phone number', 'error');
+                }
+                if (data.search('user-exists') != -1) {
+                    $('#email').notify('This email is already registered', 'info');
+                }
+                if (data.search('bad-first-name') != -1) {
+                    $('#first-name').notify('Please, shorten your first name to 50 symbols', 'warn');
+                }
+                if (data.search('bad-last-name') != -1) {
+                    $('#last-name').notify('Please, shorten your last name to 50 symbols', 'warn');
+                }
+            } else {
+                $('#sign-up-submit').notify('Internal server error occurred.', 'warn');
             }
         });
     });

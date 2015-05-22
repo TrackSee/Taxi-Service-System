@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS tracksee.public.Service_User
   car_number        VARCHAR(55) UNIQUE REFERENCES Car (car_number) ON DELETE RESTRICT,
   driver_license    VARCHAR(55),
   ignored_times     INT                 NOT NULL DEFAULT 0,
-  activated         BOOLEAN             NOT NULL DEFAULT FALSE,
+  activated         BOOLEAN                      DEFAULT FALSE,
   registration_date TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 

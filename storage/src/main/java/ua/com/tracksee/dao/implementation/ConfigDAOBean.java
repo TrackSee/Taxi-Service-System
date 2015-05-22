@@ -20,4 +20,9 @@ public class ConfigDAOBean implements ConfigDAO {
     public ConfigEntity getConfig(String key) {
         return entityManager.find(ConfigEntity.class, key);
     }
+
+    @Override
+    public void saveConfig(ConfigEntity config) {
+        entityManager.merge(config);
+    }
 }

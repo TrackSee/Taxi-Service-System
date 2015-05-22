@@ -61,11 +61,13 @@ public class CustomerFacade {
         return accountManagementBean.getUserByLoginCredentials(email, password);
     }
 
-    /** Registers new account with the specified credentials. */
-    public void registerUser(UserEntity user)
-            throws RegistrationException
-    {
-        accountManagementBean.registerCustomerUser(user);
+    /**
+     * Registers new account with the specified credentials.
+     * @return true if user is new for the system or
+     * false if user is registered but not activated
+     */
+    public boolean registerUser(UserEntity user) throws RegistrationException {
+        return accountManagementBean.registerCustomerUser(user);
     }
 
     /** Activates user account with the specified code. */
