@@ -107,9 +107,7 @@
                  role="dialog">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <div class="modal-header">
-
-                            <div id="alert-danger" class="alert alert-danger alert-dismissible" role="alert"></div>
+                        <div class="modal-header">                            
 
                             <h3>Users per page: </h3>
                             <select id="userCountPage" class="form-control" data-style="btn-success">
@@ -175,8 +173,10 @@
                                 </nav>
 
                             </div>
-
-                            <div class="modal-footer">
+							
+							<div id="alert-danger" class="alert alert-danger alert-dismissible" role="alert"></div>
+							
+                            <div class="modal-footer">							
                                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="onCansel()">
                                     CANCEL
                                 </button>
