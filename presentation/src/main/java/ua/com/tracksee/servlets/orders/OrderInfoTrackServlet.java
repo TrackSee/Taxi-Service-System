@@ -51,11 +51,7 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
                 }else{
                     nonExistTrackNumberAlert(req, resp);}
             }
-        } catch (NullPointerException e) {
-            logger.error("Value is null " + e);
-            brokenOrderAlert(req, resp);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             logger.error("invalid tracking number " + e);
          nonExistTrackNumberAlert(req,resp);
         } catch (Exception e) {
@@ -72,9 +68,8 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
 
         req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
         req.setAttribute(PHONE_NUMBER_ALIAS, userEntity.getPhone());
-        req.setAttribute(EMAIL_ALIAS, userEntity.getEmail());
+        req.setAttribute(EMAIL_ALIAS,userEntity.getEmail());
 
-        req.setAttribute(ADDRESSES_PATH,taxiOrderEntity.getItemList().get(0).getPath());
         req.setAttribute(PRICE_ALIAS, taxiOrderEntity.getPrice());
 
         req.setAttribute(ARRIVE_DATE_ALIAS, orderFacade.convertDateForShow(taxiOrderEntity.getArriveDate()));

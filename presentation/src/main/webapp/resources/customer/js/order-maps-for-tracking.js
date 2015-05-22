@@ -6,6 +6,7 @@
  */
 var directionsDisplay;
 var directionsService;
+var counter=0;
 
 function initializeMaps() {
     DEFAULT_LOCATION = new google.maps.LatLng(DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lng);
@@ -47,8 +48,8 @@ function tryGeolocation(map) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             map.setCenter(pos);
-            calcRoute(pos, pos, []);
-
+            //calcRoute(pos, pos, []);
+            calcRoute('('+$('#pathOrigin').val()+')','('+$('#pathDestination').val()+')', []);
         }, function() {
             $.notify('The Geolocation service failed.', 'error');
         });

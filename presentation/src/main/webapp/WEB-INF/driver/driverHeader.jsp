@@ -42,7 +42,7 @@
       </ul>
         <%--Logout from page--%>
       <li id="signout">
-        <a href="#" id="sign-out-button"><i class="fa fa-sign-out fa-fw"></i> Sign out</a>
+        <a href="/TaxiService/signin" id="sign-out-button"><i class="fa fa-sign-out fa-fw"></i> Sign out</a>
       </li>
       </ul>
     </div>

@@ -54,9 +54,9 @@
     <div id="input-form" class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
         <div hidden="hidden">
-        <input type="text" name="path" id="path"
-               value="${path}">
-            </div>
+            <input type="text" id="pathOrigin" value="${pathOrigin}">
+            <input type="text" id="pathDestination"  value="${pathDestination}">
+        </div>
             <div class="form-group">
                 <label>Phone number</label>
                 <input type="text" name="phoneNumber" class="form-control"
