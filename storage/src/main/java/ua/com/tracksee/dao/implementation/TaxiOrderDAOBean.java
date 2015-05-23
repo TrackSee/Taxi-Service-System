@@ -394,7 +394,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
     @Override
     public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
-        StringBuffer sql = new StringBuffer("SELECT * FROM taxi_order WHERE (status =" +
+        StringBuilder sql = new StringBuilder("SELECT * FROM taxi_order WHERE (status =" +
                 " 'QUEUED' OR status = 'UPDATED') " +
                 " AND (driver_sex = ? OR driver_sex = " + IS_DRIVER_GENDER_NULL + ") ");
         if (driver.getCar().getAnimalTransportationApplicable() == false) {
