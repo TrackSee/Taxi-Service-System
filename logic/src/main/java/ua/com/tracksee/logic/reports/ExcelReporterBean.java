@@ -2,25 +2,27 @@ package ua.com.tracksee.logic.reports;
 
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.Cell;
+import ua.com.tracksee.entity.DataObjectArray;
+import ua.com.tracksee.entity.ObjectConverter;
+import ua.com.tracksee.entity.ObjectConverterImpl;
+import ua.com.tracksee.entity.Report;
 
 import javax.ejb.Stateless;
 import java.util.ArrayList;
 
 /**
- * Bean provides  ability to export
- * any prepared report into Excel format
- *
- * @author Sharaban Sasha
- */
+* Bean provides  ability to export
+* any prepared report into Excel format
+*
+* @author Sharaban Sasha
+*/
 @Stateless
 public class ExcelReporterBean {
-    public HSSFWorkbook  getExcelFile(PriceListReportBean report){
-        ArrayList<String> titles=report.getTitles();
-        ArrayList<ArrayList<String>> dataArray=report.getData();
-        String reportTitle=report.getReportTitle();
+    public HSSFWorkbook  getExcelFile(Report report){
         HSSFWorkbook workbook = new HSSFWorkbook();
 
-        HSSFSheet worksheet = workbook.createSheet(reportTitle);
+        HSSFSheet worksheet = workbook.createSheet(report.getReportTitle());
         HSSFCellStyle cellStyle;
         HSSFCellStyle cellStyleData;
 
@@ -32,37 +34,23 @@ public class ExcelReporterBean {
         cellStyle.setFillForegroundColor(HSSFColor.SKY_BLUE.index);
         cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 
-
+        ObjectConverter objectConverter=new ObjectConverterImpl();
         HSSFRow rowTitle = worksheet.createRow(0);
-        for (int k = 0; k < titles.size(); k++) {
+        for (int k = 0; k < report.getTitlesSize(); k++) {
             HSSFCell cellATitle = rowTitle.createCell(k);
-            cellATitle.setCellValue(titles.get(k));
+            cellATitle.setCellValue(report.getColumnTitle(k));
             cellATitle.setCellStyle(cellStyle);
         }
-        for (int i = 1; i < dataArray.size()+1; i++) {
+        for (int i = 1; i < report.getDataSize()+1; i++) {
             HSSFRow row = worksheet.createRow(i);
-            ArrayList<String> data=dataArray.get(i - 1);
-            for (int j = 0; j < data.size(); j++) {
+            DataObjectArray dataObjectArray=  report.getDataObjectArray(i - 1);
+            for (int j = 0; j < dataObjectArray.size(); j++) {
                 HSSFCell cellA = row.createCell(j);
-                if(intTypeCheck(j,report)){
-                    cellA.setCellValue(Integer.parseInt(data.get(j)));
-                }else {
-                    cellA.setCellValue(data.get(j));
-                }
+                objectConverter.switcher(dataObjectArray.getType(j), dataObjectArray.get(j),cellA);
                 worksheet.autoSizeColumn(j);
             }
         }
 
         return workbook;
-    }
-    private boolean intTypeCheck(int i,PriceListReportBean reportBean){
-        boolean status=false;
-        int[] numberCells=reportBean.getReportNumberCells();
-        for (int j = 0; j < numberCells.length; j++) {
-            if (numberCells[j] == i) {
-                status=true;
-            }
-        }
-        return status;
     }
 }

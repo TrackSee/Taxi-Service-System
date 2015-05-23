@@ -1,23 +1,24 @@
-/**
- * Created by maria on 05.05.2015.
- */
-//$(document).ready(function () {
-//
-//    $('#event').click(function(){
-//        var data = {};
-//        data["trackingNumber"] = $('input[name = trackingNumber]').val();
-//        data["carArriveTime"] = $('input[name = carArriveTime]').val();
-//        data["price"] = $('input[name = price]').val();
-//        data["comment"] = $('input[name = comment]').val();
-//        data = JSON.stringify(data);
-//        $.ajax({
-//            type: 'POST',
-//            url: 'paginator-orders',
-//            data: data,
-//            success: function(data){
-//                window.location.href = 'orders';
-//            }
-//        });
-//        data = null;
-//    });
-//});
+angular.module('driverIndex', ['angularUtils.directives.dirPagination'])
+    .controller('ordersController', function($scope, $http) {
+        $scope.orders = [];
+        $scope.totalOrders = 0;
+        $scope.usersPerPage = 1; // this should match however many results your API puts on one page
+        getResultsPage(1);
+
+        $scope.pagination = {
+            current: 1
+        };
+
+        $scope.pageChanged = function(newPage) {
+            getResultsPage(newPage);
+        };
+
+        function getResultsPage(pageNumber) {
+            // this is just an example, in reality this stuff should be in a service
+            $http.get(getContextPath() + 'rest/orders/available?page=' + pageNumber)
+                .then(function(result) {
+                    $scope.orders = result.data.Items;
+                    $scope.totalUsers = result.data.Count
+                });
+        }
+    });

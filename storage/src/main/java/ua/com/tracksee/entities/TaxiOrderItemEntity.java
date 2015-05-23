@@ -72,9 +72,9 @@ public class TaxiOrderItemEntity {
         this.driver = serviceUserByDriverId;
     }
 
-    //TODO fix when DB updated tracking_numer
+
     @ManyToOne
-    @JoinColumn(name = "tracking_numer", referencedColumnName = "tracking_number",
+    @JoinColumn(name = "tracking_number", referencedColumnName = "tracking_number",
             nullable = false, columnDefinition = "int8")
     public TaxiOrderEntity getTaxiOrder() {
         return taxiOrder;

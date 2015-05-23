@@ -41,9 +41,10 @@
 
   <!--start: Container -->
   <div class="container">
-      <form method="post" action="<c:url value="/reportComplicate"/>">
-              <button type="submit" class="btn btn-info btn-large">Get price list report</button>
-      </form>
+      <form method="get" action="<c:url value="/orderTracking"/>">
+      <button type="submit" class="btn btn-info btn-large">
+          Track your TO by tracking number</button>
+    <form>
     <!-- start: Row -->
     <div class="row orderRow">
     <%!int i = 0;%>
@@ -57,9 +58,9 @@
             <form method="post" action="<c:url value="/orderTracking"/>">
 
                 <input type="hidden"  name="trackingNumber" id="trackingNumber" value="${order.trackingNumber}">
-          <div>
-            <p class="service<%=i%>"><b>SERVICE:</b> ${order.service}</p>
-          </div>
+          <%--<div>--%>
+            <%--<p class="service<%=i%>"><b>SERVICE:</b> ${order.userId}</p>--%>
+          <%--</div>--%>
           <div>
             <p class="status<%=i%>"><b>STATUS:</b> ${order.status}</p>
           </div>

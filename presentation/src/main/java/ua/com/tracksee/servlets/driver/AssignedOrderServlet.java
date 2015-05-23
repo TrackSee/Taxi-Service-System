@@ -90,11 +90,9 @@ public class AssignedOrderServlet extends HttpServlet {
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         Date parsedDate = dateFormat.parse(timeCarArriveDate);
                         carArriveTimeTimestamp2= new java.sql.Timestamp(parsedDate.getTime());
-
                         timeCarArrive=carArriveTimeTimestamp2.toString();
                     } catch (ParseException e1) {
                         System.out.println("Invalid or missing date, cannot be parsed 2");
-                       // carArriveTimeTimestamp2 = null;
                     } catch (javax.ejb.EJBTransactionRolledbackException e2){
                         req.setAttribute("alert", alert = true);
                         req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));

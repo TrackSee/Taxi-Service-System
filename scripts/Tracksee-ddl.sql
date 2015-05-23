@@ -111,4 +111,5 @@ GROUP BY music_style;
 -- VIEW for driver-sex reports
 CREATE OR REPLACE VIEW driver_report AS select max(tracking_number) id, driver_sex, count(driver_sex) order_count from taxi_order GROUP BY driver_sex;
 -- VIEW for car-category reports
-CREATE OR REPLACE VIEW car_report AS SELECT max(tracking_number) id, car_category, count(car_category) ordered_count FROM taxi_order GROUP BY car_category;
+CREATE OR REPLACE VIEW car_report AS SELECT max(tracking_number) id, car_category, count(car_category) ordered_count FROM taxi_order WHERE car_category != 'USER_CAR' GROUP BY car_category;
+

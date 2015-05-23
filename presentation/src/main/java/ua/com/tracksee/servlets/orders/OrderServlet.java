@@ -6,6 +6,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import ua.com.tracksee.dto.TaxiOrderDTO;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.logic.facade.OrderFacade;
+import ua.com.tracksee.servlets.AlertMessages;
+import ua.com.tracksee.servlets.PageAddresses;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -30,7 +32,8 @@ import static ua.com.tracksee.servlets.AttributeNames.USER_ID;
  * @author Ruslan Gunavardana
  */
 @WebServlet("/order")
-public class OrderServlet extends HttpServlet implements OrderAttributes {
+public class OrderServlet extends HttpServlet implements OrderAttributeNames,AlertMessages,PageAddresses
+        ,OrderAttributesValues {
     private static final Logger logger = LogManager.getLogger();
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private @EJB OrderFacade orderFacade;
@@ -93,7 +96,7 @@ public class OrderServlet extends HttpServlet implements OrderAttributes {
                         +ORDER_SUCCESS_TRACK_BUTTON));
                 req.setAttribute(HIDE_ORDER_TRACK, HIDE);
             }else if(orderFacade.checkBlackListByUserEmail(inputData.get(EMAIL_ALIAS))){
-                req.setAttribute(ORDER_WARNING, orderFacade.getWarningAlert(ORDER_WARNING_BLACK_LIST_MESSAGE));
+                req.setAttribute(ORDER_DANGER, orderFacade.getDangerAlert(ORDER_DANGER_BLACK_LIST_MESSAGE));
             }else if(!orderFacade.checkActivatedCustomerByEmail(req.getParameter(EMAIL_ALIAS), userID)){
                 req.setAttribute(ORDER_WARNING, orderFacade.getWarningAlert(ORDER_WARNING_AUTHORISE_MESSAGE));
             }

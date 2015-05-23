@@ -41,6 +41,7 @@
         ${addCommentsSuccess}
         ${orderSuccess}
         ${orderWarning}
+        ${orderDanger}
         ${refuseSuccess}
         ${refuseWarning}
         ${nonExistTrackingNumberWarning}

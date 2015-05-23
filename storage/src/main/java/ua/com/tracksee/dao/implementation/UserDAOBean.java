@@ -21,6 +21,7 @@ import java.util.List;
  */
 @Stateless
 public class UserDAOBean implements UserDAO {
+    private static final int BLACK_LIST_IGNORED_TIMES=2;
     private static final Logger logger = LogManager.getLogger();
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
@@ -220,13 +221,14 @@ public class UserDAOBean implements UserDAO {
 
     @Override
     public void updateUser(UserEntity user) {
-        String sql = "UPDATE service_user SET email = ? , phone =? , driver_license = ?" +
-                "WHERE user_id = " + user.getUserId();
-        Query query = entityManager.createNativeQuery(sql);
-        query.setParameter(1, user.getEmail());
-        query.setParameter(2, user.getPhone());
-        query.setParameter(3, user.getDriverLicense());
-        query.executeUpdate();
+//        String sql = "UPDATE service_user SET email = ? , phone =? , driver_license = ?" +
+//                "WHERE user_id = " + user.getUserId();
+//        Query query = entityManager.createNativeQuery(sql);
+//        query.setParameter(1, user.getEmail());
+//        query.setParameter(2, user.getPhone());
+//        query.setParameter(3, user.getDriverLicense());
+//        query.executeUpdate();
+        entityManager.merge(user);
     }
 
     @Override
@@ -316,7 +318,7 @@ public class UserDAOBean implements UserDAO {
         Integer result;
         try {
             result = (Integer) query.getSingleResult();
-            if (result > 3) {
+            if (result > BLACK_LIST_IGNORED_TIMES) {
                 blackListPresent = true;
             }
         } catch (NoResultException | NullPointerException e) {
