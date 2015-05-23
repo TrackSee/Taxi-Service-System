@@ -38,7 +38,7 @@
   <div id="page-wrapper">
     <div class="row">
       <div class="col-lg-12">
-        <h1 class="page-header">Driver dashboard</h1>
+        <h1 class="page-header">Driver profile</h1>
       </div>
       <!-- /.col-lg-12 -->
     </div>
@@ -81,10 +81,6 @@
                     <td>${driver.phone != null ? driver.phone : "No phone number"} </td>
                     </tr>
                     <tr>
-                      <td>Car number</td>
-                      <td>${driver.car.carNumber != null ? driver.car.carNumber : "No car"}</td>
-                    </tr>
-                    <tr>
                       <td>Driver license</td>
                       <td>${driver.driverLicense != null ? driver.driverLicense : "No driver license"}</td>
                     </tr>
@@ -107,11 +103,61 @@
               </div>
             </div>
 
-
-          </div>
         </div>
       </div>
     </div>
+
+      <div class="placement">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0
+        col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+
+
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">Information about car</h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-3 col-lg-3 " align="center">  </div>
+
+                  <div class=" col-md-9 col-lg-9 ">
+                    <table class="table table-user-information">
+                      <tbody>
+                      <tr>
+                        <td>Car number: </td>
+                        <td>${driver.car.carNumber != null ? driver.car.carNumber : "No car"}</td>
+                      </tr>
+                      <tr>
+                        <td>Color: </td>
+                        <td>${driver.car.carNumber != null ? driver.car.color : "No car"}</td>
+                      </tr>
+                      <tr>
+                        <td>Type: </td>
+                        <td>${driver.car.carNumber != null ? driver.car.carCategory : "No car"}</td>
+                      </tr>
+                      <tr>
+                        <td>Model: </td>
+                        <td>${driver.car.carNumber != null ? driver.car.carModel : "No car"}</td>
+                      </tr>
+                      <tr>
+                        <td>Visa terminal: </td>
+                        <td>${order.acceptsVisa==true ? "+" : "-"}</td>
+                      </tr>
+                      <tr>
+                        <td>Air conditioner: </td>
+                        <td>${order.airConditioner==true ? "+" : "-"}</td>
+                      </tr>
+                      <tr>
+                        <td>Wi-fi: </td>
+                        <td>${order.freeWifi==true ? "+" : "-"}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                    </div>
+                  </div>
+                </div>
+
     <%--End profile container--%>
 
 
