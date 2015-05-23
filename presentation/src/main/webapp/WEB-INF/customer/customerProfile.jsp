@@ -68,9 +68,9 @@
             <form method="post" action="<c:url value="/orderTracking"/>">
 
                 <input type="hidden"  name="trackingNumber" id="trackingNumber" value="${order.trackingNumber}">
-          <%--<div>--%>
-            <%--<p class="service<%=i%>"><b>SERVICE:</b> ${order.service}</p>--%>
-          <%--</div>--%>
+          <div>
+            <p class="service<%=i%>"><b>SERVICE:</b> ${order.service}</p>
+          </div>
           <div>
             <p class="status<%=i%>"><b>STATUS:</b> ${order.status}</p>
           </div>
