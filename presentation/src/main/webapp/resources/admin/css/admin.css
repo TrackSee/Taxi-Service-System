@@ -56,3 +56,6 @@
 .adminPic {
     margin: 0px 30%;
 }
+.widthStyle{
+    min-width: 500px;
+}

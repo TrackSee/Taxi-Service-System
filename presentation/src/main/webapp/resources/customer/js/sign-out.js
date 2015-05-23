@@ -10,9 +10,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     function updateHeader() {
-        if (window.location.href.contains('customer') ||
-            window.location.href.contains('admin') ||
-            window.location.href.contains('driver'))
+        if (window.location.href.indexOf('customer') != -1 ||
+            window.location.href.indexOf('admin')    != -1 ||
+            window.location.href.indexOf('driver')   != -1)
         {
             window.location.href = getContextPath();
         } else {
