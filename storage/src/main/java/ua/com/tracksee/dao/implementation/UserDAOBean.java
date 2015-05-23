@@ -21,6 +21,7 @@ import java.util.List;
  */
 @Stateless
 public class UserDAOBean implements UserDAO {
+    private static final int BLACK_LIST_IGNORED_TIMES=2;
     private static final Logger logger = LogManager.getLogger();
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
@@ -317,7 +318,7 @@ public class UserDAOBean implements UserDAO {
         Integer result;
         try {
             result = (Integer) query.getSingleResult();
-            if (result > 3) {
+            if (result > BLACK_LIST_IGNORED_TIMES) {
                 blackListPresent = true;
             }
         } catch (NoResultException | NullPointerException e) {

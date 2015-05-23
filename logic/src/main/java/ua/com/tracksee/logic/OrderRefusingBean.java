@@ -17,7 +17,7 @@ import javax.ejb.Stateless;
 @Stateless
 public class OrderRefusingBean {
     private static final Logger logger = LogManager.getLogger();
-
+    private static final int IGNORED_TIMES=2;
     private @EJB
     RefuseDAO refuseDAO;
     private @EJB TaxiOrderDAO taxiOrderDAO;
@@ -27,7 +27,7 @@ public class OrderRefusingBean {
     public void refuseOrder(long trackingNumber) {
         refuseDAO.refuseOrder(trackingNumber);
         int refusedTimes= refuseDAO.getUserRefusedTimes(trackingNumber);
-        if(refusedTimes>2){
+        if(refusedTimes>IGNORED_TIMES){
             sendEmail(userDAO.getUserById(taxiOrderDAO.getOrder(trackingNumber).getUserId()), trackingNumber);
         }
     }

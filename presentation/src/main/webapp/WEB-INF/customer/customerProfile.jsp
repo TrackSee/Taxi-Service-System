@@ -41,20 +41,10 @@
 
   <!--start: Container -->
   <div class="container">
-      <div class="form-group">
-          <form method="post" action="<c:url value="/orderTracking"/>">
-              <label>Tracking number</label>
-              <input type="number"  class="form-control" name="trackingNumber"
-                     placeholder="Enter your tracking number"
-                     title="Only integer number" required>
-              <div class="form-group">
-                  <div class="form-group">
-                      <button type="submit" class="btn btn-success btn-large">
-                          Track your taxi order</button>
-                  </div>
-              </div>
-          </form>
-      </div>
+      <form method="get" action="<c:url value="/orderTracking"/>">
+      <button type="submit" class="btn btn-info btn-large">
+          Track your TO by tracking number</button>
+    <form>
     <!-- start: Row -->
     <div class="row orderRow">
     <%!int i = 0;%>
@@ -68,9 +58,9 @@
             <form method="post" action="<c:url value="/orderTracking"/>">
 
                 <input type="hidden"  name="trackingNumber" id="trackingNumber" value="${order.trackingNumber}">
-          <div>
-            <p class="service<%=i%>"><b>SERVICE:</b> ${order.service}</p>
-          </div>
+          <%--<div>--%>
+            <%--<p class="service<%=i%>"><b>SERVICE:</b> ${order.userId}</p>--%>
+          <%--</div>--%>
           <div>
             <p class="status<%=i%>"><b>STATUS:</b> ${order.status}</p>
           </div>
