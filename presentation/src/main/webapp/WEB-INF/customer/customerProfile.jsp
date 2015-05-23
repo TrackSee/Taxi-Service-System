@@ -41,6 +41,10 @@
 
   <!--start: Container -->
   <div class="container">
+      <form method="get" action="<c:url value="/orderTracking"/>">
+      <button type="submit" class="btn btn-info btn-large">
+          Track your TO by tracking number</button>
+    <form>
     <!-- start: Row -->
     <div class="row orderRow">
     <%!int i = 0;%>
