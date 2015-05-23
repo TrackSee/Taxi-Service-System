@@ -53,8 +53,7 @@
         <div class="title"><h3>Extended Booking Taxi</h3></div>
         <form method="post" action="<c:url value="/updateOrder"/>">
             <div hidden="hidden">
-                <input type="text" id="pathOrigin" value="${pathOrigin}">
-                <input type="text" id="pathDestination"  value="${pathDestination}">
+                <input type="text" id="path" value="${path}">
             </div>
             <label id="hideTrackingNumberSecond">
                 <input type="text" name="trackingNumber" value="${trackingNumber}" >
