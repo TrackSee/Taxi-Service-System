@@ -316,7 +316,7 @@ public class UserDAOBean implements UserDAO {
         Integer result;
         try {
             result = (Integer) query.getSingleResult();
-            if (result > 3) {
+            if (result > 2) {
                 blackListPresent = true;
             }
         } catch (NoResultException | NullPointerException e) {

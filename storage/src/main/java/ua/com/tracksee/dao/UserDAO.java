@@ -91,6 +91,7 @@ public interface UserDAO {
      * @author Sharaban Sasha
      */
     public List<UserEntity> getUnregisteredUsers();
+
     /**
      * Returns user with the specified email address.
      *
