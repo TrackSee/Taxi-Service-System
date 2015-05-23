@@ -29,9 +29,9 @@ import java.util.*;
 @Stateless
 public class TaxiOrderDAOBean implements TaxiOrderDAO {
     private static final Logger logger = LogManager.getLogger();
+    private static final String IS_DRIVER_GENDER_NULL = "'A'";
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
-    private static final String IS_DRIVER_GENDER_NULL = "'A'";
 
     @Override
     public int updateComment(long trackNumber, String comment) {
@@ -336,12 +336,13 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
             logger.error("One of params is wrong!");
             throw new IllegalArgumentException("One of params is wrong!");
         }
-        Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order WHERE user_id=?1 AND status = " +
-                "'COMPLETED' or status = 'REFUSED' " +
+        Query query = entityManager.createNativeQuery("SELECT * FROM taxi_order WHERE user_id= ?1 AND (status = " +
+                "'COMPLETED' OR status = 'REFUSED') " +
                 "ORDER BY ordered_date DESC LIMIT ?2 OFFSET ?3", TaxiOrderEntity.class);
         query.setParameter(1, userID);
         query.setParameter(2, TO_ORDERS_PER_PAGE);
         query.setParameter(3, (partNumber - 1) * TO_ORDERS_PER_PAGE);
+        System.out.println("return size: " + query.getResultList().size());
         return query.getResultList();
     }
 
