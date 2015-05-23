@@ -41,20 +41,6 @@
 
   <!--start: Container -->
   <div class="container">
-      <div class="form-group">
-          <form method="post" action="<c:url value="/orderTracking"/>">
-              <label>Tracking number</label>
-              <input type="number"  class="form-control" name="trackingNumber"
-                     placeholder="Enter your tracking number"
-                     title="Only integer number" required>
-              <div class="form-group">
-                  <div class="form-group">
-                      <button type="submit" class="btn btn-success btn-large">
-                          Track your taxi order</button>
-                  </div>
-              </div>
-          </form>
-      </div>
     <!-- start: Row -->
     <div class="row orderRow">
     <%!int i = 0;%>
@@ -110,7 +96,6 @@
 <%@include file="../parts/scripts.jsp" %>
 <%--<%@include file="../parts/footer.jsp" %>--%>
 <script src="<%=application.getContextPath()%>/resources/customer/js/customer.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/excelReports.js"></script>
 
 </body>
 </html>
