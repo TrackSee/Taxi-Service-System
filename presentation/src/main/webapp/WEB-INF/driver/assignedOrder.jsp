@@ -28,10 +28,29 @@
 
   <!-- Bootstrap editable-->
   <link href="<%=application.getContextPath()%>/resources/css/bootstrap-editable.css" rel="stylesheet">
+  
+  <script>
+    window.onbeforeunload = close;
+    function close(){
+      $.ajax({
+        type: 'POST',
+        async: false,
+        url: '../admin/userdash',
+        success: function() {
+
+        }
+      });
+    }
+  </script>
+  
 </head>
 <body>
 <div id="wrapper">
-  <jsp:include page="driverHeader.jsp"/>
+
+  <c:set var="ID_USER_VALUE" value="${sessionScope.get('isAdmin')}" />
+  <c:if test="${ID_USER_VALUE == null}" >
+    <jsp:include page="driverHeader.jsp"/>
+  </c:if>
 
   <div id="page-wrapper">
 
@@ -174,6 +193,10 @@
                 </section>
               </c:forEach>
               <!-- /Plans -->
+			  <c:if test="${ID_USER_VALUE != null}" >
+				<button type="button" class="btn btn-default" onclick="closeAndGo();">Back</button>
+			  </c:if>
+			  
     <%--Pagination--%>
     <div class="text-center">
       <ul class="pagination">
@@ -287,6 +310,20 @@
 
 </div>
 <!-- /#wrapper -->
+
+<script src="<%=application.getContextPath()%>/resources/driver/js/jquery.min.js"></script>
+<c:if test="${ID_USER_VALUE != null}" >
+  <script>
+    $("form").hide();
+  </script>
+</c:if>
+
+<script>  
+  function closeAndGo() {
+    close();
+    window.location.replace('../admin/searchdriver');
+  }
+</script>
 
 <!-- jQuery Version 1.11.2 -->
 <script src="<%=application.getContextPath()%>/resources/js/jquery-1.11.2.min.js"></script>
