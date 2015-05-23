@@ -63,8 +63,6 @@
                 <option value="BUSINESS_CLASS">BUSINESS CLASS</option>
                 <option value="ECONOMY_CLASS">ECONOMY CLASS</option>
                 <option value="VAN">VAN</option>
-                <option value="USER_CAR">USER_CAR</option>
-
             </select>
         </div>
         <div class="form-group">

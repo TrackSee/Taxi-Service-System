@@ -46,6 +46,10 @@ $(document).ready(function () {
             data: data,
             success: function(data){
                 window.location.href = 'drivers';
+            },
+            error: function(jqXHR, error, errorThrown) {
+                window.location.replace("drivers");
+                alert('Sorry, but such user already exist!');
             }
         });
     });

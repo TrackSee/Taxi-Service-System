@@ -45,8 +45,9 @@ public class AdminCreateDriverServlet extends HttpServlet {
             adminFacade.createUser(user);
         } catch (RegistrationException e) {
             logger.warn(e.getMessage());
-            resp.getWriter().append(e.getErrorType());
-            return;
+            resp.setStatus(405);
+           // resp.getWriter().append(e.getErrorType());
+            //return;
         }
     }
 
