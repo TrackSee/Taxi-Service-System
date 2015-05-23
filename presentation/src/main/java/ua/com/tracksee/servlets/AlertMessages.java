@@ -21,11 +21,12 @@ public interface AlertMessages {
             "successfully and you was assigned to such tracking number: ";
     String ORDER_SUCCESS_MESSAGE_WITHOUT_TRACK_NUMB = " Your order accepted for further processing " +
             "successfully and order number by which it can be tracked has been sent to your email.";
-    String ORDER_WARNING="orderWarning";
-    String ORDER_WARNING_BLACK_LIST_MESSAGE = "Your order has been rejected because you refused three" +
-            " orders that you have made and so you been put in the black list.";
-    String ORDER_WARNING_AUTHORISE_MESSAGE = "Your order has been rejected because you have used" +
-            "email address of registered user, if you is registered user, please login to make order ";
+    String ORDER_DANGER ="orderDanger";
+    String ORDER_WARNING ="orderWarning";
+    String ORDER_DANGER_BLACK_LIST_MESSAGE = "Your order has been rejected! You refused three orders and therefore " +
+            " your account has been locked, to unlock it, contact the administrator";
+    String ORDER_WARNING_AUTHORISE_MESSAGE = "Your order has been rejected! To order, you have used email" +
+            " of registered user! If you are a registered user, sign in to make an order.";
     String HIDE_ORDER_TRACK="hideOrderTrack";
     String UPDATE_SUCCESS="updateSuccess";
     String UPDATE_SUCCESS_MESSAGE="Your order has been updated successfully!";
