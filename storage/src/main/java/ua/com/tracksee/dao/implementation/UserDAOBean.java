@@ -240,7 +240,7 @@ public class UserDAOBean implements UserDAO {
         UserEntity result;
         try {
             result = (UserEntity) query.getSingleResult();
-        } catch (NoResultException e) {
+        } catch (Exception e) {
             result = null;
         }
         return result;

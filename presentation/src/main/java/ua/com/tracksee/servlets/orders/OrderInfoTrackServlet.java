@@ -21,8 +21,8 @@ import java.io.IOException;
  * @author Sharaban Sasha
  */
 @WebServlet("/orderTracking")
-public class OrderInfoTrackServlet extends HttpServlet implements OrderAttributeNames,OrderAttributesValues,
-        AlertMessages,PageAddresses {
+public class OrderInfoTrackServlet extends HttpServlet implements OrderAttributeNames, OrderAttributesValues,
+        AlertMessages, PageAddresses {
 
     private
     @EJB
@@ -31,32 +31,39 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("pageName", "orderInfo");
         req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Integer userID=null;
-            userID = (Integer) req.getSession().getAttribute(USER_ID_ALIAS);
+        Integer userID;
+        userID = (Integer) req.getSession().getAttribute(USER_ID_ALIAS);
         try {
             long trackingNumber = Long.parseLong(req.getParameter(TRACKING_NUMBER_ALIAS));
             if (userID == null) {
                 if (orderFacade.checkOrderPresentNonActiveUser(trackingNumber)) {
                     TaxiOrderEntity taxiOrderEntity = setParametersToPage(req, resp, trackingNumber);
                     redirectByOrderStatus(taxiOrderEntity, req, resp);
-                }else{
-                    nonExistTrackNumberAlert(req, resp);}
-            }else {
+                } else if (orderFacade.checkOrderPresentActiveUser(trackingNumber)) {
+                    activeUserAlert(req, resp);
+                } else {
+                    nonExistTrackNumberAlert(req, resp);
+                }
+            } else {
                 if (orderFacade.checkOrderPresentForActiveUser(trackingNumber, userID)) {
                     TaxiOrderEntity taxiOrderEntity = setParametersToPage(req, resp, trackingNumber);
                     redirectByOrderStatus(taxiOrderEntity, req, resp);
-                }else{
-                    nonExistTrackNumberAlert(req, resp);}
+                }else if (orderFacade.checkOrderPresentActiveUser(trackingNumber)) {
+                    activeUserAlert(req, resp);
+                }else if (orderFacade.checkOrderPresentNonActiveUser(trackingNumber)) {
+                    nonActiveUserAlert(req, resp);
+                } else {
+                    nonExistTrackNumberAlert(req, resp);
+                }
             }
         } catch (NumberFormatException e) {
             logger.error("invalid tracking number " + e);
-         nonExistTrackNumberAlert(req,resp);
+            nonExistTrackNumberAlert(req, resp);
         } catch (Exception e) {
             logger.error(e.getMessage());
             req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
@@ -71,7 +78,7 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
 
         req.setAttribute(TRACKING_NUMBER_ALIAS, trackingNumber);
         req.setAttribute(PHONE_NUMBER_ALIAS, userEntity.getPhone());
-        req.setAttribute(EMAIL_ALIAS,userEntity.getEmail());
+        req.setAttribute(EMAIL_ALIAS, userEntity.getEmail());
 
         req.setAttribute(PRICE_ALIAS, taxiOrderEntity.getPrice());
 
@@ -108,30 +115,36 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
         }
         return taxiOrderEntity;
     }
+
     private void nonExistTrackNumberAlert(HttpServletRequest req,
                                           HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute(NON_EXIST_TRACKING_NUMBER_WARNING,
-                orderFacade.getSuccessAlert(NON_EXIST_TRACKING_NUMBER_WARNING_MESSAGE));
+        req.setAttribute(NON_EXIST_TRACKING_DANGER,
+                orderFacade.getDangerAlert(NON_EXIST_TRACKING_NUMBER_DANGER_MESSAGE));
         req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
     }
-    private void brokenOrderAlert(HttpServletRequest req,
-                                  HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute(NON_EXIST_TRACKING_NUMBER_WARNING,
-                orderFacade.getSuccessAlert(NON_EXIST_TRACKING_NUMBER_WARNING_MESSAGE));
+
+    private void activeUserAlert(HttpServletRequest req,
+                                 HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute(ACTIVE_USER_ORDER_WARNING,
+                orderFacade.getWarningAlert(ACTIVE_USER_ORDER_MESSAGE));
         req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
     }
+    private void nonActiveUserAlert(HttpServletRequest req,
+                               HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute(NON_ACTIVE_USER_ORDER_WARNING,
+                orderFacade.getWarningAlert(NON_ACTIVE_USER_ORDER_MESSAGE));
+        req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
+    }
+
 
     private void redirectByOrderStatus(TaxiOrderEntity taxiOrderEntity, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         if (taxiOrderEntity.getStatus() == OrderStatus.REFUSED ||
                 taxiOrderEntity.getStatus() == OrderStatus.COMPLETED) {
-
             req.getRequestDispatcher(ORDER_TRACK_COMPLETE_PAGE).forward(req, resp);
-
         } else {
-
             req.getRequestDispatcher(ORDER_TRACK_PAGE).forward(req, resp);
 
         }
-        }
     }
+}
