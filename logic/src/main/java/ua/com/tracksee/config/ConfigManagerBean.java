@@ -28,6 +28,6 @@ public class ConfigManagerBean {
     }
 
     public void setMinimalOrderDistance(double minimalOrderDistance) {
-       // configDao.saveConfig(new ConfigEntity(MINIMAL_ORDER_DISTANCE, Double.toString(minimalOrderDistance)));
+       configDao.saveConfig(new ConfigEntity(MINIMAL_ORDER_DISTANCE, Double.toString(minimalOrderDistance)));
     }
 }
