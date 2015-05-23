@@ -15,7 +15,7 @@ import java.util.List;
 @Local
 public interface UserDAO {
     //13 drivers per query by default
-    int DRIVERS_PAGE_SIZE = 12;
+    int DRIVERS_PAGE_SIZE = 30;
 
     /**
      * @param partNumber - number of data part
