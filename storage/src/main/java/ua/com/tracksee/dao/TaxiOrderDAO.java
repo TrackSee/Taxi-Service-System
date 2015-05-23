@@ -18,7 +18,7 @@ import java.util.Map;
 @Local
 public interface TaxiOrderDAO {
     int TO_ORDERS_PER_PAGE = 3;
-    int ORDERS_PAGE_SIZE = 1;
+    int ORDERS_PAGE_SIZE = 3;
 
     void addComment(TaxiOrderEntity taxiOrderEntity);
 

@@ -16,7 +16,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="/TaxiService/">TrackSee</a>
+    <a class="navbar-brand" href="<c:url value="/"/>">TrackSee</a>
   </div>
   <!-- /.navbar-header -->
 
