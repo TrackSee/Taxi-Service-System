@@ -36,8 +36,8 @@
         <!-- start: Container -->
         <div class="container">
 
-            <h2><i class="ico-settings ico-white"></i>Order tracking (tracking number: ${trackingNumber})</h2>
-
+            <h2><i class="ico-settings ico-white"></i>
+                Order tracking (tracking number: ${trackingNumber},order status: ${orderStatus})</h2>
         </div>
         <!-- end: Container  -->
 
@@ -53,8 +53,7 @@
         <div class="title"><h3>Extended Booking Taxi</h3></div>
         <form method="post" action="<c:url value="/updateOrder"/>">
             <div hidden="hidden">
-                <input type="text" id="pathOrigin" value="${pathOrigin}">
-                <input type="text" id="pathDestination"  value="${pathDestination}">
+                <input type="text" id="path" value="${path}">
             </div>
             <label id="hideTrackingNumberSecond">
                 <input type="text" name="trackingNumber" value="${trackingNumber}" >

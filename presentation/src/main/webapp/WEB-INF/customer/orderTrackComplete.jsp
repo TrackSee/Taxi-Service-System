@@ -38,7 +38,8 @@
         <!-- start: Container -->
         <div class="container">
 
-            <h2><i class="ico-settings ico-white"></i>Order tracking</h2>
+            <h2><i class="ico-settings ico-white"></i>
+                Order tracking (tracking number: ${trackingNumber},order status: ${orderStatus})</h2>
 
         </div>
         <!-- end: Container  -->
@@ -54,8 +55,7 @@
     <div id="input-form" class="container">
         <div class="title"><h3>Extended Booking Taxi</h3></div>
         <div hidden="hidden">
-            <input type="text" id="pathOrigin" value="${pathOrigin}">
-            <input type="text" id="pathDestination"  value="${pathDestination}">
+            <input type="text" id="path" value="${path}">
         </div>
             <div class="form-group">
                 <label>Phone number</label>

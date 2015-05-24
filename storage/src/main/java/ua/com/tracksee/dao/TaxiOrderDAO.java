@@ -84,6 +84,17 @@ public interface TaxiOrderDAO {
      */
     TaxiOrderEntity getOrder(Long trackingNumber);
 
+    /**
+     * Checks order present in
+     * database with such trackingNumber
+     * and assigned to activated user.
+     *
+     *
+     * @author Sharaban Sasha
+     * @param trackingNumber  tracking number of order
+     * @return state of order presenting
+     */
+    public boolean checkOrderPresentActiveUser(Long trackingNumber);
 
     /**
      * Checks order present in

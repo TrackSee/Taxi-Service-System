@@ -91,6 +91,13 @@ public class OrderFacade {
     public boolean checkOrderPresentForActiveUser(long trackingNumber,int userId) {
         return taxiOrderBean.checkOrderPresentForActiveUser(trackingNumber, userId);
     }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.logic.TaxiOrderBean
+     */
+    public boolean checkOrderPresentActiveUser(long trackingNumber) {
+        return taxiOrderBean.checkOrderPresentActiveUser(trackingNumber);
+    }
 
     /**
      * @author Sharaban Sasha
