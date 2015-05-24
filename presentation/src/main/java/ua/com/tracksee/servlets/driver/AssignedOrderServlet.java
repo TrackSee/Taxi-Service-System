@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Created by Maria Komar on 30.04.2015.
  */
-@WebServlet("driver/assigned-order")
+@WebServlet("/driver/assigned-order")
 public class AssignedOrderServlet extends HttpServlet {
     private static Logger logger = LogManager.getLogger();
     @EJB
@@ -62,7 +62,7 @@ public class AssignedOrderServlet extends HttpServlet {
         //check pageNumber
         try {
             pagenumber = Integer.parseInt(req.getParameter("pagenumber"));
-            if(pagenumber > orderFacade.getOrdersPagesCountAssigned(id)){
+            if(pagenumber > orderFacade.getOrdersPagesCountAssigned(id).intValue()){
                 pagenumber = 1;
                 logger.warn("wrong page was request");
             }

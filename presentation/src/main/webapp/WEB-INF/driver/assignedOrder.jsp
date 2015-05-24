@@ -26,11 +26,17 @@
   <!-- Custom Fonts -->
   <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-  <!-- Bootstrap editable-->
-  <link href="<%=application.getContextPath()%>/resources/css/bootstrap-editable.css" rel="stylesheet">
+  <%--<!-- Bootstrap editable-->--%>
+  <%--<link href="<%=application.getContextPath()%>/resources/css/bootstrap-editable.css" rel="stylesheet">--%>
+
+  <%--START JS for pagination--%>
+  <script src="<c:url value="/webjars/angularjs/1.3.15/angular.min.js"/>"></script>
+  <script src="<c:url value="/webjars/angular-utils-pagination/0.7.0/dirPagination.js"/>"></script>
+  <script src="<%=application.getContextPath()%>/resources/driver/js/assigned-orders-pagination.js"></script>
+  <%--END JS for pagination--%>
 </head>
 <body>
-<div id="wrapper">
+<div id="wrapper" ng-app="driver" ng-controller="assignedOrdersController">
   <jsp:include page="driverHeader.jsp"/>
 
   <div id="page-wrapper">
@@ -42,245 +48,142 @@
       <!-- /.col-lg-12 -->
     </div>
 
+    <!-- Plans -->
+    <section id="plans">
+      <div class="container">
+        <div class="row">
 
-                        <!-- Plans -->
-              <c:forEach items="${requestScope.orders}" var="order">
-                <section id="plans">
-                  <div class="container">
-                    <div class="row">
-
-                      <!-- item -->
-                      <div class="col-md-9 text-center">
-                        <div class="panel panel-success panel-pricing">
-                          <div class="panel-heading">
-                            <c:set var="startPoint" value="${order.itemList[0].path.getStartPoint()}"/>
-                            <c:set var="endPoint" value="${order.itemList[0].path.getEndPoint()}"/>
-                            <div class="map-canvas">
-                              <iframe frameborder="0" width="100%" height="250"
-                                      src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin=${pageScope.startPoint.getX()},${pageScope.startPoint.getY()}&destination=${pageScope.endPoint.getX()},${pageScope.endPoint.getY()}">
-                              </iframe>
-                            </div>
-                          </div>
-
-                          <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                            <thead>
-                            <tr>
-                              <th>#</th>
-                              <th>Service</th>
-                              <c:set var="hide2" scope="session" value="hidden=\"hidden\""/>
-                              <c:choose>
-                                <c:when test="${order.service == 'CELEBRATION_TAXI'}">
-                                  <th>Duration</th>
-                                </c:when>
-                                <c:when test="${order.service == 'TAXI_FOR_LONG_TERM'}">
-                                  <th>Duration</th>
-                                </c:when>
-                              </c:choose>
-                              <th>Order time</th>
-                              <th>Car arrive time</th>
-                              <th>Price</th>
-                              <th>Status</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="odd gradeX">
-                              <td>${order.trackingNumber}</td>
-                              <td>
-                                <c:set var="string7" value="${order.service}"/>
-                                <c:set var="string8" value="${fn:toLowerCase(string7)}" />
-                                <c:set var="string9" value="${fn:replace(string8,
-                                '_', ' ')}" />
-                                  ${string9}
-                              </td>
-                              <c:set var="hide2" scope="session" value="hidden=\"hidden\""/>
-                              <c:choose>
-                                <c:when test="${order.service == 'CELEBRATION_TAXI'}">
-                                  <td>${order.amountOfHours} : ${order.amountOfMinutes}</td>
-                                </c:when>
-                                <c:when test="${order.service == 'TAXI_FOR_LONG_TERM'}">
-                                  <td>${order.amountOfHours} : ${order.amountOfMinutes}</td>
-                                </c:when>
-                              </c:choose>
-                              <td>
-                                <fmt:formatDate value="${order.orderedDate}" pattern="yyyy-MM-dd HH:mm:ss" />
-                              </td>
-                              <td>
-                                <fmt:formatDate value="${order.arriveDate}" pattern="yyyy-MM-dd HH:mm:ss" />
-                              </td>
-                              <td>${order.price}</td>
-                              <td>
-                                <c:set var="string4" value="${order.status}"/>
-                                <c:set var="string5" value="${fn:toLowerCase(string4)}" />
-                                <c:set var="string6" value="${fn:replace(string5,
-                                '_', ' ')}" />
-                                  ${string6}
-                              </td>
-                            </tr>
-                            </tbody>
-                          </table>
-
-                          <div class="panel-footer">
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                              <tbody>
-                              <tr class="odd gradeX">
-                                <td> <form action="assigned-order" method="post">
-                                  <a href="javascript:;" onclick="parentNode.submit();">
-                                    <button type="button" class="btn btn-danger">Refuse</button></a>
-                                  <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
-                                  <input type="hidden" name="orderStatus" value="Toqueue">
-                                </form></td>
-                                <td>
-                                  <form action="assigned-order" method="post">
-                                    <a href="javascript:;" onclick="parentNode.submit();">
-                                      <button type="button" class="btn btn-info">Customer not arrived</button></a>
-                                    <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
-                                    <input type="hidden" name="orderStatus" value="Refused">
-                                  </form>
-                                </td>
-                                <td>
-                                  <c:set var="inputDisplay" value="IN_PROGRESS" />
-                                  <c:choose>
-                                    <c:when test="${order.status == 'IN_PROGRESS'}">
-                                      <button type="button" class="btn btn-warning">In progress</button>
-                                    </c:when>
-                                    <c:otherwise>
-                                      <form action="assigned-order" method="post">
-                                        <a href="javascript:;" onclick="parentNode.submit();">
-                                          <button type="button" class="btn btn-primary">In progress</button></a>
-                                        <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
-                                        <input type="hidden" name="orderStatus" value="In progress">
-                                      </form>
-                                    </c:otherwise>
-                                  </c:choose>
-                                </td>
-                                <td>
-                                  <form action="assigned-order" method="post">
-                                    <a href="javascript:;" onclick="parentNode.submit();">
-                                      <button type="button" class="btn btn-success">Complete</button></a>
-                                    <input type="hidden" name="trackingNumber" value=${order.trackingNumber}>
-                                    <input type="hidden" name="orderStatus" value="Completed">
-                                  </form>
-                                </td>
-                                </tr>
-                              </tbody>
-                              </table>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- /item -->
-
-                    </div>
-                  </div>
-                </section>
-              </c:forEach>
-              <!-- /Plans -->
-    <%--Pagination--%>
-    <div class="text-center">
-      <ul class="pagination">
-        <c:if test="${requestScope.pagenumber != 1}">
-          <li class="dropdown pull-left">
-            <form action="assigned-order" method="post">
-              <a href="javascript:;" onclick="parentNode.submit();">
-                <button type="button" class="btn btn-default" aria-label="Previous">
-                  Previous</button></a>
-              <input type="hidden" name="pagenumber" value=${requestScope.pagenumber - 1}>
-            </form>
-          </li>
-        </c:if>
-        <c:forEach begin="1" end="${requestScope.pagesCount}" var="i">
-          <c:choose>
-            <c:when test="${requestScope.pagenumber eq i}">
-              <li class="dropdown pull-left"><button type="button" class="btn btn-default" aria-label="Next">
-                  ${i}</button></li>
-            </c:when>
-            <c:otherwise>
-              <li class="dropdown pull-left">
-                <form action="assigned-order" method="post">
-                  <a href="javascript:;" onclick="parentNode.submit();">
-                    <button type="button" class="btn btn-default" aria-label="Next">
-                        ${i}</button></a>
-                  <input type="hidden" name="pagenumber" value=${i}>
-                </form>
-              </li>
-            </c:otherwise>
-          </c:choose>
-        </c:forEach>
-        <c:if test="${requestScope.pagesCount != 0}">
-        <c:if test="${requestScope.pagenumber != requestScope.pagesCount}">
-          <li class="dropdown pull-left">
-            <form action="assigned-order" method="post">
-              <a href="javascript:;" onclick="parentNode.submit();">
-                <button type="button" class="btn btn-default" aria-label="Next">
-                  Next</button></a>
-              <input type="hidden" name="pagenumber" value=${requestScope.pagenumber + 1}>
-            </form>
-          </li>
-        </c:if>
-          </c:if>
-      </ul>
-    </div>
-
-    <%--<div class="text-center">--%>
-      <%--<ul class="pagination">--%>
-        <%--<c:forEach var="i" begin="1" end="${requestScope.pagesCount}">--%>
-          <%--<li class="pageLi${i}"><a class="pageButton" href="#">${i}</a></li>--%>
-        <%--</c:forEach>--%>
-      <%--</ul>--%>
-    <%--</div>--%>
-
-          <!-- Pop up-->
-
-      <c:choose>
-        <c:when test="${status == 'true'}">
-          <script src="<%=application.getContextPath()%>/resources/driver/js/jquery.min.js"></script>
-          <script src="<%=application.getContextPath()%>/resources/driver/js/modalOrderInProgress.js"></script>
-
-          </head>
-          <body>
-          <div id="myModal" class="modal fade">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Warning</h4>
+          <!-- item -->
+          <div class="col-md-9 text-center"
+               dir-paginate="order in orders | itemsPerPage: ordersPerPage"
+               total-items="totalOrders"
+               current-page="pagination.current"
+               pagination-id="ordersPagination">
+            <div class="panel panel-success panel-pricing">
+              <div class="panel-heading">
+                <div class="map-canvas">
+                  <iframe frameborder="0" width="825" height="250"
+                          src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin=,&destination=,">
+                  </iframe>
                 </div>
-                <div class="modal-body">
-                  <p>Please be careful, you can not have two orders in "in progress" state!</p>
-                </div>
-                <div class="modal-footer">
-                  <form action="change-satus" method="post">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <input type="hidden" name="status" value="false">
-                    </form>
-                </div>
+              </div>
+
+              <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Service</th>
+                  <th ng-if="order.service == 'CELEBRATION_TAXI' || order.service == 'TAXI_FOR_LONG_TERM'">Duration</th>
+                  <th>Order time</th>
+                  <th>Car arrive time</th>
+                  <th>Price</th>
+                  <th>Non smoking</th>
+                  <th>Music</th>
+                  <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="odd gradeX">
+                  <td>{{ order.trackingNumber }}</td>
+                  <td>{{ order.service }}</td>
+                  <td ng-if="order.service == 'CELEBRATION_TAXI' || order.service == 'TAXI_FOR_LONG_TERM'">
+                    {{ order.amountOfHours }}: {{ order.amountOfMinutes }}
+                  </td>
+                  <td>{{ order.orderDate }}</td>
+                  <td>{{ order.arrivalDate }}</td>
+                  <td>{{ order.price }}</td>
+                  <td>{{ order.nonSmokingDriver? '+' : '-' }}</td>
+                  <td>{{ order.musicStyle }}</td>
+                  <td>{{ order.status }}</td>
+                </tr>
+                </tbody>
+              </table>
+
+              <div class="panel-footer">
+                <table class="table table-striped table-bordered table-hover">
+                  <tbody>
+                  <tr class="even gradeX">
+                    <td> <form action="<c:url value="/driver/assigned-order"/>" method="post">
+                      <a href="javascript:" onclick="parentNode.submit();">
+                        <button type="button" class="btn btn-danger">Refuse</button>
+                      </a>
+                      <input type="hidden" name="trackingNumber" value="{{ order.trackingNumber }}">
+                      <input type="hidden" name="orderStatus" value="Toqueue">
+                    </form></td>
+                    <td>
+                      <form action="<c:url value="/driver/assigned-order"/>" method="post">
+                        <a href="javascript:" onclick="parentNode.submit();">
+                          <button type="button" class="btn btn-info">Customer not arrived</button></a>
+                        <input type="hidden" name="trackingNumber" value="{{ order.trackingNumber }}">
+                        <input type="hidden" name="orderStatus" value="Refused">
+                      </form>
+                    </td>
+                    <td>
+                      <button ng-if="order.status == 'IN_PROGRESS'" type="button" class="btn btn-warning">In progress</button>
+                      <form ng-if="order.status != 'IN_PROGRESS'" action="<c:url value="/driver/assigned-order"/>" method="post">
+                        <a href="javascript:" onclick="parentNode.submit();">
+                          <button type="button" class="btn btn-primary">In progress</button></a>
+                        <input type="hidden" name="trackingNumber" value="{{ order.trackingNumber }}">
+                        <input type="hidden" name="orderStatus" value="In progress">
+                      </form>
+                    </td>
+                    <td>
+                      <form action="<c:url value="/driver/assigned-order"/>" method="post">
+                        <a href="javascript:" onclick="parentNode.submit();">
+                          <button type="button" class="btn btn-success">Complete</button></a>
+                        <input type="hidden" name="trackingNumber" value="{{ order.trackingNumber }}">
+                        <input type="hidden" name="orderStatus" value="Completed">
+                      </form>
+                    </td>
+                    </tr>
+                  </tbody>
+                  </table>
               </div>
             </div>
           </div>
-        </c:when>
-          </c:choose>
-          <!-- end pop up -->
+          <!-- /item -->
 
-              <div class="text-center">
-                <ul class="pagination">
-                  <%--not ready
-                  <c:forEach var="i" begin="1" end="${requestScope.pagesCount}">
-                    <li class="pageLi${i}"><a class="pageButton" href="#">${i}</a></li>
-                  </c:forEach>
-                  --%>
-                </ul>
-              </div>
-            </div>
-            <!-- /.table-responsive -->
-
-          </div>
-          <!-- /.panel-body -->
         </div>
-        <!-- /.panel -->
       </div>
-      <!-- /.col-lg-12 -->
-    </div>
-    <!-- /.row -->
+    </section>
+    <!-- /Plans -->
 
+    <%--START Pagination--%>
+    <div class="text-center">
+      <dir-pagination-controls boundary-links="true"
+                               pagination-id="ordersPagination"
+                               on-page-change="pageChanged(newPageNumber)"
+                               template-url="<c:url value="/webjars/angular-utils-pagination/0.7.0/dirPagination.tpl.html"/>">
+      </dir-pagination-controls>
+    </div>
+    <%--END Pagination--%>
+
+
+    <!-- Pop up-->
+    <c:choose>
+      <c:when test="${status == 'true'}">
+    <div id="myModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Warning</h4>
+          </div>
+          <div class="modal-body">
+            <p>Please be careful, you can not have two orders in "in progress" state!</p>
+          </div>
+          <div class="modal-footer">
+            <form action="#" method="post">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <input type="hidden" name="status" value="false">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+      </c:when>
+    </c:choose>
+    <!-- end pop up -->
 
   </div>
   <!-- /#page-wrapper -->
@@ -288,17 +191,8 @@
 </div>
 <!-- /#wrapper -->
 
-<!-- jQuery Version 1.11.2 -->
-<script src="<%=application.getContextPath()%>/resources/js/jquery-1.11.2.min.js"></script>
-
-<!--
-<script src="../../../resources/js/jquery-1.11.2.js"></script>
-<script src="../../../resources/js/jquery.min.js"></script>
-<script type="text/javascript" language="javascript" src="../../../resources/js/jquery.js"></script>
--->
-
-<!-- Bootstrap Core JavaScript -->
-<script src="<%=application.getContextPath()%>/resources/js/bootstrap3/bootstrap.min.js"></script>
+<%@ include file="../parts/scripts.jsp"%>
+<script src="<%=application.getContextPath()%>/resources/driver/js/modalOrderInProgress.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/metisMenu.min.js"></script>

@@ -26,7 +26,7 @@
 
   <%--My resources--%>
   <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/admin/css/admin.css">
-  <script href="<%=application.getContextPath()%>/resources/admin/js/admin.js"></script>
+  <script src="<%=application.getContextPath()%>/resources/admin/js/admin.js"></script>
 
   <!-- Custom Fonts -->
   <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -121,13 +121,7 @@
 </div>
 <!-- /#wrapper -->
 
-<!-- jQuery Version 1.11.2 -->
-<script src="<%=application.getContextPath()%>/resources/js/jquery-1.11.2.min.js"></script>
-<!--
-<script src="../../../resources/js/jquery-1.11.2.js"></script>
-<script src="../../../resources/js/jquery.min.js"></script>
-<script type="text/javascript" language="javascript" src="../../../resources/js/jquery.js"></script>
--->
+<%@ include file="../parts/scripts.jsp"%>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap2/bootstrap.min.js"></script>
