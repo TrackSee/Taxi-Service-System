@@ -1,5 +1,5 @@
 /**
- * Created by Ruslan Gunavardana
+ * @author Ruslan Gunavardana
  */
 $(document).ready(function(){
     $('#form-sign-in').submit(function() {

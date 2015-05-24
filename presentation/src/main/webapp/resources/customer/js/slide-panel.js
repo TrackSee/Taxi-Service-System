@@ -2,7 +2,7 @@
  * Shows hidden block
  * of additional options in order.
  *
- * author Sharaban Sasha
+ * @author Sharaban Sasha
  */
 var visibleState = false;
 $("#flip").click(function () {

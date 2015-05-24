@@ -134,16 +134,13 @@
                     <input type="hidden" id="dtp_input1" value=""/><br/>
                 </div>
 
-                <div id="amountOfTripTimeBlock">
-                    <label>Amount time of trip</label>
-                    <div>
+                <div id="amountOfTripTimeBlock" class="row">
+                    <label>Duration</label>
                         <input type="number" pattern="[8-9 ()-]{1,25}$" id="amountOfHours"
                                class="form-control" name="amountOfHours"
                                placeholder="Amount of hours 8+"
                                title="Amount of hours 8+">
                         <span class="red-star">★</span>
-                    </div>
-                    <div>
                         <select class="form-control order_priority" name="amountOfMinutes" id="amountOfMinutes">
                             <option value="0">0  minutes</option>
                             <option value="5">5  minutes</option>
@@ -160,8 +157,6 @@
                             <option value="60">60 minutes</option>
 
                         </select>
-                    </div>
-
                 </div>
                 <%--<div>--%>
                     <%--<input type="number" pattern="[8-9 ()-]{1,25}$" id="amountOfMinutes" class="form-control" --%>
@@ -271,6 +266,7 @@
     function getMinDistance() { return ${requestScope.minimalOrderDistance}; }
 </script>
 <%-- END price list JS injection --%>
+
 <%--Google maps scripts--%>
 <script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order-maps.js"></script>

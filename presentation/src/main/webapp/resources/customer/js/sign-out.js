@@ -1,5 +1,5 @@
 /**
- * Created by Ruslan Gunavardana
+ * @author Ruslan Gunavardana
  */
 document.addEventListener("DOMContentLoaded", function(event) {
     $('#sign-out-button').click(function(){
