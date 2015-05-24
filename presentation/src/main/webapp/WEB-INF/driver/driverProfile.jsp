@@ -69,12 +69,12 @@
                     <tr>
                       <td>Sex</td>
                       <td>
-                        <c:set var="string1" value="${driver.sex}"/>
-                        <c:set var="string2" value="${fn:replace(string1,
+                        <c:set var="StringFromDB" value="${driver.sex}"/>
+                        <c:set var="stringToLoverCase" value="${fn:replace(StringFromDB,
                                 'M', 'male')}" />
-                        <c:set var="string3" value="${fn:replace(string2,
+                        <c:set var="stringConvert_ToSpace" value="${fn:replace(stringToLoverCase,
                                 'F', 'female')}" />
-                        ${string3}
+                        ${stringConvert_ToSpace}
                       </td>
                     </tr>
                     <td>Phone number</td>
@@ -134,7 +134,13 @@
                       </tr>
                       <tr>
                         <td>Type: </td>
-                        <td>${driver.car.carNumber != null ? driver.car.carCategory : "No car"}</td>
+                        <td>
+                          <c:set var="StringFromDB" value="${driver.car.carCategory}"/>
+                          <c:set var="stringToLoverCase" value="${fn:toLowerCase(StringFromDB)}" />
+                          <c:set var="stringConvert_ToSpace" value="${fn:replace(stringToLoverCase,
+                                '_', ' ')}" />
+                          ${stringConvert_ToSpace}
+                        </td>
                       </tr>
                       <tr>
                         <td>Model: </td>
