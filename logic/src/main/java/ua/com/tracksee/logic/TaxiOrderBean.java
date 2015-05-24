@@ -96,12 +96,12 @@ public class TaxiOrderBean {
 
         TaxiOrderEntity order = validateAndAssignDataToTaxiOrderEntity(inputData);
         UserEntity user = getUser(email, phone);
-        order.setUserId(user.getUserId());
+        order.setUser(user);
 
         // items initialisation
         for (RouteDTO route : orderDTO.getRoutes()) {
             LineString path = route.getRouteLineString();
-            BigDecimal orderedQuantity = new BigDecimal(route.getDistance());
+            BigDecimal orderedQuantity = route.getDistance();
             order.getItemList().add(new TaxiOrderItemEntity(path, orderedQuantity, order));
         }
 

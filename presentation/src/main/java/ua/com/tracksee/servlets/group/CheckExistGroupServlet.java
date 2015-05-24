@@ -1,8 +1,5 @@
 package ua.com.tracksee.servlets.group;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonPrimitive;
-import ua.com.tracksee.logic.GroupBean;
 import ua.com.tracksee.logic.facade.AdminFacade;
 
 import javax.ejb.EJB;

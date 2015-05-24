@@ -151,11 +151,15 @@ public interface TaxiOrderDAO {
     List<MostPopularOption> getMostPopularOptionsForUser(Integer userId);
     BigInteger getCountOptionalBool(String option, Integer userId);
 
+
     List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber);
-
     List<TaxiOrderEntity> getHistoryOfOrders(int id, int pageNumber);
-
     List<TaxiOrderEntity> getAssignedOrders(int id, int pageNumber);
+
+    BigInteger getOrdersPagesCountQueued(UserEntity driver);
+    BigInteger getOrdersPagesCountCompleted(int id);
+    BigInteger getOrdersPagesCountAssigned(int id);
+
 
     void setAssignOrder(int driverId, int trackingNumber, Timestamp carArriveTime);
 
@@ -166,12 +170,4 @@ public interface TaxiOrderDAO {
     void setRefusedOrder(int trackingNumber);
 
     void setToQueueOrder(int trackingNumber);
-
-    int getOrdersPagesCountCompleted(int id);
-
-    int getOrdersPagesCountQueued(UserEntity driver);
-
-    int getOrdersPagesCountAssigned(int id);
-
-    TaxiOrderItemEntity getPgPath(TaxiOrderEntity taxiOrderEntity);
 }

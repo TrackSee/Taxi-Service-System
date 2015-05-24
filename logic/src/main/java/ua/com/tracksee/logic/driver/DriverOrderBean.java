@@ -8,6 +8,7 @@ import ua.com.tracksee.logic.OrderRefusingBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -92,15 +93,15 @@ public class DriverOrderBean {
         //}
     }
 
-    public int getOrdersPagesCountCompleted(int id){
+    public BigInteger getOrdersPagesCountCompleted(int id){
         return taxiOrderDao.getOrdersPagesCountCompleted(id);
     }
 
-    public int getOrdersPagesCountQueued(UserEntity driver){
+    public BigInteger getOrdersPagesCountQueued(UserEntity driver){
         return taxiOrderDao.getOrdersPagesCountQueued(driver);
     }
 
-    public int getOrdersPagesCountAssigned(int id){
+    public BigInteger getOrdersPagesCountAssigned(int id){
         return taxiOrderDao.getOrdersPagesCountAssigned(id);
     }
 

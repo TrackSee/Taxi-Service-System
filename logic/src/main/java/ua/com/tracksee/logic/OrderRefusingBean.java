@@ -28,7 +28,7 @@ public class OrderRefusingBean {
         refuseDAO.refuseOrder(trackingNumber);
         int refusedTimes= refuseDAO.getUserRefusedTimes(trackingNumber);
         if(refusedTimes>IGNORED_TIMES){
-            sendEmail(userDAO.getUserById(taxiOrderDAO.getOrder(trackingNumber).getUserId()), trackingNumber);
+            sendEmail(taxiOrderDAO.getOrder(trackingNumber).getUser(), trackingNumber);
         }
     }
     /**
