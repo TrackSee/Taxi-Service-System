@@ -44,7 +44,9 @@
         ${orderDanger}
         ${refuseSuccess}
         ${refuseWarning}
-        ${nonExistTrackingNumberWarning}
+        ${nonExistTrackingNumberDanger}
+        ${activeUserOrderWarning}
+        ${nonActiveUserOrderWarning}
 
         <div ${hideOrderTrack}>
             <div class="form-group">

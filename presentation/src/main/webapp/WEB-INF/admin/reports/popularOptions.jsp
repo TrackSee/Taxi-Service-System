@@ -82,7 +82,7 @@
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="<%=application.getContextPath()%>/resources/admin/reports/js/popularOptions.js"/><!-- Bootstrap Core JavaScript -->
+<script src="<%=application.getContextPath()%>/resources/admin/reports/js/popularOption.js"/><!-- Bootstrap Core JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="http://amcharts.com/lib/3/plugins/export/export.js"></script>
 <link href="http://amcharts.com/lib/3/plugins/export/export.css" rel="stylesheet" type="text/css">
@@ -100,13 +100,13 @@
 <%--<script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>--%>
 <%--<script type="text/javascript" src="http://www.amcharts.com/lib/3/pie.js"></script>--%>
 <%--<script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>--%>
-<%--<script src="<%=application.getContextPath()%>/resources/admin/reports/js/serviceProfit.js"/><!-- Bootstrap Core JavaScript -->--%>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/reports/js/serviceProfitable.js"/><!-- Bootstrap Core JavaScript -->--%>
 <%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>--%>
 <%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.js"></script>--%>
 <%--<script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>--%>
 
 <%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>--%>
-<%--<script src="<%=application.getContextPath()%>/resources/admin/reports/js/serviceProfit.js"/><!-- Bootstrap Core JavaScript -->--%>
+<%--<script src="<%=application.getContextPath()%>/resources/admin/reports/js/serviceProfitable.js"/><!-- Bootstrap Core JavaScript -->--%>
 <%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>--%>
 <%--<script src="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.js"></script>--%>
 <%--<script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>--%>

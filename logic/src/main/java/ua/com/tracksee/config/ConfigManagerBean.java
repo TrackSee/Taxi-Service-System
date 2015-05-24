@@ -8,7 +8,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 import static java.lang.Double.parseDouble;
 import static ua.com.tracksee.config.ConfigName.MINIMAL_ORDER_DISTANCE;
@@ -32,7 +31,7 @@ public class ConfigManagerBean {
     }
 
     public void setMinimalOrderDistance(double minimalOrderDistance) {
-        configDao.saveConfig(new ConfigEntity(MINIMAL_ORDER_DISTANCE, Double.toString(minimalOrderDistance)));
+       configDao.saveConfig(new ConfigEntity(MINIMAL_ORDER_DISTANCE, Double.toString(minimalOrderDistance)));
     }
 
     public BigDecimal getAnimalTransportationMultiplier() {

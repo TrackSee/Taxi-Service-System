@@ -11,7 +11,7 @@ import java.util.List;
 @Local
 public interface CarDAO {
     //5 cars per query by default
-    int CARS_PAGE_SIZE = 10;
+    int CARS_PAGE_SIZE = 15;
 
     void createCar(CarEntity carEntity);
 

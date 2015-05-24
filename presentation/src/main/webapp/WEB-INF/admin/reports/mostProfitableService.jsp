@@ -48,13 +48,13 @@
               method="post">
             <h3 class="form-sign-up-heading">Please enter period to get result be service profitable</h3>
 
-            <p id="start"> Start Date
+            <h4 id="start"> Start Date
                 <input type="text" class="date start" id="startDate" name="startDate"/>
-            </p>
+            </h4>
 
-            <p id="end"> End Date
+            <h4 id="end"> End Date
                 <input type="text" class="date end" id="endDate" name="endDate"/>
-            </p>
+            </h4>
 
             <div>
                 <button id="getResult" type="button" class="btn btn-primary">Get Result</button>
@@ -79,7 +79,7 @@
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/pie.js"></script>
 <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>
-<script src="<%=application.getContextPath()%>/resources/admin/reports/js/serviceProfit.js"/>
+<script src="<%=application.getContextPath()%>/resources/admin/reports/js/serviceProfitReport.js"/>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>

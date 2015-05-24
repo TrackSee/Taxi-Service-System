@@ -2,6 +2,12 @@
  * Created by kstes
  */
 $(document).ready(function () {
+    $('#password').focus(function() {
+        $(this).notify('Please, use at least 6 characters');
+    });
+    $('#phone').focus(function() {
+        $(this).notify('Please, use at least 7 characters');
+    })
 
     $('#createDriver').validate({
         rules: {
@@ -11,11 +17,11 @@ $(document).ready(function () {
             },
             password: {
                 required: true,
-                minlength:5
+                minlength:6
             },
             confirmpassword: {
                 required: true,
-                minlength:5,
+                minlength:6,
                 equalTo: "#password"
             },
             phone: {
@@ -46,6 +52,10 @@ $(document).ready(function () {
             data: data,
             success: function(data){
                 window.location.href = 'drivers';
+            },
+            error: function(jqXHR, error, errorThrown) {
+                window.location.replace("drivers");
+                alert('Sorry, but such user already exist!');
             }
         });
     });

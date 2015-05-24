@@ -34,10 +34,29 @@
   <script src="<c:url value="/webjars/angular-utils-pagination/0.7.0/dirPagination.js"/>"></script>
   <script src="<%=application.getContextPath()%>/resources/driver/js/assigned-orders-pagination.js"></script>
   <%--END JS for pagination--%>
+  
+  <script>
+    window.onbeforeunload = close;
+    function close(){
+      $.ajax({
+        type: 'POST',
+        async: false,
+        url: '../admin/userdash',
+        success: function() {
+
+        }
+      });
+    }
+  </script>
+  
 </head>
 <body>
 <div id="wrapper" ng-app="driver" ng-controller="assignedOrdersController">
-  <jsp:include page="driverHeader.jsp"/>
+
+  <c:set var="ID_USER_VALUE" value="${sessionScope.get('isAdmin')}" />
+  <c:if test="${ID_USER_VALUE == null}" >
+    <jsp:include page="driverHeader.jsp"/>
+  </c:if>
 
   <div id="page-wrapper">
 
@@ -147,6 +166,10 @@
       </div>
     </section>
     <!-- /Plans -->
+    
+    <c:if test="${ID_USER_VALUE != null}" >
+      <button type="button" class="btn btn-default" onclick="closeAndGo();">Back</button>
+    </c:if>
 
     <%--START Pagination--%>
     <div class="text-center">
@@ -190,6 +213,20 @@
 
 </div>
 <!-- /#wrapper -->
+
+<script src="<%=application.getContextPath()%>/resources/driver/js/jquery.min.js"></script>
+<c:if test="${ID_USER_VALUE != null}" >
+  <script>
+    $("form").hide();
+  </script>
+</c:if>
+
+<script>  
+  function closeAndGo() {
+    close();
+    window.location.replace('../admin/searchdriver');
+  }
+</script>
 
 <%@ include file="../parts/scripts.jsp"%>
 <script src="<%=application.getContextPath()%>/resources/driver/js/modalOrderInProgress.js"></script>

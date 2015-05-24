@@ -1,6 +1,8 @@
 package ua.com.tracksee.logic.driver;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
@@ -21,16 +23,11 @@ import java.util.List;
  */
 @Stateless
 public class DriverOrderBean {
-    //private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(DriverOrderBean.class);
 
-    @EJB
-    private TaxiOrderDAO taxiOrderDao;
 
-    @EJB
-    private OrderRefusingBean orderRefusingBean;
-
-//    @EJB
-//    private EmailBean emailBean;
+    private @EJB TaxiOrderDAO taxiOrderDao;
+    private @EJB OrderRefusingBean orderRefusingBean;
 
     public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
         return taxiOrderDao.getAvailableOrders(driver, pageNumber);
@@ -47,9 +44,9 @@ public class DriverOrderBean {
     public void setAssignOrder(int driverId, String trackingNumber, String carArriveTime){
         int trackingNumberInt = Integer.parseInt(trackingNumber);
         System.out.println("carArriveTime"+carArriveTime);
-        Timestamp carArriveTimeTimestamp=null;
+        Timestamp carArriveTimeTimestamp;
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm yyyy-MM-dd");
             Date parsedDate = dateFormat.parse(carArriveTime);
             carArriveTimeTimestamp= new java.sql.Timestamp(parsedDate.getTime());
         } catch (ParseException e) {

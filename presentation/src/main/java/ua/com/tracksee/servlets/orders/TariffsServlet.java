@@ -16,7 +16,6 @@ import java.io.IOException;
 public class TariffsServlet extends HttpServlet implements PageAddresses {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("pageName", "tariffs");
         req.getRequestDispatcher(TARIFFS_PAGE).forward(req,resp);
     }
 }

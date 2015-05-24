@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.implementation.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.CarEntity;
-import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
 
 import javax.ejb.Stateless;

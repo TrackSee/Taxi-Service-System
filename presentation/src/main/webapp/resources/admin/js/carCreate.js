@@ -3,6 +3,9 @@
  */
 $(document).ready(function () {
 
+    $("#carNumber").focus(function() {
+        $(this).notify('Please, use at least 3 characters, but no more than 15');
+    });
 
     $('#createCar').validate({
         rules: {

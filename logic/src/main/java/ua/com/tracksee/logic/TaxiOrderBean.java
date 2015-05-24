@@ -369,5 +369,12 @@ public class TaxiOrderBean {
     public boolean checkOrderPresentForActiveUser(long trackingNumber,int userId) {
         return taxiOrderDAO.checkOrderPresentForActiveUser(trackingNumber, userId);
     }
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     */
+    public boolean checkOrderPresentActiveUser(long trackingNumber) {
+        return taxiOrderDAO.checkOrderPresentActiveUser(trackingNumber);
+    }
 
 }
