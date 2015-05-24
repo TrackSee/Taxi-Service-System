@@ -56,8 +56,7 @@
         </div>
         <div class="form-group">
                 <label>Category</label>
-        </div>
-        <div class="form-group">
+
             <select id="carCategory" class="category form-control" name="carCategory">
                 <option value="BUSINESS_CLASS">BUSINESS_CLASS</option>
                 <option value="ECONOMY_CLASS">ECONOMY_CLASS</option>

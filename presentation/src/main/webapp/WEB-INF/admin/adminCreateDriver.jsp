@@ -42,20 +42,20 @@
 
         <div class="form-group">
             <label for="email" class="sr-only">Email</label>
-            <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Email address *" required>
         </div>
         <div class="form-group">
-            <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+            <label for="password" class="sr-only">Password </label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password *" required>
         </div>
         <div class="form-group">
             <label for="confirmpassword" class="sr-only">Password</label>
             <input type="password" id="confirmpassword" name="confirmpassword" class="form-control"
-                   placeholder="confirm password" required>
+                   placeholder="Сonfirm password *" required>
         </div>
         <div class="form-group">
         <label for="phone" class="sr-only">Phone number</label>
-        <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" required>
+        <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone *" required>
     </div>
         <div class="form-group">
             <label for="driverLicense" class="sr-only">Driver License</label>
@@ -80,6 +80,8 @@
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin//bower_components/jquery/dist/jquery.validate.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/notify-combined.min.js"></script>
+
 <script src="<%=application.getContextPath()%>/resources/admin/js/driverCreate.js"></script>
 <%--<script src="<%=application.getContextPath()%>/resources/admin/js/hsps.js"></script>--%>
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>

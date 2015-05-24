@@ -43,7 +43,7 @@
         <div class="form-group">
             <label for="carNumber" class="sr-only">Car Number</label>
             <input type="text" id="carNumber" name="carNumber" class="form-control"
-                   placeholder="Car Number" required>
+                   placeholder="Car Number *" required>
         </div>
         <div class="form-group">
             <label for="carModel" class="sr-only">Model</label>
@@ -88,9 +88,12 @@
 
 </div>
 
+
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin//bower_components/jquery/dist/jquery.validate.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="<%=application.getContextPath()%>/resources/js/notify-combined.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/js/carCreate.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/js/hsps.js"></script>
 <script src="<%=application.getContextPath()%>/resources/admin/dist/js/sb-admin-2.js"></script>
