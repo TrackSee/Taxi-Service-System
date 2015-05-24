@@ -43,19 +43,8 @@
 
 <!-- end: Wrapper  -->
         <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
-        <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
-                charset="UTF-8"></script>
-
-        <%@include file="../parts/scripts.jsp" %>
         <%@include file="../parts/footer.jsp" %>
-        <!-- Load jQuery and bootstrap datepicker scripts -->
-        <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
-                charset="UTF-8"></script>
-        <script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
-
-        <script src="<%=application.getContextPath()%>http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <%--end jQuery and bootstrap datepicker scripts--%>
-
+        <%@include file="../parts/scripts.jsp" %>
 
 </body>
 </html>

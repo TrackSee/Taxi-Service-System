@@ -1,11 +1,6 @@
 /**
  * Created by Ruslan Gunavardana
  */
-$('#password').focus(function() {
-    $(this).notify('Please, use at least 1 digit, 1 uppercase and 1 lowercase letter ' +
-    '\nfor making your password safe', 'info')
-});
-
 $(document).ready(function(){
     $('#form-sign-up').submit(function() {
         var form = $(this);
@@ -46,7 +41,7 @@ $(document).ready(function(){
 /**
  * Sign up form validation using jQuery validation plugin.
  */
-$().ready(function () {
+$(document).ready(function () {
     $.validator.addMethod('passwordRegex', function(value, element)
     {
         return this.optional(element) || /^(?=.*[0-9@#$%^&+=_])(?=.*[a-z])(?=.*[A-Z])[\w@#$%^&+=]*$/.test(value);

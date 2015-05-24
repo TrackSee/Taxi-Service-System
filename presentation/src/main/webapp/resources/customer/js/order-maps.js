@@ -21,12 +21,11 @@ function initializeMaps() {
 
     // creating path
     initializeDirections(map);
-        calcRoute(DEFAULT_LOCATION, DEFAULT_LOCATION, []);
+    calcRoute(DEFAULT_LOCATION, DEFAULT_LOCATION, []);
     tryGeolocation(map);
     google.maps.event.addListener(directionsDisplay, 'directions_changed', function(){
                 updateAddresses(directionsDisplay.getDirections().routes[0]);
                 updatePrice();
-
     });
 }
 
@@ -75,6 +74,8 @@ function calcRoute(origin, destination, waypoints) {
     directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
+        } else {
+            $('#origin').notify("Google couldn't find the address", { position: 'left', className: 'error'});
         }
     });
 }
