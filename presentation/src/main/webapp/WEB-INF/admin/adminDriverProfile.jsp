@@ -138,7 +138,7 @@
                     </select>
                 <div class="carButtons">
                     <input type="button" class="btn btn-success okBtn" value="OK"/>
-                    <input type="button" class="btn btn-danger cancelBtn" value="Cancel"/>
+                    <%--<input type="button" class="btn btn-danger cancelBtn" value="Cancel"/>--%>
                 </div>
             </div>
             <%--end of car choosing menu--%>
