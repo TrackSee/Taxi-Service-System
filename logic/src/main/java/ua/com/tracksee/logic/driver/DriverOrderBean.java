@@ -46,7 +46,7 @@ public class DriverOrderBean {
         System.out.println("carArriveTime"+carArriveTime);
         Timestamp carArriveTimeTimestamp;
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm yyyy-MM-dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
             Date parsedDate = dateFormat.parse(carArriveTime);
             carArriveTimeTimestamp= new java.sql.Timestamp(parsedDate.getTime());
         } catch (ParseException e) {

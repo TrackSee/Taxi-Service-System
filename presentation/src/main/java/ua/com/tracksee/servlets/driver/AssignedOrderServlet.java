@@ -76,22 +76,18 @@ public class AssignedOrderServlet extends HttpServlet {
         logger.trace("arrival asked by customer: {}, by driver {}", timeCarArriveCustomerDate, timeCarArriveDate);
 
         if(timeCarArriveCustomerDate!=null){
-            Timestamp carArriveTimeTimestamp;
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
                 Date parsedDate = dateFormat.parse(timeCarArriveCustomerDate);
-                carArriveTimeTimestamp= new java.sql.Timestamp(parsedDate.getTime());
-                    timeCarArrive = carArriveTimeTimestamp.toString();
+                timeCarArrive = timeCarArriveCustomerDate;
             } catch (ParseException e) {
                 System.out.println("Invalid or missing date, cannot be parsed 1");
 
                 if(timeCarArriveDate!=null){
-                    Timestamp carArriveTimeTimestamp2=null;
                     try {
                         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
                         Date parsedDate = dateFormat.parse(timeCarArriveDate);
-                        carArriveTimeTimestamp2= new java.sql.Timestamp(parsedDate.getTime());
-                        timeCarArrive=carArriveTimeTimestamp2.toString();
+                        timeCarArrive= timeCarArriveDate;
                     } catch (ParseException e1) {
                         System.out.println("Invalid or missing date, cannot be parsed 2");
                     } catch (javax.ejb.EJBTransactionRolledbackException | NullPointerException e2){
@@ -103,7 +99,7 @@ public class AssignedOrderServlet extends HttpServlet {
                 }
 
             }
-            System.out.println("First"+timeCarArrive);
+            logger.trace("Time car arrive {}", timeCarArrive);
         }
 
         if (orderStatus != null) {
@@ -140,7 +136,8 @@ public class AssignedOrderServlet extends HttpServlet {
         }
 
         timeCarArrive = null;
-        resp.getWriter().append(Boolean.toString(statusBoolean));
+        req.setAttribute("status", statusBoolean);
+        req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
     }
 
     private String getJsonFromList(List<TaxiOrderEntity> orders){

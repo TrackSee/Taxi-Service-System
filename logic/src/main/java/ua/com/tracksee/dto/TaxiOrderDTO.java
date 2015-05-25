@@ -19,9 +19,9 @@ public class TaxiOrderDTO {
     private long trackingNumber;
     private RouteDTO[] routes;
     private String service;
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:00 MM/dd/yyyy")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm MM/dd/yyyy")
     private Date orderDate;
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:00 MM/dd/yyyy")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm MM/dd/yyyy")
     private Date arrivalDate;
     private BigDecimal price;
     private String status;
