@@ -89,7 +89,7 @@ public class TaxiOrderBean {
      * @return Integer - tracking number of user order
      * @throws ua.com.tracksee.exception.OrderException
      */
-    public Long makeOrder(HashMap<String, String> inputData, TaxiOrderDTO orderDTO) throws OrderException {
+    public Long addOrder(HashMap<String, String> inputData, TaxiOrderDTO orderDTO) throws OrderException {
         String email = inputData.get("email");
         String phone = inputData.get("phoneNumber");
         validateUserCredentials(email, phone);

@@ -2,6 +2,7 @@ package ua.com.tracksee.dao.implementation;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.postgis.LineString;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.*;
 
