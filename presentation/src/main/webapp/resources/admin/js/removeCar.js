@@ -1,5 +1,6 @@
 $(document).on('click', 'button', function(event) {
     var carNumber = this.className;
+    if(confirm("Do you really want to delete this car?") == true) {
     $.ajax({
         type: 'GET',
         url: 'deletecar',
@@ -13,6 +14,6 @@ $(document).on('click', 'button', function(event) {
             alert('Can not delete!');
         }
     });
-
+    }
 });
 
