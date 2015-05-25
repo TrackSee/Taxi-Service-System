@@ -20,7 +20,7 @@
           media="screen">
     <link href="<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css" rel="stylesheet"
           type="text/css"/>
-    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
+    <link href="<%=application.getContextPath()%>/resources/customer/css/smallAdditions.css" rel="stylesheet"
           type="text/css"/>
     <link href='<%=application.getContextPath()%>/resources/customer/css/visible.css' rel='stylesheet'
           type='text/css'/>
@@ -66,7 +66,7 @@
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" class="form-control" name="email"
-                       value="${email}" data-error="That email is invalid" readonly>
+                       value="${email}" title="For example: alex@gmail.com" readonly>
             </div>
 
             <div class="form-group">
@@ -119,6 +119,12 @@
                         <option value="TAXI_FOR_LONG_TERM"${TAXI_FOR_LONG_TERM}>
                             Service "Taxi for long term"</option>
                     </select>
+                </div>
+                <div class="alert alert-info" role="alert" hidden="hidden" id="addExtraAddresses">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button><h4>
+                    To add more addresses from, make double-click on a point on the
+                    route where you want to get an extra address.</h4>
                 </div>
                 <label for="arriveDate" class="sr-only">Arrive date</label>
                     <input size="16" type="text"  id="arriveDate" name="arriveDate" value="${arriveDate}"

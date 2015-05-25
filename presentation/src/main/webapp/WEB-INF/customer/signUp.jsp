@@ -12,7 +12,7 @@
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
-    <link href="<%=application.getContextPath()%>/resources/customer/css/asteriskRed.css" rel="stylesheet"
+    <link href="<%=application.getContextPath()%>/resources/customer/css/smallAdditions.css" rel="stylesheet"
           type="text/css"/>
 </head>
 <body>

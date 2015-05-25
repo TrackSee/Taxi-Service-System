@@ -7,6 +7,7 @@ import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dto.RouteDTO;
 import ua.com.tracksee.entities.*;
+import ua.com.tracksee.enumartion.Service;
 import ua.com.tracksee.exception.OrderException;
 import ua.com.tracksee.dto.TaxiOrderDTO;
 
@@ -48,32 +49,6 @@ public class TaxiOrderBean {
         return taxiOrderDAO.getMostPopularOptionsForUser(userId);
     }
 
-    //no need in this
-//    /**
-//     * Creates taxi order for authorised user.
-//     *
-//     * @param userId   id of authorised customer user
-//     * @param orderDTO basic information about the order
-//     */
-//    public Long createAuthorisedOrder(Integer userId, TaxiOrderDTO orderDTO) {
-//        TaxiOrderEntity order = new TaxiOrderEntity();
-//        order.setUserId(userId);
-//        order.setStatus(QUEUED);
-//        //TODO service + price calculation at server order.setPrice();
-//
-//        // collecting data from DTO
-//        try {
-//            order.setCarCategory(CarCategory.valueOf(orderDTO.getCarCategory()));
-//            order.setWayOfPayment(WayOfPayment.valueOf(orderDTO.getWayOfPayment()));
-//            order.setDriverSex(Sex.valueOf(orderDTO.getDriverSex()));
-//            order.setMusicStyle(MusicStyle.valueOf(orderDTO.getMusicStyle()));
-//        } catch (IllegalArgumentException e) {
-//            logger.warn("Could not parse enum during taxi order creation.");
-//            return null;
-//        }
-//        return order.getTrackingNumber();
-//    }
-
     /**
      * Checks input data,insert order in database.
      * Also it insert user in database if he doesn't have  record
@@ -111,6 +86,11 @@ public class TaxiOrderBean {
 
         // adding to database
         order.setTrackingNumber(taxiOrderDAO.addOrder(order));
+
+        if (order.getService() == Service.SOBER_DRIVER) {
+            taxiOrderDAO.addEnumCarCategory(enumValidationBean.setEnumCarCategory(inputData.get("carCategory")),
+                    order.getTrackingNumber());
+        }
 
         if (order.getArriveDate() != null) {
             taxiOrderDAO.addArriveDate(order.getArriveDate(), order.getTrackingNumber());
@@ -158,13 +138,26 @@ public class TaxiOrderBean {
      * @param inputData information about changed order
      */
     public void updateOrder(HashMap<String, String> inputData) throws OrderException {
-        TaxiOrderEntity taxiOrderEntity = validateAndAssignDataToTaxiOrderEntity(inputData);
+        TaxiOrderEntity order = validateAndAssignDataToTaxiOrderEntity(inputData);
         long trackingNumber = Long.parseLong(inputData.get("trackingNumber"));
         if (trackingNumber >= 0) {
-            taxiOrderEntity.setTrackingNumber(trackingNumber);
-            taxiOrderDAO.updateOrder(taxiOrderEntity);
-            if (taxiOrderEntity.getArriveDate() != null) {
-                taxiOrderDAO.addArriveDate(taxiOrderEntity.getArriveDate(), taxiOrderEntity.getTrackingNumber());
+            order.setTrackingNumber(trackingNumber);
+            taxiOrderDAO.updateOrder(order);
+
+            if (order.getService() == Service.SOBER_DRIVER) {
+                taxiOrderDAO.addEnumCarCategory(enumValidationBean.setEnumCarCategory(inputData.get("carCategory")),
+                        order.getTrackingNumber());
+            }
+
+            if (order.getArriveDate() != null) {
+                taxiOrderDAO.addArriveDate(order.getArriveDate(), order.getTrackingNumber());
+            }
+            if (order.getAmountOfHours() != null&&order.getAmountOfMinutes() != null) {
+                taxiOrderDAO.addLongTermTaxiParams(order.getAmountOfHours(),
+                        order.getAmountOfMinutes(),order.getTrackingNumber());
+            }
+            if (order.getAmountOfCars() != null) {
+                taxiOrderDAO.addCelebrationTaxiParam(order.getAmountOfCars(), order.getTrackingNumber());
             }
         } else {
             throw new OrderException("Invalid tracking number", "invalid-track-numb");
@@ -267,7 +260,6 @@ public class TaxiOrderBean {
         taxiOrderEntity.setAmountOfHours(convertToInt(inputData.get("amountOfHours")));
         taxiOrderEntity.setAmountOfMinutes(convertToInt(inputData.get("amountOfMinutes")));
         taxiOrderEntity.setStatus(enumValidationBean.setEnumOrderStatus(inputData.get("orderStatus")));
-        taxiOrderEntity.setCarCategory(enumValidationBean.setEnumCarCategory(inputData.get("carCategory")));
         taxiOrderEntity.setWayOfPayment(enumValidationBean.setEnumWayOfPayment(inputData.get("wayOfPayment")));
         taxiOrderEntity.setDriverSex(enumValidationBean.setEnumDriverSex(inputData.get("driverSex")));
         taxiOrderEntity.setService( enumValidationBean.setEnumService(inputData.get("service")));

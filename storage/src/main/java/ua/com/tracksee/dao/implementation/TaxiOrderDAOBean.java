@@ -5,6 +5,8 @@ import org.apache.logging.log4j.Logger;
 import org.postgis.LineString;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.*;
+import ua.com.tracksee.enumartion.CarCategory;
+import ua.com.tracksee.enumartion.Service;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -51,6 +53,14 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         query.executeUpdate();
     }
 
+    @Override
+    public void addEnumCarCategory(CarCategory carCategory, long trackingNumber){
+        Query query = entityManager.createNativeQuery(
+                "UPDATE  taxi_order SET service = ?1 WHERE tracking_number = ?2");
+        query.setParameter(1, carCategory.toString());
+        query.setParameter(2, trackingNumber);
+        query.executeUpdate();
+    }
     @Override
     public Long addOrder(TaxiOrderEntity order) {
 //        BigInteger trackingNumber;
