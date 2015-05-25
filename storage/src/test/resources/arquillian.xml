@@ -7,8 +7,6 @@
         <configuration>
             <property name="managementAddress">localhost</property>
             <property name="managementPort">9990</property>
-            <property name="jbossHome">target/wildfly-${wildfly.version}</property>
-            <property name="modulePath">target/wildfly-${wildfly.version}/modules</property>
         </configuration>
     </container>
 </arquillian>

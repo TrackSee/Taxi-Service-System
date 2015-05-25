@@ -15,7 +15,6 @@ public interface OrderAttributeNames {
     String AMOUNT_OF_MINUTES_ALIAS ="amountOfMinutes";
     String PHONE_NUMBER_ALIAS ="phoneNumber";
     String EMAIL_ALIAS ="email";
-    String PATH_ALIAS ="path";
     String PRICE_ALIAS ="price";
     String ARRIVE_DATE_ALIAS ="arriveDate";
     String END_DATE_ALIAS ="endDate";
@@ -36,6 +35,6 @@ public interface OrderAttributeNames {
     String NON_SMOKING_DRIVER_ALIAS ="nonSmokingDriver";
     String AIR_CONDITIONER_ALIAS ="airConditioner";
 
-
+    String ANIMAL_TRANSPORTATION_MULTIPLIER = "animalTransportationMultiplier";
 
 }

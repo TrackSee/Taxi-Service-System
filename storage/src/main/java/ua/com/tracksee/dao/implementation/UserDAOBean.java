@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.UserDAO;
 import ua.com.tracksee.dao.implementation.exceptions.ServiceUserNotFoundException;
 import ua.com.tracksee.entities.CarEntity;
-import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
 
 import javax.ejb.Stateless;
@@ -221,14 +220,14 @@ public class UserDAOBean implements UserDAO {
 
     @Override
     public void updateUser(UserEntity user) {
-//        String sql = "UPDATE service_user SET email = ? , phone =? , driver_license = ?" +
-//                "WHERE user_id = " + user.getUserId();
-//        Query query = entityManager.createNativeQuery(sql);
-//        query.setParameter(1, user.getEmail());
-//        query.setParameter(2, user.getPhone());
-//        query.setParameter(3, user.getDriverLicense());
-//        query.executeUpdate();
-        entityManager.merge(user);
+        String sql = "UPDATE service_user SET email = ? , phone =? , driver_license = ?" +
+                "WHERE user_id = " + user.getUserId();
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1, user.getEmail());
+        query.setParameter(2, user.getPhone());
+        query.setParameter(3, user.getDriverLicense());
+        query.executeUpdate();
+        
     }
 
     @Override
@@ -240,7 +239,7 @@ public class UserDAOBean implements UserDAO {
         UserEntity result;
         try {
             result = (UserEntity) query.getSingleResult();
-        } catch (Exception e) {
+        } catch (NoResultException e) {
             result = null;
         }
         return result;

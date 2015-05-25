@@ -35,7 +35,7 @@ public class TaxiOrderEntity {
     private Boolean nonSmokingDriver;
     private Boolean airConditioner;
     private String comment;
-    private Integer userId;
+    private UserEntity user;
     private Timestamp orderedDate = new Timestamp(System.currentTimeMillis());
     private Timestamp arriveDate;
     private Integer amountOfCars;
@@ -82,7 +82,7 @@ public class TaxiOrderEntity {
     }
 
     @Basic
-    @Column(name = "arrive_date",nullable = true)
+    @Column(name = "arrive_date", nullable = true)
     public Timestamp getArriveDate() {
         return arriveDate;
     }
@@ -106,14 +106,14 @@ public class TaxiOrderEntity {
         this.trackingNumber = trackingNumber;
     }
 
-    @Basic
-    @Column(name = "user_id")
-    public Integer getUserId() {
-        return userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     @Basic

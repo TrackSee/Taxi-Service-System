@@ -174,27 +174,23 @@ public interface TaxiOrderDAO {
     List<MostPopularOption> getMostPopularOptionsForUser(Integer userId);
     BigInteger getCountOptionalBool(String option, Integer userId);
 
-    public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber);
 
-    public List<TaxiOrderEntity> getHistoryOfOrders(int id, int pageNumber);
+    List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber);
+    List<TaxiOrderEntity> getHistoryOfOrders(int id, int pageNumber);
+    List<TaxiOrderEntity> getAssignedOrders(int id, int pageNumber);
 
-    public List<TaxiOrderEntity> getAssignedOrders(int id, int pageNumber);
+    BigInteger getOrdersPagesCountQueued(UserEntity driver);
+    BigInteger getOrdersPagesCountCompleted(int id);
+    BigInteger getOrdersPagesCountAssigned(int id);
 
-    public void setAssignOrder(int driverId, int trackingNumber, Timestamp carArriveTime);
 
-    public int setInProgressOrder(int trackingNumber);
+    void setAssignOrder(int driverId, int trackingNumber, Timestamp carArriveTime);
 
-    public void setCompletedOrder(int trackingNumber);
+    int setInProgressOrder(int trackingNumber);
 
-    public void setRefusedOrder(int trackingNumber);
+    void setCompletedOrder(int trackingNumber);
 
-    public void setToQueueOrder(int trackingNumber);
+    void setRefusedOrder(int trackingNumber);
 
-    public int getOrdersPagesCountCompleted(int id);
-
-    public int getOrdersPagesCountQueued(UserEntity driver);
-
-    public int getOrdersPagesCountAssigned(int id);
-
-    public TaxiOrderItemEntity getPgPath(TaxiOrderEntity taxiOrderEntity);
+    void setToQueueOrder(int trackingNumber);
 }

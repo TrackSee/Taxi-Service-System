@@ -12,6 +12,7 @@ import ua.com.tracksee.logic.driver.DriverOrderBean;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -220,15 +221,15 @@ public class OrderFacade {
         return driverOrderBean.getHistoryOfOrders(id, pageNumber);
     }
 
-    public int getOrdersPagesCountCompleted(int id){
+    public BigInteger getOrdersPagesCountCompleted(int id){
         return driverOrderBean.getOrdersPagesCountCompleted(id);
     }
 
-    public int getOrdersPagesCountQueued(UserEntity driver){
+    public BigInteger getOrdersPagesCountQueued(UserEntity driver){
         return driverOrderBean.getOrdersPagesCountQueued(driver);
     }
 
-    public int getOrdersPagesCountAssigned(int id){
+    public BigInteger getOrdersPagesCountAssigned(int id){
         return driverOrderBean.getOrdersPagesCountAssigned(id);
     }
 
@@ -258,5 +259,9 @@ public class OrderFacade {
 
     public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
         return driverOrderBean.getAvailableOrders(driver, pageNumber);
+    }
+
+    public BigDecimal getAnimalTransportationMultiplier() {
+        return priceListBean.getAnimalTransportationMultiplier();
     }
 }

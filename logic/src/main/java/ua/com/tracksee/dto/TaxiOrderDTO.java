@@ -1,5 +1,14 @@
 package ua.com.tracksee.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.vividsolutions.jts.geom.LineString;
+import ua.com.tracksee.entities.TaxiOrderEntity;
+import ua.com.tracksee.entities.TaxiOrderItemEntity;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
+
 /**
  * Taxi order data transfer object class.
  * Objects of this class are used for converting to and from JSON.
@@ -7,30 +16,73 @@ package ua.com.tracksee.dto;
  * @author Ruslan Gunavardana
  */
 public class TaxiOrderDTO {
+    private long trackingNumber;
     private RouteDTO[] routes;
-    //private String service;
-    //private LocalDateTime orderDate;
+    private String service;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:00 MM/dd/yyyy")
+    private Date orderDate;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:00 MM/dd/yyyy")
+    private Date arrivalDate;
+    private BigDecimal price;
+    private String status;
 
     /* contact info */
-    /*
     private String email;
     private String phoneNumber;
-
     private String description;
-    private String serviceInfo;
-    */
 
     /* additional info */
-    /*
     private String carCategory;
     private String wayOfPayment;
     private String driverSex;
     private String musicStyle;
     private Boolean animalTransportation;
     private Boolean freeWiFi;
-    private Boolean smokingDriver;
+    private Boolean nonSmokingDriver;
     private Boolean airConditioner;
-    */
+
+    public TaxiOrderDTO() {
+    }
+
+    public TaxiOrderDTO(List<TaxiOrderItemEntity> items) {
+        if (items != null) {
+            routes = new RouteDTO[items.size()];
+            for (int i = 0; i < items.size(); i++) {
+                routes[i] = new RouteDTO(items.get(i).getPath(), items.get(i).getOrderedQuantity());
+            }
+        }
+    }
+
+    public TaxiOrderDTO(TaxiOrderEntity orderEntity) {
+        this(orderEntity.getItemList());
+        this.trackingNumber = orderEntity.getTrackingNumber();
+        this.service = orderEntity.getService().getName();
+        this.orderDate = orderEntity.getOrderedDate();
+        this.arrivalDate = orderEntity.getArriveDate();
+        this.price = orderEntity.getPrice();
+        this.status = orderEntity.getStatus().getName();
+
+        this.description = orderEntity.getDescription();
+
+        this.carCategory = orderEntity.getCarCategory().toString();
+        this.wayOfPayment = orderEntity.getWayOfPayment().toString();
+        this.driverSex = orderEntity.getDriverSex().toString();
+        this.musicStyle = orderEntity.getMusicStyle().toString();
+        this.animalTransportation = orderEntity.getAnimalTransportation();
+        this.freeWiFi = orderEntity.getFreeWifi();
+        this.nonSmokingDriver = orderEntity.getNonSmokingDriver();
+        this.airConditioner = orderEntity.getAirConditioner();
+    }
+
+
+
+    public long getTrackingNumber() {
+        return trackingNumber;
+    }
+
+    public void setTrackingNumber(long trackingNumber) {
+        this.trackingNumber = trackingNumber;
+    }
 
     public RouteDTO[] getRoutes() {
         return routes;
@@ -40,7 +92,6 @@ public class TaxiOrderDTO {
         this.routes = routes;
     }
 
-    /*
     public String getService() {
         return service;
     }
@@ -49,12 +100,36 @@ public class TaxiOrderDTO {
         this.service = service;
     }
 
-    public LocalDateTime getOrderDate() {
+    public Date getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(LocalDateTime orderDate) {
+    public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public Date getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public void setArrivalDate(Date arrivalDate) {
+        this.arrivalDate = arrivalDate;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getEmail() {
@@ -79,14 +154,6 @@ public class TaxiOrderDTO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getServiceInfo() {
-        return serviceInfo;
-    }
-
-    public void setServiceInfo(String serviceInfo) {
-        this.serviceInfo = serviceInfo;
     }
 
     public String getCarCategory() {
@@ -137,12 +204,12 @@ public class TaxiOrderDTO {
         this.freeWiFi = freeWiFi;
     }
 
-    public Boolean getSmokingDriver() {
-        return smokingDriver;
+    public Boolean getNonSmokingDriver() {
+        return nonSmokingDriver;
     }
 
-    public void setSmokingDriver(Boolean smokingDriver) {
-        this.smokingDriver = smokingDriver;
+    public void setNonSmokingDriver(Boolean smokingDriver) {
+        this.nonSmokingDriver = smokingDriver;
     }
 
     public Boolean getAirConditioner() {
@@ -152,5 +219,4 @@ public class TaxiOrderDTO {
     public void setAirConditioner(Boolean airConditioner) {
         this.airConditioner = airConditioner;
     }
-    */
 }

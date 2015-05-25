@@ -25,7 +25,7 @@ import java.util.Map;
 @Stateless
 public class EmailBean {
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(EmailBean.class);
     // website
     private static final String WEBSITE_SHORT = "tracksee.tk";
     private static final String WEBSITE_FULL = "http://tracksee.tk/";
@@ -111,7 +111,7 @@ public class EmailBean {
         data.put("color", order.getDriver().getCar().getColor());
         data.put("carModel", order.getDriver().getCar().getCarModel());
         data.put("carNumber", order.getDriver().getCar().getCarNumber());
-        sender.sendTemplatedEmail(userDAO.getUserById(order.getTaxiOrder().getUserId()).getEmail(),
+        sender.sendTemplatedEmail(order.getTaxiOrder().getUser().getEmail(),
                 CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_SUBJECT_TEMP_PROP_NAME,
                 CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_TEMP_PATH, data);
     }
@@ -128,7 +128,7 @@ public class EmailBean {
         data.put("trackingNumber", order.getTaxiOrder().getTrackingNumber());
         data.put("registrationURL", REGISTRATION_URL);
 
-        sender.sendTemplatedEmail(userDAO.getUserById(order.getTaxiOrder().getUserId()).getEmail(),
+        sender.sendTemplatedEmail(order.getTaxiOrder().getUser().getEmail(),
                 CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_SUBJECT_TEMP_PROP_NAME,
                 CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_TEMP_PATH, data);
     }
@@ -146,7 +146,7 @@ public class EmailBean {
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
         data.put("trackingNumber", order.getTaxiOrder().getTrackingNumber());
 
-        sender.sendTemplatedEmail(userDAO.getUserById(order.getTaxiOrder().getUserId()).getEmail(),
+        sender.sendTemplatedEmail(order.getTaxiOrder().getUser().getEmail(),
                 CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_SUBJECT_TEMP_PROP_NAME,
                 CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_TEMP_PATH, data);
     }
@@ -175,10 +175,10 @@ public class EmailBean {
 
     /**
      *This method notifies user that their order have been processed by the system
-     * and sends the confirmation code for this order
+     * and sends the tracking number for this order
      *
      * @param user           - specifies user to send confirmation link
-     * @param trackingNumber - specifies code that is used for confirmation
+     * @param trackingNumber - specifies number that is used for tracking
      */
     @Asynchronous
     public void sendOrderConfirmation(UserEntity user, Long trackingNumber) {
@@ -207,7 +207,7 @@ public class EmailBean {
         Map<String, Object> data = new HashMap<String, Object>();
                 data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
         data.put("trackingNumber", order.getTrackingNumber());
-        sender.sendTemplatedEmail(userDAO.getUserById(order.getUserId()).getEmail(),
+        sender.sendTemplatedEmail(order.getUser().getEmail(),
                 CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_BY_DRIVER_TEMP_SUBJECT_PROP_NAME,
                 CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_BY_DRIVER_TEMP_PATH,  data);
     }

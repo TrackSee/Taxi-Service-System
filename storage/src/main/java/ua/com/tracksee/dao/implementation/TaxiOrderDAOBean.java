@@ -18,6 +18,10 @@ import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.*;
 
+import static ua.com.tracksee.enumartion.CarCategory.BUSINESS_CLASS;
+import static ua.com.tracksee.enumartion.CarCategory.ECONOMY_CLASS;
+import static ua.com.tracksee.enumartion.CarCategory.VAN;
+
 /**
  * <p>Postgresql database implementation of
  * {@link TaxiOrderDAO} interface.</p>
@@ -164,6 +168,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
      * @see ua.com.tracksee.dao.TaxiOrderDAO
      */
     @Override
+    //TODO test
     public boolean checkOrderPresentNonActiveUser(Long trackingNumber) {
         boolean state = false;
         String sql = "SELECT tracking_number,description,status,price,taxi_order.user_id,service,car_category," +
@@ -191,6 +196,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
      * @see ua.com.tracksee.dao.TaxiOrderDAO
      */
     @Override
+    //TODO test
     public boolean checkOrderPresentActiveUser(Long trackingNumber) {
         boolean state = false;
         String sql = "SELECT tracking_number,description,status,price,taxi_order.user_id,service,car_category," +
@@ -398,23 +404,23 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
         StringBuilder sql = new StringBuilder("SELECT * FROM taxi_order WHERE (status =" +
                 " 'QUEUED' OR status = 'UPDATED') " +
                 " AND (driver_sex = ? OR driver_sex = " + IS_DRIVER_GENDER_NULL + ") ");
-        if (driver.getCar().getAnimalTransportationApplicable() == false) {
+        if (!driver.getCar().getAnimalTransportationApplicable()) {
             sql.append(" AND animal_transportation = false ");
         }
-        if (driver.getCar().getFreeWifi() == false) {
+        if (!driver.getCar().getFreeWifi()) {
             sql.append(" AND free_wifi = false ");
         }
-        if (driver.getCar().getAirConditioner() == false) {
+        if (!driver.getCar().getAirConditioner()) {
             sql.append(" AND air_conditioner = false ");
         }
-        if (driver.getCar().getAcceptsVisa() == false) {
+        if (!driver.getCar().getAcceptsVisa()) {
             sql.append(" AND way_of_payment = 'CASH' ");
         }
-        if (driver.getCar().getCarCategory().toString().equals("VAN")) {
+        if (driver.getCar().getCarCategory().equals(VAN)) {
             sql.append(" AND (car_category = 'ECONOMY_CLASS' OR car_category = 'VAN' OR car_category = 'USER_CAR') ");
-        } else if (driver.getCar().getCarCategory().toString().equals("BUSINESS_CLASS")) {
+        } else if (driver.getCar().getCarCategory().equals(BUSINESS_CLASS)) {
             sql.append(" AND (car_category = 'ECONOMY_CLASS' OR car_category = 'BUSINESS_CLASS' OR car_category = 'USER_CAR') ");
-        } else if (driver.getCar().getCarCategory().toString().equals("ECONOMY_CLASS")) {
+        } else if (driver.getCar().getCarCategory().equals(ECONOMY_CLASS)) {
             sql.append(" AND (car_category = 'ECONOMY_CLASS' OR car_category = 'USER_CAR') ");
         }
 
@@ -505,64 +511,50 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
 
 
     @Override
-    public int getOrdersPagesCountCompleted(int id) {
+    public BigInteger getOrdersPagesCountCompleted(int id) {
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order INNER JOIN taxi_order_item " +
                 "ON taxi_order.tracking_number = taxi_order_item.tracking_number " +
                 "AND taxi_order_item.driver_id = ? AND (taxi_order.status = 'COMPLETED' OR taxi_order.status = 'REFUSED')");
         q.setParameter(1, id);
-        Integer driversCount = ((BigInteger) q.getSingleResult()).intValue();
-        return (int) (Math.ceil((double) driversCount / ORDERS_PAGE_SIZE));
+        return (BigInteger) q.getSingleResult();
     }
 
     @Override
-    public int getOrdersPagesCountAssigned(int id) {
+    public BigInteger getOrdersPagesCountAssigned(int id) {
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order INNER JOIN taxi_order_item " +
                 "ON taxi_order.tracking_number = taxi_order_item.tracking_number " +
                 "AND taxi_order_item.driver_id = ? AND (taxi_order.status = 'ASSIGNED' OR taxi_order.status ='IN_PROGRESS')");
         q.setParameter(1, id);
-        Integer driversCount = ((BigInteger) q.getSingleResult()).intValue();
-        return (int) (Math.ceil((double) driversCount / ORDERS_PAGE_SIZE));
+        return (BigInteger) q.getSingleResult();
     }
 
     @Override
-    public int getOrdersPagesCountQueued(UserEntity driver) {
-        StringBuffer sql = new StringBuffer("SELECT COUNT(*) FROM taxi_order WHERE (status =" +
-                " 'QUEUED' OR status = 'UPDATED') " +
-                " AND (driver_sex = ? OR driver_sex = " + IS_DRIVER_GENDER_NULL + ") ");
-        if (driver.getCar().getAnimalTransportationApplicable() == false) {
+    public BigInteger getOrdersPagesCountQueued(UserEntity driver) {
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM taxi_order ")
+                .append(" WHERE (status = 'QUEUED' OR status = 'UPDATED') ")
+                .append(" AND (driver_sex = ? OR driver_sex = " + IS_DRIVER_GENDER_NULL + ") ");
+        if (!driver.getCar().getAnimalTransportationApplicable()) {
             sql.append(" AND animal_transportation = false ");
         }
-        if (driver.getCar().getFreeWifi() == false) {
+        if (!driver.getCar().getFreeWifi()) {
             sql.append(" AND free_wifi = false ");
         }
-        if (driver.getCar().getAirConditioner() == false) {
+        if (!driver.getCar().getAirConditioner()) {
             sql.append(" AND air_conditioner = false ");
         }
-        if (driver.getCar().getAcceptsVisa() == false) {
+        if (!driver.getCar().getAcceptsVisa()) {
             sql.append(" AND way_of_payment = 'CASH' ");
         }
-        if (driver.getCar().getCarCategory().toString().equals("VAN")) {
+        if (driver.getCar().getCarCategory().equals(VAN)) {
             sql.append(" AND (car_category = 'ECONOMY_CLASS' OR car_category = 'VAN' OR car_category = 'USER_CAR') ");
-        } else if (driver.getCar().getCarCategory().toString().equals("BUSINESS_CLASS")) {
+        } else if (driver.getCar().getCarCategory().equals(BUSINESS_CLASS)) {
             sql.append(" AND (car_category = 'ECONOMY_CLASS' OR car_category = 'BUSINESS_CLASS' OR car_category = 'USER_CAR') ");
-        } else if (driver.getCar().getCarCategory().toString().equals("ECONOMY_CLASS")) {
+        } else if (driver.getCar().getCarCategory().equals(ECONOMY_CLASS)) {
             sql.append(" AND (car_category = 'ECONOMY_CLASS' OR car_category = 'USER_CAR') ");
         }
 
         Query query = entityManager.createNativeQuery(sql.toString());
         query.setParameter(1, driver.getSex());
-        Integer driversCount = ((BigInteger) query.getSingleResult()).intValue();
-        return (int) (Math.ceil((double) driversCount / ORDERS_PAGE_SIZE));
-    }
-
-    @Override
-    public TaxiOrderItemEntity getPgPath(TaxiOrderEntity taxiOrderEntity) {
-        String sql = "SELECT * FROM taxi_order_item " +
-                "INNER JOIN taxi_order " +
-                "ON taxi_order_item.tracking_number = taxi_order.tracking_number " +
-                "AND tracking_number = ?";
-        Query query = entityManager.createNativeQuery(sql, TaxiOrderItemEntity.class);
-        query.setParameter(1, taxiOrderEntity.getTrackingNumber());
-        return (TaxiOrderItemEntity) query.getSingleResult();
+        return (BigInteger) query.getSingleResult();
     }
 }

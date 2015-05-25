@@ -1,50 +1,28 @@
 /**
- * Created by Ruslan Gunavardana
+ * @author Ruslan Gunavardana
  */
-$.fn.serializeObject = function()
-{
-    var o = {};
-    var a = this.serializeArray();
-    $.each(a, function() {
-        if (o[this.name] !== undefined) {
-            if (!o[this.name].push) {
-                o[this.name] = [o[this.name]];
-            }
-            o[this.name].push(this.value || '');
-        } else {
-            o[this.name] = this.value || '';
-        }
-    });
-    return o;
-};
-
-
 $(document).ready(function(){
 
     /**
      * Order submit handler.
      */
-    $('#order-form').submit(function() {
+    $('#order-form').submit(function(){
         var formData = $(this).serialize();
         formData += '&order=' + JSON.stringify({routes: getRoutesData()});
-        $.ajax({
-            type: 'POST',
-            url: getContextPath() + 'order',
-            data: formData,
-            success: function (data) {
-                if (data == "error") {
-                    $.notify("Invalid data entered!", "error");
-                } else {
-                    var newDoc = document.open("text/html", "replace");
-                    newDoc.write(data);
-                    newDoc.close();
-                }
-            },
-            error: function () {
-                $.notify("Internal server error occurred.", "warn");
+        var req = $.post(getContextPath() + 'order', formData);
+        req.done(function (data) {
+            if (data == "error") {
+                $.notify("Invalid data entered!", "error");
+            } else {
+                var newDoc = document.open("text/html", "replace");
+                newDoc.write(data);
+                newDoc.close();
             }
         });
-        return false;
+
+        req.fail(function(){
+                $.notify("Internal server error occurred.", "warn");
+        });
     });
 
     $(".form_datetime").on('changeDate', updatePrice);
@@ -55,14 +33,24 @@ $(document).ready(function(){
  * getTaxiPricePerKm
  * @returns {number}
  */
-function getTaxiPricePerKm() {
+function getTaxiPriceEntity() {
     var date = $(".form_datetime").datetimepicker('getDate');
-    function isWeekEnd() { return date.toString().contains('Sun') || date.toString().contains('Sat'); }
-    function isNight() { return date.getHours() > 22 || date.getHours() < 6; }
 
-    return getPriceList().find(function(e){
-        return $('#carCategory').val() == e.carCategory && isWeekEnd() ==  e.weekend && isNight() == e.nightTariff;
-    }).pricePerKm;
+    // price parameters
+    var isWeekEnd = date.toString().indexOf('Sun') != -1 || date.toString().indexOf('Sat') != -1;
+    var isNight   = date.getHours() > 22 || date.getHours() < 6;
+    var carCategory = $('#carCategory').val();
+
+    return getPriceList().filter(function(e){
+        return carCategory == e.carCategory && isWeekEnd ==  e.weekend && isNight == e.nightTariff;
+    })[0];
+}
+
+function getAdditionalOptionsMultiplier() {
+    var multiplier = 1;
+    if ($('animalTransportationCheckbox').val() == 'animalTransportation')//TODO)
+        multiplier *= getAnimalTransportationMultiplier();
+    return multiplier;
 }
 
 /**
@@ -70,9 +58,14 @@ function getTaxiPricePerKm() {
  * Updates order price when user change route addresses
  */
 function updatePrice() {
+    var service = $('#service').val();
+    var isTimePriced = service == 'CELEBRATION_TAXI' && service == 'TAXI_FOR_LONG_TERM';
+    var priceEntity = getTaxiPriceEntity();
+    var price = isTimePriced? priceEntity.pricePerMin : priceEntity.pricePerKm;
+
     var distance = getRoutesData().reduce(function(pv, cv) {return pv + cv.distance; }, 0);
     // taxi for very short distance has constant min price
     var businessDistance = (distance > getMinDistance()) ? distance : getMinDistance();
-    var price = getTaxiPricePerKm() * businessDistance;
-    $('#price').val(price.toFixed(2) + " UAH");
+    var totalCost = price * businessDistance * getAdditionalOptionsMultiplier();
+    $('#price').val("$ " + totalCost.toFixed(2));
 }

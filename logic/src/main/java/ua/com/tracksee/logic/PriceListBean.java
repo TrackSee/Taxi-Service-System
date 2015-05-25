@@ -59,6 +59,10 @@ public class PriceListBean {
         return new BigDecimal(configManager.getMinimalOrderDistance());
     }
 
+    public BigDecimal getAnimalTransportationMultiplier() {
+        return configManager.getAnimalTransportationMultiplier();
+    }
+
     @Lock(READ)
     private TaxiPriceEntity getPriceInternal(CarCategory carCategory, boolean isNightTariff, boolean isWeekend) {
         throw new UnsupportedOperationException(); //TODO

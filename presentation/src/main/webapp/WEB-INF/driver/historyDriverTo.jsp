@@ -26,9 +26,16 @@
 
   <!-- Custom Fonts -->
   <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+  <%--START JS for pagination--%>
+  <script src="<c:url value="/webjars/angularjs/1.3.15/angular.min.js"/>"></script>
+  <script src="<c:url value="/webjars/angular-utils-pagination/0.7.0/dirPagination.js"/>"></script>
+  <script src="<%=application.getContextPath()%>/resources/driver/js/history-orders-pagination.js"></script>
+  <%--END JS for pagination--%>
+
 </head>
 <body>
-<div id="wrapper">
+<div id="wrapper" ng-app="driver" ng-controller="ordersHistoryController">
   <jsp:include page="driverHeader.jsp"/>
 
   <div id="page-wrapper">
@@ -39,180 +46,120 @@
       </div>
       <!-- /.col-lg-12 -->
     </div>
-
     <!-- /.row -->
 
-          <!-- /.panel-heading -->
-                        <!-- Plans -->
-              <c:forEach items="${requestScope.orders}" var="order">
-                <section id="plans">
-                  <div class="container">
-                    <div class="row">
+    <section id="plans">
+      <div class="container">
+        <div class="row">
 
-                      <!-- item -->
-                      <div class="col-md-9 text-center">
-                        <div class="panel panel-success panel-pricing">
-                          <div class="panel-heading">
-                            <c:set var="startPoint" value="${order.itemList[0].path.getStartPoint()}"/>
-                            <c:set var="endPoint" value="${order.itemList[0].path.getEndPoint()}"/>
-                            <div class="map-canvas">
-                              <iframe frameborder="0" width="100%" height="250"
-                                      src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin=${pageScope.startPoint.getX()},${pageScope.startPoint.getY()}&destination=${pageScope.endPoint.getX()},${pageScope.endPoint.getY()}">
-                              </iframe>
-                            </div>
-                          </div>
+          <!-- item -->
+          <div class="col-md-9 text-center"
+               dir-paginate="order in orders | itemsPerPage: ordersPerPage"
+               total-items="totalOrders"
+               current-page="pagination.current"
+               pagination-id="ordersPagination">
 
-                          <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                            <thead>
-                            <tr>
-                              <th>#</th>
-                              <th>Service</th>
-                              <c:set var="hide2" scope="session" value="hidden=\"hidden\""/>
-                              <c:choose>
-                                <c:when test="${order.service == 'CELEBRATION_TAXI'}">
-                                  <th>Duration</th>
-                                </c:when>
-                                <c:when test="${order.service == 'TAXI_FOR_LONG_TERM'}">
-                                  <th>Duration</th>
-                                </c:when>
-                              </c:choose>
-                              <th>Order time</th>
-                              <th>Car arrive time</th>
-                              <th>Price</th>
-                              <th>Status</th>
-                              <th>User comment</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="odd gradeX">
-                              <td>${order.trackingNumber}</td>
-                              <td>
-                                <c:set var="string7" value="${order.service}"/>
-                                <c:set var="string8" value="${fn:toLowerCase(string7)}" />
-                                <c:set var="string9" value="${fn:replace(string8,
-                                '_', ' ')}" />
-                                  ${string9}
-                              </td>
-                              <c:set var="hide2" scope="session" value="hidden=\"hidden\""/>
-                              <c:choose>
-                                <c:when test="${order.service == 'CELEBRATION_TAXI'}">
-                                  <td>${order.amountOfHours} : ${order.amountOfMinutes}</td>
-                                </c:when>
-                                <c:when test="${order.service == 'TAXI_FOR_LONG_TERM'}">
-                                  <td>${order.amountOfHours} : ${order.amountOfMinutes}</td>
-                                </c:when>
-                              </c:choose>
-                              <td>
-                                <fmt:formatDate value="${order.orderedDate}" pattern="yyyy-MM-dd HH:mm:ss" />
-                              </td>
-                              <td>
-                                <fmt:formatDate value="${order.arriveDate}" pattern="yyyy-MM-dd HH:mm:ss" />
-                              </td>
-                              <td>${order.price}</td>
-                              <td>
-                                <c:set var="string4" value="${order.status}"/>
-                                <c:set var="string5" value="${fn:toLowerCase(string4)}" />
-                                <c:set var="string6" value="${fn:replace(string5,
-                                '_', ' ')}" />
-                                  ${string6}</td>
-                              <td>${order.comment=='null' ? "-" : order.comment}</td>
-                            </tr>
-                            </tbody>
-                          </table>
+            <div class="panel panel-success panel-pricing">
 
-                        </div>
-                      </div>
-                      <!-- /item -->
+              <%-- heading --%>
+              <div class="panel-heading">
+                <div class="map-canvas">
+                  <iframe frameborder="0" width="825" height="250"
+                          src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin=,&destination=,">
+                  </iframe>
+                </div>
+              </div>
+              <%-- END heading --%>
 
+              <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Service</th>
+                  <th ng-if="order.service == 'CELEBRATION_TAXI' || order.service == 'TAXI_FOR_LONG_TERM'">Duration</th>
+                  <th>Order time</th>
+                  <th>Car arrive time</th>
+                  <th>Price</th>
+                  <th>Non smoking</th>
+                  <th>Music</th>
+                  <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="odd gradeX">
+                  <td>{{ order.trackingNumber }}</td>
+                  <td>{{ order.service }}</td>
+                  <td ng-if="order.service == 'CELEBRATION_TAXI' || order.service == 'TAXI_FOR_LONG_TERM'">
+                    {{ order.amountOfHours }}: {{ order.amountOfMinutes }}
+                  </td>
+                  <td>{{ order.orderDate }}</td>
+                  <td>{{ order.arrivalDate }}</td>
+                  <td>{{ order.price }}</td>
+                  <td>{{ order.nonSmokingDriver? '+' : '-' }}</td>
+                  <td>{{ order.musicStyle }}</td>
+                  <td>{{ order.status }}</td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="panel-footer">
+                <form action="<c:url value="/driver/assigned-order"/>" method="post">
+                  <div id="choose-arrive-date" hidden="{{ order.arrivalDate != null? 'hidden' : '' }}">
+                    <label for="arriveDate" class="sr-only">Arrive date</label>
+                    <div class="controls input-append date form_datetime"
+                         data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                      <b>Enter the time of arrival to the client: </b>
+                      <span class="add-on"><i class="icon-th"></i></span>
+                      <span class="add-on"><i class="icon-remove"></i></span>
+                      <input size="16" type="text" value= "" id="arriveDate" name="arriveDate" required>
                     </div>
                   </div>
-                </section>
-              </c:forEach>
-              <!-- /Plans -->
+                  <a href="javascript:" onclick="parentNode.submit();"><button type="button" class="btn btn-success btn-lg btn-block">Assign order</button></a>
 
-    <%--Pagination--%>
-    <div class="text-center">
-      <ul class="pagination">
-      <c:if test="${requestScope.pagenumber != 1}">
-        <li class="dropdown pull-left">
-          <form action="history-of-orders" method="post">
-            <a href="javascript:;" onclick="parentNode.submit();">
-              <button type="button" class="btn btn-default" aria-label="Previous">
-                Previous</button></a>
-              <input type="hidden" name="pagenumber" value=${requestScope.pagenumber - 1}>
-          </form>
-        </li>
-      </c:if>
-        <c:forEach begin="1" end="${requestScope.pagesCount}" var="i">
-          <c:choose>
-            <c:when test="${requestScope.pagenumber eq i}">
-              <li class="dropdown pull-left"><button type="button" class="btn btn-default" aria-label="Next">
-                  ${i}</button></li>
-            </c:when>
-            <c:otherwise>
-              <li class="dropdown pull-left">
-                <form action="history-of-orders" method="post">
-                  <a href="javascript:;" onclick="parentNode.submit();">
-                    <button type="button" class="btn btn-default" aria-label="Next">
-                        ${i}</button></a>
-                  <input type="hidden" name="pagenumber" value=${i}>
+                  <div hidden>
+                    <label for="arriveDateCustomer" class="sr-only">Arrive date</label>
+                    <div class="controls input-append date form_datetime"
+                         data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                      <span class="add-on"><i class="icon-th"></i></span>
+                      <span class="add-on"><i class="icon-remove"></i></span>
+                      <input size="16" type="text" value= "{{ order.arriveDate }}" id="arriveDateCustomer"
+                             name="arriveDateCustomer" readonly>
+                    </div>
+                  </div>
+                  <input type="hidden" name="trackingNumber" value="{{ order.trackingNumber }}">
+                  <input type="hidden" name="orderStatus" value="Assign">
                 </form>
-              </li>
-            </c:otherwise>
-          </c:choose>
-        </c:forEach>
-        <c:if test="${requestScope.pagesCount != 0}">
-        <c:if test="${requestScope.pagenumber != requestScope.pagesCount}">
-        <li class="dropdown pull-left">
-          <form action="history-of-orders" method="post">
-            <a href="javascript:;" onclick="parentNode.submit();">
-            <button type="button" class="btn btn-default" aria-label="Next">
-              Next</button></a>
-            <input type="hidden" name="pagenumber" value=${requestScope.pagenumber + 1}>
-          </form>
-        </li>
-        </c:if>
-        </c:if>
-      </ul>
-    </div>
 
-
-              <%--<div class="text-center">--%>
-                <%--<ul class="pagination">--%>
-                  <%--<c:forEach var="i" begin="1" end="${requestScope.pagesCount}">--%>
-                    <%--<li class="pageLi${i}"><a class="pageButton" href="#">${i}</a></li>--%>
-                  <%--</c:forEach>--%>
-                <%--</ul>--%>
-              <%--</div>--%>
-            <%--</div>--%>
-            <!-- /.table-responsive -->
-
+              </div>
+            </div>
           </div>
-          <!-- /.panel-body -->
-        </div>
-        <!-- /.panel -->
-      </div>
-      <!-- /.col-lg-12 -->
-    </div>
-    <!-- /.row -->
+          <!-- /item -->
 
+        </div>
+        <!-- /.col-lg-12 -->
+
+
+      </div>
+      <!-- /.row -->
+
+    </section>
+    <!-- /Plans -->
+
+    <%--START pagination--%>
+    <div class="text-center">
+      <dir-pagination-controls boundary-links="true"
+                               pagination-id="ordersPagination"
+                               on-page-change="pageChanged(newPageNumber)"
+                               template-url="<c:url value="/webjars/angular-utils-pagination/0.7.0/dirPagination.tpl.html"/>">
+      </dir-pagination-controls>
+    </div>
+    <%--END pagination--%>
 
   </div>
   <!-- /#page-wrapper -->
-
 </div>
 <!-- /#wrapper -->
 
-<!-- jQuery Version 1.11.2 -->
-<script src="<%=application.getContextPath()%>/resources/js/jquery-1.11.2.min.js"></script>
-<!--
-<script src="../../../resources/js/jquery-1.11.2.js"></script>
-<script src="../../../resources/js/jquery.min.js"></script>
-<script type="text/javascript" language="javascript" src="../../../resources/js/jquery.js"></script>
--->
-
-<!-- Bootstrap Core JavaScript -->
-<script src="<%=application.getContextPath()%>/resources/js/bootstrap3/bootstrap.min.js"></script>
+<%@ include file="../parts/scripts.jsp"%>
 
 <!-- Metis Menu Plugin JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/metisMenu.min.js"></script>

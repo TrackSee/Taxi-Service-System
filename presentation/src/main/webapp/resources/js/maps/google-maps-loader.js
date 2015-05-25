@@ -14,7 +14,6 @@ var SECS_PER_MINUTE = 60;
 
 function loadScript() {
     var script = document.createElement('script');
-    script.type = 'text/javascript';
     script.src = 'http://maps.googleapis.com/maps/api/js?v=3.19&key=' + APP_KEY
         + '&sensor=true&language=en&signed_in=true&callback=initializeMaps';
     document.body.appendChild(script);

@@ -24,13 +24,12 @@ import java.util.List;
 /**
  * Created by Maria Komar on 30.04.2015.
  */
-@WebServlet("driver/assigned-order")
+@WebServlet("/driver/assigned-order")
 public class AssignedOrderServlet extends HttpServlet {
     private static Logger logger = LogManager.getLogger();
-    @EJB
-    private OrderFacade orderFacade;
-    @EJB
-    private DriverFacade driverFacade;
+
+    private @EJB OrderFacade orderFacade;
+    private @EJB DriverFacade driverFacade;
     String timeCarArrive;
     String trackingNumber;
     String orderStatus;
@@ -57,12 +56,12 @@ public class AssignedOrderServlet extends HttpServlet {
         orderStatus = req.getParameter("orderStatus");
         statusBoolean = Boolean.valueOf(req.getParameter("status"));
         String pageParam = req.getParameter("pagenumber");
-        Integer pagenumber = null;
+        Integer pagenumber;
 
         //check pageNumber
         try {
             pagenumber = Integer.parseInt(req.getParameter("pagenumber"));
-            if(pagenumber > orderFacade.getOrdersPagesCountAssigned(id)){
+            if(pagenumber > orderFacade.getOrdersPagesCountAssigned(id).intValue()){
                 pagenumber = 1;
                 logger.warn("wrong page was request");
             }
@@ -75,7 +74,7 @@ public class AssignedOrderServlet extends HttpServlet {
           String  timeCarArriveDate = req.getParameter("arriveDate");
 
         if(timeCarArriveCustomerDate!=null){
-            Timestamp carArriveTimeTimestamp=null;
+            Timestamp carArriveTimeTimestamp;
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 Date parsedDate = dateFormat.parse(timeCarArriveCustomerDate);
@@ -93,13 +92,7 @@ public class AssignedOrderServlet extends HttpServlet {
                         timeCarArrive=carArriveTimeTimestamp2.toString();
                     } catch (ParseException e1) {
                         System.out.println("Invalid or missing date, cannot be parsed 2");
-                    } catch (javax.ejb.EJBTransactionRolledbackException e2){
-                        req.setAttribute("alert", alert = true);
-                        req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
-                        req.setAttribute("status", statusBoolean);
-                        req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
-                    }
-                    catch (NullPointerException e3){
+                    } catch (javax.ejb.EJBTransactionRolledbackException | NullPointerException e2){
                         req.setAttribute("alert", alert = true);
                         req.setAttribute("orders", orderFacade.getAssignedOrders(id, 1));
                         req.setAttribute("status", statusBoolean);
@@ -111,43 +104,41 @@ public class AssignedOrderServlet extends HttpServlet {
             System.out.println("First"+timeCarArrive);
         }
 
-        if(orderStatus != null) {
-            if(orderStatus.equals("Refused")){
-                orderFacade.setRefusedOrder(trackingNumber);
-            } else if(orderStatus.equals("In progress")){
-                inProgressStatus = orderFacade.setInProgressOrder(trackingNumber);
-                if(inProgressStatus ==0){
-                    statusBoolean = true;
-                }
-            }
-            else if(orderStatus.equals("Completed")){
-                orderFacade.setCompletedOrder(trackingNumber);
-            }
-            else if(orderStatus.equals("Toqueue")){
-                orderFacade.setToQueueOrder(trackingNumber);
-            }
-            else if(orderStatus.equals("Assign")) {
-                try {
-                    orderFacade.setAssignOrder(id, trackingNumber, timeCarArrive);
-                }
-                catch (javax.ejb.EJBTransactionRolledbackException e2){
-                    UserEntity driver = driverFacade.getUserById(id);
-                    List<TaxiOrderEntity> orders = orderFacade.getAvailableOrders(driver, 1);
-                    req.setAttribute("alert", alert = true);
-                    req.setAttribute("orders", orders);
-                    req.setAttribute("pagesCount", orderFacade.getOrdersPagesCountCompleted(id));
-                    req.getRequestDispatcher("/WEB-INF/driver/driverIndex.jsp").forward(req,resp);
-                    resp.getWriter().write(getJsonFromList(orders));
-                }
+        if (orderStatus != null) {
+            switch (orderStatus) {
+                case "Refused":
+                    orderFacade.setRefusedOrder(trackingNumber);
+                    break;
+                case "In progress":
+                    inProgressStatus = orderFacade.setInProgressOrder(trackingNumber);
+                    if (inProgressStatus == 0) {
+                        statusBoolean = true;
+                    }
+                    break;
+                case "Completed":
+                    orderFacade.setCompletedOrder(trackingNumber);
+                    break;
+                case "Toqueue":
+                    orderFacade.setToQueueOrder(trackingNumber);
+                    break;
+                case "Assign":
+                    try {
+                        orderFacade.setAssignOrder(id, trackingNumber, timeCarArrive);
+                    } catch (javax.ejb.EJBTransactionRolledbackException e2) {
+                        UserEntity driver = driverFacade.getUserById(id);
+                        List<TaxiOrderEntity> orders = orderFacade.getAvailableOrders(driver, 1);
+                        req.setAttribute("alert", alert = true);
+                        req.setAttribute("orders", orders);
+                        req.setAttribute("pagesCount", orderFacade.getOrdersPagesCountCompleted(id));
+                        req.getRequestDispatcher("/WEB-INF/driver/driverIndex.jsp").forward(req, resp);
+                        resp.getWriter().write(getJsonFromList(orders));
+                    }
+                    break;
             }
         }
 
         timeCarArrive = null;
-        req.setAttribute("pagenumber", pagenumber);
-        req.setAttribute("pagesCount", orderFacade.getOrdersPagesCountAssigned(id));
-        req.setAttribute("orders", orderFacade.getAssignedOrders(id, pagenumber));
-        req.setAttribute("status", statusBoolean);
-        req.getRequestDispatcher("/WEB-INF/driver/assignedOrder.jsp").forward(req,resp);
+        resp.getWriter().append(Boolean.toString(statusBoolean));
     }
 
     private String getJsonFromList(List<TaxiOrderEntity> orders){
