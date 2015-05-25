@@ -43,7 +43,7 @@ public class OrderFacade {
      * @see ua.com.tracksee.logic.TaxiOrderBean
      */
     public Long makeOrder(HashMap<String, String> inputData, TaxiOrderDTO orderDTO) throws OrderException {
-        return taxiOrderBean.makeOrder(inputData, orderDTO);
+        return taxiOrderBean.addOrder(inputData, orderDTO);
     }
 
     public List<TaxiPriceEntity> getPriceList() {

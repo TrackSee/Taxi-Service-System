@@ -1,6 +1,8 @@
 package ua.com.tracksee.dao;
 
 import ua.com.tracksee.entities.*;
+import ua.com.tracksee.enumartion.CarCategory;
+import ua.com.tracksee.enumartion.Service;
 
 import javax.ejb.Local;
 import java.math.BigInteger;
@@ -41,13 +43,23 @@ public interface TaxiOrderDAO {
     Long addOrder(TaxiOrderEntity order);
     /**
      * This method update inserted order by
-     * setting arrive;
+     * setting arrive date;
      *
      * @author Sharaban Sasha
      * @param arriveDate - arrive date from order
      * @param trackingNumber - tracking number of inserted order
      */
     void addArriveDate(Timestamp arriveDate,long trackingNumber);
+
+    /**
+     * This method update inserted order by
+     * setting enum service;
+     *
+     * @author Sharaban Sasha
+     * @param carCategory - enum service
+     * @param trackingNumber - tracking number of inserted order
+     */
+    void addEnumCarCategory(CarCategory carCategory, long trackingNumber);
     /**
      * Updates inserted order by
      * setting celebration taxi

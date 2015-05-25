@@ -12,10 +12,7 @@
 <head>
     <%@include file="../parts/meta.jsp" %>
     <%@include file="../parts/bootstrap2.jsp" %>
-    <link href='<%=application.getContextPath()%>/resources/customer/css/visible.css' rel='stylesheet'
-          type='text/css'/>
-    <link href='<%=application.getContextPath()%>/resources/customer/css/hideBlocks.css' rel='stylesheet'
-          type='text/css'/>
+    <link href="<%=application.getContextPath()%>/resources/customer/css/chart.css" rel="stylesheet"/>
 </head>
 <body>
 <%@include file="../parts/header.jsp" %>
@@ -39,25 +36,24 @@
         <form method="post" action="<c:url value="/reportComplicate"/>">
             <button type="submit" class="btn btn-info btn-large">Get price list report</button>
         </form>
-    </div>
+        <dt >Price<dt>
+        <div id="canvasBlock">
+            <canvas id="canvas" height="450" width="600"></canvas>
+        </div>
+        <ul class="legend">
+            <li><span class="none"></span> Without additional tariffs</li><br>
+            <li><span class="nightTariff"></span> With night tariff</li><br>
+            <li><span class="weekendTariff"></span> With weekend tariff</li><br>
+            <li><span class="nightWeekendTariff"></span> With weekend and night tariff</li>
+        </ul>
+        </div>
 </div>
 
-
-<!-- end: Wrapper  -->
-<script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
-        charset="UTF-8"></script>
-
+<script src="<%=application.getContextPath()%>/resources/js/jquery.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/chartHtml5/Chart.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/priceChart.js"></script>
 <%@include file="../parts/scripts.jsp" %>
 <%@include file="../parts/footer.jsp" %>
-<!-- Load jQuery and bootstrap datepicker scripts -->
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
-        charset="UTF-8"></script>
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
-
-<script src="<%=application.getContextPath()%>http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<%--end jQuery and bootstrap datepicker scripts--%>
-
 
 </body>
 </html>
