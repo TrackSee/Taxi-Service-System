@@ -127,7 +127,7 @@
                          data-date-format="hh:ii dd-mm-yyyy" data-link-field="dtp_input1">
                       <span class="add-on"><i class="icon-th"></i></span>
                       <span class="add-on"><i class="icon-remove"></i></span>
-                      <input size="16" type="text" value= "{{ order.arriveDate }}" id="arriveDateCustomer"
+                      <input size="16" type="text" value= "{{ order.arrivalDate }}" id="arriveDateCustomer"
                              name="arriveDateCustomer" readonly>
                       <input type="hidden" id="dtp_input2" value=""/><br/>
                     </div>

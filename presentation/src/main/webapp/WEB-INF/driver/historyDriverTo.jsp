@@ -80,9 +80,8 @@
                   <th>Order time</th>
                   <th>Car arrive time</th>
                   <th>Price</th>
-                  <th>Non smoking</th>
-                  <th>Music</th>
                   <th>Status</th>
+                  <th>User comment</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -95,39 +94,11 @@
                   <td>{{ order.orderDate }}</td>
                   <td>{{ order.arrivalDate }}</td>
                   <td>{{ order.price }}</td>
-                  <td>{{ order.nonSmokingDriver? '+' : '-' }}</td>
-                  <td>{{ order.musicStyle }}</td>
                   <td>{{ order.status }}</td>
+                  <td>{{ order.comment }}</td>
                 </tr>
                 </tbody>
               </table>
-              <div class="panel-footer">
-                <form action="<c:url value="/driver/assigned-order"/>" method="post">
-                  <div id="choose-arrive-date" hidden="{{ order.arrivalDate != null? 'hidden' : '' }}">
-                    <label for="arriveDate" class="sr-only">Arrive date</label>
-                    <div class="controls input-append date form_datetime"
-                         data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                      <b>Enter the time of arrival to the client: </b>
-                      <span class="add-on"><i class="icon-th"></i></span>
-                      <span class="add-on"><i class="icon-remove"></i></span>
-                      <input size="16" type="text" value= "" id="arriveDate" name="arriveDate" required>
-                    </div>
-                  </div>
-                  <a href="javascript:" onclick="parentNode.submit();"><button type="button" class="btn btn-success btn-lg btn-block">Assign order</button></a>
-
-                  <div hidden>
-                    <label for="arriveDateCustomer" class="sr-only">Arrive date</label>
-                    <div class="controls input-append date form_datetime"
-                         data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-                      <span class="add-on"><i class="icon-th"></i></span>
-                      <span class="add-on"><i class="icon-remove"></i></span>
-                      <input size="16" type="text" value= "{{ order.arriveDate }}" id="arriveDateCustomer"
-                             name="arriveDateCustomer" readonly>
-                    </div>
-                  </div>
-                  <input type="hidden" name="trackingNumber" value="{{ order.trackingNumber }}">
-                  <input type="hidden" name="orderStatus" value="Assign">
-                </form>
 
               </div>
             </div>
