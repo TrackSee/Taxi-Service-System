@@ -228,6 +228,7 @@ public class UserDAOBean implements UserDAO {
         query.setParameter(2, user.getPhone());
         query.setParameter(3, user.getDriverLicense());
         query.executeUpdate();
+        
     }
 
     @Override
