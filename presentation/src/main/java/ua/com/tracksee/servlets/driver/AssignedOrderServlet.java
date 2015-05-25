@@ -70,13 +70,15 @@ public class AssignedOrderServlet extends HttpServlet {
             logger.warn("wrong page was request");
         }
 
-          String  timeCarArriveCustomerDate = req.getParameter("arriveDateCustomer");
-          String  timeCarArriveDate = req.getParameter("arriveDate");
+        String  timeCarArriveCustomerDate = req.getParameter("arriveDateCustomer");
+        String  timeCarArriveDate = req.getParameter("arriveDate");
+
+        logger.trace("arrival asked by customer: {}, by driver {}", timeCarArriveCustomerDate, timeCarArriveDate);
 
         if(timeCarArriveCustomerDate!=null){
             Timestamp carArriveTimeTimestamp;
             try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
                 Date parsedDate = dateFormat.parse(timeCarArriveCustomerDate);
                 carArriveTimeTimestamp= new java.sql.Timestamp(parsedDate.getTime());
                     timeCarArrive = carArriveTimeTimestamp.toString();
@@ -86,7 +88,7 @@ public class AssignedOrderServlet extends HttpServlet {
                 if(timeCarArriveDate!=null){
                     Timestamp carArriveTimeTimestamp2=null;
                     try {
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
                         Date parsedDate = dateFormat.parse(timeCarArriveDate);
                         carArriveTimeTimestamp2= new java.sql.Timestamp(parsedDate.getTime());
                         timeCarArrive=carArriveTimeTimestamp2.toString();
