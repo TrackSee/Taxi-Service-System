@@ -52,10 +52,7 @@
             <div class="form-group">
                 <form method="post" action="<c:url value="/orderTracking"/>">
                     <label>Tracking number</label>
-                    ${emailInputForNonActiveUser}
-                    <input type="email" id="email" class="form-control" name="email"
-                           placeholder="Enter your email"
-                           title="For example: alex@gmail.com" required>
+
                     <input type="number" id="trackingNumber" class="form-control" name="trackingNumber"
                            placeholder="Enter your tracking number"
                             title="Only integer number" required>
