@@ -38,12 +38,11 @@
                         <br>
                         Hi!
                         <p/>
-                        Confirm your order at ${website_short}
+                        You have already ordered taxi. Your order is processing now.
                         <br>
-                        Please click the confirmation link to complete order:
+                        You could track your order by tracking number <em>${userCode}</em>
                         <br>
-                        <a style="color:#808080;" href="${website_full}activation?code=${userCode}"> activation
-                            : ${userCode}</a>
+                        at <a style="color:#808080;" href="${website_full}orderInfo">tracksee.tk/</a>
 
                         <p>Have a nice day!
 

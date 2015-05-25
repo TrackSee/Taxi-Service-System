@@ -175,10 +175,10 @@ public class EmailBean {
 
     /**
      *This method notifies user that their order have been processed by the system
-     * and sends the confirmation code for this order
+     * and sends the tracking number for this order
      *
      * @param user           - specifies user to send confirmation link
-     * @param trackingNumber - specifies code that is used for confirmation
+     * @param trackingNumber - specifies number that is used for tracking
      */
     @Asynchronous
     public void sendOrderConfirmation(UserEntity user, Long trackingNumber) {
