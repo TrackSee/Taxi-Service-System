@@ -11,7 +11,7 @@ $(document).on('click', 'button', function(event) {
         },
         error: function(jqXHR, error, errorThrown) {
             window.location.replace("cars");
-            alert('Can not delete!');
+            alert('Сan not be deleted because it is assigned by the driver!');
         }
     });
     }
