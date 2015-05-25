@@ -138,8 +138,8 @@
                       </form>
                     </td>
                     <td>
-                      <button ng-if="order.status == 'IN_PROGRESS'" type="button" class="btn btn-warning">In progress</button>
-                      <form ng-if="order.status != 'IN_PROGRESS'" action="<c:url value="/driver/assigned-order"/>" method="post">
+                      <button ng-if="order.status == 'In progress'" type="button" class="btn btn-warning">In progress</button>
+                      <form ng-if="order.status != 'In progress'" action="<c:url value="/driver/assigned-order"/>" method="post">
                         <a href="javascript:" onclick="parentNode.submit();">
                           <button type="button" class="btn btn-primary">In progress</button></a>
                         <input type="hidden" name="trackingNumber" value="{{ order.trackingNumber }}">
