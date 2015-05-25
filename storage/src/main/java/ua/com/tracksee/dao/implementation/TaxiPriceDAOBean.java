@@ -92,11 +92,12 @@ public class TaxiPriceDAOBean implements TaxiPriceDAO {
         return query.getResultList();
     }
     @Override
-    public List<TaxiPriceEntity> getPricesOrderByCarCategory() {
+    public List<TaxiPriceEntity> getPricesByCarCategory(CarCategory carCategory) {
         String sql = "SELECT price_per_km, price_per_min, car_category, weekend, night_tariff " +
                 "FROM taxi_price " +
-                "ORDER BY car_category";
+                "WHERE car_category=(?1)";
         Query query = entityManager.createNativeQuery(sql, TaxiPriceEntity.class);
+        query.setParameter(1, carCategory.toString());
         return query.getResultList();
     }
 }

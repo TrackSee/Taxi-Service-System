@@ -23,7 +23,7 @@ public class PriceListReportBean  {
     private static final int MINUTES_IN_HOUR=60;
 
     public Report getData(){
-        List<TaxiPriceEntity> taxiPriceEntityList= taxiPriceDAO.getPricesOrderByCarCategory();
+        List<TaxiPriceEntity> taxiPriceEntityList= taxiPriceDAO.getAllPrices();
         PriceReportImpl priceReport=new PriceReportImpl();
 
         priceReport.setReportTitle("Price list");
@@ -40,7 +40,7 @@ public class PriceListReportBean  {
             DataObjectArray dataObjectArray=new DataObjectArrayImpl();
             dataObjectArray.add(taxiPriceEntityList.get(i).getCarCategory().toString());
             if(taxiPriceEntityList.get(i).getNightTariff()&&!taxiPriceEntityList.get(i).getWeekend()){
-                dataObjectArray.add("With weekend tariff");
+                dataObjectArray.add("With night tariff");
             }else
             if(taxiPriceEntityList.get(i).getWeekend()&&!taxiPriceEntityList.get(i).getNightTariff()){
                 dataObjectArray.add("With weekend tariff");
@@ -50,11 +50,11 @@ public class PriceListReportBean  {
             }else if(taxiPriceEntityList.get(i).getNightTariff()&&taxiPriceEntityList.get(i).getWeekend()){
                 dataObjectArray.add("With weekend and night tariff");
             }
-            BigDecimal pricePerKmDigDecimal=taxiPriceEntityList.get(i).getPricePerKm();
-            long pricePerKm=pricePerKmDigDecimal.longValue();
+            BigDecimal pricePerKmBigDecimal=taxiPriceEntityList.get(i).getPricePerKm();
+            long pricePerKm=pricePerKmBigDecimal.longValue();
             dataObjectArray.add(pricePerKm * MIN_DISTANCE);
             dataObjectArray.add(pricePerKm);
-            BigDecimal pricePerMinBigDecimal=taxiPriceEntityList.get(i).getPricePerKm();
+            BigDecimal pricePerMinBigDecimal=taxiPriceEntityList.get(i).getPricePerMin();
             long pricePerMin=pricePerMinBigDecimal.longValue();
             dataObjectArray.add(pricePerMin);
             dataObjectArray.add(pricePerMin * MINUTES_IN_HOUR);

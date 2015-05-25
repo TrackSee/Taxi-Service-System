@@ -33,9 +33,7 @@
     <div class="container">
 
         <div class="title"><h3>Tariffs</h3></div>
-        <form method="post" action="<c:url value="/reportComplicate"/>">
-            <button type="submit" class="btn btn-info btn-large">Get price list report</button>
-        </form>
+
         <dt >Price<dt>
         <div id="canvasBlock">
             <canvas id="canvas" height="450" width="600"></canvas>
@@ -46,7 +44,45 @@
             <li><span class="weekendTariff"></span> With weekend tariff</li><br>
             <li><span class="nightWeekendTariff"></span> With weekend and night tariff</li>
         </ul>
+        <form method="post" action="<c:url value="/reportComplicate"/>">
+            <button type="submit" class="btn btn-info btn-large">Tariffs in Excel</button>
+        </form>
+        <form method="post" action="<c:url value="/tariffsCarCategory"/>">
+            <button type="submit" class="btn btn-info btn-large">Get chart for economy class</button>
+        </form>
+        <form method="post" action="<c:url value="/tariffsCarCategory"/>">
+            <button type="submit" class="btn btn-info btn-large">Get chart for business class</button>
+        </form>
+        <form method="post" action="<c:url value="/tariffsCarCategory"/>">
+            <button type="submit" class="btn btn-info btn-large">Get chart for van</button>
+        </form>
+
         </div>
+</div>
+
+<div hidden="hidden">
+
+    <input type="text" id="pricePerKmNight" value="${pricePerKmNight}" />
+    <input type="text" id="minPriceNight" value="${minPriceNight}" />
+    <input type="text" id="pricePerMinNight" value="${pricePerMinNight}" />
+    <input type="text" id="pricePerHourNight" value="${pricePerHourNight}" />
+
+    <input type="text" id="pricePerKmWeekend" value="${pricePerKmWeekend}" />
+    <input type="text" id="minPriceWeekend" value="${minPriceWeekend}" />
+    <input type="text" id="pricePerMinWeekend" value="${pricePerMinWeekend}" />
+    <input type="text" id="pricePerHourWeekend" value="${pricePerHourWeekend}" />
+
+    <input type="text" id="pricePerKmNone" value="${pricePerKmNone}" />
+    <input type="text" id="minPriceNone" value="${minPriceNone}" />
+    <input type="text" id="pricePerMinNone" value="${pricePerMinNone}" />
+    <input type="text" id="pricePerHourNone" value="${pricePerHourNone}" />
+
+    <input type="text" id="pricePerKmNightWeekend" value="${pricePerKmNightWeekend}" />
+    <input type="text" id="minPriceNightWeekend" value="${minPriceNightWeekend}" />
+    <input type="text" id="pricePerMinNightWeekend" value="${pricePerMinNightWeekend}" />
+    <input type="text" id="pricePerHourNightWeekend" value="${pricePerHourNightWeekend}" />
+
+
 </div>
 
 <script src="<%=application.getContextPath()%>/resources/js/jquery.min.js"></script>

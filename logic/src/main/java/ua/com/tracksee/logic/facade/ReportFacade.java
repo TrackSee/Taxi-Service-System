@@ -1,9 +1,11 @@
 package ua.com.tracksee.logic.facade;
 
 import ua.com.tracksee.dao.ReportDAO;
+import ua.com.tracksee.dao.TaxiPriceDAO;
 import ua.com.tracksee.entities.MostPopularOption;
 import ua.com.tracksee.entities.ServiceProfitable;
-import ua.com.tracksee.logic.reports.ReportChartBean;
+import ua.com.tracksee.entities.TaxiPriceEntity;
+import ua.com.tracksee.enumartion.CarCategory;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -16,6 +18,8 @@ import java.util.List;
 public class ReportFacade {
     @EJB
     private ReportDAO reportDAO;
+    @EJB
+    private TaxiPriceDAO taxiPriceDAO;
     /**
      * @author Katia Stetsiuk
      * @param startDate start date to get the most profitable service
@@ -30,5 +34,15 @@ public class ReportFacade {
      * @return list object with statistic data
      */
     public List<MostPopularOption> getMostPopularOptionsForUser(Integer userId){return reportDAO.getMostPopularOptionsForUser(userId);}
+
+    /**
+     * Returns tariffs.
+     *
+     * @author Sharaban Sasha
+     * @return list objects with tariffs
+     */
+    public List<TaxiPriceEntity> getPricesByCarCategory(CarCategory carCategory){
+        return taxiPriceDAO.getPricesByCarCategory(carCategory);
+    }
 
 }

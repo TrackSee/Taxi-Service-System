@@ -87,7 +87,7 @@ public class TaxiOrderBean {
         // adding to database
         order.setTrackingNumber(taxiOrderDAO.addOrder(order));
 
-        if (order.getService() == Service.SOBER_DRIVER) {
+        if (order.getService() != Service.SOBER_DRIVER) {
             taxiOrderDAO.addEnumCarCategory(enumValidationBean.setEnumCarCategory(inputData.get("carCategory")),
                     order.getTrackingNumber());
         }

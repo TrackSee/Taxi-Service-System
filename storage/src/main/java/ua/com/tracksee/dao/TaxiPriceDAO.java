@@ -46,10 +46,11 @@ public interface TaxiPriceDAO {
 
     /**
      * Returns list of prices
-     * ordered by carCategory.
+     * with such carCategory.
      *
      * @author Sharaban Sasha
+     * @param carCategory category of car
      * @return all prices order by car category
      */
-    List<TaxiPriceEntity> getPricesOrderByCarCategory();
+    List<TaxiPriceEntity> getPricesByCarCategory(CarCategory carCategory);
 }

@@ -25,7 +25,7 @@ public interface AlertMessages {
     String ORDER_DANGER ="orderDanger";
     String ORDER_WARNING ="orderWarning";
     String ORDER_DANGER_BLACK_LIST_MESSAGE = "Your order has been rejected! You refused three orders and therefore " +
-            " your account has been locked, to unlock it, contact the administrator";
+            " your account has been locked, to unlock it, leave explanations and request to unblock";
     String ORDER_WARNING_AUTHORISE_MESSAGE = "Your order has been rejected! To order, you have used email" +
             " of registered user! If you are a registered user, log in to make an order.";
     String HIDE_ORDER_TRACK="hideOrderTrack";
