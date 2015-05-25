@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * This servlet returns
+ * orderInfo page.
+ *
  * @author Sharaban Sasha
  */
 @WebServlet("/orderInfo")

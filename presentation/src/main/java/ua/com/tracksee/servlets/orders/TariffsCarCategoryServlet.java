@@ -18,6 +18,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
+ * This servlet send
+ * tariffs data to page
+ * tariffs by gotten car
+ * category.
+ *
  * @author Sharaban Sasha
  */
 @WebServlet("/tariffsCarCategory")

@@ -1,6 +1,11 @@
 package ua.com.tracksee.entity;
 
 /**
+ * Interface used for storage
+ * arrays of DataObjectArrays and
+ * and titles of columns. Also it
+ * is store title of report.
+ *
  * @author Sharaban Sasha
  */
 public interface Report {

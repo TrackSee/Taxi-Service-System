@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * @author Sharaban Sasha
+ * @see ua.com.tracksee.entity.ObjectConverter
  */
 public class ObjectConverterImpl implements ObjectConverter {
     ArrayList<String> possibleTypes = new ArrayList<>();

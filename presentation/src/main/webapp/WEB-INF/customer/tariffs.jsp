@@ -43,10 +43,7 @@
             <li><span class="nightTariff"></span> With night tariff</li><br>
             <li><span class="weekendTariff"></span> With weekend tariff</li><br>
             <li><span class="nightWeekendTariff"></span> With weekend and night tariff</li>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <div style="padding-top: 30%">
             <form method="post" action="<c:url value="/tariffsCarCategory"/>">
                 <div hidden="hidden">
                     <input type="text" name="carCategory" value="economyClass" />
@@ -65,7 +62,9 @@
                 </div>
                 <button type="submit" class="btn btn-info btn-large">Get chart for van class</button>
             </form>
+                </div>
         </ul>
+
         <form method="post" action="<c:url value="/reportComplicate"/>">
             <button type="submit" class="btn btn-success btn-large">Tariffs in Excel</button>
         </form>

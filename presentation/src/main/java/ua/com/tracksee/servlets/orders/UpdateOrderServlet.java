@@ -16,6 +16,11 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
+ * This servlet updates
+ * order  and returns
+ * orderInfo page with
+ * success message.
+ *
  * @author Igor Gula
  * @author Sharaban Sasha
  */
