@@ -82,7 +82,7 @@
                 <tr>
                   <th>#</th>
                   <th>Service</th>
-                  <th ng-if="order.service == 'CELEBRATION_TAXI' || order.service == 'TAXI_FOR_LONG_TERM'">Duration</th>
+                  <th ng-if="order.service == 'Celebration taxi' || order.service == 'Taxi for long term'">Duration</th>
                   <th>Order time</th>
                   <th>Car arrive time</th>
                   <th>Price</th>
@@ -95,7 +95,7 @@
                 <tr class="odd gradeX">
                   <td>{{ order.trackingNumber }}</td>
                   <td>{{ order.service }}</td>
-                  <td ng-if="order.service == 'CELEBRATION_TAXI' || order.service == 'TAXI_FOR_LONG_TERM'">
+                  <td ng-if="order.service == 'Celebration taxi' || order.service == 'Taxi for long term'">
                     {{ order.amountOfHours }}: {{ order.amountOfMinutes }}
                   </td>
                   <td>{{ order.orderDate }}</td>
