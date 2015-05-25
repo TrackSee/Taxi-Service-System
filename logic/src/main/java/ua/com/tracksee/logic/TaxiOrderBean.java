@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static java.lang.Boolean.FALSE;
+import static ua.com.tracksee.util.GeometryConverter.decodeGooglePolylineToLineString;
 
 /**
  * Stateless bean used for any order processing business logic.
@@ -75,7 +76,7 @@ public class TaxiOrderBean {
 
         // items initialisation
         for (RouteDTO route : orderDTO.getRoutes()) {
-            LineString path = route.getRouteLineString();
+            LineString path = decodeGooglePolylineToLineString(route.getEncodedRoute());
             BigDecimal orderedQuantity = route.getDistance();
             order.getItemList().add(new TaxiOrderItemEntity(path, orderedQuantity, order));
         }

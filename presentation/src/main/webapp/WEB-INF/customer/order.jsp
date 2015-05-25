@@ -246,7 +246,6 @@
     </div>
 </div>
 
-<%@include file="../parts/footer.jsp" %>
 <%@include file="../parts/scripts.jsp" %>
 
 <%-- Load bootstrap datepicker scripts --%>

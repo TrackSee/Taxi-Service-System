@@ -61,7 +61,6 @@
             charset="UTF-8"></script>
 
     <%@include file="/WEB-INF/parts/scripts.jsp" %>
-    <%@include file="/WEB-INF/parts/footer.jsp" %>
     <!-- Load jQuery and bootstrap datepicker scripts -->
     <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-1.8.3.min.js"
             charset="UTF-8"></script>

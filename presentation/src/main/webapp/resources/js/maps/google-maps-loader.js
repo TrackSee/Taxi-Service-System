@@ -12,10 +12,12 @@ var DEFAULT_REGION = 'UA';
 var DEFAULT_ZOOM = 12;
 var SECS_PER_MINUTE = 60;
 
+var GOOGLE_MAPS_SRC = 'http://maps.googleapis.com/maps/api/js?v=3.19&key=' + APP_KEY
+    + '&sensor=true&language=en&signed_in=true&callback=initializeMaps';
+
 function loadScript() {
     var script = document.createElement('script');
-    script.src = 'http://maps.googleapis.com/maps/api/js?v=3.19&key=' + APP_KEY
-        + '&sensor=true&language=en&signed_in=true&callback=initializeMaps';
+    script.src = GOOGLE_MAPS_SRC;
     document.body.appendChild(script);
 }
 

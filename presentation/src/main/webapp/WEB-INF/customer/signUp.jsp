@@ -138,7 +138,5 @@
 <%@include file="../parts/scripts.jsp" %>
 <script src="<%=application.getContextPath()%>/resources/customer/js/sign-up.js"></script>
 <%-- end: JavaScript --%>
-
-<%@include file="../parts/footer.jsp" %>
 </body>
 </html>

@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static java.lang.Long.parseLong;
+
 /**
  * @author Sharaban Sasha
  */
@@ -41,7 +43,7 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
         Integer userID;
         userID = (Integer) req.getSession().getAttribute(USER_ID_ALIAS);
         try {
-            long trackingNumber = Long.parseLong(req.getParameter(TRACKING_NUMBER_ALIAS));
+            long trackingNumber = parseLong(req.getParameter(TRACKING_NUMBER_ALIAS));
             if (userID == null) {
                 if (orderFacade.checkOrderPresentNonActiveUser(trackingNumber)) {
                     TaxiOrderEntity taxiOrderEntity = setParametersToPage(req, resp, trackingNumber);
@@ -84,8 +86,10 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
         req.setAttribute(EMAIL_ALIAS, userEntity.getEmail());
 
         ObjectMapper mapper = new ObjectMapper();
-        TaxiOrderDTO orderDTO = new TaxiOrderDTO(taxiOrderEntity.getItemList());
-        req.setAttribute(ORDER_ALIAS, mapper.writeValueAsString(orderDTO));
+        TaxiOrderDTO orderDto = new TaxiOrderDTO(taxiOrderEntity.getItemList());
+        String orderJson = mapper.writeValueAsString(orderDto);
+
+        req.setAttribute(ORDER_ALIAS, orderJson);
 
         req.setAttribute(PRICE_ALIAS, taxiOrderEntity.getPrice());
 

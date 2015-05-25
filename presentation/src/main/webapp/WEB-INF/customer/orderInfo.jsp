@@ -68,8 +68,6 @@
         </div>
     </div>
 
-    <%@include file="../parts/footer.jsp" %>
-
 
 <!-- end: Wrapper  -->
         <%@include file="../parts/scripts.jsp" %>

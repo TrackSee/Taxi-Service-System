@@ -33,6 +33,7 @@
   <link href="<%=application.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"
         media="screen">
 
+  <script src="http://maps.googleapis.com/maps/api/js?v=3.19&key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8"></script>
   <%--START JS for pagination--%>
   <script src="<c:url value="/webjars/angularjs/1.3.15/angular.min.js"/>"></script>
   <script src="<c:url value="/webjars/angular-utils-pagination/0.7.0/dirPagination.js"/>"></script>
@@ -69,7 +70,7 @@
               <div class="panel-heading">
                 <div class="map-canvas">
                   <iframe frameborder="0" width="825" height="250"
-                          src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin=,&destination=,">
+                          src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin={{ order.origin }}&destination={{ order.destination }}&waypoints={{ order.waypoints }}">
                   </iframe>
                 </div>
               </div>
