@@ -43,6 +43,10 @@ public class TaxiOrderDTO {
 
     private String comment;
 
+    private int amountOfHours;
+    private int amountOfMinutes;
+    private int amountOfCars;
+
     public TaxiOrderDTO() {
     }
 
@@ -65,6 +69,10 @@ public class TaxiOrderDTO {
         this.status = orderEntity.getStatus().getName();
 
         this.description = orderEntity.getDescription();
+
+        this.amountOfHours = orderEntity.getAmountOfHours();
+        this.amountOfMinutes = orderEntity.getAmountOfMinutes();
+        this.amountOfCars = orderEntity.getAmountOfCars();
 
         this.carCategory = orderEntity.getCarCategory().toString();
         this.wayOfPayment = orderEntity.getWayOfPayment().toString();
@@ -227,5 +235,29 @@ public class TaxiOrderDTO {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public int getAmountOfHours() {
+        return amountOfHours;
+    }
+
+    public void setAmountOfHours(int amountOfHours) {
+        this.amountOfHours = amountOfHours;
+    }
+
+    public int getAmountOfMinutes() {
+        return amountOfMinutes;
+    }
+
+    public void setAmountOfMinutes(int amountOfMinutes) {
+        this.amountOfMinutes = amountOfMinutes;
+    }
+
+    public int getAmountOfCars() {
+        return amountOfCars;
+    }
+
+    public void setAmountOfCars(int amountOfCars) {
+        this.amountOfCars = amountOfCars;
     }
 }
