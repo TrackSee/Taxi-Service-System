@@ -148,15 +148,19 @@
                       </tr>
                       <tr>
                         <td>Visa terminal: </td>
-                        <td>${order.acceptsVisa==true ? "+" : "-"}</td>
+                        <td>${driver.car.acceptsVisa==true ? "+" : "-"}</td>
                       </tr>
                       <tr>
                         <td>Air conditioner: </td>
-                        <td>${order.airConditioner==true ? "+" : "-"}</td>
+                        <td>${driver.car.airConditioner==true ? "+" : "-"}</td>
                       </tr>
                       <tr>
                         <td>Wi-fi: </td>
-                        <td>${order.freeWifi==true ? "+" : "-"}</td>
+                        <td>${driver.car.freeWifi==true ? "+" : "-"}</td>
+                      </tr>
+                      <tr>
+                        <td>Animal transportation: </td>
+                        <td>${driver.car.animalTransportationApplicable==true ? "+" : "-"}</td>
                       </tr>
                       </tbody>
                     </table>

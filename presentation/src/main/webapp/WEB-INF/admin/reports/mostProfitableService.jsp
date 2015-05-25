@@ -46,7 +46,7 @@
     <div id="page-wrapper">
         <form class="serviceProfit" id="serviceProfit" action="<c:url value="/admin/report/profitableservice"/>"
               method="post">
-            <h3 class="form-sign-up-heading">Please enter period to get result be service profitable</h3>
+            <h3 class="form-sign-up-heading">Please enter period to get result</h3>
 
             <h4 id="start"> Start Date
                 <input type="text" class="date start" id="startDate" name="startDate"/>
