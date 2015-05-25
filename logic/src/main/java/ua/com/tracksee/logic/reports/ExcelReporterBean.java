@@ -34,14 +34,15 @@ public class ExcelReporterBean {
         cellStyle.setFillForegroundColor(HSSFColor.SKY_BLUE.index);
         cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 
+
         ObjectConverter objectConverter=new ObjectConverterImpl();
         HSSFRow rowTitle = worksheet.createRow(0);
-        for (int k = 0; k < report.getTitlesSize(); k++) {
+        for (int k = 3; k < report.getTitlesSize(); k++) {
             HSSFCell cellATitle = rowTitle.createCell(k);
             cellATitle.setCellValue(report.getColumnTitle(k));
             cellATitle.setCellStyle(cellStyle);
         }
-        for (int i = 1; i < report.getDataSize()+1; i++) {
+        for (int i = 4; i < report.getDataSize()+1; i++) {
             HSSFRow row = worksheet.createRow(i);
             DataObjectArray dataObjectArray=  report.getDataObjectArray(i - 1);
             for (int j = 0; j < dataObjectArray.size(); j++) {

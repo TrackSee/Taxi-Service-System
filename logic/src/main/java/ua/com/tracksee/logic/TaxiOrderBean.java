@@ -34,12 +34,24 @@ import static java.lang.Boolean.FALSE;
 public class TaxiOrderBean {
     private static final Logger logger = LogManager.getLogger();
 
-    private @EJB TaxiOrderDAO taxiOrderDAO;
-    private @EJB UserDAO userDAO;
-    private @EJB EmailBean mailBean;
-    private @EJB ValidationBean validationBean;
-    private @EJB PriceCalculatorBean priceCalculatorBean;
-    private @EJB EnumValidationBean enumValidationBean;
+    private
+    @EJB
+    TaxiOrderDAO taxiOrderDAO;
+    private
+    @EJB
+    UserDAO userDAO;
+    private
+    @EJB
+    EmailBean mailBean;
+    private
+    @EJB
+    ValidationBean validationBean;
+    private
+    @EJB
+    PriceCalculatorBean priceCalculatorBean;
+    private
+    @EJB
+    EnumValidationBean enumValidationBean;
 
     public List<ServiceProfitable> getProfitByService(String startDate, String endDate) {
         return taxiOrderDAO.getProfitByService(startDate, endDate);
@@ -56,13 +68,13 @@ public class TaxiOrderBean {
      * tracking number, also tracking number returns to be shown to
      * user.
      *
-     * @author Ruslan Gunavardana
-     * @author Sharaban Sasha
-     * @author Avlasov Sasha
      * @param inputData - input data about user and his order
      * @param orderDTO
      * @return Integer - tracking number of user order
      * @throws ua.com.tracksee.exception.OrderException
+     * @author Ruslan Gunavardana
+     * @author Sharaban Sasha
+     * @author Avlasov Sasha
      */
     public Long addOrder(HashMap<String, String> inputData, TaxiOrderDTO orderDTO) throws OrderException {
         String email = inputData.get("email");
@@ -87,17 +99,13 @@ public class TaxiOrderBean {
         // adding to database
         order.setTrackingNumber(taxiOrderDAO.addOrder(order));
 
-        if (order.getService() != Service.SOBER_DRIVER) {
-            taxiOrderDAO.addEnumCarCategory(enumValidationBean.setEnumCarCategory(inputData.get("carCategory")),
-                    order.getTrackingNumber());
-        }
 
         if (order.getArriveDate() != null) {
             taxiOrderDAO.addArriveDate(order.getArriveDate(), order.getTrackingNumber());
         }
-        if (order.getAmountOfHours() != null&&order.getAmountOfMinutes() != null) {
+        if (order.getAmountOfHours() != null && order.getAmountOfMinutes() != null) {
             taxiOrderDAO.addLongTermTaxiParams(order.getAmountOfHours(),
-                    order.getAmountOfMinutes(),order.getTrackingNumber());
+                    order.getAmountOfMinutes(), order.getTrackingNumber());
         }
         if (order.getAmountOfCars() != null) {
             taxiOrderDAO.addCelebrationTaxiParam(order.getAmountOfCars(), order.getTrackingNumber());
@@ -133,9 +141,9 @@ public class TaxiOrderBean {
     /**
      * Updates order.
      *
+     * @param inputData information about changed order
      * @author Sharaban Sasha
      * @author Igor Gula
-     * @param inputData information about changed order
      */
     public void updateOrder(HashMap<String, String> inputData) throws OrderException {
         TaxiOrderEntity order = validateAndAssignDataToTaxiOrderEntity(inputData);
@@ -144,17 +152,12 @@ public class TaxiOrderBean {
             order.setTrackingNumber(trackingNumber);
             taxiOrderDAO.updateOrder(order);
 
-            if (order.getService() == Service.SOBER_DRIVER) {
-                taxiOrderDAO.addEnumCarCategory(enumValidationBean.setEnumCarCategory(inputData.get("carCategory")),
-                        order.getTrackingNumber());
-            }
-
             if (order.getArriveDate() != null) {
                 taxiOrderDAO.addArriveDate(order.getArriveDate(), order.getTrackingNumber());
             }
-            if (order.getAmountOfHours() != null&&order.getAmountOfMinutes() != null) {
+            if (order.getAmountOfHours() != null && order.getAmountOfMinutes() != null) {
                 taxiOrderDAO.addLongTermTaxiParams(order.getAmountOfHours(),
-                        order.getAmountOfMinutes(),order.getTrackingNumber());
+                        order.getAmountOfMinutes(), order.getTrackingNumber());
             }
             if (order.getAmountOfCars() != null) {
                 taxiOrderDAO.addCelebrationTaxiParam(order.getAmountOfCars(), order.getTrackingNumber());
@@ -186,9 +189,9 @@ public class TaxiOrderBean {
      * Password and salt are set by default as empty
      * string for unregistered user.
      *
+     * @return ServiceUserEntity object that contain checked
      * @author Sharaban Sasha
      * @author Avlasov Sasha
-     * @return ServiceUserEntity object that contain checked
      */
     private UserEntity getUser(String email, String phone) {
         UserEntity user = userDAO.getUserByEmail(email);
@@ -212,11 +215,11 @@ public class TaxiOrderBean {
      * Sends confirmation letter with
      * tracking number to the user who made the order
      *
+     * @param userEntity-     the user who made the order
+     * @param trackingNumber- tracking number of made order
+     * @throws javax.mail.MessagingException
      * @author Sharaban Sasha
      * @author Avlasov Sasha
-     * @param userEntity- the user who made the order
-     * @param trackingNumber-    tracking number of made order
-     * @throws javax.mail.MessagingException
      */
     public void sendEmail(UserEntity userEntity, Long trackingNumber) {
         mailBean.sendOrderConfirmation(userEntity, trackingNumber);
@@ -226,11 +229,11 @@ public class TaxiOrderBean {
      * Checks incoming origin
      * address and insert it into AddressEntity object.
      *
-     * @author Sharaban Sasha
-     * @author Ruslan Gunavardana
      * @param email - client's email
      * @param phone - client's phone number
      * @throws ua.com.tracksee.exception.OrderException *
+     * @author Sharaban Sasha
+     * @author Ruslan Gunavardana
      */
     private void validateUserCredentials(String email, String phone) throws OrderException {
         if (!validationBean.isValidEmail(email)) {
@@ -246,10 +249,10 @@ public class TaxiOrderBean {
      * This method checks incoming values and
      * insert it into TaxiOrderEntity object.
      *
-     * @author Sharaban Sasha
      * @param inputData - input data from the client
      * @return TaxiOrderEntity object that contain checked values
      * @throws ua.com.tracksee.exception.OrderException
+     * @author Sharaban Sasha
      */
     private TaxiOrderEntity validateAndAssignDataToTaxiOrderEntity(HashMap<String, String> inputData) throws OrderException {
         TaxiOrderEntity taxiOrderEntity = new TaxiOrderEntity();
@@ -260,9 +263,10 @@ public class TaxiOrderBean {
         taxiOrderEntity.setAmountOfHours(convertToInt(inputData.get("amountOfHours")));
         taxiOrderEntity.setAmountOfMinutes(convertToInt(inputData.get("amountOfMinutes")));
         taxiOrderEntity.setStatus(enumValidationBean.setEnumOrderStatus(inputData.get("orderStatus")));
+        taxiOrderEntity.setCarCategory(enumValidationBean.setEnumCarCategory(inputData.get("carCategory")));
         taxiOrderEntity.setWayOfPayment(enumValidationBean.setEnumWayOfPayment(inputData.get("wayOfPayment")));
         taxiOrderEntity.setDriverSex(enumValidationBean.setEnumDriverSex(inputData.get("driverSex")));
-        taxiOrderEntity.setService( enumValidationBean.setEnumService(inputData.get("service")));
+        taxiOrderEntity.setService(enumValidationBean.setEnumService(inputData.get("service")));
         taxiOrderEntity.setMusicStyle(enumValidationBean.setEnumMusicStyle(inputData.get("musicStyle")));
 
         taxiOrderEntity.setAnimalTransportation(convertCheckBoxToBoolean(inputData.get("animalTransportation")));
@@ -270,7 +274,7 @@ public class TaxiOrderBean {
         taxiOrderEntity.setNonSmokingDriver(convertCheckBoxToBoolean(inputData.get("nonSmokingDriver")));
         taxiOrderEntity.setAirConditioner(convertCheckBoxToBoolean(inputData.get("airConditioner")));
 
-            taxiOrderEntity.setDescription(inputData.get("description"));
+        taxiOrderEntity.setDescription(inputData.get("description"));
 
         return taxiOrderEntity;
     }
@@ -279,10 +283,10 @@ public class TaxiOrderBean {
      * Converts date from
      * string to Timestamp
      *
-     * @author Sharaban Sasha
      * @param date - date in string format
      * @return date converted from string to Timestamp
      * @throws ua.com.tracksee.exception.OrderException
+     * @author Sharaban Sasha
      */
     private Timestamp convertToTimestamp(String date) throws OrderException {
         Timestamp timestamp;
@@ -296,23 +300,24 @@ public class TaxiOrderBean {
         }
         return timestamp;
     }
+
     /**
      * Converts string value
      * to integer and make code
      * simplest
      *
-     * @author Sharaban Sasha
      * @param number - number in string format
      * @return number converted from string to int
      * @throws ua.com.tracksee.exception.OrderException
+     * @author Sharaban Sasha
      */
-    private Integer convertToInt(String number)  {
+    private Integer convertToInt(String number) {
         Integer intNumber;
         try {
-          intNumber=Integer.parseInt(number);
+            intNumber = Integer.parseInt(number);
         } catch (NumberFormatException e) {
-            logger.info("TaxiOrderBean.convertToInt: input value:"+number+" ,exception "+ e);
-            intNumber=null;
+            logger.info("TaxiOrderBean.convertToInt: input value:" + number + " ,exception " + e);
+            intNumber = null;
         }
         return intNumber;
     }
@@ -326,15 +331,14 @@ public class TaxiOrderBean {
     }
 
 
-
     /**
      * Converts string
      * representation of checkbox state
      * to boolean
      *
-     * @author Sharaban Sasha
      * @param checkBoxState - string representation of checkbox state
      * @return checkbox boolean state
+     * @author Sharaban Sasha
      */
     private boolean convertCheckBoxToBoolean(String checkBoxState) {
         boolean booleanCheckBoxState = false;
@@ -354,13 +358,15 @@ public class TaxiOrderBean {
     public boolean checkOrderPresentNonActiveUser(long trackingNumber) {
         return taxiOrderDAO.checkOrderPresentNonActiveUser(trackingNumber);
     }
+
     /**
      * @author Sharaban Sasha
      * @see ua.com.tracksee.dao.TaxiOrderDAO
      */
-    public boolean checkOrderPresentForActiveUser(long trackingNumber,int userId) {
+    public boolean checkOrderPresentForActiveUser(long trackingNumber, int userId) {
         return taxiOrderDAO.checkOrderPresentForActiveUser(trackingNumber, userId);
     }
+
     /**
      * @author Sharaban Sasha
      * @see ua.com.tracksee.dao.TaxiOrderDAO

@@ -32,10 +32,13 @@ private static final Logger logger = LogManager.getLogger();
         try {
             if(req.getParameter("carCategory").equals("economyClass")){
                 List<TaxiPriceEntity> taxiPriceEntityList=reportFacade.getPricesByCarCategory(CarCategory.ECONOMY_CLASS);
+                setData(req,resp,taxiPriceEntityList);
             }else if(req.getParameter("carCategory").equals("businessClass")){
                 List<TaxiPriceEntity> taxiPriceEntityList=reportFacade.getPricesByCarCategory(CarCategory.BUSINESS_CLASS);
+                setData(req,resp,taxiPriceEntityList);
             } else  if(req.getParameter("carCategory").equals("van")) {
                 List<TaxiPriceEntity> taxiPriceEntityList = reportFacade.getPricesByCarCategory(CarCategory.VAN);
+                setData(req,resp,taxiPriceEntityList);
             }
 
             req.getRequestDispatcher(TARIFFS_PAGE).forward(req, resp);
@@ -44,7 +47,7 @@ private static final Logger logger = LogManager.getLogger();
             req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
         }
     }
-    private void setData(HttpServletRequest req, HttpServletResponse resp,){
+    private void setData(HttpServletRequest req, HttpServletResponse resp, List<TaxiPriceEntity> taxiPriceEntityList){
         for (int i = 0; i < taxiPriceEntityList.size() ; i++) {
             if(taxiPriceEntityList.get(i).getNightTariff()&&!taxiPriceEntityList.get(i).getWeekend()){
                 BigDecimal pricePerMinBigDecimal=taxiPriceEntityList.get(i).getPricePerMin();
