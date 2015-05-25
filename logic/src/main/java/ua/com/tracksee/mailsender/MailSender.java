@@ -24,6 +24,7 @@ import java.util.Map;
 import static java.lang.System.getProperty;
 
 import static ua.com.tracksee.mailsender.SenderSessionSpecificator.GMAIL;
+import static ua.com.tracksee.mailsender.SenderSessionSpecificator.TRACK_SEE_MAIL;
 
 /**
  * This bean provides standard basic mechanism for email notification
@@ -34,7 +35,8 @@ import static ua.com.tracksee.mailsender.SenderSessionSpecificator.GMAIL;
 public class MailSender {
 
     private static final Logger logger = LogManager.getLogger();
-    private static Session SESSION = GMAIL.getSession();
+    //private static Session SESSION = GMAIL.getSession();
+    private static Session SESSION = TRACK_SEE_MAIL.getSession();
     private static final String ROOT_PATH = getProperty("jboss.server.data.dir");
     private static InternetAddress FROM_ADDRESS;
     private static final File TEMPLATE_DIR = new File(ROOT_PATH);
