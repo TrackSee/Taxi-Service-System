@@ -43,7 +43,7 @@ public class MailSender {
 
     static {
         try {
-            FROM_ADDRESS = SenderSessionSpecificator.GMAIL.getInternetAddress();
+            FROM_ADDRESS = SenderSessionSpecificator.TRACK_SEE_MAIL.getInternetAddress();
         } catch (AddressException e) {
             logger.error("ERROR, can not parse server_email: {1} to getInternetAddress", "tracksee.mail@gmail.com");
         }
