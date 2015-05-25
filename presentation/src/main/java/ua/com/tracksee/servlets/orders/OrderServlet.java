@@ -51,6 +51,7 @@ public class OrderServlet extends HttpServlet implements OrderAttributeNames,Ale
         }
         req.setAttribute(PRICE_LIST_ALIAS, objectMapper.writeValueAsString(orderFacade.getPriceList()));
         req.setAttribute(MINIMAL_ORDER_DISTANCE_ALIAS, orderFacade.getMinimalOrderDistance());
+        req.setAttribute(ANIMAL_TRANSPORTATION_MULTIPLIER, orderFacade.getAnimalTransportationMultiplier());
         req.getRequestDispatcher(ORDER_PAGE).forward(req, resp);
     }
 

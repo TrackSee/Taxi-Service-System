@@ -209,7 +209,7 @@
 
                 <div class="checkbox" id="animalTransportationCh">
                     <label>
-                        <input type="checkbox" name="animalTransportation">
+                        <input type="checkbox" name="animalTransportation" id="animalTransportationCheckbox">
                         Animal transportation
                     </label>
                 </div>
@@ -264,6 +264,7 @@
 <script>
     function getPriceList() { return ${requestScope.priceList}; }
     function getMinDistance() { return ${requestScope.minimalOrderDistance}; }
+    function getAnimalTransportationMultiplier() { return ${requestScope.animalTransportationMultiplier}; }
 </script>
 <%-- END price list JS injection --%>
 

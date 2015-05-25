@@ -46,6 +46,13 @@ function getTaxiPriceEntity() {
     })[0];
 }
 
+function getAdditionalOptionsMultiplier() {
+    var multiplier = 1;
+    if ($('animalTransportationCheckbox').val() == 'animalTransportation')//TODO)
+        multiplier *= getAnimalTransportationMultiplier();
+    return multiplier;
+}
+
 /**
  * updatePrice
  * Updates order price when user change route addresses
@@ -59,6 +66,6 @@ function updatePrice() {
     var distance = getRoutesData().reduce(function(pv, cv) {return pv + cv.distance; }, 0);
     // taxi for very short distance has constant min price
     var businessDistance = (distance > getMinDistance()) ? distance : getMinDistance();
-    var totalCost = price * businessDistance;
+    var totalCost = price * businessDistance * getAdditionalOptionsMultiplier();
     $('#price').val("$ " + totalCost.toFixed(2));
 }
