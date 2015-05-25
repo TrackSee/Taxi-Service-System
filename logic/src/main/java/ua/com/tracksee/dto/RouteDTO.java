@@ -3,10 +3,7 @@ package ua.com.tracksee.dto;
 import com.vividsolutions.jts.geom.LineString;
 
 import java.math.BigDecimal;
-import java.util.List;
 
-import static ua.com.tracksee.util.GeometryConverter.decodeGooglePolylineToLineString;
-import static ua.com.tracksee.util.GeometryConverter.decodeGooglePolylineToLocations;
 import static ua.com.tracksee.util.GeometryConverter.encodeToGooglePolyLine;
 
 /**
@@ -23,14 +20,6 @@ public class RouteDTO {
     public RouteDTO(LineString lineString, BigDecimal distance) {
         this.encodedRoute = encodeToGooglePolyLine(lineString);
         this.distance = distance;
-    }
-
-    public List<Location> getRouteLocations() {
-        return decodeGooglePolylineToLocations(encodedRoute);
-    }
-
-    public LineString getRouteLineString() {
-        return decodeGooglePolylineToLineString(encodedRoute);
     }
 
     public String getEncodedRoute() {

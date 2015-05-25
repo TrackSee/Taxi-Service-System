@@ -105,8 +105,8 @@ public class GeometryConverter {
         StringBuilder encodedPoints = new StringBuilder();
         int prev_lat = 0, prev_lng = 0;
         for (Location trackpoint : polyline) {
-            int lat = (int) (trackpoint.getLat() * 1E6);
-            int lng = (int) (trackpoint.getLng() * 1E6);
+            int lat = (int) (trackpoint.getLat() * 1E5);
+            int lng = (int) (trackpoint.getLng() * 1E5);
             encodedPoints.append(encodeSignedNumber(lat - prev_lat));
             encodedPoints.append(encodeSignedNumber(lng - prev_lng));
             prev_lat = lat;

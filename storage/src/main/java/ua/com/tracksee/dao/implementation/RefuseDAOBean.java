@@ -19,10 +19,12 @@ import java.sql.SQLException;
 @Stateless
 public class RefuseDAOBean implements RefuseDAO {
     private static final Logger logger = LogManager.getLogger();
-    @EJB
-    TaxiOrderDAO taxiOrderDAO;
+
+    private @EJB TaxiOrderDAO taxiOrderDAO;
+
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
+
     private int incrementUserIgnoredTimes(long orderId) throws SQLException{
         String sql = "UPDATE service_user \n" +
                 "SET ignored_times=1+\n" +

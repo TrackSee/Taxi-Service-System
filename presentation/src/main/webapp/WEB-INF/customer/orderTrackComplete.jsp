@@ -237,7 +237,6 @@
     </div>
 </div>
 
-<%@include file="../parts/footer.jsp" %>
 <%@include file="../parts/scripts.jsp" %>
 
 <!-- Load bootstrap datepicker scripts -->
@@ -248,6 +247,7 @@
 
 <%--Google maps scripts--%>
 <script>
+    GOOGLE_MAPS_SRC += '&libraries=geometry';
     function getOrderDTO() { return ${requestScope.order}; }
     function getMapsDraggable() { return false; }
 </script>

@@ -19,17 +19,18 @@ function initializeMaps() {
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
     //decoding path
-    var route = getOrderDTO().routes[0];
+    var route = getOrderDTO().routes[0].encodedRoute;
     var latLngArr = google.maps.geometry.encoding.decodePath(route);
 
-    function getWaypointsArray (pv, cv) {
-        pv.push({location: cv, stopover: true});
-        return pv;
-    }
+    //function getWaypointsArray (pv, cv) {
+    //    pv.push({location: cv, stopover: false});
+    //    return pv;
+    //}
 
     var origin = latLngArr.shift();
     var dest = latLngArr.pop();
-    var waypoints = latLngArr.reduce(getWaypointsArray, []);
+    //var waypoints = latLngArr.reduce(getWaypointsArray, []);
+    var waypoints = [];
 
     // creating path
     initializeDirections(map);

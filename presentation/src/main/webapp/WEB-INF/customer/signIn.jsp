@@ -89,7 +89,5 @@
 <c:if test="${param.error}"><script>$.notify('Sign up failed!', 'error');</script></c:if>
 <%-- end: JavaScript --%>
 
-<%@include file="../parts/footer.jsp" %>
-
 </body>
 </html>

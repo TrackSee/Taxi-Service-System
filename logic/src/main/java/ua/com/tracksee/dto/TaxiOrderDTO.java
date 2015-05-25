@@ -41,6 +41,8 @@ public class TaxiOrderDTO {
     private Boolean nonSmokingDriver;
     private Boolean airConditioner;
 
+    private String comment;
+
     public TaxiOrderDTO() {
     }
 
@@ -72,9 +74,8 @@ public class TaxiOrderDTO {
         this.freeWiFi = orderEntity.getFreeWifi();
         this.nonSmokingDriver = orderEntity.getNonSmokingDriver();
         this.airConditioner = orderEntity.getAirConditioner();
+        this.comment = orderEntity.getComment();
     }
-
-
 
     public long getTrackingNumber() {
         return trackingNumber;
@@ -218,5 +219,13 @@ public class TaxiOrderDTO {
 
     public void setAirConditioner(Boolean airConditioner) {
         this.airConditioner = airConditioner;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

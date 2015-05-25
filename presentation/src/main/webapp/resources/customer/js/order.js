@@ -27,6 +27,7 @@ $(document).ready(function(){
 
     $(".form_datetime").on('changeDate', updatePrice);
     $("#carCategory").change(updatePrice);
+    $('input.pricedOption').change(updatePrice);
 });
 
 /**
@@ -48,7 +49,7 @@ function getTaxiPriceEntity() {
 
 function getAdditionalOptionsMultiplier() {
     var multiplier = 1;
-    if ($('animalTransportationCheckbox').val() == 'animalTransportation')//TODO)
+    if ($('#animalTransportationCheckbox').is(":checked"))
         multiplier *= getAnimalTransportationMultiplier();
     return multiplier;
 }
@@ -59,9 +60,10 @@ function getAdditionalOptionsMultiplier() {
  */
 function updatePrice() {
     var service = $('#service').val();
-    var isTimePriced = service == 'CELEBRATION_TAXI' && service == 'TAXI_FOR_LONG_TERM';
+    //var isTimePriced = service == 'CELEBRATION_TAXI' && service == 'TAXI_FOR_LONG_TERM';
+    //isTimePriced? priceEntity.pricePerMin :
     var priceEntity = getTaxiPriceEntity();
-    var price = isTimePriced? priceEntity.pricePerMin : priceEntity.pricePerKm;
+    var price = priceEntity.pricePerKm;
 
     var distance = getRoutesData().reduce(function(pv, cv) {return pv + cv.distance; }, 0);
     // taxi for very short distance has constant min price

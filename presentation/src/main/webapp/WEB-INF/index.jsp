@@ -104,15 +104,8 @@
 
     </div>
 </div>
-<footer>
-    <div class="row-fluid">
-        <p class="text-muted" align="right"><span class="copyright">
-            &copy; TrackSee 2015.
-            <a style="color: #0044cc" href="https://github.com/TrackSee">GitHub</a>
-            <span style='padding-left:30px;'> </span> </span>
-        </p>
-    </div>
-</footer>
+
+<%@include file="parts/footer.jsp" %>
 
 <%-- start: Java Script --%>
 <script src="<%=application.getContextPath()%>/resources/js/jquery-1.8.2.js"></script>
@@ -126,7 +119,5 @@
 <%--For slider--%>
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-carousel.js"></script>
 <%-- end: Java Script --%>
-
-<%@include file="parts/footer.jsp" %>
 </body>
 </html>

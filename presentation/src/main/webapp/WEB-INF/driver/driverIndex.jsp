@@ -33,6 +33,7 @@
   <link href="<%=application.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"
         media="screen">
 
+  <%--<script src="http://maps.googleapis.com/maps/api/js?v=3.19&key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8"></script>--%>
   <%--START JS for pagination--%>
   <script src="<c:url value="/webjars/angularjs/1.3.15/angular.min.js"/>"></script>
   <script src="<c:url value="/webjars/angular-utils-pagination/0.7.0/dirPagination.js"/>"></script>
@@ -68,9 +69,9 @@
               <%-- heading --%>
               <div class="panel-heading">
                 <div class="map-canvas">
-                  <iframe frameborder="0" width="825" height="250"
-                          src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin=,&destination=,">
-                  </iframe>
+                  <%--<iframe frameborder="0" width="825" height="250"--%>
+                          <%--src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin={{ order.origin }}&destination={{ order.destination }}&waypoints={{ order.waypoints }}">--%>
+                  <%--</iframe>--%>
                 </div>
               </div>
               <%-- END heading --%>
@@ -110,11 +111,12 @@
                   <div id="choose-arrive-date" hidden="{{ order.arrivalDate != null? 'hidden' : '' }}">
                     <label for="arriveDate" class="sr-only">Arrive date</label>
                     <div class="controls input-append date form_datetime"
-                         data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                         data-date-format="hh:ii dd-mm-yyyy" data-link-field="dtp_input1">
                       <b>Enter the time of arrival to the client: </b>
                       <span class="add-on"><i class="icon-th"></i></span>
                       <span class="add-on"><i class="icon-remove"></i></span>
                       <input size="16" type="text" value= "" id="arriveDate" name="arriveDate" required>
+                      <input type="hidden" id="dtp_input1" value=""/><br/>
                   </div>
                   </div>
                   <a href="javascript:" onclick="parentNode.submit();"><button type="button" class="btn btn-success btn-lg btn-block">Assign order</button></a>
@@ -122,11 +124,12 @@
                   <div hidden>
                     <label for="arriveDateCustomer" class="sr-only">Arrive date</label>
                     <div class="controls input-append date form_datetime"
-                         data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                         data-date-format="hh:ii dd-mm-yyyy" data-link-field="dtp_input1">
                       <span class="add-on"><i class="icon-th"></i></span>
                       <span class="add-on"><i class="icon-remove"></i></span>
                       <input size="16" type="text" value= "{{ order.arriveDate }}" id="arriveDateCustomer"
                              name="arriveDateCustomer" readonly>
+                      <input type="hidden" id="dtp_input2" value=""/><br/>
                     </div>
                   </div>
                   <input type="hidden" name="trackingNumber" value="{{ order.trackingNumber }}">
@@ -179,7 +182,7 @@
 
 <script src="<%=application.getContextPath()%>/resources/js/moment.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/combodate.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>
+<%--<script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>--%>
 
 </body>
 </html>

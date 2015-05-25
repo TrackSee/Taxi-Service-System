@@ -18,6 +18,7 @@ import java.util.List;
  */
 @Stateless
 public class GroupDAOBean implements GroupDAO {
+
     @PersistenceContext(unitName = "HibernatePU")
     private EntityManager entityManager;
 
