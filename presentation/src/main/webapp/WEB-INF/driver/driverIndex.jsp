@@ -116,6 +116,7 @@
                       <span class="add-on"><i class="icon-th"></i></span>
                       <span class="add-on"><i class="icon-remove"></i></span>
                       <input size="16" type="text" value= "" id="arriveDate" name="arriveDate" required>
+                      <input type="hidden" id="dtp_input1" value=""/><br/>
                   </div>
                   </div>
                   <a href="javascript:" onclick="parentNode.submit();"><button type="button" class="btn btn-success btn-lg btn-block">Assign order</button></a>
@@ -128,6 +129,7 @@
                       <span class="add-on"><i class="icon-remove"></i></span>
                       <input size="16" type="text" value= "{{ order.arriveDate }}" id="arriveDateCustomer"
                              name="arriveDateCustomer" readonly>
+                      <input type="hidden" id="dtp_input2" value=""/><br/>
                     </div>
                   </div>
                   <input type="hidden" name="trackingNumber" value="{{ order.trackingNumber }}">
