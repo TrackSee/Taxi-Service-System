@@ -1,6 +1,9 @@
 package ua.com.tracksee.servlets;
 
 /**
+ * This servlets contains alert
+ * messages that used for alerts.
+ *
  * @author Sharaban Sasha
  */
 public interface AlertMessages {

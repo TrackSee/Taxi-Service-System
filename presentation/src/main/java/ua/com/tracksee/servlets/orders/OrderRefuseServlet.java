@@ -15,6 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * This servlet makes refusing order
+ * and returns order info page with
+ * success message.
+ *
  * @author Sharaban Sasha
  */
 @WebServlet("/orderRefuse")
@@ -29,7 +33,6 @@ public class OrderRefuseServlet extends HttpServlet implements OrderAttributeNam
         try {
             long trackingNumber = Long.parseLong(req.getParameter(TRACKING_NUMBER_ALIAS));
             orderFacade.refuseOrder(trackingNumber);
-
             req.setAttribute(REFUSE_SUCCESS, orderFacade.getSuccessAlert(REFUSE_SUCCESS_MESSAGE));
             req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
         } catch (Exception e) {

@@ -1,6 +1,9 @@
 package ua.com.tracksee.servlets.orders;
 
 /**
+ * This servlet contains attribute names
+ * that used on order servlets.
+ *
  * @author Sharaban Sasha
  */
 public interface OrderAttributeNames {

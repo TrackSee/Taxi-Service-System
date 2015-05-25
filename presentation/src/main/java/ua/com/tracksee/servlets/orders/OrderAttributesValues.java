@@ -1,6 +1,9 @@
 package ua.com.tracksee.servlets.orders;
 
 /**
+ * This interface contains values
+ * of options that used on order servlets.
+ *
  * @author Sharaban Sasha
  */
 public interface OrderAttributesValues {

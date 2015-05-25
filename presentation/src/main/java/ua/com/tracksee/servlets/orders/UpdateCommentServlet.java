@@ -15,6 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * This servlet updates order comments
+ * and returns orderInfo page with
+ * success message.
+ *
  * @author Igor Gula
  * @author Sharaban Sasha
  */

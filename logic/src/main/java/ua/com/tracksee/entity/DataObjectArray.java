@@ -1,6 +1,11 @@
 package ua.com.tracksee.entity;
 
 /**
+ * Interface used for storage data
+ * of different types, setting three
+ * types of data and getting them
+ * from object array to their base types.
+ *
  * @author Sharaban Sasha
  */
 public interface DataObjectArray {

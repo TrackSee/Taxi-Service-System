@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * @author Sharaban Sasha
+ * @see ua.com.tracksee.entity.DataObjectArray
  */
 public class DataObjectArrayImpl implements DataObjectArray {
 private ArrayList<Object> data=new ArrayList<>();
