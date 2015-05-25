@@ -221,14 +221,13 @@ public class UserDAOBean implements UserDAO {
 
     @Override
     public void updateUser(UserEntity user) {
-//        String sql = "UPDATE service_user SET email = ? , phone =? , driver_license = ?" +
-//                "WHERE user_id = " + user.getUserId();
-//        Query query = entityManager.createNativeQuery(sql);
-//        query.setParameter(1, user.getEmail());
-//        query.setParameter(2, user.getPhone());
-//        query.setParameter(3, user.getDriverLicense());
-//        query.executeUpdate();
-        entityManager.merge(user);
+        String sql = "UPDATE service_user SET email = ? , phone =? , driver_license = ?" +
+                "WHERE user_id = " + user.getUserId();
+        Query query = entityManager.createNativeQuery(sql);
+        query.setParameter(1, user.getEmail());
+        query.setParameter(2, user.getPhone());
+        query.setParameter(3, user.getDriverLicense());
+        query.executeUpdate();
     }
 
     @Override
