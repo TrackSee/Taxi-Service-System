@@ -2,6 +2,10 @@ package ua.com.tracksee.servlets.orders;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.ObjectMapper;
+import ua.com.tracksee.dto.RouteDTO;
+import ua.com.tracksee.dto.TaxiOrderDTO;
 import ua.com.tracksee.entities.UserEntity;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.enumartion.OrderStatus;
@@ -24,9 +28,7 @@ import java.io.IOException;
 public class OrderInfoTrackServlet extends HttpServlet implements OrderAttributeNames, OrderAttributesValues,
         AlertMessages, PageAddresses {
 
-    private
-    @EJB
-    OrderFacade orderFacade;
+    private @EJB OrderFacade orderFacade;
     private static final Logger logger = LogManager.getLogger();
 
     @Override
@@ -71,7 +73,7 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
 
     }
 
-    private TaxiOrderEntity setParametersToPage(HttpServletRequest req, HttpServletResponse resp, long trackingNumber) {
+    private TaxiOrderEntity setParametersToPage(HttpServletRequest req, HttpServletResponse resp, long trackingNumber) throws IOException {
 
         TaxiOrderEntity taxiOrderEntity = orderFacade.getOrderInfo(trackingNumber);
         UserEntity userEntity = orderFacade.getUserInfo(taxiOrderEntity.getUser().getUserId());
@@ -80,6 +82,10 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
         req.setAttribute(ORDER_STATUS_ALIAS, taxiOrderEntity.getStatus());
         req.setAttribute(PHONE_NUMBER_ALIAS, userEntity.getPhone());
         req.setAttribute(EMAIL_ALIAS, userEntity.getEmail());
+
+        ObjectMapper mapper = new ObjectMapper();
+        TaxiOrderDTO orderDTO = new TaxiOrderDTO(taxiOrderEntity.getItemList());
+        req.setAttribute(ORDER_ALIAS, mapper.writeValueAsString(orderDTO));
 
         req.setAttribute(PRICE_ALIAS, taxiOrderEntity.getPrice());
 

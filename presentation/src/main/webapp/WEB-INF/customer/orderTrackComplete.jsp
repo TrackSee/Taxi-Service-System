@@ -241,8 +241,12 @@
 <%--end bootstrap datepicker scripts--%>
 
 <%--Google maps scripts--%>
+<script>
+    function getOrderDTO() { return ${requestScope.order}; }
+    function getMapsDraggable() { return false; }
+</script>
 <script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>
-<script src="<%=application.getContextPath()%>/resources/customer/js/order-maps.js"></script>
+<script src="<%=application.getContextPath()%>/resources/customer/js/order-complete-maps.js"></script>
 <%--end google maps scripts--%>
 
 <%-- Order page scripts --%>
@@ -252,6 +256,5 @@
 <script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality-prepared.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/fields-generator.js"></script>
 <%--end order page scripts--%>
-<script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
 </body>
 </html>

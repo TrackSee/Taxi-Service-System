@@ -44,19 +44,21 @@ public class TaxiOrderDTO {
     public TaxiOrderDTO() {
     }
 
-    public TaxiOrderDTO(TaxiOrderEntity orderEntity) {
-        this.trackingNumber = orderEntity.getTrackingNumber();
-        this.service = orderEntity.getService().getName();
-        this.orderDate = orderEntity.getOrderedDate();
-        this.arrivalDate = orderEntity.getArriveDate();
-
-        if (routes != null) {
-            List<TaxiOrderItemEntity> items = orderEntity.getItemList();
+    public TaxiOrderDTO(List<TaxiOrderItemEntity> items) {
+        if (items != null) {
             routes = new RouteDTO[items.size()];
             for (int i = 0; i < items.size(); i++) {
                 routes[i] = new RouteDTO(items.get(i).getPath(), items.get(i).getOrderedQuantity());
             }
         }
+    }
+
+    public TaxiOrderDTO(TaxiOrderEntity orderEntity) {
+        this(orderEntity.getItemList());
+        this.trackingNumber = orderEntity.getTrackingNumber();
+        this.service = orderEntity.getService().getName();
+        this.orderDate = orderEntity.getOrderedDate();
+        this.arrivalDate = orderEntity.getArriveDate();
         this.price = orderEntity.getPrice();
         this.status = orderEntity.getStatus().getName();
 
@@ -71,6 +73,8 @@ public class TaxiOrderDTO {
         this.nonSmokingDriver = orderEntity.getNonSmokingDriver();
         this.airConditioner = orderEntity.getAirConditioner();
     }
+
+
 
     public long getTrackingNumber() {
         return trackingNumber;

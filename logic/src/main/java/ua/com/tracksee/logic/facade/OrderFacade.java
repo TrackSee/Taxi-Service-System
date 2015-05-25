@@ -260,4 +260,8 @@ public class OrderFacade {
     public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
         return driverOrderBean.getAvailableOrders(driver, pageNumber);
     }
+
+    public BigDecimal getAnimalTransportationMultiplier() {
+        return priceListBean.getAnimalTransportationMultiplier();
+    }
 }
