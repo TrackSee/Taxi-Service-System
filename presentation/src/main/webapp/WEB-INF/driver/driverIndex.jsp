@@ -111,7 +111,7 @@
                   <div id="choose-arrive-date" hidden="{{ order.arrivalDate != null? 'hidden' : '' }}">
                     <label for="arriveDate" class="sr-only">Arrive date</label>
                     <div class="controls input-append date form_datetime"
-                         data-date-format="hh:ii dd/mm/yyyy" data-link-field="dtp_input1">
+                         data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
                       <b>Enter the time of arrival to the client: </b>
                       <span class="add-on"><i class="icon-th"></i></span>
                       <span class="add-on"><i class="icon-remove"></i></span>
@@ -124,7 +124,7 @@
                   <div hidden>
                     <label for="arriveDateCustomer" class="sr-only">Arrive date</label>
                     <div class="controls input-append date form_datetime"
-                         data-date-format="hh:ii dd/mm/yyyy" data-link-field="dtp_input1">
+                         data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
                       <span class="add-on"><i class="icon-th"></i></span>
                       <span class="add-on"><i class="icon-remove"></i></span>
                       <input size="16" type="text" value= "{{ order.arrivalDate }}" id="arriveDateCustomer"
@@ -164,7 +164,7 @@
 <script src="<%=application.getContextPath()%>/resources/driver/js/modalOrderInProgress.js"></script>
 
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
-<script src="<%=application.getContextPath()%>/resources/driver/js/driver-datepicker.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/metisMenu.min.js"></script>

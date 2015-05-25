@@ -77,7 +77,7 @@ public class AssignedOrderServlet extends HttpServlet {
 
         if(timeCarArriveCustomerDate!=null){
             try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 Date parsedDate = dateFormat.parse(timeCarArriveCustomerDate);
                 timeCarArrive = timeCarArriveCustomerDate;
             } catch (ParseException e) {
@@ -85,7 +85,7 @@ public class AssignedOrderServlet extends HttpServlet {
 
                 if(timeCarArriveDate!=null){
                     try {
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         Date parsedDate = dateFormat.parse(timeCarArriveDate);
                         timeCarArrive= timeCarArriveDate;
                     } catch (ParseException e1) {
