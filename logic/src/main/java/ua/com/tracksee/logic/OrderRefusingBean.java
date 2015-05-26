@@ -9,6 +9,7 @@ import ua.com.tracksee.entities.UserEntity;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.mail.MessagingException;
 
 /**
  * @author Sasha Avlasov
@@ -42,7 +43,11 @@ public class OrderRefusingBean {
      * @throws javax.mail.MessagingException
      */
     public void sendEmail(UserEntity userEntity, Long trackingNumber) {
-        mailBean.sendOrderConfirmation(userEntity, trackingNumber);
+        try {
+            mailBean.sendBlockingUserEmail(userEntity);
+        } catch (MessagingException e) {
+            logger.warn("Fail sending blocking email to user : "+userEntity.getEmail());
+        }
     }
 
     /**
