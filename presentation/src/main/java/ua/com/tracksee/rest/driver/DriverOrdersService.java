@@ -58,10 +58,6 @@ public class DriverOrdersService {
             return Response.status(UNAUTHORIZED).build();
         }
         driver = driverFacade.getDriverByID(userId);
-        if (!driver.getDriver()) {
-            logger.warn("NonDriver access to available orders.");
-            return Response.status(FORBIDDEN).build();
-        }
         return null;
     }
 
@@ -69,15 +65,13 @@ public class DriverOrdersService {
     @Path("/available")
     @Produces(APPLICATION_JSON)
     public Response getAvailableOrders(@QueryParam("page") int pageNumber) {
+        System.out.println(pageNumber);
         Response failResponse = tryToRefuseRequest(pageNumber);
         if (failResponse != null) {
             return failResponse;
         }
         BigInteger totalCount = orderFacade.getOrdersPagesCountQueued(driver);
         logger.debug("For driver #{} {} available orders is found", driver.getUserId(), totalCount);
-        if (pageNumber < 1 || pageNumber > ceil(totalCount.intValue() / (double) ORDERS_PAGE_SIZE)) {
-            return Response.status(BAD_REQUEST).build();
-        }
         List<TaxiOrderEntity> orders = orderFacade.getAvailableOrders(driver, pageNumber);
         return Response.ok(new TaxiOrdersDTO(totalCount, orders)).build();
     }
@@ -93,9 +87,6 @@ public class DriverOrdersService {
 
         BigInteger totalCount = orderFacade.getOrdersPagesCountAssigned(driver.getUserId());
         logger.debug("For driver #{} {} assigned orders is found", driver.getUserId(), totalCount);
-        if (pageNumber < 1 || pageNumber > ceil(totalCount.intValue() / (double) ORDERS_PAGE_SIZE)) {
-            return Response.status(BAD_REQUEST).build();
-        }
         List<TaxiOrderEntity> orders = orderFacade.getAssignedOrders(driver.getUserId(), pageNumber);
         return Response.ok(new TaxiOrdersDTO(totalCount, orders)).build();
     }
@@ -111,9 +102,6 @@ public class DriverOrdersService {
 
         BigInteger totalCount = orderFacade.getOrdersPagesCountCompleted(driver.getUserId());
         logger.debug("For driver #{} {} history of orders is found", driver.getUserId(), totalCount);
-        if (pageNumber < 1 || pageNumber > ceil(totalCount.intValue() / (double) ORDERS_PAGE_SIZE)) {
-            return Response.status(BAD_REQUEST).build();
-        }
         List<TaxiOrderEntity> orders = orderFacade.getHistoryOfOrders(driver.getUserId(), pageNumber);
         return Response.ok(new TaxiOrdersDTO(totalCount, orders)).build();
     }
