@@ -29,28 +29,28 @@ $(document).ready(function(){
                 strokeColor : "rgba(220,220,220,0.8)",
                 highlightFill: "rgba(30,144,255,0.75)",
                 highlightStroke: "rgba(220,220,220,1)",
-                data : [pricePerKmNone,pricePerKmNight,pricePerKmWeekend,pricePerKmNightWeekend]
+                data : [pricePerKmNone,minPriceNone,pricePerMinNone,pricePerHourNone]
             },
             {
                 fillColor : "rgba(0,255,255,0.5)",
                 strokeColor : "rgba(151,187,205,0.8)",
                 highlightFill : "rgba(0,255,255,0.75)",
                 highlightStroke : "rgba(151,187,205,1)",
-                data : [minPriceNone,minPriceNight,minPriceWeekend,minPriceNightWeekend]
+                data : [pricePerKmNight,minPriceNight,pricePerMinNight,pricePerHourNight]
             },
             {
                 fillColor : "rgba(129,21,133,0.5)",
                 strokeColor : "rgba(151,187,205,0.8)",
                 highlightFill : "rgba(129,21,133,0.75)",
                 highlightStroke : "rgba(151,187,205,1)",
-                data : [pricePerMinNone,pricePerMinNight ,pricePerMinWeekend,pricePerMinNightWeekend]
+                data : [pricePerKmWeekend,minPriceWeekend,pricePerMinWeekend,pricePerHourWeekend]
             },
             {
                 fillColor : "rgba(255,127,0,0.5)",
                 strokeColor : "rgba(151,187,205,0.8)",
                 highlightFill : "rgba(255,127,0,0.75)",
                 highlightStroke : "rgba(151,187,205,1)",
-                data : [pricePerHourNone,pricePerHourNight,pricePerHourWeekend,pricePerHourNightWeekend]
+                data : [pricePerKmNightWeekend,minPriceNightWeekend,pricePerMinNightWeekend,pricePerHourNightWeekend]
             }
         ]
 

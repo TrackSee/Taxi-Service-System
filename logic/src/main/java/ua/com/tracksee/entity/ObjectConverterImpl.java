@@ -1,6 +1,7 @@
 package ua.com.tracksee.entity;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 
 import java.util.ArrayList;
 
@@ -19,20 +20,23 @@ public class ObjectConverterImpl implements ObjectConverter {
         return (Integer) object;
     }
 
-    private Long getLongValue(Object object) {
-        return (Long) object;
+    private Double getDoubleValue(Object object) {
+        return (Double) object;
     }
 
-    public void switcher(String type,Object object,Cell cell){
+    public void switcher(String type,Object object,Cell cell,CellStyle cellStyle){
         switch(type){
             case "String":
                 cell.setCellValue(getStringValue(object));
+                cell.setCellStyle(cellStyle);
                 break;
             case "Integer":
                 cell.setCellValue(getIntegerValue(object));
+                cell.setCellStyle(cellStyle);
                 break;
-            case "Long":
-                cell.setCellValue(getLongValue(object));
+            case "Double":
+                cell.setCellValue(getDoubleValue(object));
+                cell.setCellStyle(cellStyle);
                 break;
         }
     }

@@ -43,7 +43,7 @@
             <li><span class="nightTariff"></span> With night tariff</li><br>
             <li><span class="weekendTariff"></span> With weekend tariff</li><br>
             <li><span class="nightWeekendTariff"></span> With weekend and night tariff</li>
-            <div style="padding-top: 30%">
+            <div id="blockCharts">
             <form method="post" action="<c:url value="/tariffsCarCategory"/>">
                 <div hidden="hidden">
                     <input type="text" name="carCategory" value="economyClass" />
