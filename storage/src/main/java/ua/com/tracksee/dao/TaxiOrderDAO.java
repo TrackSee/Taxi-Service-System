@@ -24,6 +24,17 @@ public interface TaxiOrderDAO {
 
     void addComment(TaxiOrderEntity taxiOrderEntity);
 
+    /**
+     * Returns true if order
+     * with such email and
+     * tracking number is
+     * present in database.
+     *
+     * @author Sharaban Sasha
+     * @param trackingNumber order tracking number
+     * @param email user email
+     */
+    public boolean checkOrderPresentNonActiveUserEmail(Long trackingNumber,String email);
 
     /**
      *@author Igor Gula

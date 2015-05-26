@@ -7,7 +7,6 @@ import ua.com.tracksee.entity.*;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +19,7 @@ import java.util.List;
 public class PriceListReportBean  {
     @EJB private TaxiPriceDAO taxiPriceDAO;
     private static final int MIN_DISTANCE=5;
+    private static final int MINUTES_IN_HALF_HOUR =30;
     private static final int MINUTES_IN_HOUR=60;
 
     public Report getData(){
@@ -33,6 +33,7 @@ public class PriceListReportBean  {
         priceReport.addColumnTitle("Minimal price (order lowest 5km)");
         priceReport.addColumnTitle("Price per km");
         priceReport.addColumnTitle("Price per min");
+        priceReport.addColumnTitle("Price per half hour");
         priceReport.addColumnTitle("Price per hour");
 
 
@@ -51,12 +52,16 @@ public class PriceListReportBean  {
                 dataObjectArray.add("With weekend and night tariff");
             }
             BigDecimal pricePerKmBigDecimal=taxiPriceEntityList.get(i).getPricePerKm();
-            long pricePerKm=pricePerKmBigDecimal.longValue();
+            double pricePerKm=pricePerKmBigDecimal.doubleValue();
+
             dataObjectArray.add(pricePerKm * MIN_DISTANCE);
             dataObjectArray.add(pricePerKm);
             BigDecimal pricePerMinBigDecimal=taxiPriceEntityList.get(i).getPricePerMin();
-            long pricePerMin=pricePerMinBigDecimal.longValue();
+
+            double pricePerMin=pricePerMinBigDecimal.doubleValue();
+
             dataObjectArray.add(pricePerMin);
+            dataObjectArray.add(pricePerMin * MINUTES_IN_HALF_HOUR);
             dataObjectArray.add(pricePerMin * MINUTES_IN_HOUR);
             priceReport.addDataObjectArray(dataObjectArray);
         }

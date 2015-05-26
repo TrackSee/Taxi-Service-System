@@ -20,9 +20,9 @@ private ArrayList<Object> data=new ArrayList<>();
         typesArray.add("Integer");
     }
     @Override
-    public void add(Long value) {
+    public void add(Double value) {
         data.add((Object)value);
-        typesArray.add("Long");
+        typesArray.add("Double");
     }
     @Override
     public void add(String value) {

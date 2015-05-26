@@ -29,7 +29,7 @@ import java.util.List;
 public class TariffsCarCategoryServlet extends HttpServlet implements PageAddresses{
 private static final Logger logger = LogManager.getLogger();
     private static final int MIN_DISTANCE=5;
-    private static final int MINUTES_IN_HOUR=60;
+    private static final int MINUTES_IN_HALF_HOUR =30;
     private @EJB
     ReportFacade reportFacade;
     @Override
@@ -56,47 +56,46 @@ private static final Logger logger = LogManager.getLogger();
         for (int i = 0; i < taxiPriceEntityList.size() ; i++) {
             if(taxiPriceEntityList.get(i).getNightTariff()&&!taxiPriceEntityList.get(i).getWeekend()){
                 BigDecimal pricePerMinBigDecimal=taxiPriceEntityList.get(i).getPricePerMin();
-                long pricePerMin=pricePerMinBigDecimal.longValue();
+                double pricePerMin=pricePerMinBigDecimal.doubleValue();
                 BigDecimal pricePerKmBigDecimal=taxiPriceEntityList.get(i).getPricePerKm();
-                long pricePerKm=pricePerKmBigDecimal.longValue();
-
+                double pricePerKm=pricePerKmBigDecimal.doubleValue();
                 req.setAttribute("pricePerKmNight",pricePerKm);
                 req.setAttribute("minPriceNight",pricePerKm*MIN_DISTANCE);
                 req.setAttribute("pricePerMinNight",pricePerMin);
-                req.setAttribute("pricePerHourNight",pricePerMin*MINUTES_IN_HOUR);
+                req.setAttribute("pricePerHourNight",pricePerMin* MINUTES_IN_HALF_HOUR);
             }else
             if(taxiPriceEntityList.get(i).getWeekend()&&!taxiPriceEntityList.get(i).getNightTariff()){
                 BigDecimal pricePerMinBigDecimal=taxiPriceEntityList.get(i).getPricePerMin();
-                long pricePerMin=pricePerMinBigDecimal.longValue();
+                double pricePerMin=pricePerMinBigDecimal.doubleValue();
                 BigDecimal pricePerKmBigDecimal=taxiPriceEntityList.get(i).getPricePerKm();
-                long pricePerKm=pricePerKmBigDecimal.longValue();
+                double pricePerKm=pricePerKmBigDecimal.doubleValue();
 
                 req.setAttribute("pricePerKmWeekend",pricePerKm);
                 req.setAttribute("minPriceWeekend",pricePerKm*MIN_DISTANCE);
                 req.setAttribute("pricePerMinWeekend",pricePerMin);
-                req.setAttribute("pricePerHourWeekend",pricePerMin*MINUTES_IN_HOUR);
+                req.setAttribute("pricePerHourWeekend",pricePerMin* MINUTES_IN_HALF_HOUR);
 
             }else
             if(!taxiPriceEntityList.get(i).getWeekend()&&!taxiPriceEntityList.get(i).getNightTariff()){
                 BigDecimal pricePerMinBigDecimal=taxiPriceEntityList.get(i).getPricePerMin();
-                long pricePerMin=pricePerMinBigDecimal.longValue();
+                double pricePerMin=pricePerMinBigDecimal.doubleValue();
                 BigDecimal pricePerKmBigDecimal=taxiPriceEntityList.get(i).getPricePerKm();
-                long pricePerKm=pricePerKmBigDecimal.longValue();
+                double pricePerKm=pricePerKmBigDecimal.doubleValue();
 
                 req.setAttribute("pricePerKmNone",pricePerKm);
                 req.setAttribute("minPriceNone",pricePerKm*MIN_DISTANCE);
                 req.setAttribute("pricePerMinNone",pricePerMin);
-                req.setAttribute("pricePerHourNone",pricePerMin*MINUTES_IN_HOUR);
+                req.setAttribute("pricePerHourNone",pricePerMin* MINUTES_IN_HALF_HOUR);
             }else if(taxiPriceEntityList.get(i).getNightTariff()&&taxiPriceEntityList.get(i).getWeekend()){
                 BigDecimal pricePerMinBigDecimal=taxiPriceEntityList.get(i).getPricePerMin();
-                long pricePerMin=pricePerMinBigDecimal.longValue();
+                double pricePerMin=pricePerMinBigDecimal.doubleValue();
                 BigDecimal pricePerKmBigDecimal=taxiPriceEntityList.get(i).getPricePerKm();
-                long pricePerKm=pricePerKmBigDecimal.longValue();
+                double pricePerKm=pricePerKmBigDecimal.doubleValue();
 
                 req.setAttribute("pricePerKmNightWeekend",pricePerKm);
                 req.setAttribute("minPriceNightWeekend",pricePerKm*MIN_DISTANCE);
                 req.setAttribute("pricePerMinNightWeekend",pricePerMin);
-                req.setAttribute("pricePerHourNightWeekend",pricePerMin*MINUTES_IN_HOUR);
+                req.setAttribute("pricePerHourNightWeekend",pricePerMin* MINUTES_IN_HALF_HOUR);
             }
         }
     }

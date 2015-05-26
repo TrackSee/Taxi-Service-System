@@ -43,10 +43,7 @@ public class Location implements Cloneable {
 
     @Override
     public String toString() {
-        return "Location{" +
-                "lat=" + lat +
-                ", lng=" + lng +
-                '}';
+        return "Location{" + "lat=" + lat + ", lng=" + lng + '}';
     }
 
     @Override

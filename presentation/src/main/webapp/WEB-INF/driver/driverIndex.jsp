@@ -33,14 +33,15 @@
   <link href="<%=application.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"
         media="screen">
 
-  <%--<script src="http://maps.googleapis.com/maps/api/js?v=3.19&key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8"></script>--%>
+  <script src="http://maps.googleapis.com/maps/api/js?v=3.19&key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&libraries=geometry"></script>
   <%--START JS for pagination--%>
+  <%@ include file="../parts/scripts.jsp"%>
+  <script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
+  <script src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"></script>
   <script src="<c:url value="/webjars/angularjs/1.3.15/angular.min.js"/>"></script>
   <script src="<c:url value="/webjars/angular-utils-pagination/0.7.0/dirPagination.js"/>"></script>
   <script src="<%=application.getContextPath()%>/resources/driver/js/available-orders-pagination.js"></script>
   <%--END JS for pagination--%>
-  <script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
-  <script src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"></script>
 </head>
 <body>
 <div id="wrapper" ng-app="driver" ng-controller="availableOrdersController">
@@ -70,9 +71,7 @@
               <%-- heading --%>
               <div class="panel-heading">
                 <div class="map-canvas">
-                  <%--<iframe frameborder="0" width="825" height="250"--%>
-                          <%--src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin={{ order.origin }}&destination={{ order.destination }}&waypoints={{ order.waypoints }}">--%>
-                  <%--</iframe>--%>
+                  <iframe id="map-frame" frameborder="0" width="825" height="250" ng-src="{{ order.map }}"></iframe>'
                 </div>
               </div>
               <%-- END heading --%>
@@ -158,8 +157,6 @@
   <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
-
-<%@ include file="../parts/scripts.jsp"%>
 
 <script src="<%=application.getContextPath()%>/resources/admin/js/admin.js"></script>
 <script src="<%=application.getContextPath()%>/resources/driver/js/modalOrderInProgress.js"></script>
