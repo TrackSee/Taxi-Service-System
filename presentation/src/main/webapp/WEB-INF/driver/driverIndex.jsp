@@ -39,7 +39,8 @@
   <script src="<c:url value="/webjars/angular-utils-pagination/0.7.0/dirPagination.js"/>"></script>
   <script src="<%=application.getContextPath()%>/resources/driver/js/available-orders-pagination.js"></script>
   <%--END JS for pagination--%>
-
+  <script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
+  <script src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"></script>
 </head>
 <body>
 <div id="wrapper" ng-app="driver" ng-controller="availableOrdersController">
@@ -81,7 +82,7 @@
                 <tr>
                   <th>#</th>
                   <th>Service</th>
-                  <th ng-if="order.service == 'CELEBRATION_TAXI' || order.service == 'TAXI_FOR_LONG_TERM'">Duration</th>
+                  <th ng-if="order.service == 'Celebration taxi' || order.service == 'Taxi for long term'">Duration</th>
                   <th>Order time</th>
                   <th>Car arrive time</th>
                   <th>Price</th>
@@ -94,7 +95,7 @@
                 <tr class="odd gradeX">
                   <td>{{ order.trackingNumber }}</td>
                   <td>{{ order.service }}</td>
-                  <td ng-if="order.service == 'CELEBRATION_TAXI' || order.service == 'TAXI_FOR_LONG_TERM'">
+                  <td ng-if="order.service == 'Celebration taxi' || order.service == 'Taxi for long term'">
                     {{ order.amountOfHours }}: {{ order.amountOfMinutes }}
                   </td>
                   <td>{{ order.orderDate }}</td>
@@ -108,10 +109,10 @@
               </table>
               <div class="panel-footer">
                 <form action="<c:url value="/driver/assigned-order"/>" method="post">
-                  <div id="choose-arrive-date" hidden=""{{ order.arrivalDate != null? 'hidden' : '' }}">
+                  <div id="choose-arrive-date" ng-if="order.arrivalDate == null">
                     <label for="arriveDate" class="sr-only">Arrive date</label>
                     <div class="controls input-append date form_datetime"
-                         data-date-format="hh:ii dd/mm/yyyy" data-link-field="dtp_input1">
+                         data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
                       <b>Enter the time of arrival to the client: </b>
                       <span class="add-on"><i class="icon-th"></i></span>
                       <span class="add-on"><i class="icon-remove"></i></span>
@@ -124,7 +125,7 @@
                   <div hidden>
                     <label for="arriveDateCustomer" class="sr-only">Arrive date</label>
                     <div class="controls input-append date form_datetime"
-                         data-date-format="hh:ii dd/mm/yyyy" data-link-field="dtp_input1">
+                         data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
                       <span class="add-on"><i class="icon-th"></i></span>
                       <span class="add-on"><i class="icon-remove"></i></span>
                       <input size="16" type="text" value= "{{ order.arrivalDate }}" id="arriveDateCustomer"
@@ -162,9 +163,6 @@
 
 <script src="<%=application.getContextPath()%>/resources/admin/js/admin.js"></script>
 <script src="<%=application.getContextPath()%>/resources/driver/js/modalOrderInProgress.js"></script>
-
-<script src="<%=application.getContextPath()%>/resources/js/bootstrap-datetimepicker.js"></script>
-<script src="<%=application.getContextPath()%>/resources/js/date-picker-order-complete.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/metisMenu.min.js"></script>

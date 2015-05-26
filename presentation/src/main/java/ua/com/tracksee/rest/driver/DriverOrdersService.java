@@ -55,7 +55,7 @@ public class DriverOrdersService {
             logger.warn("Unauthorised access to available orders");
             return Response.status(UNAUTHORIZED).build();
         }
-        driver = driverFacade.getDriverByID(getDriverId());
+        driver = driverFacade.getDriverByID(userId);
         if (!driver.getDriver()) {
             logger.warn("NonDriver access to available orders.");
             return Response.status(FORBIDDEN).build();

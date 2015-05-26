@@ -92,7 +92,7 @@
                 <tr>
                   <th>#</th>
                   <th>Service</th>
-                  <th ng-if="order.service == 'CELEBRATION_TAXI' || order.service == 'TAXI_FOR_LONG_TERM'">Duration</th>
+                  <th ng-if="order.service == 'Celebration taxi' || order.service == 'Taxi for long term'">Duration</th>
                   <th>Order time</th>
                   <th>Car arrive time</th>
                   <th>Price</th>
@@ -105,7 +105,7 @@
                 <tr class="odd gradeX">
                   <td>{{ order.trackingNumber }}</td>
                   <td>{{ order.service }}</td>
-                  <td ng-if="order.service == 'CELEBRATION_TAXI' || order.service == 'TAXI_FOR_LONG_TERM'">
+                  <td ng-if="order.service == 'Celebration taxi' || order.service == 'Taxi for long term'">
                     {{ order.amountOfHours }}: {{ order.amountOfMinutes }}
                   </td>
                   <td>{{ order.orderDate }}</td>
@@ -138,8 +138,8 @@
                       </form>
                     </td>
                     <td>
-                      <button ng-if="order.status == 'IN_PROGRESS'" type="button" class="btn btn-warning">In progress</button>
-                      <form ng-if="order.status != 'IN_PROGRESS'" action="<c:url value="/driver/assigned-order"/>" method="post">
+                      <button ng-if="order.status == 'In progress'" type="button" class="btn btn-warning">In progress</button>
+                      <form ng-if="order.status != 'In progress'" action="<c:url value="/driver/assigned-order"/>" method="post">
                         <a href="javascript:" onclick="parentNode.submit();">
                           <button type="button" class="btn btn-primary">In progress</button></a>
                         <input type="hidden" name="trackingNumber" value="{{ order.trackingNumber }}">
