@@ -122,13 +122,13 @@ public class EmailBean {
      * @param order - specifies order that have been recently changed
      * @throws MessagingException
      */
-    public void sendChangingTOFromInProgressToCompleted(TaxiOrderItemEntity order) throws MessagingException {
+    public void sendChangingTOFromInProgressToCompleted(TaxiOrderEntity order) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
-        data.put("trackingNumber", order.getTaxiOrder().getTrackingNumber());
+        data.put("trackingNumber", order.getTrackingNumber());
         data.put("registrationURL", REGISTRATION_URL);
 
-        sender.sendTemplatedEmail(order.getTaxiOrder().getUser().getEmail(),
+        sender.sendTemplatedEmail(order.getUser().getEmail(),
                 CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_SUBJECT_TEMP_PROP_NAME,
                 CHANGING_TO_FROM_INPROGRESS_TO_COMPLETED_TEMP_PATH, data);
     }
@@ -141,12 +141,12 @@ public class EmailBean {
      * @param order - specifies order that have been recently changed
      * @throws MessagingException
      */
-    public void sendChangingTOFromAssignedToRefused(TaxiOrderItemEntity order) throws MessagingException {
+    public void sendChangingTOFromAssignedToRefused(TaxiOrderEntity order) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
-        data.put("trackingNumber", order.getTaxiOrder().getTrackingNumber());
+        data.put("trackingNumber", order.getTrackingNumber());
 
-        sender.sendTemplatedEmail(order.getTaxiOrder().getUser().getEmail(),
+        sender.sendTemplatedEmail(order.getUser().getEmail(),
                 CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_SUBJECT_TEMP_PROP_NAME,
                 CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_TEMP_PATH, data);
     }
@@ -158,16 +158,16 @@ public class EmailBean {
      * @param order - specifies order that have been recently changed
      * @throws MessagingException
      */
-    public void sendChangingTOFromQueuedToUpdated(TaxiOrderItemEntity order) throws MessagingException {
+    public void sendChangingTOFromQueuedToUpdated(TaxiOrderEntity order) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
-        data.put("trackingNumber", order.getTaxiOrder().getTrackingNumber());
-        data.put("carCat", order.getTaxiOrder().getCarCategory().toString());
-        data.put("wayOfPay", order.getTaxiOrder().getFreeWifi().toString());
-        data.put("animal", order.getTaxiOrder().getAnimalTransportation() ? "yes" : "no");
-        data.put("wifi", order.getTaxiOrder().getFreeWifi() ? "yes" : "no");
-        data.put("smoking", order.getTaxiOrder().getNonSmokingDriver() ? "yes" : "no");
-        data.put("music", order.getTaxiOrder().getMusicStyle());
+        data.put("trackingNumber", order.getTrackingNumber());
+        data.put("carCat", order.getCarCategory().toString());
+        data.put("wayOfPay", order.getFreeWifi().toString());
+        data.put("animal", order.getAnimalTransportation() ? "yes" : "no");
+        data.put("wifi", order.getFreeWifi() ? "yes" : "no");
+        data.put("smoking", order.getNonSmokingDriver() ? "yes" : "no");
+        data.put("music", order.getMusicStyle());
         List<String> driverEmails = userDAO.getDriversEmails();
         sender.sendTemplatedEmail(driverEmails, CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_SUBJECT_PROP_NAME,
                 CHANGING_TO_FROM_QUEUED_TO_UPDATED_TEMP_PATH, data);
