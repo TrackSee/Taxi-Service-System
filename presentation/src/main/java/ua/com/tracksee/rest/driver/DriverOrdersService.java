@@ -9,6 +9,7 @@ import ua.com.tracksee.logic.facade.DriverFacade;
 import ua.com.tracksee.logic.facade.OrderFacade;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
@@ -30,6 +31,7 @@ import static ua.com.tracksee.servlets.AttributeNames.USER_ID;
  * @author Ruslan Gunavardana
  */
 @Path("/driver/orders")
+@RequestScoped
 public class DriverOrdersService {
     private static final Logger logger = LogManager.getLogger(DriverOrdersService.class);
 
