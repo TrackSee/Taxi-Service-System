@@ -6,10 +6,12 @@ import org.apache.logging.log4j.Logger;
 import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.UserEntity;
+import ua.com.tracksee.logic.EmailBean;
 import ua.com.tracksee.logic.OrderRefusingBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.mail.MessagingException;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -28,6 +30,7 @@ public class DriverOrderBean {
 
     private @EJB TaxiOrderDAO taxiOrderDao;
     private @EJB OrderRefusingBean orderRefusingBean;
+    private @EJB EmailBean emailBean;
 
     public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
         return taxiOrderDao.getAvailableOrders(driver, pageNumber);
@@ -62,11 +65,21 @@ public class DriverOrderBean {
 
     public int setInProgressOrder(String trackingNumber){
         int trackingNumberInt = Integer.parseInt(trackingNumber);
+        long trackingNumberLong = trackingNumberInt;
+        //TaxiOrderEntity taxiOrderEntity = taxiOrderDao.getOrder(trackingNumberLong);
+        //emailBean.sendChangingTOFromAssignedToInProgress(taxiOrderEntity);
         return taxiOrderDao.setInProgressOrder(trackingNumberInt);
     }
 
     public void setCompletedOrder(String trackingNumber){
         int trackingNumberInt = Integer.parseInt(trackingNumber);
+        long trackingNumberLong = trackingNumberInt;
+        TaxiOrderEntity taxiOrderEntity = taxiOrderDao.getOrder(trackingNumberLong);
+        try {
+            emailBean.sendChangingTOFromInProgressToCompleted(taxiOrderEntity);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
         taxiOrderDao.setCompletedOrder(trackingNumberInt);
     }
 
@@ -79,15 +92,16 @@ public class DriverOrderBean {
     //TODO complete
     public void setToQueueOrder(String trackingNumber) {
         int trackingNumberInt = Integer.parseInt(trackingNumber);
-//        Long trackingNumberLong = Long.parseLong(trackingNumber);
+        Long trackingNumberLong = Long.parseLong(trackingNumber);
+        TaxiOrderEntity taxiOrderEntity = taxiOrderDao.getOrder(trackingNumberLong);
         taxiOrderDao.setToQueueOrder(trackingNumberInt);
-//        try {
-//            emailBean.sendChangingTOFromAssignedToRefusedMadeByDriver(getOrder(trackingNumberLong));
-//        }
-//        catch(MessagingException e){
-//            logger.warn("Message to customer not sent!");
-//            System.out.print("Message to customer not sent!");
-        //}
+        try {
+            emailBean.sendChangingTOFromAssignedToRefusedMadeByDriver(taxiOrderEntity);
+        }
+        catch(MessagingException e){
+            logger.warn("Message to customer not sent!");
+            System.out.print("Message to customer not sent!");
+        }
     }
 
     public BigInteger getOrdersPagesCountCompleted(int id){

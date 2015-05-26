@@ -551,7 +551,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     public BigInteger getOrdersPagesCountAssigned(int id) {
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order INNER JOIN taxi_order_item " +
                 "ON taxi_order.tracking_number = taxi_order_item.tracking_number " +
-                "AND taxi_order_item.driver_id = ? AND (taxi_order.status = 'ASSIGNED' OR taxi_order.status ='IN_PROGRESS')");
+                "WHERE taxi_order_item.driver_id = ? AND (taxi_order.status = 'ASSIGNED' OR taxi_order.status ='IN_PROGRESS')");
         q.setParameter(1, id);
         return (BigInteger) q.getSingleResult();
     }
