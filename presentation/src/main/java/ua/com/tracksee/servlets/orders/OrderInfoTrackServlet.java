@@ -159,7 +159,9 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
     private void redirectByOrderStatus(TaxiOrderEntity taxiOrderEntity, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         if (taxiOrderEntity.getStatus() == OrderStatus.REFUSED ||
-                taxiOrderEntity.getStatus() == OrderStatus.COMPLETED) {
+                taxiOrderEntity.getStatus() == OrderStatus.COMPLETED||
+                taxiOrderEntity.getStatus() == OrderStatus.ASSIGNED||
+                taxiOrderEntity.getStatus() == OrderStatus.IN_PROGRESS) {
             req.getRequestDispatcher(ORDER_TRACK_COMPLETE_PAGE).forward(req, resp);
         } else {
             req.getRequestDispatcher(ORDER_TRACK_PAGE).forward(req, resp);
