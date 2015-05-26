@@ -71,3 +71,33 @@ function updatePrice() {
     var totalCost = price * businessDistance * getAdditionalOptionsMultiplier();
     $('#price').val("$ " + totalCost.toFixed(2));
 }
+/**
+ * Validates amount of
+ * cars, hours and minutes.
+ *
+ * @author Sharaban Sasha
+ */
+    $('#amountOfHours').on('blur', function() {
+        if($(this).val()<8){
+            $(this).val(8);
+        }
+        if($(this).val()>1000){
+            $(this).val(1000);
+        }
+    });
+$('#amountOfMinutes').on('blur', function() {
+    if($(this).val()<1){
+        $(this).val(1);
+    }
+    if($(this).val()>60){
+        $(this).val(60);
+    }
+});
+$('#amountOfCars').on('blur', function() {
+    if($(this).val()<5){
+        $(this).val(5);
+    }
+    if($(this).val()>100){
+        $(this).val(100);
+    }
+});
