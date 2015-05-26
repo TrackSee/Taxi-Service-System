@@ -246,12 +246,12 @@
 <%--end bootstrap datepicker scripts--%>
 
 <%--Google maps scripts--%>
+<script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>
 <script>
     GOOGLE_MAPS_SRC += '&libraries=geometry';
     function getOrderDTO() { return ${requestScope.order}; }
     function getMapsDraggable() { return false; }
 </script>
-<script src="<%=application.getContextPath()%>/resources/js/maps/google-maps-loader.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order-complete-maps.js"></script>
 <%--end google maps scripts--%>
 
