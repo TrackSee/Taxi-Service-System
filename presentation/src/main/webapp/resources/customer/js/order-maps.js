@@ -6,6 +6,7 @@
  */
 var directionsDisplay;
 var directionsService;
+var geolocationWorked = false;
 
 function initializeMaps() {
     DEFAULT_LOCATION = new google.maps.LatLng(DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lng);
@@ -21,12 +22,12 @@ function initializeMaps() {
 
     // creating path
     initializeDirections(map);
-    calcRoute(DEFAULT_LOCATION, DEFAULT_LOCATION, []);
     google.maps.event.addListener(directionsDisplay, 'directions_changed', function(){
-                updateAddresses(directionsDisplay.getDirections().routes[0]);
-                updatePrice();
+        updateAddresses(directionsDisplay.getDirections().routes[0]);
+        updatePrice();
     });
     tryGeolocation(map);
+    calcRoute(DEFAULT_LOCATION, DEFAULT_LOCATION, []);
 }
 
 function initializeDirections(map) {
@@ -45,6 +46,7 @@ function tryGeolocation(map) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             map.setCenter(pos);
+            geolocationWorked = true;
             calcRoute(pos, pos, []);
 
         }, function() {
@@ -73,7 +75,10 @@ function calcRoute(origin, destination, waypoints) {
     };
     directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
-            directionsDisplay.setDirections(response);
+            if (geolocationWorked) {
+                directionsDisplay.setDirections(response);
+                geolocationWorked = false;
+            }
         } else {
             $('#origin').notify("Google couldn't find the address", { position: 'right', className: 'error'});
         }
