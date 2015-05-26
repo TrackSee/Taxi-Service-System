@@ -64,7 +64,7 @@ public class DriverOrderBean {
         taxiOrderDao.setAssignOrder(driverId, trackingNumberInt, taxiOrderEntity.getArriveDate());
     }
 
-    public int setInProgressOrder(String trackingNumber) throws MessagingException {
+    public int setInProgressOrder(String trackingNumber){
         int trackingNumberInt = Integer.parseInt(trackingNumber);
 //        long trackingNumberLong = trackingNumberInt;
 //        UserEntity driver = driverBean.getUserById(driverId);
