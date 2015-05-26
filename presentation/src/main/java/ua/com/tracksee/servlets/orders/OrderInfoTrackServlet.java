@@ -52,7 +52,7 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
                 }
                 if (orderFacade.checkOrderPresentNonActiveUser(trackingNumber)) {
                     req.setAttribute(EMAIL_FOR_NON_ACTIVE_USER_ALIAS, EMAIL_FOR_NON_ACTIVE_USER);
-                    nonActiveUserAlert(req, resp);
+                    nonActiveUserAlertUnregistered(req, resp);
                 } else if (orderFacade.checkOrderPresentActiveUser(trackingNumber)) {
                     req.setAttribute(EMAIL_FOR_NON_ACTIVE_USER_ALIAS,EMAIL_FOR_NON_ACTIVE_USER);
                     activeUserAlert(req, resp);
@@ -150,6 +150,12 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
 
     private void nonActiveUserAlert(HttpServletRequest req,
                                HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute(NON_ACTIVE_USER_ORDER_WARNING,
+                orderFacade.getWarningAlert(NON_ACTIVE_USER_ORDER_MESSAGE));
+        req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
+    }
+    private void nonActiveUserAlertUnregistered(HttpServletRequest req,
+                                    HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute(NON_ACTIVE_USER_ORDER_WARNING,
                 orderFacade.getWarningAlert(NON_ACTIVE_USER_ORDER_MESSAGE_UNREGISTERED));
         req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
