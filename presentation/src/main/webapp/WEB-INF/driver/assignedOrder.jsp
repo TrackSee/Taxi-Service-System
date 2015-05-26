@@ -83,7 +83,7 @@
             <div class="panel panel-success panel-pricing">
               <div class="panel-heading">
                 <div class="map-canvas">
-                  <iframe id="map-frame" frameborder="0" width="825" height="250" ng-src="{{ order.map }}"></iframe>'
+                  <iframe frameborder="0" width="825" height="250" ng-src="{{ order.map }}"></iframe>'
                 </div>
               </div>
 
@@ -214,7 +214,7 @@
 </div>
 <!-- /#wrapper -->
 
-<script src="<%=application.getContextPath()%>/resources/driver/js/jquery.min.js"></script>
+<%@ include file="../parts/scripts.jsp"%>
 <c:if test="${ID_USER_VALUE != null}" >
   <script>
     $("form").hide();
@@ -228,7 +228,6 @@
   }
 </script>
 
-<%@ include file="../parts/scripts.jsp"%>
 <script src="<%=application.getContextPath()%>/resources/driver/js/modalOrderInProgress.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
@@ -244,9 +243,6 @@
 
 <!-- Bootstrap editable JavaScript-->
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-editable.js"></script>
-
-<%--for pagination--%>
-<script src="<%=application.getContextPath()%>/resources/driver/js/paginator-orders.js"></script>
 
 </body>
 

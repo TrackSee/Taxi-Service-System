@@ -66,7 +66,7 @@
               <%-- heading --%>
               <div class="panel-heading">
                 <div class="map-canvas">
-                  <iframe id="map-frame" frameborder="0" width="825" height="250" ng-src="{{ order.map }}"></iframe>'
+                  <iframe frameborder="0" width="825" height="250" ng-src="{{ order.map }}"></iframe>'
                 </div>
               </div>
               <%-- END heading --%>
@@ -76,7 +76,7 @@
                 <tr>
                   <th>#</th>
                   <th>Service</th>
-                  <th ng-if="order.service == 'CELEBRATION_TAXI' || order.service == 'TAXI_FOR_LONG_TERM'">Duration</th>
+                  <th ng-if="order.service == 'Celebration taxi' || order.service == 'Taxi for long term'">Duration</th>
                   <th>Order time</th>
                   <th>Car arrive time</th>
                   <th>Price</th>
@@ -88,7 +88,7 @@
                 <tr class="odd gradeX">
                   <td>{{ order.trackingNumber }}</td>
                   <td>{{ order.service }}</td>
-                  <td ng-if="order.service == 'CELEBRATION_TAXI' || order.service == 'TAXI_FOR_LONG_TERM'">
+                  <td ng-if="order.service == 'Celebration taxi' || order.service == 'Taxi for long term'">
                     {{ order.amountOfHours }}: {{ order.amountOfMinutes }}
                   </td>
                   <td>{{ order.orderDate }}</td>
@@ -139,10 +139,6 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/sb-admin-2.js"></script>
-
-<%--for pagination--%>
-<script src="<%=application.getContextPath()%>/resources/driver/js/paginator-orders.js"></script>
-
 </body>
 
 </html>
