@@ -140,15 +140,13 @@
                         <input type="number" pattern="[8-9 ()-]{1,25}$" id="amountOfHours"
                                class="form-control" name="amountOfHours"
                                placeholder="Amount of hours 8+"
-                               title="Amount of hours 8+">
-                        <span class="red-star">★</span>
+                               title="Amount of hours 8+" onblur="">
                     </div>
                     <div>
                         <input type="number" pattern="[0-9 ()-]{1,2}$"
                                id="amountOfMinutes" class="form-control" name="amountOfMinutes"
                                placeholder="Amount minutes [0:60]"
                                title="Amount of minutes [0:60]" value="">
-                        <span class="red-star">★</span>
                     </div>
 
                 </div>
@@ -166,7 +164,6 @@
                            id="amountOfCars" class="form-control" name="amountOfCars"
                            placeholder="Amount of cars 5+"
                            title="Amount of cars 5+">
-                    <span class="red-star">★</span>
                 </div>
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label" for="carCategory">Car category</label>

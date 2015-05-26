@@ -467,8 +467,8 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     public List<TaxiOrderEntity> getHistoryOfOrders(int id, int pageNumber) {
         String sql = "SELECT * FROM taxi_order " +
                 "INNER JOIN taxi_order_item " +
-                "ON taxi_order.tracking_number = taxi_order_item.tracking_number " +
-                "WHERE (status = 'COMPLETED' OR status = 'REFUSED')" +
+                "ON taxi_order.tracking_number = taxi_order_item.tracking_number" +
+                " WHERE (status = 'COMPLETED' OR status = 'REFUSED')" +
                 "AND driver_id = ? LIMIT ? OFFSET ?";
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
         query.setParameter(1, id);
