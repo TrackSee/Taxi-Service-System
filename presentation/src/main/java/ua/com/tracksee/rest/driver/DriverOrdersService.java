@@ -89,7 +89,7 @@ public class DriverOrdersService {
             return failResponse;
         }
 
-        BigInteger totalCount = orderFacade.getOrdersPagesCountQueued(driver);
+        BigInteger totalCount = orderFacade.getOrdersPagesCountAssigned(driver.getUserId());
         logger.debug("For driver #{} {} assigned orders is found", driver.getUserId(), totalCount);
         if (pageNumber < 1 || pageNumber > ceil(totalCount.intValue() / (double) ORDERS_PAGE_SIZE)) {
             return Response.status(BAD_REQUEST).build();

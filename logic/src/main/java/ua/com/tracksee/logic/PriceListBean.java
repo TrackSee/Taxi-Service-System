@@ -52,7 +52,7 @@ public class PriceListBean {
         }
 
         //TODO keep this map in memory
-        return taxiPriceDAO.getPriceFor(order.getCarCategory(), isNightTariff, isWeekend);
+        return taxiPriceDAO.getPriceFor(order.getCarCategory(), isWeekend, isNightTariff);
     }
 
     public BigDecimal getMinimalOrderDistance() {

@@ -30,6 +30,8 @@
   <%--<link href="<%=application.getContextPath()%>/resources/css/bootstrap-editable.css" rel="stylesheet">--%>
 
   <%--START JS for pagination--%>
+  <%@ include file="../parts/scripts.jsp"%>
+  <script src="http://maps.googleapis.com/maps/api/js?v=3.19&key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&libraries=geometry"></script>
   <script src="<c:url value="/webjars/angularjs/1.3.15/angular.min.js"/>"></script>
   <script src="<c:url value="/webjars/angular-utils-pagination/0.7.0/dirPagination.js"/>"></script>
   <script src="<%=application.getContextPath()%>/resources/driver/js/assigned-orders-pagination.js"></script>
@@ -81,9 +83,7 @@
             <div class="panel panel-success panel-pricing">
               <div class="panel-heading">
                 <div class="map-canvas">
-                  <iframe frameborder="0" width="825" height="250"
-                          src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin=,&destination=,">
-                  </iframe>
+                  <iframe frameborder="0" width="825" height="250" ng-src="{{ order.map }}"></iframe>'
                 </div>
               </div>
 
@@ -146,7 +146,8 @@
                         <input type="hidden" name="orderStatus" value="In progress">
                       </form>
                     </td>
-                    <td>
+                    <td ng-if="order.status == 'In progress'">
+
                       <form action="<c:url value="/driver/assigned-order"/>" method="post">
                         <a href="javascript:" onclick="parentNode.submit();">
                           <button type="button" class="btn btn-success">Complete</button></a>
@@ -214,7 +215,7 @@
 </div>
 <!-- /#wrapper -->
 
-<script src="<%=application.getContextPath()%>/resources/driver/js/jquery.min.js"></script>
+<%@ include file="../parts/scripts.jsp"%>
 <c:if test="${ID_USER_VALUE != null}" >
   <script>
     $("form").hide();
@@ -228,7 +229,6 @@
   }
 </script>
 
-<%@ include file="../parts/scripts.jsp"%>
 <script src="<%=application.getContextPath()%>/resources/driver/js/modalOrderInProgress.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
@@ -244,9 +244,6 @@
 
 <!-- Bootstrap editable JavaScript-->
 <script src="<%=application.getContextPath()%>/resources/js/bootstrap-editable.js"></script>
-
-<%--for pagination--%>
-<script src="<%=application.getContextPath()%>/resources/driver/js/paginator-orders.js"></script>
 
 </body>
 

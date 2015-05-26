@@ -26,7 +26,6 @@
 
   <%--My resources--%>
   <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/admin/css/admin.css">
-  <script src="<%=application.getContextPath()%>/resources/admin/js/admin.js"></script>
 
   <!-- Custom Fonts -->
   <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -189,6 +188,8 @@
 <script src="<%=application.getContextPath()%>/resources/js/raphael-min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/morris.min.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/morris-data.js"></script>
+
+<script src="<%=application.getContextPath()%>/resources/admin/js/admin.js"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/sb-admin-2.js"></script>

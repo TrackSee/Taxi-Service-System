@@ -28,6 +28,8 @@
   <link href="<%=application.getContextPath()%>/resources/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
   <%--START JS for pagination--%>
+  <%@ include file="../parts/scripts.jsp"%>
+  <script src="http://maps.googleapis.com/maps/api/js?v=3.19&key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&libraries=geometry"></script>
   <script src="<c:url value="/webjars/angularjs/1.3.15/angular.min.js"/>"></script>
   <script src="<c:url value="/webjars/angular-utils-pagination/0.7.0/dirPagination.js"/>"></script>
   <script src="<%=application.getContextPath()%>/resources/driver/js/history-orders-pagination.js"></script>
@@ -64,9 +66,7 @@
               <%-- heading --%>
               <div class="panel-heading">
                 <div class="map-canvas">
-                  <iframe frameborder="0" width="825" height="250"
-                          src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAtwMePDVDymtf-yC-qk1hdmUMnDtGYbb8&mode=driving&origin=,&destination=,">
-                  </iframe>
+                  <iframe frameborder="0" width="825" height="250" ng-src="{{ order.map }}"></iframe>'
                 </div>
               </div>
               <%-- END heading --%>
@@ -76,7 +76,7 @@
                 <tr>
                   <th>#</th>
                   <th>Service</th>
-                  <th ng-if="order.service == 'CELEBRATION_TAXI' || order.service == 'TAXI_FOR_LONG_TERM'">Duration</th>
+                  <th ng-if="order.service == 'Celebration taxi' || order.service == 'Taxi for long term'">Duration</th>
                   <th>Order time</th>
                   <th>Car arrive time</th>
                   <th>Price</th>
@@ -88,7 +88,7 @@
                 <tr class="odd gradeX">
                   <td>{{ order.trackingNumber }}</td>
                   <td>{{ order.service }}</td>
-                  <td ng-if="order.service == 'CELEBRATION_TAXI' || order.service == 'TAXI_FOR_LONG_TERM'">
+                  <td ng-if="order.service == 'Celebration taxi' || order.service == 'Taxi for long term'">
                     {{ order.amountOfHours }}: {{ order.amountOfMinutes }}
                   </td>
                   <td>{{ order.orderDate }}</td>
@@ -100,17 +100,16 @@
                 </tbody>
               </table>
 
-              </div>
             </div>
           </div>
           <!-- /item -->
 
         </div>
-        <!-- /.col-lg-12 -->
+        <!-- /.row -->
 
 
       </div>
-      <!-- /.row -->
+      <!-- /.container -->
 
     </section>
     <!-- /Plans -->
@@ -130,8 +129,6 @@
 </div>
 <!-- /#wrapper -->
 
-<%@ include file="../parts/scripts.jsp"%>
-
 <!-- Metis Menu Plugin JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/metisMenu.min.js"></script>
 
@@ -142,10 +139,6 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="<%=application.getContextPath()%>/resources/js/sb-admin-2.js"></script>
-
-<%--for pagination--%>
-<script src="<%=application.getContextPath()%>/resources/driver/js/paginator-orders.js"></script>
-
 </body>
 
 </html>
