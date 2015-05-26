@@ -146,7 +146,8 @@
                         <input type="hidden" name="orderStatus" value="In progress">
                       </form>
                     </td>
-                    <td>
+                    <td ng-if="order.status == 'In progress'">
+
                       <form action="<c:url value="/driver/assigned-order"/>" method="post">
                         <a href="javascript:" onclick="parentNode.submit();">
                           <button type="button" class="btn btn-success">Complete</button></a>
