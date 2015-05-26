@@ -31,7 +31,7 @@ private static final Logger logger = LogManager.getLogger();
     private @EJB
     ReportFacade reportFacade;
     private static final int MIN_DISTANCE=5;
-    private static final int MINUTES_IN_HALF_HOUR =30;
+    private static final int PER_TEN_MINUTES =10;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -45,7 +45,7 @@ private static final Logger logger = LogManager.getLogger();
                     req.setAttribute("pricePerKmNight",pricePerKm);
                     req.setAttribute("minPriceNight",pricePerKm*MIN_DISTANCE);
                     req.setAttribute("pricePerMinNight",pricePerMin);
-                    req.setAttribute("pricePerHourNight",pricePerMin* MINUTES_IN_HALF_HOUR);
+                    req.setAttribute("pricePerHourNight",pricePerMin* PER_TEN_MINUTES);
                 }else
                 if(taxiPriceEntityList.get(i).getWeekend()&&!taxiPriceEntityList.get(i).getNightTariff()){
                     BigDecimal pricePerMinBigDecimal=taxiPriceEntityList.get(i).getPricePerMin();
@@ -56,7 +56,7 @@ private static final Logger logger = LogManager.getLogger();
                     req.setAttribute("pricePerKmWeekend",pricePerKm);
                     req.setAttribute("minPriceWeekend",pricePerKm*MIN_DISTANCE);
                     req.setAttribute("pricePerMinWeekend",pricePerMin);
-                    req.setAttribute("pricePerHourWeekend",pricePerMin* MINUTES_IN_HALF_HOUR);
+                    req.setAttribute("pricePerHourWeekend",pricePerMin* PER_TEN_MINUTES);
 
                 }else
                 if(!taxiPriceEntityList.get(i).getWeekend()&&!taxiPriceEntityList.get(i).getNightTariff()){
@@ -68,7 +68,7 @@ private static final Logger logger = LogManager.getLogger();
                     req.setAttribute("pricePerKmNone",pricePerKm);
                     req.setAttribute("minPriceNone",pricePerKm*MIN_DISTANCE);
                     req.setAttribute("pricePerMinNone",pricePerMin);
-                    req.setAttribute("pricePerHourNone",pricePerMin* MINUTES_IN_HALF_HOUR);
+                    req.setAttribute("pricePerHourNone",pricePerMin* PER_TEN_MINUTES);
                 }else if(taxiPriceEntityList.get(i).getNightTariff()&&taxiPriceEntityList.get(i).getWeekend()){
                     BigDecimal pricePerMinBigDecimal=taxiPriceEntityList.get(i).getPricePerMin();
                     double pricePerMin=pricePerMinBigDecimal.doubleValue();
@@ -78,7 +78,7 @@ private static final Logger logger = LogManager.getLogger();
                     req.setAttribute("pricePerKmNightWeekend",pricePerKm);
                     req.setAttribute("minPriceNightWeekend",pricePerKm*MIN_DISTANCE);
                     req.setAttribute("pricePerMinNightWeekend",pricePerMin);
-                    req.setAttribute("pricePerHourNightWeekend",pricePerMin* MINUTES_IN_HALF_HOUR);
+                    req.setAttribute("pricePerHourNightWeekend",pricePerMin* PER_TEN_MINUTES);
                 }
             }
 

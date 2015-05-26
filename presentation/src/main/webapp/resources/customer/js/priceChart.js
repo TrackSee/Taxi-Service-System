@@ -22,7 +22,7 @@ $(document).ready(function(){
     var pricePerHourNightWeekend=$('#pricePerHourNightWeekend').val();
 
     var barChartData = {
-        labels : ["price per km","minimal price(5km) ","price per min","price per hour"],
+        labels : ["price per km","minimal price(5km) ","price per min","price per 10 minutes"],
         datasets : [
             {
                 fillColor : "rgba(30,144,255,0.5)",
