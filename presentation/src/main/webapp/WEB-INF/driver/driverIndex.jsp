@@ -92,17 +92,17 @@
                 </thead>
                 <tbody>
                 <tr class="odd gradeX">
-                  <td>{{ order.trackingNumber }}</td>
-                  <td>{{ order.service }}</td>
-                  <td ng-if="order.service == 'Celebration taxi' || order.service == 'Taxi for long term'">
-                    {{ order.amountOfHours }}: {{ order.amountOfMinutes }}
+                  <td ng-bind="order.trackingNumber"></td>
+                  <td ng-bind="order.service"></td>
+                  <td ng-if="order.service == 'Celebration taxi' || order.service == 'Taxi for long term'"
+                      ng-bind="order.amountOfHours + ':' + order.amountOfMinutes">
                   </td>
-                  <td>{{ order.orderDate }}</td>
-                  <td>{{ order.arrivalDate }}</td>
-                  <td>{{ order.price }}</td>
-                  <td>{{ order.nonSmokingDriver? '+' : '-' }}</td>
-                  <td>{{ order.musicStyle }}</td>
-                  <td>{{ order.status }}</td>
+                  <td ng-bind="order.orderDate"></td>
+                  <td ng-bind="order.arrivalDate"></td>
+                  <td ng-bind="order.price"></td>
+                  <td ng-bind="order.nonSmokingDriver? '+' : '-'"></td>
+                  <td ng-bind="order.musicStyle"></td>
+                  <td ng-bind="order.status"></td>
                 </tr>
                 </tbody>
               </table>
