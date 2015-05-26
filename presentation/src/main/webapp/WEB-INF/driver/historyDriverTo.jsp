@@ -66,7 +66,7 @@
               <%-- heading --%>
               <div class="panel-heading">
                 <div class="map-canvas">
-                  {{ order.map }}
+                  <iframe id="map-frame" frameborder="0" width="825" height="250" ng-src="{{ order.map }}"></iframe>'
                 </div>
               </div>
               <%-- END heading --%>
