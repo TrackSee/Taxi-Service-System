@@ -13,7 +13,7 @@ public interface DataObjectArray {
     String getType(int index);
     void add(Integer value);
     void add(String value);
-    void add(Long value);
+    void add(Double value);
     int size();
 
 }

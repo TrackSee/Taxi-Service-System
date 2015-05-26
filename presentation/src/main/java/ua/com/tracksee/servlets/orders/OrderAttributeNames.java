@@ -37,7 +37,11 @@ public interface OrderAttributeNames {
     String FREE_WIFI_ALIAS ="freeWifi";
     String NON_SMOKING_DRIVER_ALIAS ="nonSmokingDriver";
     String AIR_CONDITIONER_ALIAS ="airConditioner";
-
     String ANIMAL_TRANSPORTATION_MULTIPLIER = "animalTransportationMultiplier";
+    String EMAIL_FOR_NON_ACTIVE_USER_ALIAS="emailForNonActiveUser";
+    String EMAIL_FOR_NON_ACTIVE_USER= "<label>Email</label>"+
+            "<input type=\"email\"  "+
+            "class=\"form-control\" name=\"email\" placeholder=\"Enter email\""+
+            "title=\"For example: alex@gmail.com\" value=\"\" required>";
 
 }

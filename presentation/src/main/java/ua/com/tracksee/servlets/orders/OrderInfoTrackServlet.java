@@ -42,15 +42,22 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer userID;
         userID = (Integer) req.getSession().getAttribute(USER_ID_ALIAS);
+        String email=req.getParameter("email");
         try {
             long trackingNumber = parseLong(req.getParameter(TRACKING_NUMBER_ALIAS));
             if (userID == null) {
-                if (orderFacade.checkOrderPresentNonActiveUser(trackingNumber)) {
+                if (orderFacade.checkOrderPresentNonActiveUserEmail(trackingNumber, email)) {
                     TaxiOrderEntity taxiOrderEntity = setParametersToPage(req, resp, trackingNumber);
                     redirectByOrderStatus(taxiOrderEntity, req, resp);
+                }
+                if (orderFacade.checkOrderPresentNonActiveUser(trackingNumber)) {
+                    req.setAttribute(EMAIL_FOR_NON_ACTIVE_USER_ALIAS, EMAIL_FOR_NON_ACTIVE_USER);
+                    nonActiveUserAlert(req, resp);
                 } else if (orderFacade.checkOrderPresentActiveUser(trackingNumber)) {
+                    req.setAttribute(EMAIL_FOR_NON_ACTIVE_USER_ALIAS,EMAIL_FOR_NON_ACTIVE_USER);
                     activeUserAlert(req, resp);
                 } else {
+                    req.setAttribute(EMAIL_FOR_NON_ACTIVE_USER_ALIAS,EMAIL_FOR_NON_ACTIVE_USER);
                     nonExistTrackNumberAlert(req, resp);
                 }
             } else {
@@ -140,10 +147,11 @@ public class OrderInfoTrackServlet extends HttpServlet implements OrderAttribute
                 orderFacade.getWarningAlert(ACTIVE_USER_ORDER_MESSAGE));
         req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
     }
+
     private void nonActiveUserAlert(HttpServletRequest req,
                                HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute(NON_ACTIVE_USER_ORDER_WARNING,
-                orderFacade.getWarningAlert(NON_ACTIVE_USER_ORDER_MESSAGE));
+                orderFacade.getWarningAlert(NON_ACTIVE_USER_ORDER_MESSAGE_UNREGISTERED));
         req.getRequestDispatcher(ORDER_INFO_PAGE).forward(req, resp);
     }
 

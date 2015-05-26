@@ -1,5 +1,6 @@
 package ua.com.tracksee.logic.facade;
 
+import ua.com.tracksee.dao.TaxiOrderDAO;
 import ua.com.tracksee.dto.TaxiOrderDTO;
 import ua.com.tracksee.entities.TaxiOrderEntity;
 import ua.com.tracksee.entities.TaxiPriceEntity;
@@ -35,6 +36,7 @@ public class OrderFacade {
     private @EJB DriverOrderBean driverOrderBean;
     private @EJB PriceListBean priceListBean;
     private @EJB UserCheckerBean userCheckerBean;
+    private @EJB TaxiOrderDAO taxiOrderDAO;
 
     /**
      * @author Ruslan Gunavardana
@@ -62,6 +64,13 @@ public class OrderFacade {
         return orderRefusingBean.checkBlackListByUserEmail(email);
     }
 
+    /**
+     * @author Sharaban Sasha
+     * @see ua.com.tracksee.dao.TaxiOrderDAO
+     */
+    public boolean checkOrderPresentNonActiveUserEmail(Long trackingNumber,String email){
+        return taxiOrderDAO.checkOrderPresentNonActiveUserEmail(trackingNumber,email);
+    }
     /**
      * @author Avlasov Sasha
      * @see ua.com.tracksee.logic.OrderRefusingBean

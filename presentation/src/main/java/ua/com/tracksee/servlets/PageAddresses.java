@@ -1,6 +1,9 @@
 package ua.com.tracksee.servlets;
 
 /**
+ * This servlet contains
+ * page addresses.
+ *
  * @author Sharaban Sasha
  */
 public interface PageAddresses {

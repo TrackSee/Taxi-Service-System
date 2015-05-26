@@ -51,8 +51,8 @@
         <div ${hideOrderTrack}>
             <div class="form-group">
                 <form method="post" action="<c:url value="/orderTracking"/>">
+                    ${emailForNonActiveUser}
                     <label>Tracking number</label>
-
                     <input type="number" id="trackingNumber" class="form-control" name="trackingNumber"
                            placeholder="Enter your tracking number"
                             title="Only integer number" required>
