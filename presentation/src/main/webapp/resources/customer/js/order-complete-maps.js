@@ -22,19 +22,19 @@ function initializeMaps() {
     var route = getOrderDTO().routes[0].encodedRoute;
     var latLngArr = google.maps.geometry.encoding.decodePath(route);
 
-    //function getWaypointsArray (pv, cv) {
-    //    pv.push({location: cv, stopover: false});
-    //    return pv;
-    //}
-
     var origin = latLngArr.shift();
     var dest = latLngArr.pop();
-    //var waypoints = latLngArr.reduce(getWaypointsArray, []);
+    //var waypoints = [{location: latLngArr[latLngArr.length / 2], stopover: false }];
     var waypoints = [];
 
     // creating path
     initializeDirections(map);
     calcRoute(origin, dest, waypoints);
+    google.maps.event.addListener(directionsDisplay, 'directions_changed', function(){
+        updateAddresses(directionsDisplay.getDirections().routes[0]);
+        updatePrice();
+    });
+    updateAddresses(directionsDisplay.getDirections().routes[0]);
 }
 
 function initializeDirections(map) {
@@ -69,4 +69,88 @@ function calcRoute(origin, destination, waypoints) {
             $('#origin').notify("Google couldn't find the address", { position: 'right', className: 'error'});
         }
     });
+}
+
+/**
+ * getRoutesData
+ * Returns data about route in format {duration, length}.
+ * Duration in minutes, length in km.
+ *
+ * @returns {[{duration: number, distance: number, route: string}]}
+ */
+function getRoutesData() {
+    var route = directionsDisplay.getDirections().routes[0];
+    var duration = 0;
+    var distance = 0;
+    for (var i = 0; i < route.legs.length; i++) {
+        duration += route.legs[i].duration.value;
+        distance += route.legs[i].distance.value;
+    }
+    return [{
+        durationInMin   : Math.round(duration / SECS_PER_MINUTE), // to minutes
+        distance        : Math.round(distance / 100) / 10,        // to km
+        encodedRoute : route.overview_polyline // encoded poly
+    }];
+}
+
+/**
+ * updateAddresses
+ * Updates addresses text fields with new Google Maps
+ * information.
+ *
+ * @param route {google.maps.DirectionsRoute}
+ */
+function updateAddresses(route) {
+    $('#origin').val(route.legs[0].start_address);
+    $('#destination').val(route.legs[route.legs.length - 1].end_address);
+}
+
+/**
+ * updateRoute
+ * Geocodes entered addresses and changes the route on the map.
+ */
+function updateRoute() {
+    calcRoute($('#origin').val(), $('#destination').val(), []);
+}
+
+/**
+ * getTaxiPricePerKm
+ * @returns {number}
+ */
+function getTaxiPriceEntity() {
+    var date = $(".form_datetime").datetimepicker('getDate');
+
+    // price parameters
+    var isWeekEnd = date.toString().indexOf('Sun') != -1 || date.toString().indexOf('Sat') != -1;
+    var isNight   = date.getHours() > 22 || date.getHours() < 6;
+    var carCategory = $('#carCategory').val();
+
+    return getPriceList().filter(function(e){
+        return carCategory == e.carCategory && isWeekEnd ==  e.weekend && isNight == e.nightTariff;
+    })[0];
+}
+
+function getAdditionalOptionsMultiplier() {
+    var multiplier = 1;
+    if ($('#animalTransportationCheckbox').is(":checked"))
+        multiplier *= getAnimalTransportationMultiplier();
+    return multiplier;
+}
+
+/**
+ * updatePrice
+ * Updates order price when user change route addresses
+ */
+function updatePrice() {
+    var service = $('#service').val();
+    //var isTimePriced = service == 'CELEBRATION_TAXI' && service == 'TAXI_FOR_LONG_TERM';
+    //isTimePriced? priceEntity.pricePerMin :
+    var priceEntity = getTaxiPriceEntity();
+    var price = priceEntity.pricePerKm;
+
+    var distance = getRoutesData().reduce(function(pv, cv) {return pv + cv.distance; }, 0);
+    // taxi for very short distance has constant min price
+    var businessDistance = (distance > getMinDistance()) ? distance : getMinDistance();
+    var totalCost = price * businessDistance * getAdditionalOptionsMultiplier();
+    $('#price').val("$ " + totalCost.toFixed(2));
 }

@@ -93,7 +93,7 @@
             </div>
             <div class="form-group">
                 <label>Order price</label>
-                <input type="text" name="price" class="form-control" value="${price}" readonly>
+                <input type="text" name="price" class="form-control" value="$ ${price}" readonly>
             </div>
 
             <div id="flip">
@@ -283,7 +283,6 @@
 <%--end google maps scripts--%>
 
 <%-- Order page scripts --%>
-<script src="<%=application.getContextPath()%>/resources/customer/js/order.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/slide-panel.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality.js"></script>
 <script src="<%=application.getContextPath()%>/resources/customer/js/order-functionality-prepared.js"></script>
