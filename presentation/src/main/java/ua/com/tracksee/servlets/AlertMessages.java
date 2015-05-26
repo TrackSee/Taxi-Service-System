@@ -11,7 +11,7 @@ public interface AlertMessages {
 
     String NON_EXIST_TRACKING_DANGER ="nonExistTrackingNumberDanger";
     String NON_EXIST_TRACKING_NUMBER_DANGER_MESSAGE ="Requested order with such tracking number" +
-            " was not found! To view this order make sure that the entered number is correct!";
+            " was not found!Make sure that the entered number is correct!";
     String ACTIVE_USER_ORDER_WARNING ="activeUserOrderWarning";
     String ACTIVE_USER_ORDER_MESSAGE ="Requested order with such tracking number belongs to a registered user!" +
             " To view the order you need to log in as this user! ";
