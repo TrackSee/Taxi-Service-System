@@ -104,14 +104,14 @@ public class EmailBean {
      * @param order - specifies order that have been recently changed
      * @throws MessagingException
      */
-    public void sendChangingTOFromAssignedToInProgress(TaxiOrderItemEntity order) throws MessagingException {
+    public void sendChangingTOFromAssignedToInProgress(TaxiOrderEntity order, UserEntity userEntity) throws MessagingException {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put(SITE_ADDRESS_TEMP_PROP_NAME, WEBSITE_FULL);
-        data.put("trackingNumber", order.getTaxiOrder().getTrackingNumber());
-        data.put("color", order.getDriver().getCar().getColor());
-        data.put("carModel", order.getDriver().getCar().getCarModel());
-        data.put("carNumber", order.getDriver().getCar().getCarNumber());
-        sender.sendTemplatedEmail(order.getTaxiOrder().getUser().getEmail(),
+        data.put("trackingNumber", order.getTrackingNumber());
+        data.put("color", userEntity.getCar().getColor());
+        data.put("carModel", userEntity.getCar().getCarModel());
+        data.put("carNumber", userEntity.getCar().getCarNumber());
+        sender.sendTemplatedEmail(order.getUser().getEmail(),
                 CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_SUBJECT_TEMP_PROP_NAME,
                 CHANGING_TO_FROM_ASSIGNED_TO_INPROGRESS_TEMP_PATH, data);
     }
