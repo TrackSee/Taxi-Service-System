@@ -65,7 +65,6 @@ public class DriverOrdersService {
     @Path("/available")
     @Produces(APPLICATION_JSON)
     public Response getAvailableOrders(@QueryParam("page") int pageNumber) {
-        System.out.println(pageNumber);
         Response failResponse = tryToRefuseRequest(pageNumber);
         if (failResponse != null) {
             return failResponse;
