@@ -64,12 +64,16 @@ public class DriverOrderBean {
         taxiOrderDao.setAssignOrder(driverId, trackingNumberInt, taxiOrderEntity.getArriveDate());
     }
 
-    public int setInProgressOrder(String trackingNumber){
+    public int setInProgressOrder(String trackingNumber) throws MessagingException {
         int trackingNumberInt = Integer.parseInt(trackingNumber);
-        long trackingNumberLong = trackingNumberInt;
-//        driverBean  int driverId,
+//        long trackingNumberLong = trackingNumberInt;
+//        UserEntity driver = driverBean.getUserById(driverId);
 //        TaxiOrderEntity taxiOrderEntity = taxiOrderDao.getOrder(trackingNumberLong);
-//        emailBean.sendChangingTOFromAssignedToInProgress(taxiOrderEntity);
+//        try {
+//            emailBean.sendChangingTOFromAssignedToInProgress(taxiOrderEntity, driver);
+//        } catch (MessagingException e) {
+//            e.printStackTrace();
+//        }
         return taxiOrderDao.setInProgressOrder(trackingNumberInt);
     }
 
