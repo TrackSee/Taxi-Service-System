@@ -158,14 +158,12 @@
                                id="amountOfHours" class="form-control" name="amountOfHours"
                                placeholder="Amount of hours 8+"
                                title="Amount of hours 8+" value="${amountOfHours}">
-                        <span class="red-star">★</span>
                     </div>
                     <div>
                         <input type="number" pattern="[0-9 ()-]{1,2}$"
                                id="amountOfMinutes" class="form-control" name="amountOfMinutes"
                                placeholder="Amount minutes [0:60]"
                                title="Amount of minutes [0:60]" value="${amountOfMinutes}">
-                        <span class="red-star">★</span>
                     </div>
 
                 </div>
@@ -176,8 +174,7 @@
                     <input type="number" pattern="[5-9 ()-]{1,25}$"
                            id="amountOfCars" class="form-control" name="amountOfCars"
                            placeholder="Amount of cars 5+"
-                           title="Amount of cars greater then 4" value="${amountOfCars}">
-                    <span class="red-star">★</span>
+                           title="Amount of cars greater 5+" value="${amountOfCars}">
                 </div>
                 <div class="form-group" id="carCategoryGroup">
                     <label class="control-label">Car category</label>
