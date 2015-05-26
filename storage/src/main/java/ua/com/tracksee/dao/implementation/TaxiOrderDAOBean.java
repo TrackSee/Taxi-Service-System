@@ -467,8 +467,8 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     public List<TaxiOrderEntity> getHistoryOfOrders(int id, int pageNumber) {
         String sql = "SELECT * FROM taxi_order " +
                 "INNER JOIN taxi_order_item " +
-                "ON taxi_order.tracking_number = taxi_order_item.tracking_number" +
-                " AND (status = 'COMPLETED' OR status = 'REFUSED')" +
+                "ON taxi_order.tracking_number = taxi_order_item.tracking_number " +
+                "WHERE (status = 'COMPLETED' OR status = 'REFUSED')" +
                 "AND driver_id = ? LIMIT ? OFFSET ?";
         Query query = entityManager.createNativeQuery(sql, TaxiOrderEntity.class);
         query.setParameter(1, id);
@@ -543,7 +543,7 @@ public class TaxiOrderDAOBean implements TaxiOrderDAO {
     public BigInteger getOrdersPagesCountCompleted(int id) {
         Query q = entityManager.createNativeQuery("SELECT COUNT(*) FROM taxi_order INNER JOIN taxi_order_item " +
                 "ON taxi_order.tracking_number = taxi_order_item.tracking_number " +
-                "AND taxi_order_item.driver_id = ? AND (taxi_order.status = 'COMPLETED' OR taxi_order.status = 'REFUSED')");
+                "WHERE taxi_order_item.driver_id = ? AND (taxi_order.status = 'COMPLETED' OR taxi_order.status = 'REFUSED')");
         q.setParameter(1, id);
         return (BigInteger) q.getSingleResult();
     }
