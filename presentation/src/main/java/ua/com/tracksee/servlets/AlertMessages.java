@@ -11,14 +11,14 @@ public interface AlertMessages {
 
     String NON_EXIST_TRACKING_DANGER ="nonExistTrackingNumberDanger";
     String NON_EXIST_TRACKING_NUMBER_DANGER_MESSAGE ="Requested order with such tracking number" +
-            " was not found! To view this order make sure that the entered number is correct!";
+            " was not found!Make sure that the entered number is correct!";
     String ACTIVE_USER_ORDER_WARNING ="activeUserOrderWarning";
     String ACTIVE_USER_ORDER_MESSAGE ="Requested order with such tracking number belongs to a registered user!" +
             " To view the order you need to log in as this user! ";
     String NON_ACTIVE_USER_ORDER_WARNING ="nonActiveUserOrderWarning";
-    String NON_ACTIVE_USER_ORDER_MESSAGE ="Requested order with such tracking number belongs to a unregistered user!" +
+    String NON_ACTIVE_USER_ORDER_MESSAGE ="Requested order with such tracking number belongs to unregistered user!" +
             " To view this order you need to log in as a unregistered user! ";
-    String NON_ACTIVE_USER_ORDER_MESSAGE_UNREGISTERED ="Requested order with such tracking number belongs to another user" +
+    String NON_ACTIVE_USER_ORDER_MESSAGE_UNREGISTERED ="Requested order with such tracking number belongs to another user!" +
             " To view this order make sure that the entered number and email is correct! ";
     String REFUSE_SUCCESS="refuseSuccess";
     String REFUSE_SUCCESS_MESSAGE="Your order has been refused!";
