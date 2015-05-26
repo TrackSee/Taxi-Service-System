@@ -31,6 +31,7 @@ public class DriverOrderBean {
     private @EJB TaxiOrderDAO taxiOrderDao;
     private @EJB OrderRefusingBean orderRefusingBean;
     private @EJB EmailBean emailBean;
+    private @EJB DriverBean driverBean;
 
     public List<TaxiOrderEntity> getAvailableOrders(UserEntity driver, int pageNumber){
         return taxiOrderDao.getAvailableOrders(driver, pageNumber);
@@ -66,8 +67,9 @@ public class DriverOrderBean {
     public int setInProgressOrder(String trackingNumber){
         int trackingNumberInt = Integer.parseInt(trackingNumber);
         long trackingNumberLong = trackingNumberInt;
-        //TaxiOrderEntity taxiOrderEntity = taxiOrderDao.getOrder(trackingNumberLong);
-        //emailBean.sendChangingTOFromAssignedToInProgress(taxiOrderEntity);
+//        driverBean  int driverId,
+//        TaxiOrderEntity taxiOrderEntity = taxiOrderDao.getOrder(trackingNumberLong);
+//        emailBean.sendChangingTOFromAssignedToInProgress(taxiOrderEntity);
         return taxiOrderDao.setInProgressOrder(trackingNumberInt);
     }
 
