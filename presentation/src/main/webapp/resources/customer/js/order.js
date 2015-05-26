@@ -71,6 +71,12 @@ function updatePrice() {
     var totalCost = price * businessDistance * getAdditionalOptionsMultiplier();
     $('#price').val("$ " + totalCost.toFixed(2));
 }
+/**
+ * Validates amount of
+ * cars, hours and minutes.
+ *
+ * @author Sharaban Sasha
+ */
     $('#amountOfHours').on('blur', function() {
         if($(this).val()<8){
             $(this).val(8);
