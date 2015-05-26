@@ -6,7 +6,6 @@
  */
 var directionsDisplay;
 var directionsService;
-var geolocationWorked = false;
 
 function initializeMaps() {
     DEFAULT_LOCATION = new google.maps.LatLng(DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lng);
@@ -75,10 +74,7 @@ function calcRoute(origin, destination, waypoints) {
     };
     directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
-            if (geolocationWorked) {
-                directionsDisplay.setDirections(response);
-                geolocationWorked = false;
-            }
+            directionsDisplay.setDirections(response);
         } else {
             $('#origin').notify("Google couldn't find the address", { position: 'right', className: 'error'});
         }
