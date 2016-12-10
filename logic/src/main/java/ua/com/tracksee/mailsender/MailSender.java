@@ -35,18 +35,21 @@ import static ua.com.tracksee.mailsender.SenderSessionSpecificator.TRACK_SEE_MAI
 public class MailSender {
 
     private static final Logger logger = LogManager.getLogger();
-    //private static Session SESSION = GMAIL.getSession();
-    private static Session SESSION = TRACK_SEE_MAIL.getSession();
+    private static final Session SESSION = GMAIL.getSession();
+//    private static Session SESSION = TRACK_SEE_MAIL.getSession();
     private static final String ROOT_PATH = getProperty("jboss.server.data.dir");
-    private static InternetAddress FROM_ADDRESS;
+    private static final InternetAddress FROM_ADDRESS;
     private static final File TEMPLATE_DIR = new File(ROOT_PATH);
 
     static {
+        InternetAddress fromAddressTemp;
         try {
-            FROM_ADDRESS = SenderSessionSpecificator.TRACK_SEE_MAIL.getInternetAddress();
+            fromAddressTemp = SenderSessionSpecificator.TRACK_SEE_MAIL.getInternetAddress();
         } catch (AddressException e) {
+            fromAddressTemp = null;
             logger.error("ERROR, can not parse server_email: {1} to getInternetAddress", "tracksee.mail@gmail.com");
         }
+        FROM_ADDRESS = fromAddressTemp;
     }
 
     /**

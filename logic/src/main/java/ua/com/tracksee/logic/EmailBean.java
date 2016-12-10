@@ -28,11 +28,11 @@ public class EmailBean {
     private static final Logger logger = LogManager.getLogger(EmailBean.class);
     // website
     private static final String WEBSITE_SHORT = "tracksee.tk";
-    private static final String WEBSITE_FULL = "http://tracksee.tk/";
-    private static final String REGISTRATION_URL = "http://tracksee.tk/signup";
+    private static final String WEBSITE_FULL = "http://" + WEBSITE_SHORT + "/";
+    private static final String REGISTRATION_URL = WEBSITE_FULL + "signup";
 
     // template properties
-    private static final String CONFIG_LOCATION = "/mailtemplates/";
+    public static final String CONFIG_LOCATION = "/mailtemplates/";
     private static final String SITE_ADDRESS_TEMP_PROP_NAME = "siteadress";
     private static final String BLOCKING_ACCOUNT_SUBJECT_TEMP_PROP_NAME = "TrackSee Blocking Account";
     private static final String BLOCKING_ACCOUNT_TEMP_PATH = CONFIG_LOCATION + "blockingusertemplate.ftl";
@@ -54,13 +54,8 @@ public class EmailBean {
     private static final String CHANGING_TO_FROM_ASSIGNED_TO_REFUSED_BY_DRIVER_TEMP_SUBJECT_PROP_NAME = "TrackSee Order Refused";
 
 
-    private
-    @EJB
-    UserDAO userDAO;
-
-    private
-    @EJB
-    MailSender sender;
+    private @EJB UserDAO userDAO;
+    private @EJB MailSender sender;
 
 
     /**
